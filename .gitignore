@@ -1,0 +1,51 @@
+# ─────────────────────────────────────────────────────────────
+# Got Soap? — repo hygiene. The design sources in this directory
+# reach ~1.7 GB (.abr brush packs). NOTHING large gets committed.
+# Web-ready derivatives live under site/ and are committed there.
+# See PRD §6.5 + CLAUDE.md "Asset warnings".
+# ─────────────────────────────────────────────────────────────
+
+# Dependencies & build output
+node_modules/
+site/node_modules/
+site/dist/
+site/.astro/
+.netlify/
+*.log
+npm-debug.log*
+
+# Design binaries — never commit (Photoshop / Illustrator / brushes / vectors)
+*.abr
+*.psd
+*.psb
+*.eps
+*.ai
+*.tif
+*.tiff
+*.zip
+
+# Root-level raw imagery — the canonical posters, hero art, and crops.
+# Web derivatives are generated INTO site/ and committed there; these
+# originals stay local. (Anchored to repo root so site/** is unaffected.)
+/*.jpg
+/*.jpeg
+/*.png
+/*.webp
+/*.avif
+
+# Photoshop resource / texture packs and design-step folders (not web assets)
+/Ad Design Steps/
+/Photoshop tools/
+/Seamless Textures/
+/Grunge_Light Texture Pack/
+
+# Retired Claude Design prototype — reference-only, not part of the build
+# (harvest the seal/ribbon SVGs from it, then it can be deleted). See HANDOFF.
+/got-soap-campaign-site/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

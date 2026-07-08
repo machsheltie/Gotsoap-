@@ -1,0 +1,131 @@
+Got Soap? 
+A Satirical Thirst Trap Hygiene PSA for the Chronically Unwashed
+(or: For Modern Masculinity in Crisis)
+Project Intro
+Got Soap? is a satirical ad campaign inspired by the iconic “Got Milk?” series—reimagined as a modern thirst-trap PSA for personal hygiene.
+This self-initiated project skewers modern dating culture and the rise of low-effort masculinity, using bold visuals and cheeky taglines to call for a return to basic hygiene.
+Merging parody, cultural commentary, and aesthetic seduction, the message is clear:
+Take the damn shower.
+From concept and art direction to layout, compositing, and copywriting, I led every aspect of this project. While AI was used to generate the male models, all direction, styling, and Photoshop execution- including compositing, lighting, and typography- was done entirely by hand.
+Tools & Context
+Tools Used
+Image Generation: openart.AI for initial male model assets
+Primary Software: Adobe Photoshop (full creative execution)
+
+Creative Execution
+All visual editing, typography, and poster composition were done manually—no automated design tools were used.
+
+Target Placements
+Locker room & gym posters
+GQ-style men’s magazine parody spreads
+Social media PSA series (Instagram, TikTok, Threads)
+College dorm satire zines or wellness week campaigns
+Thirst trap content with an unexpectedly hygienic twist
+
+Audience
+Gen Z and millennial viewers
+Men needing to upgrade hygiene humorously
+Creative directors interested in edgy, satirical campaigns
+
+satire Parody mock campaign graphic design  hygiene ad portfolio social commentary psa call to action
+Poster 1: “A Clean Man Is A Confident Man”
+A satirical twist on luxury cologne ads. Our stoic cowboy doesn’t just smell like masculinity—he defines it. The clean design and confident gaze invite viewers to rethink what power, presence, and hygiene should really look like
+satire Parody mock campaign graphic design  hygiene ad portfolio social commentary psa call to action
+Poster 2: “He’s Soap-Smoldering”
+A play on the classic smolder trope—because what’s hotter than a clean man with self-awareness?
+The design uses bold, centered typography and layered shadows to maintain visual clarity across high-contrast skin tones and textured backgrounds.
+The line walks the razor edge between thirst trap and PSA—just like he does.
+satire Parody mock campaign graphic design  hygiene ad portfolio social commentary psa call to action
+Poster 3: “Unholy”
+Some men leave women speechless.
+Others just leave a trail of Axe and shame.
+But this one?
+He washes. Daily. With soap.
+UNCOMMON. UNHOLY. Unreasonably hot.
+This piece exaggerates the absurdity of low hygiene standards with the drama of a fragrance ad and the conviction of a sermon.
+Clean isn’t optional—it’s the bare minimum.
+satire Parody mock campaign graphic design  hygiene ad portfolio social commentary psa call to action
+Poster 4: “The Redemption Ad”
+He sinned.
+He sprayed.
+But now? He showers.
+This image pokes fun at the pseudo-religious reverence some men assign to deodorant and body spray—treating a squirt of aerosol as holy water for poor hygiene.
+Our hero has seen the light (and the loofah).
+Presented with revival tent drama and cologne ad seriousness, this mock PSA reframes daily hygiene as not just a habit—but an act of moral reform.
+Cleanliness is next to handsomeness.
+satire Parody mock campaign graphic design  hygiene ad portfolio social commentary psa call to action
+Poster 5: "Public Thirst Announcement"
+“There’s clean… and then there’s ‘Would introduce to Mom without hesitation’ clean.”
+This ad leans into understated confidence. No fog machine, no flex — just unbothered, showered, and ready for anything.
+Because personal hygiene should be the bare minimum, not a plot twist.
+Process Breakdown
+Concept & Messaging
+The tone walks a tightrope: visually seductive but thematically irreverent. I intentionally paired high-contrast thirst trap imagery with slogan copywriting designed to provoke, amuse, and push boundaries. This blend of eye-catching visuals and sharp wit challenges traditional norms around masculinity and hygiene through deliberate satire.
+
+Design Challenges
+This section includes a few screenshots of in-progress edits. These show early layout experiments, text overlay adjustments, and the trial-and-error process of finding visual balance—especially in adapting type hierarchy across varying skin tones and lighting conditions.
+A key design decision was testing legibility and tone across image variants to evaluate how subtle copy shifts and visual treatments affected audience interpretation.
+
+
+
+
+Initial image I generated using openart.ai and the juggernaut.xl model. It took a few tries to get the prompt just right to produce the look I was going for. I had to do some tweaking in the editor to give him a more chiseled physique to meet the 'thirst trap' look I was aiming for. I also had to edit the hands and the face slightly.
+
+One of my early drafts with all of the text laid out, the porcelain wall laid in, and some steam created. This was before I added in a few gradient layers. I had initially thought about leaving the 'A clean man' as two staggered lines and had considered giving the text more of a frosted over look like you might see on a fogged up shower door.
+
+Some light formatting, added in a linebreak
+
+Apologies, I got involved in the creative process so only have screenshots of the next stage. I played with different text, upped the opacity of the 'A clean man' line, played with spacing, decided to go with all caps. I also was playing with formatting on the CTA and hashtags. I struggled to find colors/styles/fonts that would both allow them to be seen while maintaining cohesiveness.
+
+
+
+Typography & Layout Decisions
+I intentionally leaned into a mix of bold, retro-inspired fonts and aggressive styling effects to match the over-the-top masculinity and campy seriousness of vintage fragrance ads.
+
+Type Styling Breakdown
+Got Soap? → Phenix American, 150pt, #000000, outer glow, drop shadow
+Because your axe... → Phenix American, 58pt, #000000, stroke, outer glow, drop shadow
+Join the movement... → Franklin Gothic ATF Heavy, 44pt, #181818, vertical scale 105%, tracking 25, bevel & emboss, stroke, outer glow, drop shadow
+#GotSoap → Franklin Gothic ATF Heavy, 36pt, #707078, vertical scale 105%, tracking 20, bevel & emboss, stroke, outer glow, drop shadow
+Funded By... → Montserrat, 22pt, Semibold, #999999, drop shadow
+Smell like effort... → Futura PT, 64pt, #ffffff, leading 65pt, tracking 40, vertical scale 110%, bevel & emboss, inner glow, outer glow, drop shadow
+A clean man... → Futura PT, 44pt, #ffffff, bold, leading 60pt, bevel & emboss, inner glow, outer glow, drop shadow
+
+This combination allowed me to balance strong legibility across varied skin tones with the exaggerated energy the satire called for.
+Color & Composition
+The tonal range of the images demanded careful text placement and intentional color edits. Adjustments to skin shadows allowed my primary CTAs to return to black, enhancing visual cohesion and message clarity. Each layout was approached like an ad campaign—equal parts branding, visual punch, and legibility optimization.
+Special Readability Solutions
+To maintain visual cohesion without sacrificing legibility:
+I used light dodging under "Join the Movement" and other key phrases where shadowing interfered with contrast.
+I tested multiple font combinations, color overlays, and styles—often finding that legible solutions undermined the tone. So instead, I made micro-adjustments to lighting and texture, allowing the original styling to remain intact.
+Gradient overlays were applied strategically in difficult zones to subtly boost contrast.
+In tight areas, I split text into multiple layers to better control spacing and movement across image elements.
+This was less about plug-and-play design and more like precision styling—balancing function, form, and message with intent.
+Final Asset
+Final campaign assets are presented side by side. In addition to the full posters, I also created minimalist versions featuring only the headline (“Got Soap?”), CTA, and hashtag stack. In a real-world execution, these could incorporate QR codes, campaign-specific landing pages, or interactive social elements—further bridging parody with performance.
+
+
+
+
+
+
+Closing Note:
+This is more than a PSA. It's a protest in punchlines.
+This campaign blends satire, social commentary, and bold visual design to challenge outdated norms around masculinity and hygiene—with a wink. As a seasoned designer, I create work that not only looks good, but says something. 
+Whether it’s a cheeky PSA, a full-scale parody, or a brand that needs a little bite, I bring sharp concepting, strong visual execution, and a love of craft to every project.
+Want to collaborate on something smart, strange, or subversive?
+Let’s make clean design dirty fun.
+Email: hope2studio@yahoo.com
+
+Tools & Project Context
+Designer & Art Director: Stacey M. Breckel
+Tone & Concept: Satire · PSA · Spec Work
+Campaign Type: Personal Project / Portfolio Satire
+Target Audience: Millennial and Gen Z audiences active on social media, women frustrated with modern dating culture, and brands seeking a smart edge
+Imagined Placement: Gym locker room posters · GQ parody spread · Social media PSA series
+Tools Used:
+– Visual generation: openart.ai (AI-generated model renders)
+– Design & layout: Adobe Photoshop (all art direction, composition, and post-production by hand)​​​​​​​
+​​​​​​​Credit & Legal Note
+© Stacey Breckel 2025
+This is a satirical/spec campaign created for portfolio purposes only. All visual elements are parody and not affiliated with any brand, product, publication, or public health organization.
