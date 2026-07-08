@@ -144,15 +144,28 @@ Full spec in participation-mechanics.md §1. Implementation requirements:
 ### 5.4 The Lather Pledge — `/pledge`
 Full spec in participation-mechanics.md §2. Implementation requirements:
 - Pledge copy (draft in mechanics doc), fields: first name, email, satire-acknowledgment checkbox.
-- **Netlify Forms:** form present in prerendered HTML with `data-netlify="true"`,
-  `name="lather-pledge"`, honeypot field (`netlify-honeypot`), hidden `form-name` input if
-  submitted via JS. Success state on-page (no redirect to Netlify's default success page).
+- **Email backend — UPDATED DECISION (owner, 2026-07-08): Buttondown from launch, not Netlify Forms.**
+  Rationale: the pledge now ships with a **welcome email** (copy-deck-v2 §7.7), a v1 requirement.
+  Netlify Forms cannot autorespond, so the alternative would be Netlify Forms + a Netlify Function
+  + a separate transactional-email provider + Buttondown later — three systems for what Buttondown
+  does alone (capture + automated welcome/confirmation + newsletter, free at launch volume).
+  Implementation: the Form CW-1 submit subscribes the email to Buttondown (API via a small serverless
+  function, or Buttondown's embed/form endpoint); Buttondown's automated welcome = the §7.7 copy;
+  "Movement Updates" (§7.8) is native Buttondown. Store `BUTTONDOWN_API_KEY` in env (never client).
+  Double opt-in is on-brand: the on-page **SWORN** stamp is the swear; the confirmation email makes
+  the record official ("a declaration unconfirmed is merely a rumor"). CAN-SPAM footer (unsubscribe +
+  physical address, in voice) is required and is written in §7.7.
+- **Fallback (only if Buttondown is rejected):** Netlify Forms with `data-netlify="true"`,
+  `name="lather-pledge"`, honeypot (`netlify-honeypot`), hidden `form-name` — but then the welcome
+  email needs a Netlify Function + email API. Not preferred. Success state on-page either way
+  (no redirect to a default success page).
 - Visual treatment (design.md §7, pending owner sign-off): the page IS CWAAA's **"Form CW-1 —
   Declaration of Intent to Lather"** — manila document panel, seal header, PT Serif oath,
   submit labeled "File my declaration." Success: red **SWORN** stamp (single scale-settle
   micro-animation) + washcloth-ribbon badge + share/copy buttons + "Movement Updates" note.
-- Free-tier limit is ~100 submissions/month — acceptable at launch; the confirmed upgrade
-  path is **Buttondown** (owner decision) when volume demands.
+- Buttondown free tier covers launch volume; it is now the pledge backend from day one
+  (supersedes the earlier "Netlify Forms in v1, Buttondown later" plan — the welcome-email
+  requirement moved the trigger to launch).
 - Privacy microcopy (in voice, but real): what the email is used for, no third parties.
 
 ### 5.5 The Crisis — `/crisis` (expanded: CWAAA's site-within-a-site)
@@ -355,8 +368,10 @@ If anything in design.md conflicts with §3 creative rules, §3 wins.
 
 **Resolved (owner, July 2026):**
 1. Analytics: **GoatCounter** ships in v1. Owner creates the account; see §6.5.
-2. Newsletter: **Buttondown** is the confirmed destination for "Movement Updates" once pledge
-   volume outgrows Netlify Forms.
+2. Newsletter + pledge email: **Buttondown from launch** (updated 2026-07-08 — see §5.4). It is
+   the pledge capture backend, the welcome-email autoresponder (copy §7.7), and the "Movement
+   Updates" newsletter (copy §7.8), all in one. Supersedes the earlier "Netlify Forms now,
+   Buttondown when volume demands" plan; the welcome-email requirement moved it to day one.
 3. Behance: `https://www.behance.net/gallery/229005199/Got-Soap` — link from /about and footer.
    Instagram/Facebook: accounts not yet created — config-driven placeholders per §5.6; render
    nothing until URLs exist.

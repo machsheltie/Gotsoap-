@@ -1,7 +1,7 @@
 # Got Soap? — Website Copy Deck v2 (voice-forward)
 
 **Supersedes `copy-deck-v1.md`** (v1 was written from the docs; v2 is written in Stacey's voice per `voice-bible.md`).
-**Status:** Working draft for Stacey's punch-up. Bold on purpose. Sharpen, don't sand.
+**Status:** ✅ **FROZEN for implementation (2026-07-08).** Reviewed through humanizer + prose-critique + marketing passes; owner-approved voice. Build against this verbatim. Any further change is a copy-lane edit, re-versioned — implementers do not edit strings in place.
 **Binding:** `voice-bible.md` (the north star) · `CLAUDE.md` creative rules · PRD §3, §5 · `docs/design.md` §4 (two authors).
 
 ## Read first
@@ -36,7 +36,7 @@ Rotation: *"You can't smell this page. That's the nicest thing we can say about 
 
 | Route | `<title>` | Meta description |
 |---|---|---|
-| `/` | got soap? — the movement | A public thirst announcement. Five posters, one demand: use the soap. Because "I usually shower" is not a hygiene routine — it's a confession. |
+| `/` | got soap? — the movement | A public thirst announcement. Five posters, one demand: use the soap. Because "I usually shower" is not a hygiene routine. It's a confession. |
 | `/psas` | The PSAs — Series One \| got soap? | The public-service archive. Five thirst-trap hygiene PSAs, presented untouched. Study them. Then bathe. |
 | `/psas/confident-man` | A Clean Man Is A Confident Man \| got soap? | Spot No. 1. Because your Axe body spray isn't fooling anyone, cowboy. Smell like effort. |
 | `/psas/soap-smoldering` | Soap-Smoldering \| got soap? | Spot No. 2. Because your "natural scent" is a threat, not a flex. Lather. Rinse. Respect. |
@@ -124,13 +124,13 @@ Scroll cue: *"Keep scrolling. It only gets cleaner. He didn't."*
 > The smolder, patched to the current version: now with self-awareness. He's fresh *and knows it*, which is the hottest thing a man can be and, statistically, the rarest. You could skip the wash. You could layer the spray. You will still never smell like him — and everyone at brunch will know which one you are. Lather. Rinse. Respect.
 
 **Spot No. 3 — `unholy`**
-> Some men leave a room speechless. Others leave a trail of Axe and a group chat full of screenshots. This one washes — daily, with soap — which in the year of our Lord currently qualifies as a personality. Fragrance-ad drama, sermon-grade conviction: clean isn't a flex, it's the bare minimum, and he's wearing it like a crown.
+> Some men leave a room speechless. Others leave a trail of Axe and a group chat full of screenshots. This one washes daily, with soap, which in the year of our Lord currently qualifies as a personality. Fragrance-ad drama, sermon-grade conviction: clean isn't a flex, it's the bare minimum, and he's wearing it like a crown.
 
 **Spot No. 4 — `redemption`**
 > He sinned. He sprayed. He treated a squirt of aerosol like holy water for a body that had genuinely wronged the people standing next to it. Then, grace: a shower. A redemption arc told in steam, and the moral is short — deodorant is not divine intervention, and the gym does not count. Anyone can change. Some of you should start tonight.
 
 **Spot No. 5 — `thirst-announcement`**
-> No fog machine. No flex. A man who is scrubbed, sudsed, and — critically — *aware of it*: the "would introduce to Mom without a risk assessment" tier of clean. Consider this your notice. Personal hygiene is the floor, not a plot twist. This has been a public thirst announcement. Wash accordingly.
+> No fog machine. No flex. A man who is scrubbed, sudsed, and, critically, *aware of it*: the "would introduce to Mom without a risk assessment" tier of clean. Consider this your notice. Personal hygiene is the floor, not a plot twist. This has been a public thirst announcement. Wash accordingly.
 
 ### 4.3 Download notice 🧼
 > **Take one for the wall.**
@@ -289,6 +289,48 @@ Validation errors (📋 procedural, never scolding):
 ### 7.6 Badge share
 > *"I took the pledge. Lather. Rinse. Respect. #GotSoap"*
 
+### 7.7 Welcome email (📋 CWAAA — the pledge's missing follow-through)
+**Plumbing note:** Netlify Forms has no native autoresponder. Until Buttondown is wired, send this via a tiny Netlify function or a Zapier/webhook step — or, at absolute minimum, treat the on-page SWORN state as the receipt and send this as the *first* Buttondown broadcast once that's live. Copy is ready either way.
+
+> **Subject:** Your declaration has been filed.
+> **Preview:** Form CW-1 received. The loofah's copy is in the mail.
+>
+> Dear [First name],
+>
+> This letter confirms that your **Declaration of Intent to Lather (Form CW-1)** has been received, reviewed, and filed in triplicate by the Office of Lather Compliance. One copy is retained for our records. One copy is yours to keep. The third, per protocol, goes to the loofah.
+>
+> You are now on the roll of a movement that declines to say how large it will grow. That is not a threat. It is a scent forecast.
+>
+> Your obligations, as sworn:
+> — Lather daily.
+> — Retire body spray as a personality.
+> — Respect the loofah in word and deed.
+> — Never again mistake deodorant for divine intervention.
+>
+> We will write again when there is movement — a new poster, a bulletin, the occasional finding from the Field Data Committee. Not often. We are concerned, not clingy.
+>
+> **Lather. Rinse. Respect.**
+> The Office of Lather Compliance
+> *Concerned Women Against Axe Abuse · Est. 2024*
+>
+> *P.S. Know someone whose declaration is overdue? You didn't hear it from us, but the assessment takes four minutes: [Sniff Test link]*
+> *(footer: real unsubscribe link + physical-address line Buttondown/CAN-SPAM requires — kept in voice: "CWAAA National Office, Suite 2B, above the pharmacy.")*
+
+### 7.8 "Movement Updates" newsletter — recurring template (📋)
+Cadence: only when there's real news (new poster drop, milestone, a finding). Never filler — the privacy promise was "nothing you'd resent."
+
+> **Subject formulas (rotate):** *"Bulletin from the Office of Lather Compliance"* · *"New evidence has come to light."* · *"Series [n]: a new announcement is now public."*
+>
+> **Structure:**
+> 1. **Dateline opener** (📋 deadpan): *"For immediate release. The situation has developed."*
+> 2. **The news** — one item, told straight: a new poster/spot (with the image), a milestone (*"the roll has passed [n] declarants"*), or a fresh Field Data finding.
+> 3. **One deadpan aside** — a single bulletin-style joke, CWAAA voice, never smolder.
+> 4. **One CTA** — take/retake the Sniff Test, share the new spot, or "tie one on for suds." One only.
+> 5. **Sign-off:** *"Lather. Rinse. Respect. — The Office of Lather Compliance"* + unsubscribe/address footer.
+>
+> **Milestone-drop example subject + open:**
+> *"Subject: The roll has passed 1,000. // Two million concerned women had a number in mind. We are one thousand closer to it. To the newest declarants: welcome. To the still-unsworn reading this over someone's shoulder — the form is open."*
+
 ---
 
 # 8. The Crisis — `/crisis` 📋
@@ -340,8 +382,69 @@ Validation errors (📋 procedural, never scolding):
 > — *February 2026* — **"CWAAA Responds to Claims That 'The Gym Counts': The Gym Does Not Count."**
 > *"Sweat is not a rinse cycle. Repeat: sweat is not a rinse cycle. Please stop emailing us about this."*
 
+### 8.6a Recovery Case Files (CWAAA "field testimonials" — the Got Milk celebrity-endorsement homage, parodied)
+CWAAA authors and files these; the reformed man is *quoted inside* the document (a third comedic voice — the redeemed bro, earnest and self-roasting — quarantined to this block, never loose on the site). Each lands on a different beat so the arc never repeats. Every character is invented; the disclaimer covers it.
+
+> **RECOVERY CASE FILES**
+> *Documented recoveries, published with subject consent. Names changed to protect the reformed.*
+
+**📋 CASE FILE RC-014 · Recovery, Verified**
+> *"I do lawn care. I figured the smell was just… my finish. My natural top-note. I'd hit the Axe, maybe a Febreze coat if it was a two-day situation, and call that grooming. Then a girl left me on read after one date and texted back exactly once: 'the truck smelled like a hamper, man.' I took the Sniff Test. Public Thirst Hazard. I bought my first loofah since middle school. Swamp ass is real. I know that now. I'm sorry to everyone who's ridden in the truck."*
+> — **Derek, 31.** Status: **REFORMED.** Showers daily. Truck aired out.
+
+**📋 CASE FILE RC-022 · Recovery, Verified**
+> *"Weekends were a lot. By Sunday I had no gas left for a shower, so I'd mist the sheets, mist myself, and let Febreze carry the week. I thought I was being efficient. My roommate staged what he called 'a conversation.' There was a printout. I scored Axe-Dependent. Four dollars of soap later I'm a different man. Turns out Febreze was not, in fact, showering. I was the only one who didn't know."*
+> — **Brayden, 27.** Status: **REFORMED.** Sheets washed, no longer seasoned.
+
+**📋 CASE FILE RC-031 · Recovery, Verified**
+> *"Honestly? I'm hot. I never thought hygiene mattered — I could pull regardless. What I couldn't figure out was why nobody came back for round two. Then every girl on my feed started posting this Got Soap? thing like scripture, so I clicked to see what the fuss was. Took the quiz to prove I'd ace it. I did not ace it. Clean is the actual flex and I'd been coasting on face alone. Vanity got me in the door. Soap kept me there."*
+> — **Chad (yes, really), 29.** Status: **CERTIFIED SOAP-SMOLDERING.** Insufferable again, but clean.
+
+**📋 CASE FILE RC-039 · Recovery, Verified**
+> *"I owned a ninety-dollar bottle of cologne and zero bars of soap. In my mind that math worked. I was applying luxury directly to the problem. A coworker forwarded me the Crisis page — anonymously, which I respect — and the finding about body spray containing 0% soap did something to me. Cologne is a garnish. You do not garnish a dumpster. I own soap now. The cologne goes on top of clean, which, it turns out, is the entire point."*
+> — **Marcus, 34.** Status: **REFORMED.** Cologne demoted to garnish.
+
+**📋 CASE FILE RC-047 · Recovery, Verified**
+> *"Back on the apps at forty-six after the divorce. I'd been off the market so long I forgot the rules had teeth. My daughter looked me dead in the eye and said, 'Dad, you smell like the garage.' She sent me the link herself. I took the assessment at the kitchen table. Suds-Curious — 'there's a clean man in there, let him out.' So I did. Three dates this month. She screens them now. We're both thriving."*
+> — **Gary, 46.** Status: **REFORMED.** No longer smells like the garage. Daughter approves.
+
+**📋 CASE FILE RC-052 · Recovery, Verified**
+> *"My mom didn't yell. That's the thing. She just pulled me aside after Sunday dinner, quiet, and said, 'Baby, I love you, and I need you to hear this from me before you hear it from a girl: you have to shower more.' Then she texted me the link so I wouldn't have to look her in the eye. Suds-Curious. She was right — she's always right. I fixed it. Last month I brought Hannah from two doors down home for dinner. Mom cried. Hannah stayed for seconds. I owe both of them a shower's worth of gratitude and I intend to pay it daily."*
+> — **Tyler, 26.** Status: **REFORMED.** Introduced a girl to Mom. Both approve. Mom is framing this case file.
+
+**📋 CASE FILE RC-058 · Recovery, Verified**
+> *"She said she'd drive four hours to meet me. Top of the server, miles out of my league. My first thought wasn't joy — it was 'what does my room actually smell like,' and the answer scared me sober. I stream; my whole life happens in this chair; I'd quietly decided hygiene was an IRL problem and I don't do IRL. Shower for who, the webcam? It's shoulders-up. But she was real now, and driving. Axe-Dependent. So I showered. I opened a window. I washed the hoodie. She stayed the whole weekend. Best raid of my life."*
+> — **"Kaelthas," 22.** Status: **REFORMED.** Logs off to shower now. GG.
+
+**📋 CASE FILE RC-063 · Recovery, Verified**
+> *"I was a catch in 1978. Ask anyone who was there. I coasted on it for about five decades, and somewhere in the coasting, 'a shower every day' quietly became 'a shower when the spirit moves me.' I did not connect this to why my lady friend from the community center started driving with her window cracked in February. My buddy Earl said it at poker night, the way old friends do, with zero cushion: 'Ron. That's not your cologne. That's you.' Then he pulled this website up on his phone, right there over the cards. Public Thirst Hazard, at my age, with my reputation. I've showered daily since. Doris held my hand through the entire movie last Sunday. The catch still had it. He'd just stopped rinsing it."*
+> — **Big Ron, 71.** Status: **REFORMED.** Doris approves. Window's back up.
+
+**📋 CASE FILE RC-071 · Recovery, Verified** *(the short one — deliberate rhythm break)*
+> *"I said cold rinses build character. They built a two-foot exclusion zone around me at all times. Took the quiz on a dare. It was not kind. I bought soap."*
+> — **Sean, 34.** Status: **REFORMED.** Exclusion zone lifted.
+
+> *Every recovery begins with a single honest assessment.* `[ Schedule a field assessment → ]` *(→ /sniff-test)*
+
+### 8.6b Get your own case file (v2 — ties to the caption generator, mechanic §6)
+The natural evolution: after the Sniff Test verdict (or standalone here), the user generates their **own** mock CWAAA case file to share — the roster becomes participatory, and every share is a new distribution unit. Client-side canvas render, watermarked, nothing stored (same guardrails as the caption generator: no UGC liability, profanity soft-filter, `gotsoap.netlify.app · #GotSoap` watermark).
+
+Entry CTA (campaign 🧼, appears on the verdict page + here):
+> **Think you're a recovery story? File your own.**
+> `[ Generate my case file → ]`
+
+Generator flow microcopy (📋 — the form is CWAAA's, played straight):
+> **FORM RC-∅ · Self-Reported Recovery**
+> — *Your handle or first name* → *"For the record. No last names; we're a nonprofit, not a courthouse."*
+> — *Your verdict* → prefilled from the Sniff Test, or pick one.
+> — *What finally got you into the shower?* → *"One line. Keep it honest; the loofah reads these."*
+> Output: a shareable case-file card — `CASE FILE RC-[random] · Self-Reported`, their handle, verdict stamp, their line, status **REFORMED (PENDING VERIFICATION)** — with a wink in the corner: *"Verification is on the honor system. So was the funk."*
+> `[ Issue my case file ]  [ Copy the case number ]`
+
+*(v1 ships the fixed six above; this generator is a v2 build. Copy lives here so it's ready when the caption generator lands.)*
+
 ### 8.7 Fine print
-> *CWAAA is a fictional advocacy body and is not affiliated with any real organization, fragrance, or your ex. Findings are directional, emotional, and true in spirit. The Field Data Committee meets Thursdays. Form CW-1 confers no legal standing but considerable moral standing. Est. 2024.*
+> *CWAAA is a fictional advocacy body and is not affiliated with any real organization, fragrance, or your ex. Recovery Case Files are dramatizations; the subjects are invented and any resemblance to a specific unwashed man is a you problem, not a legal one. Findings are directional, emotional, and true in spirit. The Field Data Committee meets Thursdays. Form CW-1 confers no legal standing but considerable moral standing. Est. 2024.*
 
 ### 8.8 Exits 📋
 > `[ Schedule a field assessment → ]` *(→ /sniff-test)*  ·  `[ File Form CW-1 → ]` *(→ /pledge)*
@@ -400,3 +503,12 @@ Validation errors (📋 procedural, never scolding):
 - [ ] Every utility control uses its in-fiction label.
 - [ ] Runs the Stepford test (voice-bible): no line that any brand could've written; no explained jokes; no hedges.
 - [ ] Zero lorem; external/social links config-gated.
+
+### Anti-tic sweep (added after the humanizer + prose-critique review)
+- [ ] **Antithesis budget:** the "not X, it's Y" snap appears at most twice site-wide (currently: pledge band + the hero setup-knockdown). Verdicts and case notes don't reuse it.
+- [ ] **No recycled signature lines:** each marquee line has ONE home — "since the Obama administration" and "holding out for a 10" live only on /about §9.2; "rumor about a shower" is the Axe register, used once per surface.
+- [ ] **Em-dash density:** no more than one em dash per short block; convert the rest to periods/commas (the staccato is punchier for this voice anyway).
+- [ ] **Rule-of-three:** intentional triads only (Lather. Rinse. Respect. / Soap. Water. …). Break incidental triads into pairs or singles.
+- [ ] **"She" isn't a reaction shot:** the woman shows up as authority/wit, not only as the nose that recoils. Vary her role across surfaces.
+- [ ] **Four verdicts, four temperatures:** short-smug / coaching / clinical / anaphora-into-redemption — no shared shape or closing device.
+- [ ] **Tonal line:** every blade lands on behavior or the double standard, never imported shock (no "body count"–type imagery).

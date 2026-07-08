@@ -31,6 +31,27 @@ Two products, one funnel — never confuse them:
 
 ---
 
+## 2A. How this actually converts him (and who "him" really is)
+
+**Do not build the strategy around guilting the funky man into a shower.** Shame triggers reactance — tell a man proud of his funk that he's disgusting and he digs in. A four-dollar behavior does not change from a paragraph scolding him. It changes through **social proof, peer pressure, and a low-shame on-ramp.** He never arrives cold, and he never arrives because someone was being nice.
+
+### The four real delivery vectors (ranked)
+1. **The bro chat.** Men police each other's status harder than any woman will. The verdict card exists so his friends screenshot *his* result and roast him in the group chat. Peer roast > PSA.
+2. **Physical placement** (the original Behance logic). Gym, locker room, campus hallway, bar bathroom stall — where he's cornered with nothing to do but read. Poster downloads (mechanic §3) arm this: *"Free for locker rooms, dorm hallways, break rooms, and interventions."*
+3. **The "dude, I just can't" send.** Not the crush being sweet — the woman he's left on read, firing the link back after the `wyd` / `you up?` / `GOOD GUYS FINISH LAST` barrage. It's a real behavior, it's savage, and it's a share event we should design for (see nominate-a-friend, mechanic §7 v2).
+4. **The thirst-trap feed effect.** The attractive women in his feed all sharing it and praising it → curiosity click. He wants in on what they want. This is the Old Spice mechanism running through organic social instead of TV.
+
+### Who "him" really is (target the salvageable, not the incorrigible)
+- **The comedy unit** = the committed Public Thirst Hazard (Febreze-as-lifestyle, daily-baths-are-a-myth). He's not the ROI target — his verdict exists so *she* screenshots it and the chat detonates. His conversion, if it comes, is slow and social, not first-read.
+- **The actual conversion** = **Suds-Curious** — "most days, unless the vibes are off," 80% there, one nudge from the good list. Every dollar of behavior change lives here. "One honest lather and you're on the good list. The view is excellent" is built for *him.*
+
+### What that means for the build (flag to design + social agents)
+- **Never a roast without a visible door.** Every verdict, even Public Thirst Hazard, keeps its redemption CTA one glance away — never buried below a scroll of insult. The face-saving exit ("soap costs four dollars, asks nothing of your personality") is the conversion lever; losing it loses the exact man we could've gotten.
+- **The verdict card is the product.** It's engineered to be screenshot-and-roasted, so its share/download must be frictionless and the card must read at a glance in a group chat.
+- **Poster downloads are a distribution channel, not a bonus** — they arm vector #2. Keep them prominent.
+
+---
+
 ## 3. Positioning & messaging pillars
 
 **One-line positioning:** *A public thirst announcement — the hygiene PSA for men, told by the women standing too close to them.*
@@ -49,7 +70,9 @@ Three message pillars (rotate; never run all three in one post):
 
 ## 4. Launch arc (4 phases)
 
-### Phase 0 — Prime (T‑minus 2 weeks)
+**Anchored to launch day = August 1, 2026.** Phase 0 ≈ July 18–31 · Phase 1 = week of Aug 1 · Phase 2 = Aug 8–Sep 12 · Phase 3 = mid-Sep onward.
+
+### Phase 0 — Prime (T‑minus 2 weeks · from ~July 18)
 - Stand up `@gotsoap` on IG + TikTok + Threads. Bio in voice (see §7). Behance gallery already live — link it.
 - Seed 3–4 poster teasers as *cropped mysteries* (steam only, headline only) — no site link yet. Caption device: "Because…" cliffhangers.
 - Warm the CD audience: one Threads/LinkedIn post from Stacey's own account teasing "a campaign I built to see if I could sell a movement that doesn't exist."
@@ -103,6 +126,11 @@ Three message pillars (rotate; never run all three in one post):
 > Caption: *He sinned. He sprayed. He treated body spray like holy water and hoped nobody would do the math. Then he showered — and the math changed. Nobody's beyond redemption. Tag a man mid-arc, gently. He's trying.*
 > `#GotSoap #CleanManEnergy`
 
+**Series — "Recovery of the Week" (evergreen engine, sustain phase)** 📋→🧼
+> The eight CWAAA Recovery Case Files (copy-deck §8.6a) are ready-made content — one of the highest-value assets we have and it wasn't in the plan until now. Each is a weekly post: manila case-file card, the reformed man's quote, the REFORMED stamp. They're relatable by archetype (the gamer, the boomer, the lawn-care guy, the mama's boy) so each finds a different slice of the audience, and every one funnels to the Sniff Test ("think you're a recovery story? file your own" once the v2 generator ships).
+> Caption pattern: *"CASE FILE RC-063. Big Ron was a catch in 1978. He coasted for five decades. Then his daughter said the thing. → Take the Sniff Test, link in bio."*
+> Format: single manila card or 2-card (before/after energy). Rotate one per week through sustain; the gamer and boomer are the strongest cold-open hooks — lead with those.
+
 ### Threads / X (text wit — women + CD crossover)
 - *"'I usually shower' is not a hygiene routine. It's a confession."*
 - *"'Got Milk?' made a generation drink milk by making it a status symbol. I did it for soap because someone had to, and it was going to be a woman."*
@@ -138,19 +166,28 @@ Three message pillars (rotate; never run all three in one post):
 
 ## 8. Measurement (maps to PRD §1 success signals)
 
-| Funnel stage | Metric | Where | Target signal (90 days) |
+**Launch date: August 1, 2026.** Targets below are directional, first-run, and revisable — the point is to tell a hit from a dud, not to sign a contract. 90-day window = Aug 1 → Oct 30, 2026.
+
+| Funnel stage | Metric | Where | Directional 90-day target |
 |---|---|---|---|
-| Reach | Views, shares, saves | IG/TikTok native + GoatCounter referrers | Shares trending up week-over-week |
-| Engagement | Sniff Test completions, verdict-card shares | GoatCounter events on `/sniff-test/*` | Rising completion + share rate |
-| Conversion (audience) | Pledge submissions | Netlify Forms dashboard | Up week-over-week; watch ~100/mo Netlify cap → Buttondown |
-| Conversion (business) | `/about` visits, inbound emails, Behance referrals | GoatCounter + inbox | ≥ a handful of traceable inquiries |
+| Reach | Views, shares, saves | IG/TikTok native + GoatCounter referrers | ≥ 25k cumulative views; shares up week-over-week |
+| Engagement | Sniff Test completions, verdict-card shares | GoatCounter events on `/sniff-test/*` | **500 Sniff Tests completed**; verdict share rate ≥ 15% |
+| Conversion (audience) | Pledge submissions | Netlify Forms dashboard | **100 pledges** (watch ~100/mo Netlify cap → Buttondown) |
+| Conversion (business) | `/about` visits, inbound emails, Behance referrals | GoatCounter + inbox | **3 traceable CD / brand inquiries** |
 | Safety | Tone failures / misread-as-sincere backlash | Manual monitoring | Zero |
 
-**Instrument at launch:** GoatCounter events on Sniff Test start/complete, each verdict page, pledge success, `/about`, and every download. UTM the bio link (`?utm_source=ig&utm_medium=bio`). Watch the Netlify Forms cap — the swap to Buttondown is the trigger, not a surprise.
+**Instrument at launch:** GoatCounter events on Sniff Test start/complete, each verdict page, pledge success, `/about`, and every download. **UTM every outbound link, not just the bio** — bio (`?utm_source=ig&utm_medium=bio`), verdict-card share links (`utm_medium=verdict`), poster-download watermark URL (`utm_medium=poster`), and the nominate-a-friend link (`utm_medium=nominate`) — so each of the four conversion vectors in §2A is separately traceable. Watch the Netlify Forms cap — the swap to Buttondown is the trigger, not a surprise.
+
+**Budget & resourcing:** $0 paid media. This is an organic, owner-run campaign — which makes the free viral loop (verdict card + poster downloads + peer-roast) **load-bearing, not optional.** No media budget means reach is earned, so the shareable units have to carry it. One operator (Stacey); cadence must be realistic for one person (see §4 sustain phase).
+
+**Monitoring cadence:** daily during launch week (catch tone failures fast, repost the best shares same-day); weekly during sustain (what shared, which verdict dominates, pledge count vs Netlify cap); flip to Buttondown when submissions approach ~80/month.
+
+**Targets — LOCKED (owner, revisable):** launch Aug 1, 2026; 500 Sniff Tests / 100 pledges / 3 CD inquiries by Oct 30. Adjust any time — they exist to measure, not to bind.
 
 ---
 
 ## 9. Risk & moderation (from PRD §11)
+- **The §2A vectors stay ethical:** peer-roast and the "dude, I just can't" rejection-send are fine *because the target opts in by clicking* — the site never emails, tags, or names a real person. "Report a suspect" / nominate-a-friend is **share-a-link-only**, generating a message the sender delivers through their own channels. It is a joke, never a harassment tool. No pile-ons, no named targets, ever.
 - **Misread as sincere shaming:** lead with the reformed-hero and "clean is the flex" pillars, not pure roast. If a thread turns mean in the replies, the movement account redirects to redemption ("we're not angry, we're a nonprofit — we don't have the budget for angry").
 - **Fiction mistaken for a real org:** the footer parody line + "Funded by Concerned Women Against Axe Abuse" is self-evidently absurd; the reveal page states intent plainly. Never post a CWAAA "stat" without the account's obvious-parody context.
 - **Never** nominate/tag real strangers or targets (mechanics §7 is share-a-link-only; the account models that). No pile-ons.
@@ -165,3 +202,5 @@ Three message pillars (rotate; never run all three in one post):
 - [ ] Phase-0 teasers scheduled; launch-week posts drafted from §5 and approved by Stacey.
 - [ ] Verdict cards + pledge badge exported (or placeholders live) so shared links preview correctly.
 - [ ] One CD-facing making-of post ready for LinkedIn/Behance, in Stacey's real voice.
+- [x] Launch date + directional 90-day targets set (§8): **Aug 1, 2026 · 500 Sniff Tests / 100 pledges / 3 CD inquiries by Oct 30.**
+- [x] Pledge welcome email drafted in voice (copy-deck §7.7; still needs sending plumbing — Netlify function or Buttondown).
