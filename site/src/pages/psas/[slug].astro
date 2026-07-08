@@ -1,0 +1,60 @@
+---
+/**
+ * /psas/<slug> — per-poster page (5 pages). PHASE 0 STUB. Real build: Task D.
+ * getStaticPaths is driven by the POSTERS registry (config/site.ts) so the five
+ * routes exist and resolve. Per-slug meta transcribed verbatim (copy-deck §2).
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StubNotice from '../../components/StubNotice.astro';
+import { POSTERS } from '../../config/site';
+
+export function getStaticPaths() {
+  // Verbatim per-route meta (copy-deck §2). Task D moves these into psas.ts.
+  const meta: Record<string, { title: string; description: string }> = {
+    'confident-man': {
+      title: 'A Clean Man Is A Confident Man | got soap?',
+      description:
+        "Spot No. 1. Because your Axe body spray isn't fooling anyone, cowboy. Smell like effort.",
+    },
+    'soap-smoldering': {
+      title: 'Soap-Smoldering | got soap?',
+      description:
+        'Spot No. 2. Because your "natural scent" is a threat, not a flex. Lather. Rinse. Respect.',
+    },
+    unholy: {
+      title: 'Unholy | got soap?',
+      description:
+        'Spot No. 3. Because deodorant without a shower is just layering lies. Axe is not an exorcism.',
+    },
+    redemption: {
+      title: 'The Redemption | got soap?',
+      description:
+        "Spot No. 4. Because cleansing isn't just for your sins. Deodorant isn't divine intervention.",
+    },
+    'thirst-announcement': {
+      title: 'Public Thirst Announcement | got soap?',
+      description:
+        "Spot No. 5. Because your Tinder shouldn't come with a scratch-n-sniff warning. Wash accordingly.",
+    },
+  };
+  return POSTERS.map((poster) => ({
+    params: { slug: poster.slug },
+    props: { poster, meta: meta[poster.slug] },
+  }));
+}
+
+const { poster, meta } = Astro.props;
+---
+
+<BaseLayout
+  title={meta.title}
+  description={meta.description}
+  register={poster.register}
+  ogType="article"
+>
+  <StubNotice
+    heading={poster.title}
+    route={`/psas/${poster.slug}`}
+    owner="Task D — Poster detail"
+  />
+</BaseLayout>

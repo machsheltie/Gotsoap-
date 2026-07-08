@@ -1,0 +1,37 @@
+---
+/**
+ * /sniff-test/<verdict> — static, shareable verdict pages. PHASE 0 STUB.
+ * Real build: Task B (verdict art, share/copy/download/retake, pledge CTA,
+ * per-verdict OG images — copy-deck §6.4). The 4 verdict slugs are fixed here
+ * so the URLs exist and are crawlable. NO numeric score anywhere (design.md §7).
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StubNotice from '../../components/StubNotice.astro';
+
+export function getStaticPaths() {
+  const verdicts: Record<string, string> = {
+    'soap-smoldering': 'Certified Soap-Smoldering',
+    'suds-curious': 'Suds-Curious',
+    'axe-dependent': 'Axe-Dependent',
+    'thirst-hazard': 'Public Thirst Hazard',
+  };
+  return Object.entries(verdicts).map(([slug, name]) => ({
+    params: { verdict: slug },
+    props: { slug, name },
+  }));
+}
+
+const { slug, name } = Astro.props;
+---
+
+<BaseLayout
+  title={`${name} | got soap?`}
+  description="Your Sniff Test verdict, filed by CWAAA field assessors. Field Assessment CW-7."
+  ogType="article"
+>
+  <StubNotice
+    heading={name}
+    route={`/sniff-test/${slug}`}
+    owner="Task B — Verdict page"
+  />
+</BaseLayout>

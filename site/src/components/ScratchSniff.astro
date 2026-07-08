@@ -1,0 +1,87 @@
+---
+/**
+ * ScratchSniff.astro — first-visit dismissible gag (copy-deck §1, PRD §5.1).
+ * 🧼 Campaign voice. NEVER a modal: a small bar pinned bottom-right, inert in
+ * the markup (hidden), revealed by scripts/scratch.ts only on a first visit.
+ * Reduced-motion-safe. Rendered once, globally, by BaseLayout.
+ */
+import { scratchGag } from '../content/global';
+---
+
+<aside
+  class="scratch"
+  data-scratch-gag
+  data-rotation={JSON.stringify(scratchGag.rotation)}
+  aria-label="Site notice"
+  hidden
+>
+  <p class="scratch__text">
+    <strong>{scratchGag.headline}</strong>{' '}
+    <span data-scratch-message>{scratchGag.body}</span>
+  </p>
+  <button type="button" class="scratch__dismiss" data-scratch-dismiss>
+    {scratchGag.dismissLabel}
+  </button>
+</aside>
+
+<script>
+  import '../scripts/scratch.ts';
+</script>
+
+<style>
+  .scratch {
+    position: fixed;
+    right: clamp(0.75rem, 3vw, 1.5rem);
+    bottom: clamp(0.75rem, 3vw, 1.5rem);
+    z-index: 90;
+    max-width: min(24rem, calc(100vw - 1.5rem));
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem;
+    background: var(--smoke-slate);
+    color: var(--lather-white);
+    border: 1px solid color-mix(in srgb, var(--chrome-mist) 40%, transparent);
+    border-radius: var(--radius-tile);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+    /* revealed by JS via data-scratch-shown */
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 280ms ease,
+      transform 280ms ease;
+  }
+  .scratch[data-scratch-shown='true'] {
+    opacity: 1;
+    transform: none;
+  }
+  .scratch__text {
+    font-family: var(--font-fine);
+    font-size: var(--step--1);
+    line-height: 1.45;
+    margin: 0;
+  }
+  .scratch__text strong {
+    color: var(--lather-white);
+    font-weight: 600;
+  }
+  .scratch__dismiss {
+    align-self: flex-end;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--2);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grout-black);
+    background: var(--marble-amber);
+    border: none;
+    border-radius: var(--radius-tile);
+    padding: 0.45em 1em;
+    cursor: pointer;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scratch {
+      transition: none;
+    }
+  }
+</style>

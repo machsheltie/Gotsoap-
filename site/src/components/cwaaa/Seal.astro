@@ -1,0 +1,97 @@
+---
+/**
+ * Seal.astro — the CWAAA seal (design.md §6). 📋 CWAAA-only.
+ *
+ * Circular ink line-work on manila: a bar of soap in front of an aerosol can
+ * struck through with a stamp-red bar (MADD's martini-glass-and-keys object
+ * convention). Rim text: "CONCERNED WOMEN AGAINST AXE ABUSE" above,
+ * "EST. 2024 · LATHER · RINSE · RESPECT" below.
+ *
+ * Uses cwaaa-ink (line-work) + cwaaa-stamp (bar) tokens ONLY. Never place on a
+ * campaign surface. Rebuilt clean from the retired prototype's harvested paths.
+ */
+interface Props {
+  /** Rendered width/height in px (square). */
+  size?: number;
+  /** Accessible label. Pass "" (with decorative) for a hidden decorative seal. */
+  title?: string;
+  /** If true, the seal is decorative (aria-hidden, no accessible name). */
+  decorative?: boolean;
+  class?: string;
+}
+const {
+  size = 96,
+  title = 'Concerned Women Against Axe Abuse — official seal',
+  decorative = false,
+  class: className,
+} = Astro.props;
+
+// Unique ids so multiple seals on one page don't collide on textPath refs.
+const uid = 'seal-' + Math.random().toString(36).slice(2, 9);
+const topId = `${uid}-top`;
+const botId = `${uid}-bot`;
+const titleId = `${uid}-title`;
+---
+
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 120 120"
+  role={decorative ? 'presentation' : 'img'}
+  aria-hidden={decorative ? 'true' : undefined}
+  aria-labelledby={decorative ? undefined : titleId}
+  style="color: var(--cwaaa-ink); display: inline-block;"
+>
+  {!decorative && <title id={titleId}>{title}</title>}
+  <defs>
+    <path id={topId} d="M 12 62 A 48 48 0 0 1 108 62"></path>
+    <path id={botId} d="M 16 62 A 44 44 0 0 0 104 62"></path>
+  </defs>
+
+  <!-- Rims -->
+  <circle cx="60" cy="60" r="58" fill="none" stroke="currentColor" stroke-width="2.5"></circle>
+  <circle cx="60" cy="60" r="37" fill="none" stroke="currentColor" stroke-width="1.2"></circle>
+
+  <!-- Rim text (PT Serif) -->
+  <text
+    font-family="var(--font-cwaaa)"
+    font-size="7.6"
+    letter-spacing="1.5"
+    fill="currentColor"
+  >
+    <textPath href={`#${topId}`} startOffset="50%" text-anchor="middle"
+      >CONCERNED WOMEN AGAINST AXE ABUSE</textPath
+    >
+  </text>
+  <text
+    font-family="var(--font-cwaaa)"
+    font-size="6.8"
+    letter-spacing="1.2"
+    fill="currentColor"
+  >
+    <textPath href={`#${botId}`} startOffset="50%" text-anchor="middle"
+      >EST. 2024 · LATHER · RINSE · RESPECT</textPath
+    >
+  </text>
+
+  <!-- Aerosol can (behind) -->
+  <g fill="none" stroke="currentColor" stroke-width="2">
+    <rect x="63" y="45" width="13" height="27" rx="2"></rect>
+    <rect x="66.5" y="38" width="6" height="7"></rect>
+  </g>
+
+  <!-- Bar of soap (in front) + rising suds -->
+  <rect x="38" y="57" width="28" height="15" rx="7" fill="none" stroke="currentColor" stroke-width="2"></rect>
+  <circle cx="45" cy="51" r="2.6" fill="none" stroke="currentColor" stroke-width="1.2"></circle>
+  <circle cx="52" cy="46.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.2"></circle>
+
+  <!-- Stamp-red strike bar through the aerosol -->
+  <rect
+    x="33"
+    y="51"
+    width="54"
+    height="5.5"
+    fill="var(--cwaaa-stamp)"
+    transform="rotate(-22 60 54)"></rect>
+</svg>

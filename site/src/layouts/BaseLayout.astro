@@ -1,0 +1,110 @@
+---
+/**
+ * BaseLayout.astro — the site shell every page renders through.
+ *
+ * Props: { title, description, ogImage?, ogType?, register?, jsonLd? }
+ *   title/description  per-route meta (copy-deck §2), transcribed verbatim.
+ *   ogImage            absolute URL to an OG image (optional; Phase 1 supplies).
+ *   ogType             OpenGraph type (default 'website').
+ *   register           applies a single register to <main> for single-author
+ *                      pages (e.g. 'cwaaa' for /pledge, /crisis, /404;
+ *                      'porcelain' for /about). Omit on mixed pages (home)
+ *                      where each section sets its own register.
+ *   jsonLd             optional JSON-LD object for the page.
+ *
+ * Renders the full <head> (meta/OG/Twitter/JSON-LD, self-hosted font preloads,
+ * GoatCounter), a skip link, <Nav/>, <main><slot/></main>, <Footer/>, and the
+ * global <ScratchSniff/> gag.
+ */
+import '../styles/tokens.css';
+import '../styles/base.css';
+import Seo from '../components/Seo.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import ScratchSniff from '../components/ScratchSniff.astro';
+import { GOATCOUNTER_CODE } from '../config/site';
+import type { Register } from '../config/site';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  ogType?: string;
+  register?: Register | 'cwaaa';
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+const {
+  title,
+  description,
+  ogImage,
+  ogType,
+  register,
+  jsonLd,
+} = Astro.props;
+
+const goatCounterEndpoint = `https://${GOATCOUNTER_CODE}.goatcounter.com/count`;
+
+// Critical above-the-fold faces, preloaded (self-hosted; no font CDN).
+const preloadFonts = [
+  '/fonts/oswald-500.woff2',
+  '/fonts/libre-franklin-800.woff2',
+  '/fonts/jost-400.woff2',
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <Seo
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      ogType={ogType}
+      jsonLd={jsonLd}
+    />
+
+    {
+      preloadFonts.map((href) => (
+        <link
+          rel="preload"
+          href={href}
+          as="font"
+          type="font/woff2"
+          crossorigin
+        />
+      ))
+    }
+
+    <!-- GoatCounter (privacy-friendly, no-cookie; skips localhost). PRD §6.5 -->
+    <script
+      is:inline
+      data-goatcounter={goatCounterEndpoint}
+      async
+      src="https://gc.zgo.at/count.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Nav />
+    <main id="main" class:list={[register && `register-${register}`]}>
+      <slot />
+    </main>
+    <Footer />
+    <ScratchSniff />
+  </body>
+</html>
+
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+  main {
+    flex: 1 0 auto;
+  }
+</style>

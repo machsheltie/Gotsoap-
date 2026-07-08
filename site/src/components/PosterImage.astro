@@ -1,0 +1,67 @@
+---
+/**
+ * PosterImage.astro — responsive derivative of a canonical poster.
+ *
+ * Emits AVIF + WebP sources with a JPG fallback and a srcset (Astro <Picture>,
+ * sharp). Serves optimized derivatives on-page; the full-quality ORIGINAL is
+ * only ever served behind the /downloads/<slug>.jpg download link (PRD §6.2).
+ *
+ * The posters are untouched — object-fit is never `cover` here (that would
+ * slice the baked typography). Callers get a correctly-proportioned image.
+ *
+ * Alt text MUST carry the joke and describe (never restate) the poster text
+ * (copy-deck §5). A fallback is provided so a stub never emits alt="".
+ */
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { getPoster, type Poster } from '../config/site';
+
+interface Props {
+  slug: string;
+  alt?: string;
+  loading?: 'lazy' | 'eager';
+  sizes?: string;
+  widths?: number[];
+  class?: string;
+}
+const {
+  slug,
+  alt,
+  loading = 'lazy',
+  sizes = '(min-width: 900px) 540px, 92vw',
+  widths = [360, 540, 720, 1080],
+  class: className,
+} = Astro.props;
+
+const poster: Poster | undefined = getPoster(slug);
+if (!poster) {
+  throw new Error(
+    `PosterImage: unknown poster slug "${slug}". Valid slugs: confident-man, soap-smoldering, unholy, redemption, thirst-announcement.`,
+  );
+}
+
+// Statically resolve the imported asset by slug.
+const assets = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/posters/*.jpg',
+  { eager: true },
+);
+const entry = assets[`../assets/posters/${slug}.jpg`];
+if (!entry) {
+  throw new Error(`PosterImage: missing asset src/assets/posters/${slug}.jpg`);
+}
+const src = entry.default;
+
+const fallbackAlt = `${poster.title} — a got soap? campaign poster (Spot No. ${poster.order}).`;
+const altText = alt ?? fallbackAlt;
+---
+
+<Picture
+  src={src}
+  formats={['avif', 'webp']}
+  widths={widths}
+  sizes={sizes}
+  alt={altText}
+  loading={loading}
+  decoding={loading === 'eager' ? 'sync' : 'async'}
+  class={className}
+/>

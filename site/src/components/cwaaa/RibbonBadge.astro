@@ -1,0 +1,57 @@
+---
+/**
+ * RibbonBadge.astro — the CWAAA "Tie One On For Suds" washcloth ribbon
+ * (design.md §6). 📋 CWAAA-only. A folded-ribbon mark in stamp-red that
+ * doubles as the pledge-success badge motif. Stamp token only.
+ *
+ * Rebuilt clean from the retired prototype's harvested paths.
+ */
+interface Props {
+  /** Rendered height in px; width scales to the 40:56 aspect. */
+  size?: number;
+  title?: string;
+  decorative?: boolean;
+  class?: string;
+}
+const {
+  size = 56,
+  title = 'CWAAA washcloth ribbon',
+  decorative = false,
+  class: className,
+} = Astro.props;
+
+const width = Math.round((size * 40) / 56);
+const uid = 'ribbon-' + Math.random().toString(36).slice(2, 9);
+const titleId = `${uid}-title`;
+---
+
+<svg
+  class={className}
+  width={width}
+  height={size}
+  viewBox="0 0 40 56"
+  role={decorative ? 'presentation' : 'img'}
+  aria-hidden={decorative ? 'true' : undefined}
+  aria-labelledby={decorative ? undefined : titleId}
+  style="color: var(--cwaaa-stamp); display: inline-block;"
+>
+  {!decorative && <title id={titleId}>{title}</title>}
+
+  <!-- Folded loop -->
+  <path
+    d="M 20 3 C 11 11 11 24 20 33 C 29 24 29 11 20 3 Z"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="3"></path>
+  <!-- Left tail -->
+  <path d="M 15.5 28 L 7 52 L 15 52 L 21 39" fill="currentColor"></path>
+  <!-- Right tail (slightly recessed) -->
+  <path d="M 24.5 28 L 33 52 L 25 52 L 19 39" fill="currentColor" opacity="0.75"></path>
+  <!-- Terrycloth stitch line -->
+  <path
+    d="M 20 8 C 14.5 14 14.5 22 20 28"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1"
+    stroke-dasharray="2 2.5"></path>
+</svg>

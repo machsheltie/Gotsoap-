@@ -1,0 +1,281 @@
+/* ============================================================================
+   tokens.css — Got Soap? design tokens (design.md §5)
+   9 color tokens · 5 self-hosted type faces · fluid type scale ·
+   register utility classes (the two-author system, enforced) · FX helpers.
+   No color or font is used raw anywhere else — everything routes through here.
+   ========================================================================== */
+
+/* ---- Self-hosted fonts (WOFF2, Latin subset, swap). NO font CDN. ---------- */
+/* Files vendored from @fontsource/* into /public/fonts (see repo). */
+
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/oswald-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/oswald-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/oswald-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jost-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/jost-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Libre Franklin';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/libre-franklin-800.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Libre Franklin';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/fonts/libre-franklin-900.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/montserrat-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/montserrat-500.woff2') format('woff2');
+}
+
+/* PT Serif — QUARANTINED to CWAAA-authored surfaces only (design.md §5). */
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/pt-serif-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/pt-serif-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/pt-serif-400-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/pt-serif-700-italic.woff2') format('woff2');
+}
+
+:root {
+  /* ---- Color tokens (design.md §5) — the ONLY hex in the system. -------- */
+  /* Campaign set (6) */
+  --grout-black: #0e0e10; /* structural bg / ink; nav bar; the grout */
+  --steam-white: #eceae4; /* porcelain register (posters 1–2) */
+  --smoke-slate: #201f22; /* smoke register (posters 3–4) */
+  --chrome-mist: #9a9aa2; /* dividers, secondary text, chrome type */
+  --marble-amber: #b8862e; /* THE one campaign accent — CTAs/links/active */
+  --lather-white: #ffffff; /* max-contrast type on dark; foam accents */
+  /* CWAAA set (3) — only on CWAAA surfaces */
+  --cwaaa-manila: #efe6cf; /* paper stock */
+  --cwaaa-ink: #2f3e5c; /* ballpoint navy: text, seal line-work */
+  --cwaaa-stamp: #a63d2f; /* rubber-stamp red: SWORN, ribbon, required marks */
+
+  /* ---- Type faces (roles per design.md §5 / PRD §7) -------------------- */
+  --font-display: 'Oswald', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'Jost', system-ui, sans-serif;
+  --font-label: 'Libre Franklin', system-ui, sans-serif;
+  --font-fine: 'Montserrat', system-ui, sans-serif;
+  --font-cwaaa: 'PT Serif', Georgia, 'Times New Roman', serif;
+
+  /* ---- Fluid type scale (clamp: 360px → 1440px+) ----------------------- */
+  --step--2: clamp(0.69rem, 0.66rem + 0.13vw, 0.75rem); /* fine print */
+  --step--1: clamp(0.83rem, 0.78rem + 0.22vw, 0.94rem); /* small / meta */
+  --step-0: clamp(1rem, 0.95rem + 0.24vw, 1.13rem); /* body */
+  --step-1: clamp(1.2rem, 1.11rem + 0.44vw, 1.5rem); /* lead */
+  --step-2: clamp(1.44rem, 1.28rem + 0.78vw, 2rem); /* h3 */
+  --step-3: clamp(1.73rem, 1.47rem + 1.29vw, 2.66rem); /* h2 */
+  --step-4: clamp(2.07rem, 1.66rem + 2.07vw, 3.55rem); /* h1 */
+  --step-5: clamp(2.49rem, 1.83rem + 3.28vw, 4.73rem); /* display */
+  --step-6: clamp(2.99rem, 1.94rem + 5.24vw, 6.31rem); /* hero */
+
+  /* ---- Spacing / layout ------------------------------------------------ */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  --measure: 66ch; /* readable line length */
+  --radius-tile: 2px; /* "tile grout, not pill" (design.md §7) */
+
+  /* ---- Focus ring — overridden per register. Campaign default. --------- */
+  --focus-ring: var(--marble-amber);
+
+  /* ---- Register slots (defaults = campaign porcelain). Every register
+         class below redefines these; components read the slots, never
+         the raw tokens, so the two-author quarantine holds. ------------- */
+  --reg-bg: var(--grout-black);
+  --reg-fg: var(--lather-white);
+  --reg-heading: var(--lather-white);
+  --reg-accent: var(--marble-amber);
+  --reg-muted: var(--chrome-mist);
+  --reg-rule: color-mix(in srgb, var(--chrome-mist) 30%, transparent);
+}
+
+/* ============================================================================
+   Register utility classes — the two-author system as CSS.
+   Each class exposes ONLY its register's 2–3 tokens through the --reg-* slots.
+   Apply to a section/surface; children inherit via the slots. A surface that
+   mixes campaign and CWAAA slots is a bug (design.md §4).
+   ========================================================================== */
+
+/* 🧼 Porcelain — posters 1–2: warm tile off-white, black ink, amber accent. */
+.register-porcelain {
+  --reg-bg: var(--steam-white);
+  --reg-fg: var(--grout-black);
+  --reg-heading: var(--grout-black);
+  --reg-accent: var(--marble-amber);
+  --reg-muted: color-mix(in srgb, var(--grout-black) 55%, var(--steam-white));
+  --reg-rule: color-mix(in srgb, var(--grout-black) 18%, transparent);
+  --focus-ring: var(--marble-amber);
+  background-color: var(--reg-bg);
+  color: var(--reg-fg);
+}
+
+/* 🧼 Smoke — posters 3–4: dark slate, white type, chrome secondary. */
+.register-smoke {
+  --reg-bg: var(--smoke-slate);
+  --reg-fg: var(--lather-white);
+  --reg-heading: var(--lather-white);
+  --reg-accent: var(--marble-amber);
+  --reg-muted: var(--chrome-mist);
+  --reg-rule: color-mix(in srgb, var(--chrome-mist) 30%, transparent);
+  --focus-ring: var(--marble-amber);
+  background-color: var(--reg-bg);
+  color: var(--reg-fg);
+}
+
+/* 🧼 Marble — poster 5: dramatic dark ground, gold headings, editorial. */
+.register-marble {
+  --reg-bg: var(--grout-black);
+  --reg-fg: var(--lather-white);
+  --reg-heading: var(--marble-amber);
+  --reg-accent: var(--marble-amber);
+  --reg-muted: var(--chrome-mist);
+  --reg-rule: color-mix(in srgb, var(--marble-amber) 40%, transparent);
+  --focus-ring: var(--marble-amber);
+  background-color: var(--reg-bg);
+  color: var(--reg-fg);
+}
+
+/* 📋 CWAAA — the sponsor's paper world. PT Serif, manila, ink, stamp.
+   The ONLY register whose accent/focus is stamp-red, and the only one that
+   may use --font-cwaaa. Never appears on a campaign surface. */
+.register-cwaaa {
+  --reg-bg: var(--cwaaa-manila);
+  --reg-fg: var(--cwaaa-ink);
+  --reg-heading: var(--cwaaa-ink);
+  --reg-accent: var(--cwaaa-stamp);
+  --reg-muted: color-mix(in srgb, var(--cwaaa-ink) 62%, var(--cwaaa-manila));
+  --reg-rule: color-mix(in srgb, var(--cwaaa-ink) 35%, transparent);
+  --focus-ring: var(--cwaaa-stamp);
+  background-color: var(--reg-bg);
+  color: var(--reg-fg);
+  font-family: var(--font-cwaaa);
+}
+
+/* ============================================================================
+   Layer-effect helpers (design.md §5/§7) — the posters' Photoshop drama,
+   evoked in CSS. Budget: hero + spot/verdict titles ONLY. CWAAA gets zero FX.
+   ========================================================================== */
+
+/* Steam-glow — soft luminous halo for porcelain display type. */
+.fx-steam-glow {
+  text-shadow:
+    0 0 1px color-mix(in srgb, var(--lather-white) 70%, transparent),
+    0 1px 14px color-mix(in srgb, var(--lather-white) 45%, transparent),
+    0 2px 34px color-mix(in srgb, var(--steam-white) 55%, transparent);
+}
+
+/* Chrome — brushed-metal gradient clipped to the glyphs (smoke titles). */
+.fx-chrome {
+  background-image: linear-gradient(
+    177deg,
+    #f4f4f6 0%,
+    var(--chrome-mist) 28%,
+    #55555c 52%,
+    var(--chrome-mist) 74%,
+    #e9e9ee 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Gold — poured-amber treatment for the marble register's display type. */
+.fx-gold {
+  background-image: linear-gradient(
+    180deg,
+    #f0cf8a 0%,
+    var(--marble-amber) 46%,
+    #7c5716 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 0 color-mix(in srgb, #000 25%, transparent);
+}
+
+/* Fallback: browsers without background-clip:text keep a readable solid fill. */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .fx-chrome {
+    color: var(--chrome-mist);
+  }
+  .fx-gold {
+    color: var(--marble-amber);
+  }
+}

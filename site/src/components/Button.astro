@@ -1,0 +1,120 @@
+---
+/**
+ * Button.astro — the two-author button primitive (design.md §7).
+ *
+ * Variants = register × emphasis:
+ *   campaign-primary  : Jost, marble-amber fill, grout-black label
+ *   campaign-secondary: Jost, amber outline, amber label
+ *   cwaaa-primary     : PT Serif, stamp-red fill, manila label
+ *   cwaaa-secondary   : PT Serif, ink outline on manila, ink label
+ *
+ * Renders <a> when `href` is set, else <button>. Focus ring comes from
+ * base.css via the surrounding register's --focus-ring. Labels are always
+ * in-fiction — pass the copy-deck string (e.g. "File my declaration").
+ */
+interface Props {
+  label: string;
+  register?: 'campaign' | 'cwaaa';
+  variant?: 'primary' | 'secondary';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  [key: string]: unknown;
+}
+const {
+  label,
+  register = 'campaign',
+  variant = 'primary',
+  href,
+  type = 'button',
+  class: className,
+  ...rest
+} = Astro.props;
+
+const cls = ['btn', `btn--${register}-${variant}`, className]
+  .filter(Boolean)
+  .join(' ');
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag class={cls} href={href} type={href ? undefined : type} {...rest}>{label}</Tag>
+
+<style>
+  .btn {
+    --btn-radius: var(--radius-tile);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    padding: 0.72em 1.4em;
+    border: 2px solid transparent;
+    border-radius: var(--btn-radius);
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 1.1;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease,
+      border-color 140ms ease,
+      transform 100ms ease;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn[disabled],
+  .btn[aria-disabled='true'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ---- Campaign (Jost, sentence case) ---- */
+  .btn--campaign-primary,
+  .btn--campaign-secondary {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--step-0);
+    letter-spacing: 0.01em;
+  }
+  .btn--campaign-primary {
+    background-color: var(--marble-amber);
+    color: var(--grout-black);
+    border-color: var(--marble-amber);
+  }
+  .btn--campaign-primary:hover {
+    background-color: color-mix(in srgb, var(--marble-amber) 86%, #fff);
+    border-color: color-mix(in srgb, var(--marble-amber) 86%, #fff);
+  }
+  .btn--campaign-secondary {
+    background-color: transparent;
+    color: var(--marble-amber);
+    border-color: var(--marble-amber);
+  }
+  .btn--campaign-secondary:hover {
+    background-color: color-mix(in srgb, var(--marble-amber) 16%, transparent);
+  }
+
+  /* ---- CWAAA (PT Serif, rectangular, on manila) ---- */
+  .btn--cwaaa-primary,
+  .btn--cwaaa-secondary {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step-0);
+    border-radius: 0;
+  }
+  .btn--cwaaa-primary {
+    background-color: var(--cwaaa-stamp);
+    color: var(--cwaaa-manila);
+    border-color: var(--cwaaa-stamp);
+  }
+  .btn--cwaaa-primary:hover {
+    background-color: color-mix(in srgb, var(--cwaaa-stamp) 88%, #000);
+  }
+  .btn--cwaaa-secondary {
+    background-color: transparent;
+    color: var(--cwaaa-ink);
+    border-color: var(--cwaaa-ink);
+  }
+  .btn--cwaaa-secondary:hover {
+    background-color: color-mix(in srgb, var(--cwaaa-ink) 10%, transparent);
+  }
+</style>

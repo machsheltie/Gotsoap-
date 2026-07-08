@@ -1,0 +1,205 @@
+/* ============================================================================
+   base.css — modern reset, base typography, focus, motion policy.
+   Depends on tokens.css (imported first). Design.md §9 quality floor.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  tab-size: 4;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--lather-white);
+  background-color: var(--grout-black);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Form elements inherit type */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Wrapping */
+p,
+li,
+figcaption {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+  line-height: 1.08;
+  font-weight: 600;
+}
+
+/* Headings default to the display face; CWAAA surfaces override via register. */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+}
+
+a {
+  color: var(--reg-accent, var(--marble-amber));
+  text-underline-offset: 0.18em;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  padding: 0;
+}
+
+#root,
+#__astro {
+  isolation: isolate;
+}
+
+/* ---- Visible focus everywhere (design.md §7 / PRD §6.4) -------------------
+   2px marble-amber on campaign, cwaaa-stamp on CWAAA (via --focus-ring set by
+   the register class), offset 2px. Always visible — never removed. */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus-ring, var(--marble-amber));
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+/* Keep a visible ring for older engines lacking :focus-visible. */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus {
+  outline: 2px solid var(--focus-ring, var(--marble-amber));
+  outline-offset: 2px;
+}
+:where(a, button, input, textarea, select, summary, [tabindex]):focus:not(
+    :focus-visible
+  ) {
+  outline: none;
+}
+
+/* ---- Skip link (used by BaseLayout) -------------------------------------- */
+.skip-link {
+  position: absolute;
+  left: var(--space-sm);
+  top: var(--space-sm);
+  z-index: 200;
+  padding: 0.6em 1em;
+  background: var(--marble-amber);
+  color: var(--grout-black);
+  font-family: var(--font-label);
+  font-weight: 800;
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: var(--radius-tile);
+  transform: translateY(-150%);
+  transition: transform 120ms ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ---- Screen-reader-only ---------------------------------------------------- */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Responsive container (360 → 1440+) ---------------------------------- */
+.container {
+  width: 100%;
+  max-width: 72rem; /* ~1152px content max */
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 4rem);
+}
+.container--wide {
+  max-width: 90rem; /* ~1440px */
+}
+.container--narrow {
+  max-width: 44rem; /* prose / forms */
+}
+
+/* ---- Layout primitive: vertical rhythm inside a flow container ----------- */
+.flow > * + * {
+  margin-block-start: var(--flow-space, 1em);
+}
+
+/* ---- Motion policy (design.md §8) ----------------------------------------
+   Only three motions exist site-wide: hero steam auto-clear (~2s), quiet
+   scroll-reveals, the SWORN stamp settle. prefers-reduced-motion disables
+   ALL animation and smooth scroll. Islands must also read this at runtime. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Reusable scroll-reveal hook — Phase 1 opts in; safe no-op when unused. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 600ms ease,
+    transform 600ms ease;
+}
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,91 @@
+---
+/**
+ * ShareRow.astro — in-fiction share + copy-link island (design.md §4).
+ *
+ * Utility controls NEVER read a bare "Share"/"Copy". Defaults per kind:
+ *   spot    → "Post it in the locker room" / "Copy the citation"
+ *   verdict → "Issue the announcement"     / "Copy the citation"
+ * Callers may override either label (e.g. CWAAA "Copy the case number").
+ *
+ * Behavior lives in scripts/share.ts, driven by the data-* contract below.
+ * Works as progressive enhancement; buttons are inert (announce a fallback)
+ * without JS.
+ */
+import type { ShareKind } from '../content/types';
+
+interface Props {
+  kind: ShareKind;
+  /** Absolute URL to share (build from SITE_URL). */
+  url: string;
+  /** Share sheet title. */
+  title: string;
+  /** Optional pre-filled share text. */
+  text?: string;
+  shareLabel?: string;
+  copyLabel?: string;
+  class?: string;
+}
+
+const {
+  kind,
+  url,
+  title,
+  text = '',
+  shareLabel,
+  copyLabel,
+  class: className,
+} = Astro.props;
+
+const defaults: Record<ShareKind, { share: string; copy: string }> = {
+  spot: { share: 'Post it in the locker room', copy: 'Copy the citation' },
+  verdict: { share: 'Issue the announcement', copy: 'Copy the citation' },
+};
+const share = shareLabel ?? defaults[kind].share;
+const copy = copyLabel ?? defaults[kind].copy;
+---
+
+<div
+  class:list={['share-row', className]}
+  data-share-root
+  data-share-url={url}
+  data-share-title={title}
+  data-share-text={text}
+>
+  <button type="button" class="share-btn" data-share-action="share">{share}</button>
+  <button type="button" class="share-btn" data-share-action="copy">{copy}</button>
+  <span class="sr-only" role="status" aria-live="polite" data-share-status></span>
+</div>
+
+<script>
+  import '../scripts/share.ts';
+</script>
+
+<style>
+  .share-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+  }
+  .share-btn {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--step--1);
+    color: var(--reg-accent, var(--marble-amber));
+    background: transparent;
+    border: 1.5px solid var(--reg-accent, var(--marble-amber));
+    border-radius: var(--radius-tile);
+    padding: 0.55em 1.1em;
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease;
+  }
+  .share-btn:hover {
+    background: color-mix(
+      in srgb,
+      var(--reg-accent, var(--marble-amber)) 16%,
+      transparent
+    );
+  }
+</style>
