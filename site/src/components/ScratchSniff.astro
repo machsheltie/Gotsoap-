@@ -5,7 +5,14 @@
  * the markup (hidden), revealed by scripts/scratch.ts only on a first visit.
  * Reduced-motion-safe. Rendered once, globally, by BaseLayout.
  */
-import { scratchGag } from '../content/global';
+import { scratchGag } from '../content/copy';
+
+// copy.ts stores the gag as one `primary` string; the bar bolds the first
+// sentence (the constant head) and swaps the remainder (the rotation slot).
+const splitAt = scratchGag.primary.indexOf('. ');
+const gagHead =
+  splitAt > -1 ? scratchGag.primary.slice(0, splitAt + 1) : scratchGag.primary;
+const gagBody = splitAt > -1 ? scratchGag.primary.slice(splitAt + 2) : '';
 ---
 
 <aside
@@ -16,11 +23,11 @@ import { scratchGag } from '../content/global';
   hidden
 >
   <p class="scratch__text">
-    <strong>{scratchGag.headline}</strong>{' '}
-    <span data-scratch-message>{scratchGag.body}</span>
+    <strong>{gagHead}</strong>{' '}
+    <span data-scratch-message>{gagBody}</span>
   </p>
   <button type="button" class="scratch__dismiss" data-scratch-dismiss>
-    {scratchGag.dismissLabel}
+    {scratchGag.dismiss}
   </button>
 </aside>
 

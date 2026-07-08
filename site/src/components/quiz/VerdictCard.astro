@@ -11,13 +11,28 @@
  * editorial default), axe-dependent=smoke, thirst-hazard=smoke (heavier).
  */
 import Seal from '../cwaaa/Seal.astro';
-import type { Verdict } from '../../content/sniffTest';
+import type { Register } from '../../config/site';
 
+/** The verdict fields this card renders (copy.ts verdicts[slug] + its slug). */
+interface VerdictCardData {
+  slug: string;
+  register: Register;
+  name: string;
+  lead: string;
+  body: string;
+}
 interface Props {
-  verdict: Verdict;
+  verdict: VerdictCardData;
 }
 const { verdict } = Astro.props;
-const fxClass = `fx-${verdict.fx}`;
+// Layer-effect budget (design.md §5/§7): steam-glow on porcelain, chrome on
+// smoke, gold on marble — derived from the register (copy.ts carries no `fx`).
+const fxByRegister = {
+  porcelain: 'fx-steam-glow',
+  smoke: 'fx-chrome',
+  marble: 'fx-gold',
+} as const;
+const fxClass = fxByRegister[verdict.register];
 // thirst-hazard is smoke "heavier" — a darker card variant on the same register.
 const heavy = verdict.slug === 'thirst-hazard';
 ---
@@ -39,7 +54,7 @@ const heavy = verdict.slug === 'thirst-hazard';
   </header>
 
   <h1 class:list={['vcard__title', fxClass]}>{verdict.name}</h1>
-  <p class="vcard__subhead">{verdict.subhead}</p>
+  <p class="vcard__subhead">{verdict.lead}</p>
   <p class="vcard__body">{verdict.body}</p>
 </article>
 

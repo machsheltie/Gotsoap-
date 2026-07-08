@@ -8,8 +8,10 @@
  * hamburger novelty. Progressive enhancement: with JS off the links simply
  * wrap and stay visible; the toggle only appears once JS marks the nav.
  */
-import { nav } from '../content/global';
+import { nav } from '../content/copy';
 
+// copy.ts stores the wordmark string only; the mark always links home.
+const markHref = '/';
 const path = Astro.url.pathname;
 const normalize = (p: string) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p);
 const here = normalize(path);
@@ -20,8 +22,8 @@ const isActive = (href: string): boolean =>
 <nav class="nav" aria-label="Primary">
   <a
     class="nav__mark"
-    href={nav.markHref}
-    aria-current={isActive(nav.markHref) ? 'page' : undefined}>{nav.markLabel}</a
+    href={markHref}
+    aria-current={isActive(markHref) ? 'page' : undefined}>{nav.mark}</a
   >
 
   <button

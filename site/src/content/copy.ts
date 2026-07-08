@@ -114,59 +114,44 @@ export const home = {
   },
 } as const;
 
-/** The five posters. slug drives /psas/<slug>. register keys design.md tokens. */
-export const posters = [
-  {
-    slug: "confident-man",
-    spotNo: "01",
-    angle: "A Clean Man Is A Confident Man",
-    register: "porcelain",
+/**
+ * Per-poster COPY only, keyed by slug. Structural metadata (order, register,
+ * title, source file) already lives in ../config/site.ts `POSTERS` — do NOT
+ * duplicate it here. Components zip site.ts POSTERS with posterCopy by slug.
+ * (register values there are 'porcelain' | 'smoke' | 'marble' per design.md.)
+ */
+export const posterCopy = {
+  "confident-man": {
     pull: "Because your Axe body spray isn't fooling anyone, cowboy.",
     caseNote:
       "A cologne ad selling nothing but soap. Our cowboy doesn't smell like masculinity; he defines it, rinses it off, and reapplies in the morning like a person with standards. The gaze says power. The tile says he owns more than one bar of soap and knows where both of them are. Confidence isn't the cologne. It's not needing it.",
     alt: "A clean-cut man stands shirtless against steamy white bathroom tile under the headline 'got soap?' Baked poster text: 'A clean man is a confident man. Lather up. Smell like effort.' Funded by Concerned Women Against Axe Abuse.",
   },
-  {
-    slug: "soap-smoldering",
-    spotNo: "02",
-    angle: "Soap-Smoldering",
-    register: "porcelain",
+  "soap-smoldering": {
     pull: `Because "it's just my natural scent" has never once been good news.`,
     caseNote:
       "The smolder, patched to the current version: now with self-awareness. He's fresh and knows it, which is the hottest thing a man can be and, statistically, the rarest. You could skip the wash. You could layer the spray. You will still never smell like him — and everyone at brunch will know which one you are. Lather. Rinse. Respect.",
     alt: "A lightly stubbled man leans on fogged tile beneath 'got soap?' Baked poster text: 'He's not just fresh — he's soap-smoldering. You could skip the wash… but you won't smell like him.'",
   },
-  {
-    slug: "unholy",
-    spotNo: "03",
-    angle: "Unholy",
-    register: "smoke",
+  unholy: {
     pull: "He washes. Daily. With soap. In this economy, that's basically a miracle.",
     caseNote:
       "Some men leave a room speechless. Others leave a trail of Axe and a group chat full of screenshots. This one washes daily, with soap, which in the year of our Lord currently qualifies as a personality. Fragrance-ad drama, sermon-grade conviction: clean isn't a flex, it's the bare minimum, and he's wearing it like a crown.",
     alt: "A brooding man in a towel emerges from dark chrome-lit smoke under a chrome 'got soap?' Baked poster text: 'Washes daily. Uncommon. Unholy. Unreasonably hot. Axe is not an exorcism.'",
   },
-  {
-    slug: "redemption",
-    spotNo: "04",
-    angle: "The Redemption",
-    register: "smoke",
+  redemption: {
     pull: "He sinned. He sprayed. He saw the loofah. Anyone can change.",
     caseNote:
       "He sinned. He sprayed. He treated a squirt of aerosol like holy water for a body that had genuinely wronged the people standing next to it. Then, grace: a shower. A redemption arc told in steam, and the moral is short — deodorant is not divine intervention, and the gym does not count. Anyone can change. Some of you should start tonight.",
     alt: "A solemn, slicked-back man in smoky low light beneath a chrome 'got soap?' Baked poster text: 'Repent in warm water. Forgiveness is a full body cleanse. Deodorant isn't divine intervention.'",
   },
-  {
-    slug: "thirst-announcement",
-    spotNo: "05",
-    angle: "Public Thirst Announcement",
-    register: "amber",
+  "thirst-announcement": {
     pull: "He's scrubbed, sudsed, and would survive meeting your mother. And you?",
     caseNote:
       "No fog machine. No flex. A man who is scrubbed, sudsed, and, critically, aware of it: the \"would introduce to Mom without a risk assessment\" tier of clean. Consider this your notice. Personal hygiene is the floor, not a plot twist. This has been a public thirst announcement. Wash accordingly.",
     alt: "A confident Black man against warm amber marble under a gold-lit 'got soap?' Baked poster text: 'He's scrubbed. Sudsed. Seductive. And you? You need soap and self-awareness. This has been a public thirst announcement.'",
   },
-] as const;
+} as const;
 
 export const psas = {
   indexHeading: "Public Service Announcements",
@@ -229,7 +214,7 @@ export const verdicts = {
   },
   "suds-curious": {
     name: "Suds-Curious",
-    register: "amber",
+    register: "marble",
     lead: "There's a clean man in there. We can hear him tapping. Let him out.",
     body: "You own soap. You've met the loofah. You just keep betting a spritz will cover the gap between you and an actual shower, and that bet has never once paid out. Close it. One honest lather and you're on the good list. It's a short list. The view is excellent.",
     exit: "Certified or not — sign the oath.",
@@ -439,7 +424,7 @@ export const notFound = {
 
 const copy = {
   HASHTAGS, FUNDED_BY, COPYRIGHT, labels, nav, footer, scratchGag, meta,
-  home, posters, psas, sniffTest, verdicts, pledge, crisis, about, notFound,
+  home, posterCopy, psas, sniffTest, verdicts, pledge, crisis, about, notFound,
 } as const;
 
 export default copy;

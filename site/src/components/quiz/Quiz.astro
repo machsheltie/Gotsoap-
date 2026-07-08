@@ -12,7 +12,37 @@
  */
 import Progress from './Progress.astro';
 import Question from './Question.astro';
-import { intro, chrome, completion, questions, quizConfig } from '../../content/sniffTest';
+import { sniffTest } from '../../content/copy';
+
+const intro = sniffTest.intro;
+const questions = sniffTest.questions;
+
+// copy.ts stores the completion beat as one string; the beat bolds the first
+// sentence (the constant head) and trails the remainder.
+const beatSplit = sniffTest.completionBeat.indexOf('. ');
+const beatHead =
+  beatSplit > -1
+    ? sniffTest.completionBeat.slice(0, beatSplit + 1)
+    : sniffTest.completionBeat;
+const beatRest =
+  beatSplit > -1 ? sniffTest.completionBeat.slice(beatSplit + 2) : '';
+
+/**
+ * Client quiz config (score bands + redirect base + progress templates). Scoring
+ * is internal plumbing — none of this renders a number; the client redirects by
+ * verdict slug. Progress/aria TEMPLATES are derived from copy.ts's own label
+ * functions by feeding them the "{n}" placeholder the client substitutes.
+ * `dwellMs` (reading time) and `redirectBase` are build params, not copy.
+ */
+const N_TOKEN = '{n}' as unknown as number;
+const quizConfig = {
+  bands: sniffTest.bands,
+  redirectBase: '/sniff-test/',
+  dwellMs: 1200,
+  total: questions.length,
+  progressTemplate: sniffTest.progressLabel(N_TOKEN),
+  ariaTemplate: sniffTest.ariaProgress(N_TOKEN),
+};
 
 // Serialize ONLY score-band thresholds + redirect base for the client. These
 // never render a number; the client redirects by verdict slug.
@@ -30,8 +60,8 @@ const configJson = JSON.stringify(quizConfig);
   <!-- Screen 1: intro (§6.1) -->
   <div class="quiz__intro flow" data-quiz-intro>
     <h1 class="quiz__title fx-steam-glow">{intro.heading}</h1>
-    <p class="quiz__lead">{intro.lead}</p>
-    <button type="button" class="quiz__begin" data-quiz-begin>{intro.beginLabel}</button>
+    <p class="quiz__lead">{intro.body}</p>
+    <button type="button" class="quiz__begin" data-quiz-begin>{intro.cta}</button>
     <p class="quiz__credit">{intro.credit}</p>
   </div>
 
@@ -63,7 +93,7 @@ const configJson = JSON.stringify(quizConfig);
       </button>
     </div>
 
-    <p class="quiz__persist">{chrome.footer}</p>
+    <p class="quiz__persist">{sniffTest.footerLine}</p>
 
     <!-- aria-live progress: announces the deck's exact "Question n of 7." -->
     <p class="sr-only" role="status" aria-live="polite" data-quiz-live></p>
@@ -72,7 +102,7 @@ const configJson = JSON.stringify(quizConfig);
   <!-- Completion beat (§6.2b): transient, no score, then redirect. -->
   <div class="quiz__beat" data-quiz-beat hidden>
     <p class="quiz__beat-line" role="status" tabindex="-1" data-quiz-beat-line>
-      <strong>{completion.headline}</strong> {completion.body}
+      <strong>{beatHead}</strong> {beatRest}
     </p>
   </div>
 

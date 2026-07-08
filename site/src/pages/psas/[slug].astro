@@ -11,15 +11,9 @@ import Lightbox from '../../components/psas/Lightbox.astro';
 import ShareRow from '../../components/ShareRow.astro';
 import Button from '../../components/Button.astro';
 import { POSTERS, absoluteUrl, type Poster } from '../../config/site';
-import {
-  caseNotes,
-  posterAltText,
-  posterMeta,
-  downloadNotice,
-  prevSpotLabel,
-  nextSpotLabel,
-  type PosterSlug,
-} from '../../content/psas';
+import { posterCopy, psas, meta } from '../../content/copy';
+
+type PosterSlug = keyof typeof posterCopy;
 
 export function getStaticPaths() {
   return POSTERS.map((poster) => ({
@@ -34,9 +28,10 @@ interface Props {
 
 const { poster } = Astro.props as Props;
 const slug = poster.slug as PosterSlug;
-const meta = posterMeta[slug];
-const alt = posterAltText[slug];
-const notesHtml = caseNotes[slug];
+const pageMeta = meta[`psas/${slug}` as keyof typeof meta];
+const alt = posterCopy[slug].alt;
+const notesHtml = posterCopy[slug].caseNote;
+const downloadNotice = psas.downloadNotice;
 
 // Linear series (Series One is a bounded archive, not a loop): Spot No. 1
 // has no prev; Spot No. 5 has no next. Series Two, when it arrives, extends
@@ -61,7 +56,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CreativeWork',
   name: poster.title,
-  description: meta.description,
+  description: pageMeta.description,
   image: ogImage,
   url: pageUrl,
   creator: {
@@ -81,8 +76,8 @@ const jsonLd = {
 ---
 
 <BaseLayout
-  title={meta.title}
-  description={meta.description}
+  title={pageMeta.title}
+  description={pageMeta.description}
   ogImage={ogImage}
   ogType="article"
   register={poster.register}
@@ -114,11 +109,9 @@ const jsonLd = {
 
       <div class="poster-stage__download">
         <h2 class="poster-stage__download-heading">{downloadNotice.heading}</h2>
-        {downloadNotice.body.map((line) => (
-          <p class="poster-stage__download-line">{line}</p>
-        ))}
+        <p class="poster-stage__download-line">{downloadNotice.body}</p>
         <Button
-          label={downloadNotice.buttonLabel}
+          label={downloadNotice.button}
           href={downloadHref}
           download={`got-soap-${poster.slug}.jpg`}
         />
@@ -129,7 +122,7 @@ const jsonLd = {
       {
         prevPoster ? (
           <a class="poster-stage__nav-link" href={`/psas/${prevPoster.slug}`}>
-            {prevSpotLabel(prevPoster.order)}
+            {`← SPOT NO. ${prevPoster.order}`}
           </a>
         ) : (
           <span class="poster-stage__nav-link poster-stage__nav-link--spacer" aria-hidden="true" />
@@ -141,7 +134,7 @@ const jsonLd = {
       {
         nextPoster ? (
           <a class="poster-stage__nav-link" href={`/psas/${nextPoster.slug}`}>
-            {nextSpotLabel(nextPoster.order)}
+            {`SPOT NO. ${nextPoster.order} →`}
           </a>
         ) : (
           <span class="poster-stage__nav-link poster-stage__nav-link--spacer" aria-hidden="true" />

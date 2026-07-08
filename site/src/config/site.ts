@@ -29,6 +29,20 @@ export const EXTERNAL_LINKS = {
 export type ExternalLinkKey = keyof typeof EXTERNAL_LINKS;
 
 /**
+ * Buttondown newsletter — the Lather Pledge subscribes here (PRD §5.4;
+ * ORCHESTRATOR-HANDOFF: Buttondown from launch, welcome email = copy deck §7.7).
+ * Empty until the owner supplies the workspace username: the Form CW-1 embed
+ * still renders and the SWORN success still shows, but the real subscription
+ * POST is INERT (pledge.ts soft-fails + console.warns) until this is set.
+ */
+export const BUTTONDOWN_USERNAME = '';
+
+/** Buttondown embed-subscribe endpoint for the configured username. */
+export function buttondownEmbedUrl(): string {
+  return `https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`;
+}
+
+/**
  * Build an absolute URL from a site-relative path.
  * @example absoluteUrl('/psas') => 'https://gotsoap.netlify.app/psas'
  */

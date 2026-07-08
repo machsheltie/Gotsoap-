@@ -11,7 +11,10 @@
  * Works as progressive enhancement; buttons are inert (announce a fallback)
  * without JS.
  */
-import type { ShareKind } from '../content/types';
+import { labels } from '../content/copy';
+
+/** Which campaign share default a row uses (in-fiction, never a bare "Share"). */
+type ShareKind = 'spot' | 'verdict';
 
 interface Props {
   kind: ShareKind;
@@ -37,8 +40,8 @@ const {
 } = Astro.props;
 
 const defaults: Record<ShareKind, { share: string; copy: string }> = {
-  spot: { share: 'Post it in the locker room', copy: 'Copy the citation' },
-  verdict: { share: 'Issue the announcement', copy: 'Copy the citation' },
+  spot: { share: labels.campaign.shareSpot, copy: labels.campaign.copyLink },
+  verdict: { share: labels.campaign.shareVerdict, copy: labels.campaign.copyLink },
 };
 const share = shareLabel ?? defaults[kind].share;
 const copy = copyLabel ?? defaults[kind].copy;

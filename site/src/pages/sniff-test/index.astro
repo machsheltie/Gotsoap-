@@ -8,12 +8,14 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Quiz from '../../components/quiz/Quiz.astro';
-import { meta } from '../../content/sniffTest';
+import { meta } from '../../content/copy';
+
+const pageMeta = meta['sniff-test'];
 ---
 
 <BaseLayout
-  title={meta.title}
-  description={meta.description}
+  title={pageMeta.title}
+  description={pageMeta.description}
   register="porcelain"
 >
   <Quiz />

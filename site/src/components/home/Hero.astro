@@ -17,7 +17,8 @@
  * The steam layer sits ABOVE the content and never gates its paint — the
  * headline (real text, not baked) is unaffected for LCP and for AT.
  */
-import { hero } from '../../content/home';
+import { home } from '../../content/copy';
+const hero = home.hero;
 ---
 
 <section
@@ -34,7 +35,7 @@ import { hero } from '../../content/home';
 
   <div class="hero__content">
     <h1 class="hero__title fx-steam-glow">{hero.headline}</h1>
-    <p class="hero__subhead">{hero.subhead}</p>
+    <p class="hero__subhead">{hero.sub}</p>
   </div>
 
   <!-- The clearing steam + the travelling squeegee streak (decorative). -->

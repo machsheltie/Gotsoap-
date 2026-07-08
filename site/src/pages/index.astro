@@ -15,11 +15,11 @@ import SniffTestInsert from '../components/home/SniffTestInsert.astro';
 import MovementLetterhead from '../components/home/MovementLetterhead.astro';
 import PledgeBand from '../components/home/PledgeBand.astro';
 import RevealBeat from '../components/home/RevealBeat.astro';
-import { spots } from '../content/home';
+import { spots } from '../components/home/spots';
+import { meta } from '../content/copy';
 import { SITE_URL } from '../config/site';
 
-const description =
-  'A public thirst announcement. Five posters, one demand: use the soap. Because "I usually shower" is not a hygiene routine. It\'s a confession.';
+const description = meta.home.description;
 
 // Lightweight WebSite JSON-LD (Seo/OG tags come from BaseLayout).
 const jsonLd = {
@@ -31,7 +31,7 @@ const jsonLd = {
 };
 ---
 
-<BaseLayout title="got soap? — the movement" description={description} jsonLd={jsonLd}>
+<BaseLayout title={meta.home.title} description={description} jsonLd={jsonLd}>
   {/* Sync marker: JS present → enable reveal-on-scroll; absent → content shows. */}
   <script is:inline>document.documentElement.classList.add('has-js');</script>
 

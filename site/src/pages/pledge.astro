@@ -8,12 +8,14 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PledgeForm from '../components/cwaaa/PledgeForm.astro';
-import { pledge } from '../content/pledge';
+import { meta } from '../content/copy';
+
+const pageMeta = meta.pledge;
 ---
 
 <BaseLayout
-  title={pledge.meta.title}
-  description={pledge.meta.description}
+  title={pageMeta.title}
+  description={pageMeta.description}
   register="cwaaa"
 >
   <section class="pledge-stage">

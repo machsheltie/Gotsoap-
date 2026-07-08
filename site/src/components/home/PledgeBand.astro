@@ -6,8 +6,12 @@
  * driving to /pledge. Marble register (grout-black ground, gold heading,
  * lather-white body). "Join the movement." carries the primary-CTA invariant.
  */
-import { pledgeBand } from '../../content/home';
+import { home } from '../../content/copy';
 import Button from '../Button.astro';
+
+const pledgeBand = home.pledgeBand;
+// copy.ts stores the CTA as a label string; the pledge band drives to /pledge.
+const pledgeHref = '/pledge';
 ---
 
 <section class="pledge register-marble" aria-labelledby="pledge-heading">
@@ -16,8 +20,8 @@ import Button from '../Button.astro';
     <p class="pledge__body">{pledgeBand.body}</p>
     <div class="pledge__cta">
       <Button
-        label={pledgeBand.cta.label}
-        href={pledgeBand.cta.href}
+        label={pledgeBand.cta}
+        href={pledgeHref}
         register="campaign"
         variant="primary"
       />

@@ -9,15 +9,18 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PosterImage from '../../components/PosterImage.astro';
 import { POSTERS } from '../../config/site';
-import { psasIndex, psasIndexMeta, posterAltText, type PosterSlug } from '../../content/psas';
+import { psas, meta, posterCopy } from '../../content/copy';
+
+const psasMeta = meta.psas;
+type PosterSlug = keyof typeof posterCopy;
 ---
 
-<BaseLayout title={psasIndexMeta.title} description={psasIndexMeta.description}>
+<BaseLayout title={psasMeta.title} description={psasMeta.description}>
   <section class="psas-index container container--wide">
     <header class="psas-index__head">
-      <h1 class="psas-index__heading">{psasIndex.heading}</h1>
-      <p class="psas-index__subheading">{psasIndex.subheading}</p>
-      <p class="psas-index__intro">{psasIndex.intro}</p>
+      <h1 class="psas-index__heading">{psas.indexHeading}</h1>
+      <p class="psas-index__subheading">{psas.indexSub}</p>
+      <p class="psas-index__intro">{psas.indexBody}</p>
     </header>
 
     <ul class="psas-grid" role="list">
@@ -27,7 +30,7 @@ import { psasIndex, psasIndexMeta, posterAltText, type PosterSlug } from '../../
             <a class="psas-item" href={`/psas/${poster.slug}`}>
               <PosterImage
                 slug={poster.slug}
-                alt={posterAltText[poster.slug as PosterSlug]}
+                alt={posterCopy[poster.slug as PosterSlug].alt}
                 loading={poster.order === 1 ? 'eager' : 'lazy'}
                 sizes="(min-width: 900px) 46vw, 92vw"
                 class="psas-item__image"

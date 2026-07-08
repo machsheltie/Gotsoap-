@@ -7,12 +7,16 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
 import Seal from '../components/cwaaa/Seal.astro';
-import { notFoundMeta, notFoundNotice } from '../content/notFound';
+import { notFound, meta } from '../content/copy';
+
+const pageMeta = meta.notFound;
+// The return link target ('/') is structure, not copy.
+const homeHref = '/';
 ---
 
 <BaseLayout
-  title={notFoundMeta.title}
-  description={notFoundMeta.description}
+  title={pageMeta.title}
+  description={pageMeta.description}
   register="cwaaa"
 >
   <section class="missing">
@@ -20,18 +24,17 @@ import { notFoundMeta, notFoundNotice } from '../content/notFound';
       <div class="missing__panel">
         <Seal size={88} class="missing__seal" />
 
-        <h1 class="missing__heading">{notFoundNotice.heading}</h1>
+        <h1 class="missing__heading">{notFound.stamp}</h1>
 
-        <p class="missing__body">{notFoundNotice.body}</p>
-        <p class="missing__advisory">{notFoundNotice.advisory}</p>
+        <p class="missing__body">{notFound.body}</p>
 
-        <div class="missing__stamp" aria-hidden="true">{notFoundNotice.stamp}</div>
-        <p class="sr-only">Status: {notFoundNotice.stamp}.</p>
+        <div class="missing__stamp" aria-hidden="true">{notFound.caseClosed}</div>
+        <p class="sr-only">Status: {notFound.caseClosed}.</p>
 
         <div class="missing__cta">
           <Button
-            label={notFoundNotice.ctaLabel}
-            href={notFoundNotice.ctaHref}
+            label={notFound.cta}
+            href={homeHref}
             register="cwaaa"
             variant="primary"
           />

@@ -13,7 +13,10 @@
  * The answer's index IS its score (0..3) — kept in data-score, never rendered
  * as a number anywhere on screen.
  */
-import type { SniffQuestion } from '../../content/sniffTest';
+import { sniffTest } from '../../content/copy';
+
+/** One assessment question — copy.ts shape: { q: prompt, a: four answers }. */
+type SniffQuestion = (typeof sniffTest.questions)[number];
 
 interface Props {
   /** 0-based question index. */
@@ -34,12 +37,12 @@ const promptId = `q${index}-prompt`;
 >
   <legend class="q__legend">
     <span class="q__eyebrow">Question {n}</span>
-    <span class="q__prompt" id={promptId} tabindex="-1">{question.prompt}</span>
+    <span class="q__prompt" id={promptId} tabindex="-1">{question.q}</span>
   </legend>
 
   <div class="q__answers">
     {
-      question.answers.map((answer, i) => (
+      question.a.map((answer, i) => (
         <label class="answer">
           <input
             class="answer__input"

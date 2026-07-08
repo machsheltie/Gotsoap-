@@ -11,7 +11,16 @@
 import Seal from './Seal.astro';
 import RibbonBadge from './RibbonBadge.astro';
 import Button from '../Button.astro';
-import { crisis as c } from '../../content/crisis';
+import { crisis as c } from '../../content/copy';
+
+// copy.ts stores exits as a keyed object; the doc renders assessment then pledge
+// (pledge = the primary exit), reproducing the prior order.
+const exits = [c.exits.assessment, c.exits.pledge];
+
+// Structural table headers + press label (not campaign copy; not in copy.ts).
+const colFinding = 'Finding';
+const colRef = 'Reference';
+const immediateRelease = 'FOR IMMEDIATE RELEASE';
 ---
 
 <article class="crisis-doc">
@@ -19,36 +28,35 @@ import { crisis as c } from '../../content/crisis';
   <header class="lh">
     <Seal size={104} decorative />
     <p class="lh-org">{c.header.org}</p>
-    <p class="lh-est"><em>{c.header.estLine}</em></p>
-    <p class="lh-reg"><em>{c.header.registeredLine}</em></p>
-    <h1 class="memo-title">{c.header.memoTitle}</h1>
+    <p class="lh-est"><em>{c.header.motto}</em></p>
+    <p class="lh-reg"><em>{c.header.sub}</em></p>
+    <h1 class="memo-title">{c.header.title}</h1>
   </header>
 
-  <!-- Founding -->
-  <section class="block" aria-labelledby="crisis-founding">
-    <h2 id="crisis-founding">{c.founding.heading}</h2>
-    {c.founding.paragraphs.map((para) => <p>{para}</p>)}
+  <!-- Founding (copy.ts carries no heading — an unheaded lead block) -->
+  <section class="block" aria-label="Our founding">
+    {c.founding.map((para) => <p>{para}</p>)}
   </section>
 
   <!-- Annual findings — a document table, not a chart -->
   <section class="block" aria-labelledby="crisis-findings">
     <h2 id="crisis-findings">{c.findings.heading}</h2>
-    <p class="subtitle"><em>{c.findings.subtitle}</em></p>
+    <p class="subtitle"><em>{c.findings.subnote}</em></p>
     <div class="table-scroll">
       <table class="findings">
         <caption class="sr-only">{c.findings.heading}</caption>
         <thead>
           <tr>
-            <th scope="col">{c.findings.colFinding}</th>
-            <th scope="col" class="col-ref">{c.findings.colRef}</th>
+            <th scope="col">{colFinding}</th>
+            <th scope="col" class="col-ref">{colRef}</th>
           </tr>
         </thead>
         <tbody>
           {
             c.findings.rows.map((row) => (
               <tr>
-                <td>{row.text}</td>
-                <td class="finding-ref">FINDING {row.ref}</td>
+                <td>{row.finding}</td>
+                <td class="finding-ref">{row.tag}</td>
               </tr>
             ))
           }
@@ -67,8 +75,8 @@ import { crisis as c } from '../../content/crisis';
     <p>{c.ribbon.body}</p>
     <p>
       <Button
-        label={c.ribbon.cta.label}
-        href={c.ribbon.cta.href}
+        label={c.ribbon.cta}
+        href="/pledge"
         register="cwaaa"
         variant="primary"
       />
@@ -77,13 +85,13 @@ import { crisis as c } from '../../content/crisis';
 
   <!-- Press Room -->
   <section class="block" aria-labelledby="crisis-press">
-    <h2 id="crisis-press">{c.press.heading}</h2>
+    <h2 id="crisis-press">{c.pressRoom.heading}</h2>
     <ul class="press-list" role="list">
       {
-        c.press.releases.map((r) => (
+        c.pressRoom.releases.map((r) => (
           <li class="release">
             <p class="release-tag">
-              {c.press.immediateRelease} · <span class="release-date">{r.date}</span>
+              {immediateRelease} · <span class="release-date">{r.date}</span>
             </p>
             <h3 class="release-headline">{r.headline}</h3>
             {r.body && <p class="release-body"><em>{r.body}</em></p>}
@@ -96,26 +104,25 @@ import { crisis as c } from '../../content/crisis';
   <!-- Recovery Case Files (deck §8.6a) -->
   <section class="block" aria-labelledby="crisis-cases">
     <h2 id="crisis-cases">{c.caseFiles.heading}</h2>
-    <p class="subtitle"><em>{c.caseFiles.subtitle}</em></p>
+    <p class="subtitle"><em>{c.caseFiles.subhead}</em></p>
     <ul class="case-list" role="list">
       {
         c.caseFiles.files.map((file) => (
           <li class="case-file">
-            <p class="case-label">{file.label}</p>
+            <p class="case-label">CASE FILE {file.id}</p>
             <blockquote class="case-quote">{file.quote}</blockquote>
             <p class="case-by">
-              — <strong>{file.by}</strong> Status: <strong>{file.status}</strong>{' '}
-              {file.note}
+              — <strong>{file.name}</strong> · Status: <strong>{file.status}</strong>
             </p>
           </li>
         ))
       }
     </ul>
-    <p class="case-closing">{c.caseFiles.closing}</p>
+    <p class="case-closing">{c.caseFiles.exitLine}</p>
     <p>
       <Button
-        label={c.caseFiles.cta.label}
-        href={c.caseFiles.cta.href}
+        label={c.caseFiles.exitCta}
+        href="/sniff-test"
         register="cwaaa"
         variant="secondary"
       />
@@ -128,12 +135,12 @@ import { crisis as c } from '../../content/crisis';
   <!-- Exits -->
   <nav class="exits" aria-label="Continue">
     {
-      c.exits.map((exit, i) => (
+      exits.map((exit, i) => (
         <Button
           label={exit.label}
           href={exit.href}
           register="cwaaa"
-          variant={i === c.exits.length - 1 ? 'primary' : 'secondary'}
+          variant={i === exits.length - 1 ? 'primary' : 'secondary'}
         />
       ))
     }

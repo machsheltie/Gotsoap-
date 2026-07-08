@@ -26,8 +26,8 @@
  * rings pass AA. Bright amber is retained for button FILLS (dark label on top).
  */
 import { absoluteUrl } from '../../config/site';
-import { hashtags } from '../../content/global';
-import type { SpotContent } from '../../content/home';
+import { HASHTAGS } from '../../content/copy';
+import type { SpotContent } from './spots';
 import PosterImage from '../PosterImage.astro';
 import ShareRow from '../ShareRow.astro';
 import Button from '../Button.astro';
@@ -57,6 +57,7 @@ const titleFx =
       ? 'fx-chrome'
       : 'fx-gold';
 
+const hashtags = HASHTAGS.join(' · ');
 const shareUrl = absoluteUrl(`/psas/${slug}`);
 const posterSizes =
   layout === 'monument'

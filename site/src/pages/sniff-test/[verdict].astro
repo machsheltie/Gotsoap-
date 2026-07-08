@@ -13,57 +13,73 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import VerdictCard from '../../components/quiz/VerdictCard.astro';
 import ShareRow from '../../components/ShareRow.astro';
 import Button from '../../components/Button.astro';
-import { verdictList, shareDefault, pledgeCtaLabel } from '../../content/sniffTest';
-import type { Verdict } from '../../content/sniffTest';
-import { absoluteUrl } from '../../config/site';
+import { verdicts, sniffTest, labels } from '../../content/copy';
+import { absoluteUrl, type Register } from '../../config/site';
+
+type VerdictSlug = keyof typeof verdicts;
 
 export function getStaticPaths() {
-  return verdictList.map((verdict) => ({
-    params: { verdict: verdict.slug },
-    props: { verdict },
+  return (
+    Object.entries(verdicts) as [VerdictSlug, (typeof verdicts)[VerdictSlug]][]
+  ).map(([slug, v]) => ({
+    params: { verdict: slug },
+    props: { slug, ...v },
   }));
 }
 
 interface Props {
-  verdict: Verdict;
+  slug: string;
+  name: string;
+  register: Register;
+  lead: string;
+  body: string;
+  /** Pledge-cue line above the CTA (copy.ts `exit`). */
+  exit: string;
+  /** Pledge CTA label (copy.ts `exitCta`). */
+  exitCta: string;
 }
-const { verdict } = Astro.props;
+const { slug, name, register, lead, body, exit, exitCta } = Astro.props;
 
-const pageUrl = absoluteUrl(`/sniff-test/${verdict.slug}`);
-const ogImage = absoluteUrl(verdict.ogImage);
-const shareText = shareDefault(verdict.name);
+const pageUrl = absoluteUrl(`/sniff-test/${slug}`);
+// OG/share card path is a build/asset convention — copy.ts carries no image path.
+const ogImagePath = `/og/verdict-${slug}.png`;
+const ogImage = absoluteUrl(ogImagePath);
+// Per-verdict meta isn't in copy.ts; derive it from the (copy) name + lead —
+// reproduces the prior "<name> | got soap?" / lead pair exactly.
+const metaTitle = `${name} | got soap?`;
+const shareText = sniffTest.shareDefault.replace('[Verdict]', name);
 ---
 
 <BaseLayout
-  title={verdict.meta.title}
-  description={verdict.meta.description}
+  title={metaTitle}
+  description={lead}
   ogImage={ogImage}
   ogType="article"
-  register={verdict.register}
+  register={register}
 >
   <div class="verdict">
-    <VerdictCard verdict={verdict} />
+    <VerdictCard verdict={{ slug, register, name, lead, body }} />
 
     <div class="verdict__controls">
       <!-- Share verdict / copy the citation (in-fiction defaults for kind=verdict). -->
       <ShareRow
         kind="verdict"
         url={pageUrl}
-        title={verdict.name}
+        title={name}
         text={shareText}
       />
       <div class="verdict__row">
         <!-- Download the card (the placeholder OG image doubles as the share card). -->
         <Button
-          label="Take one for the wall"
-          href={verdict.ogImage}
-          download={`got-soap-${verdict.slug}.png`}
+          label={labels.campaign.download}
+          href={ogImagePath}
+          download={`got-soap-${slug}.png`}
           register="campaign"
           variant="secondary"
         />
         <!-- Retake. -->
         <Button
-          label="Request re-assessment"
+          label={labels.campaign.retake}
           href="/sniff-test"
           register="campaign"
           variant="secondary"
@@ -72,9 +88,9 @@ const shareText = shareDefault(verdict.name);
     </div>
 
     <div class="verdict__pledge">
-      <p class="verdict__cue">{verdict.pledgeCue}</p>
+      <p class="verdict__cue">{exit}</p>
       <Button
-        label={pledgeCtaLabel}
+        label={exitCta}
         href="/pledge"
         register="campaign"
         variant="primary"

@@ -12,11 +12,34 @@
 import Seal from './Seal.astro';
 import RibbonBadge from './RibbonBadge.astro';
 import Button from '../Button.astro';
-import { pledge as p } from '../../content/pledge';
-import { absoluteUrl } from '../../config/site';
+import { pledge as p } from '../../content/copy';
+import { absoluteUrl, buttondownEmbedUrl } from '../../config/site';
 
 const shareUrl = absoluteUrl('/pledge');
-const f = p.form;
+
+// copy.ts merges the form number + doc title into one `header.form` string;
+// split on the middot so the eyebrow (FORM CW-1) and the h1 (the title) render
+// as before, both sourced from copy.ts.
+const [formLine, ...formTitleParts] = p.header.form.split(' · ');
+const docTitle = formTitleParts.join(' · ') || p.header.form;
+
+// copy.ts stores the oath as one array: [intro, ...clauses, refrain].
+const oathIntro = p.oath[0];
+const oathRefrain = p.oath[p.oath.length - 1];
+const oathClauses = p.oath.slice(1, -1);
+
+// copy.ts merges the SWORN body + "[name]" token into one string; split on the
+// token so the declarant name renders inline (personalized by scripts/pledge.ts).
+const [successLead, ...successTail] = p.success.body.split('[name]');
+const successRest = successTail.join('[name]');
+
+// "(required)" is a generic screen-reader annotation (not campaign copy; not in
+// copy.ts) — inlined here like the site's other structural a11y labels.
+const requiredNote = '(required)';
+
+// Buttondown embed endpoint. Renders even when the username is empty; the real
+// subscription stays inert until config/site.ts BUTTONDOWN_USERNAME is set.
+const formAction = buttondownEmbedUrl();
 ---
 
 <article class="pledge-doc flow" data-pledge-doc>
@@ -24,36 +47,37 @@ const f = p.form;
   <header class="lh">
     <Seal size={92} decorative />
     <p class="lh-org">{p.header.org}</p>
-    <p class="lh-form">{p.header.formLine}</p>
-    <h1 class="doc-title">{p.header.docTitle}</h1>
-    <p class="lh-instruction"><em>{p.header.instruction}</em></p>
+    <p class="lh-form">{formLine}</p>
+    <h1 class="doc-title">{docTitle}</h1>
+    <p class="lh-instruction"><em>{p.header.subtitle}</em></p>
   </header>
 
   <!-- The oath -->
   <section class="oath" aria-label="The oath">
-    <p class="oath-intro">{p.oath.intro}</p>
+    <p class="oath-intro">{oathIntro}</p>
     <ul class="oath-clauses" role="list">
-      {p.oath.clauses.map((c) => <li>{c}</li>)}
+      {oathClauses.map((c) => <li>{c}</li>)}
     </ul>
-    <p class="oath-refrain">{p.oath.refrain}</p>
+    <p class="oath-refrain">{oathRefrain}</p>
   </section>
 
   <!--
-    Netlify Forms: this static markup is what Netlify's build bot detects.
-    name="lather-pledge" + data-netlify="true" + honeypot + hidden form-name.
-    scripts/pledge.ts intercepts submit for the on-page SWORN success (no
-    navigation); without JS it posts and Netlify shows its default receipt.
+    Buttondown embed form (PRD §5.4). action posts to the embed-subscribe
+    endpoint; the hidden `embed=1` suppresses Buttondown's redirect. Only the
+    `email` (and optional `metadata__first_name`) reach Buttondown — the satire
+    checkbox is a client-side gate and the honeypot is spam-only. scripts/pledge.ts
+    intercepts submit for the on-page SWORN success (no navigation) and, when
+    BUTTONDOWN_USERNAME is unset, soft-fails the POST but still shows SWORN.
   -->
   <form
     class="cw1-form flow"
-    name={f.netlifyName}
-    method="POST"
-    data-netlify="true"
-    netlify-honeypot={f.honeypotName}
+    action={formAction}
+    method="post"
     data-pledge-form
     novalidate
   >
-    <input type="hidden" name="form-name" value={f.netlifyName} />
+    <!-- Suppress Buttondown's redirect so the on-page success can take over. -->
+    <input type="hidden" name="embed" value="1" />
 
     <!-- Honeypot: off-screen, not focusable, hidden from AT (bots still see it) -->
     <p class="hp-field" aria-hidden="true">
@@ -61,7 +85,8 @@ const f = p.form;
         Do not fill this field if you are human
         <input
           type="text"
-          name={f.honeypotName}
+          name="hp-field"
+          data-honeypot
           tabindex="-1"
           autocomplete="off"
         />
@@ -70,14 +95,15 @@ const f = p.form;
 
     <div class="field">
       <label for="cw1-first-name">
-        {f.firstName.label}
+        {p.fields.firstName.label}
         <span class="req" aria-hidden="true">*</span>
-        <span class="sr-only">{f.requiredNote}</span>
+        <span class="sr-only">{requiredNote}</span>
       </label>
-      <p class="field-help" id="cw1-first-name-help">{f.firstName.help}</p>
+      <p class="field-help" id="cw1-first-name-help">{p.fields.firstName.placeholder}</p>
       <input
         id="cw1-first-name"
-        name={f.firstName.name}
+        name="metadata__first_name"
+        data-field-first-name
         type="text"
         required
         autocomplete="given-name"
@@ -86,24 +112,25 @@ const f = p.form;
       <p
         class="field-error"
         id="cw1-first-name-error"
-        data-error-for={f.firstName.name}
+        data-error-for="firstName"
         role="alert"
         hidden
       >
-        {p.errors.name}
+        {p.errors.noName}
       </p>
     </div>
 
     <div class="field">
       <label for="cw1-email">
-        {f.email.label}
+        {p.fields.email.label}
         <span class="req" aria-hidden="true">*</span>
-        <span class="sr-only">{f.requiredNote}</span>
+        <span class="sr-only">{requiredNote}</span>
       </label>
-      <p class="field-help" id="cw1-email-help">{f.email.help}</p>
+      <p class="field-help" id="cw1-email-help">{p.fields.email.placeholder}</p>
       <input
         id="cw1-email"
-        name={f.email.name}
+        name="email"
+        data-field-email
         type="email"
         required
         autocomplete="email"
@@ -112,37 +139,38 @@ const f = p.form;
       <p
         class="field-error"
         id="cw1-email-error"
-        data-error-for={f.email.name}
+        data-error-for="email"
         role="alert"
         hidden
       >
-        {p.errors.email}
+        {p.errors.badEmail}
       </p>
     </div>
 
     <div class="field field--check">
+      <!-- Client-side gate only (unnamed → never sent to Buttondown). -->
       <label class="check-label" for="cw1-ack">
         <input
           id="cw1-ack"
-          name={f.acknowledgment.name}
+          data-field-consent
           type="checkbox"
           required
           aria-describedby="cw1-ack-error"
         />
         <span class="check-text">
-          {f.acknowledgment.label}
+          {p.fields.consent.label}
           <span class="req" aria-hidden="true">*</span>
-          <span class="sr-only">{f.requiredNote}</span>
+          <span class="sr-only">{requiredNote}</span>
         </span>
       </label>
       <p
         class="field-error"
         id="cw1-ack-error"
-        data-error-for={f.acknowledgment.name}
+        data-error-for="consent"
         role="alert"
         hidden
       >
-        {p.errors.acknowledgment}
+        {p.errors.noConsent}
       </p>
     </div>
 
@@ -150,12 +178,12 @@ const f = p.form;
 
     <div class="submit-row">
       <Button
-        label={f.submitLabel}
+        label={p.submit}
         register="cwaaa"
         variant="primary"
         type="submit"
       />
-      <span class="submit-aside"><em>{f.submitAside}</em></span>
+      <span class="submit-aside"><em>{p.submitMicro}</em></span>
     </div>
   </form>
 
@@ -169,15 +197,12 @@ const f = p.form;
     hidden
   >
     <h2 id="pledge-sworn-heading" class="sworn-stamp" data-sworn-stamp>
-      {p.success.heading}
+      {p.success.stamp}
     </h2>
 
     <p class="success-lead">
-      {p.success.filedLead}<strong data-success-name>declarant</strong>{
-        p.success.filedRest
-      }
+      {successLead}<strong data-success-name>declarant</strong>{successRest}
     </p>
-    <p>{p.success.roll}</p>
 
     <p class="ribbon-wrap"><RibbonBadge size={72} decorative /></p>
 
@@ -193,14 +218,14 @@ const f = p.form;
         class="cwaaa-share-btn"
         data-share-action="share"
       >
-        {p.success.shareLabel}
+        {p.success.shareBadge}
       </button>
       <button
         type="button"
         class="cwaaa-share-btn"
         data-share-action="copy"
       >
-        {p.success.copyLabel}
+        {p.success.copyLink}
       </button>
       <span
         class="sr-only"
@@ -209,7 +234,7 @@ const f = p.form;
         data-share-status></span>
     </div>
 
-    <p class="success-updates"><em>{p.success.updates}</em></p>
+    <p class="success-updates"><em>{p.success.note}</em></p>
   </section>
 </article>
 

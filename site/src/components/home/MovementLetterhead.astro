@@ -9,9 +9,13 @@
  * register-cwaaa class supplies manila/ink/stamp slots + --font-cwaaa. Links to
  * the full brief at /crisis.
  */
-import { movement } from '../../content/home';
+import { home } from '../../content/copy';
 import Seal from '../cwaaa/Seal.astro';
 import Button from '../Button.astro';
+
+const movement = home.movementSeam;
+// copy.ts stores the CTA as a label string; the seam links the full brief at /crisis.
+const briefHref = '/crisis';
 ---
 
 <section class="mvmt register-cwaaa" aria-labelledby="mvmt-org">
@@ -28,20 +32,13 @@ import Button from '../Button.astro';
       <hr class="mvmt__rule" />
 
       <div class="mvmt__body">
-        {
-          movement.body.map((line) => (
-            <p class="mvmt__line">
-              {line.strong && <strong>{line.strong}</strong>}
-              {line.text}
-            </p>
-          ))
-        }
+        {movement.body.map((line) => <p class="mvmt__line">{line}</p>)}
       </div>
 
       <div class="mvmt__cta">
         <Button
-          label={movement.cta.label}
-          href={movement.cta.href}
+          label={movement.cta}
+          href={briefHref}
           register="cwaaa"
           variant="primary"
         />

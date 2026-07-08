@@ -1,38 +1,44 @@
 /**
  * pledge.ts — Form CW-1 progressive enhancement (design.md §7, copy §7).
  *
- * Without JS: the static Netlify form posts and Netlify shows its own receipt.
- * With JS: we intercept submit, run in-fiction client validation (procedural
- * CWAAA error copy, already in the DOM as role="alert" text — never colour
- * only), POST the declaration to Netlify in the background, then reveal the
- * on-page SWORN success state (NO navigation). The red SWORN stamp gets the
- * CWAAA system's single motion moment — one scale-settle — which
- * prefers-reduced-motion suppresses (CSS handles that; here we only toggle).
+ * The form is a Buttondown embed (PRD §5.4). Without JS: it posts straight to
+ * Buttondown's embed-subscribe endpoint (embed=1 suppresses the redirect). With
+ * JS: we intercept submit, run in-fiction client validation (procedural CWAAA
+ * error copy, already in the DOM as role="alert" text — never colour only),
+ * subscribe the email to Buttondown in the background, then reveal the on-page
+ * SWORN success state (NO navigation). The red SWORN stamp gets the CWAAA
+ * system's single motion moment — one scale-settle — which prefers-reduced-motion
+ * suppresses (CSS handles that; here we only toggle).
+ *
+ * When BUTTONDOWN_USERNAME is empty (config/site.ts) the network POST is skipped
+ * (soft-fail + console.warn) but the SWORN success STILL shows, so the flow is
+ * fully testable before the owner supplies the username.
+ *
+ * Only `email` (+ optional `metadata__first_name`) is sent to Buttondown; the
+ * satire checkbox is a client-side gate and the honeypot is spam-only.
  *
  * Markup contract (PledgeForm.astro):
- *   [data-pledge-form]                 the Netlify <form>
- *   [data-error-for="<field-name>"]    the field's hidden role="alert" <p>
+ *   [data-pledge-form]                 the <form>
+ *   [data-field-first-name]            the first-name input
+ *   [data-field-email]                 the email input
+ *   [data-field-consent]               the satire-acknowledgment checkbox
+ *   [data-honeypot]                    the off-screen spam trap
+ *   [data-error-for="<key>"]           a field's hidden role="alert" <p>
  *   [data-pledge-success]              the success <section> (hidden)
  *   [data-success-name]                <strong> that receives the declarant name
  *   [data-sworn-stamp]                 the SWORN heading/stamp
  */
+import { BUTTONDOWN_USERNAME, buttondownEmbedUrl } from '../config/site';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-interface FieldCheck {
-  /** The input's `name` (matches data-error-for). */
-  name: string;
-  input: HTMLInputElement | null;
-  valid: boolean;
-}
-
-function byName(form: HTMLFormElement, name: string): HTMLInputElement | null {
-  return form.querySelector<HTMLInputElement>(`[name="${name}"]`);
-}
-
-function setError(form: HTMLFormElement, name: string, invalid: boolean): void {
-  const msg = form.querySelector<HTMLElement>(`[data-error-for="${name}"]`);
-  const input = byName(form, name);
+function setError(
+  form: HTMLFormElement,
+  key: string,
+  input: HTMLInputElement | null,
+  invalid: boolean,
+): void {
+  const msg = form.querySelector<HTMLElement>(`[data-error-for="${key}"]`);
   if (msg) msg.hidden = !invalid;
   if (input) {
     if (invalid) input.setAttribute('aria-invalid', 'true');
@@ -63,19 +69,28 @@ function revealSuccess(form: HTMLFormElement, firstName: string): void {
   success.focus({ preventScroll: false });
 }
 
-async function submitToNetlify(form: HTMLFormElement): Promise<void> {
+async function subscribe(email: string, firstName: string): Promise<void> {
+  if (!BUTTONDOWN_USERNAME) {
+    console.warn(
+      '[pledge] Buttondown is not configured (BUTTONDOWN_USERNAME is empty in ' +
+        'config/site.ts); skipping the subscribe request. The SWORN success ' +
+        'still shows — set BUTTONDOWN_USERNAME to activate real subscriptions.',
+    );
+    return;
+  }
   const params = new URLSearchParams();
-  new FormData(form).forEach((value, key) => {
-    if (typeof value === 'string') params.append(key, value);
-  });
+  params.set('email', email);
+  params.set('embed', '1');
+  if (firstName) params.set('metadata__first_name', firstName);
   try {
-    await fetch('/', {
+    await fetch(buttondownEmbedUrl(), {
       method: 'POST',
+      mode: 'no-cors', // cross-origin to buttondown.com; response is opaque
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: params.toString(),
     });
   } catch {
-    // Netlify only captures once deployed; a local/offline failure never blocks UX.
+    // Network/offline failure never blocks the on-page success.
   }
 }
 
@@ -86,31 +101,35 @@ function initForm(form: HTMLFormElement): void {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const firstName = byName(form, 'first-name');
-    const email = byName(form, 'email');
-    const ack = byName(form, 'satire-acknowledgment');
+    const firstNameEl = form.querySelector<HTMLInputElement>('[data-field-first-name]');
+    const emailEl = form.querySelector<HTMLInputElement>('[data-field-email]');
+    const consentEl = form.querySelector<HTMLInputElement>('[data-field-consent]');
+    const honeypotEl = form.querySelector<HTMLInputElement>('[data-honeypot]');
 
-    const checks: FieldCheck[] = [
+    // Honeypot: a filled trap means a bot — abort silently.
+    if (honeypotEl && honeypotEl.value.trim().length > 0) return;
+
+    const checks: { key: string; input: HTMLInputElement | null; valid: boolean }[] = [
       {
-        name: 'first-name',
-        input: firstName,
-        valid: !!firstName && firstName.value.trim().length > 0,
+        key: 'firstName',
+        input: firstNameEl,
+        valid: !!firstNameEl && firstNameEl.value.trim().length > 0,
       },
       {
-        name: 'email',
-        input: email,
-        valid: !!email && EMAIL_RE.test(email.value.trim()),
+        key: 'email',
+        input: emailEl,
+        valid: !!emailEl && EMAIL_RE.test(emailEl.value.trim()),
       },
       {
-        name: 'satire-acknowledgment',
-        input: ack,
-        valid: !!ack && ack.checked,
+        key: 'consent',
+        input: consentEl,
+        valid: !!consentEl && consentEl.checked,
       },
     ];
 
     let firstInvalid: HTMLInputElement | null = null;
     for (const check of checks) {
-      setError(form, check.name, !check.valid);
+      setError(form, check.key, check.input, !check.valid);
       if (!check.valid && !firstInvalid) firstInvalid = check.input;
     }
 
@@ -119,9 +138,10 @@ function initForm(form: HTMLFormElement): void {
       return;
     }
 
-    const declarant = firstName ? firstName.value.trim() : '';
-    // Fire the real submission (best-effort); reveal success either way.
-    void submitToNetlify(form).finally(() => revealSuccess(form, declarant));
+    const email = emailEl ? emailEl.value.trim() : '';
+    const firstName = firstNameEl ? firstNameEl.value.trim() : '';
+    // Fire the subscribe (best-effort / soft-fail); reveal success either way.
+    void subscribe(email, firstName).finally(() => revealSuccess(form, firstName));
   });
 }
 

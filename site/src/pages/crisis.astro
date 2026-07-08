@@ -7,12 +7,14 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CrisisReport from '../components/cwaaa/CrisisReport.astro';
-import { crisis } from '../content/crisis';
+import { meta } from '../content/copy';
+
+const pageMeta = meta.crisis;
 ---
 
 <BaseLayout
-  title={crisis.meta.title}
-  description={crisis.meta.description}
+  title={pageMeta.title}
+  description={pageMeta.description}
   register="cwaaa"
 >
   <div class="crisis-page container">

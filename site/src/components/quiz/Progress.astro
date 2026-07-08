@@ -11,11 +11,11 @@
  * quiz.ts updates [data-progress-label] text and toggles [data-progress-seg]
  * active states as the visitor advances.
  */
-import { chrome } from '../../content/sniffTest';
+import { sniffTest } from '../../content/copy';
 
-const total = chrome.total;
-// Initial (question 1) label; quiz.ts rewrites {n} live.
-const initialLabel = chrome.progressTemplate.replace('{n}', '1');
+const total = sniffTest.questions.length;
+// Initial (question 1) label; quiz.ts rewrites the number live.
+const initialLabel = sniffTest.progressLabel(1);
 const segments = Array.from({ length: total }, (_, i) => i + 1);
 ---
 

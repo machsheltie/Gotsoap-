@@ -9,8 +9,12 @@
  * Light-ground AA fix (as in Spot.astro): override the accent/focus slots to a
  * token-derived deep amber so anything reading --reg-accent passes on porcelain.
  */
-import { sniffInsert } from '../../content/home';
+import { home } from '../../content/copy';
 import Button from '../Button.astro';
+
+const sniffInsert = home.sniffInsert;
+// copy.ts stores the CTA as a label string; the insert links /sniff-test.
+const sniffHref = '/sniff-test';
 ---
 
 <section class="sniff register-porcelain" aria-labelledby="sniff-heading">
@@ -21,8 +25,8 @@ import Button from '../Button.astro';
       <p class="sniff__body">{sniffInsert.body}</p>
       <div class="sniff__cta">
         <Button
-          label={sniffInsert.cta.label}
-          href={sniffInsert.cta.href}
+          label={sniffInsert.cta}
+          href={sniffHref}
           register="campaign"
           variant="primary"
         />

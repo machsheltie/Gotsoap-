@@ -5,8 +5,14 @@
  * the 🧼→📋 seam (links /crisis); the © line links /about. Social links render
  * only when their config URL is non-empty (PRD §5.6) — absent means invisible.
  */
-import { footer } from '../content/global';
+import { footer } from '../content/copy';
 import { EXTERNAL_LINKS } from '../config/site';
+
+// copy.ts holds the hashtag stack as an array; the footer renders it middot-joined.
+const hashtagLine = footer.hashtags.join(' · ');
+// The "Funded by …" seam links /crisis; the © credit links /about (copy.ts comments).
+const fundedHref = '/crisis';
+const creditHref = '/about';
 
 const socialLabels: Record<string, string> = {
   behance: 'Behance',
@@ -22,14 +28,14 @@ const socials = (
   <div class="container">
     <p class="footer__movement">{footer.movementLine}</p>
 
-    <p class="footer__hashtags">{footer.hashtags}</p>
+    <p class="footer__hashtags">{hashtagLine}</p>
 
     <p class="footer__funded">
-      {footer.fundedBy.prefix}<a href={footer.fundedBy.href}>{footer.fundedBy.text}</a>
+      Funded by <a href={fundedHref}>{footer.fundedBy}</a>
     </p>
 
     <p class="footer__copyright">
-      <a href={footer.copyright.href}>{footer.copyright.text}</a>
+      <a href={creditHref}>{footer.credit}</a>
     </p>
 
     {
