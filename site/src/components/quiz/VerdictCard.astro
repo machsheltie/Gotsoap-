@@ -1,0 +1,194 @@
+---
+/**
+ * VerdictCard.astro — the on-page verdict card (Task B; design.md §7).
+ *
+ * The second designed seam: a glossy CAMPAIGN card (register-keyed, layer-effect
+ * heading) stamped corner-wise with the bureaucratic CWAAA seal + verdict name in
+ * stamp-red. Everything but the stamp is 🧼 campaign; the stamp is the ONLY 📋
+ * element (Seal uses cwaaa-ink/stamp tokens directly, so it reads on any ground).
+ *
+ * Registers per §7: soap-smoldering=porcelain, suds-curious=marble (dark
+ * editorial default), axe-dependent=smoke, thirst-hazard=smoke (heavier).
+ */
+import Seal from '../cwaaa/Seal.astro';
+import type { Verdict } from '../../content/sniffTest';
+
+interface Props {
+  verdict: Verdict;
+}
+const { verdict } = Astro.props;
+const fxClass = `fx-${verdict.fx}`;
+// thirst-hazard is smoke "heavier" — a darker card variant on the same register.
+const heavy = verdict.slug === 'thirst-hazard';
+---
+
+<article
+  class:list={['vcard', `vcard--${verdict.register}`, heavy && 'vcard--heavy']}
+>
+  <header class="vcard__head">
+    <div class="vcard__id">
+      <span class="vcard__tag">got soap?</span>
+      <span class="vcard__eyebrow">Sniff Test · Verdict</span>
+    </div>
+    <!-- The seam: CWAAA stamp. Decorative — the heading/body carry the meaning. -->
+    <div class="vcard__stamp" aria-hidden="true">
+      <Seal size={78} decorative />
+      <span class="vcard__stamp-name">{verdict.name}</span>
+      <span class="vcard__stamp-meta">Field Assessment CW-7 · Filed</span>
+    </div>
+  </header>
+
+  <h1 class:list={['vcard__title', fxClass]}>{verdict.name}</h1>
+  <p class="vcard__subhead">{verdict.subhead}</p>
+  <p class="vcard__body">{verdict.body}</p>
+</article>
+
+<style>
+  .vcard {
+    position: relative;
+    border-radius: var(--radius-tile);
+    padding: clamp(var(--space-lg), 5vw, var(--space-2xl));
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* ---- Register-keyed card surfaces (the "glossy" object on the page). ----- */
+  .vcard--porcelain {
+    background: var(--lather-white);
+    color: var(--grout-black);
+    border: 1px solid color-mix(in srgb, var(--marble-amber) 30%, transparent);
+    box-shadow:
+      0 1px 0 color-mix(in srgb, #fff 80%, transparent) inset,
+      0 24px 60px -30px rgba(0, 0, 0, 0.35);
+  }
+  .vcard--smoke {
+    background: linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--smoke-slate) 84%, #fff) 0%,
+      var(--smoke-slate) 62%,
+      color-mix(in srgb, var(--smoke-slate) 78%, #000) 100%
+    );
+    color: var(--lather-white);
+    border: 1px solid color-mix(in srgb, var(--chrome-mist) 32%, transparent);
+    box-shadow: 0 24px 70px -30px rgba(0, 0, 0, 0.7);
+  }
+  .vcard--marble {
+    background:
+      radial-gradient(
+        120% 90% at 15% 0%,
+        color-mix(in srgb, var(--marble-amber) 16%, transparent) 0%,
+        transparent 55%
+      ),
+      var(--grout-black);
+    color: var(--lather-white);
+    border: 1px solid color-mix(in srgb, var(--marble-amber) 38%, transparent);
+    box-shadow: 0 24px 70px -30px rgba(0, 0, 0, 0.7);
+  }
+  /* Public Thirst Hazard — smoke, heavier. */
+  .vcard--heavy {
+    background: linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--smoke-slate) 70%, #000) 0%,
+      #131315 70%,
+      #0a0a0b 100%
+    );
+    border-color: color-mix(in srgb, var(--chrome-mist) 24%, transparent);
+  }
+
+  /* ---- Header row: identity (left) + CWAAA stamp (right). ------------------ */
+  .vcard__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    margin-block-end: var(--space-xl);
+  }
+  .vcard__id {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .vcard__tag {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    line-height: 1;
+    color: var(--reg-accent);
+  }
+  .vcard__eyebrow {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--2);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--reg-muted);
+  }
+
+  /* The rubber-stamp seam: seal + verdict name in stamp-red, rotated corner-wise. */
+  .vcard__stamp {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    max-inline-size: 40%;
+    transform: rotate(-6deg);
+    opacity: 0.92;
+    pointer-events: none;
+  }
+  .vcard__stamp-name {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step--1);
+    line-height: 1.05;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--cwaaa-stamp);
+  }
+  .vcard__stamp-meta {
+    font-family: var(--font-cwaaa);
+    font-style: italic;
+    font-size: var(--step--2);
+    text-align: center;
+    color: color-mix(in srgb, var(--cwaaa-stamp) 78%, transparent);
+  }
+
+  /* ---- Verdict copy. ------------------------------------------------------ */
+  .vcard__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-5);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin-block-end: var(--space-md);
+    color: var(--reg-heading);
+  }
+  .vcard__subhead {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--step-2);
+    line-height: 1.2;
+    color: var(--reg-fg);
+    margin-block-end: var(--space-lg);
+    max-inline-size: 28ch;
+  }
+  .vcard__body {
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    color: color-mix(in srgb, var(--reg-fg) 88%, var(--reg-muted));
+    max-inline-size: var(--measure);
+  }
+
+  @media (max-width: 34rem) {
+    .vcard__head {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    }
+    .vcard__stamp {
+      align-self: flex-end;
+      max-inline-size: 60%;
+    }
+  }
+</style>

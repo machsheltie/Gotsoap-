@@ -1,16 +1,27 @@
 ---
 /**
- * /crisis — CWAAA's site-within-a-site. PHASE 0 STUB. Real build: Task C.
- * 📋 CWAAA-authored surface — register="cwaaa". Meta verbatim (§2).
+ * /crisis — CWAAA's site-within-a-site. 📋 CWAAA-authored surface.
+ * register="cwaaa" makes <main> the full manila document world (PT Serif,
+ * ink + stamp). No campaign-register token or fx-* appears here.
+ * Meta verbatim (copy §2/§8).
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import StubNotice from '../components/StubNotice.astro';
+import CrisisReport from '../components/cwaaa/CrisisReport.astro';
+import { crisis } from '../content/crisis';
 ---
 
 <BaseLayout
-  title="The Crisis | Concerned Women Against Axe Abuse"
-  description="The state of male hygiene, documented. A memorandum from the women who had smelled enough."
+  title={crisis.meta.title}
+  description={crisis.meta.description}
   register="cwaaa"
 >
-  <StubNotice heading="the crisis" route="/crisis" owner="Task C — The Crisis" />
+  <div class="crisis-page container">
+    <CrisisReport />
+  </div>
 </BaseLayout>
+
+<style>
+  .crisis-page {
+    padding-block: clamp(var(--space-lg), 4vw, var(--space-2xl));
+  }
+</style>

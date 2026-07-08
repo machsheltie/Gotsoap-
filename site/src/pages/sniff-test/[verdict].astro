@@ -1,37 +1,123 @@
 ---
 /**
- * /sniff-test/<verdict> — static, shareable verdict pages. PHASE 0 STUB.
- * Real build: Task B (verdict art, share/copy/download/retake, pledge CTA,
- * per-verdict OG images — copy-deck §6.4). The 4 verdict slugs are fixed here
- * so the URLs exist and are crawlable. NO numeric score anywhere (design.md §7).
+ * /sniff-test/<verdict> — the four static, shareable verdict pages (Task B).
+ *
+ * Crawlable (getStaticPaths over the 4 slugs), each with its own title/description
+ * + placeholder OG card. Shows the verdict card (glossy campaign card + CWAAA
+ * stamp seam), then in-fiction controls (share/copy via ShareRow, download the
+ * card, retake) and the pledge CTA. NO numeric score anywhere (design.md §7):
+ * these pages are static URLs and cannot know a visitor's score — the names are
+ * the joke. All copy verbatim from copy-deck §6.4.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import StubNotice from '../../components/StubNotice.astro';
+import VerdictCard from '../../components/quiz/VerdictCard.astro';
+import ShareRow from '../../components/ShareRow.astro';
+import Button from '../../components/Button.astro';
+import { verdictList, shareDefault, pledgeCtaLabel } from '../../content/sniffTest';
+import type { Verdict } from '../../content/sniffTest';
+import { absoluteUrl } from '../../config/site';
 
 export function getStaticPaths() {
-  const verdicts: Record<string, string> = {
-    'soap-smoldering': 'Certified Soap-Smoldering',
-    'suds-curious': 'Suds-Curious',
-    'axe-dependent': 'Axe-Dependent',
-    'thirst-hazard': 'Public Thirst Hazard',
-  };
-  return Object.entries(verdicts).map(([slug, name]) => ({
-    params: { verdict: slug },
-    props: { slug, name },
+  return verdictList.map((verdict) => ({
+    params: { verdict: verdict.slug },
+    props: { verdict },
   }));
 }
 
-const { slug, name } = Astro.props;
+interface Props {
+  verdict: Verdict;
+}
+const { verdict } = Astro.props;
+
+const pageUrl = absoluteUrl(`/sniff-test/${verdict.slug}`);
+const ogImage = absoluteUrl(verdict.ogImage);
+const shareText = shareDefault(verdict.name);
 ---
 
 <BaseLayout
-  title={`${name} | got soap?`}
-  description="Your Sniff Test verdict, filed by CWAAA field assessors. Field Assessment CW-7."
+  title={verdict.meta.title}
+  description={verdict.meta.description}
+  ogImage={ogImage}
   ogType="article"
+  register={verdict.register}
 >
-  <StubNotice
-    heading={name}
-    route={`/sniff-test/${slug}`}
-    owner="Task B — Verdict page"
-  />
+  <div class="verdict">
+    <VerdictCard verdict={verdict} />
+
+    <div class="verdict__controls">
+      <!-- Share verdict / copy the citation (in-fiction defaults for kind=verdict). -->
+      <ShareRow
+        kind="verdict"
+        url={pageUrl}
+        title={verdict.name}
+        text={shareText}
+      />
+      <div class="verdict__row">
+        <!-- Download the card (the placeholder OG image doubles as the share card). -->
+        <Button
+          label="Take one for the wall"
+          href={verdict.ogImage}
+          download={`got-soap-${verdict.slug}.png`}
+          register="campaign"
+          variant="secondary"
+        />
+        <!-- Retake. -->
+        <Button
+          label="Request re-assessment"
+          href="/sniff-test"
+          register="campaign"
+          variant="secondary"
+        />
+      </div>
+    </div>
+
+    <div class="verdict__pledge">
+      <p class="verdict__cue">{verdict.pledgeCue}</p>
+      <Button
+        label={pledgeCtaLabel}
+        href="/pledge"
+        register="campaign"
+        variant="primary"
+      />
+    </div>
+  </div>
 </BaseLayout>
+
+<style>
+  .verdict {
+    inline-size: 100%;
+    max-inline-size: 52rem;
+    margin-inline: auto;
+    padding-block: clamp(var(--space-2xl), 8vh, var(--space-3xl));
+    padding-inline: clamp(1.25rem, 5vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .verdict__controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  .verdict__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .verdict__pledge {
+    border-block-start: 1px solid var(--reg-rule);
+    padding-block-start: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+  .verdict__cue {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--step-1);
+    color: var(--reg-heading);
+  }
+</style>

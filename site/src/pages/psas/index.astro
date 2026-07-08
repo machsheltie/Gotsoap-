@@ -1,14 +1,151 @@
 ---
 /**
- * /psas — The PSAs index. PHASE 0 STUB. Real build: Task D. Meta verbatim (§2).
+ * /psas — The PSAs index (Task D). Archive framing: "Public Service
+ * Announcements — Series One" (copy-deck §4.1, verbatim). Poster grid on
+ * grout-black (no register override — the index is a neutral archive shell,
+ * not a single-register surface; design.md §7), generous negative space,
+ * no card chrome (artifact respect — museum, not e-commerce).
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import StubNotice from '../../components/StubNotice.astro';
+import PosterImage from '../../components/PosterImage.astro';
+import { POSTERS } from '../../config/site';
+import { psasIndex, psasIndexMeta, posterAltText, type PosterSlug } from '../../content/psas';
 ---
 
-<BaseLayout
-  title="The PSAs — Series One | got soap?"
-  description="The public-service archive. Five thirst-trap hygiene PSAs, presented untouched. Study them. Then bathe."
->
-  <StubNotice heading="the psas" route="/psas" owner="Task D — The PSAs" />
+<BaseLayout title={psasIndexMeta.title} description={psasIndexMeta.description}>
+  <section class="psas-index container container--wide">
+    <header class="psas-index__head">
+      <h1 class="psas-index__heading">{psasIndex.heading}</h1>
+      <p class="psas-index__subheading">{psasIndex.subheading}</p>
+      <p class="psas-index__intro">{psasIndex.intro}</p>
+    </header>
+
+    <ul class="psas-grid" role="list">
+      {
+        POSTERS.map((poster) => (
+          <li class:list={['psas-grid__item', `psas-grid__item--${poster.slug}`]}>
+            <a class="psas-item" href={`/psas/${poster.slug}`}>
+              <PosterImage
+                slug={poster.slug}
+                alt={posterAltText[poster.slug as PosterSlug]}
+                loading={poster.order === 1 ? 'eager' : 'lazy'}
+                sizes="(min-width: 900px) 46vw, 92vw"
+                class="psas-item__image"
+              />
+              <span class="psas-item__caption">
+                <span class="psas-item__eyebrow">SPOT NO. {poster.order}</span>
+                <span class="psas-item__title">{poster.title}</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </BaseLayout>
+
+<style>
+  .psas-index {
+    padding-block: var(--space-3xl) var(--space-3xl);
+  }
+  .psas-index__head {
+    max-width: var(--measure);
+    margin-inline: auto;
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+  .psas-index__heading {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: lowercase;
+    font-size: var(--step-5);
+    color: var(--lather-white);
+    letter-spacing: 0.01em;
+  }
+  .psas-index__subheading {
+    font-family: var(--font-label);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: var(--step-1);
+    color: var(--marble-amber);
+    margin-block-start: var(--space-sm);
+  }
+  .psas-index__intro {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.6;
+    color: var(--chrome-mist);
+    margin-block-start: var(--space-lg);
+  }
+
+  /* ---- The grid: generous negative space, no card chrome. Item 5 (the
+     marble closing piece) spans full width as an intentional asymmetric
+     beat rather than a uniform 5-up grid (anti-template spirit, design.md
+     §7). Pure image + caption — no borders, backgrounds, or shadows. ---- */
+  .psas-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+  }
+  @media (min-width: 700px) {
+    .psas-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(3rem, 5vw, 5.5rem) clamp(2rem, 4vw, 3.5rem);
+    }
+    .psas-grid__item--thirst-announcement {
+      grid-column: 1 / -1;
+    }
+    .psas-grid__item--thirst-announcement .psas-item {
+      max-width: 640px;
+      margin-inline: auto;
+    }
+  }
+
+  .psas-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    text-decoration: none;
+    color: inherit;
+  }
+  .psas-item:hover .psas-item__title,
+  .psas-item:focus-visible .psas-item__title {
+    color: var(--marble-amber);
+  }
+  .psas-item__image {
+    transition: opacity 140ms ease;
+  }
+  .psas-item:hover .psas-item__image,
+  .psas-item:focus-visible .psas-item__image {
+    opacity: 0.92;
+  }
+
+  .psas-item__caption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+  }
+  .psas-item__eyebrow {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--2);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--chrome-mist);
+  }
+  .psas-item__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-2);
+    color: var(--lather-white);
+    transition: color 140ms ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .psas-item__image,
+    .psas-item__title {
+      transition: none;
+    }
+  }
+</style>

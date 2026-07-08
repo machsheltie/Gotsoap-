@@ -1,18 +1,20 @@
 ---
 /**
- * /sniff-test — The Sniff Test. PHASE 0 STUB. Real build: Task B. Meta verbatim (§2).
+ * /sniff-test — The Sniff Test (Task B). The campaign-authored quiz UI, porcelain
+ * register (design.md §7); CWAAA fingerprint is the "FIELD ASSESSMENT CW-7" form
+ * number only. One question per screen; scoring is internal; on completion the
+ * island redirects to a static verdict page BY SLUG — no numeric score anywhere.
+ * Meta verbatim from copy-deck §2.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import StubNotice from '../../components/StubNotice.astro';
+import Quiz from '../../components/quiz/Quiz.astro';
+import { meta } from '../../content/sniffTest';
 ---
 
 <BaseLayout
-  title="The Sniff Test — Field Assessment CW-7 | got soap?"
-  description="Seven questions between you and the truth your group chat already knows. Administered by CWAAA field assessors."
+  title={meta.title}
+  description={meta.description}
+  register="porcelain"
 >
-  <StubNotice
-    heading="the sniff test"
-    route="/sniff-test"
-    owner="Task B — The Sniff Test"
-  />
+  <Quiz />
 </BaseLayout>

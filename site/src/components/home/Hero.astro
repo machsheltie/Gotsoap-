@@ -1,0 +1,321 @@
+---
+/**
+ * Hero.astro — the steam-clear hero (design.md §8, hero-image-brief.md). 🧼
+ *
+ * Full-viewport porcelain surface. The background is a TOKEN-BASED PLACEHOLDER
+ * (a porcelain-and-steam environment built from gradients — NEVER a cropped
+ * canonical poster, which would slice baked typography). When the owner's
+ * widescreen `hero-wide.jpg` lands it drops in as a preloaded, fetchpriority
+ * <img> inside `.hero__bg` and becomes the LCP element; until then the live
+ * headline text is the LCP candidate and paints immediately.
+ *
+ * On load an unseen hand "squeegees" the steam off in ~2s while the live
+ * "got soap?" logotype resolves beneath it. Logic lives in scripts/steam-hero.ts;
+ * a tiny is:inline bootstrap below sets the pre-paint fogged state (motion only)
+ * to kill the clean→fog flash and force-clears if the island fails to load.
+ *
+ * The steam layer sits ABOVE the content and never gates its paint — the
+ * headline (real text, not baked) is unaffected for LCP and for AT.
+ */
+import { hero } from '../../content/home';
+---
+
+<section
+  id="hero"
+  class="hero register-porcelain"
+  data-hero
+  aria-label="Got Soap? — the movement"
+>
+  <!-- Token-based placeholder environment (swap for hero-wide.jpg later). -->
+  <div class="hero__bg" aria-hidden="true">
+    <span class="hero__figure"></span>
+    <span class="hero__noise"></span>
+  </div>
+
+  <div class="hero__content">
+    <h1 class="hero__title fx-steam-glow">{hero.headline}</h1>
+    <p class="hero__subhead">{hero.subhead}</p>
+  </div>
+
+  <!-- The clearing steam + the travelling squeegee streak (decorative). -->
+  <div class="hero__steam" aria-hidden="true"><span class="hero__noise"></span></div>
+  <div class="hero__squeegee" aria-hidden="true"></div>
+
+  <a class="hero__scrollcue" href="#spot-1">
+    <span>{hero.scrollCue}</span>
+  </a>
+</section>
+
+<!--
+  Pre-paint bootstrap: fog ONLY when motion is allowed, so no-JS and
+  reduced-motion visitors get the pre-cleared hero (copy-deck §3.1). Runs
+  synchronously right after the section parses, before first paint.
+-->
+<script is:inline>
+  (function () {
+    var h = document.getElementById('hero');
+    if (!h) return;
+    try {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    } catch (e) {
+      return;
+    }
+    h.setAttribute('data-hero', 'fogged');
+    // Failsafe: clear even if the island module never loads.
+    window.setTimeout(function () {
+      if (h.getAttribute('data-hero') === 'fogged') h.setAttribute('data-hero', 'done');
+    }, 2600);
+  })();
+</script>
+
+<script>
+  import '../../scripts/steam-hero.ts';
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: calc(100svh - 3.5rem); /* full viewport minus the sticky nav */
+    display: grid;
+    align-items: center;
+  }
+
+  /* ---- Placeholder environment: porcelain type-zone left, moody steam right --- */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: var(--steam-white);
+    background-image:
+      /* bright left type-zone wash — kills grout, guarantees ≥7:1 for near-black type */
+      radial-gradient(
+        130% 105% at 8% 44%,
+        var(--steam-white) 0%,
+        color-mix(in srgb, var(--steam-white) 97%, transparent) 32%,
+        color-mix(in srgb, var(--steam-white) 0%, transparent) 64%
+      ),
+      /* steam plume, upper band */
+      radial-gradient(
+        62% 42% at 58% 4%,
+        color-mix(in srgb, var(--lather-white) 60%, transparent),
+        transparent 72%
+      ),
+      /* right-side darkening — the smoke wrapping the (future) model */
+      linear-gradient(
+        104deg,
+        transparent 42%,
+        color-mix(in srgb, var(--grout-black) 14%, transparent) 68%,
+        color-mix(in srgb, var(--smoke-slate) 52%, transparent) 100%
+      ),
+      /* tile grout grid (faint) */
+      linear-gradient(
+        0deg,
+        color-mix(in srgb, var(--grout-black) 6%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--grout-black) 6%, transparent) 1px,
+        transparent 1px
+      );
+    background-size:
+      auto,
+      auto,
+      auto,
+      4.4rem 4.4rem,
+      4.4rem 4.4rem;
+  }
+
+  /* Soft light column on the right — a figure catching the top light, abstract. */
+  .hero__figure {
+    position: absolute;
+    top: 6%;
+    bottom: 0;
+    right: 16%;
+    width: 34%;
+    background: radial-gradient(
+      58% 66% at 50% 42%,
+      color-mix(in srgb, var(--lather-white) 46%, transparent) 0%,
+      color-mix(in srgb, var(--lather-white) 12%, transparent) 40%,
+      transparent 68%
+    );
+    filter: blur(6px);
+  }
+
+  /* Fine monochrome noise to defeat gradient banding (hero-image-brief §5). */
+  .hero__noise {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 140px 140px;
+  }
+
+  /* ---- Live type (real text — LCP + accessible) ---- */
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+    padding-block: clamp(2rem, 8vh, 6rem);
+  }
+
+  .hero__title {
+    font-family: var(--font-display);
+    font-weight: 600; /* SemiBold — the logotype weight (design.md §5) */
+    font-size: var(--step-6);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+    color: var(--grout-black);
+    max-width: 12ch;
+  }
+
+  .hero__subhead {
+    margin-top: clamp(0.75rem, 2vh, 1.5rem);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--step-2);
+    line-height: 1.2;
+    color: var(--grout-black);
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+
+  /* ---- The clearing steam ---- */
+  .hero__steam {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0; /* cleared baseline (no-JS / reduced-motion) */
+    background-color: color-mix(in srgb, var(--steam-white) 88%, var(--lather-white));
+    background-image:
+      radial-gradient(
+        52% 42% at 24% 28%,
+        color-mix(in srgb, var(--lather-white) 88%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        58% 46% at 72% 64%,
+        color-mix(in srgb, var(--lather-white) 82%, transparent),
+        transparent 72%
+      ),
+      radial-gradient(
+        44% 32% at 48% 92%,
+        color-mix(in srgb, var(--steam-white) 90%, transparent),
+        transparent 70%
+      );
+    will-change: clip-path, opacity;
+  }
+  .hero__steam .hero__noise {
+    opacity: 0.06;
+  }
+
+  /* ---- The squeegee streak (travels with the clearing edge) ---- */
+  .hero__squeegee {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 16%;
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-20%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--lather-white) 72%, transparent) 46%,
+      color-mix(in srgb, var(--lather-white) 92%, transparent) 55%,
+      transparent 100%
+    );
+    filter: blur(2px);
+    will-change: transform, opacity;
+  }
+
+  /* ---- Scroll cue (static — motion policy allows no bob) ---- */
+  .hero__scrollcue {
+    position: absolute;
+    z-index: 5;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: clamp(1rem, 4vh, 2.5rem);
+    max-width: min(90vw, 34ch);
+    text-align: center;
+    font-family: var(--font-fine);
+    font-size: var(--step--1);
+    letter-spacing: 0.02em;
+    color: color-mix(in srgb, var(--grout-black) 70%, var(--steam-white));
+    text-decoration: none;
+  }
+  .hero__scrollcue:hover {
+    color: var(--marble-amber);
+  }
+
+  /* ---- State machine (driven by #hero[data-hero], set by the island) ---- */
+  .hero[data-hero='fogged'] .hero__steam {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transition: none;
+  }
+  .hero[data-hero='fogged'] .hero__squeegee {
+    opacity: 0;
+    transform: translateX(-20%);
+    transition: none;
+  }
+
+  .hero[data-hero='clearing'] .hero__steam {
+    opacity: 1;
+    clip-path: inset(0 0 0 100%);
+    transition: clip-path 1.95s cubic-bezier(0.66, 0, 0.2, 1);
+  }
+  .hero[data-hero='clearing'] .hero__squeegee {
+    opacity: 1;
+    transform: translateX(540%);
+    transition:
+      transform 1.95s cubic-bezier(0.66, 0, 0.2, 1),
+      opacity 0.4s ease 1.45s;
+  }
+
+  .hero[data-hero='done'] .hero__steam {
+    opacity: 0;
+    clip-path: inset(0 0 0 100%);
+    transition: none;
+  }
+  .hero[data-hero='done'] .hero__squeegee {
+    opacity: 0;
+    transition: none;
+  }
+
+  /* Reduced motion: the bootstrap never fogs, so the hero is pre-cleared.
+     Belt-and-braces in case any state attribute is present. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero__steam,
+    .hero__squeegee {
+      opacity: 0 !important;
+      clip-path: inset(0 0 0 100%) !important;
+      transition: none !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero__figure {
+      right: 4%;
+      width: 46%;
+      opacity: 0.85;
+    }
+    .hero__title {
+      max-width: 100%;
+    }
+    .hero__subhead {
+      max-width: 30ch;
+    }
+  }
+</style>

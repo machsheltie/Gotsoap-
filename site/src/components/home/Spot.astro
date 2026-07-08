@@ -1,0 +1,568 @@
+---
+/**
+ * Spot.astro — one campaign "spot" (design.md §7 "Spot staging"). 🧼
+ *
+ * THE ANTI-TEMPLATE RULE: each spot is staged like an ad in ITS poster's world,
+ * NOT one image-left row ×5 (the retired prototype's defect). Five layouts,
+ * genuinely different compositions, no two adjacent alike:
+ *   tile-left  (1, porcelain) type-left / poster-right on a tile-and-grout grid
+ *   tile-ghost (2, porcelain) poster-left / type-right behind a ghost numeral
+ *   monument   (3, smoke)     full-bleed, monumental centered — the centrepiece
+ *   sermon     (4, smoke)     sermon column + vertical chrome rule / poster-right
+ *   editorial  (5, marble)    GQ two-column spread, poster-left (warm|dark toggle)
+ *
+ * Live poster anatomy per spot: eyebrow → display headline → "Because…"
+ * pull-quote → divider rule → CTA row → hashtag row. The poster itself is shown
+ * UNTOUCHED via <PosterImage> (no cover-crop). A corner-tag "got soap?" logotype
+ * tags the imagery (the milk-mustache convention, design.md §7).
+ *
+ * Layer-effect budget (design.md §5) is spent here: steam-glow on porcelain
+ * titles, chrome gradient on smoke titles, gold on marble.
+ *
+ * AA fix (local, no foundation edit): register-porcelain's --reg-accent is
+ * marble-amber, which is only ~2.7:1 on steam-white (the flagged prototype
+ * defect). On light grounds this component overrides the accent + focus slots
+ * to a token-derived deep amber (~4.8:1) so ShareRow, the eyebrow, and focus
+ * rings pass AA. Bright amber is retained for button FILLS (dark label on top).
+ */
+import { absoluteUrl } from '../../config/site';
+import { hashtags } from '../../content/global';
+import type { SpotContent } from '../../content/home';
+import PosterImage from '../PosterImage.astro';
+import ShareRow from '../ShareRow.astro';
+import Button from '../Button.astro';
+
+/**
+ * MARBLE DECISION (owner picks live). Spot 5 is built BOTH ways; flip this ONE
+ * value to compare in the browser — no other change needed:
+ *   'warm' → warm light-marble ground, deep-gold display type (truest to Poster 5)
+ *   'dark' → grout-black ground, gold headings, lather-white body (dark editorial)
+ * Both style blocks ship; only the marble spot reads this. Default: 'warm'.
+ * NOTE: the warm ground (--marble-warm-ground #f1e7d2) is a FLAGGED placeholder
+ * extension of the palette (design.md §5 has no warm off-white) — see report.
+ */
+const MARBLE_MODE: 'warm' | 'dark' = 'warm';
+
+interface Props {
+  spot: SpotContent;
+}
+const { spot } = Astro.props;
+const { order, slug, register, eyebrow, title, pullQuote, alt, viewLabel, layout } =
+  spot;
+
+const titleFx =
+  register === 'porcelain'
+    ? 'fx-steam-glow'
+    : register === 'smoke'
+      ? 'fx-chrome'
+      : 'fx-gold';
+
+const shareUrl = absoluteUrl(`/psas/${slug}`);
+const posterSizes =
+  layout === 'monument'
+    ? '(min-width: 900px) 600px, 90vw'
+    : '(min-width: 900px) 460px, 88vw';
+---
+
+<section
+  id={`spot-${order}`}
+  class:list={['spot', `spot--${layout}`, `register-${register}`]}
+  data-layout={layout}
+  data-marble={register === 'marble' ? MARBLE_MODE : undefined}
+  aria-labelledby={`spot-${order}-title`}
+>
+  <div class="spot__inner" data-reveal>
+    {
+      layout === 'tile-ghost' && (
+        <span class="spot__ghost" aria-hidden="true">
+          {String(order).padStart(2, '0')}
+        </span>
+      )
+    }
+
+    <div class="spot__head">
+      <p class="spot__eyebrow">{eyebrow}</p>
+      <h2 id={`spot-${order}-title`} class:list={['spot__title', titleFx]}>
+        {title}
+      </h2>
+    </div>
+
+    <figure class="spot__figure">
+      <PosterImage
+        slug={slug}
+        alt={alt}
+        loading={order === 1 ? 'eager' : 'lazy'}
+        sizes={posterSizes}
+        class="spot__poster"
+      />
+      <figcaption class="spot__tag" aria-hidden="true">got soap?</figcaption>
+    </figure>
+
+    {layout === 'sermon' && <span class="spot__vrule" aria-hidden="true" />}
+
+    <div class="spot__body">
+      <p class="spot__pull">{pullQuote}</p>
+      <hr class="spot__rule" />
+      <div class="spot__actions">
+        <ShareRow kind="spot" url={shareUrl} title={title} text={pullQuote} />
+        <Button
+          label={viewLabel}
+          href={`/psas/${slug}`}
+          register="campaign"
+          variant="primary"
+        />
+      </div>
+      <p class="spot__hashtags">{hashtags}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .spot {
+    position: relative;
+    overflow: hidden;
+  }
+  .spot__inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+    padding-block: clamp(3rem, 9vh, 7rem);
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+  }
+
+  /* ---- Shared anatomy pieces ---- */
+  .spot__head {
+    grid-area: head;
+    align-self: end;
+  }
+  .spot__figure {
+    grid-area: figure;
+    position: relative;
+    margin: 0;
+  }
+  .spot__body {
+    grid-area: body;
+    align-self: start;
+  }
+
+  .spot__eyebrow {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--reg-accent);
+    margin-bottom: 0.6rem;
+  }
+
+  .spot__title {
+    font-family: var(--font-display);
+    font-weight: 700; /* Bold — spot titles (design.md §5) */
+    font-size: var(--step-5);
+    line-height: 0.94;
+    letter-spacing: -0.005em;
+    text-transform: lowercase;
+  }
+
+  .spot__pull {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--step-2);
+    line-height: 1.25;
+    color: var(--reg-fg);
+    max-width: 30ch;
+    text-wrap: pretty;
+  }
+
+  .spot__rule {
+    border: 0;
+    height: 2px;
+    width: min(9rem, 40%);
+    margin: clamp(1rem, 3vh, 1.75rem) 0;
+    background: var(--reg-rule);
+  }
+
+  .spot__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+  }
+
+  .spot__hashtags {
+    margin-top: clamp(1rem, 3vh, 1.6rem);
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.12em;
+    color: color-mix(in srgb, var(--reg-fg) 82%, var(--reg-bg));
+  }
+
+  /* ---- Poster (untouched — never cover-cropped) + corner tag ----
+     PosterImage renders the <img> in its own component, so reach it with
+     :global() scoped under our figure (a plain .spot__poster selector would
+     not match across the component boundary). */
+  .spot__figure :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-tile);
+    box-shadow:
+      0 1px 0 color-mix(in srgb, var(--lather-white) 8%, transparent),
+      0 24px 60px -28px rgba(0, 0, 0, 0.65);
+  }
+  .spot__tag {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.85rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-0);
+    letter-spacing: 0.01em;
+    text-transform: lowercase;
+    color: var(--lather-white);
+    text-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.55),
+      0 0 10px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+  }
+
+  /* ===================================================================
+     LIGHT-GROUND AA FIX — deep amber for text accents / focus on light.
+     Bright --marble-amber stays on button FILLS (dark label on top).
+     =================================================================== */
+  .spot--tile-left,
+  .spot--tile-ghost,
+  .spot[data-marble='warm'] {
+    --reg-accent: color-mix(in srgb, var(--marble-amber) 68%, var(--grout-black));
+    --focus-ring: color-mix(in srgb, var(--marble-amber) 68%, var(--grout-black));
+  }
+
+  /* ===================================================================
+     LAYOUT 1 — tile-left (porcelain): type-left / poster-right
+     =================================================================== */
+  .spot--tile-left .spot__inner {
+    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-areas:
+      'head figure'
+      'body figure';
+    align-items: center;
+  }
+  .spot--tile-left .spot__figure {
+    align-self: center;
+    max-width: 30rem;
+    justify-self: center;
+  }
+  /* Ambient tile-and-grout + slow steam drift (porcelain world). */
+  .spot--tile-left::before,
+  .spot--tile-ghost::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(
+        0deg,
+        color-mix(in srgb, var(--grout-black) 5%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--grout-black) 5%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 4.4rem 4.4rem;
+    -webkit-mask-image: radial-gradient(120% 100% at 50% 0%, #000 55%, transparent 100%);
+    mask-image: radial-gradient(120% 100% at 50% 0%, #000 55%, transparent 100%);
+    pointer-events: none;
+  }
+  .spot--tile-left::after,
+  .spot--tile-ghost::after {
+    content: '';
+    position: absolute;
+    inset: -10% -5%;
+    z-index: 0;
+    background: radial-gradient(
+        40% 30% at 20% 30%,
+        color-mix(in srgb, var(--lather-white) 55%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        44% 34% at 82% 68%,
+        color-mix(in srgb, var(--lather-white) 45%, transparent),
+        transparent 72%
+      );
+    pointer-events: none;
+    animation: spot-steam-drift 26s ease-in-out infinite alternate;
+  }
+  @keyframes spot-steam-drift {
+    from {
+      transform: translate3d(-1.5%, 0.5%, 0) scale(1);
+    }
+    to {
+      transform: translate3d(2%, -1.5%, 0) scale(1.06);
+    }
+  }
+
+  /* ===================================================================
+     LAYOUT 2 — tile-ghost (porcelain): poster-left / type-right + ghost numeral
+     =================================================================== */
+  .spot--tile-ghost .spot__inner {
+    grid-template-columns: 0.95fr 1.05fr;
+    grid-template-areas:
+      'figure head'
+      'figure body';
+    align-items: center;
+  }
+  .spot--tile-ghost .spot__figure {
+    align-self: center;
+    max-width: 28rem;
+    justify-self: center;
+  }
+  .spot__ghost {
+    position: absolute;
+    z-index: -1; /* behind the copy (positioned z:0 would paint OVER static text) */
+    top: 50%;
+    right: -1.5rem;
+    transform: translateY(-50%);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(9rem, 30vw, 24rem);
+    line-height: 0.7;
+    color: color-mix(in srgb, var(--grout-black) 7%, transparent);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ===================================================================
+     LAYOUT 3 — monument (smoke): full-bleed, monumental centered
+     =================================================================== */
+  .spot--monument .spot__inner {
+    max-width: 60rem;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'head'
+      'figure'
+      'body';
+    justify-items: center;
+    text-align: center;
+    gap: clamp(1.25rem, 3.5vh, 2.5rem);
+    padding-block: clamp(4rem, 13vh, 9rem);
+  }
+  .spot--monument .spot__head {
+    align-self: center;
+  }
+  .spot--monument .spot__title {
+    font-size: var(--step-6);
+  }
+  .spot--monument .spot__figure {
+    max-width: 32rem;
+    width: 100%;
+  }
+  .spot--monument .spot__pull {
+    max-width: 34ch;
+    font-size: var(--step-3);
+  }
+  .spot--monument .spot__rule {
+    margin-inline: auto;
+  }
+  .spot--monument .spot__actions {
+    justify-content: center;
+  }
+  /* dramatic vignette */
+  .spot--monument::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(
+      70% 60% at 50% 42%,
+      color-mix(in srgb, var(--chrome-mist) 10%, transparent),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  /* ===================================================================
+     LAYOUT 4 — sermon (smoke): sermon column / vertical rule / poster-right
+     =================================================================== */
+  .spot--sermon .spot__inner {
+    grid-template-columns: 1fr 1px 0.88fr;
+    grid-template-areas:
+      'head rule figure'
+      'body rule figure';
+    column-gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+  }
+  .spot__vrule {
+    grid-area: rule;
+    align-self: stretch;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--reg-rule) 12%,
+      var(--reg-rule) 88%,
+      transparent
+    );
+  }
+  .spot--sermon .spot__figure {
+    max-width: 27rem;
+    justify-self: center;
+  }
+  .spot--sermon .spot__head {
+    align-self: end;
+  }
+
+  /* ===================================================================
+     LAYOUT 5 — editorial (marble): GQ two-column spread, poster-left
+     Marble both-ways via [data-marble]. Default warm; owner flips to dark.
+     =================================================================== */
+  .spot--editorial .spot__inner {
+    grid-template-columns: 0.9fr 1.1fr;
+    grid-template-areas:
+      'figure head'
+      'figure body';
+    align-items: start;
+    gap: clamp(1.5rem, 4vw, 3.25rem);
+  }
+  .spot--editorial .spot__figure {
+    max-width: 30rem;
+    justify-self: center;
+    align-self: start;
+    position: sticky;
+    top: 4.5rem;
+  }
+  .spot--editorial .spot__head {
+    align-self: start;
+  }
+  .spot--editorial .spot__title {
+    font-size: var(--step-5);
+  }
+  .spot--editorial .spot__pull {
+    font-size: var(--step-2);
+    max-width: 34ch;
+  }
+  /* magazine drop-cap */
+  .spot--editorial .spot__pull::first-letter {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 3.1em;
+    float: left;
+    line-height: 0.72;
+    padding-right: 0.08em;
+    margin-top: 0.06em;
+    color: var(--reg-heading);
+  }
+
+  /* ---- MARBLE (a): WARM light-marble ground — truest to Poster 5 ----
+     A warm off-white marble tone as ground, gold display type, grout-black
+     body. NOTE: --marble-warm-ground (#f1e7d2) is a FLAGGED placeholder
+     extension of the palette (design.md §5 has no warm off-white). */
+  .spot--editorial[data-marble='warm'] {
+    --marble-warm-ground: #f1e7d2;
+    --reg-bg: var(--marble-warm-ground);
+    --reg-fg: var(--grout-black);
+    --reg-heading: color-mix(in srgb, var(--marble-amber) 60%, var(--grout-black));
+    --reg-muted: color-mix(in srgb, var(--grout-black) 62%, var(--marble-warm-ground));
+    --reg-rule: color-mix(in srgb, var(--marble-amber) 55%, transparent);
+    background-color: var(--reg-bg);
+    color: var(--reg-fg);
+    background-image:
+      radial-gradient(
+        60% 50% at 82% 8%,
+        color-mix(in srgb, var(--lather-white) 55%, transparent),
+        transparent 68%
+      ),
+      radial-gradient(
+        50% 60% at 6% 92%,
+        color-mix(in srgb, var(--marble-amber) 12%, transparent),
+        transparent 70%
+      );
+  }
+  /* Warm mode: solid AA-safe deep gold title (disable the gradient clip). */
+  .spot--editorial[data-marble='warm'] .spot__title.fx-gold {
+    background-image: none;
+    -webkit-text-fill-color: color-mix(in srgb, var(--marble-amber) 55%, var(--grout-black));
+    color: color-mix(in srgb, var(--marble-amber) 55%, var(--grout-black));
+    text-shadow: none;
+  }
+  .spot--editorial[data-marble='warm'] .spot__tag {
+    color: var(--grout-black);
+    text-shadow: 0 1px 2px color-mix(in srgb, var(--lather-white) 70%, transparent);
+  }
+
+  /* ---- MARBLE (b): DARK editorial — grout-black ground, gold heads,
+     lather-white body. Owner flips data-marble="dark" to compare. ---- */
+  .spot--editorial[data-marble='dark'] {
+    --reg-bg: var(--grout-black);
+    --reg-fg: var(--lather-white);
+    --reg-heading: var(--marble-amber);
+    --reg-accent: var(--marble-amber);
+    --reg-muted: var(--chrome-mist);
+    --reg-rule: color-mix(in srgb, var(--marble-amber) 45%, transparent);
+    --focus-ring: var(--marble-amber);
+    background-color: var(--reg-bg);
+    color: var(--reg-fg);
+    background-image: radial-gradient(
+      75% 55% at 80% 6%,
+      color-mix(in srgb, var(--marble-amber) 12%, transparent),
+      transparent 68%
+    );
+  }
+  /* Dark mode keeps the fx-gold gradient clip (light gold on black). */
+
+  /* ===================================================================
+     RESPONSIVE — collapse every layout to a single readable column
+     =================================================================== */
+  @media (max-width: 720px) {
+    .spot__inner,
+    .spot--tile-left .spot__inner,
+    .spot--tile-ghost .spot__inner,
+    .spot--sermon .spot__inner,
+    .spot--editorial .spot__inner {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'head'
+        'figure'
+        'body';
+      align-items: start;
+      text-align: left;
+      justify-items: start;
+    }
+    .spot__figure {
+      max-width: min(26rem, 100%) !important;
+      justify-self: start !important;
+    }
+    .spot--monument .spot__inner {
+      justify-items: center;
+      text-align: center;
+    }
+    .spot--monument .spot__figure {
+      justify-self: center !important;
+    }
+    .spot__vrule {
+      display: none;
+    }
+    .spot__ghost {
+      font-size: clamp(7rem, 40vw, 12rem);
+      right: -0.5rem;
+      opacity: 0.8;
+    }
+    .spot--editorial .spot__figure {
+      position: static;
+    }
+  }
+
+  /* Freeze ambient steam drift for reduced-motion (belt-and-braces; base.css
+     already neutralises animation, this keeps the resting frame tidy). */
+  @media (prefers-reduced-motion: reduce) {
+    .spot--tile-left::after,
+    .spot--tile-ghost::after {
+      animation: none;
+    }
+  }
+</style>

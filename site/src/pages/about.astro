@@ -1,16 +1,202 @@
 ---
 /**
- * /about — The Reveal (Hope2 Studio). PHASE 0 STUB. Real build: Task E.
- * 🧼 Campaign, porcelain register — calm. Meta verbatim (§2).
+ * /about — The Reveal (design.md §7 "/about", PRD §5.6, copy-deck §9).
+ * 🧼 Campaign system, porcelain register, calm — "a professional handshake
+ * wearing the campaign's clothes." The only fourth-wall break on the site.
+ *
+ * Contact email is NEVER rendered as plain text: both the link label and its
+ * href are built from obfuscateEmail() (HTML numeric entities) and injected
+ * via set:html, per config/site.ts's documented pattern. A prototype defect
+ * was a plain `mailto:` — do not reintroduce it.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import StubNotice from '../components/StubNotice.astro';
+import Button from '../components/Button.astro';
+import {
+  aboutMeta,
+  opening,
+  whyItExists,
+  caseStudy,
+  pitch,
+  credit,
+} from '../content/about';
+import { obfuscateEmail, EXTERNAL_LINKS, absoluteUrl } from '../config/site';
+
+/**
+ * Tiny inline-markdown formatter for the handful of emphasis and strong
+ * spans (single and double asterisks) the copy deck itself uses in §9.2,
+ * §9.3, and §9.4. Content strings are static, author-controlled copy
+ * (never user input) — set:html here only ever renders our own trusted
+ * strings.
+ */
+function mdInline(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>');
+}
+
+const emailHtml = `<a class="about__emailLink" href="mailto:${obfuscateEmail()}">${obfuscateEmail()}</a>`;
+
+// Person + Organization JSON-LD (PRD §6.3). Contact email is intentionally
+// NOT included here — structured data is rendered as plain-text JSON in the
+// page source, and the anti-scraper rule (obfuscated, never a bare string)
+// applies to it too. sameAs carries Behance only when the config URL is set.
+const sameAs = [EXTERNAL_LINKS.behance].filter((url) => url.length > 0);
+const aboutUrl = absoluteUrl('/about');
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      name: 'Stacey M. Breckel',
+      jobTitle: 'Satirical Creative Director & Graphic Designer',
+      url: aboutUrl,
+      worksFor: { '@type': 'Organization', name: 'Hope2 Studio' },
+      ...(sameAs.length > 0 ? { sameAs } : {}),
+    },
+    {
+      '@type': 'Organization',
+      name: 'Hope2 Studio',
+      url: aboutUrl,
+      founder: { '@type': 'Person', name: 'Stacey M. Breckel' },
+      ...(sameAs.length > 0 ? { sameAs } : {}),
+    },
+  ],
+};
 ---
 
 <BaseLayout
-  title="The Reveal — Hope2 Studio | got soap?"
-  description="It was a portfolio piece the whole time. Here's the satire, the craft, and the woman who made it."
+  title={aboutMeta.title}
+  description={aboutMeta.description}
   register="porcelain"
+  jsonLd={jsonLd}
 >
-  <StubNotice heading="the reveal" route="/about" owner="Task E — The Reveal" />
+  <article class="about">
+    <div class="container container--narrow flow">
+      <!-- 9.1 Opening -->
+      <section class="about__section about__opening">
+        <h1 class="about__h1">{opening.heading}</h1>
+        {opening.paragraphs.map((p) => <p class="about__lead">{p}</p>)}
+      </section>
+
+      <!-- 9.2 Why it exists -->
+      <section class="about__section" aria-labelledby="why-it-exists">
+        <h2 id="why-it-exists" class="about__eyebrow">{whyItExists.eyebrow}</h2>
+        {whyItExists.paragraphs.map((p) => <p set:html={mdInline(p)} />)}
+      </section>
+
+      <!-- 9.3 Case study -->
+      <section class="about__section" aria-labelledby="case-study">
+        <h2 id="case-study" class="about__eyebrow">{caseStudy.eyebrow}</h2>
+        {caseStudy.paragraphs.map((p) => <p set:html={mdInline(p)} />)}
+      </section>
+
+      <!-- 9.4 The pitch + contact -->
+      <section class="about__section about__pitch" aria-labelledby="pitch">
+        <h2 id="pitch" class="about__h2">{pitch.heading}</h2>
+        {pitch.paragraphs.map((p) => <p set:html={mdInline(p)} />)}
+
+        <p class="about__contact">
+          <span set:html={emailHtml} />
+        </p>
+
+        {
+          EXTERNAL_LINKS.behance && (
+            <div class="about__behance">
+              <Button
+                label={pitch.behanceLabel}
+                href={EXTERNAL_LINKS.behance}
+                register="campaign"
+                variant="primary"
+              />
+            </div>
+          )
+        }
+      </section>
+
+      <!-- 9.5 Credit / legal -->
+      <section class="about__section about__credit" aria-labelledby="credit-legal">
+        <h2 id="credit-legal" class="about__eyebrow">{credit.eyebrow}</h2>
+        {credit.paragraphs.map((p) => <p>{p}</p>)}
+      </section>
+    </div>
+  </article>
 </BaseLayout>
+
+<style>
+  .about {
+    padding-block: var(--space-3xl);
+  }
+  .about__section + .about__section {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-2xl);
+    border-top: 1px solid var(--reg-rule);
+  }
+  .about__section p {
+    max-width: var(--measure);
+    color: var(--reg-fg);
+  }
+  .about__section p + p {
+    margin-top: var(--space-md);
+  }
+  .about__section :global(strong) {
+    color: var(--reg-heading);
+  }
+  .about__section :global(em) {
+    font-style: italic;
+  }
+
+  .about__h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-5);
+    line-height: 1.05;
+    color: var(--reg-heading);
+    margin-bottom: var(--space-lg);
+    max-width: 20ch;
+  }
+  .about__lead {
+    font-size: var(--step-1);
+  }
+
+  .about__eyebrow {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--reg-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .about__h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-3);
+    color: var(--reg-heading);
+    margin-bottom: var(--space-md);
+  }
+
+  .about__contact {
+    margin-top: var(--space-lg);
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+  }
+  .about__contact :global(.about__emailLink) {
+    font-weight: 500;
+    color: var(--reg-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+    word-break: break-word;
+  }
+
+  .about__behance {
+    margin-top: var(--space-lg);
+  }
+
+  .about__credit p {
+    font-family: var(--font-fine);
+    font-size: var(--step--1);
+    color: var(--reg-muted);
+    max-width: 60ch;
+  }
+</style>

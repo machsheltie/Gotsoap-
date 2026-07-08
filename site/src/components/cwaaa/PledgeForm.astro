@@ -1,0 +1,494 @@
+---
+/**
+ * PledgeForm.astro — Form CW-1, "Declaration of Intent to Lather" (design.md
+ * §7 "/pledge", copy §7). 📋 CWAAA-only: manila document, PT Serif, ink + stamp.
+ * ZERO campaign tokens, zero fx-*. Styled entirely through the register slots.
+ *
+ * Contains a real static Netlify form (detected at build) + a client-revealed
+ * SWORN success state. Progressive enhancement lives in scripts/pledge.ts; the
+ * share affordances reuse the foundation scripts/share.ts data contract so the
+ * success share row keeps CWAAA (PT Serif) styling without recreating logic.
+ */
+import Seal from './Seal.astro';
+import RibbonBadge from './RibbonBadge.astro';
+import Button from '../Button.astro';
+import { pledge as p } from '../../content/pledge';
+import { absoluteUrl } from '../../config/site';
+
+const shareUrl = absoluteUrl('/pledge');
+const f = p.form;
+---
+
+<article class="pledge-doc flow" data-pledge-doc>
+  <!-- Letterhead -->
+  <header class="lh">
+    <Seal size={92} decorative />
+    <p class="lh-org">{p.header.org}</p>
+    <p class="lh-form">{p.header.formLine}</p>
+    <h1 class="doc-title">{p.header.docTitle}</h1>
+    <p class="lh-instruction"><em>{p.header.instruction}</em></p>
+  </header>
+
+  <!-- The oath -->
+  <section class="oath" aria-label="The oath">
+    <p class="oath-intro">{p.oath.intro}</p>
+    <ul class="oath-clauses" role="list">
+      {p.oath.clauses.map((c) => <li>{c}</li>)}
+    </ul>
+    <p class="oath-refrain">{p.oath.refrain}</p>
+  </section>
+
+  <!--
+    Netlify Forms: this static markup is what Netlify's build bot detects.
+    name="lather-pledge" + data-netlify="true" + honeypot + hidden form-name.
+    scripts/pledge.ts intercepts submit for the on-page SWORN success (no
+    navigation); without JS it posts and Netlify shows its default receipt.
+  -->
+  <form
+    class="cw1-form flow"
+    name={f.netlifyName}
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot={f.honeypotName}
+    data-pledge-form
+    novalidate
+  >
+    <input type="hidden" name="form-name" value={f.netlifyName} />
+
+    <!-- Honeypot: off-screen, not focusable, hidden from AT (bots still see it) -->
+    <p class="hp-field" aria-hidden="true">
+      <label>
+        Do not fill this field if you are human
+        <input
+          type="text"
+          name={f.honeypotName}
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </label>
+    </p>
+
+    <div class="field">
+      <label for="cw1-first-name">
+        {f.firstName.label}
+        <span class="req" aria-hidden="true">*</span>
+        <span class="sr-only">{f.requiredNote}</span>
+      </label>
+      <p class="field-help" id="cw1-first-name-help">{f.firstName.help}</p>
+      <input
+        id="cw1-first-name"
+        name={f.firstName.name}
+        type="text"
+        required
+        autocomplete="given-name"
+        aria-describedby="cw1-first-name-help cw1-first-name-error"
+      />
+      <p
+        class="field-error"
+        id="cw1-first-name-error"
+        data-error-for={f.firstName.name}
+        role="alert"
+        hidden
+      >
+        {p.errors.name}
+      </p>
+    </div>
+
+    <div class="field">
+      <label for="cw1-email">
+        {f.email.label}
+        <span class="req" aria-hidden="true">*</span>
+        <span class="sr-only">{f.requiredNote}</span>
+      </label>
+      <p class="field-help" id="cw1-email-help">{f.email.help}</p>
+      <input
+        id="cw1-email"
+        name={f.email.name}
+        type="email"
+        required
+        autocomplete="email"
+        aria-describedby="cw1-email-help cw1-email-error"
+      />
+      <p
+        class="field-error"
+        id="cw1-email-error"
+        data-error-for={f.email.name}
+        role="alert"
+        hidden
+      >
+        {p.errors.email}
+      </p>
+    </div>
+
+    <div class="field field--check">
+      <label class="check-label" for="cw1-ack">
+        <input
+          id="cw1-ack"
+          name={f.acknowledgment.name}
+          type="checkbox"
+          required
+          aria-describedby="cw1-ack-error"
+        />
+        <span class="check-text">
+          {f.acknowledgment.label}
+          <span class="req" aria-hidden="true">*</span>
+          <span class="sr-only">{f.requiredNote}</span>
+        </span>
+      </label>
+      <p
+        class="field-error"
+        id="cw1-ack-error"
+        data-error-for={f.acknowledgment.name}
+        role="alert"
+        hidden
+      >
+        {p.errors.acknowledgment}
+      </p>
+    </div>
+
+    <p class="privacy"><em>{p.privacy}</em></p>
+
+    <div class="submit-row">
+      <Button
+        label={f.submitLabel}
+        register="cwaaa"
+        variant="primary"
+        type="submit"
+      />
+      <span class="submit-aside"><em>{f.submitAside}</em></span>
+    </div>
+  </form>
+
+  <!-- SWORN success — revealed by scripts/pledge.ts; no page navigation. -->
+  <section
+    class="pledge-success flow"
+    data-pledge-success
+    tabindex="-1"
+    aria-live="polite"
+    aria-labelledby="pledge-sworn-heading"
+    hidden
+  >
+    <h2 id="pledge-sworn-heading" class="sworn-stamp" data-sworn-stamp>
+      {p.success.heading}
+    </h2>
+
+    <p class="success-lead">
+      {p.success.filedLead}<strong data-success-name>declarant</strong>{
+        p.success.filedRest
+      }
+    </p>
+    <p>{p.success.roll}</p>
+
+    <p class="ribbon-wrap"><RibbonBadge size={72} decorative /></p>
+
+    <div
+      class="cwaaa-share"
+      data-share-root
+      data-share-url={shareUrl}
+      data-share-title="I took the Lather Pledge"
+      data-share-text={p.badgeShare}
+    >
+      <button
+        type="button"
+        class="cwaaa-share-btn"
+        data-share-action="share"
+      >
+        {p.success.shareLabel}
+      </button>
+      <button
+        type="button"
+        class="cwaaa-share-btn"
+        data-share-action="copy"
+      >
+        {p.success.copyLabel}
+      </button>
+      <span
+        class="sr-only"
+        role="status"
+        aria-live="polite"
+        data-share-status></span>
+    </div>
+
+    <p class="success-updates"><em>{p.success.updates}</em></p>
+  </section>
+</article>
+
+<script>
+  import '../../scripts/pledge.ts';
+  import '../../scripts/share.ts';
+</script>
+
+<style>
+  /* Every heading here is PT Serif — override base.css's display-face default
+     so the CWAAA author's voice holds on this surface. */
+  .doc-title,
+  .sworn-stamp {
+    font-family: var(--font-cwaaa);
+    color: var(--reg-heading);
+  }
+
+  /* ---- The manila document panel (on the page's grout-black frame) -------- */
+  .pledge-doc {
+    --flow-space: var(--space-md);
+    max-width: 40rem;
+    margin-inline: auto;
+    background: var(--reg-bg); /* cwaaa-manila via the register slot */
+    color: var(--reg-fg);
+    border: 1px solid var(--reg-rule);
+    box-shadow: 0 18px 48px color-mix(in srgb, var(--grout-black) 60%, transparent);
+    padding: clamp(1.5rem, 5vw, 3.25rem);
+  }
+
+  /* ---- Letterhead -------------------------------------------------------- */
+  .lh {
+    text-align: center;
+    padding-bottom: var(--space-md);
+    border-bottom: 2px solid var(--reg-rule);
+  }
+  .lh :global(svg) {
+    margin-inline: auto;
+    margin-bottom: var(--space-sm);
+  }
+  .lh-org {
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    font-size: var(--step-0);
+  }
+  .lh-form {
+    font-size: var(--step--1);
+    letter-spacing: 0.16em;
+    color: var(--reg-muted);
+    margin-top: var(--space-2xs);
+  }
+  .doc-title {
+    font-size: var(--step-3);
+    font-weight: 700;
+    margin-top: var(--space-xs);
+    line-height: 1.15;
+  }
+  .lh-instruction {
+    color: var(--reg-muted);
+    font-size: var(--step--1);
+    margin-top: var(--space-xs);
+  }
+
+  /* ---- Oath -------------------------------------------------------------- */
+  .oath {
+    border-left: 3px solid var(--reg-accent);
+    padding-left: var(--space-md);
+  }
+  .oath-intro {
+    font-weight: 700;
+  }
+  .oath-clauses {
+    margin: var(--space-xs) 0;
+    padding-left: var(--space-md);
+    list-style: none;
+  }
+  .oath-clauses li {
+    padding-block: 0.15em;
+    border-bottom: 1px solid var(--reg-rule);
+  }
+  .oath-clauses li::before {
+    content: '§ ';
+    color: var(--reg-accent);
+  }
+  .oath-refrain {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    margin-top: var(--space-sm);
+  }
+
+  /* ---- Ruled form fields ------------------------------------------------- */
+  .cw1-form {
+    --flow-space: var(--space-lg);
+    margin-top: var(--space-md);
+  }
+  .field label {
+    display: block;
+    font-weight: 700;
+    font-size: var(--step-0);
+  }
+  .req {
+    color: var(--cwaaa-stamp);
+    font-weight: 700;
+  }
+  .field-help {
+    color: var(--reg-muted);
+    font-size: var(--step--1);
+    font-style: italic;
+    margin-top: 0.1em;
+  }
+  .field input[type='text'],
+  .field input[type='email'] {
+    display: block;
+    width: 100%;
+    margin-top: 0.35em;
+    padding: 0.5em 0.1em;
+    background: transparent;
+    color: var(--reg-fg);
+    border: 0;
+    border-bottom: 1.5px solid var(--reg-fg);
+    border-radius: 0;
+    font-family: var(--font-cwaaa);
+    font-size: var(--step-0);
+  }
+  .field input:focus-visible {
+    border-bottom-color: var(--cwaaa-stamp);
+  }
+  .field input[aria-invalid='true'] {
+    border-bottom-color: var(--cwaaa-stamp);
+    border-bottom-width: 2.5px;
+  }
+
+  .field-error {
+    color: var(--cwaaa-stamp);
+    font-weight: 700;
+    font-size: var(--step--1);
+    margin-top: 0.4em;
+  }
+  /* Non-colour signal: a shape marker precedes the message, so the error is
+     conveyed by text + glyph, never colour alone (WCAG 1.4.1). */
+  .field-error::before {
+    content: '✕ ';
+    font-weight: 700;
+  }
+
+  /* Checkbox row */
+  .field--check .check-label {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.6em;
+    align-items: start;
+    font-weight: 400;
+    cursor: pointer;
+  }
+  .field--check input[type='checkbox'] {
+    inline-size: 1.2em;
+    block-size: 1.2em;
+    margin-top: 0.15em;
+    accent-color: var(--cwaaa-stamp);
+  }
+  .check-text {
+    font-style: italic;
+  }
+
+  .privacy {
+    color: var(--reg-muted);
+    font-size: var(--step--1);
+    border-top: 1px solid var(--reg-rule);
+    padding-top: var(--space-sm);
+  }
+
+  .submit-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm) var(--space-md);
+  }
+  .submit-aside {
+    color: var(--reg-muted);
+    font-size: var(--step--1);
+  }
+
+  /* Honeypot — present in DOM, off-screen, out of the a11y + tab order. */
+  .hp-field {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ---- SWORN success ----------------------------------------------------- */
+  .pledge-success {
+    --flow-space: var(--space-md);
+    text-align: center;
+    border-top: 2px solid var(--reg-rule);
+    padding-top: var(--space-lg);
+  }
+  .pledge-success:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 4px;
+  }
+
+  .sworn-stamp {
+    display: inline-block;
+    font-size: var(--step-4);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--cwaaa-stamp);
+    border: 4px double var(--cwaaa-stamp);
+    border-radius: 6px;
+    padding: 0.12em 0.5em;
+    transform: rotate(-8deg);
+  }
+  /* The CWAAA system's single motion moment: one scale-settle on stamping. */
+  .sworn-stamp.is-stamped {
+    animation: sworn-settle 700ms cubic-bezier(0.2, 0.85, 0.3, 1) both;
+  }
+  @keyframes sworn-settle {
+    0% {
+      transform: rotate(-16deg) scale(2.3);
+      opacity: 0;
+    }
+    55% {
+      transform: rotate(-16deg) scale(0.9);
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(-8deg) scale(1);
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    /* No settle — the stamp simply appears (design.md §8 motion policy). */
+    .sworn-stamp.is-stamped {
+      animation: none;
+    }
+  }
+
+  .success-lead {
+    font-size: var(--step-1);
+  }
+  .ribbon-wrap :global(svg) {
+    margin-inline: auto;
+  }
+  .success-updates {
+    color: var(--reg-muted);
+    font-size: var(--step--1);
+  }
+
+  /* Success share row — reuses share.ts (data-* contract) but keeps the
+     CWAAA voice: PT Serif, ink outline, stamp-red on hover. No campaign font. */
+  .cwaaa-share {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+  }
+  .cwaaa-share-btn {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step--1);
+    color: var(--cwaaa-ink);
+    background: transparent;
+    border: 1.5px solid var(--cwaaa-ink);
+    border-radius: 0;
+    padding: 0.5em 1.1em;
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease,
+      border-color 140ms ease;
+  }
+  .cwaaa-share-btn:hover {
+    background: var(--cwaaa-stamp);
+    border-color: var(--cwaaa-stamp);
+    color: var(--cwaaa-manila);
+  }
+</style>

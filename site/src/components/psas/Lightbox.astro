@@ -1,0 +1,147 @@
+---
+/**
+ * Lightbox.astro — poster zoom/lightbox for `/psas/<slug>` (Task D).
+ *
+ * Renders an in-voice trigger button + a native <dialog> holding a larger
+ * derivative of the same poster (untouched — never cover-cropped). Native
+ * <dialog>.showModal() supplies Esc-to-close and top-layer isolation;
+ * scripts/lightbox.ts adds an explicit focus trap + focus restoration.
+ * No open/close animation (design.md §8 motion budget is hero/scroll-reveal/
+ * SWORN-stamp only) — so this is prefers-reduced-motion-safe by construction.
+ */
+import PosterImage from '../PosterImage.astro';
+
+interface Props {
+  slug: string;
+  /** Voice-carrying alt text (copy-deck §5) — reused for the zoomed view. */
+  alt: string;
+  /** Poster title, for the dialog's accessible name and sr-only trigger context. */
+  posterTitle: string;
+  /** Visible trigger label. Defaults to an archive-voiced, non-utility label. */
+  triggerLabel?: string;
+}
+
+const { slug, alt, posterTitle, triggerLabel = 'Inspect the artifact' } =
+  Astro.props;
+
+const dialogId = `lightbox-${slug}`;
+---
+
+<button
+  type="button"
+  class="lightbox-trigger"
+  data-lightbox-open={dialogId}
+  aria-haspopup="dialog"
+>
+  {triggerLabel}
+  <span class="sr-only"> — open a full-size view of {posterTitle}</span>
+</button>
+
+<dialog
+  id={dialogId}
+  class="lightbox"
+  data-lightbox
+  aria-label={`${posterTitle} — full-size view`}
+>
+  <div class="lightbox__frame">
+    <button
+      type="button"
+      class="lightbox__close"
+      data-lightbox-close
+      aria-label="Close full-size view"
+    >
+      <span aria-hidden="true">&#10005;</span> Close
+    </button>
+    <PosterImage
+      slug={slug}
+      alt={alt}
+      loading="lazy"
+      sizes="(min-width: 900px) 80vw, 94vw"
+      widths={[720, 1080]}
+      class="lightbox__image"
+    />
+  </div>
+</dialog>
+
+<script>
+  import '../../scripts/lightbox.ts';
+</script>
+
+<style>
+  .lightbox-trigger {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--reg-accent, var(--marble-amber));
+    background: transparent;
+    border: 1.5px solid var(--reg-accent, var(--marble-amber));
+    border-radius: var(--radius-tile);
+    padding: 0.55em 1.1em;
+    cursor: pointer;
+    transition: background-color 140ms ease;
+  }
+  .lightbox-trigger:hover {
+    background: color-mix(in srgb, var(--reg-accent, var(--marble-amber)) 16%, transparent);
+  }
+
+  dialog.lightbox {
+    padding: 0;
+    border: none;
+    background: transparent;
+    max-width: min(96vw, 1200px);
+    max-height: 92vh;
+  }
+  dialog.lightbox::backdrop {
+    background: color-mix(in srgb, var(--grout-black) 92%, transparent);
+  }
+  /* dialog[open] is display:block by the UA stylesheet; make it a centering
+     flex box for the frame instead. */
+  dialog.lightbox[open] {
+    display: flex;
+  }
+
+  .lightbox__frame {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 92vh;
+  }
+
+  .lightbox__close {
+    position: absolute;
+    top: -0.25rem;
+    right: -0.25rem;
+    z-index: 1;
+    transform: translate(50%, -50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grout-black);
+    background: var(--lather-white);
+    border: none;
+    border-radius: 999px;
+    padding: 0.5em 0.9em;
+    cursor: pointer;
+  }
+
+  /* The actual <img>/<picture> is rendered by the child PosterImage
+     component, so it does not carry this file's scope attribute — reach it
+     with :global(). The poster is never cropped: object-fit is contain. */
+  .lightbox__image :global(picture),
+  .lightbox__image :global(img) {
+    display: block;
+    max-width: min(94vw, 1100px);
+    max-height: 92vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+</style>

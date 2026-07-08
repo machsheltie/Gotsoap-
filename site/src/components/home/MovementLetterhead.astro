@@ -1,0 +1,127 @@
+---
+/**
+ * MovementLetterhead.astro — "The Movement", the ONE designed seam on Home
+ * (design.md §4/§7, copy-deck §3.4). 📋 PURE CWAAA.
+ *
+ * A CWAAA letterhead excerpt: manila ground, official seal, PT Serif on ruled
+ * baselines, stamp-red accents. It is 100% CWAAA-authored — NO campaign tokens,
+ * fonts, or FX inside this block (a mixed surface is a bug, design.md §4). The
+ * register-cwaaa class supplies manila/ink/stamp slots + --font-cwaaa. Links to
+ * the full brief at /crisis.
+ */
+import { movement } from '../../content/home';
+import Seal from '../cwaaa/Seal.astro';
+import Button from '../Button.astro';
+---
+
+<section class="mvmt register-cwaaa" aria-labelledby="mvmt-org">
+  <div class="mvmt__inner" data-reveal>
+    <article class="mvmt__sheet">
+      <header class="mvmt__head">
+        <Seal size={88} class="mvmt__seal" />
+        <div class="mvmt__masthead">
+          <h2 id="mvmt-org" class="mvmt__org">{movement.org}</h2>
+          <p class="mvmt__subhead">{movement.subhead}</p>
+        </div>
+      </header>
+
+      <hr class="mvmt__rule" />
+
+      <div class="mvmt__body">
+        {
+          movement.body.map((line) => (
+            <p class="mvmt__line">
+              {line.strong && <strong>{line.strong}</strong>}
+              {line.text}
+            </p>
+          ))
+        }
+      </div>
+
+      <div class="mvmt__cta">
+        <Button
+          label={movement.cta.label}
+          href={movement.cta.href}
+          register="cwaaa"
+          variant="primary"
+        />
+      </div>
+    </article>
+  </div>
+</section>
+
+<style>
+  .mvmt {
+    position: relative;
+  }
+  .mvmt__inner {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+    padding-block: clamp(3rem, 9vh, 6.5rem);
+  }
+  .mvmt__sheet {
+    max-width: 46rem;
+    margin-inline: auto;
+    /* a subtly raised sheet of manila letterhead */
+    padding: clamp(1.75rem, 4vw, 3rem);
+    background: color-mix(in srgb, var(--cwaaa-manila) 60%, var(--lather-white));
+    border: 1px solid color-mix(in srgb, var(--cwaaa-ink) 22%, transparent);
+    box-shadow: 0 22px 50px -30px rgba(0, 0, 0, 0.55);
+  }
+
+  .mvmt__head {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 1.75rem);
+  }
+  /* Seal renders its <svg> in its own component — reach it with :global(). */
+  .mvmt__head :global(svg) {
+    flex: 0 0 auto;
+  }
+  .mvmt__org {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step-2);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    color: var(--cwaaa-ink);
+    text-transform: none;
+  }
+  .mvmt__subhead {
+    margin-top: 0.35rem;
+    font-family: var(--font-cwaaa);
+    font-style: italic;
+    font-size: var(--step-0);
+    color: color-mix(in srgb, var(--cwaaa-ink) 78%, var(--cwaaa-manila));
+  }
+
+  .mvmt__rule {
+    border: 0;
+    height: 2px;
+    margin: clamp(1rem, 3vh, 1.5rem) 0 clamp(1.25rem, 3.5vh, 1.75rem);
+    background: var(--cwaaa-stamp);
+  }
+
+  /* Ruled-baseline body — the letterhead lined-paper feel. */
+  .mvmt__body {
+    display: grid;
+    gap: 0;
+  }
+  .mvmt__line {
+    font-family: var(--font-cwaaa);
+    font-size: var(--step-0);
+    line-height: 2; /* generous leading rides the rules */
+    color: var(--cwaaa-ink);
+    padding-block: 0.15rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--cwaaa-ink) 16%, transparent);
+  }
+  .mvmt__line strong {
+    font-weight: 700;
+  }
+
+  .mvmt__cta {
+    margin-top: clamp(1.5rem, 4vh, 2.25rem);
+  }
+</style>

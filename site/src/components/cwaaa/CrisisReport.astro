@@ -1,0 +1,338 @@
+---
+/**
+ * CrisisReport.astro — /crisis, CWAAA's site-within-a-site (design.md §7
+ * "/crisis", copy §8). 📋 CWAAA-only: full manila document world, PT Serif,
+ * ink + stamp, ruled baselines, form numbers. The annual findings are a
+ * DOCUMENT TABLE (no charts — design.md §7). ZERO campaign tokens, zero fx-*.
+ *
+ * The reformed man appears only QUOTED inside CWAAA-authored case files
+ * (deck §8.6a) — the surface author stays CWAAA throughout.
+ */
+import Seal from './Seal.astro';
+import RibbonBadge from './RibbonBadge.astro';
+import Button from '../Button.astro';
+import { crisis as c } from '../../content/crisis';
+---
+
+<article class="crisis-doc">
+  <!-- Letterhead -->
+  <header class="lh">
+    <Seal size={104} decorative />
+    <p class="lh-org">{c.header.org}</p>
+    <p class="lh-est"><em>{c.header.estLine}</em></p>
+    <p class="lh-reg"><em>{c.header.registeredLine}</em></p>
+    <h1 class="memo-title">{c.header.memoTitle}</h1>
+  </header>
+
+  <!-- Founding -->
+  <section class="block" aria-labelledby="crisis-founding">
+    <h2 id="crisis-founding">{c.founding.heading}</h2>
+    {c.founding.paragraphs.map((para) => <p>{para}</p>)}
+  </section>
+
+  <!-- Annual findings — a document table, not a chart -->
+  <section class="block" aria-labelledby="crisis-findings">
+    <h2 id="crisis-findings">{c.findings.heading}</h2>
+    <p class="subtitle"><em>{c.findings.subtitle}</em></p>
+    <div class="table-scroll">
+      <table class="findings">
+        <caption class="sr-only">{c.findings.heading}</caption>
+        <thead>
+          <tr>
+            <th scope="col">{c.findings.colFinding}</th>
+            <th scope="col" class="col-ref">{c.findings.colRef}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            c.findings.rows.map((row) => (
+              <tr>
+                <td>{row.text}</td>
+                <td class="finding-ref">FINDING {row.ref}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Scale -->
+  <p class="scale">{c.scale}</p>
+
+  <!-- Tie One On For Suds — ribbon program / pledge funnel -->
+  <section class="block ribbon-block" aria-labelledby="crisis-ribbon">
+    <p class="ribbon-mark"><RibbonBadge size={80} decorative /></p>
+    <h2 id="crisis-ribbon">{c.ribbon.heading}</h2>
+    <p>{c.ribbon.body}</p>
+    <p>
+      <Button
+        label={c.ribbon.cta.label}
+        href={c.ribbon.cta.href}
+        register="cwaaa"
+        variant="primary"
+      />
+    </p>
+  </section>
+
+  <!-- Press Room -->
+  <section class="block" aria-labelledby="crisis-press">
+    <h2 id="crisis-press">{c.press.heading}</h2>
+    <ul class="press-list" role="list">
+      {
+        c.press.releases.map((r) => (
+          <li class="release">
+            <p class="release-tag">
+              {c.press.immediateRelease} · <span class="release-date">{r.date}</span>
+            </p>
+            <h3 class="release-headline">{r.headline}</h3>
+            {r.body && <p class="release-body"><em>{r.body}</em></p>}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- Recovery Case Files (deck §8.6a) -->
+  <section class="block" aria-labelledby="crisis-cases">
+    <h2 id="crisis-cases">{c.caseFiles.heading}</h2>
+    <p class="subtitle"><em>{c.caseFiles.subtitle}</em></p>
+    <ul class="case-list" role="list">
+      {
+        c.caseFiles.files.map((file) => (
+          <li class="case-file">
+            <p class="case-label">{file.label}</p>
+            <blockquote class="case-quote">{file.quote}</blockquote>
+            <p class="case-by">
+              — <strong>{file.by}</strong> Status: <strong>{file.status}</strong>{' '}
+              {file.note}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="case-closing">{c.caseFiles.closing}</p>
+    <p>
+      <Button
+        label={c.caseFiles.cta.label}
+        href={c.caseFiles.cta.href}
+        register="cwaaa"
+        variant="secondary"
+      />
+    </p>
+  </section>
+
+  <!-- Fine print -->
+  <p class="fine-print"><em>{c.finePrint}</em></p>
+
+  <!-- Exits -->
+  <nav class="exits" aria-label="Continue">
+    {
+      c.exits.map((exit, i) => (
+        <Button
+          label={exit.label}
+          href={exit.href}
+          register="cwaaa"
+          variant={i === c.exits.length - 1 ? 'primary' : 'secondary'}
+        />
+      ))
+    }
+  </nav>
+</article>
+
+<style>
+  /* PT Serif on every heading — override base.css's display-face default. */
+  .memo-title,
+  h2,
+  h3 {
+    font-family: var(--font-cwaaa);
+    color: var(--reg-heading);
+  }
+
+  .crisis-doc {
+    max-width: 46rem;
+    margin-inline: auto;
+    padding: clamp(1.75rem, 6vw, 4rem) 0 var(--space-3xl);
+  }
+  .crisis-doc > * + * {
+    margin-top: var(--space-xl);
+  }
+  .block > * + * {
+    margin-top: var(--space-md);
+  }
+
+  /* ---- Letterhead -------------------------------------------------------- */
+  .lh {
+    text-align: center;
+    padding-bottom: var(--space-lg);
+    border-bottom: 3px double var(--reg-rule);
+  }
+  .lh :global(svg) {
+    margin-inline: auto;
+    margin-bottom: var(--space-sm);
+  }
+  .lh-org {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-size: var(--step-1);
+    line-height: 1.2;
+  }
+  .lh-est,
+  .lh-reg {
+    color: var(--reg-muted);
+    font-size: var(--step--1);
+    margin-top: var(--space-2xs);
+  }
+  .memo-title {
+    font-size: var(--step-3);
+    font-weight: 700;
+    margin-top: var(--space-md);
+    line-height: 1.15;
+  }
+
+  h2 {
+    font-size: var(--step-2);
+    font-weight: 700;
+    border-bottom: 1px solid var(--reg-rule);
+    padding-bottom: var(--space-2xs);
+  }
+  .subtitle {
+    color: var(--reg-muted);
+    font-size: var(--step--1);
+  }
+
+  /* ---- Findings table ---------------------------------------------------- */
+  .table-scroll {
+    overflow-x: auto;
+  }
+  .findings {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step-0);
+  }
+  .findings th {
+    text-align: left;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: var(--step--1);
+    padding: 0.5em 0.75em;
+    border-bottom: 2px solid var(--reg-fg);
+  }
+  .findings td {
+    padding: 0.7em 0.75em;
+    border-bottom: 1px solid var(--reg-rule);
+    vertical-align: top;
+  }
+  .col-ref,
+  .finding-ref {
+    white-space: nowrap;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.03em;
+    color: var(--reg-muted);
+    font-size: var(--step--1);
+  }
+
+  /* ---- Scale ------------------------------------------------------------- */
+  .scale {
+    text-align: center;
+    font-weight: 700;
+    font-size: var(--step-2);
+    line-height: 1.25;
+    border-block: 2px solid var(--reg-accent);
+    padding-block: var(--space-md);
+  }
+
+  /* ---- Ribbon block ------------------------------------------------------ */
+  .ribbon-block {
+    text-align: center;
+    border: 1px solid var(--reg-rule);
+    background: color-mix(in srgb, var(--cwaaa-ink) 5%, transparent);
+    padding: var(--space-lg);
+  }
+  .ribbon-mark :global(svg) {
+    margin-inline: auto;
+  }
+
+  /* ---- Press Room -------------------------------------------------------- */
+  .press-list {
+    display: grid;
+    gap: var(--space-lg);
+  }
+  .release {
+    padding-left: var(--space-md);
+    border-left: 3px solid var(--reg-rule);
+  }
+  .release-tag {
+    font-size: var(--step--2);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--reg-accent);
+    font-weight: 700;
+  }
+  .release-date {
+    color: var(--reg-muted);
+  }
+  .release-headline {
+    font-size: var(--step-1);
+    font-weight: 700;
+    margin-top: var(--space-2xs);
+  }
+  .release-body {
+    color: var(--reg-muted);
+    margin-top: var(--space-2xs);
+  }
+
+  /* ---- Recovery Case Files ---------------------------------------------- */
+  .case-list {
+    display: grid;
+    gap: var(--space-lg);
+  }
+  .case-file {
+    border: 1px solid var(--reg-rule);
+    padding: var(--space-md) var(--space-lg);
+  }
+  .case-label {
+    font-size: var(--step--2);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--reg-accent);
+    font-weight: 700;
+  }
+  .case-quote {
+    margin-top: var(--space-xs);
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .case-by {
+    margin-top: var(--space-sm);
+    font-size: var(--step--1);
+  }
+  .case-closing {
+    text-align: center;
+    font-weight: 700;
+  }
+
+  /* ---- Fine print -------------------------------------------------------- */
+  .fine-print {
+    color: var(--reg-muted);
+    font-size: var(--step--2);
+    line-height: 1.6;
+    border-top: 1px solid var(--reg-rule);
+    padding-top: var(--space-md);
+  }
+
+  /* ---- Exits ------------------------------------------------------------- */
+  .exits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+  }
+
+  /* Space the CTA buttons that follow paragraphs. */
+  .block p :global(.btn) {
+    margin-top: var(--space-2xs);
+  }
+</style>

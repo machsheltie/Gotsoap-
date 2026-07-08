@@ -1,20 +1,41 @@
 ---
 /**
- * /pledge — The Lather Pledge (Form CW-1). PHASE 0 STUB. Real build: Task C.
- * 📋 CWAAA-authored surface — register="cwaaa". Meta verbatim (§2).
+ * /pledge — The Lather Pledge (Form CW-1). 📋 CWAAA-authored surface.
+ * register="cwaaa" hands <main> the CWAAA slots (manila/ink/stamp, PT Serif).
+ * design.md §7: the manila document panel sits on a grout-black ground — the
+ * one structural token that frames every CWAAA surface (the nav uses it too);
+ * no campaign-register token or fx-* appears here. Meta verbatim (copy §2/§7).
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import StubNotice from '../components/StubNotice.astro';
+import PledgeForm from '../components/cwaaa/PledgeForm.astro';
+import { pledge } from '../content/pledge';
 ---
 
 <BaseLayout
-  title="The Lather Pledge — Form CW-1 | got soap?"
-  description="Declaration of Intent to Lather. Sign the oath, join two million women who've had enough, and smell like you meant it."
+  title={pledge.meta.title}
+  description={pledge.meta.description}
   register="cwaaa"
 >
-  <StubNotice
-    heading="the lather pledge"
-    route="/pledge"
-    owner="Task C — Form CW-1"
-  />
+  <section class="pledge-stage">
+    <PledgeForm />
+  </section>
 </BaseLayout>
+
+<!--
+  The document sits on grout-black (design.md §7). register-cwaaa sets <main>'s
+  background to manila; on THIS route only we swap that ground to grout-black so
+  the manila Form CW-1 panel reads as a filed document on a desk. Scoped to
+  /pledge because a page's styles only ship on pages that render it.
+-->
+<style is:global>
+  main.register-cwaaa {
+    background-color: var(--grout-black);
+  }
+</style>
+
+<style>
+  .pledge-stage {
+    padding-block: clamp(var(--space-xl), 6vw, var(--space-3xl));
+    padding-inline: clamp(1rem, 5vw, 3rem);
+  }
+</style>

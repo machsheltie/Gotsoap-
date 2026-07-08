@@ -1,0 +1,205 @@
+---
+/**
+ * Question.astro — one Sniff Test question (Task B).
+ *
+ * A native <fieldset>/<legend> radio group: free keyboard support (arrow keys
+ * move within the group, Space selects), free screen-reader semantics ("radio,
+ * 1 of 4"), and a real group name. The radio inputs are visually hidden but stay
+ * focusable/operable; the full-width <label> rows are the tap targets. Selected
+ * state is signalled by amber fill AND a check mark AND a heavier border — never
+ * color alone (WCAG 1.4.1). The prompt span is focus-managed by quiz.ts.
+ *
+ * All questions render server-side (hidden). quiz.ts reveals one at a time.
+ * The answer's index IS its score (0..3) — kept in data-score, never rendered
+ * as a number anywhere on screen.
+ */
+import type { SniffQuestion } from '../../content/sniffTest';
+
+interface Props {
+  /** 0-based question index. */
+  index: number;
+  question: SniffQuestion;
+}
+const { index, question } = Astro.props;
+const n = index + 1;
+const name = `q${index}`;
+const promptId = `q${index}-prompt`;
+---
+
+<fieldset
+  class="q"
+  data-question={index}
+  aria-labelledby={promptId}
+  hidden
+>
+  <legend class="q__legend">
+    <span class="q__eyebrow">Question {n}</span>
+    <span class="q__prompt" id={promptId} tabindex="-1">{question.prompt}</span>
+  </legend>
+
+  <div class="q__answers">
+    {
+      question.answers.map((answer, i) => (
+        <label class="answer">
+          <input
+            class="answer__input"
+            type="radio"
+            name={name}
+            value={i}
+            data-score={i}
+          />
+          <span class="answer__mark" aria-hidden="true" />
+          <span class="answer__text">{answer}</span>
+        </label>
+      ))
+    }
+  </div>
+</fieldset>
+
+<style>
+  .q {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-inline-size: 0; /* allow fieldset to shrink in flex/grid contexts */
+  }
+  .q[hidden] {
+    display: none;
+  }
+
+  .q__legend {
+    display: block;
+    padding: 0;
+    margin-block-end: var(--space-lg);
+  }
+  .q__eyebrow {
+    display: block;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--reg-accent);
+    margin-block-end: var(--space-xs);
+  }
+  .q__prompt {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-3);
+    line-height: 1.1;
+    color: var(--reg-heading);
+    max-inline-size: 22ch;
+  }
+  .q__prompt:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  .q__answers {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  /* Full-width tappable row (Jost). */
+  .answer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border: 2px solid var(--reg-rule);
+    border-radius: var(--radius-tile);
+    background: color-mix(in srgb, var(--reg-fg) 3%, transparent);
+    cursor: pointer;
+    transition:
+      border-color 140ms ease,
+      background-color 140ms ease;
+  }
+  .answer:hover {
+    border-color: color-mix(in srgb, var(--reg-accent) 55%, var(--reg-rule));
+    background: color-mix(in srgb, var(--reg-accent) 8%, transparent);
+  }
+
+  /* Visually hidden radio — still focusable and operable (arrow keys, space). */
+  .answer__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Custom radio dot. */
+  .answer__mark {
+    flex: 0 0 auto;
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+    border: 2px solid var(--reg-muted);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    transition:
+      border-color 140ms ease,
+      background-color 140ms ease;
+  }
+  .answer__mark::after {
+    content: '';
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    border-radius: 50%;
+    background: var(--grout-black);
+    transform: scale(0);
+    transition: transform 120ms ease;
+  }
+
+  .answer__text {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: var(--step-0);
+    line-height: 1.35;
+    color: var(--reg-fg);
+  }
+
+  /* ---- Selected state — amber fill + filled dot + heavier border. ---------
+     Driven by :checked (modern :has) AND a JS-toggled .is-selected class, so
+     selection stays visible even without :has support. */
+  .answer:has(.answer__input:checked),
+  .answer.is-selected {
+    border-color: var(--reg-accent);
+    background: var(--reg-accent);
+  }
+  .answer:has(.answer__input:checked) .answer__text,
+  .answer.is-selected .answer__text {
+    color: var(--grout-black);
+    font-weight: 500;
+  }
+  .answer:has(.answer__input:checked) .answer__mark,
+  .answer.is-selected .answer__mark {
+    border-color: var(--grout-black);
+    background: transparent;
+  }
+  .answer:has(.answer__input:checked) .answer__mark::after,
+  .answer.is-selected .answer__mark::after {
+    transform: scale(1);
+  }
+
+  /* ---- Focus ring projected onto the whole row from the hidden input. ----- */
+  .answer:has(.answer__input:focus-visible) {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .answer,
+    .answer__mark,
+    .answer__mark::after {
+      transition: none;
+    }
+  }
+</style>

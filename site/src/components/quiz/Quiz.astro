@@ -1,0 +1,269 @@
+---
+/**
+ * Quiz.astro — the Sniff Test island shell (Task B; design.md §7, mechanics §1).
+ *
+ * Screens: intro (§6.1) → 7 questions one-at-a-time (§6.3) → transient completion
+ * beat (§6.2b) → client-side redirect to the static verdict page BY SLUG. Scoring
+ * is internal plumbing; no numeric score is ever written to the DOM (design.md §7).
+ *
+ * The whole surface is 🧼 campaign, porcelain register (BaseLayout sets it on
+ * <main>). Behavior is in scripts/quiz.ts, driven by the data-* contract below;
+ * the quiz needs JS to tally a verdict, so a <noscript> carries an in-voice note.
+ */
+import Progress from './Progress.astro';
+import Question from './Question.astro';
+import { intro, chrome, completion, questions, quizConfig } from '../../content/sniffTest';
+
+// Serialize ONLY score-band thresholds + redirect base for the client. These
+// never render a number; the client redirects by verdict slug.
+const configJson = JSON.stringify(quizConfig);
+---
+
+<section class="quiz" data-quiz>
+  <script
+    is:inline
+    type="application/json"
+    data-quiz-config
+    set:html={configJson}
+  />
+
+  <!-- Screen 1: intro (§6.1) -->
+  <div class="quiz__intro flow" data-quiz-intro>
+    <h1 class="quiz__title fx-steam-glow">{intro.heading}</h1>
+    <p class="quiz__lead">{intro.lead}</p>
+    <button type="button" class="quiz__begin" data-quiz-begin>{intro.beginLabel}</button>
+    <p class="quiz__credit">{intro.credit}</p>
+  </div>
+
+  <!-- Screens 2–8: the assessment (revealed by quiz.ts on Begin) -->
+  <div class="quiz__assessment" data-quiz-assessment hidden>
+    <Progress />
+
+    <form class="quiz__form" data-quiz-form novalidate>
+      {questions.map((question, i) => <Question index={i} question={question} />)}
+    </form>
+
+    <div class="quiz__nav">
+      <button
+        type="button"
+        class="quiz__btn quiz__btn--ghost"
+        data-quiz-back
+        hidden
+      >
+        ← Back
+      </button>
+      <button
+        type="button"
+        class="quiz__btn quiz__btn--primary"
+        data-quiz-next
+        data-final-label="See my verdict →"
+        disabled
+      >
+        Continue →
+      </button>
+    </div>
+
+    <p class="quiz__persist">{chrome.footer}</p>
+
+    <!-- aria-live progress: announces the deck's exact "Question n of 7." -->
+    <p class="sr-only" role="status" aria-live="polite" data-quiz-live></p>
+  </div>
+
+  <!-- Completion beat (§6.2b): transient, no score, then redirect. -->
+  <div class="quiz__beat" data-quiz-beat hidden>
+    <p class="quiz__beat-line" role="status" tabindex="-1" data-quiz-beat-line>
+      <strong>{completion.headline}</strong> {completion.body}
+    </p>
+  </div>
+
+  <noscript>
+    <p class="quiz__noscript">
+      The Sniff Test tallies your findings in your browser — enable JavaScript to
+      receive a verdict. Or consult your group chat. They already know.
+    </p>
+  </noscript>
+</section>
+
+<script>
+  import '../../scripts/quiz.ts';
+</script>
+
+<style>
+  .quiz {
+    max-inline-size: 44rem;
+    margin-inline: auto;
+    padding-block: clamp(var(--space-2xl), 8vh, var(--space-3xl));
+    padding-inline: clamp(1.25rem, 5vw, 2rem);
+    min-block-size: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* ---- Intro ---- */
+  .quiz__intro {
+    --flow-space: var(--space-lg);
+    text-align: center;
+  }
+  .quiz__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-5);
+    line-height: 1;
+    color: var(--reg-heading);
+  }
+  .quiz__lead {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    color: var(--reg-fg);
+    max-inline-size: 34ch;
+    margin-inline: auto;
+  }
+  .quiz__credit {
+    font-family: var(--font-fine);
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--reg-muted);
+  }
+
+  .quiz__begin {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--step-1);
+    color: var(--grout-black);
+    background: var(--reg-accent);
+    border: 2px solid var(--reg-accent);
+    border-radius: var(--radius-tile);
+    padding: 0.7em 1.6em;
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      transform 100ms ease;
+  }
+  .quiz__begin:hover {
+    background: color-mix(in srgb, var(--reg-accent) 86%, #fff);
+  }
+  .quiz__begin:active {
+    transform: translateY(1px);
+  }
+
+  /* ---- Assessment ---- */
+  .quiz__form {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .quiz__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-block-start: var(--space-xl);
+  }
+  .quiz__btn {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--step-0);
+    border-radius: var(--radius-tile);
+    padding: 0.7em 1.5em;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition:
+      background-color 140ms ease,
+      color 140ms ease,
+      border-color 140ms ease,
+      opacity 140ms ease;
+  }
+  .quiz__btn--primary {
+    background: var(--reg-accent);
+    color: var(--grout-black);
+    border-color: var(--reg-accent);
+    margin-inline-start: auto;
+  }
+  .quiz__btn--primary:hover:not([disabled]) {
+    background: color-mix(in srgb, var(--reg-accent) 86%, #fff);
+  }
+  .quiz__btn--primary[disabled] {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .quiz__btn--ghost {
+    background: transparent;
+    color: var(--reg-muted);
+    border-color: var(--reg-rule);
+  }
+  .quiz__btn--ghost:hover {
+    color: var(--reg-fg);
+    border-color: var(--reg-muted);
+  }
+  .quiz__btn[hidden] {
+    display: none;
+  }
+
+  .quiz__persist {
+    margin-block-start: var(--space-xl);
+    text-align: center;
+    font-family: var(--font-fine);
+    font-size: var(--step--1);
+    font-style: italic;
+    color: var(--reg-muted);
+  }
+
+  /* ---- Completion beat ---- */
+  .quiz__beat {
+    text-align: center;
+    min-block-size: 40vh;
+    display: grid;
+    place-items: center;
+  }
+  .quiz__beat[hidden] {
+    display: none;
+  }
+  .quiz__beat-line {
+    font-family: var(--font-body);
+    font-size: var(--step-2);
+    max-inline-size: 28ch;
+    color: var(--reg-fg);
+    opacity: 0;
+    animation: beat-in 320ms ease forwards;
+  }
+  .quiz__beat-line strong {
+    color: var(--reg-heading);
+    font-weight: 600;
+  }
+  /* Programmatic focus target (not user-interactive) — no stray ring. */
+  .quiz__beat-line:focus {
+    outline: none;
+  }
+  @keyframes beat-in {
+    to {
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .quiz__beat-line {
+      opacity: 1;
+      animation: none;
+    }
+  }
+
+  .quiz__noscript {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    text-align: center;
+    color: var(--reg-fg);
+    max-inline-size: 34ch;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 30rem) {
+    .quiz__nav {
+      flex-wrap: wrap;
+    }
+    .quiz__btn--primary {
+      inline-size: 100%;
+    }
+  }
+</style>

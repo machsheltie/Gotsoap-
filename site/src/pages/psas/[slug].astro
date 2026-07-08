@@ -1,60 +1,285 @@
 ---
 /**
- * /psas/<slug> — per-poster page (5 pages). PHASE 0 STUB. Real build: Task D.
- * getStaticPaths is driven by the POSTERS registry (config/site.ts) so the five
- * routes exist and resolve. Per-slug meta transcribed verbatim (copy-deck §2).
+ * /psas/<slug> — per-poster detail page (Task D). getStaticPaths is driven by
+ * the POSTERS registry (config/site.ts) so all five routes exist and resolve.
+ * Poster shown full-bleed, untouched, in its own register; a lightbox/zoom;
+ * case notes; share + download row; prev/next; per-poster OG + JSON-LD.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import StubNotice from '../../components/StubNotice.astro';
-import { POSTERS } from '../../config/site';
+import PosterImage from '../../components/PosterImage.astro';
+import Lightbox from '../../components/psas/Lightbox.astro';
+import ShareRow from '../../components/ShareRow.astro';
+import Button from '../../components/Button.astro';
+import { POSTERS, absoluteUrl, type Poster } from '../../config/site';
+import {
+  caseNotes,
+  posterAltText,
+  posterMeta,
+  downloadNotice,
+  prevSpotLabel,
+  nextSpotLabel,
+  type PosterSlug,
+} from '../../content/psas';
 
 export function getStaticPaths() {
-  // Verbatim per-route meta (copy-deck §2). Task D moves these into psas.ts.
-  const meta: Record<string, { title: string; description: string }> = {
-    'confident-man': {
-      title: 'A Clean Man Is A Confident Man | got soap?',
-      description:
-        "Spot No. 1. Because your Axe body spray isn't fooling anyone, cowboy. Smell like effort.",
-    },
-    'soap-smoldering': {
-      title: 'Soap-Smoldering | got soap?',
-      description:
-        'Spot No. 2. Because your "natural scent" is a threat, not a flex. Lather. Rinse. Respect.',
-    },
-    unholy: {
-      title: 'Unholy | got soap?',
-      description:
-        'Spot No. 3. Because deodorant without a shower is just layering lies. Axe is not an exorcism.',
-    },
-    redemption: {
-      title: 'The Redemption | got soap?',
-      description:
-        "Spot No. 4. Because cleansing isn't just for your sins. Deodorant isn't divine intervention.",
-    },
-    'thirst-announcement': {
-      title: 'Public Thirst Announcement | got soap?',
-      description:
-        "Spot No. 5. Because your Tinder shouldn't come with a scratch-n-sniff warning. Wash accordingly.",
-    },
-  };
   return POSTERS.map((poster) => ({
     params: { slug: poster.slug },
-    props: { poster, meta: meta[poster.slug] },
+    props: { poster },
   }));
 }
 
-const { poster, meta } = Astro.props;
+interface Props {
+  poster: Poster;
+}
+
+const { poster } = Astro.props as Props;
+const slug = poster.slug as PosterSlug;
+const meta = posterMeta[slug];
+const alt = posterAltText[slug];
+const notesHtml = caseNotes[slug];
+
+// Linear series (Series One is a bounded archive, not a loop): Spot No. 1
+// has no prev; Spot No. 5 has no next. Series Two, when it arrives, extends
+// this rather than wrapping it.
+const prevPoster = POSTERS.find((p) => p.order === poster.order - 1);
+const nextPoster = POSTERS.find((p) => p.order === poster.order + 1);
+
+const downloadHref = `/downloads/${poster.slug}.jpg`;
+const ogImage = absoluteUrl(downloadHref);
+const pageUrl = absoluteUrl(`/psas/${poster.slug}`);
+
+// Live type FX budget (design.md §5/§7): steam-glow on porcelain, chrome on
+// smoke, gold on marble — spot titles only.
+const titleFx =
+  poster.register === 'porcelain'
+    ? 'fx-steam-glow'
+    : poster.register === 'smoke'
+      ? 'fx-chrome'
+      : 'fx-gold';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: poster.title,
+  description: meta.description,
+  image: ogImage,
+  url: pageUrl,
+  creator: {
+    '@type': 'Person',
+    name: 'Stacey M. Breckel / Hope2 Studio',
+  },
+  about:
+    'A satirical hygiene-PSA campaign poster, parody of the 90s "Got Milk?" campaign.',
+  isPartOf: {
+    '@type': 'CreativeWorkSeries',
+    name: 'Got Soap? — Public Service Announcements, Series One',
+  },
+  position: poster.order,
+  copyrightNotice: '© Stacey Breckel 2025',
+  isFamilyFriendly: true,
+};
 ---
 
 <BaseLayout
   title={meta.title}
   description={meta.description}
-  register={poster.register}
+  ogImage={ogImage}
   ogType="article"
+  register={poster.register}
+  jsonLd={jsonLd}
 >
-  <StubNotice
-    heading={poster.title}
-    route={`/psas/${poster.slug}`}
-    owner="Task D — Poster detail"
-  />
+  <article class="poster-stage">
+    <header class="poster-stage__head container">
+      <p class="poster-stage__eyebrow">SPOT NO. {poster.order}</p>
+      <h1 class:list={['poster-stage__title', titleFx]}>{poster.title}</h1>
+    </header>
+
+    <div class="poster-stage__frame">
+      <PosterImage
+        slug={poster.slug}
+        alt={alt}
+        loading="eager"
+        sizes="(min-width: 900px) 640px, 92vw"
+        class="poster-stage__image"
+      />
+      <div class="poster-stage__frame-actions">
+        <Lightbox slug={poster.slug} alt={alt} posterTitle={poster.title} />
+      </div>
+    </div>
+
+    <div class="poster-stage__body container container--narrow flow">
+      <p class="poster-stage__notes" set:html={notesHtml} />
+
+      <ShareRow kind="spot" url={pageUrl} title={poster.title} />
+
+      <div class="poster-stage__download">
+        <h2 class="poster-stage__download-heading">{downloadNotice.heading}</h2>
+        {downloadNotice.body.map((line) => (
+          <p class="poster-stage__download-line">{line}</p>
+        ))}
+        <Button
+          label={downloadNotice.buttonLabel}
+          href={downloadHref}
+          download={`got-soap-${poster.slug}.jpg`}
+        />
+      </div>
+    </div>
+
+    <nav class="poster-stage__prevnext container" aria-label="Other spots in the series">
+      {
+        prevPoster ? (
+          <a class="poster-stage__nav-link" href={`/psas/${prevPoster.slug}`}>
+            {prevSpotLabel(prevPoster.order)}
+          </a>
+        ) : (
+          <span class="poster-stage__nav-link poster-stage__nav-link--spacer" aria-hidden="true" />
+        )
+      }
+      <a class="poster-stage__nav-link poster-stage__nav-link--index" href="/psas">
+        The PSAs — Series One
+      </a>
+      {
+        nextPoster ? (
+          <a class="poster-stage__nav-link" href={`/psas/${nextPoster.slug}`}>
+            {nextSpotLabel(nextPoster.order)}
+          </a>
+        ) : (
+          <span class="poster-stage__nav-link poster-stage__nav-link--spacer" aria-hidden="true" />
+        )
+      }
+    </nav>
+  </article>
 </BaseLayout>
+
+<style>
+  .poster-stage {
+    padding-block-end: var(--space-3xl);
+  }
+
+  .poster-stage__head {
+    padding-block: var(--space-2xl) var(--space-lg);
+    text-align: center;
+  }
+  .poster-stage__eyebrow {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--reg-accent);
+  }
+  .poster-stage__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-5);
+    color: var(--reg-heading);
+    margin-block-start: var(--space-xs);
+  }
+
+  /* ---- Full-bleed frame: edge-to-edge register background, poster
+     centered and height-constrained so it never crops (object-fit:
+     contain) regardless of viewport aspect ratio. ---- */
+  .poster-stage__frame {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: clamp(1rem, 4vw, 2.5rem);
+    padding-inline: clamp(1rem, 4vw, 2.5rem);
+    min-height: min(70vh, 780px);
+  }
+  .poster-stage__frame :global(picture),
+  .poster-stage__frame :global(img) {
+    display: block;
+    max-width: min(94vw, 620px);
+    max-height: min(70vh, 780px);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .poster-stage__frame-actions {
+    position: absolute;
+    right: clamp(1rem, 4vw, 2.5rem);
+    bottom: clamp(1rem, 4vw, 2.5rem);
+  }
+
+  .poster-stage__body {
+    padding-block: var(--space-2xl);
+    --flow-space: var(--space-lg);
+  }
+  .poster-stage__notes {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--reg-fg);
+  }
+  .poster-stage__notes :global(em) {
+    color: var(--reg-accent);
+    font-style: italic;
+  }
+
+  .poster-stage__download {
+    border-top: 1px solid var(--reg-rule);
+    padding-block-start: var(--space-lg);
+  }
+  .poster-stage__download-heading {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    color: var(--reg-heading);
+    margin-block-end: var(--space-sm);
+  }
+  .poster-stage__download-line {
+    font-family: var(--font-fine);
+    font-size: var(--step--1);
+    color: var(--reg-muted);
+    max-width: var(--measure);
+  }
+  .poster-stage__download-line + .poster-stage__download-line {
+    margin-block-start: 0.35em;
+  }
+  .poster-stage__download :global(.btn) {
+    margin-block-start: var(--space-md);
+  }
+
+  .poster-stage__prevnext {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding-block: var(--space-xl);
+    border-top: 1px solid var(--reg-rule);
+    flex-wrap: wrap;
+  }
+  .poster-stage__nav-link {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--reg-fg);
+    text-decoration: none;
+  }
+  .poster-stage__nav-link:hover,
+  .poster-stage__nav-link:focus-visible {
+    color: var(--reg-accent);
+  }
+  .poster-stage__nav-link--index {
+    color: var(--reg-muted);
+    text-transform: none;
+    letter-spacing: 0.02em;
+    font-weight: 700;
+    order: 3;
+    flex-basis: 100%;
+    text-align: center;
+  }
+  .poster-stage__nav-link--spacer {
+    flex: 1;
+  }
+  @media (min-width: 640px) {
+    .poster-stage__nav-link--index {
+      order: 0;
+      flex-basis: auto;
+    }
+  }
+</style>

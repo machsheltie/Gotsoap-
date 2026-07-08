@@ -1,0 +1,71 @@
+---
+/**
+ * Progress.astro — the Sniff Test progress indicator (Task B; design.md §7).
+ *
+ * "QUESTION n OF 7 — FIELD ASSESSMENT CW-7" in Montserrat (--font-fine) — the
+ * CWAAA form number is the only sponsor fingerprint until the verdict. The text
+ * carries progress (not color alone, WCAG 1.4.1); the segmented bar is a
+ * supplementary visual. A separate .sr-only aria-live region (in Quiz.astro)
+ * announces "Question n of 7." — this element is muted to avoid double reads.
+ *
+ * quiz.ts updates [data-progress-label] text and toggles [data-progress-seg]
+ * active states as the visitor advances.
+ */
+import { chrome } from '../../content/sniffTest';
+
+const total = chrome.total;
+// Initial (question 1) label; quiz.ts rewrites {n} live.
+const initialLabel = chrome.progressTemplate.replace('{n}', '1');
+const segments = Array.from({ length: total }, (_, i) => i + 1);
+---
+
+<div class="progress" aria-hidden="true">
+  <p class="progress__label" data-progress-label>{initialLabel}</p>
+  <div class="progress__track" style={`--seg-count: ${total}`}>
+    {
+      segments.map((i) => (
+        <span
+          class="progress__seg"
+          data-progress-seg={i}
+          data-active={i === 1 ? 'true' : 'false'}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .progress {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-block-end: var(--space-xl);
+  }
+  .progress__label {
+    font-family: var(--font-fine);
+    font-weight: 500;
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--reg-muted);
+  }
+  .progress__track {
+    display: grid;
+    grid-template-columns: repeat(var(--seg-count, 7), 1fr);
+    gap: 4px;
+  }
+  .progress__seg {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--reg-rule);
+    transition: background-color 200ms ease;
+  }
+  .progress__seg[data-active='true'] {
+    background: var(--reg-accent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .progress__seg {
+      transition: none;
+    }
+  }
+</style>

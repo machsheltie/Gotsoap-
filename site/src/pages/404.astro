@@ -1,16 +1,115 @@
 ---
 /**
- * /404 — CWAAA missing-poster notice. PHASE 0 STUB. Real build: Task E.
- * 📋 CWAAA-authored surface — register="cwaaa". Meta verbatim (§2).
+ * /404 — a CWAAA missing-poster notice (design.md §7 "404", copy-deck §10).
+ * 📋 Pure CWAAA authorship: manila, ink, PT Serif, stamp-red. Zero fx-* effects
+ * (design.md §5 — layer-effect budget is campaign-only). One joke, in-system.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import StubNotice from '../components/StubNotice.astro';
+import Button from '../components/Button.astro';
+import Seal from '../components/cwaaa/Seal.astro';
+import { notFoundMeta, notFoundNotice } from '../content/notFound';
 ---
 
 <BaseLayout
-  title="Missing | got soap?"
-  description="This page didn't shower. It's gone."
+  title={notFoundMeta.title}
+  description={notFoundMeta.description}
   register="cwaaa"
 >
-  <StubNotice heading="missing" route="/404" owner="Task E — 404" />
+  <section class="missing">
+    <div class="container container--narrow">
+      <div class="missing__panel">
+        <Seal size={88} class="missing__seal" />
+
+        <h1 class="missing__heading">{notFoundNotice.heading}</h1>
+
+        <p class="missing__body">{notFoundNotice.body}</p>
+        <p class="missing__advisory">{notFoundNotice.advisory}</p>
+
+        <div class="missing__stamp" aria-hidden="true">{notFoundNotice.stamp}</div>
+        <p class="sr-only">Status: {notFoundNotice.stamp}.</p>
+
+        <div class="missing__cta">
+          <Button
+            label={notFoundNotice.ctaLabel}
+            href={notFoundNotice.ctaHref}
+            register="cwaaa"
+            variant="primary"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .missing {
+    padding-block: var(--space-3xl);
+    min-height: calc(100dvh - 20rem);
+    display: flex;
+    align-items: center;
+  }
+  .missing__panel {
+    background: color-mix(in srgb, var(--cwaaa-manila) 92%, #000 3%);
+    border: 1px solid color-mix(in srgb, var(--cwaaa-ink) 35%, transparent);
+    padding: var(--space-2xl) var(--space-xl);
+    text-align: center;
+    position: relative;
+  }
+  .missing__panel::before {
+    /* Ruled document baseline, a quiet nod to the CWAAA letterhead grammar. */
+    content: '';
+    position: absolute;
+    inset: var(--space-md);
+    border: 1px solid color-mix(in srgb, var(--cwaaa-ink) 18%, transparent);
+    pointer-events: none;
+  }
+  .missing__seal {
+    margin-inline: auto;
+    margin-bottom: var(--space-md);
+  }
+  .missing__heading {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step-5);
+    letter-spacing: 0.06em;
+    color: var(--reg-heading);
+    margin-bottom: var(--space-md);
+  }
+  .missing__body {
+    font-family: var(--font-cwaaa);
+    font-size: var(--step-1);
+    color: var(--reg-fg);
+    margin-bottom: var(--space-sm);
+  }
+  .missing__advisory {
+    font-family: var(--font-cwaaa);
+    font-style: italic;
+    font-size: var(--step-0);
+    color: var(--reg-muted);
+    max-width: var(--measure);
+    margin-inline: auto;
+    margin-bottom: var(--space-xl);
+  }
+  .missing__stamp {
+    display: inline-block;
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step-2);
+    letter-spacing: 0.14em;
+    color: var(--cwaaa-stamp);
+    border: 3px solid var(--cwaaa-stamp);
+    padding: 0.3em 0.9em;
+    transform: rotate(-6deg);
+    margin-bottom: var(--space-xl);
+  }
+  .missing__cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .missing__stamp {
+      transform: none;
+    }
+  }
+</style>
