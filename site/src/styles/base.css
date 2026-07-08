@@ -185,21 +185,26 @@ ol[role='list'] {
   }
 }
 
-/* Reusable scroll-reveal hook — Phase 1 opts in; safe no-op when unused. */
-[data-reveal] {
+/* Reusable scroll-reveal hook — progressive enhancement.
+   Content is VISIBLE by default; only when JS is confirmed (.has-js on <html>,
+   set by an inline head script before paint) do we hide-then-reveal — so no-JS
+   users are never trapped behind opacity:0. BaseLayout ships a global activator
+   that adds .is-revealed on scroll (and immediately under reduced motion). */
+.has-js [data-reveal] {
   opacity: 0;
   transform: translateY(12px);
   transition:
     opacity 600ms ease,
     transform 600ms ease;
 }
-[data-reveal].is-revealed {
+.has-js [data-reveal].is-revealed {
   opacity: 1;
   transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
+  .has-js [data-reveal] {
     opacity: 1;
     transform: none;
+    transition: none;
   }
 }

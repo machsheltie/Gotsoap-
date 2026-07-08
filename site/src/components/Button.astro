@@ -86,11 +86,11 @@ const Tag = href ? 'a' : 'button';
   }
   .btn--campaign-secondary {
     background-color: transparent;
-    color: var(--marble-amber);
-    border-color: var(--marble-amber);
+    color: var(--reg-accent, var(--marble-amber));
+    border-color: var(--reg-accent, var(--marble-amber));
   }
   .btn--campaign-secondary:hover {
-    background-color: color-mix(in srgb, var(--marble-amber) 16%, transparent);
+    background-color: color-mix(in srgb, var(--reg-accent, var(--marble-amber)) 16%, transparent);
   }
 
   /* ---- CWAAA (PT Serif, rectangular, on manila) ---- */

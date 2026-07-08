@@ -113,6 +113,7 @@
   --smoke-slate: #201f22; /* smoke register (posters 3–4) */
   --chrome-mist: #9a9aa2; /* dividers, secondary text, chrome type */
   --marble-amber: #b8862e; /* THE one campaign accent — CTAs/links/active */
+  --marble-amber-ink: color-mix(in srgb, var(--marble-amber) 68%, var(--grout-black)); /* AA-safe amber for text/links/focus on the light porcelain ground (~4.8:1); bright --marble-amber stays for fills on dark */
   --lather-white: #ffffff; /* max-contrast type on dark; foam accents */
   /* CWAAA set (3) — only on CWAAA surfaces */
   --cwaaa-manila: #efe6cf; /* paper stock */
@@ -176,10 +177,10 @@
   --reg-bg: var(--steam-white);
   --reg-fg: var(--grout-black);
   --reg-heading: var(--grout-black);
-  --reg-accent: var(--marble-amber);
+  --reg-accent: var(--marble-amber-ink); /* AA-safe on light porcelain */
   --reg-muted: color-mix(in srgb, var(--grout-black) 55%, var(--steam-white));
   --reg-rule: color-mix(in srgb, var(--grout-black) 18%, transparent);
-  --focus-ring: var(--marble-amber);
+  --focus-ring: var(--marble-amber-ink);
   background-color: var(--reg-bg);
   color: var(--reg-fg);
 }

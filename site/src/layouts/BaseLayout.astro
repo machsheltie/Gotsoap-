@@ -57,6 +57,9 @@ const preloadFonts = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Confirm JS before paint so [data-reveal] hides only when we can reveal it
+         (no-JS users are never trapped behind opacity:0). See base.css. -->
+    <script is:inline>document.documentElement.classList.add('has-js');</script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <Seo
@@ -95,6 +98,32 @@ const preloadFonts = [
     </main>
     <Footer />
     <ScratchSniff />
+
+    <script>
+      // Global scroll-reveal activator (progressive enhancement; styles in base.css).
+      // Reveals every [data-reveal] on scroll; immediately under reduced motion or
+      // where IntersectionObserver is unavailable. Idempotent with any page-local observer.
+      const revealEls = document.querySelectorAll('[data-reveal]');
+      if (revealEls.length) {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce || !('IntersectionObserver' in window)) {
+          revealEls.forEach((el) => el.classList.add('is-revealed'));
+        } else {
+          const io = new IntersectionObserver(
+            (entries, obs) => {
+              for (const e of entries) {
+                if (e.isIntersecting) {
+                  e.target.classList.add('is-revealed');
+                  obs.unobserve(e.target);
+                }
+              }
+            },
+            { rootMargin: '0px 0px -10% 0px', threshold: 0.05 },
+          );
+          revealEls.forEach((el) => io.observe(el));
+        }
+      }
+    </script>
   </body>
 </html>
 
