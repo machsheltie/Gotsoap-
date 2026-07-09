@@ -79,3 +79,41 @@ system," it is WRONG — go louder, heavier, more committed.
   print. The reveal is `/about` (the page-three punchline), never a mid-home confession.
 - **Sections collide, overlap, and break their containers;** type is heavy and demanding; steam
   clouds bleed across edges. No orderly stack of centered blocks.
+
+---
+
+## ROUND 3 — aesthetic correction (owner + 3rd review, 2026-07-08): OUT OF THE BUNKER
+
+The first re-cut over-corrected. Fleeing "corporate SaaS," it swung to the OPPOSITE extreme —
+**dark sci-fi / military / emergency-broadcast / X-Files conspiracy / "Call of Duty tactical
+interface."** That is ALSO wrong. Both extremes fail. The through-line: **not generic (SaaS),
+not extreme (bunker) — ELEVATED.**
+
+**THE ACTUAL TARGET: elite, high-budget, HYPER-GLOSSY HIGH-FASHION editorial — the real
+"Got Milk?" soul: bright, premium, celebrity/model front-and-center, unapologetic, in BROAD
+DAYLIGHT / bright studio light — crossed with a Vogue/GQ high-fashion fragrance campaign.
+Seductive + deadpan. Simple, elite, high-visibility, glossy.** The movement/institutional
+concept STAYS, but rendered **chic, elegant, high-end** (a couture house's public-service
+initiative), NOT a dark militant broadcast.
+
+**New AUTO-REJECT tells (this round supersedes the "emergency broadcast" execution of Round 2 —
+the movement CONCEPT stays, the dark-broadcast SKIN is out):**
+- **"Emergency broadcast / TRANSMISSION / DO NOT ADJUST YOUR SET"** framing, hazard stripes,
+  tiny military/tactical fonts. Sci-fi horror / zombie-ARG, not fashion.
+- **Heavy dark vignettes / pitch-black voids** that choke the images into brooding paranoia.
+  Grounds are BRIGHT (porcelain, warm marble, glossy studio light). Darkness only where a
+  register genuinely calls for it (smoke spots), and even then rich/editorial, never bunker.
+- **Literal "OPEN THE CASE FILE" / detective-database framing.** Institutional flavor is a
+  LIGHT, elegant touch — never a tactical/crime UI. (The "case files" are a backend idea; do
+  not render the whole front end as a dossier system.)
+
+**Corrections to apply:**
+- **Masthead** = an **elegant high-fashion nameplate** (Vogue-masthead energy — refined, tracked,
+  glossy), NOT an emergency-broadcast/hazard bar. Still not a generic navbar; still committed —
+  but chic and elite.
+- **Hero** = **bright, glossy, high-key** premium fashion key visual (studio light, seductive),
+  NOT a dark brooding void.
+- **Certificate** keeps its improved formal structure but sits on an **elegant / lighter**
+  ground — no military tracking header above it.
+- **KEEP the good bones:** monumental type, anti-template editorial composition, the certificate's
+  formal structure, the institutional wit — just re-tone **bright / glossy / high-fashion.**
