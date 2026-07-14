@@ -1,6 +1,6 @@
 # Got Soap? Campaign Architecture — Build Specification
 
-**Status:** Approved for implementation except the owner-reserved flagship choice at the end
+**Status:** Approved for implementation; Unholy is locked as the home flagship
 **Date:** 2026-07-14
 **Scope:** Home, `/psas`, `/psas/[slug]`, mechanic ownership, navigation, motion, performance, accessibility, and the Hope2 Studio reveal
 **Governing documents:** `AGENTS.md` creative rules · `docs/design-north-star.md` Round 3 · `docs/prd/PRD-gotsoap-web-v1.md` · `docs/design.md` · `docs/copy/copy-deck-v2.md`
@@ -42,7 +42,8 @@ Home uses normal vertical scrolling. Each beat has a different job, material, sc
 - Keep the model and image visually straight; the live type carries the satire.
 - Clear the steam with one directional sweep lasting 1.8–2.2 seconds.
 - Play the sweep once per browser session. Store completion under `gotsoap:steam-cleared:v1` in `sessionStorage`.
-- On return visits, render the clear state before first paint.
+- Render the clear state by default. A synchronous inline `<head>` script must run before body paint, check reduced-motion preference and `sessionStorage`, and add a `steam-first-visit` class to `<html>` only when motion is allowed and the session flag is absent. Hero CSS may show fog only under that class; do not wait for hydration.
+- On return visits, storage errors, and no-JavaScript visits, retain the default clear state without a flash of steam.
 - Scrolling completes the sweep and stores completion.
 - Reduced motion receives a short crossfade and the clear state.
 - If storage access fails, show the clear state. The effect must never block content.
@@ -54,6 +55,7 @@ The Case stages the crisis as billboard-scale evidence applied directly to a wet
 
 - Three findings occupy unequal architectural zones rather than rows or cards.
 - Chrome figures sit on tile as if fabricated and installed, with grout and specular highlights establishing scale.
+- Render every figure and complete finding as live HTML text. Apply chrome, scale, and highlight treatments with CSS; do not bake findings into an image. When the adjacent finding repeats a decorative figure, mark only that decorative duplicate `aria-hidden="true"` so assistive technology reads the number once.
 - The manifesto runs across tile joints in a separate live-type zone; it never sits in a centered text column.
 - A narrow highlight travels across the chrome figures through `transform` and opacity. It does not replay on every scroll reversal.
 - Mobile composes the three findings as a tall wall: one figure clips against the left viewport edge, one spans the full width, and one locks to the right grout line. The copy remains adjacent to each figure, never in identical blocks.
@@ -66,7 +68,7 @@ The Case stages the crisis as billboard-scale evidence applied directly to a wet
 - Extend its register into the environment with CSS material and a lightweight derived atmospheric wash below the fold.
 - Keep all live type outside the poster’s bounds.
 - Route to `/psas` with one campaign-native action.
-- The owner chooses Poster 5 or Unholy from matched desktop and mobile comps. The choice does not alter the route architecture.
+- **Unholy is the locked flagship.** Its maximum stopping power, quotable sermon cadence, and fragrance-ad drama best perform the home’s single propaganda role. Preserve its complete canonical poster and smoke-register environment; the choice does not alter route architecture.
 
 ### 3.4 The Confrontation — Sniff Test invitation
 
@@ -118,6 +120,7 @@ This is the home’s only CWAAA-authored surface.
 
 Use one responsive `<picture>` as the environment:
 
+- Export one shared art-direction query from `site/src/content/placement-hub.ts`: `PLACEMENT_HUB_WIDE_MEDIA = '(min-width: 768px)'`. Use that exact string for the wide `<source media>` attribute and the client `matchMedia()` call that selects hotspot coordinates. Do not duplicate the breakpoint in component CSS or client code.
 - Wide source master: 3200 × 1800.
 - Portrait source master: 1350 × 2400.
 - Generate responsive AVIF, WebP, and JPG derivatives during the Astro build.
@@ -129,6 +132,7 @@ Use one responsive `<picture>` as the environment:
 
 - Place five real anchor elements over poster locations. Store percentage coordinates by art-directed source in `site/src/content/placement-hub.ts`.
 - Give every hotspot the poster’s full title and destination.
+- At 390 × 844, the baked poster typography may read as visual texture rather than legible body copy. The hub’s job is recognition and range: all five poster worlds must remain individually identifiable, and each poster must have its own independently tappable hotspot of at least 44 × 44 CSS pixels. The installation plaque and detail routes carry readable titles and poster copy.
 - Display a visible, keyboard-accessible five-title route list below the image as a chrome installation plaque. It is a fallback and navigation aid, not a table of contents hero.
 - Hotspots receive a 3-pixel campaign focus outline with sufficient contrast.
 - Zoomed, no-CSS, and screen-reader users can reach every poster through the route list.
@@ -188,6 +192,9 @@ For reduced motion, every entry resolves immediately to its final composition. F
 
 The copy lane must reconcile these strings before launch; design and implementation must not rewrite them ad hoc:
 
+- `homev2/Hero.astro` cold-open `PROVOCATION`: replace the flagged institutional stand-in through the copy lane.
+- `homev2/Hero.astro` institutional signature: approve or replace the flagged “A public hygiene initiative” line through the copy lane.
+- `homev2/Confrontation.astro` `CONFRONT`: replace the flagged second-person stand-in through the copy lane.
 - `meta.pledge.description`: remove the implication that the declarant joins “two million women.”
 - Home Oath invitation: frame the action as sending or bringing him to his declaration, not asking her to swear his hygiene oath.
 - `crisis.ribbon.body` and all “put your intent in writing” variants: confirm that “your” refers to the man who signs.
@@ -276,7 +283,7 @@ The production folio credit is approved verbatim and does not require copy-lane 
 ## 13. Implementation sequence
 
 1. Replace the conflicting execution notes in `docs/design.md` and retire the superseded open questions in the 2026-07-09 proposal.
-2. Promote the movement-pitch architecture from `/movement-preview` to `/` after the text-free hero assets and flagship choice are ready.
+2. Promote the movement-pitch architecture from `/movement-preview` to `/` after the text-free hero assets are ready. Delete the preview page, add a true Netlify 301 from `/movement-preview` to `/`, and verify that the stale route is absent from the generated sitemap.
 3. Build the responsive placement hub with source-specific hotspots and a visible route plaque.
 4. Replace the shared poster split with five explicit environment components; complete mobile signatures first.
 5. Reconcile pledge wrapper copy through the copy lane and add the production folio credit.
@@ -285,8 +292,10 @@ The production folio credit is approved verbatim and does not require copy-lane 
 
 ## 14. Acceptance gates
 
-- Home displays exactly one canonical poster and no live quiz or pledge form.
+- Home displays exactly one canonical poster—Unholy—and no live quiz or pledge form.
 - `/psas` shows all five posters in one physical placement environment without loading five separate poster files.
+- At 390 × 844, all five hub posters are individually identifiable and independently tappable through targets at least 44 × 44 CSS pixels; baked poster typography need not be legible in the composite because the installation plaque and detail routes carry readable text.
+- The `<picture>` art-direction source and hotspot coordinate selector consume the same exported `PLACEMENT_HUB_WIDE_MEDIA` query.
 - Every poster remains complete at every breakpoint; automated and visual checks find no canonical `object-fit: cover`.
 - The five 390 × 844 detail renders remain distinguishable when poster images are temporarily replaced by neutral rectangles.
 - Each detail route uses its named entry, copy material, and type performance.
@@ -294,10 +303,13 @@ The production folio credit is approved verbatim and does not require copy-lane 
 - The home contains one CWAAA document seam.
 - `SPOT NO.` and decorative sequence numerals are absent from campaign navigation and poster taxonomy.
 - The text-free hero replaces every canonical-poster hero wash before production.
-- Steam runs once per session, skips safely, and never delays access.
+- Steam runs once per session, skips safely, and never delays access. A synchronous pre-paint `<head>` script controls the first-visit class; returning visits show no fog flash.
+- The Porcelain Evidence Wall renders its figures and findings as live HTML text, remains intelligible with images disabled, and avoids duplicate screen-reader announcements.
+- The three flagged home copy strings—the hero provocation, hero institutional signature, and Confrontation line—are resolved through the copy lane before launch.
 - Home and `/psas` meet Lighthouse 90 or better on mobile under the PRD test profile.
 - The contents dialog passes keyboard, focus-trap, Escape, focus-return, zoom, and no-JavaScript tests.
 - `site/src` contains no `100vh` declarations.
+- `/movement-preview` returns a true 301 to `/` and is absent from the sitemap.
 - The production folio credit appears above the fold and in the footer without replacing the `/about` reveal.
 
 ## Asset dependencies for Stacey
@@ -306,10 +318,10 @@ The production folio credit is approved verbatim and does not require copy-lane 
 2. Create the elite locker-room placement hub as independent 3200 × 1800 wide and 1350 × 2400 portrait Photoshop compositions containing all five untouched posters; production release is blocked until both exist.
 3. Complete the existing owner-art queue from the PRD: final verdict cards, pledge badge, Poster 5 minimalist crop, and final favicon/mark assets where the current files remain stand-ins.
 
-## Decisions reserved for the owner
+## Owner decisions resolved
 
-1. Choose the home flagship after reviewing matched 390 × 844 and 1440 × 900 comps: Poster 5 for warm editorial range and inclusive casting, or Unholy for maximum stopping power and the campaign’s sharpest provocation.
+1. **Home flagship: Unholy.** The owner selected it for maximum stopping power, sermon-scale copy energy, and the campaign’s sharpest provocation. This decision is closed.
 
 ## Approved-by-default implementation scope
 
-1. Adopt the route ownership, placement-hub model, five mobile signatures, home signature moments, poster geometry, signer model, production credit, session steam behavior, contextual navigation, performance budgets, accessibility contract, implementation sequence, and acceptance gates in this specification without another architecture approval round.
+1. Adopt Unholy as the flagship together with the route ownership, placement-hub model, shared art-direction breakpoint, five mobile signatures, live-text evidence wall, pre-paint session steam mechanism, exhaustive copy-lane gate, preview-route retirement, home signature moments, poster geometry, signer model, production credit, contextual navigation, performance budgets, accessibility contract, implementation sequence, and acceptance gates in this specification without another architecture approval round.
