@@ -126,3 +126,14 @@ export const POSTERS: Poster[] = [
 export function getPoster(slug: string): Poster | undefined {
   return POSTERS.find((p) => p.slug === slug);
 }
+
+/**
+ * The home flagship poster — OWNER DECISION 2026-07-15 (specs.md §3.3):
+ * **Unholy** — maximum stopping power, the campaign's sharpest provocation.
+ * Gate G16 enforces the decision so it cannot silently un-happen.
+ *
+ * The Campaign beat derives its poster, title, register, and derived wash
+ * from this one constant; a future owner change is this line and nothing
+ * else — the route architecture does not change (§3.3).
+ */
+export const HOME_FLAGSHIP: 'thirst-announcement' | 'unholy' = 'unholy';

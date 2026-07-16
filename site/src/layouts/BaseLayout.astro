@@ -2,7 +2,8 @@
 /**
  * BaseLayout.astro — the site shell every page renders through.
  *
- * Props: { title, description, ogImage?, ogType?, register?, jsonLd? }
+ * Props: { title, description, ogImage?, ogType?, register?, jsonLd?, hideNav?,
+ *          hideScratchSniff? }
  *   title/description  per-route meta (copy-deck §2), transcribed verbatim.
  *   ogImage            absolute URL to an OG image (optional; Phase 1 supplies).
  *   ogType             OpenGraph type (default 'website').
@@ -10,11 +11,16 @@
  *                      pages (e.g. 'cwaaa' for /pledge, /crisis, /404;
  *                      'porcelain' for /about). Omit on mixed pages (home)
  *                      where each section sets its own register.
+ *   hideNav            suppress the standard <Nav/> (home ships its own
+ *                      Masthead instead).
+ *   hideScratchSniff   suppress the ScratchSniff gag toast. Required on
+ *                      /psas/[slug]: the fixed card crosses the canonical
+ *                      poster box on mobile (specs.md §5.1 — nothing may
+ *                      cross the poster at rest).
  *   jsonLd             optional JSON-LD object for the page.
  *
- * Renders the full <head> (meta/OG/Twitter/JSON-LD, self-hosted font preloads,
- * GoatCounter), a skip link, <Nav/>, <main><slot/></main>, <Footer/>, and the
- * global <ScratchSniff/> gag.
+ * The viewport-locking "immersive" mode died with the legacy single-viewport
+ * home (§3: home uses normal vertical scrolling).
  */
 import '../styles/tokens.css';
 import '../styles/base.css';
@@ -31,6 +37,8 @@ interface Props {
   ogImage?: string;
   ogType?: string;
   register?: Register | 'cwaaa';
+  hideNav?: boolean;
+  hideScratchSniff?: boolean;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 const {
@@ -39,6 +47,8 @@ const {
   ogImage,
   ogType,
   register,
+  hideNav = false,
+  hideScratchSniff = false,
   jsonLd,
 } = Astro.props;
 
@@ -60,6 +70,41 @@ const preloadFonts = [
     <!-- Confirm JS before paint so [data-reveal] hides only when we can reveal it
          (no-JS users are never trapped behind opacity:0). See base.css. -->
     <script is:inline>document.documentElement.classList.add('has-js');</script>
+
+    <!-- §3.1 steam threshold — the first-visit decision, made SYNCHRONOUSLY in
+         the head before body paint. Fog exists only under
+         `html.steam-first-visit`, added when (a) motion is allowed and (b) this
+         session has not seen the sweep. Return visits, storage errors, reduced
+         motion, and no-JS therefore all render the default CLEAR state with no
+         flash of steam. The class key and the sweep live in
+         scripts/steam-hero.ts; the fog CSS lives in homev2/Hero.astro. -->
+    <script is:inline>
+      (function () {
+        var KEY = 'gotsoap:steam-cleared:v1';
+        try {
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          if (window.sessionStorage.getItem(KEY)) return;
+        } catch (e) {
+          return; /* default clear state — the effect never blocks content */
+        }
+        var html = document.documentElement;
+        html.classList.add('steam-first-visit');
+        // Failsafe: if a hero exists but its island never takes over, settle
+        // to clear and record completion so later navigations are not fogged.
+        // On pages WITHOUT a hero the class is dropped but nothing is stored —
+        // the visitor still gets their one sweep when they reach the home.
+        window.setTimeout(function () {
+          var hero = document.getElementById('hero');
+          if (hero && hero.getAttribute('data-hero')) return; /* island took over */
+          html.classList.remove('steam-first-visit');
+          if (hero) {
+            try {
+              window.sessionStorage.setItem(KEY, '1');
+            } catch (e) {}
+          }
+        }, 3000);
+      })();
+    </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <Seo
@@ -92,12 +137,12 @@ const preloadFonts = [
 
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <Nav />
+    {!hideNav && <Nav />}
     <main id="main" class:list={[register && `register-${register}`]}>
       <slot />
     </main>
     <Footer />
-    <ScratchSniff />
+    {!hideScratchSniff && <ScratchSniff />}
 
     <script>
       // Global scroll-reveal activator (progressive enhancement; styles in base.css).

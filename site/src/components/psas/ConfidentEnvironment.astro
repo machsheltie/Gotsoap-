@@ -1,0 +1,316 @@
+---
+/**
+ * ConfidentEnvironment.astro — Poster 1, "A Clean Man Is A Confident Man".
+ *
+ * §6 row 1, the mobile material signature:
+ *   ENTRY  "Chrome Threshold Lift" — the contained poster rises 4svh from
+ *          behind a chrome shower sill while the wet-tile environment
+ *          sharpens. The steam veil sits UNDER the content stack and fades
+ *          by opacity; it fogs the tile, never the artwork.
+ *   COPY   A glazed porcelain plaque offset to the lower right, with a real
+ *          grout edge and black ink.
+ *   TYPE   The campaign hook locks to the upper-left tile field in oversized
+ *          black Oswald; a thin steam-glow shadow lifts it off the ceramic.
+ *
+ * This component owns its DOM and CSS (§5.2). The poster is the untouched
+ * canonical rectangle — PosterImage pins contain; nothing here crosses its
+ * box at rest (§5.1). The sill sits flush BELOW the poster's final bottom
+ * edge; during the entry the poster passes behind it via overflow clipping.
+ *
+ * Entry animations: base state = FINAL composition; keyframes describe only
+ * where things come from. transform/opacity only (§6).
+ */
+import PosterImage from '../PosterImage.astro';
+import Lightbox from './Lightbox.astro';
+import ShareRow from '../ShareRow.astro';
+import DownloadStation from './DownloadStation.astro';
+import SeriesNav from './SeriesNav.astro';
+import type { Poster } from '../../config/site';
+
+interface Props {
+  poster: Poster;
+  alt: string;
+  caseNote: string;
+  pull: string;
+  pageUrl: string;
+  downloadHref: string;
+  prevPoster?: Poster;
+  nextPoster?: Poster;
+}
+const {
+  poster,
+  alt,
+  caseNote,
+  pull,
+  pageUrl,
+  downloadHref,
+  prevPoster,
+  nextPoster,
+} = Astro.props;
+---
+
+<article class="wash-room" data-entry-stage>
+  <div class="tile-wall">
+    <span class="steam-veil" aria-hidden="true"></span>
+
+    <p class="hook">{pull}</p>
+
+    <figure class="threshold">
+      <div class="rise">
+        <PosterImage
+          slug={poster.slug}
+          alt={alt}
+          loading="eager"
+          sizes="(min-width: 1024px) 760px, 88vw"
+        />
+      </div>
+      <span class="sill" aria-hidden="true"></span>
+    </figure>
+
+    <div class="inspect">
+      <Lightbox slug={poster.slug} alt={alt} posterTitle={poster.title} />
+    </div>
+  </div>
+
+  <aside class="plaque">
+    <h1 class="plaque-title">{poster.title}</h1>
+    <p class="plaque-note" set:html={caseNote} />
+  </aside>
+
+  <div class="service-band">
+    <ShareRow kind="spot" url={pageUrl} title={poster.title} />
+    <DownloadStation slug={poster.slug} downloadHref={downloadHref} />
+  </div>
+
+  <SeriesNav prevPoster={prevPoster} nextPoster={nextPoster} />
+</article>
+
+<script>
+  import '../../scripts/entry-complete.ts';
+</script>
+
+<style>
+  .wash-room {
+    background: var(--steam-white);
+    color: var(--grout-black);
+  }
+
+  /* Bright wet subway tile: sheen from the top light, square grout grid. */
+  .tile-wall {
+    position: relative;
+    overflow: clip;
+    padding-block: clamp(1.5rem, 7vw, 3rem) 0;
+    background:
+      linear-gradient(168deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 36%),
+      repeating-linear-gradient(0deg, rgba(14, 14, 16, 0.08) 0 2px, transparent 2px 96px),
+      repeating-linear-gradient(90deg, rgba(14, 14, 16, 0.06) 0 2px, transparent 2px 96px),
+      linear-gradient(180deg, #fdfdfb, var(--steam-white) 58%);
+  }
+
+  /* The fog that "sharpens" — z-below every content layer, so it mists the
+     tile field only. Final state keeps a faint ambient haze. */
+  .steam-veil {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(90% 55% at 22% 10%, rgba(255, 255, 255, 0.95), transparent 66%),
+      radial-gradient(120% 70% at 82% 72%, rgba(236, 234, 228, 0.9), transparent 70%);
+    opacity: 0.16;
+    animation: confident-sharpen 1.6s ease-out both;
+  }
+  @keyframes confident-sharpen {
+    from {
+      opacity: 0.94;
+    }
+  }
+
+  /* TYPE — oversized black Oswald, locked upper-left, steam-glow separation. */
+  .hook {
+    position: relative;
+    z-index: 1;
+    margin: 0 8vw 0 5vw;
+    max-inline-size: 11ch;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 11.5vw, 4.4rem);
+    line-height: 0.98;
+    text-transform: uppercase;
+    letter-spacing: -0.012em;
+    color: var(--grout-black);
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.9),
+      0 0 18px rgba(255, 255, 255, 0.78);
+  }
+
+  /* ENTRY — the threshold clips the poster's start position so it emerges
+     from behind the sill. At rest the poster and sill never overlap. */
+  .threshold {
+    position: relative;
+    z-index: 1;
+    margin: clamp(1.6rem, 8vw, 3.2rem) 0 0;
+    overflow: clip;
+  }
+  .rise {
+    animation: confident-lift 1.05s cubic-bezier(0.18, 0.7, 0.24, 1) both;
+  }
+  @keyframes confident-lift {
+    from {
+      transform: translateY(4svh);
+    }
+  }
+  .rise :global(picture) {
+    display: block;
+    inline-size: 88vw; /* §5.1 band: centered, fits every container */
+    max-inline-size: 900px; /* > 88vw of 1023 — the band holds to the breakpoint */
+    margin-inline: auto;
+  }
+  .rise :global(img) {
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  /* The chrome shower sill: full-bleed brushed bar. Its wet drop shadow is
+     offset + negative-spread so it casts ONLY downward — the sill sits flush
+     under the poster, and a symmetric blur would paint up across the
+     canonical box's bottom edge (§5.1 final-state rule). */
+  .sill {
+    position: relative;
+    z-index: 2;
+    display: block;
+    block-size: 13px;
+    background: linear-gradient(180deg, #fbfbfd 0%, #c6c6cd 30%, #71717a 58%, #e6e6ec 100%);
+    box-shadow: 0 12px 12px -6px rgba(14, 14, 16, 0.3);
+  }
+
+  .inspect {
+    position: relative;
+    z-index: 1;
+    inline-size: max-content;
+    margin: 1rem 6vw 2.4rem auto;
+  }
+
+  /* COPY — glazed porcelain plaque, offset lower right, mounted into the
+     grout: the outer ring is the grout bed, the inner border its seam. */
+  .plaque {
+    inline-size: min(80vw, 30rem);
+    margin: clamp(1.6rem, 7vw, 3rem) 4vw clamp(2.4rem, 9vw, 4rem) auto;
+    padding: 1.4rem 1.3rem 1.6rem;
+    background: linear-gradient(158deg, #ffffff 0%, #f4f2ec 52%, #e9e6de 100%);
+    border: 1px solid rgba(14, 14, 16, 0.18);
+    border-radius: 3px;
+    box-shadow:
+      0 0 0 5px #dedbd2,
+      0 0 0 6px rgba(14, 14, 16, 0.16),
+      0 10px 22px rgba(14, 14, 16, 0.14);
+  }
+  .plaque-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--grout-black);
+    padding-block-end: 0.6rem;
+    margin-block-end: 0.8rem;
+    border-block-end: 1px solid rgba(14, 14, 16, 0.22);
+  }
+  .plaque-note {
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.65;
+    color: var(--grout-black);
+  }
+
+  .service-band {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    margin-inline: 5vw;
+    padding-block: clamp(1.6rem, 6vw, 2.6rem) 2.4rem;
+    border-block-start: 2px solid rgba(14, 14, 16, 0.1);
+  }
+
+  /* Scroll completes the entry (§6): base state is already final. */
+  :global(.entry-done) .rise,
+  :global(.entry-done) .steam-veil {
+    animation: none;
+  }
+  /* Reduced motion resolves immediately to the final composition (§6). */
+  @media (prefers-reduced-motion: reduce) {
+    .rise,
+    .steam-veil {
+      animation: none;
+    }
+  }
+
+  /* ── DESKTOP composition (2b) — the tile bay ──────────────────────────────
+     The stage grid puts the hook in the left tile field and the poster in a
+     right bay above the sill; the inspect control lives in the left column,
+     never on the artwork. §5.1 sizing: the poster caps at 84svh AND at the
+     room left after the sticky masthead (56px min-height + 1px border) and
+     stage chrome AND at the width its column can give it — the smallest
+     wins, so nothing clips at 1440×900 and nothing overflows a narrow
+     window. min-block-size throughout: the type column may grow. */
+  @media (min-width: 1024px) {
+    .tile-wall {
+      display: grid;
+      grid-template-columns: minmax(32ch, 1fr) auto;
+      grid-template-rows: 1fr auto;
+      column-gap: clamp(2.5rem, 5vw, 6rem);
+      align-items: start;
+      min-block-size: calc(100svh - 57px);
+      /* Gutter declared once; the poster cap subtracts the same variable
+         plus the 13px sill — §5.1's budget by construction. */
+      --bay-pad-start: clamp(2rem, 5svh, 3.25rem);
+      padding: var(--bay-pad-start) clamp(2.5rem, 5vw, 5rem) 0;
+    }
+    .hook {
+      grid-column: 1;
+      grid-row: 1;
+      margin: 0;
+      max-inline-size: 12ch;
+      font-size: clamp(2.8rem, 4.8vw, 4.9rem);
+    }
+    .threshold {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: start;
+      margin: 0;
+    }
+    .rise :global(picture) {
+      inline-size: fit-content;
+      max-inline-size: none;
+      block-size: min(
+        84svh,
+        calc(100svh - 57px - var(--bay-pad-start) - 13px),
+        calc((100vw - 36rem) * 1.25)
+      );
+      margin-inline: 0;
+    }
+    .rise :global(img) {
+      block-size: 100%;
+      inline-size: auto;
+    }
+    .inspect {
+      grid-column: 1;
+      grid-row: 2;
+      align-self: end;
+      justify-self: start;
+      margin: 2rem 0 2.25rem;
+    }
+    .plaque {
+      inline-size: min(44vw, 34rem);
+      margin: clamp(2.5rem, 6svh, 4rem) clamp(3rem, 9vw, 9rem) clamp(3rem, 7svh, 5rem) auto;
+      padding: 1.8rem 1.7rem 2rem;
+    }
+    .service-band {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: clamp(2rem, 6vw, 5rem);
+      margin-inline: clamp(2.5rem, 5vw, 5rem);
+    }
+  }
+</style>

@@ -1,14 +1,23 @@
 ---
 /**
- * Quiz.astro — the Sniff Test island shell (Task B; design.md §7, mechanics §1).
+ * Quiz.astro — the Sniff Test island shell (Task B; specs.md §8).
  *
- * Screens: intro (§6.1) → 7 questions one-at-a-time (§6.3) → transient completion
- * beat (§6.2b) → client-side redirect to the static verdict page BY SLUG. Scoring
- * is internal plumbing; no numeric score is ever written to the DOM (design.md §7).
+ * Screens: intro → 7 questions one-at-a-time → transient completion beat →
+ * client-side redirect to the static verdict page BY SLUG. Scoring is internal
+ * plumbing; no numeric score is ever written to the DOM (§8).
+ *
+ * §8 contract carried here:
+ *   - ONE route-level island holding all seven questions.
+ *   - `.quiz` is the assessment shell: `min-block-size: 100svh`, height held
+ *     stable by stacking every question in one grid cell (.quiz__form).
+ *   - Tap-to-advance: answer activation records and advances (quiz.ts);
+ *     the only nav control is a visible Back action.
+ *   - Progress announcements via the aria-live region below.
  *
  * The whole surface is 🧼 campaign, porcelain register (BaseLayout sets it on
  * <main>). Behavior is in scripts/quiz.ts, driven by the data-* contract below;
- * the quiz needs JS to tally a verdict, so a <noscript> carries an in-voice note.
+ * the quiz needs JS to tally a verdict, so a <noscript> carries an in-voice
+ * note and the Begin button hides when JS never arrives.
  */
 import Progress from './Progress.astro';
 import Question from './Question.astro';
@@ -39,7 +48,6 @@ const quizConfig = {
   bands: sniffTest.bands,
   redirectBase: '/sniff-test/',
   dwellMs: 1200,
-  total: questions.length,
   progressTemplate: sniffTest.progressLabel(N_TOKEN),
   ariaTemplate: sniffTest.ariaProgress(N_TOKEN),
 };
@@ -82,15 +90,6 @@ const configJson = JSON.stringify(quizConfig);
       >
         ← Back
       </button>
-      <button
-        type="button"
-        class="quiz__btn quiz__btn--primary"
-        data-quiz-next
-        data-final-label="See my verdict →"
-        disabled
-      >
-        Continue →
-      </button>
     </div>
 
     <p class="quiz__persist">{sniffTest.footerLine}</p>
@@ -119,67 +118,104 @@ const configJson = JSON.stringify(quizConfig);
 </script>
 
 <style>
+  /* §8: the stable assessment shell. min-block-size 100svh; the question stack
+     below keeps the rendered height constant across all seven questions. */
   .quiz {
-    max-inline-size: 44rem;
-    margin-inline: auto;
-    padding-block: clamp(var(--space-2xl), 8vh, var(--space-3xl));
-    padding-inline: clamp(1.25rem, 5vw, 2rem);
-    min-block-size: 70vh;
+    position: relative;
+    width: 100%;
+    min-block-size: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: clamp(2rem, 5vw, 6rem);
+    /* AA fix for light ground */
+    --reg-accent: color-mix(in srgb, var(--marble-amber) 68%, var(--grout-black));
+    --focus-ring: color-mix(in srgb, var(--marble-amber) 68%, var(--grout-black));
+    overflow: hidden;
   }
 
   /* ---- Intro ---- */
   .quiz__intro {
-    --flow-space: var(--space-lg);
+    width: 100%;
+    margin-inline: auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .quiz__title {
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: var(--step-5);
-    line-height: 1;
+    font-weight: 700;
+    font-size: clamp(4rem, 15vw, 12rem);
+    line-height: 0.85;
     color: var(--reg-heading);
+    text-transform: lowercase;
+    margin-bottom: var(--space-xl);
+    letter-spacing: -0.04em;
   }
   .quiz__lead {
     font-family: var(--font-body);
-    font-size: var(--step-1);
+    font-size: clamp(1.2rem, 3vw, 2.5rem);
+    line-height: 1.2;
     color: var(--reg-fg);
-    max-inline-size: 34ch;
-    margin-inline: auto;
+    max-width: 38ch;
+    text-wrap: balance;
+    margin-bottom: var(--space-2xl);
   }
   .quiz__credit {
+    margin-top: var(--space-xl);
     font-family: var(--font-fine);
-    font-size: var(--step--1);
-    letter-spacing: 0.08em;
+    font-size: clamp(0.7rem, 1vw, 0.9rem);
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--reg-muted);
   }
 
   .quiz__begin {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: var(--step-1);
-    color: var(--grout-black);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 4rem);
+    text-transform: lowercase;
+    color: var(--lather-white);
     background: var(--reg-accent);
-    border: 2px solid var(--reg-accent);
-    border-radius: var(--radius-tile);
-    padding: 0.7em 1.6em;
+    border: none;
+    padding: 0.5em 1em;
     cursor: pointer;
-    transition:
-      background-color 140ms ease,
-      transform 100ms ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
   }
   .quiz__begin:hover {
-    background: color-mix(in srgb, var(--reg-accent) 86%, #fff);
+    background: var(--grout-black);
   }
   .quiz__begin:active {
-    transform: translateY(1px);
+    transform: translateY(2px);
+  }
+  /* The assessment needs JS; when it never arrives, the <noscript> note speaks
+     and the Begin button must not sit there dead. */
+  :global(html:not(.has-js)) .quiz__begin {
+    display: none;
   }
 
   /* ---- Assessment ---- */
+  .quiz__assessment {
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+  }
+  /* display:flex would silently beat the UA's [hidden] rule — pin it. */
+  .quiz__assessment[hidden] {
+    display: none;
+  }
+  .quiz__intro[hidden] {
+    display: none;
+  }
+
+  /* §8 stable shell: all seven questions occupy ONE grid cell, so the form's
+     height is the tallest question and never changes as questions swap. */
   .quiz__form {
+    display: grid;
     margin: 0;
     padding: 0;
     border: 0;
@@ -188,53 +224,38 @@ const configJson = JSON.stringify(quizConfig);
   .quiz__nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: var(--space-md);
-    margin-block-start: var(--space-xl);
+    margin-block-start: 4vh;
+    border-top: 2px solid var(--grout-black);
+    padding-top: 3vh;
   }
   .quiz__btn {
-    font-family: var(--font-body);
-    font-weight: 500;
-    font-size: var(--step-0);
-    border-radius: var(--radius-tile);
-    padding: 0.7em 1.5em;
-    border: 2px solid transparent;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    text-transform: lowercase;
+    padding: 0.5em 1em;
+    border: none;
     cursor: pointer;
-    transition:
-      background-color 140ms ease,
-      color 140ms ease,
-      border-color 140ms ease,
-      opacity 140ms ease;
-  }
-  .quiz__btn--primary {
-    background: var(--reg-accent);
-    color: var(--grout-black);
-    border-color: var(--reg-accent);
-    margin-inline-start: auto;
-  }
-  .quiz__btn--primary:hover:not([disabled]) {
-    background: color-mix(in srgb, var(--reg-accent) 86%, #fff);
-  }
-  .quiz__btn--primary[disabled] {
-    opacity: 0.45;
-    cursor: not-allowed;
+    transition: all 0.3s ease;
   }
   .quiz__btn--ghost {
     background: transparent;
     color: var(--reg-muted);
-    border-color: var(--reg-rule);
+    border: 2px solid var(--reg-rule);
   }
   .quiz__btn--ghost:hover {
     color: var(--reg-fg);
-    border-color: var(--reg-muted);
+    border-color: var(--reg-fg);
   }
   .quiz__btn[hidden] {
     display: none;
   }
 
   .quiz__persist {
-    margin-block-start: var(--space-xl);
-    text-align: center;
+    margin-block-start: 2vh;
+    text-align: right;
     font-family: var(--font-fine);
     font-size: var(--step--1);
     font-style: italic;
@@ -244,7 +265,7 @@ const configJson = JSON.stringify(quizConfig);
   /* ---- Completion beat ---- */
   .quiz__beat {
     text-align: center;
-    min-block-size: 40vh;
+    min-block-size: 60svh;
     display: grid;
     place-items: center;
   }
@@ -252,30 +273,39 @@ const configJson = JSON.stringify(quizConfig);
     display: none;
   }
   .quiz__beat-line {
-    font-family: var(--font-body);
-    font-size: var(--step-2);
-    max-inline-size: 28ch;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.9;
+    max-inline-size: 20ch;
     color: var(--reg-fg);
     opacity: 0;
-    animation: beat-in 320ms ease forwards;
+    animation: beat-in 800ms cubic-bezier(0.2, 0, 0, 1) forwards;
   }
   .quiz__beat-line strong {
     color: var(--reg-heading);
-    font-weight: 600;
+    font-weight: 700;
   }
-  /* Programmatic focus target (not user-interactive) — no stray ring. */
   .quiz__beat-line:focus {
     outline: none;
   }
   @keyframes beat-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
     to {
       opacity: 1;
+      transform: translateY(0);
     }
   }
   @media (prefers-reduced-motion: reduce) {
     .quiz__beat-line {
       opacity: 1;
       animation: none;
+    }
+    .quiz__begin,
+    .quiz__btn {
+      transition: none;
     }
   }
 
@@ -286,14 +316,5 @@ const configJson = JSON.stringify(quizConfig);
     color: var(--reg-fg);
     max-inline-size: 34ch;
     margin-inline: auto;
-  }
-
-  @media (max-width: 30rem) {
-    .quiz__nav {
-      flex-wrap: wrap;
-    }
-    .quiz__btn--primary {
-      inline-size: 100%;
-    }
   }
 </style>

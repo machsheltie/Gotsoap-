@@ -1,17 +1,24 @@
 ---
 /**
- * Question.astro — one Sniff Test question (Task B).
+ * Question.astro — one Sniff Test question (Task B; specs.md §8).
  *
- * A native <fieldset>/<legend> radio group: free keyboard support (arrow keys
- * move within the group, Space selects), free screen-reader semantics ("radio,
- * 1 of 4"), and a real group name. The radio inputs are visually hidden but stay
- * focusable/operable; the full-width <label> rows are the tap targets. Selected
- * state is signalled by amber fill AND a check mark AND a heavier border — never
- * color alone (WCAG 1.4.1). The prompt span is focus-managed by quiz.ts.
+ * TAP-TO-ADVANCE (§8): each answer is a real <button>. Activation (tap, Enter,
+ * Space) records the answer and advances — there is no Continue button. Buttons
+ * — not radios — because native radio groups select on arrow-key NAVIGATION,
+ * which would advance the visitor before they had browsed the options. With
+ * buttons, Tab browses and only explicit activation commits.
  *
- * All questions render server-side (hidden). quiz.ts reveals one at a time.
- * The answer's index IS its score (0..3) — kept in data-score, never rendered
- * as a number anywhere on screen.
+ * The recorded answer is exposed as aria-pressed (visible again when the
+ * visitor comes Back); selected state is signalled by amber fill AND a longer
+ * mark AND heavier text — never color alone (WCAG 1.4.1). The fieldset/legend
+ * keeps group semantics; the prompt span is focus-managed by quiz.ts.
+ *
+ * All questions render server-side into ONE stacked grid cell (the stack lives
+ * in Quiz.astro) so the assessment shell's height never changes between
+ * questions (§8: stable shell). Inactive questions are `inert` + hidden by
+ * data-state; quiz.ts activates one at a time with opacity + a short
+ * horizontal transform (§8). The answer's index IS its score (0..3) — kept in
+ * data-score, never rendered as a number anywhere on screen.
  */
 import { sniffTest } from '../../content/copy';
 
@@ -25,15 +32,15 @@ interface Props {
 }
 const { index, question } = Astro.props;
 const n = index + 1;
-const name = `q${index}`;
 const promptId = `q${index}-prompt`;
 ---
 
 <fieldset
   class="q"
   data-question={index}
+  data-state="off"
   aria-labelledby={promptId}
-  hidden
+  inert
 >
   <legend class="q__legend">
     <span class="q__eyebrow">Question {n}</span>
@@ -43,166 +50,154 @@ const promptId = `q${index}-prompt`;
   <div class="q__answers">
     {
       question.a.map((answer, i) => (
-        <label class="answer">
-          <input
-            class="answer__input"
-            type="radio"
-            name={name}
-            value={i}
-            data-score={i}
-          />
+        <button
+          type="button"
+          class="answer"
+          data-answer
+          data-score={i}
+          aria-pressed="false"
+        >
           <span class="answer__mark" aria-hidden="true" />
           <span class="answer__text">{answer}</span>
-        </label>
+        </button>
       ))
     }
   </div>
 </fieldset>
 
 <style>
+  /* Stacked in one grid cell (grid on .quiz__form in Quiz.astro): every
+     question contributes to the cell's height, so the shell height is the
+     TALLEST question and never moves when questions swap (§8). */
   .q {
+    grid-area: 1 / 1;
     border: 0;
     padding: 0;
     margin: 0;
-    min-inline-size: 0; /* allow fieldset to shrink in flex/grid contexts */
+    min-inline-size: 0;
+    /* Off state: invisible, unfocusable (inert), nudged toward the exit side.
+       --q-dir is set by quiz.ts: +1 entering/exiting rightward, -1 leftward. */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(calc(var(--q-dir, 1) * 16px));
+    transition:
+      opacity 300ms cubic-bezier(0.2, 0, 0, 1),
+      transform 300ms cubic-bezier(0.2, 0, 0, 1),
+      visibility 0s linear 300ms;
   }
-  .q[hidden] {
-    display: none;
+  .q[data-state='active'] {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition:
+      opacity 300ms cubic-bezier(0.2, 0, 0, 1) 60ms,
+      transform 300ms cubic-bezier(0.2, 0, 0, 1) 60ms,
+      visibility 0s;
   }
 
   .q__legend {
     display: block;
     padding: 0;
-    margin-block-end: var(--space-lg);
+    margin-block-end: 6vh;
   }
   .q__eyebrow {
     display: block;
     font-family: var(--font-label);
-    font-weight: 800;
-    font-size: var(--step--1);
-    letter-spacing: 0.16em;
+    font-weight: 900;
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--reg-accent);
-    margin-block-end: var(--space-xs);
+    margin-block-end: 1vh;
   }
   .q__prompt {
     display: block;
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: var(--step-3);
-    line-height: 1.1;
+    font-weight: 700;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
     color: var(--reg-heading);
-    max-inline-size: 22ch;
+    max-inline-size: 26ch;
+    text-wrap: balance;
   }
   .q__prompt:focus-visible {
     outline: 2px solid var(--focus-ring);
-    outline-offset: 4px;
-    border-radius: 2px;
+    outline-offset: 8px;
   }
 
   .q__answers {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
   }
 
-  /* Full-width tappable row (Jost). */
+  /* Full-width tappable row — a real button, styled as the editorial rule-row */
   .answer {
     display: flex;
     align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-md) var(--space-lg);
-    border: 2px solid var(--reg-rule);
-    border-radius: var(--radius-tile);
-    background: color-mix(in srgb, var(--reg-fg) 3%, transparent);
-    cursor: pointer;
-    transition:
-      border-color 140ms ease,
-      background-color 140ms ease;
-  }
-  .answer:hover {
-    border-color: color-mix(in srgb, var(--reg-accent) 55%, var(--reg-rule));
-    background: color-mix(in srgb, var(--reg-accent) 8%, transparent);
-  }
-
-  /* Visually hidden radio — still focusable and operable (arrow keys, space). */
-  .answer__input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
+    gap: 2vw;
+    inline-size: 100%;
+    text-align: start;
+    padding: clamp(1.5rem, 4vh, 3.5rem) 0;
     border: 0;
+    border-bottom: 2px solid color-mix(in srgb, var(--reg-rule) 60%, transparent);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .answer:first-child {
+    border-top: 2px solid color-mix(in srgb, var(--reg-rule) 60%, transparent);
   }
 
-  /* Custom radio dot. */
+  .answer:hover {
+    border-bottom-color: var(--reg-accent);
+    padding-left: 2vw;
+  }
+
+  /* Custom elegant minimal check */
   .answer__mark {
     flex: 0 0 auto;
-    inline-size: 1.15rem;
-    block-size: 1.15rem;
-    border: 2px solid var(--reg-muted);
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    transition:
-      border-color 140ms ease,
-      background-color 140ms ease;
-  }
-  .answer__mark::after {
-    content: '';
-    inline-size: 0.5rem;
-    block-size: 0.5rem;
-    border-radius: 50%;
-    background: var(--grout-black);
-    transform: scale(0);
-    transition: transform 120ms ease;
+    width: 2rem;
+    height: 3px;
+    background: color-mix(in srgb, var(--reg-muted) 30%, transparent);
+    transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
   }
 
   .answer__text {
     font-family: var(--font-body);
     font-weight: 400;
-    font-size: var(--step-0);
-    line-height: 1.35;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    line-height: 1.2;
     color: var(--reg-fg);
+    transition: color 0.4s ease;
   }
 
-  /* ---- Selected state — amber fill + filled dot + heavier border. ---------
-     Driven by :checked (modern :has) AND a JS-toggled .is-selected class, so
-     selection stays visible even without :has support. */
-  .answer:has(.answer__input:checked),
-  .answer.is-selected {
-    border-color: var(--reg-accent);
-    background: var(--reg-accent);
+  /* ---- Recorded state (visible again on Back; §8) ---- */
+  .answer[aria-pressed='true'] {
+    border-bottom-color: var(--reg-accent);
+    padding-left: 2vw;
   }
-  .answer:has(.answer__input:checked) .answer__text,
-  .answer.is-selected .answer__text {
+  .answer[aria-pressed='true'] .answer__text {
     color: var(--grout-black);
-    font-weight: 500;
+    font-weight: 700;
   }
-  .answer:has(.answer__input:checked) .answer__mark,
-  .answer.is-selected .answer__mark {
-    border-color: var(--grout-black);
-    background: transparent;
-  }
-  .answer:has(.answer__input:checked) .answer__mark::after,
-  .answer.is-selected .answer__mark::after {
-    transform: scale(1);
+  .answer[aria-pressed='true'] .answer__mark {
+    background: var(--reg-accent);
+    width: 6rem;
   }
 
-  /* ---- Focus ring projected onto the whole row from the hidden input. ----- */
-  .answer:has(.answer__input:focus-visible) {
-    outline: 2px solid var(--focus-ring);
-    outline-offset: 2px;
-  }
-
+  /* §8/§11: reduced motion resolves the question swap immediately —
+     no transform slide, no fade. */
   @media (prefers-reduced-motion: reduce) {
+    .q,
+    .q[data-state='active'],
     .answer,
     .answer__mark,
-    .answer__mark::after {
+    .answer__text {
       transition: none;
+    }
+    .q {
+      transform: none;
     }
   }
 </style>

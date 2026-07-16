@@ -1,0 +1,46 @@
+---
+/**
+ * DownloadStation.astro — shared download primitive (§5.2 allows sharing).
+ *
+ * Consumes psas.downloadNotice from the copy module verbatim; the download
+ * target is the untouched full-quality original behind /downloads/ (PRD §6.2).
+ * Deliberately layout-passive: typography only, no positioning — each
+ * environment decides where the station sits inside ITS composition.
+ */
+import Button from '../Button.astro';
+import { psas } from '../../content/copy';
+
+interface Props {
+  slug: string;
+  downloadHref: string;
+}
+const { slug, downloadHref } = Astro.props;
+const notice = psas.downloadNotice;
+---
+
+<section class="download-station">
+  <h2 class="download-heading">{notice.heading}</h2>
+  <p class="download-body">{notice.body}</p>
+  <Button
+    label={notice.button}
+    href={downloadHref}
+    download={`got-soap-${slug}.jpg`}
+  />
+</section>
+
+<style>
+  .download-heading {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-2);
+    margin-block-end: var(--space-xs);
+  }
+  .download-body {
+    font-family: var(--font-fine);
+    font-size: var(--step--1);
+    line-height: 1.6;
+    opacity: 0.78;
+    max-inline-size: 44ch;
+    margin-block-end: var(--space-md);
+  }
+</style>

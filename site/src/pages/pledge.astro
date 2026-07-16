@@ -19,25 +19,63 @@ const pageMeta = meta.pledge;
   register="cwaaa"
 >
   <section class="pledge-stage">
+    <span class="pledge-desk" aria-hidden="true"></span>
+    <span class="pledge-desk-grain fx-grain" aria-hidden="true"></span>
     <PledgeForm />
   </section>
 </BaseLayout>
 
 <!--
-  The document sits on grout-black (design.md §7). register-cwaaa sets <main>'s
-  background to manila; on THIS route only we swap that ground to grout-black so
-  the manila Form CW-1 panel reads as a filed document on a desk. Scoped to
-  /pledge because a page's styles only ship on pages that render it.
+  The document sits on an ELEGANT WARM DESK (design-north-star.md ROUND 3: out of
+  the bunker — an elite/lighter ground, never a pitch-black void). register-cwaaa
+  sets <main>'s background to manila; on THIS route only we swap that ground to a
+  warm stone/marble desk so the manila Form CW-1 reads as fine stationery on a
+  designer's desk in daylight. Scoped to /pledge (styles ship only with the page).
 -->
 <style is:global>
   main.register-cwaaa {
-    background-color: var(--grout-black);
+    background-color: #c4b697; /* warm stone desk (elegant; deeper than manila so paper pops) */
   }
 </style>
 
 <style>
   .pledge-stage {
-    padding-block: clamp(var(--space-xl), 6vw, var(--space-3xl));
-    padding-inline: clamp(1rem, 5vw, 3rem);
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100svh;
+    padding-block: clamp(var(--space-lg), 5vw, var(--space-2xl));
+    padding-inline: clamp(0.75rem, 3vw, 2rem);
+    overflow: hidden;
+  }
+  /* Warm daylight desk: a soft light pool under the document, gentle warm edges
+     (a refined stone/marble surface — NO black vignette). */
+  .pledge-desk {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      radial-gradient(
+        75% 60% at 50% 26%,
+        color-mix(in srgb, #ece2c8 78%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        120% 100% at 50% 46%,
+        transparent 48%,
+        color-mix(in srgb, #9d8f6f 55%, transparent) 100%
+      );
+    pointer-events: none;
+  }
+  .pledge-desk-grain {
+    z-index: 0;
+    opacity: 0.07;
+    mix-blend-mode: multiply;
+  }
+  .pledge-stage > :global(.cert) {
+    position: relative;
+    z-index: 1;
   }
 </style>

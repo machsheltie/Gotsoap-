@@ -1,0 +1,353 @@
+---
+/**
+ * SmolderingEnvironment.astro — Poster 2, "Soap-Smoldering".
+ *
+ * §6 row 2, the mobile material signature:
+ *   ENTRY  "Mirror Wings" — two fogged mirror planes retract behind the
+ *          poster; the poster settles from 0.98 scale. The wings live at a
+ *          lower z than the artwork and finish flanking it.
+ *   COPY   A ribbed-glass caption strip with an opaque porcelain backing —
+ *          the ribs texture the backing only; the ink sits above them, so
+ *          AA contrast is structural, not luck.
+ *   TYPE   A narrow stacked hook reflects ONCE in a chrome baseline beneath
+ *          the poster. No giant numeral; no duplicate poster title — the h1
+ *          here is screen-reader-only and the poster speaks for itself.
+ *
+ * This component owns its DOM and CSS (§5.2). The reflection is a masked,
+ * inverted duplicate and is aria-hidden; the hook reads once.
+ * Entry animations: base state = FINAL composition; transform/opacity only.
+ */
+import PosterImage from '../PosterImage.astro';
+import Lightbox from './Lightbox.astro';
+import ShareRow from '../ShareRow.astro';
+import DownloadStation from './DownloadStation.astro';
+import SeriesNav from './SeriesNav.astro';
+import type { Poster } from '../../config/site';
+
+interface Props {
+  poster: Poster;
+  alt: string;
+  caseNote: string;
+  pull: string;
+  pageUrl: string;
+  downloadHref: string;
+  prevPoster?: Poster;
+  nextPoster?: Poster;
+}
+const {
+  poster,
+  alt,
+  caseNote,
+  pull,
+  pageUrl,
+  downloadHref,
+  prevPoster,
+  nextPoster,
+} = Astro.props;
+---
+
+<article class="vanity-room" data-entry-stage>
+  <h1 class="sr-only">{poster.title}</h1>
+
+  <figure class="vanity">
+    <span class="wing wing--left" aria-hidden="true"></span>
+    <span class="wing wing--right" aria-hidden="true"></span>
+    <div class="settle">
+      <PosterImage
+        slug={poster.slug}
+        alt={alt}
+        loading="eager"
+        sizes="(min-width: 1024px) 740px, 84vw"
+      />
+    </div>
+  </figure>
+
+  <div class="hook-stand">
+    <p class="hook">{pull}</p>
+    <span class="chrome-baseline" aria-hidden="true"></span>
+    <p class="hook-mirror" aria-hidden="true">{pull}</p>
+  </div>
+
+  <div class="inspect">
+    <Lightbox slug={poster.slug} alt={alt} posterTitle={poster.title} />
+  </div>
+
+  <aside class="caption-strip">
+    <p class="caption-note" set:html={caseNote} />
+  </aside>
+
+  <div class="counter">
+    <ShareRow kind="spot" url={pageUrl} title={poster.title} />
+    <DownloadStation slug={poster.slug} downloadHref={downloadHref} />
+  </div>
+
+  <SeriesNav prevPoster={prevPoster} nextPoster={nextPoster} />
+</article>
+
+<script>
+  import '../../scripts/entry-complete.ts';
+</script>
+
+<style>
+  .vanity-room {
+    background: linear-gradient(180deg, #f4f3ef 0%, var(--steam-white) 40%);
+    color: var(--grout-black);
+  }
+
+  /* The vanity wall: poster FIRST in the flow — this room leads with the
+     artwork where the wash-room leads with type. */
+  .vanity {
+    position: relative;
+    margin: 0;
+    overflow: clip;
+    padding-block: clamp(1.4rem, 6vw, 2.4rem) clamp(1rem, 4vw, 1.8rem);
+  }
+
+  /* ENTRY — fogged mirror planes. Final state: flanking the poster, mostly
+     tucked behind it; keyframes start them stacked at the center. */
+  .wing {
+    position: absolute;
+    inset-block: 3%;
+    inline-size: 34vw;
+    background:
+      linear-gradient(115deg, rgba(214, 217, 222, 0.94), rgba(238, 240, 242, 0.68) 42%, rgba(198, 201, 208, 0.9)),
+      linear-gradient(180deg, #eef0f2, #d4d7dc);
+    border: 1px solid #c4c4cd;
+    box-shadow:
+      inset 0 0 34px rgba(255, 255, 255, 0.65),
+      0 8px 20px rgba(14, 14, 16, 0.12);
+  }
+  .wing--left {
+    inset-inline-start: -3vw;
+    animation: wing-retract-left 1.1s cubic-bezier(0.2, 0.68, 0.3, 1) both;
+  }
+  .wing--right {
+    inset-inline-end: -3vw;
+    animation: wing-retract-right 1.1s cubic-bezier(0.2, 0.68, 0.3, 1) both;
+  }
+  @keyframes wing-retract-left {
+    from {
+      transform: translateX(36vw);
+    }
+  }
+  @keyframes wing-retract-right {
+    from {
+      transform: translateX(-36vw);
+    }
+  }
+
+  .settle {
+    position: relative;
+    z-index: 1;
+    animation: poster-settle 0.95s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  }
+  @keyframes poster-settle {
+    from {
+      transform: scale(0.98);
+    }
+  }
+  .settle :global(picture) {
+    display: block;
+    inline-size: 84vw; /* §5.1 band: centered, fits every container */
+    max-inline-size: 860px; /* > 84vw of 1023 — the band holds to the breakpoint */
+    margin-inline: auto;
+  }
+  .settle :global(img) {
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  /* TYPE — the narrow stacked hook, its chrome baseline, and one masked
+     reflection. The stack is deliberately off-center left; the reflection
+     fades with distance from the chrome. */
+  .hook-stand {
+    margin: 1.6rem 9vw 0;
+  }
+  .hook {
+    max-inline-size: 13ch;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.65rem, 7.6vw, 2.7rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--grout-black);
+  }
+  .chrome-baseline {
+    display: block;
+    inline-size: min(66vw, 22rem);
+    block-size: 9px;
+    margin-block-start: 0.7rem;
+    background: linear-gradient(180deg, #f7f7f9 0%, #b9b9c1 34%, #6d6d76 60%, #e3e3ea 100%);
+    border-radius: 1px;
+    box-shadow: 0 2px 6px rgba(14, 14, 16, 0.18);
+  }
+  .hook-mirror {
+    max-inline-size: 13ch;
+    margin-block-start: 2px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.65rem, 7.6vw, 2.7rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: #8e8e96;
+    /* Flip in place (center origin) so the mirrored copy stays inside its
+       own layout box below the chrome, never over the hook above it. */
+    transform: scaleY(-1);
+    /* Pre-flip bottom stays visible (nearest the chrome); pre-flip top —
+       the reflection's far edge after inversion — dissolves. */
+    -webkit-mask-image: linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, transparent 64%);
+    mask-image: linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, transparent 64%);
+  }
+
+  .inspect {
+    inline-size: max-content;
+    margin: 1.8rem 9vw 0;
+  }
+
+  /* COPY — ribbed glass over an opaque porcelain backing. The ribs are a
+     zero-z overlay; the note is stacked above them, so the glass texture
+     never dilutes the ink's contrast. */
+  .caption-strip {
+    position: relative;
+    margin-block-start: 2.6rem;
+    padding: 1.6rem 7vw 1.8rem;
+    background: #f6f5f1;
+    border-block: 1px solid rgba(14, 14, 16, 0.14);
+  }
+  .caption-strip::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.55) 0 2px,
+      rgba(188, 190, 197, 0.18) 2px 4px,
+      rgba(255, 255, 255, 0) 4px 9px
+    );
+  }
+  .caption-note {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.65;
+    color: var(--grout-black);
+    max-inline-size: 58ch;
+  }
+
+  /* The counter: furniture sits on a chrome-edged shelf. */
+  .counter {
+    margin-block-start: 2.4rem;
+    padding: 0 7vw 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+  .counter::before {
+    content: '';
+    display: block;
+    block-size: 8px;
+    margin-block-end: 1.6rem;
+    background: linear-gradient(180deg, #f7f7f9 0%, #b9b9c1 40%, #7a7a83 64%, #e3e3ea 100%);
+    border-radius: 1px;
+  }
+
+  /* Scroll completes the entry (§6): base state is already final. */
+  :global(.entry-done) .wing--left,
+  :global(.entry-done) .wing--right,
+  :global(.entry-done) .settle {
+    animation: none;
+  }
+  /* Reduced motion resolves immediately to the final composition (§6). */
+  @media (prefers-reduced-motion: reduce) {
+    .wing--left,
+    .wing--right,
+    .settle {
+      animation: none;
+    }
+  }
+
+  /* ── DESKTOP composition (2b) — the vanity triptych ───────────────────────
+     Unlike the tile bay, this stage stays full-width and symmetric: poster
+     centered between visibly parted mirror wings. The article grids BELOW
+     the stage instead — hook-stand and inspect in a left column, the ribbed
+     caption panel right. §5.1 poster cap: 83svh / masthead+chrome / width. */
+  @media (min-width: 1024px) {
+    .vanity-room {
+      display: grid;
+      grid-template-columns: minmax(26ch, 0.9fr) 1.4fr;
+    }
+    .vanity {
+      grid-column: 1 / -1;
+      min-block-size: calc(100svh - 57px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Gutters declared once; the poster cap subtracts the same variable —
+         the §5.1 budget holds by construction (see UnholyEnvironment). */
+      --vanity-pad: clamp(2rem, 5svh, 3.5rem);
+      padding-block: var(--vanity-pad);
+    }
+    .settle :global(picture) {
+      inline-size: fit-content;
+      max-inline-size: none;
+      block-size: min(
+        83svh,
+        calc(100svh - 57px - 2 * var(--vanity-pad)),
+        calc(70vw * 1.25)
+      );
+      margin-inline: 0;
+    }
+    .settle :global(img) {
+      block-size: 100%;
+      inline-size: auto;
+    }
+    .wing {
+      inline-size: 20vw;
+      inset-block: 8%;
+    }
+    .wing--left {
+      inset-inline-start: 7vw;
+    }
+    .wing--right {
+      inset-inline-end: 7vw;
+    }
+    .hook-stand {
+      grid-column: 1;
+      margin: 3.5rem 0 0 clamp(2.5rem, 4vw, 4.5rem);
+    }
+    .hook,
+    .hook-mirror {
+      font-size: clamp(2rem, 2.6vw, 2.9rem);
+    }
+    .inspect {
+      grid-column: 1;
+      margin: 2.5rem 0 3.5rem clamp(2.5rem, 4vw, 4.5rem);
+    }
+    .caption-strip {
+      grid-column: 2;
+      grid-row: 2 / span 2;
+      align-self: start;
+      margin: 3.5rem clamp(2.5rem, 4vw, 4.5rem) 0 3rem;
+      padding: 2rem 2.2rem;
+      border: 1px solid rgba(14, 14, 16, 0.14);
+    }
+    .counter {
+      grid-column: 1 / -1;
+      flex-flow: row wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: clamp(2rem, 6vw, 5rem);
+      padding-inline: clamp(2.5rem, 4vw, 4.5rem);
+    }
+    .counter::before {
+      flex-basis: 100%;
+      margin-block-end: 0;
+    }
+    :global(.series-nav) {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

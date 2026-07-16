@@ -1,0 +1,240 @@
+---
+/**
+ * homev2/Campaign.astro — SECTION 3: THE CAMPAIGN (ONE poster as propaganda, §3.3).
+ *
+ * ONE monumental, cinematic, UNTOUCHED poster presented as the movement's
+ * flagship propaganda — a fashion-magazine SPREAD: the untouched poster is the
+ * dominant hero; a slim editorial caption rail carries the kicker, the
+ * propaganda line, a deadpan pull, and the single route to /psas.
+ *
+ * SWAPPABLE PROP (owner-reserved, §3.3): everything here — poster, title,
+ * register, derived wash — derives from HOME_FLAGSHIP in config/site.ts.
+ * Stacey flips that one constant between 'thirst-announcement' and 'unholy';
+ * no rebuild of this beat is needed. Colours therefore read the --reg-* slots,
+ * never raw register tokens, so the environment follows the poster's register
+ * (marble for Poster 5, smoke for Unholy) automatically.
+ *
+ * The poster loads LAZY (§11: only the text-free hero loads eagerly). The
+ * below-fold wash is a PURPOSE-BUILT lightweight derivative generated at build
+ * time (small width, webp, low quality — it lives under 54px of blur), never
+ * the 1.1 MB canonical `/downloads/<slug>.jpg` (§3.3, Sol Phase-3 F3, G7c).
+ * The untouched rectangle itself is never cropped, masked, or overlaid.
+ *
+ * COPY: poster ALT + the deadpan pull are VERBATIM from `posterCopy`; the
+ * propaganda caption from `home.campaign` (copy-lane final, 2026-07-16
+ * Claude↔Sol consensus — an executable distribution order, poster-agnostic
+ * across the owner's flagship swap).
+ */
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import PosterImage from '../PosterImage.astro';
+import { home, posterCopy } from '../../content/copy';
+import { HOME_FLAGSHIP, getPoster } from '../../config/site';
+
+const slug = HOME_FLAGSHIP;
+const poster = getPoster(slug)!;
+
+// The derived wash: a tiny build-time derivative of the flagship, resolved by
+// slug so the owner's one-line flagship swap carries the atmosphere with it.
+const posterAssets = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/posters/*.jpg',
+  { eager: true },
+);
+const flagshipAsset = posterAssets[`../../assets/posters/${slug}.jpg`];
+if (!flagshipAsset) {
+  throw new Error(`Campaign: missing asset src/assets/posters/${slug}.jpg for the flagship wash`);
+}
+const wash = await getImage({ src: flagshipAsset.default, format: 'webp', width: 640, quality: 45 });
+
+---
+
+<section id="campaign" class:list={['camp', `register-${poster.register}`]} aria-labelledby="camp-kicker">
+  <div
+    class="camp__wash fx-poster-wash"
+    style={`--wash-src: url('${wash.src}'); --wash-dim: 0.9;`}
+    aria-hidden="true"
+  ></div>
+  <span class="camp__grain fx-grain" aria-hidden="true"></span>
+
+  <div class="camp__spread">
+    <figure class="camp__frame">
+      <PosterImage
+        slug={slug}
+        alt={posterCopy[slug].alt}
+        loading="lazy"
+        sizes="(min-width: 900px) 460px, 82vw"
+        widths={[360, 540, 720, 920]}
+        class="camp__poster"
+      />
+    </figure>
+
+    <div class="camp__rail">
+      <p id="camp-kicker" class="camp__kicker">
+        The Flagship<span aria-hidden="true"> · </span><span class="camp__kicker-sub">{poster.title}</span>
+      </p>
+
+      <p class="camp__caption fx-gold">{home.campaign.caption}</p>
+
+      <p class="camp__pull">{posterCopy[slug].pull}</p>
+
+      <span class="camp__rule" aria-hidden="true"></span>
+
+      <p class="camp__route">
+        <a class="camp__link" href="/psas">See all five announcements <span aria-hidden="true">→</span></a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .camp {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: clamp(4rem, 12vh, 8.5rem);
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+  }
+  /* warm the derived wash toward the register's accent so the ground reads
+     rich and editorial, never a void */
+  .camp__wash {
+    filter: blur(54px) saturate(1.18) brightness(0.92);
+  }
+  .camp::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(80% 70% at 30% 40%, color-mix(in srgb, var(--reg-accent) 26%, transparent), transparent 60%),
+      linear-gradient(to bottom, color-mix(in srgb, var(--reg-bg) 52%, transparent), transparent 28%, color-mix(in srgb, var(--reg-bg) 68%, transparent));
+    pointer-events: none;
+  }
+  .camp__grain {
+    z-index: 1;
+    opacity: 0.09;
+    mix-blend-mode: overlay;
+  }
+
+  .camp__spread {
+    position: relative;
+    z-index: 2;
+    max-width: 76rem;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
+    align-items: center;
+    gap: clamp(2rem, 6vw, 5rem);
+  }
+
+  .camp__frame {
+    margin: 0;
+    justify-self: center;
+    max-width: min(460px, 82vw);
+    position: relative;
+    /* cinematic chrome edge + deep drop so the untouched poster reads as a
+       framed billboard, not a boxed thumbnail */
+    padding: clamp(6px, 0.9vw, 11px);
+    background: linear-gradient(158deg, color-mix(in srgb, var(--chrome-mist) 60%, transparent), color-mix(in srgb, var(--reg-accent) 32%, transparent));
+    border-radius: 3px;
+    box-shadow:
+      0 2px 0 rgba(255, 255, 255, 0.14) inset,
+      0 44px 100px -34px rgba(0, 0, 0, 0.88),
+      0 12px 46px -12px color-mix(in srgb, var(--reg-accent) 34%, transparent);
+  }
+  /* The img is emitted by PosterImage (a different Astro scope), so the
+     sizing rule must pierce the style scope — a plainly scoped .camp__poster
+     never matched it, and the attribute height (1350px) letterboxed the
+     contained poster inside a giant empty box (caught in the 390×844 pass). */
+  .camp__frame :global(img.poster-canonical) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 2px;
+  }
+
+  .camp__rail {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .camp__kicker {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--reg-accent);
+    line-height: 1.6;
+  }
+  .camp__kicker-sub {
+    color: color-mix(in srgb, var(--lather-white) 80%, var(--chrome-mist));
+    font-weight: 700;
+    letter-spacing: 0.16em;
+  }
+  .camp__caption {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 4.5vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin-top: clamp(1rem, 2.5vh, 1.5rem);
+    max-width: 12ch;
+    /* display finish comes from .fx-gold (tokens.css) — the poured-amber
+       treatment tuned for dark grounds, which both flagship registers
+       (marble and smoke) sit on. A register-mixed dark stop went muddy on
+       smoke-slate — caught in the remediation render pass. */
+  }
+  .camp__pull {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--lather-white);
+    margin-top: clamp(1rem, 2.5vh, 1.5rem);
+    max-width: 34ch;
+  }
+  .camp__rule {
+    display: block;
+    width: clamp(3rem, 8vw, 6rem);
+    height: 2px;
+    margin-top: clamp(1.5rem, 4vh, 2.25rem);
+    background: linear-gradient(90deg, var(--reg-accent), transparent);
+  }
+  .camp__route {
+    margin-top: clamp(1.25rem, 3vh, 2rem);
+  }
+  .camp__link {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--reg-accent);
+    text-decoration: none;
+    border-bottom: 2px solid color-mix(in srgb, var(--reg-accent) 45%, transparent);
+    padding-bottom: 0.2em;
+    transition: border-color 140ms ease;
+  }
+  .camp__link:hover {
+    border-bottom-color: var(--reg-accent);
+  }
+
+  /* §6/§11: the section's composition is already final (hover feedback is the
+     only motion) — reduced motion switches states instantly. */
+  @media (prefers-reduced-motion: reduce) {
+    .camp__link {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .camp__spread {
+      grid-template-columns: 1fr;
+      gap: clamp(2rem, 6vh, 3rem);
+      justify-items: center;
+      text-align: center;
+    }
+    .camp__rail { align-items: center; }
+    .camp__caption,
+    .camp__pull { max-width: 26ch; }
+  }
+</style>

@@ -1,0 +1,367 @@
+---
+/**
+ * RedemptionEnvironment.astro — Poster 4, "The Redemption Ad".
+ *
+ * §6 row 4, the mobile material signature:
+ *   ENTRY  "Confessional Opening" — two luminous smoke panels part behind
+ *          the poster, revealing the full rectangle AT ONCE (the poster's
+ *          opacity snaps whole mid-part; it never wipes or slides).
+ *   COPY   A folded ivory revival program with chrome edging, placed
+ *          off-axis below the poster.
+ *   TYPE   The short redemption line ascends in stepped lines along the
+ *          opposite (right) edge — revival-placard styling, no CWAAA stamp,
+ *          no serif, no paperwork.
+ *
+ * The pull quote renders intact once for assistive tech (sr-only); the
+ * stepped visual performance is aria-hidden so the line never reads out
+ * of order. Where the cathedral's light is a CENTER shaft, the
+ * confessional's light lives at the EDGES — the two smoke rooms invert
+ * each other structurally.
+ *
+ * This component owns its DOM and CSS (§5.2). Entry animations: base state
+ * = FINAL composition; transform/opacity only (§6).
+ */
+import PosterImage from '../PosterImage.astro';
+import Lightbox from './Lightbox.astro';
+import ShareRow from '../ShareRow.astro';
+import DownloadStation from './DownloadStation.astro';
+import SeriesNav from './SeriesNav.astro';
+import type { Poster } from '../../config/site';
+
+interface Props {
+  poster: Poster;
+  alt: string;
+  caseNote: string;
+  pull: string;
+  pageUrl: string;
+  downloadHref: string;
+  prevPoster?: Poster;
+  nextPoster?: Poster;
+}
+const {
+  poster,
+  alt,
+  caseNote,
+  pull,
+  pageUrl,
+  downloadHref,
+  prevPoster,
+  nextPoster,
+} = Astro.props;
+
+/* The redemption line, stepped (§6). Sentence boundaries only — the words
+   are the copy lane's, verbatim; only the typesetting is ours. */
+const steps = pull.split(/(?<=\.)\s+/).filter(Boolean);
+---
+
+<article class="confessional-room" data-entry-stage>
+  <div class="confessional">
+    <span class="jamb jamb--left" aria-hidden="true"></span>
+    <span class="jamb jamb--right" aria-hidden="true"></span>
+    <div class="revealed">
+      <PosterImage
+        slug={poster.slug}
+        alt={alt}
+        loading="eager"
+        sizes="(min-width: 1024px) 740px, 85vw"
+      />
+    </div>
+  </div>
+
+  <p class="sr-only">{pull}</p>
+  <div class="ascension" aria-hidden="true">
+    {steps.map((line, i) => <span class={`asc-line asc-line--${i + 1}`}>{line}</span>)}
+  </div>
+
+  <div class="inspect">
+    <Lightbox slug={poster.slug} alt={alt} posterTitle={poster.title} />
+  </div>
+
+  <aside class="program">
+    <h1 class="program-title">{poster.title}</h1>
+    <p class="program-note" set:html={caseNote} />
+  </aside>
+
+  <div class="vestry">
+    <ShareRow kind="spot" url={pageUrl} title={poster.title} />
+    <DownloadStation slug={poster.slug} downloadHref={downloadHref} />
+  </div>
+
+  <SeriesNav prevPoster={prevPoster} nextPoster={nextPoster} />
+</article>
+
+<script>
+  import '../../scripts/entry-complete.ts';
+</script>
+
+<style>
+  .confessional-room {
+    background: var(--smoke-slate);
+    color: var(--lather-white);
+  }
+
+  .confessional {
+    position: relative;
+    overflow: clip;
+    padding-block: clamp(2rem, 8vw, 3.4rem);
+    background: radial-gradient(120% 80% at 50% 0%, #26252b, #161519 72%);
+  }
+
+  /* ENTRY — the luminous smoke panels. Final state: parted, glowing at the
+     viewport edges like confessional jambs; keyframes start them meeting at
+     the center, over the (not yet revealed) poster. Warm white light. */
+  .jamb {
+    position: absolute;
+    inset-block: -2%;
+    inline-size: 50vw;
+  }
+  .jamb--left {
+    inset-inline-start: 0;
+    background: linear-gradient(
+      270deg,
+      rgba(255, 248, 238, 0.03) 0%,
+      rgba(255, 248, 238, 0.4) 62%,
+      rgba(255, 250, 242, 0.95) 100%
+    );
+    animation: part-left 1.5s cubic-bezier(0.24, 0.66, 0.3, 1) both;
+    transform: translateX(-74%);
+  }
+  .jamb--right {
+    inset-inline-end: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 248, 238, 0.03) 0%,
+      rgba(255, 248, 238, 0.4) 62%,
+      rgba(255, 250, 242, 0.95) 100%
+    );
+    animation: part-right 1.5s cubic-bezier(0.24, 0.66, 0.3, 1) both;
+    transform: translateX(74%);
+  }
+  @keyframes part-left {
+    from {
+      transform: translateX(0);
+    }
+  }
+  @keyframes part-right {
+    from {
+      transform: translateX(0);
+    }
+  }
+
+  /* The full rectangle arrives AT ONCE, mid-part — opacity snap, no wipe. */
+  .revealed {
+    position: relative;
+    z-index: 1;
+    animation: reveal-whole 1.5s linear both;
+  }
+  @keyframes reveal-whole {
+    0%,
+    42% {
+      opacity: 0;
+    }
+    56%,
+    100% {
+      opacity: 1;
+    }
+  }
+  .revealed :global(picture) {
+    display: block;
+    inline-size: 85vw; /* §5.1 band: centered, fits every container */
+    max-inline-size: 870px; /* > 85vw of 1023 — the band holds to the breakpoint */
+    margin-inline: auto;
+  }
+  .revealed :global(img) {
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  /* TYPE — the redemption line ascends: the visual stack is REVERSED so
+     "He sinned." sits at the bottom and each later step climbs toward the
+     upper right edge. Reading order is intact — the sr-only paragraph
+     carries the sentence; this block is presentation only. Placard rules,
+     warm ivory, no stamp. */
+  .ascension {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.55rem;
+    align-items: flex-end;
+    padding: 2.6rem 6vw 0 0;
+  }
+  .asc-line {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.3rem, 6.2vw, 2.1rem);
+    line-height: 1.28;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #f3ead9;
+    padding-inline: 0.4ch;
+    border-block-end: 2px solid color-mix(in srgb, #f3ead9 55%, transparent);
+  }
+  .asc-line--1 {
+    margin-inline-end: 11ch;
+  }
+  .asc-line--2 {
+    margin-inline-end: 7ch;
+  }
+  .asc-line--3 {
+    margin-inline-end: 3ch;
+  }
+  .asc-line--4 {
+    margin-inline-end: 0;
+  }
+
+  .inspect {
+    inline-size: max-content;
+    margin: 0.6rem 6vw 0 auto;
+  }
+
+  /* COPY — the folded ivory revival program: warm paper, a center crease,
+     chrome edging along the head, set off-axis below the poster. */
+  .program {
+    position: relative;
+    inline-size: min(86vw, 30rem);
+    margin: 2.4rem 0 0 2vw;
+    rotate: -1.6deg;
+    padding: 1.7rem 1.4rem 1.8rem;
+    color: var(--grout-black);
+    background:
+      linear-gradient(
+        90deg,
+        rgba(14, 14, 16, 0.07) 0%,
+        transparent 9%,
+        transparent 46%,
+        rgba(14, 14, 16, 0.16) 50%,
+        transparent 54%,
+        transparent 92%,
+        rgba(14, 14, 16, 0.08) 100%
+      ),
+      linear-gradient(120deg, #f7f1e2 0%, #efe8d6 55%, #f4eddd 100%);
+    border-radius: 2px;
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.55);
+  }
+  .program::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 0;
+    block-size: 4px;
+    background: linear-gradient(90deg, #eff0f3 0%, #84848d 48%, #e2e2e9 100%);
+  }
+  .program-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--grout-black);
+    padding-block-end: 0.7rem;
+    margin-block-end: 0.9rem;
+    border-block-end: 1px solid rgba(14, 14, 16, 0.28);
+  }
+  .program-note {
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.62;
+  }
+
+  .vestry {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    margin-block-start: 2.8rem;
+    padding: 2.4rem 6vw 2.6rem;
+    border-block-start: 1px solid color-mix(in srgb, #f3ead9 30%, transparent);
+  }
+
+  /* Scroll completes the entry (§6): base state is already final. */
+  :global(.entry-done) .jamb--left,
+  :global(.entry-done) .jamb--right,
+  :global(.entry-done) .revealed {
+    animation: none;
+  }
+  /* Reduced motion resolves immediately to the final composition (§6). */
+  @media (prefers-reduced-motion: reduce) {
+    .jamb--left,
+    .jamb--right,
+    .revealed {
+      animation: none;
+    }
+  }
+
+  /* ── DESKTOP composition (2b) — the confessional and the climb ───────────
+     The article grids into a poster room (left, with its own luminous jambs
+     at the room's edges) and a type aisle (right) where the redemption line
+     climbs from the bottom. The ivory program sits off-axis under the room.
+     §5.1 cap: 85svh / masthead+chrome / room width. */
+  @media (min-width: 1024px) {
+    .confessional-room {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(26ch, 1fr);
+    }
+    .confessional {
+      grid-column: 1;
+      grid-row: 1;
+      min-block-size: calc(100svh - 57px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Gutters declared once; the poster cap subtracts the same variable —
+         the §5.1 budget holds by construction (see UnholyEnvironment). */
+      --room-pad: clamp(2rem, 4.5svh, 3.25rem);
+      padding-block: var(--room-pad);
+    }
+    .jamb {
+      inline-size: 40%;
+    }
+    .revealed :global(picture) {
+      inline-size: fit-content;
+      max-inline-size: none;
+      block-size: min(
+        85svh,
+        calc(100svh - 57px - 2 * var(--room-pad)),
+        calc((100vw - 30rem) * 1.25)
+      );
+      margin-inline: 0;
+    }
+    .revealed :global(img) {
+      block-size: 100%;
+      inline-size: auto;
+    }
+    .ascension {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: end;
+      padding: 0 clamp(2.5rem, 4vw, 4.5rem) clamp(3rem, 8svh, 5rem) 1rem;
+    }
+    .asc-line {
+      font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+    }
+    .inspect {
+      grid-column: 2;
+      grid-row: 2;
+      justify-self: start;
+      margin: 1rem clamp(2.5rem, 4vw, 4.5rem) 0 1rem;
+    }
+    .program {
+      grid-column: 1;
+      grid-row: 2 / span 2;
+      inline-size: min(40vw, 34rem);
+      margin: 3rem 0 3.5rem clamp(3rem, 6vw, 6rem);
+      rotate: -1.2deg;
+      padding: 2rem 1.9rem 2.2rem;
+    }
+    .vestry {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: clamp(2rem, 6vw, 5rem);
+      padding-inline: clamp(2.5rem, 5vw, 5rem);
+    }
+    :global(.series-nav) {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

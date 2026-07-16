@@ -1,107 +1,62 @@
 ---
 /**
- * / — Home ("The Movement"). Task A. 🧼 (one 📋 seam: MovementLetterhead).
+ * / — Home: the MOVEMENT PITCH (specs.md §3), promoted from /movement-preview
+ * per §13 step 2.
  *
- * The walk (design.md §7, copy-deck §3): steam-clear hero → five
- * individually-staged spots → Sniff Test insert → Movement letterhead seam →
- * pledge CTA band → reveal beat. Footer/nav/gag come from BaseLayout. Home is
- * MULTI-REGISTER, so no `register` prop is passed — each section sets its own.
- * Meta is verbatim (copy-deck §2).
+ * Home recruits; routes convert (§2). Seven beats, each with its own job,
+ * material, scale, and composition — no shared card shell or equal-height
+ * section pattern controls the sequence (§3):
+ *
+ *   1 Hero          — §3.1 the steam threshold (text-free world + live type)
+ *   2 Case          — §3.2 the Porcelain Evidence Wall
+ *   3 Campaign      — §3.3 ONE flagship poster as propaganda → /psas
+ *   4 Confrontation — §3.4 the Sniff Test invitation → /sniff-test
+ *   5 Oath          — §3.5 the Gold Foil Summons → /pledge
+ *   6 MovementReal  — §3.6 the one CWAAA seam: the Seal Takes the Page → /crisis
+ *   7 Reveal        — §3.7 the quiet reveal → /about
+ *
+ * `hideNav` swaps the standard <Nav> for the high-fashion <Masthead>; the
+ * BaseLayout Footer still renders and carries the §3.7 maker credit
+ * (footer-only per the 2026-07-15 owner amendment). `hideScratchSniff` is
+ * REQUIRED here: the fixed QC card would cross the flagship poster's box on
+ * scroll, and §3.3 says the untouched poster is never overlaid (Sol Phase-3
+ * F4 — the same defect class already removed from the detail routes).
+ * Normal vertical scrolling throughout (§3).
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/home/Hero.astro';
-import Spot from '../components/home/Spot.astro';
-import SniffTestInsert from '../components/home/SniffTestInsert.astro';
-import MovementLetterhead from '../components/home/MovementLetterhead.astro';
-import PledgeBand from '../components/home/PledgeBand.astro';
-import RevealBeat from '../components/home/RevealBeat.astro';
-import { spots } from '../components/home/spots';
+import Masthead from '../components/homev2/Masthead.astro';
+import Hero from '../components/homev2/Hero.astro';
+import Case from '../components/homev2/Case.astro';
+import Campaign from '../components/homev2/Campaign.astro';
+import Confrontation from '../components/homev2/Confrontation.astro';
+import Oath from '../components/homev2/Oath.astro';
+import MovementReal from '../components/homev2/MovementReal.astro';
+import Reveal from '../components/homev2/Reveal.astro';
 import { meta } from '../content/copy';
 import { SITE_URL } from '../config/site';
 
-const description = meta.home.description;
-
-// Lightweight WebSite JSON-LD (Seo/OG tags come from BaseLayout).
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'got soap?',
   url: SITE_URL,
-  description,
+  description: meta.home.description,
 };
 ---
 
-<BaseLayout title={meta.home.title} description={description} jsonLd={jsonLd}>
-  {/* Sync marker: JS present → enable reveal-on-scroll; absent → content shows. */}
-  <script is:inline>document.documentElement.classList.add('has-js');</script>
-
+<BaseLayout
+  title={meta.home.title}
+  description={meta.home.description}
+  jsonLd={jsonLd}
+  hideNav={true}
+  hideScratchSniff={true}
+>
+  <Masthead />
   <Hero />
-
-  {spots.map((spot) => <Spot spot={spot} />)}
-
-  <SniffTestInsert />
-  <MovementLetterhead />
-  <PledgeBand />
-  <RevealBeat />
+  <Case />
+  <Campaign />
+  <Confrontation />
+  <Oath />
+  <MovementReal />
+  <Reveal />
 </BaseLayout>
-
-<!--
-  Reveal gating (no-JS safe). base.css hides [data-reveal] unconditionally, which
-  would trap non-JS visitors with invisible content. Instead: reveal by default
-  (beats base.css via `html` specificity), and only opt INTO the hidden-then-
-  reveal behaviour once the `has-js` marker above confirms JS. Reduced-motion
-  keeps everything visible.
--->
-<style is:global>
-  html [data-reveal] {
-    opacity: 1;
-    transform: none;
-  }
-  html.has-js [data-reveal] {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  html.has-js [data-reveal].is-revealed {
-    opacity: 1;
-    transform: none;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html.has-js [data-reveal] {
-      opacity: 1;
-      transform: none;
-    }
-  }
-</style>
-
-<script>
-  /**
-   * Scroll-reveal activator (design.md §8 — quiet reveals only). The foundation
-   * styles [data-reveal] but ships no activator, so this page-scoped island adds
-   * `.is-revealed` as elements enter view. Pairs with the `has-js` gating above;
-   * reduced-motion / no-IO just reveals everything.
-   */
-  const els = Array.from(
-    document.querySelectorAll<HTMLElement>('[data-reveal]'),
-  );
-
-  const revealAll = () => els.forEach((el) => el.classList.add('is-revealed'));
-
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (reduce || !('IntersectionObserver' in window)) {
-    revealAll();
-  } else {
-    const io = new IntersectionObserver(
-      (entries, obs) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-revealed');
-            obs.unobserve(entry.target);
-          }
-        }
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
-    );
-    els.forEach((el) => io.observe(el));
-  }
-</script>

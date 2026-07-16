@@ -1,13 +1,8 @@
 ---
 /**
- * /about — The Reveal (design.md §7 "/about", PRD §5.6, copy-deck §9).
- * 🧼 Campaign system, porcelain register, calm — "a professional handshake
- * wearing the campaign's clothes." The only fourth-wall break on the site.
- *
- * Contact email is NEVER rendered as plain text: both the link label and its
- * href are built from obfuscateEmail() (HTML numeric entities) and injected
- * via set:html, per config/site.ts's documented pattern. A prototype defect
- * was a plain `mailto:` — do not reintroduce it.
+ * /about — The Reveal.
+ * REDESIGNED as a sprawling, high-fashion agency portfolio case study.
+ * Abandons the narrow text column for a massive, asymmetrical grid.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
@@ -16,20 +11,13 @@ import { obfuscateEmail, EXTERNAL_LINKS, absoluteUrl } from '../config/site';
 
 const aboutMeta = meta.about;
 
-// Section eyebrows are structural wayfinding labels (the deck's §9 section
-// titles); copy.ts carries only body copy, so they're inlined here.
 const whyEyebrow = 'Why it exists';
 const caseStudyEyebrow = 'Case study';
 const creditEyebrow = 'Credit & legal';
-// The Behance CTA label is not in copy.ts — preserved verbatim from the prior build.
 const behanceLabel = 'See the full campaign on Behance →';
 
-const emailHtml = `<a class="about__emailLink" href="mailto:${obfuscateEmail()}">${obfuscateEmail()}</a>`;
+const emailHtml = `<a class="about-emailLink" href="mailto:${obfuscateEmail()}">${obfuscateEmail()}</a>`;
 
-// Person + Organization JSON-LD (PRD §6.3). Contact email is intentionally
-// NOT included here — structured data is rendered as plain-text JSON in the
-// page source, and the anti-scraper rule (obfuscated, never a bare string)
-// applies to it too. sameAs carries Behance only when the config URL is set.
 const sameAs = [EXTERNAL_LINKS.behance].filter((url) => url.length > 0);
 const aboutUrl = absoluteUrl('/about');
 const jsonLd = {
@@ -60,140 +48,230 @@ const jsonLd = {
   register="porcelain"
   jsonLd={jsonLd}
 >
-  <article class="about">
-    <div class="container container--narrow flow">
-      <!-- 9.1 Opening -->
-      <section class="about__section about__opening">
-        <h1 class="about__h1">{about.opening.heading}</h1>
-        <p class="about__lead">{about.opening.body}</p>
-      </section>
+  <article class="reveal-stage">
+    
+    <header class="reveal-hero">
+      <h1 class="reveal-title">{about.opening.heading}</h1>
+      <p class="reveal-lead">{about.opening.body}</p>
+    </header>
 
-      <!-- 9.2 Why it exists -->
-      <section class="about__section" aria-labelledby="why-it-exists">
-        <h2 id="why-it-exists" class="about__eyebrow">{whyEyebrow}</h2>
-        {about.why.map((para) => <p>{para}</p>)}
-      </section>
+    <div class="reveal-grid">
+      
+      <!-- Left Column: Pitch & Contact (Anchored) -->
+      <aside class="reveal-sidebar">
+        <div class="reveal-sticky">
+          <h2 class="sidebar-heading">{about.pitch.heading}</h2>
+          <p class="sidebar-body">{about.pitch.body}</p>
+          <p class="sidebar-tagline">{about.pitch.tagline}</p>
 
-      <!-- 9.3 Case study -->
-      <section class="about__section" aria-labelledby="case-study">
-        <h2 id="case-study" class="about__eyebrow">{caseStudyEyebrow}</h2>
-        {
-          about.caseStudy.map((item) => (
-            <p>
-              <strong>{item.label}.</strong> {item.body}
-            </p>
-          ))
-        }
-      </section>
+          <p class="sidebar-contact">
+            <span set:html={emailHtml} />
+          </p>
 
-      <!-- 9.4 The pitch + contact -->
-      <section class="about__section about__pitch" aria-labelledby="pitch">
-        <h2 id="pitch" class="about__h2">{about.pitch.heading}</h2>
-        <p>{about.pitch.body}</p>
-        <p class="about__tagline">{about.pitch.tagline}</p>
+          {
+            EXTERNAL_LINKS.behance && (
+              <div class="sidebar-behance">
+                <Button
+                  label={behanceLabel}
+                  href={EXTERNAL_LINKS.behance}
+                  register="campaign"
+                  variant="primary"
+                />
+              </div>
+            )
+          }
+        </div>
+      </aside>
 
-        <p class="about__contact">
-          <span set:html={emailHtml} />
-        </p>
+      <!-- Right Column: Case Study Flow -->
+      <div class="reveal-content">
+        
+        <section class="reveal-block">
+          <h3 class="block-eyebrow">{whyEyebrow}</h3>
+          <div class="block-text">
+            {about.why.map((para) => <p>{para}</p>)}
+          </div>
+        </section>
 
-        {
-          EXTERNAL_LINKS.behance && (
-            <div class="about__behance">
-              <Button
-                label={behanceLabel}
-                href={EXTERNAL_LINKS.behance}
-                register="campaign"
-                variant="primary"
-              />
-            </div>
-          )
-        }
-      </section>
+        <section class="reveal-block">
+          <h3 class="block-eyebrow">{caseStudyEyebrow}</h3>
+          <div class="block-text">
+            {
+              about.caseStudy.map((item) => (
+                <p>
+                  <strong>{item.label}.</strong> {item.body}
+                </p>
+              ))
+            }
+          </div>
+        </section>
 
-      <!-- 9.5 Credit / legal -->
-      <section class="about__section about__credit" aria-labelledby="credit-legal">
-        <h2 id="credit-legal" class="about__eyebrow">{creditEyebrow}</h2>
-        <p>{about.credit}</p>
-      </section>
+        <section class="reveal-block reveal-block--credit">
+          <h3 class="block-eyebrow">{creditEyebrow}</h3>
+          <div class="block-text block-text--fine">
+            <p>{about.credit}</p>
+          </div>
+        </section>
+
+      </div>
     </div>
   </article>
 </BaseLayout>
 
 <style>
-  .about {
-    padding-block: var(--space-3xl);
-  }
-  .about__section + .about__section {
-    margin-top: var(--space-2xl);
-    padding-top: var(--space-2xl);
-    border-top: 1px solid var(--reg-rule);
-  }
-  .about__section p {
-    max-width: var(--measure);
-    color: var(--reg-fg);
-  }
-  .about__section p + p {
-    margin-top: var(--space-md);
-  }
-  .about__section :global(strong) {
-    color: var(--reg-heading);
-  }
-  .about__section :global(em) {
-    font-style: italic;
+  .reveal-stage {
+    background-color: var(--steam-white);
+    color: var(--grout-black);
+    min-height: 100svh;
+    padding-bottom: var(--space-3xl);
   }
 
-  .about__h1 {
+  /* ---- Massive Hero ---- */
+  .reveal-hero {
+    padding: clamp(6rem, 15vh, 12rem) clamp(1.5rem, 5vw, 4rem);
+    border-bottom: 2px solid var(--grout-black);
+  }
+
+  .reveal-title {
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: var(--step-5);
-    line-height: 1.05;
-    color: var(--reg-heading);
+    font-weight: 700;
+    font-size: clamp(4rem, 12vw, 10rem);
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+    color: var(--grout-black);
     margin-bottom: var(--space-lg);
-    max-width: 20ch;
-  }
-  .about__lead {
-    font-size: var(--step-1);
+    text-transform: lowercase;
   }
 
-  .about__eyebrow {
-    font-family: var(--font-label);
-    font-weight: 800;
-    font-size: var(--step--1);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--reg-muted);
-    margin-bottom: var(--space-md);
+  .reveal-lead {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: clamp(1.2rem, 3vw, 2.5rem);
+    line-height: 1.3;
+    max-width: 30ch;
+    color: var(--grout-black);
   }
 
-  .about__h2 {
+  /* ---- Asymmetrical Grid ---- */
+  .reveal-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  @media (min-width: 900px) {
+    .reveal-grid {
+      flex-direction: row;
+    }
+  }
+
+  /* ---- Sidebar ---- */
+  .reveal-sidebar {
+    flex: 1 1 40%;
+    padding: clamp(2rem, 5vw, 4rem);
+    background-color: var(--grout-black);
+    color: var(--steam-white);
+    border-bottom: 2px solid var(--grout-black);
+  }
+  @media (min-width: 900px) {
+    .reveal-sidebar {
+      border-right: 2px solid var(--grout-black);
+      border-bottom: none;
+    }
+  }
+
+  .reveal-sticky {
+    position: sticky;
+    top: clamp(2rem, 5vw, 4rem);
+  }
+
+  .sidebar-heading {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: var(--step-3);
-    color: var(--reg-heading);
+    font-size: var(--step-4);
+    line-height: 1.1;
     margin-bottom: var(--space-md);
+    color: var(--lather-white);
   }
 
-  .about__contact {
-    margin-top: var(--space-lg);
+  .sidebar-body {
     font-family: var(--font-body);
     font-size: var(--step-1);
-  }
-  .about__contact :global(.about__emailLink) {
-    font-weight: 500;
-    color: var(--reg-accent);
-    text-decoration: underline;
-    text-underline-offset: 0.18em;
-    word-break: break-word;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+    color: var(--chrome-mist);
   }
 
-  .about__behance {
-    margin-top: var(--space-lg);
+  .sidebar-tagline {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step-0);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--marble-amber);
+    margin-bottom: var(--space-xl);
   }
 
-  .about__credit p {
+  .sidebar-contact {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+  }
+  .sidebar-contact :global(.about-emailLink) {
+    color: var(--lather-white);
+    text-decoration: none;
+    border-bottom: 2px solid var(--marble-amber);
+    transition: color 200ms ease, border-color 200ms ease;
+  }
+  .sidebar-contact :global(.about-emailLink:hover) {
+    color: var(--marble-amber);
+    border-color: transparent;
+  }
+
+  .sidebar-behance {
+    margin-top: var(--space-xl);
+  }
+
+  /* ---- Content Blocks ---- */
+  .reveal-content {
+    flex: 1 1 60%;
+    padding: clamp(2rem, 5vw, 4rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4rem, 10vh, 8rem);
+  }
+
+  .reveal-block {
+    max-width: 65ch;
+  }
+
+  .block-eyebrow {
+    font-family: var(--font-label);
+    font-weight: 900;
+    font-size: var(--step--1);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--marble-amber);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--grout-black);
+    display: inline-block;
+  }
+
+  .block-text {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--grout-black);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .block-text :global(strong) {
+    font-weight: 700;
+  }
+
+  .block-text--fine {
     font-family: var(--font-fine);
     font-size: var(--step--1);
-    color: var(--reg-muted);
-    max-width: 60ch;
+    opacity: 0.7;
   }
 </style>

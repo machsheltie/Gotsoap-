@@ -1,0 +1,361 @@
+---
+/**
+ * homev2/Hero.astro — SECTION 1: THE COLD OPEN — the steam threshold (§3.1).
+ *
+ * The owner-made, TEXT-FREE restaging of Poster 1's world is the environment;
+ * the live type carries the satire. Until Stacey's Photoshop masters land, the
+ * §3.1-permitted token-only stand-ins render at the exact final dimensions:
+ *
+ *   hero-wide.jpg     3200 × 1800 — figure zone ≈ x 60–86%, near full height
+ *   hero-portrait.jpg 1350 × 2400 — figure zone ≈ x 28–72%, y 47–94%
+ *
+ * The live type is composed AROUND those marked SUBJECT ZONEs: landscape sets
+ * the type in the left column; portrait sets it in the top band. When the real
+ * art lands, only the image files change (gate G14 blocks --prod until then).
+ *
+ * Steam contract (§3.1, once per SESSION — G9):
+ *   - the clear state is the DEFAULT. A synchronous <head> script in
+ *     BaseLayout adds `steam-first-visit` to <html> before body paint, only
+ *     when motion is allowed and `gotsoap:steam-cleared:v1` is absent from
+ *     sessionStorage. The fog CSS below keys exclusively off that class, so
+ *     return visits, storage errors, reduced motion, and no-JS never see fog.
+ *   - scripts/steam-hero.ts runs the ~2s directional sweep, completes it on
+ *     scroll, and stores completion via data-hero states on this section.
+ *
+ * COPY: headline, sub, scrollCue, and the institutional signature are VERBATIM
+ * from `home.hero` (copy-lane final, 2026-07-16 Claude↔Sol consensus).
+ */
+import { getImage } from 'astro:assets';
+import { home } from '../../content/copy';
+import heroWide from '../../assets/placeholder/hero-wide.jpg';
+import heroPortrait from '../../assets/placeholder/hero-portrait.jpg';
+
+const wideAvif = await getImage({ src: heroWide, format: 'avif', widths: [1280, 1920, 2560, 3200] });
+const wideWebp = await getImage({ src: heroWide, format: 'webp', widths: [1280, 1920, 2560] });
+const portraitAvif = await getImage({ src: heroPortrait, format: 'avif', widths: [720, 1080, 1350] });
+const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths: [720, 1080, 1350] });
+---
+
+<section id="hero" class="hero" aria-label="Got Soap? — a public service announcement">
+  <!-- The text-free hero environment. Decorative composite: empty alt (§12);
+       the live type below carries all content. `cover` is legitimate here —
+       this is atmosphere staging, not the canonical poster rectangle. -->
+  <picture class="hero__art" aria-hidden="true">
+    <source media="(orientation: portrait)" type="image/avif" srcset={portraitAvif.srcSet.attribute} sizes="100vw" />
+    <source media="(orientation: portrait)" type="image/webp" srcset={portraitWebp.srcSet.attribute} sizes="100vw" />
+    <source type="image/avif" srcset={wideAvif.srcSet.attribute} sizes="100vw" />
+    <img
+      src={wideWebp.src}
+      srcset={wideWebp.srcSet.attribute}
+      sizes="100vw"
+      alt=""
+      width={heroWide.width}
+      height={heroWide.height}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </picture>
+
+  <!-- Steam-white scrim that seats the ink type on the bright world without
+       touching the figure zone: from the left in landscape, from the top in
+       portrait. Environmental light, not a poster wash. -->
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="hero__plumes" aria-hidden="true"></div>
+  <div class="hero__gloss" aria-hidden="true"></div>
+  <span class="hero__grain fx-grain" aria-hidden="true"></span>
+
+  <div class="hero__inner">
+    <p class="hero__signature">{home.hero.signature}</p>
+
+    <h1 class="hero__mark">{home.hero.headline}</h1>
+
+    <p class="hero__provocation">{home.hero.sub}</p>
+
+    <p class="hero__cue" aria-hidden="true">
+      <span class="hero__cue-mark">↓</span>
+      {home.hero.scrollCue}
+    </p>
+  </div>
+
+  <!-- The clearing steam. State machine on #hero[data-hero]; driven by
+       scripts/steam-hero.ts, fogged pre-paint by the bootstrap below. -->
+  <div class="hero__steam" aria-hidden="true"><span class="hero__steam-noise"></span></div>
+</section>
+
+<!-- The first-visit decision itself lives in BaseLayout's synchronous <head>
+     bootstrap (§3.1) — no body-time script fogs this section. -->
+<script>
+  import '../../scripts/steam-hero.ts';
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: calc(100svh - var(--masthead-h));
+    display: grid;
+    background-color: var(--steam-white);
+    color: var(--grout-black);
+  }
+
+  .hero__art {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero__art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Landscape: the figure stands right-of-centre (x 60–86%), so the light —
+     and the type — come from the left. */
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--steam-white) 88%, transparent) 0%,
+      color-mix(in srgb, var(--steam-white) 62%, transparent) 34%,
+      color-mix(in srgb, var(--steam-white) 18%, transparent) 52%,
+      transparent 66%
+    );
+  }
+
+  .hero__plumes {
+    position: absolute;
+    inset: -18%;
+    z-index: 2;
+    pointer-events: none;
+    background-image:
+      radial-gradient(44% 34% at 16% 24%, color-mix(in srgb, var(--lather-white) 60%, transparent), transparent 70%),
+      radial-gradient(50% 38% at 82% 88%, color-mix(in srgb, var(--lather-white) 40%, transparent), transparent 72%);
+    filter: blur(12px);
+    animation: hero-drift 46s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  @keyframes hero-drift {
+    from { transform: translate3d(-2%, 1%, 0) scale(1); }
+    to { transform: translate3d(3%, -2%, 0) scale(1.07); }
+  }
+  .hero__gloss {
+    position: absolute;
+    inset: -20% -40%;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      114deg,
+      transparent 42%,
+      color-mix(in srgb, var(--lather-white) 55%, transparent) 49%,
+      color-mix(in srgb, var(--lather-white) 16%, transparent) 54%,
+      transparent 64%
+    );
+    mix-blend-mode: screen;
+    animation: hero-sweep 32s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  @keyframes hero-sweep {
+    from { transform: translate3d(-7%, 0, 0); }
+    to { transform: translate3d(7%, 0, 0); }
+  }
+  .hero__grain {
+    z-index: 2;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+  }
+
+  /* Landscape composition: type owns the LEFT column; the subject zone
+     (x 60–86% of the art) stays clear. */
+  .hero__inner {
+    position: relative;
+    z-index: 3;
+    align-self: center;
+    justify-self: start;
+    width: min(56vw, 46rem);
+    padding: clamp(2rem, 6vh, 5rem) clamp(1.25rem, 5vw, 4.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero__signature {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: clamp(0.6rem, 1.05vw, 0.8rem);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--marble-amber-ink);
+    margin-bottom: clamp(0.9rem, 3.5vh, 1.8rem);
+    max-width: 40ch;
+  }
+
+  .hero__mark {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(4rem, 9.5vw, 11rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-transform: lowercase;
+    margin-left: -0.04em;
+    padding-bottom: 0.08em;
+    white-space: nowrap;
+    /* Glossy polished-ink chrome — extreme contrast on the bright ground. */
+    background-image: linear-gradient(177deg, #55555d 0%, #232329 34%, #0c0c0e 64%, #35353c 86%, #101014 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    filter:
+      drop-shadow(0 1px 0 rgba(255, 255, 255, 0.6))
+      drop-shadow(0 16px 34px rgba(60, 48, 34, 0.24));
+  }
+  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .hero__mark {
+      color: var(--grout-black);
+      -webkit-text-fill-color: var(--grout-black);
+    }
+  }
+
+  .hero__provocation {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.4vw, 1.9rem);
+    line-height: 1.25;
+    letter-spacing: 0.005em;
+    color: var(--grout-black);
+    margin-top: clamp(1rem, 4vh, 2rem);
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+
+  .hero__cue {
+    font-family: var(--font-body);
+    font-size: var(--step--1);
+    letter-spacing: 0.02em;
+    color: color-mix(in srgb, var(--grout-black) 70%, var(--steam-white));
+    margin-top: clamp(1.75rem, 6vh, 3.25rem);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+  }
+  .hero__cue-mark {
+    color: var(--marble-amber-ink);
+    animation: hero-nudge 2.6s ease-in-out infinite;
+  }
+  @keyframes hero-nudge {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+
+  /* Portrait composition: the figure fills the centre-bottom of the art
+     (x 28–72%, y 47–94%), so the type owns the TOP band, centred, and the
+     scrim falls from above instead of from the left. */
+  @media (orientation: portrait) {
+    .hero__scrim {
+      background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--steam-white) 90%, transparent) 0%,
+        color-mix(in srgb, var(--steam-white) 66%, transparent) 26%,
+        color-mix(in srgb, var(--steam-white) 20%, transparent) 40%,
+        transparent 52%
+      );
+    }
+    .hero__inner {
+      align-self: start;
+      justify-self: center;
+      width: 100%;
+      max-width: none;
+      align-items: center;
+      text-align: center;
+      padding-top: clamp(1.5rem, 4svh, 3rem);
+      /* Reserve the lower ~55svh for the figure — live type stays clear. */
+      padding-bottom: 55svh;
+    }
+    .hero__mark {
+      font-size: clamp(3.75rem, 19vw, 9rem);
+      margin-left: 0;
+    }
+    .hero__provocation {
+      font-size: clamp(1.05rem, 4.4vw, 1.6rem);
+      margin-top: clamp(0.75rem, 2svh, 1.25rem);
+    }
+    .hero__signature {
+      margin-bottom: clamp(0.75rem, 2svh, 1.25rem);
+      max-width: 34ch;
+    }
+    .hero__cue {
+      margin-top: clamp(1rem, 3svh, 2rem);
+    }
+  }
+
+  /* ---- The clearing steam (state machine; script in scripts/steam-hero.ts) */
+  .hero__steam {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0;
+    background-color: color-mix(in srgb, var(--lather-white) 92%, var(--steam-white));
+    background-image:
+      radial-gradient(52% 42% at 24% 28%, var(--lather-white), transparent 70%),
+      radial-gradient(58% 46% at 72% 62%, var(--lather-white), transparent 72%),
+      radial-gradient(44% 32% at 48% 94%, color-mix(in srgb, var(--steam-white) 96%, transparent), transparent 70%);
+    will-change: clip-path, opacity;
+  }
+  .hero__steam-noise {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: var(--grain-fine);
+    background-size: 150px 150px;
+  }
+
+  /* FOGGED — only under the <head> bootstrap's class (motion-allowed first
+     visit of the session), and only until the island advances the state.
+     Everyone else gets the default clear steam above (§3.1). */
+  :global(html.steam-first-visit) .hero:not([data-hero]) .hero__steam {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transition: none;
+  }
+  .hero[data-hero='clearing'] .hero__steam {
+    opacity: 1;
+    clip-path: inset(0 0 0 100%);
+    /* One directional sweep, 1.8–2.2s (§3.1). */
+    transition: clip-path 1.95s cubic-bezier(0.66, 0, 0.2, 1);
+  }
+  .hero[data-hero='done'] .hero__steam {
+    opacity: 0;
+    clip-path: inset(0 0 0 100%);
+    transition: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* §3.1: under reduced motion the <head> bootstrap never fogs, so the
+       clear state simply stands. The crossfade below is a belt for a
+       preference that flips mid-session; ambient drift is off outright. */
+    :global(html.steam-first-visit) .hero:not([data-hero]) .hero__steam {
+      clip-path: none;
+      opacity: 0;
+    }
+    .hero[data-hero='clearing'] .hero__steam {
+      clip-path: none;
+      opacity: 0;
+      transition: opacity 240ms ease;
+    }
+    .hero__plumes,
+    .hero__gloss,
+    .hero__cue-mark {
+      animation: none;
+    }
+  }
+</style>

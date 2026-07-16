@@ -1,0 +1,485 @@
+---
+/**
+ * homev2/Case.astro — SECTION 2: THE CASE — **The Porcelain Evidence Wall** (§3.2).
+ *
+ * The crisis staged as billboard-scale evidence applied directly to a wet,
+ * high-key ceramic wall. Three findings occupy UNEQUAL ARCHITECTURAL ZONES —
+ * three hand-built compositions, not rows, not cards, not a mapped shell:
+ *
+ *   BROADSIDE  73%   billboard scale; on mobile the chrome figure clips
+ *                    against the LEFT viewport edge; copy stands to its right
+ *   FLUSH      0%    spans the full wall width between two grout rules;
+ *                    copy runs beneath the figure
+ *   RAIL       9/10  locks to the emphasized RIGHT grout line; copy sits
+ *                    to its left, ragged-left against the figure
+ *
+ * The manifesto (the demand) runs across the tile joints in its own live-type
+ * zone — staggered lines stepped by whole tile units, never a centered column.
+ * A narrow specular highlight travels across each chrome figure ONCE when its
+ * zone first enters the viewport (transform + opacity via the global
+ * [data-reveal] one-shot — it cannot replay on scroll reversal because
+ * .is-revealed is never removed). Campaign register (🧼) only.
+ *
+ * COPY: findings, tags, heading, subnote, and the founding clause are VERBATIM
+ * from `crisis` in copy.ts. The demand "Soap. Applied to men. Regularly." is a
+ * typographic setting of the documented demand ("soap, applied to men,
+ * regularly", crisis.founding[1]) — reassembled, not invented. The route label
+ * is a wayfinding label.
+ */
+import { crisis } from '../../content/copy';
+
+// The three findings staged on the wall, each hand-placed below. The `figure`
+// is the design lift of the number already inside the verbatim line.
+const broadside = crisis.findings.rows.find((r) => r.tag.endsWith('26-04'))!;
+const flush = crisis.findings.rows.find((r) => r.tag.endsWith('26-03'))!;
+const rail = crisis.findings.rows.find((r) => r.tag.endsWith('26-02'))!;
+
+const creed = 'We do not oppose fragrance. We oppose substitution.'; // crisis.founding[2], verbatim clause
+---
+
+<section id="case" class="case register-porcelain" aria-labelledby="case-manifesto">
+  <div class="case__tile" aria-hidden="true"></div>
+  <div class="case__wet" aria-hidden="true"></div>
+  <span class="case__grain fx-grain" aria-hidden="true"></span>
+
+  <div class="case__wall">
+    <!-- The emphasized grout line lives INSIDE the wall so the RAIL zone and
+         the line share one coordinate space: the lock holds at every width,
+         including wide viewports where the 82rem wall floats centered (the
+         section-relative version separated by 230px at 1920 — Sol F7). -->
+    <span class="case__groutline" aria-hidden="true"></span>
+    <!-- The manifesto zone: the demand runs across the tile joints, stepped
+         by whole tile units. Never a centered text column. -->
+    <h2 id="case-manifesto" class="case__manifesto">
+      <span class="case__demand case__demand--1">Soap.</span>
+      <span class="case__demand case__demand--2">Applied to men.</span>
+      <span class="case__demand case__demand--3">Regularly.</span>
+    </h2>
+    <p class="case__creed">{creed}</p>
+
+    <!-- The ledger plaque: a small glazed placard screwed to the wall. -->
+    <header class="case__plaque">
+      <p class="case__plaque-title">{crisis.findings.heading}</p>
+      <p class="case__plaque-note">{crisis.findings.subnote}</p>
+    </header>
+
+    <!-- ZONE 1 — THE BROADSIDE. Billboard chrome, installed proud of the
+         grout; the largest object on the wall. -->
+    <article class="case__broadside" data-reveal>
+      <p class="case__figure case__figure--broadside" aria-hidden="true">
+        73%
+        <span class="case__shine" aria-hidden="true"></span>
+      </p>
+      <div class="case__broadside-copy">
+        <p class="case__text">{broadside.finding}</p>
+        <p class="case__tag">{broadside.tag}</p>
+      </div>
+    </article>
+
+    <!-- ZONE 2 — THE FLUSH BAND. Runs the full wall width between two grout
+         rules; the zero sits on the rule like a fitting on a rail. -->
+    <article class="case__flush" data-reveal>
+      <div class="case__flush-row">
+        <p class="case__figure case__figure--flush" aria-hidden="true">
+          0%
+          <span class="case__shine" aria-hidden="true"></span>
+        </p>
+        <p class="case__text case__flush-text">{flush.finding}</p>
+      </div>
+      <p class="case__tag case__flush-tag">{flush.tag}</p>
+    </article>
+
+    <!-- ZONE 3 — THE RAIL. Locked to the emphasized right grout line; the
+         copy approaches it from the left. -->
+    <article class="case__rail" data-reveal>
+      <div class="case__rail-copy">
+        <p class="case__text">{rail.finding}</p>
+        <p class="case__tag">{rail.tag}</p>
+      </div>
+      <p class="case__figure case__figure--rail" aria-hidden="true">
+        9/10
+        <span class="case__shine" aria-hidden="true"></span>
+      </p>
+    </article>
+
+    <p class="case__more">
+      <a class="case__link" href="/crisis">Read the full findings <span aria-hidden="true">→</span></a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .case {
+    /* One tile module drives the grout grid and the manifesto steps, so the
+       type genuinely sits ON the wall's geometry. --rail-inset is the shared
+       distance (in WALL space) from the wall's right edge to the emphasized
+       grout line AND to the RAIL zone's right edge — one variable, one lock. */
+    --tile: clamp(4.5rem, 11vw, 10rem);
+    --rail-inset: clamp(0.6rem, 2.5vw, 1.5rem);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-color: var(--steam-white);
+    color: var(--grout-black);
+    padding-block: clamp(4.5rem, 13vh, 9.5rem);
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+  }
+
+  /* The ceramic: a true tile grid with fine grout joints. */
+  .case__tile {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(
+        to right,
+        transparent 0,
+        transparent calc(var(--tile) - 1.5px),
+        color-mix(in srgb, var(--grout-black) 11%, transparent) calc(var(--tile) - 1.5px),
+        color-mix(in srgb, var(--grout-black) 11%, transparent) var(--tile)
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent calc(var(--tile) - 1.5px),
+        color-mix(in srgb, var(--grout-black) 9%, transparent) calc(var(--tile) - 1.5px),
+        color-mix(in srgb, var(--grout-black) 9%, transparent) var(--tile)
+      );
+  }
+  /* The wet: specular blooms and one hard diagonal sheen across the glaze. */
+  .case__wet {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        116deg,
+        transparent 38%,
+        color-mix(in srgb, var(--lather-white) 66%, transparent) 47%,
+        color-mix(in srgb, var(--lather-white) 18%, transparent) 53%,
+        transparent 62%
+      ),
+      radial-gradient(46% 34% at 12% 8%, color-mix(in srgb, var(--lather-white) 85%, transparent), transparent 65%),
+      radial-gradient(40% 30% at 88% 82%, color-mix(in srgb, var(--lather-white) 55%, transparent), transparent 68%),
+      radial-gradient(34% 26% at 64% 30%, color-mix(in srgb, var(--marble-amber) 7%, transparent), transparent 70%);
+  }
+  /* The emphasized right grout line the RAIL zone locks to. Positioned in
+     the wall's coordinate space (the wall is the positioned parent). */
+  .case__groutline {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: var(--rail-inset);
+    width: 2.5px;
+    z-index: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      color-mix(in srgb, var(--grout-black) 26%, transparent) 12%,
+      color-mix(in srgb, var(--grout-black) 26%, transparent) 88%,
+      transparent
+    );
+  }
+  .case__grain {
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+  }
+
+  .case__wall {
+    position: relative;
+    z-index: 1;
+    max-width: 82rem;
+    margin-inline: auto;
+  }
+
+  /* ---- The manifesto: across the tile joints, stepped by tile units ------ */
+  .case__manifesto {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.75rem, 8.5vw, 7rem);
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+    color: var(--grout-black);
+  }
+  .case__demand--2 {
+    margin-left: calc(var(--tile) * 1);
+    color: color-mix(in srgb, var(--grout-black) 76%, var(--steam-white));
+  }
+  .case__demand--3 {
+    margin-left: calc(var(--tile) * 2.5);
+    color: var(--marble-amber-ink);
+  }
+  .case__creed {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.1rem, 2.2vw, 1.7rem);
+    line-height: 1.2;
+    color: color-mix(in srgb, var(--grout-black) 82%, var(--steam-white));
+    max-width: 24ch;
+    margin-top: clamp(1.25rem, 3vh, 2rem);
+    margin-left: calc(var(--tile) * 0.5);
+  }
+
+  /* ---- The ledger plaque -------------------------------------------------- */
+  .case__plaque {
+    width: fit-content;
+    max-width: 44rem;
+    margin-top: clamp(3rem, 8vh, 5.5rem);
+    padding: clamp(0.8rem, 1.6vw, 1.2rem) clamp(1rem, 2.2vw, 1.6rem);
+    background: linear-gradient(180deg, color-mix(in srgb, #fff 70%, transparent), color-mix(in srgb, #fff 20%, transparent));
+    border: 1px solid color-mix(in srgb, var(--grout-black) 20%, transparent);
+    border-radius: var(--radius-tile);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.8) inset,
+      0 10px 26px -14px rgba(20, 16, 10, 0.4);
+  }
+  .case__plaque-title {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grout-black);
+  }
+  .case__plaque-note {
+    font-family: var(--font-fine);
+    font-size: var(--step--2);
+    line-height: 1.5;
+    color: color-mix(in srgb, var(--grout-black) 62%, var(--steam-white));
+    margin-top: 0.35rem;
+  }
+
+  /* ---- Shared evidence materials ------------------------------------------ */
+  /* Chrome figures fabricated and installed on the tile: glossy ink-chrome
+     glyphs, a contact shadow onto the glaze, and a one-shot specular pass. */
+  .case__figure {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 0.82;
+    letter-spacing: -0.03em;
+    background-image: linear-gradient(176deg, #6c6c74 0%, #2a2a30 30%, #0b0b0d 62%, #3a3a41 84%, #0f0f12 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.7)) drop-shadow(0 14px 26px rgba(0, 0, 0, 0.2));
+  }
+  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .case__figure {
+      -webkit-text-fill-color: var(--grout-black);
+      color: var(--grout-black);
+    }
+  }
+  /* The traveling highlight: a narrow skewed specular bar. Idle state is
+     off-glyph and transparent; the one-shot below drives it across. */
+  .case__shine {
+    position: absolute;
+    top: -12%;
+    bottom: -12%;
+    left: 0;
+    width: 18%;
+    opacity: 0;
+    transform: translateX(-140%) skewX(-18deg);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--lather-white) 85%, transparent) 50%,
+      transparent
+    );
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+  .is-revealed .case__shine {
+    animation: case-shine 1.3s cubic-bezier(0.5, 0, 0.3, 1) 0.25s forwards;
+  }
+  @keyframes case-shine {
+    0% { opacity: 0; transform: translateX(-140%) skewX(-18deg); }
+    18% { opacity: 1; }
+    82% { opacity: 1; }
+    100% { opacity: 0; transform: translateX(680%) skewX(-18deg); }
+  }
+
+  .case__text {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.3vw, 1.85rem);
+    line-height: 1.2;
+    color: var(--grout-black);
+    max-width: 30ch;
+  }
+  .case__tag {
+    font-family: var(--font-fine);
+    font-size: var(--step--2);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--grout-black) 52%, var(--steam-white));
+    margin-top: 0.8rem;
+  }
+
+  /* ---- ZONE 1 · THE BROADSIDE --------------------------------------------- */
+  .case__broadside {
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(1.25rem, 4vw, 3.5rem);
+    margin-top: clamp(3rem, 8vh, 5rem);
+  }
+  .case__figure--broadside {
+    font-size: clamp(7.5rem, 24vw, 20rem);
+  }
+  .case__broadside-copy {
+    padding-bottom: clamp(0.5rem, 2vh, 1.5rem);
+  }
+
+  /* ---- ZONE 2 · THE FLUSH BAND -------------------------------------------- */
+  .case__flush {
+    margin-top: clamp(3.5rem, 9vh, 6rem);
+    padding-block: clamp(1.5rem, 4vh, 2.5rem);
+    border-top: 1.5px solid color-mix(in srgb, var(--grout-black) 22%, transparent);
+    border-bottom: 1.5px solid color-mix(in srgb, var(--grout-black) 22%, transparent);
+  }
+  .case__flush-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: clamp(1.25rem, 4vw, 3.5rem);
+  }
+  .case__figure--flush {
+    font-size: clamp(5.5rem, 15vw, 12rem);
+  }
+  .case__flush-text {
+    max-width: 34ch;
+    text-align: right;
+  }
+  .case__flush-tag {
+    text-align: right;
+  }
+
+  /* ---- ZONE 3 · THE RAIL ---------------------------------------------------
+     Locks to the emphasized grout line: figure right edge and grout line
+     share --rail-inset in wall space, so the lock holds at every width. */
+  .case__rail {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: clamp(1.25rem, 4vw, 3rem);
+    margin-top: clamp(3.5rem, 9vh, 6rem);
+    margin-right: var(--rail-inset);
+  }
+  .case__figure--rail {
+    font-size: clamp(5rem, 13vw, 11rem);
+    border-right: 2.5px solid color-mix(in srgb, var(--grout-black) 30%, transparent);
+    padding-right: clamp(0.5rem, 1.5vw, 1rem);
+  }
+  .case__rail-copy {
+    text-align: right;
+    padding-bottom: clamp(0.4rem, 1.5vh, 1rem);
+  }
+  .case__rail-copy .case__text {
+    margin-left: auto;
+  }
+
+  /* ---- Route ---------------------------------------------------------------- */
+  .case__more {
+    margin-top: clamp(3rem, 7vh, 4.5rem);
+  }
+  .case__link {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--marble-amber-ink);
+    text-decoration: none;
+    border-bottom: 2px solid color-mix(in srgb, var(--marble-amber-ink) 40%, transparent);
+    padding-bottom: 0.2em;
+    transition: border-color 140ms ease;
+  }
+  .case__link:hover {
+    border-bottom-color: var(--marble-amber-ink);
+  }
+
+  /* ---- Mobile: the tall wall (§3.2) ------------------------------------------
+     One figure clips the left viewport edge, one spans the full width, one
+     locks to the right grout line. Copy stays adjacent to its figure — right,
+     below, then left — never in identical blocks. */
+  @media (max-width: 720px) {
+    .case {
+      /* let the broadside clip the true viewport edge */
+      padding-inline: clamp(1.1rem, 4.5vw, 1.5rem);
+    }
+    .case__demand--2 {
+      margin-left: calc(var(--tile) * 0.66);
+    }
+    .case__demand--3 {
+      margin-left: calc(var(--tile) * 1.5);
+    }
+    .case__creed {
+      margin-left: 0;
+    }
+
+    /* BROADSIDE: the 73% breaks the frame — clipped by the left edge; copy
+       stands to its right. The negative margin lives on the FIGURE so its
+       em tracks the numeral's size (on the container it resolved against
+       16px and barely grazed the edge — caught in the 390×844 pass). */
+    .case__broadside {
+      align-items: center;
+      gap: clamp(0.9rem, 4vw, 1.5rem);
+    }
+    .case__figure--broadside {
+      font-size: clamp(8rem, 38vw, 12rem);
+      flex: 0 0 auto;
+      margin-left: calc(-0.32em - clamp(1.1rem, 4.5vw, 1.5rem));
+    }
+    .case__broadside-copy {
+      padding-bottom: 0;
+      min-width: 0;
+    }
+
+    /* FLUSH: the 0% spans the full wall width; copy runs beneath it. */
+    .case__flush-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.75rem;
+    }
+    .case__figure--flush {
+      font-size: clamp(6rem, 30vw, 10rem);
+      width: 100%;
+    }
+    .case__flush-text {
+      text-align: left;
+      max-width: none;
+    }
+    .case__flush-tag {
+      text-align: left;
+    }
+
+    /* RAIL: the 9/10 locks to the right grout line; copy approaches from
+       the left. Same shared inset — the lock is breakpoint-independent. */
+    .case__rail {
+      align-items: center;
+      gap: clamp(0.75rem, 3.5vw, 1.25rem);
+    }
+    .case__figure--rail {
+      font-size: clamp(4.5rem, 22vw, 7rem);
+      flex: 0 0 auto;
+    }
+  }
+
+  /* §3.2/§6/§11: reduced motion resolves to the final composition — the wall
+     simply stands lit; no specular pass, no hover transition. */
+  @media (prefers-reduced-motion: reduce) {
+    .is-revealed .case__shine {
+      animation: none;
+    }
+    .case__link {
+      transition: none;
+    }
+  }
+</style>

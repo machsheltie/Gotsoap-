@@ -1,0 +1,365 @@
+---
+/**
+ * UnholyEnvironment.astro — Poster 3, "Unholy".
+ *
+ * §6 row 3, the mobile material signature:
+ *   ENTRY  "Cathedral Light Rise" — a lather-white light shaft expands
+ *          behind the contained poster as it lifts 3svh.
+ *   COPY   A smoked-steel sermon slab with ONE polished chrome rule,
+ *          offset left rather than centered (it bleeds to the left edge).
+ *   TYPE   The copy-lane pull quote runs as staggered chrome lines in the
+ *          environmental gutter; one short line is set in vertical writing
+ *          beside the poster, outside its box.
+ *
+ * The pull quote renders intact once for assistive tech (sr-only); the
+ * split visual performance is aria-hidden so the sentence never reads
+ * out of order. Smoke here is rich editorial atmosphere (§1), lit by the
+ * shaft — not bunker-dark.
+ *
+ * This component owns its DOM and CSS (§5.2). Entry animations: base state
+ * = FINAL composition; transform/opacity only (§6).
+ */
+import PosterImage from '../PosterImage.astro';
+import Lightbox from './Lightbox.astro';
+import ShareRow from '../ShareRow.astro';
+import DownloadStation from './DownloadStation.astro';
+import SeriesNav from './SeriesNav.astro';
+import type { Poster } from '../../config/site';
+
+interface Props {
+  poster: Poster;
+  alt: string;
+  caseNote: string;
+  pull: string;
+  pageUrl: string;
+  downloadHref: string;
+  prevPoster?: Poster;
+  nextPoster?: Poster;
+}
+const {
+  poster,
+  alt,
+  caseNote,
+  pull,
+  pageUrl,
+  downloadHref,
+  prevPoster,
+  nextPoster,
+} = Astro.props;
+
+/* Split the copy-lane pull into performance lines (§6): the shortest clause
+   becomes the vertical versicle beside the poster; the rest stagger below.
+   The words are the copy lane's, verbatim — only the typesetting is ours. */
+const clauses = pull.split(/(?<=[.,])\s+/).filter(Boolean);
+const versicle = clauses.reduce((a, b) => (b.length < a.length ? b : a));
+const staggered = clauses.filter((c) => c !== versicle);
+---
+
+<article class="cathedral" data-entry-stage>
+  <div class="nave">
+    <span class="shaft" aria-hidden="true"></span>
+    <div class="lift">
+      <PosterImage
+        slug={poster.slug}
+        alt={alt}
+        loading="eager"
+        sizes="(min-width: 1024px) 760px, 82vw"
+      />
+    </div>
+    <span class="versicle" aria-hidden="true">{versicle}</span>
+  </div>
+
+  <p class="sr-only">{pull}</p>
+  <div class="sermon" aria-hidden="true">
+    {staggered.map((line, i) => <span class={`sermon-line sermon-line--${i + 1}`}>{line}</span>)}
+  </div>
+
+  <div class="inspect">
+    <Lightbox slug={poster.slug} alt={alt} posterTitle={poster.title} />
+  </div>
+
+  <aside class="sermon-slab">
+    <span class="slab-rule" aria-hidden="true"></span>
+    <h1 class="slab-title">{poster.title}</h1>
+    <p class="slab-note" set:html={caseNote} />
+  </aside>
+
+  <div class="undercroft">
+    <ShareRow kind="spot" url={pageUrl} title={poster.title} />
+    <DownloadStation slug={poster.slug} downloadHref={downloadHref} />
+  </div>
+
+  <SeriesNav prevPoster={prevPoster} nextPoster={nextPoster} />
+</article>
+
+<script>
+  import '../../scripts/entry-complete.ts';
+</script>
+
+<style>
+  .cathedral {
+    background: var(--smoke-slate);
+    color: var(--lather-white);
+  }
+
+  /* The nave: smoke as lit atmosphere, not gloom — the shaft is the light
+     source and the room reads upward toward it. */
+  .nave {
+    position: relative;
+    overflow: clip;
+    padding-block: clamp(3.2rem, 13vw, 5rem) clamp(1.8rem, 7vw, 3rem);
+    background:
+      radial-gradient(130% 66% at 50% 110%, rgba(154, 154, 162, 0.18), transparent 62%),
+      linear-gradient(180deg, #17161a, var(--smoke-slate) 46%);
+  }
+
+  /* ENTRY — the lather-white shaft, expanding from a sliver of light. */
+  /* Wider than the poster with soft masked flanks: the light reads as a
+     backlight spilling around the contained rectangle, not a hidden stripe. */
+  .shaft {
+    position: absolute;
+    inset-block: 0;
+    inset-inline: calc((100% - min(96vw, 480px)) / 2);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(255, 255, 255, 0.62) 34%,
+      rgba(255, 255, 255, 0.05) 92%
+    );
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    transform-origin: 50% 0;
+    animation: shaft-expand 1.35s cubic-bezier(0.22, 0.68, 0.31, 1) both;
+  }
+  @keyframes shaft-expand {
+    from {
+      transform: scaleX(0.14);
+      opacity: 0.35;
+    }
+  }
+
+  .lift {
+    position: relative;
+    z-index: 1;
+    animation: unholy-lift 1.2s cubic-bezier(0.18, 0.72, 0.26, 1) both;
+  }
+  @keyframes unholy-lift {
+    from {
+      transform: translateY(3svh);
+    }
+  }
+  .lift :global(picture) {
+    display: block;
+    inline-size: 82vw; /* §5.1 band: centered, fits every container */
+    max-inline-size: 840px; /* > 82vw of 1023 — the band holds to the breakpoint */
+    margin-inline: auto;
+  }
+  .lift :global(img) {
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  /* One short line in vertical writing, in the true side gutter — outside
+     the poster box (§6). */
+  .versicle {
+    position: absolute;
+    z-index: 1;
+    /* PHYSICAL top/right on purpose: logical inset properties resolve
+       against this element's OWN vertical-rl axes (inline-end = bottom,
+       block-start = right), which silently dropped the line onto the
+       poster box. line-height: 1 keeps the vertical column one glyph wide
+       so it stays clear of the poster in the narrow classic-scrollbar
+       gutter. Measured clear at 390×844 in both scrollbar regimes. */
+    top: 16%;
+    right: clamp(2px, 0.8vw, 4px);
+    writing-mode: vertical-rl;
+    line-height: 1;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(0.85rem, 3.6vw, 1.05rem);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: #c9c9d1;
+  }
+
+  /* TYPE — staggered chrome lines in the environmental gutter below the
+     nave. Chrome floor is kept light enough to read on the slate. */
+  .sermon {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 2.2rem 5vw 0;
+  }
+  .sermon-line {
+    /* fit-content respects the remaining line length under each stagger
+       indent — a max-content box here overflows the viewport sideways. */
+    inline-size: fit-content;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.7rem, 8.4vw, 2.9rem);
+    line-height: 1.02;
+    text-transform: uppercase;
+    background-image: linear-gradient(173deg, #fbfbfd 8%, #c9c9d1 40%, #a5a5af 60%, #f0f0f5 96%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .sermon-line--2 {
+    margin-inline-start: 13vw;
+  }
+  .sermon-line--3 {
+    margin-inline-start: 5vw;
+  }
+  .sermon-line--4 {
+    margin-inline-start: 21vw;
+  }
+  .sermon-line--5 {
+    margin-inline-start: 9vw;
+  }
+  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .sermon-line {
+      background-image: none;
+      color: var(--chrome-mist);
+      -webkit-text-fill-color: currentColor;
+    }
+  }
+
+  .inspect {
+    inline-size: max-content;
+    margin: 2rem 5vw 0;
+  }
+
+  /* COPY — the smoked-steel sermon slab, bled to the LEFT edge, with its
+     single polished chrome rule. */
+  .sermon-slab {
+    inline-size: min(88vw, 32rem);
+    margin: 2.6rem auto 0 0;
+    padding: 1.6rem 6vw 1.9rem 5vw;
+    background: linear-gradient(148deg, #2c2b31 0%, #1d1c20 58%, #242329 100%);
+    border-start-end-radius: 3px;
+    border-end-end-radius: 3px;
+    box-shadow:
+      0 14px 30px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  .slab-rule {
+    display: block;
+    block-size: 3px;
+    margin-block-end: 1rem;
+    background: linear-gradient(90deg, #f2f2f5 0%, #6f6f78 46%, #d9d9e0 100%);
+  }
+  .slab-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--lather-white);
+    margin-block-end: 0.7rem;
+  }
+  .slab-note {
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.65;
+    color: color-mix(in srgb, var(--lather-white) 88%, var(--chrome-mist));
+  }
+
+  .undercroft {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    margin-block-start: 2.6rem;
+    padding: 2.4rem 5vw 2.6rem;
+    border-block-start: 1px solid rgba(154, 154, 162, 0.28);
+  }
+
+  /* Scroll completes the entry (§6): base state is already final. */
+  :global(.entry-done) .shaft,
+  :global(.entry-done) .lift {
+    animation: none;
+  }
+  /* Reduced motion resolves immediately to the final composition (§6). */
+  @media (prefers-reduced-motion: reduce) {
+    .shaft,
+    .lift {
+      animation: none;
+    }
+  }
+
+  /* ── DESKTOP composition (2b) — the nave axis ─────────────────────────────
+     The cathedral stays a single center axis: the tallest poster of the five
+     (86svh cap) under a wider light shaft, the versicle floating in the dark
+     right gutter. No column grid here — the room IS the symmetry, and the
+     staggered sermon breaks it below the fold. §5.1 cap: 86svh / masthead+
+     chrome / width. */
+  @media (min-width: 1024px) {
+    .nave {
+      min-block-size: calc(100svh - 57px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* The gutters are DECLARED ONCE and the poster cap subtracts these
+         same variables — the §5.1 budget (100svh − masthead − gutters) is
+         satisfied by construction and cannot drift when a clamp re-scales. */
+      --nave-pad-start: clamp(2.75rem, 5.5svh, 4.25rem);
+      --nave-pad-end: clamp(2rem, 4svh, 3rem);
+      padding-block: var(--nave-pad-start) var(--nave-pad-end);
+    }
+    .lift :global(picture) {
+      inline-size: fit-content;
+      max-inline-size: none;
+      block-size: min(
+        86svh,
+        calc(100svh - 57px - var(--nave-pad-start) - var(--nave-pad-end)),
+        calc(72vw * 1.25)
+      );
+      margin-inline: 0;
+    }
+    .lift :global(img) {
+      block-size: 100%;
+      inline-size: auto;
+    }
+    .shaft {
+      inset-inline: calc((100% - min(52vw, 860px)) / 2);
+    }
+    .versicle {
+      top: 18%;
+      right: clamp(2.5rem, 7vw, 8rem);
+      font-size: 1.15rem;
+    }
+    .sermon {
+      padding: 3.5rem clamp(2.5rem, 5vw, 5rem) 0;
+      gap: 0.5rem;
+    }
+    .sermon-line {
+      font-size: clamp(2.5rem, 4.4vw, 4.2rem);
+    }
+    .sermon-line--2 {
+      margin-inline-start: 16vw;
+    }
+    .sermon-line--3 {
+      margin-inline-start: 6vw;
+    }
+    .sermon-line--4 {
+      margin-inline-start: 26vw;
+    }
+    .sermon-line--5 {
+      margin-inline-start: 11vw;
+    }
+    .inspect {
+      margin: 2.5rem clamp(2.5rem, 5vw, 5rem) 0;
+    }
+    .sermon-slab {
+      inline-size: min(54vw, 42rem);
+      padding: 2rem clamp(2.5rem, 4vw, 4rem) 2.2rem clamp(2.5rem, 5vw, 5rem);
+    }
+    .undercroft {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: clamp(2rem, 6vw, 5rem);
+      padding-inline: clamp(2.5rem, 5vw, 5rem);
+    }
+  }
+</style>

@@ -45,6 +45,37 @@ export const nav = {
   quiet: { label: "ABOUT", href: "/about" },
 } as const;
 
+/**
+ * §9.1 home contents overlay — STRUCTURAL navigation taxonomy, not voice copy.
+ * Entry labels are VERBATIM from specs.md §9.1 ("List home anchors first:
+ * Case, Campaign, Confrontation, Oath, and Movement. List route exits second:
+ * PSAs, Sniff Test, Pledge, Crisis, and Production Notes."). Framing strings
+ * are copy-lane FINAL (2026-07-16 Claude↔Sol consensus): "Contents" plays the
+ * magazine format straight; plain language wins on structural chrome only when
+ * revoicing would misdescribe the destination (see docs/copy/style-lock.md).
+ */
+export const contents = {
+  trigger: "Contents",
+  title: "Contents",
+  close: "Back to the campaign",
+  anchorsLabel: "On this page",
+  routesLabel: "The rest of the movement",
+  anchors: [
+    { label: "Case", href: "#case" },
+    { label: "Campaign", href: "#campaign" },
+    { label: "Confrontation", href: "#confrontation" },
+    { label: "Oath", href: "#oath" },
+    { label: "Movement", href: "#movement" },
+  ],
+  routes: [
+    { label: "PSAs", href: "/psas" },
+    { label: "Sniff Test", href: "/sniff-test" },
+    { label: "Pledge", href: "/pledge" },
+    { label: "Crisis", href: "/crisis" },
+    { label: "Production Notes", href: "/about" },
+  ],
+} as const;
+
 export const footer = {
   movementLine: "Join the movement. Smell like someone chose you back.",
   hashtags: HASHTAGS,
@@ -67,13 +98,13 @@ export const scratchGag = {
 export const meta = {
   home: { title: "got soap? — the movement", description: `A public thirst announcement. Five posters, one demand: use the soap. Because "I usually shower" is not a hygiene routine. It's a confession.` },
   psas: { title: "The PSAs — Series One | got soap?", description: "The public-service archive. Five thirst-trap hygiene PSAs, presented untouched. Study them. Then bathe." },
-  "psas/confident-man": { title: "A Clean Man Is A Confident Man | got soap?", description: "Spot No. 1. Because your Axe body spray isn't fooling anyone, cowboy. Smell like effort." },
-  "psas/soap-smoldering": { title: "Soap-Smoldering | got soap?", description: `Spot No. 2. Because your "natural scent" is a threat, not a flex. Lather. Rinse. Respect.` },
-  "psas/unholy": { title: "Unholy | got soap?", description: "Spot No. 3. Because deodorant without a shower is just layering lies. Axe is not an exorcism." },
-  "psas/redemption": { title: "The Redemption | got soap?", description: "Spot No. 4. Because cleansing isn't just for your sins. Deodorant isn't divine intervention." },
-  "psas/thirst-announcement": { title: "Public Thirst Announcement | got soap?", description: "Spot No. 5. Because your Tinder shouldn't come with a scratch-n-sniff warning. Wash accordingly." },
+  "psas/confident-man": { title: "A Clean Man Is A Confident Man | got soap?", description: "Your Axe body spray isn't fooling anyone, cowboy. Smell like effort." },
+  "psas/soap-smoldering": { title: "Soap-Smoldering | got soap?", description: `Your "natural scent" is a threat, not a flex. Lather. Rinse. Respect.` },
+  "psas/unholy": { title: "Unholy | got soap?", description: "Deodorant without a shower is just layering lies. Axe is not an exorcism." },
+  "psas/redemption": { title: "The Redemption | got soap?", description: "Cleansing isn't just for your sins. Deodorant isn't divine intervention. Anyone can change." },
+  "psas/thirst-announcement": { title: "Public Thirst Announcement | got soap?", description: "Your Tinder shouldn't come with a scratch-n-sniff warning. Wash accordingly." },
   "sniff-test": { title: "The Sniff Test — Field Assessment CW-7 | got soap?", description: "Seven questions between you and the truth your group chat already knows. Administered by CWAAA field assessors." },
-  pledge: { title: "The Lather Pledge — Form CW-1 | got soap?", description: "Declaration of Intent to Lather. Sign the oath, join two million women who've had enough, and smell like you meant it." },
+  pledge: { title: "The Lather Pledge — Form CW-1 | got soap?", description: "Declaration of Intent to Lather. Sign the oath, get filed in triplicate, and smell like you meant it." },
   crisis: { title: "The Crisis | Concerned Women Against Axe Abuse", description: "The state of male hygiene, documented. A memorandum from the women who had smelled enough." },
   about: { title: "The Reveal — Hope2 Studio | got soap?", description: "It was a portfolio piece the whole time. Here's the satire, the craft, and the woman who made it." },
   notFound: { title: "Missing | got soap?", description: "This page didn't shower. It's gone." },
@@ -84,6 +115,16 @@ export const home = {
     headline: "got soap?",
     sub: "Because he thinks the steam is hiding it. It never was.",
     scrollCue: "Keep going. It only gets cleaner. He didn't.",
+    /** §7.2 institutional signature (renders above the headline) — the exact 90s-PSA credit format; the org name detonates against it. */
+    signature: `A public service announcement · Funded by ${FUNDED_BY}`,
+  },
+  campaign: {
+    /** §3.3 flagship propaganda caption — poster-agnostic (HOME_FLAGSHIP is owner-swappable). An order, not a caption. */
+    caption: "Pin him up in the locker room.",
+  },
+  confrontation: {
+    /** §4 second-person provocation — the dual-address engine turned literal at the mirror beat. */
+    provocation: "You've smelled him. Are you him?",
   },
   sniffInsert: {
     heading: "Seven questions between you and the truth your group chat already knows.",
@@ -98,12 +139,12 @@ export const home = {
     body: [
       "The men are not the problem. The men are, in most cases, lovely.",
       "The fog is the problem. We intend to lift it. In writing. With copies filed.",
-      "Two million women. One demand. Soap, applied regularly, as directed.",
+      "Two million concerned women. One demand. Soap, applied regularly, as directed.",
     ],
     cta: "Read the full brief →",
   },
   pledgeBand: {
-    heading: "Join the movement. Put it in writing.",
+    heading: "Join the movement. Sign it — or send it to the man who should.",
     body: `Because "I usually shower" is not a hygiene routine. It's a confession.`,
     cta: "Take the Lather Pledge →",
   },
@@ -336,7 +377,7 @@ export const crisis = {
   scale: "Two million concerned women. Chapters in all fifty states. One demand.",
   ribbon: {
     heading: "Tie One On For Suds",
-    body: "Our washcloth ribbon says what words cannot: he showers now. Tie one on the rearview mirror, the gym bag, the doorknob of the room he won't leave — a gentle, constant reminder that soap exists and he is loved enough to use it. Wear it for the reformed. Wear it for the suds-curious. Then put your intent in writing.",
+    body: "Our washcloth ribbon says what words cannot: he showers now. Tie one on the rearview mirror, the gym bag, the doorknob of the room he won't leave — a gentle, constant reminder that soap exists and he is loved enough to use it. Wear it for the reformed. Wear it for the suds-curious. Then send him to put his intent in writing.",
     cta: "File Form CW-1 →",
   },
   pressRoom: {
@@ -423,7 +464,7 @@ export const notFound = {
 } as const;
 
 const copy = {
-  HASHTAGS, FUNDED_BY, COPYRIGHT, labels, nav, footer, scratchGag, meta,
+  HASHTAGS, FUNDED_BY, COPYRIGHT, labels, nav, contents, footer, scratchGag, meta,
   home, posterCopy, psas, sniffTest, verdicts, pledge, crisis, about, notFound,
 } as const;
 

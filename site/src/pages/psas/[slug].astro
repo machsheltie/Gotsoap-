@@ -1,17 +1,22 @@
 ---
 /**
- * /psas/<slug> — per-poster detail page (Task D). getStaticPaths is driven by
- * the POSTERS registry (config/site.ts) so all five routes exist and resolve.
- * Poster shown full-bleed, untouched, in its own register; a lightbox/zoom;
- * case notes; share + download row; prev/next; per-poster OG + JSON-LD.
+ * /psas/<slug> — the metadata and content ORCHESTRATOR (specs.md §5.2).
+ *
+ * This route owns routing, SEO, JSON-LD, and content resolution — nothing
+ * else. The visual stage is dispatched to five explicit environment
+ * components, each of which owns its own DOM and CSS. No stage layout
+ * lives here, by design: one configurable split-screen component is
+ * prohibited (§5.2), and this file is deliberately incapable of becoming
+ * one.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PosterImage from '../../components/PosterImage.astro';
-import Lightbox from '../../components/psas/Lightbox.astro';
-import ShareRow from '../../components/ShareRow.astro';
-import Button from '../../components/Button.astro';
+import ConfidentEnvironment from '../../components/psas/ConfidentEnvironment.astro';
+import SmolderingEnvironment from '../../components/psas/SmolderingEnvironment.astro';
+import UnholyEnvironment from '../../components/psas/UnholyEnvironment.astro';
+import RedemptionEnvironment from '../../components/psas/RedemptionEnvironment.astro';
+import ThirstEnvironment from '../../components/psas/ThirstEnvironment.astro';
 import { POSTERS, absoluteUrl, type Poster } from '../../config/site';
-import { posterCopy, psas, meta } from '../../content/copy';
+import { posterCopy, meta } from '../../content/copy';
 
 type PosterSlug = keyof typeof posterCopy;
 
@@ -26,31 +31,28 @@ interface Props {
   poster: Poster;
 }
 
+/** One explicit environment per poster — the §5.2 dispatch table. */
+const ENVIRONMENTS = {
+  'confident-man': ConfidentEnvironment,
+  'soap-smoldering': SmolderingEnvironment,
+  unholy: UnholyEnvironment,
+  redemption: RedemptionEnvironment,
+  'thirst-announcement': ThirstEnvironment,
+} as const;
+
 const { poster } = Astro.props as Props;
 const slug = poster.slug as PosterSlug;
-const pageMeta = meta[`psas/${slug}` as keyof typeof meta];
-const alt = posterCopy[slug].alt;
-const notesHtml = posterCopy[slug].caseNote;
-const downloadNotice = psas.downloadNotice;
+const Environment = ENVIRONMENTS[slug];
 
-// Linear series (Series One is a bounded archive, not a loop): Spot No. 1
-// has no prev; Spot No. 5 has no next. Series Two, when it arrives, extends
-// this rather than wrapping it.
+const pageMeta = meta[`psas/${slug}` as keyof typeof meta];
+const copyEntry = posterCopy[slug];
+
 const prevPoster = POSTERS.find((p) => p.order === poster.order - 1);
 const nextPoster = POSTERS.find((p) => p.order === poster.order + 1);
 
 const downloadHref = `/downloads/${poster.slug}.jpg`;
 const ogImage = absoluteUrl(downloadHref);
 const pageUrl = absoluteUrl(`/psas/${poster.slug}`);
-
-// Live type FX budget (design.md §5/§7): steam-glow on porcelain, chrome on
-// smoke, gold on marble — spot titles only.
-const titleFx =
-  poster.register === 'porcelain'
-    ? 'fx-steam-glow'
-    : poster.register === 'smoke'
-      ? 'fx-chrome'
-      : 'fx-gold';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -63,15 +65,13 @@ const jsonLd = {
     '@type': 'Person',
     name: 'Stacey M. Breckel / Hope2 Studio',
   },
-  about:
-    'A satirical hygiene-PSA campaign poster, parody of the 90s "Got Milk?" campaign.',
+  about: 'A satirical hygiene-PSA campaign poster.',
   isPartOf: {
     '@type': 'CreativeWorkSeries',
     name: 'Got Soap? — Public Service Announcements, Series One',
   },
   position: poster.order,
   copyrightNotice: '© Stacey Breckel 2025',
-  isFamilyFriendly: true,
 };
 ---
 
@@ -82,197 +82,16 @@ const jsonLd = {
   ogType="article"
   register={poster.register}
   jsonLd={jsonLd}
+  hideScratchSniff
 >
-  <article class="poster-stage">
-    <header class="poster-stage__head container">
-      <p class="poster-stage__eyebrow">SPOT NO. {poster.order}</p>
-      <h1 class:list={['poster-stage__title', titleFx]}>{poster.title}</h1>
-    </header>
-
-    <div class="poster-stage__frame">
-      <PosterImage
-        slug={poster.slug}
-        alt={alt}
-        loading="eager"
-        sizes="(min-width: 900px) 640px, 92vw"
-        class="poster-stage__image"
-      />
-      <div class="poster-stage__frame-actions">
-        <Lightbox slug={poster.slug} alt={alt} posterTitle={poster.title} />
-      </div>
-    </div>
-
-    <div class="poster-stage__body container container--narrow flow">
-      <p class="poster-stage__notes" set:html={notesHtml} />
-
-      <ShareRow kind="spot" url={pageUrl} title={poster.title} />
-
-      <div class="poster-stage__download">
-        <h2 class="poster-stage__download-heading">{downloadNotice.heading}</h2>
-        <p class="poster-stage__download-line">{downloadNotice.body}</p>
-        <Button
-          label={downloadNotice.button}
-          href={downloadHref}
-          download={`got-soap-${poster.slug}.jpg`}
-        />
-      </div>
-    </div>
-
-    <nav class="poster-stage__prevnext container" aria-label="Other spots in the series">
-      {
-        prevPoster ? (
-          <a class="poster-stage__nav-link" href={`/psas/${prevPoster.slug}`}>
-            {`← SPOT NO. ${prevPoster.order}`}
-          </a>
-        ) : (
-          <span class="poster-stage__nav-link poster-stage__nav-link--spacer" aria-hidden="true" />
-        )
-      }
-      <a class="poster-stage__nav-link poster-stage__nav-link--index" href="/psas">
-        The PSAs — Series One
-      </a>
-      {
-        nextPoster ? (
-          <a class="poster-stage__nav-link" href={`/psas/${nextPoster.slug}`}>
-            {`SPOT NO. ${nextPoster.order} →`}
-          </a>
-        ) : (
-          <span class="poster-stage__nav-link poster-stage__nav-link--spacer" aria-hidden="true" />
-        )
-      }
-    </nav>
-  </article>
+  <Environment
+    poster={poster}
+    alt={copyEntry.alt}
+    caseNote={copyEntry.caseNote}
+    pull={copyEntry.pull}
+    pageUrl={pageUrl}
+    downloadHref={downloadHref}
+    prevPoster={prevPoster}
+    nextPoster={nextPoster}
+  />
 </BaseLayout>
-
-<style>
-  .poster-stage {
-    padding-block-end: var(--space-3xl);
-  }
-
-  .poster-stage__head {
-    padding-block: var(--space-2xl) var(--space-lg);
-    text-align: center;
-  }
-  .poster-stage__eyebrow {
-    font-family: var(--font-label);
-    font-weight: 800;
-    font-size: var(--step--1);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--reg-accent);
-  }
-  .poster-stage__title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: var(--step-5);
-    color: var(--reg-heading);
-    margin-block-start: var(--space-xs);
-  }
-
-  /* ---- Full-bleed frame: edge-to-edge register background, poster
-     centered and height-constrained so it never crops (object-fit:
-     contain) regardless of viewport aspect ratio. ---- */
-  .poster-stage__frame {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-block: clamp(1rem, 4vw, 2.5rem);
-    padding-inline: clamp(1rem, 4vw, 2.5rem);
-    min-height: min(70vh, 780px);
-  }
-  .poster-stage__frame :global(picture),
-  .poster-stage__frame :global(img) {
-    display: block;
-    max-width: min(94vw, 620px);
-    max-height: min(70vh, 780px);
-    width: auto;
-    height: auto;
-    object-fit: contain;
-  }
-  .poster-stage__frame-actions {
-    position: absolute;
-    right: clamp(1rem, 4vw, 2.5rem);
-    bottom: clamp(1rem, 4vw, 2.5rem);
-  }
-
-  .poster-stage__body {
-    padding-block: var(--space-2xl);
-    --flow-space: var(--space-lg);
-  }
-  .poster-stage__notes {
-    font-family: var(--font-body);
-    font-size: var(--step-1);
-    line-height: 1.7;
-    color: var(--reg-fg);
-  }
-  .poster-stage__notes :global(em) {
-    color: var(--reg-accent);
-    font-style: italic;
-  }
-
-  .poster-stage__download {
-    border-top: 1px solid var(--reg-rule);
-    padding-block-start: var(--space-lg);
-  }
-  .poster-stage__download-heading {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: var(--step-1);
-    color: var(--reg-heading);
-    margin-block-end: var(--space-sm);
-  }
-  .poster-stage__download-line {
-    font-family: var(--font-fine);
-    font-size: var(--step--1);
-    color: var(--reg-muted);
-    max-width: var(--measure);
-  }
-  .poster-stage__download-line + .poster-stage__download-line {
-    margin-block-start: 0.35em;
-  }
-  .poster-stage__download :global(.btn) {
-    margin-block-start: var(--space-md);
-  }
-
-  .poster-stage__prevnext {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-md);
-    padding-block: var(--space-xl);
-    border-top: 1px solid var(--reg-rule);
-    flex-wrap: wrap;
-  }
-  .poster-stage__nav-link {
-    font-family: var(--font-label);
-    font-weight: 800;
-    font-size: var(--step--1);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--reg-fg);
-    text-decoration: none;
-  }
-  .poster-stage__nav-link:hover,
-  .poster-stage__nav-link:focus-visible {
-    color: var(--reg-accent);
-  }
-  .poster-stage__nav-link--index {
-    color: var(--reg-muted);
-    text-transform: none;
-    letter-spacing: 0.02em;
-    font-weight: 700;
-    order: 3;
-    flex-basis: 100%;
-    text-align: center;
-  }
-  .poster-stage__nav-link--spacer {
-    flex: 1;
-  }
-  @media (min-width: 640px) {
-    .poster-stage__nav-link--index {
-      order: 0;
-      flex-basis: auto;
-    }
-  }
-</style>

@@ -1,0 +1,114 @@
+---
+/**
+ * WaxSeal.astro — the pressed WAX SEAL. 📋 CWAAA certificate world.
+ * ---------------------------------------------------------------------------
+ * Added for the "full dramatic certificate" direction (design-north-star.md
+ * §CWAAA + ROUND 2 "weaponize the bureaucracy"). A wobbly, turbulence-edged
+ * oxblood wax blob with an embossed soap/aerosol glyph and a wax sheen — the
+ * SWORN payoff pressed onto the Declaration near the submit stamp.
+ *
+ * All SVG/CSS, no deps. Oxblood radial (--wax-oxblood #7d2b21). The rough edge
+ * is feTurbulence → feDisplacementMap on the blob silhouette; the glyph is
+ * embossed (dark offset copy under a light copy). Decorative by default
+ * (aria-hidden). Reusable / parametrized (size, rotation) for /crisis.
+ */
+interface Props {
+  /** Rendered width/height in px (square). */
+  size?: number;
+  /** Degrees to rotate the pressed seal (a little wonk = hand-pressed). */
+  rotate?: number;
+  /** Accessible label; pass decorative for a hidden seal. */
+  title?: string;
+  decorative?: boolean;
+  class?: string;
+}
+const {
+  size = 116,
+  rotate = -7,
+  title = 'Office of Lather Compliance — sworn wax seal',
+  decorative = true,
+  class: className,
+} = Astro.props;
+
+const uid = 'wax-' + Math.random().toString(36).slice(2, 9);
+const fId = `${uid}-rough`;
+const gId = `${uid}-grad`;
+const sId = `${uid}-sheen`;
+const titleId = `${uid}-title`;
+---
+
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 120 120"
+  role={decorative ? 'presentation' : 'img'}
+  aria-hidden={decorative ? 'true' : undefined}
+  aria-labelledby={decorative ? undefined : titleId}
+  style={`display:inline-block; transform: rotate(${rotate}deg);`}
+>
+  {!decorative && <title id={titleId}>{title}</title>}
+  <defs>
+    <filter id={fId} x="-25%" y="-25%" width="150%" height="150%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="7" result="n" />
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+    <radialGradient id={gId} cx="42%" cy="38%" r="70%">
+      <stop offset="0%" stop-color="#a8452f" />
+      <stop offset="52%" stop-color="var(--wax-oxblood)" />
+      <stop offset="100%" stop-color="#571a13" />
+    </radialGradient>
+    <radialGradient id={sId} cx="38%" cy="30%" r="40%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Wax blob (rough turbulence edge) -->
+  <g filter={`url(#${fId})`}>
+    <circle cx="60" cy="60" r="46" fill={`url(#${gId})`} />
+    <!-- pressed scalloped rim -->
+    <circle
+      cx="60"
+      cy="60"
+      r="40"
+      fill="none"
+      stroke="#4a1610"
+      stroke-width="2"
+      stroke-opacity="0.55"
+      stroke-dasharray="3 4"
+    />
+  </g>
+
+  <!-- Wax sheen -->
+  <ellipse cx="48" cy="42" rx="30" ry="22" fill={`url(#${sId})`} />
+
+  <!-- Embossed glyph: aerosol can (behind) + soap bar (front) + suds.
+       Dark offset copy under a light copy = pressed-into-wax emboss. -->
+  <g transform="translate(0.9 1.1)" fill="none" stroke="#3f130d" stroke-opacity="0.65" stroke-width="2.4">
+    <rect x="63" y="45" width="12" height="25" rx="2" />
+    <rect x="66" y="39" width="6" height="6" />
+    <rect x="40" y="56" width="26" height="14" rx="7" />
+    <circle cx="47" cy="50" r="2.4" />
+    <circle cx="54" cy="46" r="1.7" />
+  </g>
+  <g fill="none" stroke="#e6a78f" stroke-opacity="0.75" stroke-width="2.2">
+    <rect x="63" y="45" width="12" height="25" rx="2" />
+    <rect x="66" y="39" width="6" height="6" />
+    <rect x="40" y="56" width="26" height="14" rx="7" />
+    <circle cx="47" cy="50" r="2.4" />
+    <circle cx="54" cy="46" r="1.7" />
+  </g>
+
+  <!-- Sworn micro-legend arc -->
+  <text
+    x="60"
+    y="92"
+    text-anchor="middle"
+    font-family="var(--font-label)"
+    font-size="7"
+    letter-spacing="1.4"
+    fill="#e6a78f"
+    fill-opacity="0.72"
+  >SWORN</text>
+</svg>

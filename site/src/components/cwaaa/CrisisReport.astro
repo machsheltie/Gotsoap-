@@ -1,345 +1,445 @@
 ---
 /**
- * CrisisReport.astro — /crisis, CWAAA's site-within-a-site (design.md §7
- * "/crisis", copy §8). 📋 CWAAA-only: full manila document world, PT Serif,
- * ink + stamp, ruled baselines, form numbers. The annual findings are a
- * DOCUMENT TABLE (no charts — design.md §7). ZERO campaign tokens, zero fx-*.
- *
- * The reformed man appears only QUOTED inside CWAAA-authored case files
- * (deck §8.6a) — the surface author stays CWAAA throughout.
+ * CrisisReport.astro — /crisis.
+ * REDESIGNED: No longer a polite centered 46rem document.
+ * This is an overwhelming, massive bureaucratic dossier. Brutalist scale,
+ * edge-to-edge tables, and giant rubber-stamp typography.
  */
 import Seal from './Seal.astro';
 import RibbonBadge from './RibbonBadge.astro';
 import Button from '../Button.astro';
 import { crisis as c } from '../../content/copy';
 
-// copy.ts stores exits as a keyed object; the doc renders assessment then pledge
-// (pledge = the primary exit), reproducing the prior order.
 const exits = [c.exits.assessment, c.exits.pledge];
-
-// Structural table headers + press label (not campaign copy; not in copy.ts).
 const colFinding = 'Finding';
 const colRef = 'Reference';
 const immediateRelease = 'FOR IMMEDIATE RELEASE';
 ---
 
-<article class="crisis-doc">
-  <!-- Letterhead -->
-  <header class="lh">
-    <Seal size={104} decorative />
-    <p class="lh-org">{c.header.org}</p>
-    <p class="lh-est"><em>{c.header.motto}</em></p>
-    <p class="lh-reg"><em>{c.header.sub}</em></p>
-    <h1 class="memo-title">{c.header.title}</h1>
+<article class="dossier-stage">
+  
+  <!-- Massive Letterhead -->
+  <header class="dossier-lh">
+    <div class="dossier-lh-seal">
+      <Seal size={200} decorative />
+    </div>
+    <div class="dossier-lh-text">
+      <p class="dossier-org">{c.header.org}</p>
+      <p class="dossier-est"><em>{c.header.motto}</em></p>
+      <p class="dossier-reg"><em>{c.header.sub}</em></p>
+    </div>
+    <h1 class="dossier-title">{c.header.title}</h1>
   </header>
 
-  <!-- Founding (copy.ts carries no heading — an unheaded lead block) -->
-  <section class="block" aria-label="Our founding">
-    {c.founding.map((para) => <p>{para}</p>)}
-  </section>
+  <div class="dossier-grid">
+    
+    <!-- Left Column: Founding & Scale -->
+    <div class="dossier-col dossier-col--left">
+      <section class="dossier-block" aria-label="Our founding">
+        <div class="dossier-body">
+          {c.founding.map((para, i) => (
+            <p class={i === 0 ? 'founding-lede' : undefined}>{para}</p>
+          ))}
+        </div>
+      </section>
 
-  <!-- Annual findings — a document table, not a chart -->
-  <section class="block" aria-labelledby="crisis-findings">
-    <h2 id="crisis-findings">{c.findings.heading}</h2>
-    <p class="subtitle"><em>{c.findings.subnote}</em></p>
-    <div class="table-scroll">
-      <table class="findings">
-        <caption class="sr-only">{c.findings.heading}</caption>
-        <thead>
-          <tr>
-            <th scope="col">{colFinding}</th>
-            <th scope="col" class="col-ref">{colRef}</th>
-          </tr>
-        </thead>
-        <tbody>
+      <div class="dossier-scale">
+        <p>{c.scale}</p>
+      </div>
+
+      <section class="dossier-block dossier-ribbon" aria-labelledby="crisis-ribbon">
+        <div class="ribbon-mark"><RibbonBadge size={120} decorative /></div>
+        <h2 id="crisis-ribbon">{c.ribbon.heading}</h2>
+        <p class="dossier-body">{c.ribbon.body}</p>
+        <div class="ribbon-action">
+          <Button
+            label={c.ribbon.cta}
+            href="/pledge"
+            register="cwaaa"
+            variant="primary"
+          />
+        </div>
+      </section>
+    </div>
+
+    <!-- Right Column: Findings & Cases -->
+    <div class="dossier-col dossier-col--right">
+      
+      <!-- Annual findings: Massive Table -->
+      <section class="dossier-block" aria-labelledby="crisis-findings">
+        <h2 id="crisis-findings" class="dossier-h2">{c.findings.heading}</h2>
+        <p class="dossier-subtitle"><em>{c.findings.subnote}</em></p>
+        
+        <table class="dossier-table">
+          <caption class="sr-only">{c.findings.heading}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{colFinding}</th>
+              <th scope="col" class="col-ref">{colRef}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              c.findings.rows.map((row) => (
+                <tr>
+                  <td class="dossier-body">{row.finding}</td>
+                  <td class="finding-ref">{row.tag}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Press Room -->
+      <section class="dossier-block" aria-labelledby="crisis-press">
+        <h2 id="crisis-press" class="dossier-h2">{c.pressRoom.heading}</h2>
+        <ul class="press-list" role="list">
           {
-            c.findings.rows.map((row) => (
-              <tr>
-                <td>{row.finding}</td>
-                <td class="finding-ref">{row.tag}</td>
-              </tr>
+            c.pressRoom.releases.map((r) => (
+              <li class="release-item">
+                <div class="release-stamp">{immediateRelease}</div>
+                <div class="release-content">
+                  <span class="release-date">{r.date}</span>
+                  <h3 class="release-headline">{r.headline}</h3>
+                  {r.body && <p class="release-body dossier-body"><em>{r.body}</em></p>}
+                </div>
+              </li>
             ))
           }
-        </tbody>
-      </table>
+        </ul>
+      </section>
+
+      <!-- Recovery Case Files -->
+      <section class="dossier-block dossier-cases" aria-labelledby="crisis-cases">
+        <h2 id="crisis-cases" class="dossier-h2">{c.caseFiles.heading}</h2>
+        <p class="dossier-subtitle"><em>{c.caseFiles.subhead}</em></p>
+        
+        <div class="case-grid">
+          {
+            c.caseFiles.files.map((file) => (
+              <article class="case-card">
+                <div class="case-tab">FILE {file.id}</div>
+                <blockquote class="case-quote">{file.quote}</blockquote>
+                <div class="case-meta">
+                  <span class="case-name">{file.name}</span>
+                  <span class="case-status">STATUS: {file.status}</span>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+
+        <div class="case-closing-box">
+          <p class="case-closing-line">{c.caseFiles.exitLine}</p>
+          <Button
+            label={c.caseFiles.exitCta}
+            href="/sniff-test"
+            register="cwaaa"
+            variant="secondary"
+          />
+        </div>
+      </section>
+      
     </div>
-  </section>
+  </div>
 
-  <!-- Scale -->
-  <p class="scale">{c.scale}</p>
-
-  <!-- Tie One On For Suds — ribbon program / pledge funnel -->
-  <section class="block ribbon-block" aria-labelledby="crisis-ribbon">
-    <p class="ribbon-mark"><RibbonBadge size={80} decorative /></p>
-    <h2 id="crisis-ribbon">{c.ribbon.heading}</h2>
-    <p>{c.ribbon.body}</p>
-    <p>
-      <Button
-        label={c.ribbon.cta}
-        href="/pledge"
-        register="cwaaa"
-        variant="primary"
-      />
-    </p>
-  </section>
-
-  <!-- Press Room -->
-  <section class="block" aria-labelledby="crisis-press">
-    <h2 id="crisis-press">{c.pressRoom.heading}</h2>
-    <ul class="press-list" role="list">
+  <!-- Fine print & Exits -->
+  <footer class="dossier-footer">
+    <p class="dossier-fine"><em>{c.finePrint}</em></p>
+    <nav class="dossier-exits" aria-label="Continue">
       {
-        c.pressRoom.releases.map((r) => (
-          <li class="release">
-            <p class="release-tag">
-              {immediateRelease} · <span class="release-date">{r.date}</span>
-            </p>
-            <h3 class="release-headline">{r.headline}</h3>
-            {r.body && <p class="release-body"><em>{r.body}</em></p>}
-          </li>
+        exits.map((exit, i) => (
+          <Button
+            label={exit.label}
+            href={exit.href}
+            register="cwaaa"
+            variant={i === exits.length - 1 ? 'primary' : 'secondary'}
+          />
         ))
       }
-    </ul>
-  </section>
+    </nav>
+  </footer>
 
-  <!-- Recovery Case Files (deck §8.6a) -->
-  <section class="block" aria-labelledby="crisis-cases">
-    <h2 id="crisis-cases">{c.caseFiles.heading}</h2>
-    <p class="subtitle"><em>{c.caseFiles.subhead}</em></p>
-    <ul class="case-list" role="list">
-      {
-        c.caseFiles.files.map((file) => (
-          <li class="case-file">
-            <p class="case-label">CASE FILE {file.id}</p>
-            <blockquote class="case-quote">{file.quote}</blockquote>
-            <p class="case-by">
-              — <strong>{file.name}</strong> · Status: <strong>{file.status}</strong>
-            </p>
-          </li>
-        ))
-      }
-    </ul>
-    <p class="case-closing">{c.caseFiles.exitLine}</p>
-    <p>
-      <Button
-        label={c.caseFiles.exitCta}
-        href="/sniff-test"
-        register="cwaaa"
-        variant="secondary"
-      />
-    </p>
-  </section>
-
-  <!-- Fine print -->
-  <p class="fine-print"><em>{c.finePrint}</em></p>
-
-  <!-- Exits -->
-  <nav class="exits" aria-label="Continue">
-    {
-      exits.map((exit, i) => (
-        <Button
-          label={exit.label}
-          href={exit.href}
-          register="cwaaa"
-          variant={i === exits.length - 1 ? 'primary' : 'secondary'}
-        />
-      ))
-    }
-  </nav>
 </article>
 
 <style>
-  /* PT Serif on every heading — override base.css's display-face default. */
-  .memo-title,
-  h2,
-  h3 {
-    font-family: var(--font-cwaaa);
+  .dossier-stage {
+    padding: clamp(2rem, 5vw, 4rem);
+    background-color: var(--cwaaa-paper);
     color: var(--reg-heading);
+    min-height: 100svh;
+    font-family: var(--font-cwaaa);
+    /* PT Serif ships only 400/700 — no medium weight — so reading comfort
+       comes from size (~17px mobile → 19px desktop), never from bolding. */
+    --dossier-reading: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+    --font-typewriter: 'Courier New', Courier, monospace;
   }
 
-  .crisis-doc {
-    max-width: 46rem;
-    margin-inline: auto;
-    padding: clamp(1.75rem, 6vw, 4rem) 0 var(--space-3xl);
+  /* ---- Massive Letterhead ---- */
+  .dossier-lh {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-xl);
+    align-items: end;
+    border-bottom: 8px solid var(--cwaaa-ink);
+    padding-bottom: var(--space-xl);
+    margin-bottom: var(--space-3xl);
   }
-  .crisis-doc > * + * {
+  @media (max-width: 800px) {
+    .dossier-lh {
+      grid-template-columns: 1fr;
+      text-align: center;
+      justify-items: center;
+    }
+  }
+
+  .dossier-lh-seal :global(svg) {
+    display: block;
+    fill: var(--cwaaa-ink);
+  }
+
+  .dossier-org {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 4rem);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+  }
+
+  .dossier-title {
+    grid-column: 1 / -1;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
     margin-top: var(--space-xl);
   }
-  .block > * + * {
-    margin-top: var(--space-md);
+
+  /* ---- Split Grid ---- */
+  .dossier-grid {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4rem, 8vw, 8rem);
+  }
+  @media (min-width: 1024px) {
+    .dossier-grid {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    .dossier-col--left {
+      flex: 0 0 35%;
+      position: sticky;
+      top: var(--space-2xl);
+    }
+    .dossier-col--right {
+      flex: 1;
+    }
   }
 
-  /* ---- Letterhead -------------------------------------------------------- */
-  .lh {
-    text-align: center;
-    padding-bottom: var(--space-lg);
-    border-bottom: 3px double var(--reg-rule);
+  /* ---- Typography ---- */
+  /* Long-form narrative reads in PT Serif. The typewriter is an ACCENT,
+     reserved for short stamped bits — refs, dates, file tabs, one-liners —
+     never a paragraph. */
+  .dossier-body {
+    font-family: var(--font-cwaaa);
+    font-size: var(--dossier-reading);
+    line-height: 1.65;
+    color: var(--cwaaa-ink);
   }
-  .lh :global(svg) {
-    margin-inline: auto;
-    margin-bottom: var(--space-sm);
+  .dossier-body p + p {
+    margin-top: 1em;
   }
-  .lh-org {
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    font-size: var(--step-1);
-    line-height: 1.2;
-  }
-  .lh-est,
-  .lh-reg {
-    color: var(--reg-muted);
-    font-size: var(--step--1);
-    margin-top: var(--space-2xs);
-  }
-  .memo-title {
-    font-size: var(--step-3);
-    font-weight: 700;
-    margin-top: var(--space-md);
-    line-height: 1.15;
-  }
-
-  h2 {
-    font-size: var(--step-2);
-    font-weight: 700;
-    border-bottom: 1px solid var(--reg-rule);
-    padding-bottom: var(--space-2xs);
-  }
-  .subtitle {
-    color: var(--reg-muted);
-    font-size: var(--step--1);
-  }
-
-  /* ---- Findings table ---------------------------------------------------- */
-  .table-scroll {
-    overflow-x: auto;
-  }
-  .findings {
-    width: 100%;
-    border-collapse: collapse;
+  .founding-lede {
+    font-family: var(--font-typewriter);
     font-size: var(--step-0);
   }
-  .findings th {
-    text-align: left;
+
+  .dossier-h2 {
+    font-family: var(--font-display);
     font-weight: 700;
-    letter-spacing: 0.04em;
+    font-size: var(--step-4);
     text-transform: uppercase;
-    font-size: var(--step--1);
-    padding: 0.5em 0.75em;
-    border-bottom: 2px solid var(--reg-fg);
+    border-bottom: 3px solid var(--cwaaa-ink);
+    padding-bottom: var(--space-xs);
+    margin-bottom: var(--space-sm);
   }
-  .findings td {
-    padding: 0.7em 0.75em;
-    border-bottom: 1px solid var(--reg-rule);
+
+  .dossier-subtitle {
+    font-size: var(--step-0);
+    margin-bottom: var(--space-xl);
+    color: var(--reg-muted);
+  }
+
+  .dossier-block {
+    margin-bottom: clamp(4rem, 8vh, 6rem);
+  }
+
+  /* ---- Scale & Ribbon ---- */
+  .dossier-scale {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    padding: var(--space-xl) 0;
+    border-block: 4px solid var(--reg-accent);
+    margin-block: var(--space-3xl);
+  }
+
+  .dossier-ribbon {
+    background: color-mix(in srgb, var(--cwaaa-ink) 5%, transparent);
+    padding: var(--space-xl);
+    border: 2px dashed var(--cwaaa-ink);
+  }
+  .ribbon-mark {
+    margin-bottom: var(--space-md);
+  }
+  .dossier-ribbon h2 {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+  }
+  .ribbon-action {
+    margin-top: var(--space-lg);
+  }
+
+  /* ---- Findings Table ---- */
+  .dossier-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .dossier-table th {
+    text-align: left;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-0);
+    text-transform: uppercase;
+    padding: var(--space-md) 0;
+    border-bottom: 2px solid var(--cwaaa-ink);
+  }
+  .dossier-table td {
+    padding: var(--space-lg) 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--cwaaa-ink) 20%, transparent);
     vertical-align: top;
   }
-  .col-ref,
-  .finding-ref {
-    white-space: nowrap;
+  .col-ref, .finding-ref {
     text-align: right;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.03em;
-    color: var(--reg-muted);
+    font-family: var(--font-typewriter);
     font-size: var(--step--1);
   }
 
-  /* ---- Scale ------------------------------------------------------------- */
-  .scale {
-    text-align: center;
-    font-weight: 700;
-    font-size: var(--step-2);
-    line-height: 1.25;
-    border-block: 2px solid var(--reg-accent);
-    padding-block: var(--space-md);
-  }
-
-  /* ---- Ribbon block ------------------------------------------------------ */
-  .ribbon-block {
-    text-align: center;
-    border: 1px solid var(--reg-rule);
-    background: color-mix(in srgb, var(--cwaaa-ink) 5%, transparent);
-    padding: var(--space-lg);
-  }
-  .ribbon-mark :global(svg) {
-    margin-inline: auto;
-  }
-
-  /* ---- Press Room -------------------------------------------------------- */
+  /* ---- Press Room Stamps ---- */
   .press-list {
-    display: grid;
-    gap: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
   }
-  .release {
-    padding-left: var(--space-md);
-    border-left: 3px solid var(--reg-rule);
+  .release-item {
+    position: relative;
+    padding: var(--space-xl);
+    border: 1px solid var(--cwaaa-ink);
+    background: var(--steam-white);
   }
-  .release-tag {
-    font-size: var(--step--2);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--reg-accent);
-    font-weight: 700;
+  .release-stamp {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: var(--step-1);
+    color: var(--cwaaa-red);
+    border: 4px solid var(--cwaaa-red);
+    padding: 0.2em 0.5em;
+    transform: rotate(-5deg);
+    background: var(--cwaaa-paper);
+    letter-spacing: 0.05em;
   }
   .release-date {
+    display: block;
+    font-family: var(--font-typewriter);
     color: var(--reg-muted);
+    margin-bottom: var(--space-sm);
+    margin-top: var(--space-md);
   }
   .release-headline {
-    font-size: var(--step-1);
+    font-family: var(--font-display);
     font-weight: 700;
-    margin-top: var(--space-2xs);
-  }
-  .release-body {
-    color: var(--reg-muted);
-    margin-top: var(--space-2xs);
+    font-size: var(--step-2);
+    margin-bottom: var(--space-sm);
   }
 
-  /* ---- Recovery Case Files ---------------------------------------------- */
-  .case-list {
+  /* ---- Case Files ---- */
+  .case-grid {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: var(--space-lg);
   }
-  .case-file {
-    border: 1px solid var(--reg-rule);
-    padding: var(--space-md) var(--space-lg);
+  .case-card {
+    background: color-mix(in srgb, var(--marble-amber) 15%, transparent);
+    border-top: 15px solid var(--marble-amber);
+    padding: var(--space-lg);
+    position: relative;
   }
-  .case-label {
-    font-size: var(--step--2);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--reg-accent);
+  .case-tab {
+    position: absolute;
+    top: -35px;
+    right: 10px;
+    background: var(--marble-amber);
+    color: var(--grout-black);
+    font-family: var(--font-typewriter);
     font-weight: 700;
+    padding: 5px 15px;
+    border-radius: 5px 5px 0 0;
   }
   .case-quote {
-    margin-top: var(--space-xs);
-    font-style: italic;
-    line-height: 1.6;
+    font-size: var(--dossier-reading);
+    line-height: 1.55;
+    margin-bottom: var(--space-lg);
   }
-  .case-by {
-    margin-top: var(--space-sm);
-    font-size: var(--step--1);
-  }
-  .case-closing {
-    text-align: center;
-    font-weight: 700;
-  }
-
-  /* ---- Fine print -------------------------------------------------------- */
-  .fine-print {
-    color: var(--reg-muted);
-    font-size: var(--step--2);
-    line-height: 1.6;
-    border-top: 1px solid var(--reg-rule);
-    padding-top: var(--space-md);
-  }
-
-  /* ---- Exits ------------------------------------------------------------- */
-  .exits {
+  .case-meta {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    font-family: var(--font-display);
+    font-size: var(--step--1);
+    font-weight: 700;
+    border-top: 1px dashed var(--cwaaa-ink);
+    padding-top: var(--space-sm);
+  }
+  
+  .case-closing-box {
+    margin-top: var(--space-3xl);
+    text-align: center;
+    padding: var(--space-2xl);
+    border: 4px solid var(--cwaaa-ink);
+  }
+  .case-closing-line {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-2);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* ---- Footer ---- */
+  .dossier-footer {
+    border-top: 8px solid var(--cwaaa-ink);
+    padding-top: var(--space-2xl);
+    margin-top: var(--space-3xl);
+    text-align: center;
+  }
+  .dossier-fine {
+    font-size: var(--step--1);
+    color: var(--reg-muted);
+    margin-bottom: var(--space-2xl);
+  }
+  .dossier-exits {
+    display: flex;
     gap: var(--space-md);
     justify-content: center;
-  }
-
-  /* Space the CTA buttons that follow paragraphs. */
-  .block p :global(.btn) {
-    margin-top: var(--space-2xs);
+    flex-wrap: wrap;
   }
 </style>

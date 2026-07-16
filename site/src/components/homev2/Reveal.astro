@@ -1,0 +1,63 @@
+---
+/**
+ * homev2/Reveal.astro — SECTION 7: THE QUIET REVEAL.
+ *
+ * One subtle line to /about — the page-three punchline. Deliberately the
+ * quietest thing on the page: no monumental type, no confession. The
+ * "None of these men are real" disclaimer stays BURIED in the footer only
+ * (North Star: no mid-scroll apology). This is a whisper that rewards curiosity.
+ *
+ * COPY: the link label is VERBATIM from `home.revealBeat.cta`.
+ */
+import { home } from '../../content/copy';
+---
+
+<section class="rv" aria-label="About this campaign">
+  <div class="rv__inner">
+    <span class="rv__mark" aria-hidden="true">✦</span>
+    <a class="rv__link" href="/about">{home.revealBeat.cta}</a>
+  </div>
+</section>
+
+<style>
+  .rv {
+    background-color: var(--grout-black);
+    color: var(--chrome-mist);
+    padding-block: clamp(3rem, 9vh, 6rem);
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+    text-align: center;
+  }
+  .rv__inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .rv__mark {
+    color: color-mix(in srgb, var(--marble-amber) 70%, transparent);
+    font-size: 0.7rem;
+  }
+  .rv__link {
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: var(--step--1);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--chrome-mist);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--chrome-mist) 40%, transparent);
+    padding-bottom: 0.25em;
+    transition: color 140ms ease, border-color 140ms ease;
+  }
+  .rv__link:hover {
+    color: var(--marble-amber);
+    border-bottom-color: var(--marble-amber);
+  }
+
+  /* §6/§11: the beat's composition is already final (hover feedback is the
+     only motion) — reduced motion switches states instantly. */
+  @media (prefers-reduced-motion: reduce) {
+    .rv__link {
+      transition: none;
+    }
+  }
+</style>

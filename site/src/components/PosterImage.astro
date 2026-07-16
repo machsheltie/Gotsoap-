@@ -6,8 +6,11 @@
  * sharp). Serves optimized derivatives on-page; the full-quality ORIGINAL is
  * only ever served behind the /downloads/<slug>.jpg download link (PRD §6.2).
  *
- * The posters are untouched — object-fit is never `cover` here (that would
- * slice the baked typography). Callers get a correctly-proportioned image.
+ * The posters are untouched — the canonical rectangle never crops (specs.md
+ * §5.1). Every image this component emits carries the `poster-canonical`
+ * class, which pins `object-fit: contain` with `!important`, so a caller
+ * stylesheet cannot reintroduce `cover` (that would slice the baked
+ * typography).
  *
  * Alt text MUST carry the joke and describe (never restate) the poster text
  * (copy-deck §5). A fallback is provided so a stub never emits alt="".
@@ -51,8 +54,11 @@ if (!entry) {
 }
 const src = entry.default;
 
-const fallbackAlt = `${poster.title} — a got soap? campaign poster (Spot No. ${poster.order}).`;
+const fallbackAlt = `${poster.title} — a got soap? campaign poster.`;
 const altText = alt ?? fallbackAlt;
+
+// The canonical class is always present; caller classes are appended.
+const classes = ['poster-canonical', className].filter(Boolean).join(' ');
 ---
 
 <Picture
@@ -63,5 +69,14 @@ const altText = alt ?? fallbackAlt;
   alt={altText}
   loading={loading}
   decoding={loading === 'eager' ? 'sync' : 'async'}
-  class={className}
+  class={classes}
 />
+
+<style is:global>
+  /* §5.1: the canonical poster component must reject `cover` styling. The
+     !important pin makes this component structurally incapable of cropping,
+     no matter what a caller stylesheet declares. */
+  img.poster-canonical {
+    object-fit: contain !important;
+  }
+</style>

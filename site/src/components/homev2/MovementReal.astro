@@ -1,0 +1,371 @@
+---
+/**
+ * homev2/MovementReal.astro — SECTION 6: THE MOVEMENT IS REAL —
+ * **The Seal Takes the Page** (§3.6).
+ *
+ * The home's ONLY CWAAA-authored surface. One warm manila decree advances over
+ * the glossy campaign world as ONE physical sheet: the section ground stays
+ * campaign porcelain gloss; the sheet — guilloché perimeter, oversized seal
+ * watermark, one recovery quotation, one stamp, a link to /crisis — carries
+ * the CWAAA register alone. The two authors meet at exactly this seam and
+ * nowhere else; the next beat (Reveal) returns to the campaign register.
+ *
+ * Mobile signature (§3.6): the sheet reveals from beneath the lower edge of
+ * the viewport (transform-only rise, one-shot via [data-reveal]); the seal
+ * watermark arrives first, the stamped recovery quotation follows within the
+ * same document. Reduced motion resolves immediately to the filed page.
+ *
+ * Paper stays refined: tooth, letterpress, restrained foxing. No folders,
+ * redactions, hazard bars, or tactical labels (§3.6).
+ *
+ * COPY: org, motto, memorandum subhead, lede, scale, case-file heading and
+ * subhead, the RC-071 case file, and the route label are ALL VERBATIM from
+ * `crisis` / `home` in copy.ts. The reformed-bro voice appears ONLY inside
+ * the case-file quote (per copy.ts rules).
+ */
+import Seal from '../cwaaa/Seal.astro';
+import Guilloche from '../cwaaa/Guilloche.astro';
+import { crisis, home } from '../../content/copy';
+
+// Featured recovery — verbatim from crisis.caseFiles.files.
+const file = crisis.caseFiles.files.find((f) => f.id === 'RC-071')!;
+---
+
+<section id="movement" class="mv" aria-labelledby="mv-scale">
+  <!-- The glossy campaign world the decree advances over: porcelain light,
+       campaign-authored, deliberately visible around the sheet (the seam). -->
+  <div class="mv__gloss" aria-hidden="true"></div>
+  <span class="mv__grain fx-grain" aria-hidden="true"></span>
+
+  <div class="mv__sheet register-cwaaa" data-reveal>
+    <div class="mv__paper" aria-hidden="true"></div>
+    <Guilloche inset="9px" band={14} rosette={44} />
+
+    <div class="mv__inner">
+      <header class="mv__head">
+        <Seal size={88} decorative={true} class="mv__seal" />
+        <p class="mv__org fx-letterpress">{crisis.header.org}</p>
+        <p class="mv__motto">{crisis.header.motto}</p>
+        <p class="mv__memo">{home.movementSeam.subhead}</p>
+      </header>
+
+      <div class="mv__scalewrap">
+        <span class="mv__watermark" aria-hidden="true">
+          <Seal size={430} decorative={true} />
+        </span>
+        <h2 id="mv-scale" class="mv__scale fx-letterpress">{crisis.scale}</h2>
+      </div>
+
+      <p class="mv__lede">{home.movementSeam.body[0]}</p>
+
+      <div class="mv__case">
+        <div class="mv__case-head">
+          <p class="mv__case-title">{crisis.caseFiles.heading}</p>
+          <p class="mv__case-id">{file.id}</p>
+        </div>
+        <blockquote class="mv__quote">{file.quote}</blockquote>
+        <div class="mv__attrib">
+          <p class="mv__name">— {file.name}</p>
+          <p class="mv__status">{file.status}</p>
+        </div>
+        <p class="mv__subhead">{crisis.caseFiles.subhead}</p>
+      </div>
+
+      <p class="mv__route">
+        <a class="mv__link" href="/crisis">{home.movementSeam.cta}</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mv {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-color: var(--steam-white);
+    padding-block: clamp(4rem, 11vh, 7.5rem) clamp(4.5rem, 12vh, 8.5rem);
+    padding-inline: clamp(1rem, 4vw, 3rem);
+  }
+  /* The campaign world beneath the decree: bright porcelain with one gloss
+     streak — the same studio light as the beats around it. */
+  .mv__gloss {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        112deg,
+        transparent 40%,
+        color-mix(in srgb, var(--lather-white) 70%, transparent) 48%,
+        color-mix(in srgb, var(--lather-white) 22%, transparent) 53%,
+        transparent 62%
+      ),
+      radial-gradient(70% 55% at 50% 0%, color-mix(in srgb, var(--lather-white) 80%, transparent), transparent 60%),
+      radial-gradient(56% 42% at 88% 96%, color-mix(in srgb, var(--marble-amber) 10%, transparent), transparent 66%);
+  }
+  .mv__grain {
+    z-index: 0;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+  }
+
+  /* ---- The sheet ------------------------------------------------------------
+     One physical page. register-cwaaa scopes the manila, PT Serif, ink and
+     stamp tokens to THIS element only — the quarantine boundary is the paper
+     edge. */
+  .mv__sheet {
+    position: relative;
+    z-index: 1;
+    max-width: 62rem;
+    margin-inline: auto;
+    padding: clamp(2.25rem, 6vw, 4rem) clamp(1.5rem, 4.5vw, 3.5rem);
+    border-radius: 2px;
+    /* the page lifts off the gloss: paper edge + deep drop */
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 2px 5px rgba(32, 24, 8, 0.14),
+      0 42px 90px -38px rgba(32, 24, 8, 0.55);
+  }
+  /* Paper tooth + restrained foxing, kept inside the sheet. */
+  .mv__paper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background-image:
+      radial-gradient(60% 50% at 10% 6%, color-mix(in srgb, var(--cwaaa-ink) 6%, transparent), transparent 60%),
+      radial-gradient(52% 42% at 94% 96%, color-mix(in srgb, var(--cwaaa-stamp) 6%, transparent), transparent 60%),
+      var(--grain-fine);
+    background-size: auto, auto, 170px 170px;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+  }
+
+  .mv__inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  .mv__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .mv__seal { margin-bottom: 0.5rem; }
+  .mv__org {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step-0);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cwaaa-ink);
+  }
+  .mv__motto {
+    font-family: var(--font-cwaaa);
+    font-style: italic;
+    font-size: var(--step--1);
+    color: color-mix(in srgb, var(--cwaaa-ink) 82%, var(--cwaaa-manila));
+  }
+  .mv__memo {
+    font-family: var(--font-cwaaa);
+    font-size: var(--step--2);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cwaaa-stamp);
+    margin-top: 0.35rem;
+  }
+
+  .mv__scalewrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-block: clamp(2rem, 5vh, 3.25rem);
+    width: 100%;
+  }
+  /* The oversized watermark — it takes the page. Arrives FIRST on reveal. */
+  .mv__watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    opacity: 0.07;
+    pointer-events: none;
+  }
+  .mv__scale {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 5.5vw, 4rem);
+    line-height: 1.08;
+    color: var(--cwaaa-ink);
+    max-width: 18ch;
+  }
+
+  .mv__lede {
+    font-family: var(--font-cwaaa);
+    font-style: italic;
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: color-mix(in srgb, var(--cwaaa-ink) 84%, var(--cwaaa-manila));
+    max-width: 44ch;
+    margin-bottom: clamp(2rem, 5vh, 3rem);
+  }
+
+  /* The stamped recovery quotation — follows the watermark on reveal. */
+  .mv__case {
+    width: min(100%, 46rem);
+    text-align: left;
+    border: 1.5px solid color-mix(in srgb, var(--cwaaa-ink) 45%, transparent);
+    border-radius: 2px;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    background: color-mix(in srgb, #fff 24%, var(--cwaaa-manila));
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  }
+  .mv__case-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--cwaaa-ink) 30%, transparent);
+    margin-bottom: 1.25rem;
+  }
+  .mv__case-title {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step--1);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cwaaa-ink);
+  }
+  .mv__case-id {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step--1);
+    letter-spacing: 0.1em;
+    color: var(--cwaaa-stamp);
+  }
+  .mv__quote {
+    font-family: var(--font-cwaaa);
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--cwaaa-ink);
+  }
+  .mv__attrib {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+  }
+  .mv__name {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step-0);
+    color: var(--cwaaa-ink);
+  }
+  /* The ONE stamp: hand-pressed, slightly wonked — the document stays straight. */
+  .mv__status {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cwaaa-stamp);
+    border: 2px solid var(--cwaaa-stamp);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--cwaaa-stamp) 35%, transparent) inset;
+    padding: 0.25em 0.75em;
+    border-radius: 2px;
+    transform: rotate(-1.5deg);
+  }
+  .mv__subhead {
+    font-family: var(--font-cwaaa);
+    font-style: italic;
+    font-size: var(--step--2);
+    color: color-mix(in srgb, var(--cwaaa-ink) 82%, var(--cwaaa-manila));
+    margin-top: 1.25rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid color-mix(in srgb, var(--cwaaa-ink) 22%, transparent);
+  }
+
+  .mv__route { margin-top: clamp(2rem, 5vh, 3rem); }
+  .mv__link {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step-0);
+    letter-spacing: 0.04em;
+    color: var(--cwaaa-stamp);
+    text-decoration: none;
+    border-bottom: 2px solid color-mix(in srgb, var(--cwaaa-stamp) 45%, transparent);
+    padding-bottom: 0.15em;
+    transition: border-color 140ms ease;
+  }
+  .mv__link:hover { border-bottom-color: var(--cwaaa-stamp); }
+
+  /* ---- Entry: the sheet rises from beneath the viewport's lower edge --------
+     Transform-only, one-shot ([data-reveal] → .is-revealed is never removed,
+     so scrolling back never re-runs the arrival). The watermark seal arrives
+     first; the stamped quotation follows within the same document. */
+  :global(.has-js) .mv__sheet[data-reveal] {
+    opacity: 1;
+    transform: translateY(min(24svh, 14rem));
+    transition: transform 900ms cubic-bezier(0.22, 0.9, 0.3, 1);
+  }
+  :global(.has-js) .mv__sheet[data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+  :global(.has-js) .mv__sheet[data-reveal] .mv__watermark {
+    opacity: 0;
+    transition: opacity 700ms ease 200ms;
+  }
+  :global(.has-js) .mv__sheet[data-reveal].is-revealed .mv__watermark {
+    opacity: 0.07;
+  }
+  :global(.has-js) .mv__sheet[data-reveal] .mv__case {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 520ms ease 700ms,
+      transform 520ms ease 700ms;
+  }
+  :global(.has-js) .mv__sheet[data-reveal].is-revealed .mv__case {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* §3.6/§6/§11: reduced motion files the page immediately — no rise, no
+     staged arrival. */
+  @media (prefers-reduced-motion: reduce) {
+    :global(.has-js) .mv__sheet[data-reveal],
+    :global(.has-js) .mv__sheet[data-reveal].is-revealed {
+      transform: none;
+      transition: none;
+    }
+    :global(.has-js) .mv__sheet[data-reveal] .mv__watermark {
+      opacity: 0.07;
+      transition: none;
+    }
+    :global(.has-js) .mv__sheet[data-reveal] .mv__case {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .mv__link {
+      transition: none;
+    }
+  }
+</style>

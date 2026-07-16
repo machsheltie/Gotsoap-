@@ -280,3 +280,61 @@
     color: var(--marble-amber);
   }
 }
+
+/* ============================================================================
+   ATMOSPHERE & TEXTURE HELPERS (added for the maximalist redesign — North Star,
+   2026-07-08). "Texture everywhere; grounds must stop being flat colour blocks."
+   These are ADDITIVE — no existing token/class name changes. Reused across the
+   hero, spots (campaign 🧼) and, where noted, the CWAAA certificate world (📋).
+   ========================================================================== */
+:root {
+  /* Reusable fine film-grain plate (SVG turbulence). Apply via .fx-grain, or
+     drop into any layer's background-image. Static (reduced-motion-safe). */
+  --grain-fine: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  /* Oxblood wax (CWAAA certificate seal). Certificate-world only. */
+  --wax-oxblood: #7d2b21;
+  /* Warm marble ground (poster-5 world; promoted from Spot.astro's flagged
+     placeholder so the marble spot + future surfaces share one token). */
+  --marble-warm-ground: #f1e7d2;
+  /* Nameplate masthead height (homev2/Masthead replaces the navbar with an
+     elegant high-fashion nameplate — North Star ROUND 3). The hero subtracts
+     this so it fills the viewport below the sticky masthead. */
+  --masthead-h: clamp(64px, 6vw, 84px);
+}
+
+/* Full-cover film grain. Put on an aria-hidden <span> that fills a positioned
+   parent. ~8–12% is the visible-but-not-noisy band from the brief. */
+.fx-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--grain-fine);
+  background-size: 160px 160px;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+}
+
+/* Derived environmental wash — a heavily blurred, darkened, scaled duplicate of
+   a poster (from /downloads/<slug>.jpg) used as ambient atmosphere BEHIND the
+   crisp untouched poster. Decoration derived from the art, never the artifact
+   itself (redesign-brief "derived environmental bleed"). Set --wash-src +
+   --wash-dim per instance; parent must be position:relative; overflow:hidden. */
+.fx-poster-wash {
+  position: absolute;
+  inset: -12%; /* over-bleed so the blur radius never shows a hard edge */
+  z-index: 0;
+  background-image: var(--wash-src);
+  background-position: center;
+  background-size: cover;
+  filter: blur(48px) saturate(1.05) brightness(var(--wash-dim, 0.5));
+  transform: scale(1.18);
+  pointer-events: none;
+}
+
+/* Letterpress deboss for ink-on-paper type (CWAAA certificate world only). */
+.fx-letterpress {
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55),
+    0 -1px 1px rgba(47, 62, 92, 0.32);
+}

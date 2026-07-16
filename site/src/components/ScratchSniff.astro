@@ -1,14 +1,23 @@
 ---
 /**
- * ScratchSniff.astro — first-visit dismissible gag (copy-deck §1, PRD §5.1).
- * 🧼 Campaign voice. NEVER a modal: a small bar pinned bottom-right, inert in
- * the markup (hidden), revealed by scripts/scratch.ts only on a first visit.
- * Reduced-motion-safe. Rendered once, globally, by BaseLayout.
+ * ScratchSniff.astro — the first-visit scratch-n-sniff gag, as a QC CERTIFICATION
+ * STAMP that THUNKS into the corner. 🧼 Campaign chrome.
+ * ---------------------------------------------------------------------------
+ * REDESIGNED per redesign-brief.md P0 #6 + design-north-star.md ROUND 2: the old
+ * bottom-right dismissible BAR read as a cookie-banner / toast — an explicit
+ * AUTO-REJECT pattern. It is now an in-world quality-control certification stamp
+ * (rough rubber-stamp edge, double rule, institutional type) that stamps into a
+ * page corner on first visit. Campaign tokens ONLY (marble-amber / grout-black) —
+ * never cwaaa-stamp, so the two-author quarantine holds even though this is
+ * global chrome shared with CWAAA surfaces.
+ *
+ * scripts/scratch.ts is UNCHANGED — the data-* contract is preserved verbatim:
+ *   [data-scratch-gag] root · [data-scratch-message] rotation slot ·
+ *   [data-scratch-dismiss] button · data-rotation JSON. Reduced-motion: the CSS
+ *   thunk is suppressed (the stamp simply appears); dismiss stays instant.
  */
 import { scratchGag } from '../content/copy';
 
-// copy.ts stores the gag as one `primary` string; the bar bolds the first
-// sentence (the constant head) and swaps the remainder (the rotation slot).
 const splitAt = scratchGag.primary.indexOf('. ');
 const gagHead =
   splitAt > -1 ? scratchGag.primary.slice(0, splitAt + 1) : scratchGag.primary;
@@ -16,19 +25,34 @@ const gagBody = splitAt > -1 ? scratchGag.primary.slice(splitAt + 2) : '';
 ---
 
 <aside
-  class="scratch"
+  class="qc"
   data-scratch-gag
   data-rotation={JSON.stringify(scratchGag.rotation)}
-  aria-label="Site notice"
+  aria-label="Quality-control certification"
   hidden
 >
-  <p class="scratch__text">
-    <strong>{gagHead}</strong>{' '}
-    <span data-scratch-message>{gagBody}</span>
-  </p>
-  <button type="button" class="scratch__dismiss" data-scratch-dismiss>
-    {scratchGag.dismiss}
-  </button>
+  <svg class="qc__filter" aria-hidden="true" focusable="false" width="0" height="0">
+    <filter id="qc-rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03 0.05" numOctaves="2" seed="9" result="n" />
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
+  <div class="qc__stamp">
+    <p class="qc__banner">
+      <span aria-hidden="true">✶</span> Quality Control · Cert. No. GS-Ø <span aria-hidden="true">✶</span>
+    </p>
+    <p class="qc__text">
+      <strong>{gagHead}</strong>{' '}
+      <span data-scratch-message>{gagBody}</span>
+    </p>
+    <div class="qc__foot">
+      <span class="qc__seal" aria-hidden="true">CERTIFIED</span>
+      <button type="button" class="qc__dismiss" data-scratch-dismiss>
+        {scratchGag.dismiss}
+      </button>
+    </div>
+  </div>
 </aside>
 
 <script>
@@ -36,59 +60,128 @@ const gagBody = splitAt > -1 ? scratchGag.primary.slice(splitAt + 2) : '';
 </script>
 
 <style>
-  .scratch {
+  .qc {
     position: fixed;
-    right: clamp(0.75rem, 3vw, 1.5rem);
-    bottom: clamp(0.75rem, 3vw, 1.5rem);
-    z-index: 90;
-    max-width: min(24rem, calc(100vw - 1.5rem));
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.85rem 1rem;
-    background: var(--smoke-slate);
-    color: var(--lather-white);
-    border: 1px solid color-mix(in srgb, var(--chrome-mist) 40%, transparent);
-    border-radius: var(--radius-tile);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
-    /* revealed by JS via data-scratch-shown */
+    right: clamp(0.75rem, 3vw, 1.75rem);
+    bottom: clamp(2.4rem, 5vw, 3rem); /* clears the fixed credit ticker */
+    z-index: 96;
+    max-width: min(23rem, calc(100vw - 1.5rem));
+    /* revealed by JS via data-scratch-shown; hide transition for dismissal */
     opacity: 0;
-    transform: translateY(8px);
+    transform: rotate(-4deg) scale(0.96);
     transition:
-      opacity 280ms ease,
-      transform 280ms ease;
+      opacity 300ms ease,
+      transform 300ms ease;
   }
-  .scratch[data-scratch-shown='true'] {
-    opacity: 1;
-    transform: none;
+
+  .qc__filter {
+    position: absolute;
+    width: 0;
+    height: 0;
   }
-  .scratch__text {
-    font-family: var(--font-fine);
-    font-size: var(--step--1);
-    line-height: 1.45;
-    margin: 0;
+
+  /* The stamp — a LIGHT cream certification card, rough inky edge, ink + amber
+     (North Star ROUND 3: bright/glossy — no dark chip that reads as a toast). */
+  .qc__stamp {
+    position: relative;
+    padding: 0.6rem 0.95rem 0.75rem;
+    color: var(--grout-black);
+    background: color-mix(in srgb, var(--lather-white) 94%, var(--marble-amber));
+    border: 1.5px solid color-mix(in srgb, var(--grout-black) 55%, transparent);
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--lather-white) 94%, var(--marble-amber)) inset,
+      0 0 0 4px color-mix(in srgb, var(--marble-amber-ink) 60%, transparent) inset,
+      0 18px 40px -22px rgba(76, 62, 44, 0.5);
+    filter: url(#qc-rough);
+    text-align: center;
   }
-  .scratch__text strong {
-    color: var(--lather-white);
-    font-weight: 600;
-  }
-  .scratch__dismiss {
-    align-self: flex-end;
+
+  .qc__banner {
     font-family: var(--font-label);
     font-weight: 800;
     font-size: var(--step--2);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
+    color: var(--marble-amber-ink);
+    border-bottom: 1.5px solid color-mix(in srgb, var(--marble-amber-ink) 45%, transparent);
+    padding-bottom: 0.35em;
+  }
+
+  .qc__text {
+    font-family: var(--font-fine);
+    font-size: var(--step--1);
+    line-height: 1.4;
+    margin-top: 0.5em;
+    color: color-mix(in srgb, var(--grout-black) 88%, var(--steam-white));
+  }
+  .qc__text strong {
     color: var(--grout-black);
-    background: var(--marble-amber);
+    font-weight: 700;
+  }
+
+  .qc__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 0.6em;
+    padding-top: 0.45em;
+    border-top: 1.5px solid color-mix(in srgb, var(--marble-amber-ink) 40%, transparent);
+  }
+  .qc__seal {
+    font-family: var(--font-label);
+    font-weight: 900;
+    font-size: var(--step--2);
+    letter-spacing: 0.18em;
+    color: var(--marble-amber-ink);
+    transform: rotate(-3deg);
+    border: 1.5px solid currentColor;
+    padding: 0.1em 0.5em;
+  }
+  .qc__dismiss {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lather-white);
+    background: var(--marble-amber-ink);
     border: none;
-    border-radius: var(--radius-tile);
-    padding: 0.45em 1em;
+    border-radius: 0;
+    padding: 0.45em 0.9em;
     cursor: pointer;
   }
+  .qc__dismiss:hover {
+    background: color-mix(in srgb, var(--marble-amber-ink) 86%, #000);
+  }
+
+  /* Shown state: one THUNK settle (reduced-motion suppresses to a plain appear). */
+  .qc[data-scratch-shown='true'] {
+    opacity: 1;
+    transform: rotate(-4deg) scale(1);
+    animation: qc-thunk 460ms cubic-bezier(0.2, 0.85, 0.3, 1) both;
+  }
+  @keyframes qc-thunk {
+    0% {
+      opacity: 0;
+      transform: rotate(-11deg) scale(1.6);
+    }
+    60% {
+      opacity: 1;
+      transform: rotate(-3deg) scale(0.94);
+    }
+    100% {
+      opacity: 1;
+      transform: rotate(-4deg) scale(1);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .scratch {
+    .qc {
       transition: none;
+    }
+    .qc[data-scratch-shown='true'] {
+      animation: none;
     }
   }
 </style>

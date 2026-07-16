@@ -38,6 +38,14 @@ const socials = (
       <a href={creditHref}>{footer.credit}</a>
     </p>
 
+    <!-- The production folio credit (§3.7 as amended 2026-07-15, G11):
+         FOOTER-ONLY, and the source string is the approved literal — real
+         caps in the markup, not lower-case dressed up by small-caps CSS
+         (Sol Phase-3 F6). Linked to /about. -->
+    <p class="footer__folio">
+      <a href="/about">PRODUCED BY HOPE2 STUDIO · DIRECTED BY STACEY BRECKEL</a>
+    </p>
+
     {
       socials.length > 0 && (
         <ul class="footer__socials" role="list">
@@ -95,6 +103,19 @@ const socials = (
   }
   .footer a {
     color: var(--marble-amber);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+  .footer__folio a {
+    font-family: var(--font-fine);
+    /* the source string carries the caps (§3.7 "this exact credit"); the CSS
+       only sizes and tracks it like a production card */
+    font-size: var(--step--2);
+    letter-spacing: 0.2em;
+    color: var(--chrome-mist);
+    text-decoration: none;
+  }
+  .footer__folio a:hover {
     text-decoration: underline;
     text-underline-offset: 0.18em;
   }

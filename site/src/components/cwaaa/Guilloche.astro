@@ -1,0 +1,159 @@
+---
+/**
+ * Guilloche.astro — engraved security border. 📋 CWAAA certificate world.
+ * ---------------------------------------------------------------------------
+ * Added for the CWAAA "full dramatic certificate" direction (design-north-star.md
+ * §CWAAA, owner directive — OVERRIDES design.md's old "modest, no-texture" CWAAA
+ * call). The guilloché ribbon + corner rosettes do most of the "official document"
+ * work: interlaced sine ribbons (US-Treasury / engraved-stock-certificate energy)
+ * on all four edges, plus a concentric line-burst ROSETTE in each corner.
+ *
+ * All CSS/SVG, no deps. cwaaa-ink line-work only (baked into the data-URI at the
+ * token's hex since data URIs can't read CSS vars). Purely decorative
+ * (aria-hidden). Factored as a component so /crisis's dossier can reuse it.
+ *
+ * Fills its nearest positioned ancestor; give the parent position: relative.
+ */
+interface Props {
+  /** Inset of the ribbon frame from the parent edges. */
+  inset?: string;
+  /** Ribbon band thickness (px). */
+  band?: number;
+  /** Corner rosette diameter (px). */
+  rosette?: number;
+  class?: string;
+}
+const {
+  inset = '12px',
+  band = 16,
+  rosette = 46,
+  class: className,
+} = Astro.props;
+
+// Interlaced sine ribbons, baked at cwaaa-ink (#2f3e5c). Two phase-inverted
+// waves per axis = a braid; a faint third centreline steadies it.
+const waveH =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='16' viewBox='0 0 60 16'%3E%3Cg fill='none' stroke='%232f3e5c' stroke-width='0.6'%3E%3Cpath d='M0 8 C7.5 1 22.5 1 30 8 S52.5 15 60 8' stroke-opacity='0.4'/%3E%3Cpath d='M0 8 C7.5 15 22.5 15 30 8 S52.5 1 60 8' stroke-opacity='0.28'/%3E%3Cpath d='M0 8 H60' stroke-opacity='0.12'/%3E%3C/g%3E%3C/svg%3E";
+const waveV =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='60' viewBox='0 0 16 60'%3E%3Cg fill='none' stroke='%232f3e5c' stroke-width='0.6'%3E%3Cpath d='M8 0 C1 7.5 1 22.5 8 30 S15 52.5 8 60' stroke-opacity='0.4'/%3E%3Cpath d='M8 0 C15 7.5 15 22.5 8 30 S1 52.5 8 60' stroke-opacity='0.28'/%3E%3Cpath d='M8 0 V60' stroke-opacity='0.12'/%3E%3C/g%3E%3C/svg%3E";
+
+// Rosette geometry: 24-spoke line burst between two concentric rings.
+const rr = 22; // viewBox is 0 0 44 44
+const spokes = Array.from({ length: 24 }, (_, i) => {
+  const a = (i * Math.PI) / 12;
+  const r1 = 8;
+  const r2 = 19;
+  return {
+    x1: (rr + Math.cos(a) * r1).toFixed(2),
+    y1: (rr + Math.sin(a) * r1).toFixed(2),
+    x2: (rr + Math.cos(a) * r2).toFixed(2),
+    y2: (rr + Math.sin(a) * r2).toFixed(2),
+  };
+});
+const corners = ['tl', 'tr', 'bl', 'br'] as const;
+---
+
+<div
+  class:list={['gll', className]}
+  aria-hidden="true"
+  style={`--gll-inset:${inset}; --gll-band:${band}px; --gll-rosette:${rosette}px; --wave-h:url("${waveH}"); --wave-v:url("${waveV}");`}
+>
+  <span class="gll__edge gll__edge--t"></span>
+  <span class="gll__edge gll__edge--b"></span>
+  <span class="gll__edge gll__edge--l"></span>
+  <span class="gll__edge gll__edge--r"></span>
+
+  {
+    corners.map((c) => (
+      <svg class={`gll__rosette gll__rosette--${c}`} viewBox="0 0 44 44" role="presentation">
+        <g fill="none" stroke="var(--cwaaa-ink)">
+          <circle cx="22" cy="22" r="20" stroke-width="1" stroke-opacity="0.55" />
+          <circle cx="22" cy="22" r="19" stroke-width="0.5" stroke-opacity="0.35" />
+          <circle cx="22" cy="22" r="8" stroke-width="0.8" stroke-opacity="0.5" />
+          {spokes.map((s) => (
+            <line
+              x1={s.x1}
+              y1={s.y1}
+              x2={s.x2}
+              y2={s.y2}
+              stroke-width="0.5"
+              stroke-opacity="0.42"
+            />
+          ))}
+        </g>
+        <circle cx="22" cy="22" r="3" fill="var(--cwaaa-ink)" fill-opacity="0.55" />
+      </svg>
+    ))
+  }
+</div>
+
+<style>
+  .gll {
+    position: absolute;
+    inset: var(--gll-inset);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .gll__edge {
+    position: absolute;
+  }
+  .gll__edge--t,
+  .gll__edge--b {
+    left: 0;
+    right: 0;
+    height: var(--gll-band);
+    background-image: var(--wave-h);
+    background-repeat: repeat-x;
+    background-size: 60px var(--gll-band);
+  }
+  .gll__edge--t {
+    top: 0;
+  }
+  .gll__edge--b {
+    bottom: 0;
+  }
+  .gll__edge--l,
+  .gll__edge--r {
+    top: 0;
+    bottom: 0;
+    width: var(--gll-band);
+    background-image: var(--wave-v);
+    background-repeat: repeat-y;
+    background-size: var(--gll-band) 60px;
+  }
+  .gll__edge--l {
+    left: 0;
+  }
+  .gll__edge--r {
+    right: 0;
+  }
+
+  .gll__rosette {
+    position: absolute;
+    width: var(--gll-rosette);
+    height: var(--gll-rosette);
+    color: var(--cwaaa-ink);
+  }
+  /* Center each rosette on its corner so the ribbon ends tuck beneath it. */
+  .gll__rosette--tl {
+    top: calc(var(--gll-band) / 2);
+    left: calc(var(--gll-band) / 2);
+    transform: translate(-50%, -50%);
+  }
+  .gll__rosette--tr {
+    top: calc(var(--gll-band) / 2);
+    right: calc(var(--gll-band) / 2);
+    transform: translate(50%, -50%);
+  }
+  .gll__rosette--bl {
+    bottom: calc(var(--gll-band) / 2);
+    left: calc(var(--gll-band) / 2);
+    transform: translate(-50%, 50%);
+  }
+  .gll__rosette--br {
+    bottom: calc(var(--gll-band) / 2);
+    right: calc(var(--gll-band) / 2);
+    transform: translate(50%, 50%);
+  }
+</style>

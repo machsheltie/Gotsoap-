@@ -11,7 +11,13 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "gates": "node scripts/gates.mjs",
+    "gates:phase": "node scripts/gates.mjs --phase",
+    "gates:build": "astro build && node scripts/gates.mjs --build",
+    "gates:prod": "astro build && node scripts/gates.mjs --build --prod",
+    "distinguish": "node scripts/distinguishability.mjs",
+    "copy-gates": "node scripts/copy-gates.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

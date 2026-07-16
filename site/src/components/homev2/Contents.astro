@@ -1,0 +1,321 @@
+---
+/**
+ * homev2/Contents.astro — the §9.1 home contents sheet.
+ *
+ * A styled NATIVE <dialog> (§9.1): home anchors listed first (Case, Campaign,
+ * Confrontation, Oath, Movement), route exits second (PSAs, Sniff Test,
+ * Pledge, Crisis, Production Notes). Behavior — focus into the dialog on open,
+ * background scroll lock, focus trap, Escape, focus return to the trigger —
+ * lives in scripts/contents-dialog.ts.
+ *
+ * PROGRESSIVE ENHANCEMENT (§9.1): the trigger renders only once `.has-js`
+ * lands on <html> (set pre-paint in BaseLayout); until then the SAME list is
+ * exposed as an inline anchor row — navigation is never hidden behind a dead
+ * button.
+ *
+ * AUTHOR: campaign (🧼) — this is the masthead's own furniture, styled in the
+ * masthead's materials (steam-white, hairlines, gold rule, tracked labels).
+ * No numerals anywhere: §14 bans decorative sequence numerals in campaign
+ * navigation, so the fashion-ToC gesture is type scale, not page numbers.
+ */
+import { contents } from '../../content/copy';
+---
+
+<div class="ct">
+  <button
+    type="button"
+    class="ct__trigger"
+    data-contents-open
+    aria-haspopup="dialog"
+  >
+    <span class="ct__trigger-rule" aria-hidden="true"></span>
+    <span class="ct__trigger-label">{contents.trigger}</span>
+    <span class="ct__trigger-rule" aria-hidden="true"></span>
+  </button>
+
+  <!-- No-JS fallback (§9.1): the inline anchor list, anchors first, routes second. -->
+  <nav class="ct__inline" aria-label={contents.title}>
+    <ul class="ct__inline-list" role="list">
+      {
+        contents.anchors.map((l) => (
+          <li>
+            <a class="ct__inline-link" href={l.href}>{l.label}</a>
+          </li>
+        ))
+      }
+      {
+        contents.routes.map((l) => (
+          <li>
+            <a class="ct__inline-link ct__inline-link--route" href={l.href}>{l.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <dialog class="ct__dialog" data-contents aria-labelledby="ct-title">
+    <div class="ct__frame">
+      <header class="ct__head">
+        <h2 class="ct__title" id="ct-title">{contents.title}</h2>
+        <button type="button" class="ct__close" data-contents-close>
+          {contents.close}
+        </button>
+      </header>
+
+      <div class="ct__gold" aria-hidden="true"></div>
+
+      <nav class="ct__group" aria-label={contents.anchorsLabel}>
+        <p class="ct__group-label" aria-hidden="true">{contents.anchorsLabel}</p>
+        <ul class="ct__list" role="list">
+          {
+            contents.anchors.map((l) => (
+              <li>
+                <a class="ct__link ct__link--anchor" href={l.href} data-contents-link>
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav class="ct__group" aria-label={contents.routesLabel}>
+        <p class="ct__group-label" aria-hidden="true">{contents.routesLabel}</p>
+        <ul class="ct__list" role="list">
+          {
+            contents.routes.map((l) => (
+              <li>
+                <a class="ct__link ct__link--route" href={l.href} data-contents-link>
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  import '../../scripts/contents-dialog.ts';
+</script>
+
+<style>
+  /* Background scroll lock while the sheet is open (§9.1) — class toggled by
+     contents-dialog.ts. */
+  :global(html.contents-open) {
+    overflow: hidden;
+  }
+
+  /* ---- Trigger: hidden until JS is confirmed; the inline list covers no-JS. */
+  .ct__trigger {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.8rem, 2.5vw, 1.5rem);
+    inline-size: 100%;
+    min-block-size: 44px; /* §12 touch target */
+    padding: 0.35em 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: clamp(0.62rem, 0.95vw, 0.74rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--grout-black);
+  }
+  :global(html.has-js) .ct__trigger {
+    display: inline-flex;
+  }
+  :global(html.has-js) .ct__inline {
+    display: none;
+  }
+  .ct__trigger-rule {
+    inline-size: clamp(2rem, 8vw, 5rem);
+    block-size: 1px;
+    background: color-mix(in srgb, var(--grout-black) 30%, transparent);
+    transition: background-color 140ms ease, inline-size 140ms ease;
+  }
+  .ct__trigger:hover .ct__trigger-rule {
+    background: var(--marble-amber-ink);
+  }
+  .ct__trigger:hover .ct__trigger-label {
+    color: var(--marble-amber-ink);
+  }
+
+  /* ---- No-JS inline anchor list: compact tracked row under the nameplate. */
+  .ct__inline-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    column-gap: clamp(0.8rem, 2.4vw, 1.6rem);
+    row-gap: 0.2rem;
+    margin: 0;
+    padding: 0;
+  }
+  .ct__inline-link {
+    display: inline-block;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: clamp(0.58rem, 0.9vw, 0.7rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--grout-black);
+    padding-block: 0.6em;
+  }
+  .ct__inline-link--route {
+    color: color-mix(in srgb, var(--grout-black) 60%, var(--steam-white));
+  }
+
+  /* ---- The sheet ---- */
+  .ct__dialog {
+    /* Full-bleed sheet on mobile; a tall right-hand contents page on desktop. */
+    inline-size: min(100%, 30rem);
+    max-inline-size: 100%;
+    block-size: 100svh;
+    max-block-size: 100svh;
+    margin: 0 0 0 auto;
+    padding: 0;
+    border: 0;
+    background: var(--steam-white);
+    color: var(--grout-black);
+    box-shadow: -30px 0 60px -30px rgba(20, 16, 10, 0.55);
+  }
+  .ct__dialog::backdrop {
+    background: rgba(12, 11, 9, 0.55);
+  }
+  .ct__dialog[open] {
+    animation: ct-in 260ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  @keyframes ct-in {
+    from {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .ct__frame {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.2rem, 3svh, 2rem);
+    block-size: 100%;
+    overflow-y: auto;
+    padding: clamp(1.2rem, 4vw, 2.2rem) clamp(1.4rem, 5vw, 2.6rem)
+      clamp(2rem, 6svh, 3.5rem);
+  }
+
+  .ct__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .ct__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.2rem, 9vw, 3rem);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+    margin: 0;
+  }
+  .ct__close {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    min-block-size: 44px; /* §12 touch target */
+    padding: 0.5em 0.2em;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: clamp(0.6rem, 0.9vw, 0.72rem);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--grout-black) 62%, var(--steam-white));
+  }
+  .ct__close:hover {
+    color: var(--marble-amber-ink);
+  }
+
+  .ct__gold {
+    block-size: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--marble-amber),
+      color-mix(in srgb, var(--marble-amber) 70%, #fff) 50%,
+      transparent
+    );
+  }
+
+  .ct__group-label {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-fine);
+    font-size: clamp(0.56rem, 0.85vw, 0.68rem);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--grout-black) 55%, var(--steam-white));
+  }
+  .ct__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Home anchors: the oversized editorial entries — the ToC's display voice. */
+  .ct__link {
+    display: block;
+    text-decoration: none;
+    color: var(--grout-black);
+  }
+  .ct__link--anchor {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.9rem, 7.5vw, 2.6rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+    padding-block: 0.14em;
+    border-bottom: 1px solid color-mix(in srgb, var(--grout-black) 12%, transparent);
+    transition: color 140ms ease, padding-left 140ms ease;
+  }
+  .ct__link--anchor:hover {
+    color: var(--marble-amber-ink);
+    padding-left: 0.3em;
+  }
+
+  /* Route exits: the tracked institutional row. */
+  .ct__link--route {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: clamp(0.72rem, 1.1vw, 0.85rem);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    padding-block: 0.85em; /* rows clear the 44px §12 target */
+    border-bottom: 1px solid color-mix(in srgb, var(--grout-black) 10%, transparent);
+    transition: color 140ms ease;
+  }
+  .ct__link--route:hover {
+    color: var(--marble-amber-ink);
+  }
+
+  /* §6/§11: reduced motion resolves every state instantly. */
+  @media (prefers-reduced-motion: reduce) {
+    .ct__dialog[open] {
+      animation: none;
+    }
+    .ct__trigger-rule,
+    .ct__link--anchor,
+    .ct__link--route {
+      transition: none;
+    }
+  }
+</style>

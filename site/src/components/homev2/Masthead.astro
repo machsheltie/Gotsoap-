@@ -1,0 +1,187 @@
+---
+/**
+ * homev2/Masthead.astro — the movement's nameplate (NOT a navbar).
+ *
+ * North Star ROUND 3: an ELEGANT HIGH-FASHION NAMEPLATE (Vogue-masthead energy —
+ * refined, tracked, glossy). A large centered "got soap?" nameplate flanked
+ * symmetrically by institutional microcopy, a gold rule + double hairlines —
+ * deliberately NOT logo-left / links-right / hamburger.
+ *
+ * Navigation is the §9.1 CONTENTS SHEET (homev2/Contents.astro), triggered
+ * from the row beneath the mid hairline. Without JS the same slot exposes the
+ * full inline anchor list — navigation is never behind a dead button (§9.1).
+ *
+ * Refinement pass: bigger, more present nameplate with an ink-gloss finish, a
+ * porcelain sheen behind it, and a fashion double-rule top.
+ *
+ * ISOLATION: preview-only component. Imports copy read-only; adds no shared CSS.
+ */
+import Contents from './Contents.astro';
+import { FUNDED_BY } from '../../content/copy';
+---
+
+<header class="mh" aria-label="Got Soap? — masthead">
+  <div class="mh__gold" aria-hidden="true"></div>
+  <div class="mh__hair mh__hair--top" aria-hidden="true"></div>
+  <span class="mh__sheen" aria-hidden="true"></span>
+
+  <div class="mh__bar">
+    <p class="mh__flank mh__flank--l">
+      <span class="mh__est">Est. MMXXIV</span>
+      <span class="mh__initiative">A Public Hygiene Initiative</span>
+    </p>
+
+    <a class="mh__nameplate" href="/">got soap?</a>
+
+    <p class="mh__flank mh__flank--r">
+      <span class="mh__series">Series One</span>
+      <span class="mh__issue">No.&nbsp;26</span>
+    </p>
+  </div>
+
+  <div class="mh__hair mh__hair--mid" aria-hidden="true"></div>
+
+  <div class="mh__contents">
+    <Contents />
+  </div>
+
+  <!-- No maker credit here — OWNER AMENDMENT 2026-07-15 (specs.md §3.7): a
+       real-world credit above the fold tips the satire before the campaign
+       lands. The masthead stays pure in-fiction; the credit lives in the
+       FOOTER only (G11 fails a masthead credit). -->
+  <p class="sr-only">Funded by {FUNDED_BY}.</p>
+</header>
+
+<style>
+  .mh {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    isolation: isolate;
+    background: var(--steam-white);
+    color: var(--grout-black);
+    padding-block: clamp(0.55rem, 1.5vw, 0.95rem);
+    padding-inline: clamp(1rem, 4vw, 3rem);
+    border-bottom: 1px solid color-mix(in srgb, var(--grout-black) 14%, transparent);
+    box-shadow: 0 10px 30px -22px rgba(20, 16, 10, 0.5);
+  }
+  /* glossy porcelain sheen so the nameplate reads premium, not flat UI */
+  .mh__sheen {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(140% 130% at 50% -40%, color-mix(in srgb, #fff 80%, transparent), transparent 58%),
+      linear-gradient(180deg, color-mix(in srgb, #fff 45%, transparent), transparent 40%);
+  }
+
+  .mh__gold {
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--marble-amber) 16%,
+      color-mix(in srgb, var(--marble-amber) 70%, #fff) 50%,
+      var(--marble-amber) 84%,
+      transparent
+    );
+  }
+  .mh__hair {
+    height: 1px;
+  }
+  .mh__hair--top {
+    background: color-mix(in srgb, var(--grout-black) 20%, transparent);
+    margin-top: 3px;
+    margin-bottom: clamp(0.4rem, 1vw, 0.75rem);
+  }
+  .mh__hair--mid {
+    background: color-mix(in srgb, var(--grout-black) 18%, transparent);
+    margin-block: clamp(0.4rem, 1vw, 0.65rem);
+  }
+
+  .mh__bar {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: clamp(0.75rem, 3vw, 2rem);
+  }
+
+  .mh__flank {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+    font-family: var(--font-fine);
+    font-size: clamp(0.53rem, 0.82vw, 0.66rem);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--grout-black) 66%, var(--steam-white));
+  }
+  .mh__flank--l { align-items: flex-start; }
+  .mh__flank--r { align-items: flex-end; text-align: right; }
+  .mh__est,
+  .mh__series {
+    color: var(--marble-amber-ink);
+    font-weight: 500;
+  }
+
+  .mh__nameplate {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.05rem, 4.7vw, 3.4rem);
+    line-height: 0.85;
+    letter-spacing: -0.012em;
+    text-transform: lowercase;
+    text-decoration: none;
+    white-space: nowrap;
+    /* polished-ink gloss with a bright top highlight = premium chrome */
+    background-image: linear-gradient(176deg, #5a5a62 0%, #262529 30%, #0b0b0d 62%, #34343b 84%, #0e0e11 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.65));
+  }
+  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .mh__nameplate {
+      -webkit-text-fill-color: var(--grout-black);
+      color: var(--grout-black);
+    }
+  }
+  .mh__nameplate:hover {
+    background-image: linear-gradient(176deg, var(--marble-amber-ink), #6b4d18);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  /* The Contents slot (trigger with JS, inline anchor list without) sits where
+     a conventional link row would — centered beneath the mid hairline. Its
+     styles live in homev2/Contents.astro. */
+  .mh__contents {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* The masthead is sticky, so the §9.1 contents-sheet anchor targets must
+     land BELOW it rather than underneath it. */
+  :global(#case),
+  :global(#campaign),
+  :global(#confrontation),
+  :global(#oath),
+  :global(#movement) {
+    scroll-margin-block-start: 10.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .mh__flank { display: none; }
+    .mh__bar {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+    .mh__nameplate { font-size: clamp(2rem, 9vw, 2.6rem); }
+  }
+</style>

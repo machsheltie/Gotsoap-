@@ -1,25 +1,36 @@
 ---
 /**
- * PledgeForm.astro — Form CW-1, "Declaration of Intent to Lather" (design.md
- * §7 "/pledge", copy §7). 📋 CWAAA-only: manila document, PT Serif, ink + stamp.
- * ZERO campaign tokens, zero fx-*. Styled entirely through the register slots.
+ * PledgeForm.astro — Form CW-1, the DECLARATION OF INTENT TO LATHER. 📋 CWAAA.
+ * ---------------------------------------------------------------------------
+ * REDESIGNED as a full-viewport ENGRAVED DECREE per design-north-star.md §CWAAA
+ * + ROUND 2 ("weaponize the bureaucracy"): aged paper, guilloché security border
+ * + corner rosettes, a huge watermark seal behind the oath, letterpress decree
+ * typography, ruled fill-in form-lines with a numbered margin gutter + dotted
+ * leaders, and a pressed WAX SEAL as the SWORN payoff. Overly-formal government
+ * bureaucracy, played 100% straight.
  *
- * Contains a real static Netlify form (detected at build) + a client-revealed
- * SWORN success state. Progressive enhancement lives in scripts/pledge.ts; the
- * share affordances reuse the foundation scripts/share.ts data contract so the
- * success share row keeps CWAAA (PT Serif) styling without recreating logic.
+ * OWNER DIRECTIVE OVERRIDES the old "ZERO campaign tokens, zero fx-*, no texture,
+ * competent-never-ugly / modest CWAAA" call (design.md §6/§7 + this file's prior
+ * header). Texture and drama are now REQUIRED here. Still CWAAA-quarantined:
+ * cwaaa-manila / cwaaa-ink / cwaaa-stamp + PT Serif only — NO campaign fonts or
+ * tokens cross onto this surface.
+ *
+ * PLUMBING PRESERVED VERBATIM (do not touch): the Buttondown embed <form>
+ * (buttondownEmbedUrl(), embed=1, honeypot, only email + metadata__first_name
+ * sent), scripts/pledge.ts + scripts/share.ts, every label / for / id /
+ * aria-describedby / role="alert" / [data-*] hook, and the SWORN success reveal.
+ * This is a restyle: the semantic form is unchanged; only its dress is new.
  */
 import Seal from './Seal.astro';
 import RibbonBadge from './RibbonBadge.astro';
-import Button from '../Button.astro';
+import Guilloche from './Guilloche.astro';
+import WaxSeal from './WaxSeal.astro';
 import { pledge as p } from '../../content/copy';
 import { absoluteUrl, buttondownEmbedUrl } from '../../config/site';
 
 const shareUrl = absoluteUrl('/pledge');
 
-// copy.ts merges the form number + doc title into one `header.form` string;
-// split on the middot so the eyebrow (FORM CW-1) and the h1 (the title) render
-// as before, both sourced from copy.ts.
+// copy.ts merges the form number + doc title into one `header.form` string.
 const [formLine, ...formTitleParts] = p.header.form.split(' · ');
 const docTitle = formTitleParts.join(' · ') || p.header.form;
 
@@ -28,214 +39,235 @@ const oathIntro = p.oath[0];
 const oathRefrain = p.oath[p.oath.length - 1];
 const oathClauses = p.oath.slice(1, -1);
 
-// copy.ts merges the SWORN body + "[name]" token into one string; split on the
-// token so the declarant name renders inline (personalized by scripts/pledge.ts).
+// copy.ts merges the SWORN body + "[name]" token into one string.
 const [successLead, ...successTail] = p.success.body.split('[name]');
 const successRest = successTail.join('[name]');
 
-// "(required)" is a generic screen-reader annotation (not campaign copy; not in
-// copy.ts) — inlined here like the site's other structural a11y labels.
+// Generic screen-reader annotation (structural a11y label; not campaign copy).
 const requiredNote = '(required)';
 
-// Buttondown embed endpoint. Renders even when the username is empty; the real
-// subscription stays inert until config/site.ts BUTTONDOWN_USERNAME is set.
+// Buttondown embed endpoint (inert until BUTTONDOWN_USERNAME is set).
 const formAction = buttondownEmbedUrl();
 ---
 
-<article class="pledge-doc flow" data-pledge-doc>
-  <!-- Letterhead -->
-  <header class="lh">
-    <Seal size={92} decorative />
-    <p class="lh-org">{p.header.org}</p>
-    <p class="lh-form">{formLine}</p>
-    <h1 class="doc-title">{docTitle}</h1>
-    <p class="lh-instruction"><em>{p.header.subtitle}</em></p>
-  </header>
+<article class="cert" data-pledge-doc>
+  <!-- Inline filter defs: rough rubber-stamp edge for the SWORN stamp. -->
+  <svg class="cert__filters" aria-hidden="true" focusable="false" width="0" height="0">
+    <filter id="pledge-ink-rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.028 0.04" numOctaves="2" seed="4" result="n" />
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
 
-  <!-- The oath -->
-  <section class="oath" aria-label="The oath">
-    <p class="oath-intro">{oathIntro}</p>
-    <ul class="oath-clauses" role="list">
-      {oathClauses.map((c) => <li>{c}</li>)}
-    </ul>
-    <p class="oath-refrain">{oathRefrain}</p>
-  </section>
+  <!-- Paper: tooth (noise) + edge vignette + corner foxing. -->
+  <span class="cert__tooth" aria-hidden="true"></span>
+  <span class="cert__foxing" aria-hidden="true"></span>
 
-  <!--
-    Buttondown embed form (PRD §5.4). action posts to the embed-subscribe
-    endpoint; the hidden `embed=1` suppresses Buttondown's redirect. Only the
-    `email` (and optional `metadata__first_name`) reach Buttondown — the satire
-    checkbox is a client-side gate and the honeypot is spam-only. scripts/pledge.ts
-    intercepts submit for the on-page SWORN success (no navigation) and, when
-    BUTTONDOWN_USERNAME is unset, soft-fails the POST but still shows SWORN.
-  -->
-  <form
-    class="cw1-form flow"
-    action={formAction}
-    method="post"
-    data-pledge-form
-    novalidate
-  >
-    <!-- Suppress Buttondown's redirect so the on-page success can take over. -->
-    <input type="hidden" name="embed" value="1" />
+  <!-- Guilloché security border + corner rosettes. -->
+  <Guilloche inset="13px" band={16} rosette={50} />
 
-    <!-- Honeypot: off-screen, not focusable, hidden from AT (bots still see it) -->
-    <p class="hp-field" aria-hidden="true">
-      <label>
-        Do not fill this field if you are human
-        <input
-          type="text"
-          name="hp-field"
-          data-honeypot
-          tabindex="-1"
-          autocomplete="off"
-        />
-      </label>
-    </p>
+  <!-- Huge watermark seal behind the oath (wrapped so the opacity/blend styles,
+       which are scoped to THIS component, actually apply — a bare class on the
+       child <Seal> would not receive this component's scope). -->
+  <div class="cert__watermark" aria-hidden="true">
+    <Seal size={360} decorative />
+  </div>
 
-    <div class="field">
-      <label for="cw1-first-name">
-        {p.fields.firstName.label}
-        <span class="req" aria-hidden="true">*</span>
-        <span class="sr-only">{requiredNote}</span>
-      </label>
-      <p class="field-help" id="cw1-first-name-help">{p.fields.firstName.placeholder}</p>
-      <input
-        id="cw1-first-name"
-        name="metadata__first_name"
-        data-field-first-name
-        type="text"
-        required
-        autocomplete="given-name"
-        aria-describedby="cw1-first-name-help cw1-first-name-error"
-      />
-      <p
-        class="field-error"
-        id="cw1-first-name-error"
-        data-error-for="firstName"
-        role="alert"
-        hidden
-      >
-        {p.errors.noName}
-      </p>
-    </div>
+  <div class="cert__inner">
+    <!-- Decree letterhead -->
+    <header class="decree">
+      <span class="decree__fleuron" aria-hidden="true">❧</span>
+      <p class="decree__preamble">In the matter of the undersigned</p>
+      <p class="decree__org">{p.header.org}</p>
+      <p class="decree__seat">Office of Lather Compliance · National Office, Suite 2B</p>
+      <div class="decree__rule" aria-hidden="true"><span></span><b>❦</b><span></span></div>
+      <p class="decree__form">{formLine}</p>
+      <h1 class="decree__title fx-letterpress">{docTitle}</h1>
+      <p class="decree__instruction"><em>{p.header.subtitle}</em></p>
+    </header>
 
-    <div class="field">
-      <label for="cw1-email">
-        {p.fields.email.label}
-        <span class="req" aria-hidden="true">*</span>
-        <span class="sr-only">{requiredNote}</span>
-      </label>
-      <p class="field-help" id="cw1-email-help">{p.fields.email.placeholder}</p>
-      <input
-        id="cw1-email"
-        name="email"
-        data-field-email
-        type="email"
-        required
-        autocomplete="email"
-        aria-describedby="cw1-email-help cw1-email-error"
-      />
-      <p
-        class="field-error"
-        id="cw1-email-error"
-        data-error-for="email"
-        role="alert"
-        hidden
-      >
-        {p.errors.badEmail}
-      </p>
-    </div>
+    <!-- The oath -->
+    <section class="oath" aria-label="The oath">
+      <p class="oath-intro fx-letterpress">{oathIntro}</p>
+      <ol class="oath-clauses" role="list">
+        {oathClauses.map((c) => <li>{c}</li>)}
+      </ol>
+      <p class="oath-refrain fx-letterpress">{oathRefrain}</p>
+    </section>
 
-    <div class="field field--check">
-      <!-- Client-side gate only (unnamed → never sent to Buttondown). -->
-      <label class="check-label" for="cw1-ack">
-        <input
-          id="cw1-ack"
-          data-field-consent
-          type="checkbox"
-          required
-          aria-describedby="cw1-ack-error"
-        />
-        <span class="check-text">
-          {p.fields.consent.label}
-          <span class="req" aria-hidden="true">*</span>
-          <span class="sr-only">{requiredNote}</span>
-        </span>
-      </label>
-      <p
-        class="field-error"
-        id="cw1-ack-error"
-        data-error-for="consent"
-        role="alert"
-        hidden
-      >
-        {p.errors.noConsent}
-      </p>
-    </div>
-
-    <p class="privacy"><em>{p.privacy}</em></p>
-
-    <div class="submit-row">
-      <Button
-        label={p.submit}
-        register="cwaaa"
-        variant="primary"
-        type="submit"
-      />
-      <span class="submit-aside"><em>{p.submitMicro}</em></span>
-    </div>
-  </form>
-
-  <!-- SWORN success — revealed by scripts/pledge.ts; no page navigation. -->
-  <section
-    class="pledge-success flow"
-    data-pledge-success
-    tabindex="-1"
-    aria-live="polite"
-    aria-labelledby="pledge-sworn-heading"
-    hidden
-  >
-    <h2 id="pledge-sworn-heading" class="sworn-stamp" data-sworn-stamp>
-      {p.success.stamp}
-    </h2>
-
-    <p class="success-lead">
-      {successLead}<strong data-success-name>declarant</strong>{successRest}
-    </p>
-
-    <p class="ribbon-wrap"><RibbonBadge size={72} decorative /></p>
-
-    <div
-      class="cwaaa-share"
-      data-share-root
-      data-share-url={shareUrl}
-      data-share-title="I took the Lather Pledge"
-      data-share-text={p.badgeShare}
+    <!--
+      Buttondown embed form (PRD §5.4) — UNCHANGED semantics. action posts to the
+      embed-subscribe endpoint; hidden embed=1 suppresses Buttondown's redirect.
+      Only email (+ optional metadata__first_name) reach Buttondown; the satire
+      checkbox is a client gate, the honeypot is spam-only. pledge.ts intercepts
+      submit for the on-page SWORN success.
+    -->
+    <form
+      class="cw1-form"
+      action={formAction}
+      method="post"
+      data-pledge-form
+      novalidate
     >
-      <button
-        type="button"
-        class="cwaaa-share-btn"
-        data-share-action="share"
-      >
-        {p.success.shareBadge}
-      </button>
-      <button
-        type="button"
-        class="cwaaa-share-btn"
-        data-share-action="copy"
-      >
-        {p.success.copyLink}
-      </button>
-      <span
-        class="sr-only"
-        role="status"
-        aria-live="polite"
-        data-share-status></span>
-    </div>
+      <input type="hidden" name="embed" value="1" />
 
-    <p class="success-updates"><em>{p.success.note}</em></p>
-  </section>
+      <!-- Honeypot: off-screen, not focusable, hidden from AT. -->
+      <p class="hp-field" aria-hidden="true">
+        <label>
+          Do not fill this field if you are human
+          <input
+            type="text"
+            name="hp-field"
+            data-honeypot
+            tabindex="-1"
+            autocomplete="off"
+          />
+        </label>
+      </p>
+
+      <p class="cw1-form__caption">To be completed in ink. All lines are mandatory.</p>
+
+      <div class="ff">
+        <span class="ff__num" aria-hidden="true">1</span>
+        <div class="ff__body">
+          <label class="ff__label" for="cw1-first-name">
+            {p.fields.firstName.label}
+            <span class="req" aria-hidden="true">✶ required</span>
+            <span class="sr-only">{requiredNote}</span>
+          </label>
+          <p class="field-help" id="cw1-first-name-help">{p.fields.firstName.placeholder}</p>
+          <input
+            id="cw1-first-name"
+            class="ff__input"
+            name="metadata__first_name"
+            data-field-first-name
+            type="text"
+            required
+            autocomplete="given-name"
+            aria-describedby="cw1-first-name-help cw1-first-name-error"
+          />
+          <p
+            class="field-error"
+            id="cw1-first-name-error"
+            data-error-for="firstName"
+            role="alert"
+            hidden
+          >
+            {p.errors.noName}
+          </p>
+        </div>
+      </div>
+
+      <div class="ff">
+        <span class="ff__num" aria-hidden="true">2</span>
+        <div class="ff__body">
+          <label class="ff__label" for="cw1-email">
+            {p.fields.email.label}
+            <span class="req" aria-hidden="true">✶ required</span>
+            <span class="sr-only">{requiredNote}</span>
+          </label>
+          <p class="field-help" id="cw1-email-help">{p.fields.email.placeholder}</p>
+          <input
+            id="cw1-email"
+            class="ff__input"
+            name="email"
+            data-field-email
+            type="email"
+            required
+            autocomplete="email"
+            aria-describedby="cw1-email-help cw1-email-error"
+          />
+          <p
+            class="field-error"
+            id="cw1-email-error"
+            data-error-for="email"
+            role="alert"
+            hidden
+          >
+            {p.errors.badEmail}
+          </p>
+        </div>
+      </div>
+
+      <div class="ff ff--check">
+        <span class="ff__num" aria-hidden="true">3</span>
+        <div class="ff__body">
+          <!-- Client-side gate only (unnamed → never sent to Buttondown). -->
+          <label class="check-label" for="cw1-ack">
+            <input
+              id="cw1-ack"
+              data-field-consent
+              type="checkbox"
+              required
+              aria-describedby="cw1-ack-error"
+            />
+            <span class="check-text">
+              {p.fields.consent.label}
+              <span class="req" aria-hidden="true">✶</span>
+              <span class="sr-only">{requiredNote}</span>
+            </span>
+          </label>
+          <p
+            class="field-error"
+            id="cw1-ack-error"
+            data-error-for="consent"
+            role="alert"
+            hidden
+          >
+            {p.errors.noConsent}
+          </p>
+        </div>
+      </div>
+
+      <p class="privacy"><em>{p.privacy}</em></p>
+
+      <div class="submit-row">
+        <button type="submit" class="stamp-btn">
+          <span class="stamp-btn__label">{p.submit}</span>
+        </button>
+        <span class="submit-wax"><WaxSeal size={104} rotate={-8} /></span>
+        <span class="submit-aside"><em>{p.submitMicro}</em></span>
+      </div>
+    </form>
+
+    <!-- SWORN success — revealed by scripts/pledge.ts; no page navigation. -->
+    <section
+      class="pledge-success"
+      data-pledge-success
+      tabindex="-1"
+      aria-live="polite"
+      aria-labelledby="pledge-sworn-heading"
+      hidden
+    >
+      <h2 id="pledge-sworn-heading" class="sworn-stamp" data-sworn-stamp>
+        {p.success.stamp}
+      </h2>
+
+      <p class="success-lead">
+        {successLead}<strong data-success-name>declarant</strong>{successRest}
+      </p>
+
+      <p class="ribbon-wrap"><RibbonBadge size={78} decorative /></p>
+
+      <div
+        class="cwaaa-share"
+        data-share-root
+        data-share-url={shareUrl}
+        data-share-title="I took the Lather Pledge"
+        data-share-text={p.badgeShare}
+      >
+        <button type="button" class="cwaaa-share-btn" data-share-action="share">
+          {p.success.shareBadge}
+        </button>
+        <button type="button" class="cwaaa-share-btn" data-share-action="copy">
+          {p.success.copyLink}
+        </button>
+        <span class="sr-only" role="status" aria-live="polite" data-share-status></span>
+      </div>
+
+      <p class="success-updates"><em>{p.success.note}</em></p>
+    </section>
+  </div>
 </article>
 
 <script>
@@ -244,176 +276,404 @@ const formAction = buttondownEmbedUrl();
 </script>
 
 <style>
-  /* Every heading here is PT Serif — override base.css's display-face default
-     so the CWAAA author's voice holds on this surface. */
-  .doc-title,
-  .sworn-stamp {
+  /* ========================================================================
+     THE DECREE — a full-viewport engraved certificate on a WARM DAYLIGHT DESK
+     (North Star ROUND 3: elite stationery, not a leaked file in a bunker). Keeps
+     the formal structure (guilloché, watermark, wax, fill-in lines); presented as
+     fine engraved stationery with a refined double-rule frame + a soft premium
+     elevation. PT Serif + cwaaa tokens only (quarantine holds).
+     ======================================================================== */
+  .cert {
+    position: relative;
+    isolation: isolate;
+    width: min(64rem, 94vw);
+    min-height: min(86svh, 940px);
+    margin-inline: auto;
+    background-color: var(--cwaaa-manila);
+    color: var(--cwaaa-ink);
+    /* Fine engraved double-rule frame + a soft, warm, premium elevation. */
+    border: 2px solid var(--cwaaa-ink);
+    outline: 6px solid var(--cwaaa-manila);
+    outline-offset: -12px;
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--cwaaa-ink) 40%, transparent) inset,
+      0 34px 74px -30px rgba(58, 44, 26, 0.6),
+      0 10px 24px -14px rgba(58, 44, 26, 0.42);
+    padding: clamp(2rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+  }
+  .cert__filters {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  /* Paper tooth (multiply noise) + edge vignette + corner foxing. */
+  .cert__tooth {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--grain-fine);
+    background-size: 150px 150px;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+  }
+  .cert__foxing {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      /* inset edge vignette (aged edges) */
+      radial-gradient(
+        120% 120% at 50% 50%,
+        transparent 62%,
+        color-mix(in srgb, #7a6a45 22%, transparent) 100%
+      ),
+      /* corner foxing blooms */
+      radial-gradient(
+        18% 16% at 4% 5%,
+        color-mix(in srgb, #9a7f4e 30%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        16% 14% at 97% 92%,
+        color-mix(in srgb, #9a7f4e 26%, transparent),
+        transparent 72%
+      ),
+      radial-gradient(
+        14% 12% at 92% 6%,
+        color-mix(in srgb, #9a7f4e 18%, transparent),
+        transparent 72%
+      );
+    mix-blend-mode: multiply;
+  }
+
+  /* Watermark seal behind the oath. */
+  .cert__watermark {
+    position: absolute;
+    z-index: 0;
+    top: clamp(9rem, 26vh, 17rem);
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(220px, 46vw, 360px);
+    height: auto;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    color: var(--cwaaa-ink);
+  }
+  .cert__watermark :global(svg) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .cert__inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.25rem, 3vw, 2.25rem);
+    max-width: 44rem;
+    margin-inline: auto;
     font-family: var(--font-cwaaa);
-    color: var(--reg-heading);
   }
 
-  /* ---- The manila document panel (on the page's grout-black frame) -------- */
-  .pledge-doc {
-    --flow-space: var(--space-md);
-    max-width: 40rem;
-    margin-inline: auto;
-    background: var(--reg-bg); /* cwaaa-manila via the register slot */
-    color: var(--reg-fg);
-    border: 1px solid var(--reg-rule);
-    box-shadow: 0 18px 48px color-mix(in srgb, var(--grout-black) 60%, transparent);
-    padding: clamp(1.5rem, 5vw, 3.25rem);
-  }
-
-  /* ---- Letterhead -------------------------------------------------------- */
-  .lh {
+  /* ---- Decree letterhead ------------------------------------------------- */
+  .decree {
     text-align: center;
-    padding-bottom: var(--space-md);
-    border-bottom: 2px solid var(--reg-rule);
   }
-  .lh :global(svg) {
-    margin-inline: auto;
-    margin-bottom: var(--space-sm);
-  }
-  .lh-org {
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    font-size: var(--step-0);
-  }
-  .lh-form {
-    font-size: var(--step--1);
-    letter-spacing: 0.16em;
-    color: var(--reg-muted);
-    margin-top: var(--space-2xs);
-  }
-  .doc-title {
+  .decree__fleuron {
+    display: block;
     font-size: var(--step-3);
-    font-weight: 700;
-    margin-top: var(--space-xs);
-    line-height: 1.15;
+    color: color-mix(in srgb, var(--cwaaa-ink) 70%, var(--cwaaa-manila));
+    line-height: 1;
   }
-  .lh-instruction {
-    color: var(--reg-muted);
+  .decree__preamble {
+    margin-top: 0.4em;
+    font-variant: small-caps;
+    letter-spacing: 0.22em;
     font-size: var(--step--1);
-    margin-top: var(--space-xs);
+    color: var(--reg-muted, color-mix(in srgb, var(--cwaaa-ink) 62%, var(--cwaaa-manila)));
+  }
+  .decree__org {
+    margin-top: 0.3em;
+    font-weight: 700;
+    /* Government-decree scale — big, engraved, demanding. Breaks toward the frame. */
+    font-size: clamp(1.6rem, 4.6vw, 3.1rem);
+    line-height: 1.02;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--cwaaa-ink);
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.5),
+      0 -1px 1px rgba(47, 62, 92, 0.28);
+  }
+  .decree__seat {
+    margin-top: 0.5em;
+    font-style: italic;
+    font-size: var(--step--1);
+    color: color-mix(in srgb, var(--cwaaa-ink) 66%, var(--cwaaa-manila));
+  }
+  .decree__rule {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: clamp(0.9rem, 2.5vw, 1.5rem) 0;
+  }
+  .decree__rule span {
+    flex: 1;
+    height: 0;
+    border-top: 1px solid color-mix(in srgb, var(--cwaaa-ink) 45%, transparent);
+    box-shadow: 0 2px 0 -1px color-mix(in srgb, var(--cwaaa-ink) 25%, transparent);
+  }
+  .decree__rule b {
+    color: color-mix(in srgb, var(--cwaaa-ink) 72%, var(--cwaaa-manila));
+    font-size: var(--step-1);
+  }
+  .decree__form {
+    font-weight: 700;
+    font-size: var(--step--1);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--cwaaa-stamp);
+  }
+  .decree__title {
+    margin-top: 0.15em;
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: clamp(1.7rem, 4.4vw, 2.9rem);
+    line-height: 1.06;
+    color: var(--cwaaa-ink);
+  }
+  .decree__instruction {
+    margin-top: 0.55em;
+    font-size: var(--step--1);
+    color: color-mix(in srgb, var(--cwaaa-ink) 66%, var(--cwaaa-manila));
   }
 
   /* ---- Oath -------------------------------------------------------------- */
   .oath {
-    border-left: 3px solid var(--reg-accent);
-    padding-left: var(--space-md);
+    border-block: 1.5px solid color-mix(in srgb, var(--cwaaa-ink) 55%, transparent);
+    padding-block: clamp(1rem, 3vw, 1.6rem);
   }
   .oath-intro {
     font-weight: 700;
+    font-size: var(--step-1);
+    text-align: center;
   }
   .oath-clauses {
-    margin: var(--space-xs) 0;
-    padding-left: var(--space-md);
+    counter-reset: oath;
+    margin: clamp(0.8rem, 2vw, 1.25rem) 0;
+    padding: 0;
     list-style: none;
+    display: grid;
+    gap: 0.55em;
   }
   .oath-clauses li {
-    padding-block: 0.15em;
-    border-bottom: 1px solid var(--reg-rule);
+    counter-increment: oath;
+    position: relative;
+    padding-left: 2.6em;
+    padding-bottom: 0.4em;
+    font-size: var(--step-0);
+    border-bottom: 1px dotted color-mix(in srgb, var(--cwaaa-ink) 45%, transparent);
   }
   .oath-clauses li::before {
-    content: '§ ';
-    color: var(--reg-accent);
+    content: '§ ' counter(oath);
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    color: var(--cwaaa-stamp);
+    letter-spacing: 0.02em;
   }
   .oath-refrain {
+    margin-top: 0.9em;
     font-weight: 700;
-    letter-spacing: 0.03em;
-    margin-top: var(--space-sm);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: var(--step-1);
   }
 
-  /* ---- Ruled form fields ------------------------------------------------- */
+  /* ---- Ruled fill-in form lines ------------------------------------------ */
   .cw1-form {
-    --flow-space: var(--space-lg);
-    margin-top: var(--space-md);
+    display: grid;
+    gap: clamp(1.4rem, 3.5vw, 2.4rem);
   }
-  .field label {
-    display: block;
+  .cw1-form__caption {
+    font-variant: small-caps;
+    letter-spacing: 0.18em;
+    font-size: var(--step--1);
+    color: color-mix(in srgb, var(--cwaaa-ink) 60%, var(--cwaaa-manila));
+    border-bottom: 2px solid color-mix(in srgb, var(--cwaaa-ink) 40%, transparent);
+    padding-bottom: 0.5em;
+  }
+
+  .ff {
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0 0.6rem;
+  }
+  /* Numbered margin gutter — a printed field number. */
+  .ff__num {
+    grid-column: 1;
+    justify-self: center;
+    inline-size: 1.9rem;
+    block-size: 1.9rem;
+    display: grid;
+    place-items: center;
     font-weight: 700;
+    font-size: var(--step-0);
+    color: var(--cwaaa-ink);
+    border: 1.5px solid color-mix(in srgb, var(--cwaaa-ink) 55%, transparent);
+    border-radius: 50%;
+  }
+  .ff__body {
+    grid-column: 2;
+    min-width: 0;
+  }
+  .ff__label {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5em 0.8em;
+    font-weight: 700;
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
     font-size: var(--step-0);
   }
   .req {
-    color: var(--cwaaa-stamp);
+    font-variant: normal;
+    font-size: var(--step--2);
     font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cwaaa-stamp);
   }
   .field-help {
-    color: var(--reg-muted);
+    color: color-mix(in srgb, var(--cwaaa-ink) 62%, var(--cwaaa-manila));
     font-size: var(--step--1);
     font-style: italic;
-    margin-top: 0.1em;
+    margin-top: 0.15em;
   }
-  .field input[type='text'],
-  .field input[type='email'] {
+  /* The printed baseline: a faint DOTTED LEADER (typed onto a form). */
+  .ff__input {
     display: block;
     width: 100%;
-    margin-top: 0.35em;
-    padding: 0.5em 0.1em;
+    margin-top: 0.5em;
+    padding: 0.35em 0.15em 0.4em;
     background: transparent;
-    color: var(--reg-fg);
+    color: var(--cwaaa-ink);
     border: 0;
-    border-bottom: 1.5px solid var(--reg-fg);
+    border-bottom: 1.5px dotted var(--cwaaa-ink);
     border-radius: 0;
     font-family: var(--font-cwaaa);
-    font-size: var(--step-0);
+    font-size: var(--step-1);
+    letter-spacing: 0.01em;
   }
-  .field input:focus-visible {
-    border-bottom-color: var(--cwaaa-stamp);
+  .ff__input::placeholder {
+    color: transparent;
   }
-  .field input[aria-invalid='true'] {
-    border-bottom-color: var(--cwaaa-stamp);
-    border-bottom-width: 2.5px;
+  .ff__input:focus-visible {
+    outline: none;
+    border-bottom: 2.5px solid var(--cwaaa-stamp);
+    background: color-mix(in srgb, var(--cwaaa-stamp) 5%, transparent);
+  }
+  .ff__input[aria-invalid='true'] {
+    border-bottom: 2.5px solid var(--cwaaa-stamp);
   }
 
   .field-error {
     color: var(--cwaaa-stamp);
     font-weight: 700;
     font-size: var(--step--1);
-    margin-top: 0.4em;
+    margin-top: 0.45em;
   }
-  /* Non-colour signal: a shape marker precedes the message, so the error is
-     conveyed by text + glyph, never colour alone (WCAG 1.4.1). */
+  /* Non-colour signal: a glyph precedes the message (WCAG 1.4.1). */
   .field-error::before {
     content: '✕ ';
     font-weight: 700;
   }
 
-  /* Checkbox row */
-  .field--check .check-label {
+  /* Consent line */
+  .ff--check .check-label {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 0.6em;
+    gap: 0.7em;
     align-items: start;
-    font-weight: 400;
     cursor: pointer;
+    margin-top: 0.3em;
   }
-  .field--check input[type='checkbox'] {
-    inline-size: 1.2em;
-    block-size: 1.2em;
+  .ff--check input[type='checkbox'] {
+    inline-size: 1.3em;
+    block-size: 1.3em;
     margin-top: 0.15em;
     accent-color: var(--cwaaa-stamp);
   }
   .check-text {
     font-style: italic;
+    font-size: var(--step-0);
   }
 
   .privacy {
-    color: var(--reg-muted);
+    color: color-mix(in srgb, var(--cwaaa-ink) 66%, var(--cwaaa-manila));
     font-size: var(--step--1);
-    border-top: 1px solid var(--reg-rule);
-    padding-top: var(--space-sm);
+    border-top: 1px solid color-mix(in srgb, var(--cwaaa-ink) 35%, transparent);
+    padding-top: 0.9em;
   }
 
+  /* ---- The SUBMIT STAMP -------------------------------------------------- */
   .submit-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-sm) var(--space-md);
+    gap: 1rem 1.4rem;
+  }
+  .stamp-btn {
+    position: relative;
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: var(--step-1);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--cwaaa-manila);
+    background: var(--cwaaa-stamp);
+    /* Double-rule inset frame (a struck stamp, not a pill). */
+    border: 2px solid var(--cwaaa-stamp);
+    border-radius: 0;
+    box-shadow:
+      0 0 0 2px var(--cwaaa-manila) inset,
+      0 0 0 3px var(--cwaaa-stamp) inset,
+      4px 4px 0 0 color-mix(in srgb, var(--cwaaa-ink) 70%, transparent);
+    padding: 0.7em 1.6em;
+    cursor: pointer;
+    transition:
+      transform 90ms ease,
+      box-shadow 90ms ease;
+  }
+  .stamp-btn__label {
+    text-shadow: 0 1px 0 color-mix(in srgb, #000 30%, transparent);
+  }
+  .stamp-btn:hover {
+    background: color-mix(in srgb, var(--cwaaa-stamp) 90%, #000);
+  }
+  /* Press feedback — the stamp thunks down onto the paper. */
+  .stamp-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow:
+      0 0 0 2px var(--cwaaa-manila) inset,
+      0 0 0 3px var(--cwaaa-stamp) inset,
+      0 0 0 0 color-mix(in srgb, var(--cwaaa-ink) 70%, transparent);
+  }
+  .submit-wax {
+    flex: 0 0 auto;
+    display: inline-flex;
   }
   .submit-aside {
-    color: var(--reg-muted);
+    font-style: italic;
     font-size: var(--step--1);
+    color: color-mix(in srgb, var(--cwaaa-ink) 62%, var(--cwaaa-manila));
   }
 
   /* Honeypot — present in DOM, off-screen, out of the a11y + tab order. */
@@ -430,39 +690,49 @@ const formAction = buttondownEmbedUrl();
   }
 
   /* ---- SWORN success ----------------------------------------------------- */
+  /* NB: guard the flex display behind :not([hidden]) — a bare `display:flex`
+     would override the [hidden] attribute (UA display:none) and leak the success
+     state onto the un-submitted form. pledge.ts flips `hidden` to reveal it. */
   .pledge-success {
-    --flow-space: var(--space-md);
     text-align: center;
-    border-top: 2px solid var(--reg-rule);
+    border-top: 2px solid color-mix(in srgb, var(--cwaaa-ink) 45%, transparent);
     padding-top: var(--space-lg);
   }
+  .pledge-success:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: center;
+  }
   .pledge-success:focus-visible {
-    outline: 2px solid var(--focus-ring);
+    outline: 2px solid var(--focus-ring, var(--cwaaa-stamp));
     outline-offset: 4px;
   }
 
   .sworn-stamp {
     display: inline-block;
-    font-size: var(--step-4);
+    font-family: var(--font-cwaaa);
+    font-size: clamp(2.4rem, 8vw, 4.2rem);
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     color: var(--cwaaa-stamp);
-    border: 4px double var(--cwaaa-stamp);
-    border-radius: 6px;
-    padding: 0.12em 0.5em;
+    border: 5px double var(--cwaaa-stamp);
+    border-radius: 4px;
+    padding: 0.1em 0.55em;
     transform: rotate(-8deg);
+    /* Rough inky rubber-stamp edge. */
+    filter: url(#pledge-ink-rough);
   }
-  /* The CWAAA system's single motion moment: one scale-settle on stamping. */
   .sworn-stamp.is-stamped {
     animation: sworn-settle 700ms cubic-bezier(0.2, 0.85, 0.3, 1) both;
   }
   @keyframes sworn-settle {
     0% {
-      transform: rotate(-16deg) scale(2.3);
+      transform: rotate(-17deg) scale(2.4);
       opacity: 0;
     }
     55% {
-      transform: rotate(-16deg) scale(0.9);
+      transform: rotate(-16deg) scale(0.88);
       opacity: 1;
     }
     100% {
@@ -471,7 +741,6 @@ const formAction = buttondownEmbedUrl();
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    /* No settle — the stamp simply appears (design.md §8 motion policy). */
     .sworn-stamp.is-stamped {
       animation: none;
     }
@@ -479,17 +748,17 @@ const formAction = buttondownEmbedUrl();
 
   .success-lead {
     font-size: var(--step-1);
+    max-width: 40ch;
   }
   .ribbon-wrap :global(svg) {
     margin-inline: auto;
   }
   .success-updates {
-    color: var(--reg-muted);
+    color: color-mix(in srgb, var(--cwaaa-ink) 62%, var(--cwaaa-manila));
     font-size: var(--step--1);
   }
 
-  /* Success share row — reuses share.ts (data-* contract) but keeps the
-     CWAAA voice: PT Serif, ink outline, stamp-red on hover. No campaign font. */
+  /* Success share row — share.ts data-* contract; CWAAA voice (PT Serif, ink). */
   .cwaaa-share {
     display: flex;
     flex-wrap: wrap;
@@ -500,11 +769,13 @@ const formAction = buttondownEmbedUrl();
     font-family: var(--font-cwaaa);
     font-weight: 700;
     font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
     color: var(--cwaaa-ink);
     background: transparent;
     border: 1.5px solid var(--cwaaa-ink);
     border-radius: 0;
-    padding: 0.5em 1.1em;
+    padding: 0.55em 1.1em;
     cursor: pointer;
     transition:
       background-color 140ms ease,
@@ -515,5 +786,17 @@ const formAction = buttondownEmbedUrl();
     background: var(--cwaaa-stamp);
     border-color: var(--cwaaa-stamp);
     color: var(--cwaaa-manila);
+  }
+
+  @media (max-width: 560px) {
+    .cert {
+      outline-offset: -10px;
+    }
+    .ff {
+      grid-template-columns: 1.9rem 1fr;
+    }
+    .decree__org {
+      letter-spacing: 0.01em;
+    }
   }
 </style>

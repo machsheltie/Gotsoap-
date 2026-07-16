@@ -1,154 +1,561 @@
 ---
 /**
- * /psas — The PSAs index (Task D). Archive framing: "Public Service
- * Announcements — Series One" (copy-deck §4.1, verbatim). Poster grid on
- * grout-black (no register override — the index is a neutral archive shell,
- * not a single-register surface; design.md §7), generous negative space,
- * no card chrome (artifact respect — museum, not e-commerce).
+ * /psas — THE PLACEMENT HUB (specs.md §4): one elite locker-room installation,
+ * not a gallery. Bright wet ceramic, polished chrome, studio light.
+ *
+ * Delivery model (§4.2):
+ *   - ONE responsive <picture> is the environment. Wide (3200×1800) and
+ *     portrait (1350×2400) are INDEPENDENT compositions (§4.1), art-directed
+ *     on PLACEMENT_HUB_WIDE_MEDIA — the single exported query that also drives
+ *     the client matchMedia() hotspot selector (G18). AVIF/WebP/JPG
+ *     derivatives are generated at build.
+ *   - The five canonical posters are NOT loaded here (G8) — the composite
+ *     proves range with one image request.
+ *   - Until Stacey's Photoshop composites land, the §3.1-permitted token-only
+ *     stand-ins render at final dimensions; G14 blocks --prod until the swap.
+ *     When the real art arrives, only src/content/placement-hub.ts changes.
+ *
+ * Interaction (§4.3):
+ *   - Five real <a> hotspots over the poster locations; geometry comes from
+ *     placement-hub.ts as CSS custom properties (both coordinate sets on each
+ *     anchor). The matchMedia() selector flips data-source between sets, so
+ *     the picture and the hotspots can never disagree at the boundary.
+ *   - Hotspots are a JS-gated ENHANCEMENT: without the selector there is no
+ *     way to know which composition is on screen, and a hotspot routed to the
+ *     wrong poster is worse than none. No-JS visitors navigate through the
+ *     plaque — §4.3's designated fallback (with CSS disabled the anchors
+ *     surface as plain named links).
+ *   - The chrome installation plaque below the image lists all five titles:
+ *     visible, keyboard-accessible, every poster reachable without the image.
+ *   - Normal vertical scroll only. No snap, no drag, no viewport lock.
+ *
+ * COPY: heading/sub/intro are verbatim from `psas.*` in content/copy.ts; the
+ * plaque wordmark is `nav.mark`. The nav aria-label "The five announcements"
+ * is copy-lane final (2026-07-16 Claude↔Sol consensus): it names the complete
+ * set in the campaign's own noun without colliding with Poster 5's title.
  */
+import { getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PosterImage from '../../components/PosterImage.astro';
-import { POSTERS } from '../../config/site';
-import { psas, meta, posterCopy } from '../../content/copy';
+import {
+  placementHub,
+  compositeAspect,
+  hotspotHeight,
+  PLACEMENT_HUB_WIDE_MEDIA,
+} from '../../content/placement-hub';
+import { psas, meta, nav as navCopy } from '../../content/copy';
+import hubWide from '../../assets/placeholder/placement-hub-wide.jpg';
+import hubPortrait from '../../assets/placeholder/placement-hub-portrait.jpg';
 
 const psasMeta = meta.psas;
-type PosterSlug = keyof typeof posterCopy;
+
+/* §4.2 — build-time derivatives of the two masters. Budgets: mobile AVIF
+ * (1080–1350w) ≤ 450 KB, desktop AVIF (1920w) ≤ 750 KB. */
+const wideAvif = await getImage({ src: hubWide, format: 'avif', widths: [1600, 1920, 2560, 3200] });
+const wideWebp = await getImage({ src: hubWide, format: 'webp', widths: [1600, 1920, 2560] });
+const wideJpg = await getImage({ src: hubWide, format: 'jpeg', widths: [1920, 3200] });
+const portraitAvif = await getImage({ src: hubPortrait, format: 'avif', widths: [810, 1080, 1350] });
+const portraitWebp = await getImage({ src: hubPortrait, format: 'webp', widths: [810, 1080, 1350] });
+const portraitJpg = await getImage({ src: hubPortrait, format: 'jpeg', widths: [1080, 1350] });
+
+/* One anchor per poster, carrying BOTH coordinate sets (§4.3). Zipped by slug;
+ * the throws are a build-time tripwire for swap day — if the two arrangements in
+ * placement-hub.ts ever diverge IN EITHER DIRECTION, the build fails instead of
+ * a hotspot 404ing or a portrait-only poster silently losing its hotspot. */
+const pct = (n: number) => `${Number(n.toFixed(3))}%`;
+const wideSlugs = placementHub.wide.map((h) => h.slug);
+const portraitSlugs = placementHub.portrait.map((h) => h.slug);
+const dupesIn = (slugs: string[]) => slugs.filter((s, i) => slugs.indexOf(s) !== i);
+const wideDupes = dupesIn(wideSlugs);
+const portraitDupes = dupesIn(portraitSlugs);
+if (wideDupes.length || portraitDupes.length) {
+  throw new Error(
+    `placement-hub.ts: duplicated hotspot slug(s) — wide: [${wideDupes.join(', ')}], portrait: [${portraitDupes.join(', ')}] — each arrangement must place each poster exactly once`,
+  );
+}
+const missingFromPortrait = wideSlugs.filter((s) => !portraitSlugs.includes(s));
+const missingFromWide = portraitSlugs.filter((s) => !wideSlugs.includes(s));
+if (missingFromPortrait.length || missingFromWide.length) {
+  throw new Error(
+    `placement-hub.ts: the two arrangements name different posters — missing from portrait: [${missingFromPortrait.join(', ')}], missing from wide: [${missingFromWide.join(', ')}]`,
+  );
+}
+const portraitBySlug = new Map(placementHub.portrait.map((h) => [h.slug, h]));
+const spots = placementHub.wide.map((w) => {
+  const p = portraitBySlug.get(w.slug);
+  if (!p) throw new Error(`placement-hub.ts: no portrait coordinates for "${w.slug}"`);
+  return {
+    slug: w.slug,
+    title: w.title,
+    style: [
+      `--wx:${pct(w.x)}`,
+      `--wy:${pct(w.y)}`,
+      `--ww:${pct(w.w)}`,
+      `--wh:${pct(hotspotHeight(w.w, 'wide'))}`,
+      `--px:${pct(p.x)}`,
+      `--py:${pct(p.y)}`,
+      `--pw:${pct(p.w)}`,
+      `--ph:${pct(hotspotHeight(p.w, 'portrait'))}`,
+    ].join(';'),
+  };
+});
 ---
 
-<BaseLayout title={psasMeta.title} description={psasMeta.description}>
-  <section class="psas-index container container--wide">
-    <header class="psas-index__head">
-      <h1 class="psas-index__heading">{psas.indexHeading}</h1>
-      <p class="psas-index__subheading">{psas.indexSub}</p>
-      <p class="psas-index__intro">{psas.indexBody}</p>
+<BaseLayout
+  title={psasMeta.title}
+  description={psasMeta.description}
+  register="porcelain"
+  hideScratchSniff
+>
+  <section class="hub">
+    <!-- Wall label — a compact exhibition strip, not a hero. The installation
+         below is the hero; this stays slim so all five posters hold the first
+         visual field at 390×844 and 1440×900 (§4.1). -->
+    <header class="hub__label">
+      <p class="hub__kicker">{psas.indexSub}</p>
+      <h1 class="hub__title">{psas.indexHeading}</h1>
+      <span class="hub__rule" aria-hidden="true"></span>
     </header>
 
-    <ul class="psas-grid" role="list">
+    <!-- The installation. One composite <picture>; decorative, empty alt (§12)
+         — the hotspots and the plaque carry the five poster names. width/height
+         on each source reserve the art-directed aspect ratio (§11). -->
+    <div class="hub__stage" data-hub-stage>
+      <picture>
+        <source
+          media={PLACEMENT_HUB_WIDE_MEDIA}
+          type="image/avif"
+          srcset={wideAvif.srcSet.attribute}
+          sizes="min(100vw, 2200px)"
+          width={compositeAspect.wide.w}
+          height={compositeAspect.wide.h}
+        />
+        <source
+          media={PLACEMENT_HUB_WIDE_MEDIA}
+          type="image/webp"
+          srcset={wideWebp.srcSet.attribute}
+          sizes="min(100vw, 2200px)"
+          width={compositeAspect.wide.w}
+          height={compositeAspect.wide.h}
+        />
+        <source
+          media={PLACEMENT_HUB_WIDE_MEDIA}
+          type="image/jpeg"
+          srcset={wideJpg.srcSet.attribute}
+          sizes="min(100vw, 2200px)"
+          width={compositeAspect.wide.w}
+          height={compositeAspect.wide.h}
+        />
+        <source
+          type="image/avif"
+          srcset={portraitAvif.srcSet.attribute}
+          sizes="100vw"
+          width={compositeAspect.portrait.w}
+          height={compositeAspect.portrait.h}
+        />
+        <source
+          type="image/webp"
+          srcset={portraitWebp.srcSet.attribute}
+          sizes="100vw"
+          width={compositeAspect.portrait.w}
+          height={compositeAspect.portrait.h}
+        />
+        <img
+          class="hub__composite"
+          src={portraitJpg.src}
+          srcset={portraitJpg.srcSet.attribute}
+          sizes="100vw"
+          alt=""
+          width={compositeAspect.portrait.w}
+          height={compositeAspect.portrait.h}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
+
+      <!-- §4.3 hotspots — five real anchors, geometry from placement-hub.ts.
+           Shown only once the matchMedia selector has chosen a coordinate set
+           (see the script below); until then the plaque carries navigation. -->
       {
-        POSTERS.map((poster) => (
-          <li class:list={['psas-grid__item', `psas-grid__item--${poster.slug}`]}>
-            <a class="psas-item" href={`/psas/${poster.slug}`}>
-              <PosterImage
-                slug={poster.slug}
-                alt={posterCopy[poster.slug as PosterSlug].alt}
-                loading={poster.order === 1 ? 'eager' : 'lazy'}
-                sizes="(min-width: 900px) 46vw, 92vw"
-                class="psas-item__image"
-              />
-              <span class="psas-item__caption">
-                <span class="psas-item__eyebrow">SPOT NO. {poster.order}</span>
-                <span class="psas-item__title">{poster.title}</span>
-              </span>
-            </a>
-          </li>
+        spots.map((s) => (
+          <a class="hub__spot" href={`/psas/${s.slug}`} style={s.style}>
+            <span class="sr-only">{s.title}</span>
+          </a>
         ))
       }
-    </ul>
+    </div>
+
+    <!-- Below the installation: the series note and the plaque. Two distinct
+         objects on the same wall — an ink note and a mounted chrome plate —
+         not an equal-height pair. -->
+    <div class="hub__floor">
+      <div class="hub__note" data-reveal>
+        <p>{psas.indexBody}</p>
+      </div>
+
+      <!-- §4.3 — the route plaque. Visible, keyboard-accessible, every poster
+           reachable here with the image ignored entirely. -->
+      <nav class="plaque" aria-label="The five announcements" data-reveal>
+        <p class="plaque__mark" aria-hidden="true">{navCopy.mark}</p>
+        <ul class="plaque__list" role="list">
+          {
+            spots.map((s) => (
+              <li class="plaque__row">
+                <a class="plaque__link" href={`/psas/${s.slug}`}>
+                  <span class="plaque__name">{s.title}</span>
+                  <span class="plaque__arrow" aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <span class="plaque__screws" aria-hidden="true"></span>
+        <span class="plaque__sheen" aria-hidden="true"></span>
+      </nav>
+    </div>
   </section>
 </BaseLayout>
 
+<!-- §4.2 / G18 — the hotspot coordinate selector. The SAME exported query that
+     art-directs the <picture> decides which coordinate set is live, so the two
+     can never disagree at the boundary. -->
+<script>
+  import { PLACEMENT_HUB_WIDE_MEDIA } from '../../content/placement-hub';
+
+  const stage = document.querySelector('[data-hub-stage]');
+  if (stage) {
+    const wide = window.matchMedia(PLACEMENT_HUB_WIDE_MEDIA);
+    const sync = () => stage.setAttribute('data-source', wide.matches ? 'wide' : 'portrait');
+    sync();
+    wide.addEventListener('change', sync);
+  }
+</script>
+
 <style>
-  .psas-index {
-    padding-block: var(--space-3xl) var(--space-3xl);
-  }
-  .psas-index__head {
-    max-width: var(--measure);
-    margin-inline: auto;
-    text-align: center;
-    margin-bottom: var(--space-3xl);
-  }
-  .psas-index__heading {
-    font-family: var(--font-display);
-    font-weight: 700;
-    text-transform: lowercase;
-    font-size: var(--step-5);
-    color: var(--lather-white);
-    letter-spacing: 0.01em;
-  }
-  .psas-index__subheading {
-    font-family: var(--font-label);
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    font-size: var(--step-1);
-    color: var(--marble-amber);
-    margin-block-start: var(--space-sm);
-  }
-  .psas-index__intro {
-    font-family: var(--font-body);
-    font-size: var(--step-1);
-    line-height: 1.6;
-    color: var(--chrome-mist);
-    margin-block-start: var(--space-lg);
+  /* ---- The room ---------------------------------------------------------- */
+  .hub {
+    /* Wet ceramic ground: faint grout grid + a soft studio-light pool. The
+       registers supply every color; nothing here is raw. */
+    --grout-line: color-mix(in srgb, var(--grout-black) 5%, transparent);
+    --hub-max: 2200px;
+    background-color: var(--reg-bg);
+    background-image:
+      radial-gradient(
+        120% 55% at 50% 0%,
+        color-mix(in srgb, var(--lather-white) 55%, transparent),
+        transparent 70%
+      ),
+      repeating-linear-gradient(to right, transparent 0 95px, var(--grout-line) 95px 96px),
+      repeating-linear-gradient(to bottom, transparent 0 95px, var(--grout-line) 95px 96px);
+    padding-block-end: var(--space-3xl);
   }
 
-  /* ---- The grid: generous negative space, no card chrome. Item 5 (the
-     marble closing piece) spans full width as an intentional asymmetric
-     beat rather than a uniform 5-up grid (anti-template spirit, design.md
-     §7). Pure image + caption — no borders, backgrounds, or shadows. ---- */
-  .psas-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(2.5rem, 6vw, 5rem);
-  }
-  @media (min-width: 700px) {
-    .psas-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: clamp(3rem, 5vw, 5.5rem) clamp(2rem, 4vw, 3.5rem);
-    }
-    .psas-grid__item--thirst-announcement {
-      grid-column: 1 / -1;
-    }
-    .psas-grid__item--thirst-announcement .psas-item {
-      max-width: 640px;
-      margin-inline: auto;
-    }
-  }
-
-  .psas-item {
+  /* ---- Wall label -------------------------------------------------------- */
+  .hub__label {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    text-decoration: none;
-    color: inherit;
-  }
-  .psas-item:hover .psas-item__title,
-  .psas-item:focus-visible .psas-item__title {
-    color: var(--marble-amber);
-  }
-  .psas-item__image {
-    transition: opacity 140ms ease;
-  }
-  .psas-item:hover .psas-item__image,
-  .psas-item:focus-visible .psas-item__image {
-    opacity: 0.92;
+    align-items: baseline;
+    flex-wrap: wrap;
+    column-gap: var(--space-lg);
+    padding: var(--space-md) clamp(1rem, 4vw, 4rem) var(--space-sm);
   }
 
-  .psas-item__caption {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25em;
-  }
-  .psas-item__eyebrow {
+  .hub__kicker {
     font-family: var(--font-label);
     font-weight: 800;
     font-size: var(--step--2);
-    letter-spacing: 0.16em;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--chrome-mist);
-  }
-  .psas-item__title {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: var(--step-2);
-    color: var(--lather-white);
-    transition: color 140ms ease;
+    color: var(--reg-accent);
   }
 
+  .hub__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.35rem, 3.2vw, 2.2rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+    color: var(--reg-heading);
+  }
+
+  .hub__rule {
+    flex: 1 1 6rem;
+    min-inline-size: 3rem;
+    block-size: 2px;
+    align-self: center;
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--grout-black) 40%, var(--chrome-mist)),
+      color-mix(in srgb, var(--lather-white) 70%, var(--chrome-mist)) 30%,
+      color-mix(in srgb, var(--grout-black) 25%, var(--chrome-mist)) 65%,
+      transparent
+    );
+  }
+
+  /* ---- The installation --------------------------------------------------- */
+  .hub__stage {
+    position: relative;
+    max-inline-size: var(--hub-max);
+    margin-inline: auto;
+  }
+
+  .hub__composite {
+    display: block;
+    inline-size: 100%;
+    block-size: auto; /* never crop the composite — it carries the posters */
+  }
+
+  /* Hotspots. Portrait vars are the base; the matchMedia selector flips the
+     stage to the wide set. Hidden until a set is chosen — an unselected
+     hotspot could route a tap to the wrong poster, and the plaque already
+     carries navigation. (With CSS disabled these render as plain named links.) */
+  .hub__spot {
+    display: none;
+    position: absolute;
+    inset-inline-start: var(--px);
+    inset-block-start: var(--py);
+    inline-size: var(--pw);
+    block-size: var(--ph);
+    border-radius: var(--radius-tile);
+    min-inline-size: 44px; /* §4.3 tap floor, even if a future composite shrinks a poster */
+    min-block-size: 44px;
+  }
+
+  .hub__stage[data-source] .hub__spot {
+    display: block;
+  }
+
+  .hub__stage[data-source='wide'] .hub__spot {
+    inset-inline-start: var(--wx);
+    inset-block-start: var(--wy);
+    inline-size: var(--ww);
+    block-size: var(--wh);
+  }
+
+  /* Hover/focus ring — a polished-chrome frame that lights up. Opacity only
+     (compositor-friendly, §11); the ring never obscures the baked artwork. */
+  .hub__spot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border: 2px solid var(--lather-white);
+    border-radius: inherit;
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--grout-black) 55%, transparent),
+      0 10px 28px color-mix(in srgb, var(--grout-black) 35%, transparent);
+    opacity: 0;
+    transition: opacity 200ms ease;
+    pointer-events: none;
+  }
+
+  .hub__spot:hover::after {
+    opacity: 1;
+  }
+
+  /* §4.3 — 3px campaign focus outline, with a lather halo so the ring holds
+     contrast over any region of the composite. */
+  .hub__spot:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--lather-white) 85%, transparent);
+  }
+  .hub__spot:focus-visible::after {
+    opacity: 1;
+  }
+
+  /* ---- Below the wall ----------------------------------------------------- */
+  .hub__floor {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    padding: clamp(2.5rem, 7vh, 5rem) clamp(1rem, 4vw, 4rem) 0;
+  }
+
+  .hub__note {
+    max-inline-size: 44ch;
+  }
+  .hub__note p {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.6;
+    color: var(--reg-fg);
+    border-inline-start: 2px solid var(--reg-accent);
+    padding-inline-start: var(--space-lg);
+  }
+
+  /* ---- The chrome installation plaque (§4.3) ------------------------------ */
+  .plaque {
+    position: relative;
+    overflow: hidden;
+    max-inline-size: 36rem;
+    padding: var(--space-xl) var(--space-xl) var(--space-lg);
+    border-radius: 3px;
+    /* Brushed steel plate, kept light so the engraving holds AA contrast. */
+    background:
+      linear-gradient(
+        172deg,
+        color-mix(in srgb, var(--lather-white) 86%, var(--chrome-mist)),
+        color-mix(in srgb, var(--lather-white) 55%, var(--chrome-mist)) 38%,
+        color-mix(in srgb, var(--lather-white) 74%, var(--chrome-mist)) 62%,
+        color-mix(in srgb, var(--lather-white) 48%, var(--chrome-mist))
+      );
+    border: 1px solid color-mix(in srgb, var(--grout-black) 30%, var(--chrome-mist));
+    box-shadow:
+      inset 0 1px 0 var(--lather-white),
+      inset 0 -2px 4px color-mix(in srgb, var(--grout-black) 22%, transparent),
+      0 18px 40px -18px color-mix(in srgb, var(--grout-black) 45%, transparent);
+  }
+
+  .plaque__mark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-0);
+    letter-spacing: 0.04em;
+    text-transform: lowercase;
+    color: color-mix(in srgb, var(--grout-black) 62%, var(--chrome-mist));
+    text-shadow: 0 1px 0 color-mix(in srgb, var(--lather-white) 70%, transparent);
+    margin-block-end: var(--space-md);
+  }
+
+  .plaque__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .plaque__row {
+    /* Engraved groove between entries: a dark hairline with a light return. */
+    border-block-end: 1px solid color-mix(in srgb, var(--grout-black) 24%, transparent);
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--lather-white) 60%, transparent);
+  }
+  .plaque__row:last-child {
+    border-block-end: none;
+    box-shadow: none;
+  }
+
+  .plaque__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    min-block-size: 44px; /* §12 touch floor */
+    padding-block: var(--space-sm);
+    text-decoration: none;
+  }
+
+  .plaque__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    line-height: 1.15;
+    /* Engraved into the metal: dark fill, light upper bevel. */
+    color: color-mix(in srgb, var(--grout-black) 88%, var(--chrome-mist));
+    text-shadow: 0 1px 0 color-mix(in srgb, var(--lather-white) 65%, transparent);
+  }
+
+  .plaque__arrow {
+    font-family: var(--font-body);
+    color: color-mix(in srgb, var(--grout-black) 45%, var(--chrome-mist));
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
+  .plaque__link:hover .plaque__name,
+  .plaque__link:focus-visible .plaque__name {
+    color: var(--marble-amber-ink);
+  }
+  .plaque__link:hover .plaque__arrow,
+  .plaque__link:focus-visible .plaque__arrow {
+    opacity: 1;
+    color: var(--marble-amber-ink);
+  }
+
+  .plaque__link:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Four countersunk screwheads. */
+  .plaque__screws {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    --screw: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--lather-white) 80%, var(--chrome-mist)) 0 28%,
+      color-mix(in srgb, var(--grout-black) 55%, var(--chrome-mist)) 34% 52%,
+      color-mix(in srgb, var(--chrome-mist) 65%, var(--lather-white)) 58% 72%,
+      transparent 76%
+    );
+    background-image: var(--screw), var(--screw), var(--screw), var(--screw);
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+    background-position:
+      top 10px left 10px,
+      top 10px right 10px,
+      bottom 10px left 10px,
+      bottom 10px right 10px;
+  }
+
+  /* One specular pass when the plaque reveals — wet chrome under studio light.
+     Transform + opacity only; plays once; off under reduced motion. */
+  .plaque__sheen {
+    position: absolute;
+    inset: -20% -40%;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 42%,
+      color-mix(in srgb, var(--lather-white) 75%, transparent) 50%,
+      transparent 58%
+    );
+    opacity: 0;
+    transform: translateX(-45%);
+  }
+  .plaque.is-revealed .plaque__sheen {
+    animation: plaque-sheen 1400ms ease-out 200ms 1 both;
+  }
+  @keyframes plaque-sheen {
+    0% {
+      opacity: 0;
+      transform: translateX(-45%);
+    }
+    25% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(45%);
+    }
+  }
+
+  /* ---- Wide room ---------------------------------------------------------- */
+  /* Keyed off the stage's data-source (set by the SAME matchMedia query as the
+     picture) rather than a restated width query — the layout below the wall
+     follows whichever composition is actually on screen. */
+  .hub:has(.hub__stage[data-source='wide']) .hub__floor {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: clamp(2rem, 6vw, 6rem);
+  }
+  .hub:has(.hub__stage[data-source='wide']) .plaque {
+    flex: 0 1 34rem;
+    margin-block-start: calc(-1 * var(--space-lg)); /* mounted a touch higher on the wall */
+  }
+  .hub:has(.hub__stage[data-source='wide']) .hub__note {
+    padding-block-start: var(--space-lg);
+  }
+
+  /* ---- Motion discipline (§11) -------------------------------------------- */
   @media (prefers-reduced-motion: reduce) {
-    .psas-item__image,
-    .psas-item__title {
+    .hub__spot::after,
+    .plaque__arrow {
       transition: none;
+    }
+    .plaque.is-revealed .plaque__sheen {
+      animation: none;
+      opacity: 0;
     }
   }
 </style>

@@ -1,0 +1,204 @@
+---
+/**
+ * homev2/Confrontation.astro — SECTION 4: THE CONFRONTATION (the Sniff Test).
+ *
+ * "You've smelled him. Are you him?" The interactive heart — second-person,
+ * seductive, provocative. The one place the smoke register genuinely earns
+ * itself: the fog IS the subject. Refinement pass steers it firmly AWAY from
+ * "bunker" toward a rich GQ/Vogue fragrance-ad spread: a brighter, warmer
+ * key-lit figure in the steam, an amber glow, wet-glass gloss, real chrome
+ * type, and rising steam — seductive, not paranoid/tactical. Primary CTA →
+ * /sniff-test.
+ *
+ * COPY: heading, body, cta, credit are VERBATIM from `home.sniffInsert`; the
+ * second-person provocation from `home.confrontation` (copy-lane final,
+ * 2026-07-16 Claude↔Sol consensus — the dual-address turn lands where the
+ * mirror element appears).
+ */
+import Button from '../Button.astro';
+import { home } from '../../content/copy';
+---
+
+<section id="confrontation" class="cf register-smoke" aria-labelledby="cf-q">
+  <!-- CSS-only atmosphere: the home borrows exactly ONE canonical poster (§3.3
+       / G7), so this beat builds its smoke from gradients, not a poster wash. -->
+  <div class="cf__depth" aria-hidden="true"></div>
+  <div class="cf__glow" aria-hidden="true"></div>
+  <div class="cf__steam" aria-hidden="true"></div>
+  <span class="cf__grain fx-grain" aria-hidden="true"></span>
+  <div class="cf__mirror" aria-hidden="true"></div>
+
+  <div class="cf__inner">
+    <p class="cf__eyebrow">The Sniff Test · Field Assessment CW-7</p>
+
+    <h2 id="cf-q" class="cf__q fx-chrome">{home.confrontation.provocation}</h2>
+
+    <p class="cf__lead">{home.sniffInsert.heading}</p>
+    <p class="cf__body">{home.sniffInsert.body}</p>
+
+    <div class="cf__act">
+      <Button
+        href="/sniff-test"
+        register="campaign"
+        variant="primary"
+        label={home.sniffInsert.cta}
+        class="cf__btn"
+      />
+    </div>
+
+    <p class="cf__credit">{home.sniffInsert.credit}</p>
+  </div>
+</section>
+
+<style>
+  .cf {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-color: var(--smoke-slate);
+    color: var(--lather-white);
+    padding-block: clamp(4.5rem, 14vh, 10rem);
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+  }
+  /* Deep editorial smoke ground, built entirely in CSS (no poster wash):
+     layered plumes over slate with a low horizon of reflected light. */
+  .cf__depth {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(120% 90% at 50% 116%, color-mix(in srgb, var(--chrome-mist) 26%, transparent), transparent 58%),
+      radial-gradient(70% 55% at 26% 10%, color-mix(in srgb, var(--grout-black) 65%, transparent), transparent 66%),
+      radial-gradient(80% 60% at 78% 6%, color-mix(in srgb, var(--grout-black) 55%, transparent), transparent 62%),
+      linear-gradient(180deg, color-mix(in srgb, var(--grout-black) 45%, var(--smoke-slate)), var(--smoke-slate) 42%, color-mix(in srgb, var(--grout-black) 30%, var(--smoke-slate)));
+  }
+  /* warm amber key so the smoke reads like a lit fragrance set, not a dark void */
+  .cf__glow {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(70% 60% at 50% 22%, color-mix(in srgb, var(--marble-amber) 26%, transparent), transparent 60%),
+      radial-gradient(90% 80% at 50% 120%, color-mix(in srgb, var(--marble-amber) 14%, transparent), transparent 60%);
+    mix-blend-mode: screen;
+  }
+  /* rising steam plumes — luminous, drifting, editorial */
+  .cf__steam {
+    position: absolute;
+    inset: -20%;
+    z-index: 1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(40% 30% at 22% 18%, color-mix(in srgb, var(--lather-white) 30%, transparent), transparent 70%),
+      radial-gradient(46% 34% at 80% 30%, color-mix(in srgb, var(--lather-white) 22%, transparent), transparent 72%),
+      radial-gradient(52% 40% at 50% 96%, color-mix(in srgb, var(--chrome-mist) 30%, transparent), transparent 72%);
+    filter: blur(14px);
+    opacity: 0.5;
+    animation: cf-drift 40s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  @keyframes cf-drift {
+    from { transform: translate3d(-2%, 1%, 0) scale(1); }
+    to { transform: translate3d(3%, -3%, 0) scale(1.08); }
+  }
+  .cf__grain {
+    z-index: 2;
+    opacity: 0.09;
+    mix-blend-mode: overlay;
+  }
+  /* wet-glass sheen wiped clear on a diagonal — the site looking back at you */
+  .cf__mirror {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      118deg,
+      transparent 30%,
+      color-mix(in srgb, var(--lather-white) 20%, transparent) 46%,
+      color-mix(in srgb, var(--chrome-mist) 26%, transparent) 50%,
+      color-mix(in srgb, var(--lather-white) 10%, transparent) 55%,
+      transparent 70%
+    );
+    mix-blend-mode: screen;
+    animation: cf-sheen 26s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  @keyframes cf-sheen {
+    from { transform: translate3d(-6%, 0, 0); }
+    to { transform: translate3d(6%, 0, 0); }
+  }
+
+  .cf__inner {
+    position: relative;
+    z-index: 3;
+    max-width: 60rem;
+    margin-inline: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cf__eyebrow {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--marble-amber);
+    margin-bottom: clamp(1rem, 3vh, 1.75rem);
+  }
+  .cf__q {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(3rem, 12vw, 8.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    /* seat the chrome glyphs on the lit smoke (drop-shadow works through the
+       transparent background-clip fill; text-shadow would not) */
+    filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.5));
+  }
+  .cf__lead {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.25rem, 3vw, 2.1rem);
+    line-height: 1.2;
+    color: var(--lather-white);
+    max-width: 26ch;
+    margin-top: clamp(1.5rem, 4vh, 2.5rem);
+    text-wrap: balance;
+  }
+  .cf__body {
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: color-mix(in srgb, var(--lather-white) 82%, var(--chrome-mist));
+    max-width: 42ch;
+    margin-top: clamp(0.75rem, 2vh, 1.25rem);
+  }
+  .cf__act {
+    margin-top: clamp(2rem, 5vh, 3rem);
+  }
+  .cf__btn {
+    font-size: clamp(1rem, 1.8vw, 1.25rem);
+    padding: 0.95em 1.9em;
+    letter-spacing: 0.02em;
+    box-shadow: 0 14px 40px -14px color-mix(in srgb, var(--marble-amber) 70%, transparent);
+  }
+  .cf__credit {
+    font-family: var(--font-fine);
+    font-size: var(--step--2);
+    letter-spacing: 0.06em;
+    color: var(--chrome-mist);
+    margin-top: clamp(1.75rem, 4vh, 2.75rem);
+    max-width: 46ch;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cf__mirror,
+    .cf__steam { animation: none; }
+  }
+</style>

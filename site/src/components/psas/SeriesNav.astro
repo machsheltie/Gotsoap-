@@ -1,0 +1,116 @@
+---
+/**
+ * SeriesNav.astro — shared series-navigation primitive.
+ *
+ * §5.2 allows sharing exactly this: "asset, lightbox, share, download, and
+ * series-navigation primitives." §9.2 fixes the vocabulary: previous/next
+ * poster TITLES, "View the installation," "Return to the movement." No
+ * sequence numerals, no gallery taxonomy.
+ *
+ * Mobile-first only (Phase 2a). Colors ride the surrounding register's
+ * --reg-* slots so each environment tints it without owning it.
+ */
+import type { Poster } from '../../config/site';
+
+interface Props {
+  prevPoster?: Poster;
+  nextPoster?: Poster;
+}
+const { prevPoster, nextPoster } = Astro.props;
+---
+
+<nav class="series-nav" aria-label="Poster series navigation">
+  {
+    prevPoster && (
+      <a class="series-link" href={`/psas/${prevPoster.slug}`} rel="prev">
+        <span class="series-kicker">Previous</span>
+        <strong>{prevPoster.title}</strong>
+      </a>
+    )
+  }
+  {
+    nextPoster && (
+      <a class="series-link" href={`/psas/${nextPoster.slug}`} rel="next">
+        <span class="series-kicker">Next</span>
+        <strong>{nextPoster.title}</strong>
+      </a>
+    )
+  }
+  <a class="series-link series-link--exit" href="/psas">
+    <strong>View the installation</strong>
+  </a>
+  <a class="series-link series-link--exit" href="/">
+    <strong>Return to the movement</strong>
+  </a>
+</nav>
+
+<style>
+  .series-nav {
+    display: flex;
+    flex-direction: column;
+    border-block-start: 1px solid var(--reg-rule);
+  }
+
+  .series-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: var(--space-lg) var(--space-lg);
+    min-block-size: 44px; /* §12 touch target floor */
+    text-decoration: none;
+    color: inherit;
+    border-block-end: 1px solid var(--reg-rule);
+    transition: background-color 200ms ease;
+  }
+  .series-link:hover,
+  .series-link:focus-visible {
+    background-color: color-mix(in srgb, var(--reg-accent) 10%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .series-link {
+      transition: none;
+    }
+  }
+
+  .series-kicker {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--reg-accent);
+  }
+
+  .series-link strong {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    line-height: 1.15;
+  }
+
+  .series-link--exit strong {
+    font-size: var(--step-0);
+    letter-spacing: 0.02em;
+  }
+
+  /* Desktop (2b): one rail of destinations instead of a stack. */
+  @media (min-width: 1024px) {
+    .series-nav {
+      flex-direction: row;
+    }
+    .series-link {
+      flex: 1 1 0;
+      justify-content: center;
+      padding: var(--space-xl) var(--space-lg);
+      border-block-end: none;
+      border-inline-end: 1px solid var(--reg-rule);
+    }
+    .series-link:last-child {
+      border-inline-end: none;
+    }
+    .series-link--exit {
+      align-items: center;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,332 @@
+---
+/**
+ * ThirstEnvironment.astro — Poster 5, "Public Thirst Announcement".
+ *
+ * §6 row 5, the mobile material signature:
+ *   ENTRY  "Marble Folio Turn" — a warm marble edge sweeps aside to expose
+ *          the full poster, then settles as the page gutter: the leaf's
+ *          final resting strip IS the left gutter the composition keys to.
+ *   COPY   A narrow gold-and-marble editorial rail with a folio rule and
+ *          caption, aligned to that gutter.
+ *   TYPE   One gold pull quote with an oversized initial and a narrow
+ *          continuation column; the type frames the poster and never
+ *          enters it.
+ *
+ * Warm editorial marble (§1): amber light on dark ground, gold accents —
+ * fragrance-ad gloss, not gloom. This component owns its DOM and CSS
+ * (§5.2). Entry animations: base state = FINAL composition; transform
+ * only (§6). At rest the leaf strip (≈8.5vw) sits left of the poster's
+ * left edge (10vw) — it never crosses the canonical box.
+ */
+import PosterImage from '../PosterImage.astro';
+import Lightbox from './Lightbox.astro';
+import ShareRow from '../ShareRow.astro';
+import DownloadStation from './DownloadStation.astro';
+import SeriesNav from './SeriesNav.astro';
+import type { Poster } from '../../config/site';
+
+interface Props {
+  poster: Poster;
+  alt: string;
+  caseNote: string;
+  pull: string;
+  pageUrl: string;
+  downloadHref: string;
+  prevPoster?: Poster;
+  nextPoster?: Poster;
+}
+const {
+  poster,
+  alt,
+  caseNote,
+  pull,
+  pageUrl,
+  downloadHref,
+  prevPoster,
+  nextPoster,
+} = Astro.props;
+---
+
+<article class="folio-room" data-entry-stage>
+  <div class="folio">
+    <div class="plate">
+      <PosterImage
+        slug={poster.slug}
+        alt={alt}
+        loading="eager"
+        sizes="(min-width: 1024px) 740px, 90vw"
+      />
+    </div>
+    <span class="marble-leaf" aria-hidden="true"></span>
+  </div>
+
+  <blockquote class="gilt">
+    <p class="gilt-quote">{pull}</p>
+  </blockquote>
+
+  <div class="inspect">
+    <Lightbox slug={poster.slug} alt={alt} posterTitle={poster.title} />
+  </div>
+
+  <aside class="rail">
+    <span class="folio-rule" aria-hidden="true"></span>
+    <h1 class="rail-title">{poster.title}</h1>
+    <p class="rail-note" set:html={caseNote} />
+  </aside>
+
+  <div class="backpage">
+    <ShareRow kind="spot" url={pageUrl} title={poster.title} />
+    <DownloadStation slug={poster.slug} downloadHref={downloadHref} />
+  </div>
+
+  <SeriesNav prevPoster={prevPoster} nextPoster={nextPoster} />
+</article>
+
+<script>
+  import '../../scripts/entry-complete.ts';
+</script>
+
+<style>
+  .folio-room {
+    background: var(--grout-black);
+    color: var(--lather-white);
+  }
+
+  /* The spread: warm amber light pooling from the upper right, the poster
+     plate pushed right against the marble gutter. */
+  .folio {
+    position: relative;
+    overflow: clip;
+    padding-block: clamp(1.8rem, 7vw, 3rem);
+    background:
+      radial-gradient(120% 90% at 88% 8%, rgba(184, 134, 46, 0.22), transparent 58%),
+      linear-gradient(180deg, #131114, var(--grout-black) 64%);
+  }
+
+  .plate {
+    position: relative;
+    z-index: 1;
+  }
+  .plate :global(picture) {
+    display: block;
+    /* §5.1 band: 90vw. The right-flush plate + the 8.5% leaf gutter cannot
+       both fit a classic-scrollbar container at literal 90vw, so the width
+       degrades to 91% of the visible container ONLY where vw exceeds it —
+       ≈87.5vw there, still inside the 82–92 band. On overlay-scrollbar
+       (real mobile) viewports this resolves to exactly 90vw. */
+    inline-size: min(90vw, 91%);
+    max-inline-size: 930px; /* > 90vw of 1023 — the band holds to the breakpoint */
+    margin-inline-start: auto;
+    margin-inline-end: 0;
+  }
+  .plate :global(img) {
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  /* ENTRY — the marble leaf. Final state: an 8.5vw gutter strip at the left
+     edge with a gilded rim; keyframes start it covering the spread, and the
+     sweep exposes the full poster. Veined warm marble, not flat cream. */
+  .marble-leaf {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+      radial-gradient(120% 60% at 18% 8%, rgba(255, 255, 255, 0.55), transparent 60%),
+      linear-gradient(112deg, transparent 42%, rgba(184, 134, 46, 0.2) 47%, transparent 53%),
+      linear-gradient(74deg, transparent 58%, rgba(140, 118, 84, 0.16) 63%, transparent 70%),
+      linear-gradient(23deg, transparent 30%, rgba(160, 140, 104, 0.12) 34%, transparent 39%),
+      var(--marble-warm-ground);
+    border-inline-end: 3px solid var(--marble-amber);
+    transform: translateX(-91.5%);
+    animation: folio-turn 1.15s cubic-bezier(0.24, 0.7, 0.3, 1) both;
+  }
+  @keyframes folio-turn {
+    from {
+      transform: translateX(0);
+    }
+  }
+  /* The sweep's depth shadow lives on a pseudo that FADES OUT with the
+     entry: at rest its opacity is 0, so no painted pixel crosses the
+     canonical box in the final composition (§5.1). During the sweep it
+     rides the leaf's transform — transient crossing is the §6 entry. */
+  .marble-leaf::after {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: -28px;
+    inline-size: 28px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.48), transparent);
+    opacity: 0;
+    animation: leaf-shade 1.15s cubic-bezier(0.24, 0.7, 0.3, 1) both;
+  }
+  @keyframes leaf-shade {
+    0%,
+    72% {
+      opacity: 1;
+    }
+  }
+
+  /* TYPE — the gold pull quote: oversized initial, narrow continuation
+     column, keyed to the gutter; it frames the poster from below. */
+  .gilt {
+    margin: 2.4rem 6vw 0 10vw;
+  }
+  .gilt-quote {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: var(--step-1);
+    line-height: 1.52;
+    color: var(--lather-white);
+    max-inline-size: 23ch;
+  }
+  .gilt-quote::first-letter {
+    float: inline-start;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 4.6em;
+    line-height: 0.78;
+    padding-inline-end: 0.12em;
+    color: #d8a848;
+    text-shadow:
+      0 1px 0 rgba(124, 87, 22, 0.85),
+      0 3px 14px rgba(184, 134, 46, 0.42);
+  }
+
+  .inspect {
+    inline-size: max-content;
+    margin: 1.8rem 0 0 10vw;
+  }
+
+  /* COPY — the narrow gold-and-marble editorial rail: folio rule (a double
+     gold line), caption ink on warm marble, hung on the same gutter. */
+  .rail {
+    inline-size: min(72vw, 24rem);
+    margin: 2.6rem 0 0 10vw;
+    padding: 1.4rem 1.3rem 1.6rem;
+    color: var(--grout-black);
+    background:
+      radial-gradient(140% 80% at 80% 0%, rgba(255, 255, 255, 0.5), transparent 55%),
+      linear-gradient(112deg, transparent 44%, rgba(184, 134, 46, 0.16) 49%, transparent 54%),
+      var(--marble-warm-ground);
+    border-radius: 2px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+  }
+  .folio-rule {
+    display: block;
+    block-size: 6px;
+    border-block: 1px solid var(--marble-amber);
+    margin-block-end: 0.9rem;
+  }
+  .rail-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--marble-amber-ink);
+    margin-block-end: 0.7rem;
+  }
+  .rail-note {
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.6;
+  }
+
+  .backpage {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    margin-block-start: 2.8rem;
+    padding: 2.4rem 6vw 2.6rem;
+    border-block-start: 1px solid color-mix(in srgb, var(--marble-amber) 45%, transparent);
+  }
+
+  /* Scroll completes the entry (§6): base state is already final. */
+  :global(.entry-done) .marble-leaf,
+  :global(.entry-done) .marble-leaf::after {
+    animation: none;
+  }
+  /* Reduced motion resolves immediately to the final composition (§6). */
+  @media (prefers-reduced-motion: reduce) {
+    .marble-leaf,
+    .marble-leaf::after {
+      animation: none;
+    }
+  }
+
+  /* ── DESKTOP composition (2b) — the editorial spread ──────────────────────
+     A true magazine spread: verso text column (gilt quote, inspect, rail) on
+     the left, recto plate (poster) on the right — and the marble leaf's
+     resting strip lands exactly between them as the book gutter, which is
+     what "then becomes the page gutter" means at this width. §5.1 cap:
+     84svh / masthead+chrome / plate width. */
+  @media (min-width: 1024px) {
+    .folio-room {
+      display: grid;
+      grid-template-columns: minmax(28ch, 0.9fr) 1.6fr;
+    }
+    .folio {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+      min-block-size: calc(100svh - 57px);
+      display: flex;
+      align-items: center;
+      /* Gutters declared once; the poster cap subtracts the same variable —
+         the §5.1 budget holds by construction (see UnholyEnvironment). */
+      --spread-pad: clamp(2rem, 4.5svh, 3.25rem);
+      padding-block: var(--spread-pad);
+    }
+    .plate {
+      flex: 1 1 auto;
+    }
+    .plate :global(picture) {
+      inline-size: fit-content;
+      max-inline-size: none;
+      block-size: min(
+        84svh,
+        calc(100svh - 57px - 2 * var(--spread-pad)),
+        calc((100vw - 34rem) * 1.25)
+      );
+      margin-inline-start: auto;
+      margin-inline-end: clamp(2rem, 4vw, 4.5rem);
+    }
+    .plate :global(img) {
+      block-size: 100%;
+      inline-size: auto;
+    }
+    .gilt {
+      grid-column: 1;
+      grid-row: 1;
+      margin: 0;
+      padding: clamp(4rem, 14svh, 9rem) 1.5rem 0 clamp(2.5rem, 4vw, 4.5rem);
+    }
+    .gilt-quote {
+      max-inline-size: 26ch;
+      font-size: clamp(1.25rem, 1.5vw, 1.6rem);
+    }
+    .inspect {
+      grid-column: 1;
+      grid-row: 2;
+      margin: 2.5rem 0 0 clamp(2.5rem, 4vw, 4.5rem);
+    }
+    .rail {
+      grid-column: 1;
+      grid-row: 3;
+      align-self: start;
+      inline-size: auto;
+      margin: 3rem 1.5rem 3.5rem clamp(2.5rem, 4vw, 4.5rem);
+    }
+    .backpage {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: clamp(2rem, 6vw, 5rem);
+      padding-inline: clamp(2.5rem, 5vw, 5rem);
+    }
+    :global(.series-nav) {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

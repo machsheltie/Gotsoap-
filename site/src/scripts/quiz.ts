@@ -1,18 +1,28 @@
 /**
- * quiz.ts — the Sniff Test island behavior (Task B; design.md §7, mechanics §1).
+ * quiz.ts — the Sniff Test island behavior (specs.md §8).
  *
- * One question per screen, no page reloads. Scoring is INTERNAL PLUMBING:
- *   - Each answer's index is its score (0..3), read from the radio's value.
- *   - The running total lives ONLY in this module's `answers`/`total` locals.
+ * TAP-TO-ADVANCE: activating an answer (tap / Enter / Space on a real button)
+ * records it and advances — there is no Continue button. A short dwell lets the
+ * recorded state register before the swap. The only nav control is a visible
+ * Back action, which re-shows the previous question with its recorded answer
+ * still pressed; re-activating any answer OVERWRITES answers[index], so the
+ * score can never be counted twice (§8).
+ *
+ * No page scroll on advance (§8): the shell height is stable (one grid cell,
+ * see Quiz.astro) and every programmatic focus uses { preventScroll: true }.
+ * Question swaps animate with opacity + a short horizontal transform via
+ * data-state / --q-dir (CSS in Question.astro); reduced motion swaps instantly.
+ *
+ * Scoring is INTERNAL PLUMBING:
+ *   - Each answer button's data-score is its score (0..3).
+ *   - The running total lives ONLY in this module's `answers` local.
  *   - The total is NEVER written to the DOM. On completion we map total → a
  *     verdict SLUG and redirect to the static verdict page by slug. No number,
- *     no ?score= query param, ever reaches a rendered surface (design.md §7).
+ *     no ?score= query param, ever reaches a rendered surface.
  *
- * Accessibility: native radio groups (free arrow-key nav + SR semantics); focus
- * moves to each new question's prompt; an aria-live region announces
- * "Question n of 7."; the completion beat is role="status". Reduced-motion is
- * respected in CSS; the ~1.2s beat dwell is reading time, not animation, so it
- * is preserved either way.
+ * Accessibility: fieldset/legend group semantics; aria-pressed marks the
+ * recorded answer; focus moves to each new question's prompt; an aria-live
+ * region announces "Question n of 7."; the completion beat is role="status".
  */
 
 interface Band {
@@ -23,7 +33,6 @@ interface QuizConfig {
   bands: Band[];
   redirectBase: string;
   dwellMs: number;
-  total: number;
   progressTemplate: string;
   ariaTemplate: string;
 }
@@ -46,7 +55,6 @@ function initQuiz(root: HTMLElement): void {
   const beginBtn = root.querySelector<HTMLButtonElement>('[data-quiz-begin]');
   const form = root.querySelector<HTMLFormElement>('[data-quiz-form]');
   const backBtn = root.querySelector<HTMLButtonElement>('[data-quiz-back]');
-  const nextBtn = root.querySelector<HTMLButtonElement>('[data-quiz-next]');
   const live = root.querySelector<HTMLElement>('[data-quiz-live]');
   const beat = root.querySelector<HTMLElement>('[data-quiz-beat]');
   const progressLabel = root.querySelector<HTMLElement>('[data-progress-label]');
@@ -54,9 +62,7 @@ function initQuiz(root: HTMLElement): void {
     root.querySelectorAll<HTMLElement>('[data-progress-seg]'),
   );
 
-  if (!intro || !assessment || !beginBtn || !form || !nextBtn || !beat) return;
-  // Capture the narrowed (non-null) nodes so nested closures keep the type.
-  const nextButton: HTMLButtonElement = nextBtn;
+  if (!intro || !assessment || !beginBtn || !form || !beat) return;
   const beatEl: HTMLElement = beat;
 
   const questions = Array.from(
@@ -69,9 +75,14 @@ function initQuiz(root: HTMLElement): void {
   // Selected score per question; null until answered. INTERNAL — never rendered.
   const answers: (number | null)[] = new Array(count).fill(null);
   let current = -1; // -1 = intro screen
+  // Swap lock: one recorded answer produces exactly one advance; stray taps
+  // during the dwell (or after completion) are ignored.
+  let advancing = false;
 
-  const nextDefaultLabel = nextButton.textContent?.trim() || 'Continue →';
-  const nextFinalLabel = nextButton.dataset.finalLabel || 'See my verdict →';
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Dwell so the pressed state is perceptible before the swap — feedback, not
+  // decoration, so reduced motion keeps a short beat rather than zero.
+  const selectDwell = reduced ? 80 : 220;
 
   function show(el: HTMLElement | null, visible: boolean): void {
     if (!el) return;
@@ -94,8 +105,25 @@ function initQuiz(root: HTMLElement): void {
     if (live) live.textContent = config.ariaTemplate.replace('{n}', String(n));
   }
 
-  function goTo(index: number): void {
-    questions.forEach((q, i) => show(q, i === index));
+  /**
+   * Activate question `index`. `dir` is the travel direction (+1 forward,
+   * -1 back): the outgoing question exits opposite to travel, the incoming
+   * one enters from the travel side (CSS reads --q-dir; §8 short horizontal
+   * transform).
+   */
+  function goTo(index: number, dir: 1 | -1): void {
+    const prev = questions[current];
+    if (prev) {
+      prev.style.setProperty('--q-dir', String(-dir));
+      prev.dataset.state = 'off';
+      prev.setAttribute('inert', '');
+    }
+
+    const q = questions[index];
+    q.style.setProperty('--q-dir', String(dir));
+    void q.offsetWidth; // commit the start transform before activating
+    q.dataset.state = 'active';
+    q.removeAttribute('inert');
     current = index;
 
     updateProgress(index);
@@ -103,20 +131,16 @@ function initQuiz(root: HTMLElement): void {
     // Back is hidden on the first question.
     show(backBtn, index > 0);
 
-    // Next reflects position + whether this question is answered.
-    nextButton.textContent =
-      index === finalIndex ? nextFinalLabel : nextDefaultLabel;
-    nextButton.disabled = answers[index] === null;
-
-    // Move focus to the new question's prompt (WCAG 2.4.3 focus order).
-    const prompt = questions[index].querySelector<HTMLElement>('.q__prompt');
-    prompt?.focus();
+    // Focus the new question's prompt (WCAG 2.4.3 focus order) WITHOUT
+    // scrolling — §8: advancing must not move the page.
+    const prompt = q.querySelector<HTMLElement>('.q__prompt');
+    prompt?.focus({ preventScroll: true });
   }
 
   function begin(): void {
     show(intro, false);
     show(assessment, true);
-    goTo(0);
+    goTo(0, 1);
   }
 
   function bandFor(total: number): string {
@@ -136,42 +160,51 @@ function initQuiz(root: HTMLElement): void {
     show(beatEl, true);
     // Move focus to the beat line so screen readers reliably read the transient
     // completion message (revealing a role="status" from hidden isn't reliable).
-    beatEl.querySelector<HTMLElement>('[data-quiz-beat-line]')?.focus();
+    beatEl
+      .querySelector<HTMLElement>('[data-quiz-beat-line]')
+      ?.focus({ preventScroll: true });
 
     window.setTimeout(() => {
       window.location.assign(config.redirectBase + slug);
     }, config.dwellMs);
   }
 
-  // Selection: only the visible question can emit change events.
-  form.addEventListener('change', (e) => {
-    const input = e.target as HTMLInputElement | null;
-    if (!input || input.type !== 'radio') return;
-    const fieldset = input.closest<HTMLFieldSetElement>('[data-question]');
+  // Tap-to-advance (§8): activation records the answer and advances. Buttons
+  // fire click on tap, Enter, and Space alike, and — unlike radios — Tab can
+  // browse the options without committing one.
+  form.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement | null)?.closest<HTMLButtonElement>(
+      '[data-answer]',
+    );
+    if (!btn || advancing) return;
+    const fieldset = btn.closest<HTMLFieldSetElement>('[data-question]');
     if (!fieldset) return;
     const index = Number(fieldset.dataset.question);
+    if (index !== current) return; // inert guards this; belt and braces
 
-    answers[index] = Number(input.value);
+    // Assignment, not accumulation — Back + re-answer can never double-count.
+    answers[index] = Number(btn.dataset.score);
+    fieldset
+      .querySelectorAll<HTMLButtonElement>('[data-answer]')
+      .forEach((b) => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
 
-    // Reflect selection on the row (belt-and-braces with :has() in CSS).
-    fieldset.querySelectorAll<HTMLElement>('.answer').forEach((row) => {
-      const radio = row.querySelector<HTMLInputElement>('.answer__input');
-      row.classList.toggle('is-selected', !!radio?.checked);
-    });
-
-    if (index === current) nextButton.disabled = false;
+    advancing = true;
+    window.setTimeout(() => {
+      if (index < finalIndex) {
+        advancing = false;
+        goTo(index + 1, 1);
+      } else {
+        // Keep the lock: the assessment is over; no further taps may re-fire.
+        finish();
+      }
+    }, selectDwell);
   });
 
   beginBtn.addEventListener('click', begin);
 
-  nextButton.addEventListener('click', () => {
-    if (answers[current] === null) return; // guarded by disabled state too
-    if (current < finalIndex) goTo(current + 1);
-    else finish();
-  });
-
   backBtn?.addEventListener('click', () => {
-    if (current > 0) goTo(current - 1);
+    if (advancing || current <= 0) return;
+    goTo(current - 1, -1);
   });
 }
 
