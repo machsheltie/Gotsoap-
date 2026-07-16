@@ -166,7 +166,7 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
 <style>
   .dossier-stage {
     padding: clamp(2rem, 5vw, 4rem);
-    background-color: var(--cwaaa-paper);
+    background-color: var(--cwaaa-manila);
     color: var(--reg-heading);
     min-height: 100svh;
     font-family: var(--font-cwaaa);
@@ -199,23 +199,26 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
     fill: var(--cwaaa-ink);
   }
 
+  /* CWAAA writes in PT Serif only (design.md §5) — Oswald belongs to the
+     campaign author and never appears inside the org's documents. */
   .dossier-org {
-    font-family: var(--font-display);
+    font-family: var(--font-cwaaa);
     font-weight: 700;
-    font-size: clamp(2rem, 5vw, 4rem);
-    letter-spacing: -0.02em;
+    font-size: clamp(1.75rem, 4vw, 3.25rem);
+    letter-spacing: 0.01em;
     text-transform: uppercase;
-    line-height: 1;
+    line-height: 1.05;
     margin-bottom: var(--space-xs);
   }
 
   .dossier-title {
     grid-column: 1 / -1;
-    font-family: var(--font-display);
+    font-family: var(--font-cwaaa);
     font-weight: 700;
-    font-size: clamp(3rem, 8vw, 7rem);
-    line-height: 0.85;
-    letter-spacing: -0.02em;
+    /* Floor sized so "MEMORANDUM" fits the 390px letterhead column unbroken. */
+    font-size: clamp(2rem, 6.5vw, 5.5rem);
+    line-height: 1.02;
+    letter-spacing: 0;
     text-transform: uppercase;
     margin-top: var(--space-xl);
   }
@@ -260,10 +263,12 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
   }
 
   .dossier-h2 {
-    font-family: var(--font-display);
+    font-family: var(--font-cwaaa);
     font-weight: 700;
-    font-size: var(--step-4);
+    font-size: var(--step-3);
+    line-height: 1.1;
     text-transform: uppercase;
+    letter-spacing: 0.01em;
     border-bottom: 3px solid var(--cwaaa-ink);
     padding-bottom: var(--space-xs);
     margin-bottom: var(--space-sm);
@@ -281,10 +286,10 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
 
   /* ---- Scale & Ribbon ---- */
   .dossier-scale {
-    font-family: var(--font-display);
+    font-family: var(--font-cwaaa);
     font-weight: 700;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    line-height: 1.1;
+    font-size: clamp(1.75rem, 3.5vw, 3rem);
+    line-height: 1.2;
     padding: var(--space-xl) 0;
     border-block: 4px solid var(--reg-accent);
     margin-block: var(--space-3xl);
@@ -299,7 +304,7 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
     margin-bottom: var(--space-md);
   }
   .dossier-ribbon h2 {
-    font-family: var(--font-display);
+    font-family: var(--font-cwaaa);
     font-size: var(--step-2);
     font-weight: 700;
     margin-bottom: var(--space-md);
@@ -315,10 +320,11 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
   }
   .dossier-table th {
     text-align: left;
-    font-family: var(--font-display);
+    font-family: var(--font-cwaaa);
     font-weight: 700;
     font-size: var(--step-0);
     text-transform: uppercase;
+    letter-spacing: 0.04em;
     padding: var(--space-md) 0;
     border-bottom: 2px solid var(--cwaaa-ink);
   }
@@ -345,18 +351,20 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
     border: 1px solid var(--cwaaa-ink);
     background: var(--steam-white);
   }
+  /* Stamp text is typewriter territory (owner decision 2026-07-16) — a
+     typed line made into a rubber stamp, never the campaign display face. */
   .release-stamp {
     position: absolute;
     top: -15px;
     left: -15px;
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: var(--step-1);
-    color: var(--cwaaa-red);
-    border: 4px solid var(--cwaaa-red);
+    font-family: var(--font-typewriter);
+    font-weight: 700;
+    font-size: var(--step-0);
+    color: var(--cwaaa-stamp);
+    border: 4px solid var(--cwaaa-stamp);
     padding: 0.2em 0.5em;
     transform: rotate(-5deg);
-    background: var(--cwaaa-paper);
+    background: var(--cwaaa-manila);
     letter-spacing: 0.05em;
   }
   .release-date {
@@ -367,16 +375,17 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
     margin-top: var(--space-md);
   }
   .release-headline {
-    font-family: var(--font-display);
+    font-family: var(--font-cwaaa);
     font-weight: 700;
     font-size: var(--step-2);
+    line-height: 1.2;
     margin-bottom: var(--space-sm);
   }
 
   /* ---- Case Files ---- */
   .case-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
     gap: var(--space-lg);
   }
   .case-card {
@@ -401,14 +410,22 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
     line-height: 1.55;
     margin-bottom: var(--space-lg);
   }
+  /* Stacked, never side-by-side: a space-between row lets the two labels
+     wrap and interleave at any width where both exceed half the card. */
   .case-meta {
     display: flex;
-    justify-content: space-between;
-    font-family: var(--font-display);
+    flex-direction: column;
+    gap: var(--space-2xs);
     font-size: var(--step--1);
-    font-weight: 700;
     border-top: 1px dashed var(--cwaaa-ink);
     padding-top: var(--space-sm);
+  }
+  .case-name {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+  }
+  .case-status {
+    font-family: var(--font-typewriter);
   }
   
   .case-closing-box {
@@ -418,9 +435,10 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
     border: 4px solid var(--cwaaa-ink);
   }
   .case-closing-line {
-    font-family: var(--font-display);
+    font-family: var(--font-cwaaa);
     font-weight: 700;
     font-size: var(--step-2);
+    line-height: 1.25;
     margin-bottom: var(--space-lg);
   }
 
