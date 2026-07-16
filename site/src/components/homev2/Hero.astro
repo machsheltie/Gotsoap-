@@ -200,11 +200,16 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
     font-family: var(--font-display);
     font-weight: 600;
     font-size: clamp(4rem, 9.5vw, 11rem);
-    line-height: 0.9;
+    /* background-clip:text paints only the padding box: a sub-1.0 line box
+       cropped the g/p descenders. ≥1.05 line-height + block padding gives the
+       glyphs painted room; the negative margin returns the layout height so
+       the cold-open composition holds. */
+    line-height: 1.08;
+    padding-block: 0.12em;
+    margin-block: -0.1em;
     letter-spacing: -0.03em;
     text-transform: lowercase;
     margin-left: -0.04em;
-    padding-bottom: 0.08em;
     white-space: nowrap;
     /* Glossy polished-ink chrome — extreme contrast on the bright ground. */
     background-image: linear-gradient(177deg, #55555d 0%, #232329 34%, #0c0c0e 64%, #35353c 86%, #101014 100%);

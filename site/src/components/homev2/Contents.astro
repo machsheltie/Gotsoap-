@@ -223,7 +223,8 @@ import { contents } from '../../content/copy';
     font-family: var(--font-display);
     font-weight: 600;
     font-size: clamp(2.2rem, 9vw, 3rem);
-    line-height: 0.9;
+    /* ≥1.05: sub-1.0 display leading is the clipping class (home pass 2026-07-16). */
+    line-height: 1.05;
     letter-spacing: -0.01em;
     text-transform: lowercase;
     margin: 0;

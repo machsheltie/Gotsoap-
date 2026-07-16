@@ -155,7 +155,13 @@ import { home } from '../../content/copy';
     font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(3rem, 12vw, 8.5rem);
-    line-height: 0.9;
+    /* fx-chrome is background-clip:text — it paints only the padding box, so
+       a sub-1.0 line box cropped the descenders. ≥1.05 line-height + block
+       padding gives the chrome glyphs painted room; the negative margin keeps
+       the stack rhythm. */
+    line-height: 1.06;
+    padding-block: 0.1em;
+    margin-block: -0.08em;
     letter-spacing: -0.03em;
     /* seat the chrome glyphs on the lit smoke (drop-shadow works through the
        transparent background-clip fill; text-shadow would not) */

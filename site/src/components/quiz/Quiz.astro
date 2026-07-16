@@ -147,7 +147,9 @@ const configJson = JSON.stringify(quizConfig);
     font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(4rem, 15vw, 12rem);
-    line-height: 0.85;
+    /* Display type never runs a sub-1.0 line box (the home clipping pass,
+       2026-07-16) — copy is lane-owned and may grow a descender any day. */
+    line-height: 1.05;
     color: var(--reg-heading);
     text-transform: lowercase;
     margin-bottom: var(--space-xl);
@@ -275,7 +277,8 @@ const configJson = JSON.stringify(quizConfig);
   .quiz__beat-line {
     font-family: var(--font-display);
     font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 0.9;
+    /* ≥1.05: sub-1.0 display leading is the clipping class (home pass 2026-07-16). */
+    line-height: 1.05;
     max-inline-size: 20ch;
     color: var(--reg-fg);
     opacity: 0;

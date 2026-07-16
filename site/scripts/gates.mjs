@@ -59,14 +59,10 @@ const PHASE = phaseArg > -1 ? Number(process.argv[phaseArg + 1]) : Infinity;
  * pass the gate. Use only when a gate got smarter and retroactively surfaced debt
  * on a surface the current phase does not touch. Keep this list near-empty.
  *
- * G7c: broadening it (2026-07-16) surfaced that the home's Unholy Campaign wash is
- * the canonical poster (getImage of it). That is real, but it lives on the HOME —
- * a Phase-3 surface — and is owned by the front-end home redo
- * (docs/build/reports/visual-redo-brief.md). Phase 5 builds `/psas` and does not
- * touch it, so G7c must not block Phase 5. The home redo un-waives this. */
-const WAIVED = {
-  G7c: 'home redo — Unholy Campaign wash is the canonical poster; owned by docs/build/reports/visual-redo-brief.md; un-waive when the home is rebuilt',
-};
+ * (G7c was waived here 2026-07-15→16 while the home redo replaced the
+ * canonical-poster Campaign wash; the redo shipped a CSS material ground and
+ * un-waived it, as promised.) */
+const WAIVED = {};
 
 /* ── tiny harness ─────────────────────────────────────────────────────────── */
 

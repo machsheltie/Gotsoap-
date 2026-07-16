@@ -256,13 +256,17 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Gold — poured-amber treatment for the marble register's display type. */
+/* Gold — poured-amber treatment for the marble register's display type.
+   The dark bevel stop is the AA floor: every stop must hold ≥ 3:1 (large
+   text) on the darkest ground it ships over — smoke-slate. #916a22 measures
+   3.35:1 on smoke-slate and 3.9:1 on grout-black; the retired #7c5716 was
+   2.5:1 (defect pass, 2026-07-16). Top and mid stops carry the pour. */
 .fx-gold {
   background-image: linear-gradient(
     180deg,
     #f0cf8a 0%,
     var(--marble-amber) 46%,
-    #7c5716 100%
+    #916a22 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -315,22 +319,10 @@
   mix-blend-mode: overlay;
 }
 
-/* Derived environmental wash — a heavily blurred, darkened, scaled duplicate of
-   a poster (from /downloads/<slug>.jpg) used as ambient atmosphere BEHIND the
-   crisp untouched poster. Decoration derived from the art, never the artifact
-   itself (redesign-brief "derived environmental bleed"). Set --wash-src +
-   --wash-dim per instance; parent must be position:relative; overflow:hidden. */
-.fx-poster-wash {
-  position: absolute;
-  inset: -12%; /* over-bleed so the blur radius never shows a hard edge */
-  z-index: 0;
-  background-image: var(--wash-src);
-  background-position: center;
-  background-size: cover;
-  filter: blur(48px) saturate(1.05) brightness(var(--wash-dim, 0.5));
-  transform: scale(1.18);
-  pointer-events: none;
-}
+/* .fx-poster-wash is RETIRED (2026-07-16). It taught a blurred canonical
+   poster as "derived atmosphere" — the exact pattern §3.3/G7c now forbids by
+   any path. Section atmosphere is either a purpose-built asset or CSS
+   material; it never derives from the five canonical posters. */
 
 /* Letterpress deboss for ink-on-paper type (CWAAA certificate world only). */
 .fx-letterpress {

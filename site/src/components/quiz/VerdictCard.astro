@@ -174,9 +174,15 @@ const heavy = verdict.slug === 'thirst-hazard';
     font-family: var(--font-display);
     font-weight: 700;
     font-size: var(--step-5);
-    line-height: 1;
+    /* Smoke/marble verdicts wear fx-chrome / fx-gold (background-clip:text,
+       paints only the padding box): the tight line box cropped descenders in
+       names like "Soap-Smoldering". ≥1.05 line-height + block padding gives
+       painted room; the negative margin keeps the card rhythm. */
+    line-height: 1.06;
+    padding-block: 0.08em;
+    margin-block: -0.08em;
     letter-spacing: -0.01em;
-    margin-block-end: var(--space-md);
+    margin-block-end: calc(var(--space-md) - 0.08em);
     color: var(--reg-heading);
   }
   .vcard__subhead {

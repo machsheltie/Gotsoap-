@@ -201,7 +201,9 @@ const creed = 'We do not oppose fragrance. We oppose substitution.'; // crisis.f
     font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(2.75rem, 8.5vw, 7rem);
-    line-height: 0.94;
+    /* ≥1.05: sub-1.0 display leading is the clipping class (home pass 2026-07-16);
+       "Applied" and "Regularly" carry real descenders. */
+    line-height: 1.05;
     letter-spacing: -0.02em;
     color: var(--grout-black);
   }
@@ -262,7 +264,14 @@ const creed = 'We do not oppose fragrance. We oppose substitution.'; // crisis.f
     overflow: hidden;
     font-family: var(--font-display);
     font-weight: 700;
-    line-height: 0.82;
+    /* background-clip:text paints only the padding box — and overflow:hidden
+       (which contains the shine pass) clips to it — so the 0.82 line box
+       cropped the tall numerals and the % bowls. ≥1.05 line-height + block
+       padding gives the figures painted room; the negative margin hands the
+       extra layout height back to the zone compositions. */
+    line-height: 1.06;
+    padding-block: 0.1em;
+    margin-block: -0.1em;
     letter-spacing: -0.03em;
     background-image: linear-gradient(176deg, #6c6c74 0%, #2a2a30 30%, #0b0b0d 62%, #3a3a41 84%, #0f0f12 100%);
     -webkit-background-clip: text;

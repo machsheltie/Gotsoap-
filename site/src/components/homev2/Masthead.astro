@@ -131,7 +131,13 @@ import { FUNDED_BY } from '../../content/copy';
     font-family: var(--font-display);
     font-weight: 600;
     font-size: clamp(2.05rem, 4.7vw, 3.4rem);
-    line-height: 0.85;
+    /* background-clip:text paints only the padding box: a sub-1.0 line box
+       sliced the g/p descenders flat. ≥1.05 line-height + padding-block gives
+       the glyphs painted room; the negative margin hands the extra layout
+       height back so the bar stays a nameplate. */
+    line-height: 1.1;
+    padding-block: 0.12em;
+    margin-block: -0.12em;
     letter-spacing: -0.012em;
     text-transform: lowercase;
     text-decoration: none;

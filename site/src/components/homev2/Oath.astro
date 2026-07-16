@@ -159,7 +159,8 @@ import { home } from '../../content/copy';
     font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(2.3rem, 6.5vw, 4.75rem);
-    line-height: 0.98;
+    /* ≥1.05: sub-1.0 display leading is the clipping class (home pass 2026-07-16). */
+    line-height: 1.05;
     letter-spacing: -0.02em;
     max-width: 16ch;
     margin-top: clamp(1.1rem, 3vh, 1.9rem);

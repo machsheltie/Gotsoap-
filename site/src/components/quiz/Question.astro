@@ -115,7 +115,8 @@ const promptId = `q${index}-prompt`;
     font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(3rem, 8vw, 7rem);
-    line-height: 0.95;
+    /* ≥1.05: sub-1.0 display leading is the clipping class (home pass 2026-07-16). */
+    line-height: 1.05;
     letter-spacing: -0.02em;
     color: var(--reg-heading);
     max-inline-size: 26ch;
