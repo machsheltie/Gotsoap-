@@ -1,0 +1,34 @@
+---
+/**
+ * chrome/Masthead.astro — the site's ONE header system (chrome unification,
+ * owner-confirmed 2026-07-16). Dispatches to the register-correct masthead:
+ *
+ *   campaign → CampaignMasthead (the "got soap?" nameplate; monumental on
+ *              the home, compact running head on interior campaign pages)
+ *   cwaaa    → CwaaaMasthead (the org letterhead — owner decision A: no
+ *              campaign wordmark on a sponsor surface)
+ *
+ * The two registers never blend (§1): each masthead owns its own DOM and
+ * materials; this file only routes. BaseLayout derives `register` from the
+ * page's register prop, so a two-author chrome mismatch cannot be authored
+ * by accident. Nav.astro is retired — this replaces it everywhere.
+ */
+import CampaignMasthead from './CampaignMasthead.astro';
+import CwaaaMasthead from './CwaaaMasthead.astro';
+
+interface Props {
+  register: 'campaign' | 'cwaaa';
+  /** 'monumental' is the home's magazine cover; everything else is compact. */
+  scale?: 'monumental' | 'compact';
+}
+const { register, scale = 'compact' } = Astro.props;
+const path = Astro.url.pathname;
+---
+
+{
+  register === 'cwaaa' ? (
+    <CwaaaMasthead path={path} />
+  ) : (
+    <CampaignMasthead scale={scale} path={path} />
+  )
+}

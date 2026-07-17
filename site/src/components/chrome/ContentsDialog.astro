@@ -1,0 +1,345 @@
+---
+/**
+ * chrome/ContentsDialog.astro — the §9.1 contents sheet, site-wide.
+ *
+ * One navigation mechanism for the whole publication (chrome unification,
+ * owner decision B, 2026-07-16): a styled NATIVE <dialog>. Behavior — focus
+ * into the dialog on open, background scroll lock, focus trap, Escape, focus
+ * return to the trigger — lives in scripts/contents-dialog.ts and is the same
+ * contract on every route.
+ *
+ * TWO REGISTERS, one contract (§1: one surface, one author — the header is a
+ * surface, and its furniture inherits its author):
+ *   campaign — the masthead's fashion contents page: steam-white sheet, gold
+ *              rule, oversized Oswald anchor entries, tracked route rows.
+ *   cwaaa    — the sponsor's document index: manila sheet, double ink rule,
+ *              PT Serif rows, stamp-red accent. No campaign material appears.
+ *
+ * TWO VARIANTS (cover vs running head):
+ *   home     — anchors first (Case, Campaign, Confrontation, Oath, Movement),
+ *              route exits second (§9.1 order).
+ *   interior — route exits plus "Return to the movement" (§9.2's verbatim
+ *              phrase; chrome-unification direction for interior dialogs).
+ *
+ * The TRIGGER and the no-JS inline fallback are the owning masthead's
+ * furniture (each register styles its own); this component is only the sheet.
+ */
+import { contents } from '../../content/copy';
+
+interface Props {
+  register: 'campaign' | 'cwaaa';
+  variant: 'home' | 'interior';
+  /** Current pathname, for aria-current on the route list. */
+  path?: string;
+}
+const { register, variant, path = '' } = Astro.props;
+
+const normalize = (p: string) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p);
+const here = normalize(path);
+const isCurrent = (href: string): boolean =>
+  href.startsWith('/') &&
+  (href === '/' ? here === '/' : here === href || here.startsWith(href + '/'));
+
+const routeEntries =
+  variant === 'interior'
+    ? [...contents.routes, contents.returnHome]
+    : [...contents.routes];
+const closeLabel = register === 'cwaaa' ? contents.closeCwaaa : contents.close;
+---
+
+<dialog
+  class:list={['ct', `ct--${register}`]}
+  data-contents
+  aria-labelledby="ct-title"
+>
+  <div class="ct__frame">
+    <header class="ct__head">
+      <h2 class="ct__title" id="ct-title">{contents.title}</h2>
+      <button type="button" class="ct__close" data-contents-close>
+        {closeLabel}
+      </button>
+    </header>
+
+    <div class="ct__rule" aria-hidden="true"></div>
+
+    {
+      variant === 'home' && (
+        <nav class="ct__group" aria-label={contents.anchorsLabel}>
+          <p class="ct__group-label" aria-hidden="true">{contents.anchorsLabel}</p>
+          <ul class="ct__list" role="list">
+            {contents.anchors.map((l) => (
+              <li>
+                <a class="ct__link ct__link--anchor" href={l.href} data-contents-link>
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
+
+    <nav class="ct__group" aria-label={contents.routesLabel}>
+      <p class="ct__group-label" aria-hidden="true">{contents.routesLabel}</p>
+      <ul class="ct__list" role="list">
+        {
+          routeEntries.map((l) => (
+            <li>
+              <a
+                class:list={[
+                  'ct__link',
+                  'ct__link--route',
+                  l.href === '/' && variant === 'interior' && 'ct__link--return',
+                ]}
+                href={l.href}
+                aria-current={isCurrent(l.href) ? 'page' : undefined}
+                data-contents-link
+              >
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</dialog>
+
+<script>
+  import '../../scripts/contents-dialog.ts';
+</script>
+
+<style>
+  /* Background scroll lock while the sheet is open (§9.1) — class toggled by
+     contents-dialog.ts. */
+  :global(html.contents-open) {
+    overflow: hidden;
+  }
+
+  /* ---- Shared sheet structure (both registers) ---------------------------- */
+  .ct {
+    /* Full-bleed sheet on mobile; a tall right-hand contents page on desktop. */
+    inline-size: min(100%, 30rem);
+    max-inline-size: 100%;
+    block-size: 100svh;
+    max-block-size: 100svh;
+    margin: 0 0 0 auto;
+    padding: 0;
+    border: 0;
+  }
+  .ct[open] {
+    animation: ct-in 260ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  @keyframes ct-in {
+    from {
+      opacity: 0;
+      transform: translateX(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .ct__frame {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.2rem, 3svh, 2rem);
+    block-size: 100%;
+    overflow-y: auto;
+    padding: clamp(1.2rem, 4vw, 2.2rem) clamp(1.4rem, 5vw, 2.6rem)
+      clamp(2rem, 6svh, 3.5rem);
+  }
+
+  .ct__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .ct__close {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    min-block-size: 44px; /* §12 touch target */
+    padding: 0.5em 0.2em;
+  }
+
+  .ct__list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .ct__link {
+    display: block;
+    text-decoration: none;
+  }
+  .ct__group-label {
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-size: clamp(0.56rem, 0.85vw, 0.68rem);
+  }
+
+  /* ======================================================================
+     🧼 CAMPAIGN — the masthead's fashion contents page.
+     ====================================================================== */
+  .ct--campaign {
+    background: var(--steam-white);
+    color: var(--grout-black);
+    box-shadow: -30px 0 60px -30px rgba(20, 16, 10, 0.55);
+  }
+  .ct--campaign::backdrop {
+    background: rgba(12, 11, 9, 0.55);
+  }
+
+  .ct--campaign .ct__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.2rem, 9vw, 3rem);
+    /* ≥1.05: sub-1.0 display leading is the clipping class (home pass 2026-07-16). */
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+    margin: 0;
+  }
+  .ct--campaign .ct__close {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: clamp(0.6rem, 0.9vw, 0.72rem);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--grout-black) 62%, var(--steam-white));
+  }
+  .ct--campaign .ct__close:hover {
+    color: var(--marble-amber-ink);
+  }
+  .ct--campaign .ct__rule {
+    block-size: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--marble-amber),
+      color-mix(in srgb, var(--marble-amber) 70%, #fff) 50%,
+      transparent
+    );
+  }
+  .ct--campaign .ct__group-label {
+    font-family: var(--font-fine);
+    color: color-mix(in srgb, var(--grout-black) 55%, var(--steam-white));
+  }
+  .ct--campaign .ct__link {
+    color: var(--grout-black);
+  }
+  /* Home anchors: the oversized editorial entries — the ToC's display voice. */
+  .ct--campaign .ct__link--anchor {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.9rem, 7.5vw, 2.6rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+    padding-block: 0.14em;
+    border-bottom: 1px solid color-mix(in srgb, var(--grout-black) 12%, transparent);
+    transition: color 140ms ease, padding-left 140ms ease;
+  }
+  .ct--campaign .ct__link--anchor:hover {
+    color: var(--marble-amber-ink);
+    padding-left: 0.3em;
+  }
+  /* Route exits: the tracked institutional row. */
+  .ct--campaign .ct__link--route {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: clamp(0.72rem, 1.1vw, 0.85rem);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    padding-block: 0.85em; /* rows clear the 44px §12 target */
+    border-bottom: 1px solid color-mix(in srgb, var(--grout-black) 10%, transparent);
+    transition: color 140ms ease;
+  }
+  .ct--campaign .ct__link--route:hover {
+    color: var(--marble-amber-ink);
+  }
+  .ct--campaign .ct__link--route[aria-current='page'] {
+    color: var(--marble-amber-ink);
+  }
+  .ct--campaign .ct__link--return {
+    color: var(--marble-amber-ink);
+  }
+
+  /* ======================================================================
+     📋 CWAAA — the sponsor's document index. PT Serif, manila, ink, stamp.
+     ====================================================================== */
+  .ct--cwaaa {
+    background: var(--cwaaa-manila);
+    color: var(--cwaaa-ink);
+    font-family: var(--font-cwaaa);
+    box-shadow: -30px 0 60px -30px rgba(24, 28, 38, 0.5);
+    --focus-ring: var(--cwaaa-stamp);
+  }
+  .ct--cwaaa::backdrop {
+    background: rgba(24, 28, 38, 0.5);
+  }
+
+  .ct--cwaaa .ct__title {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: clamp(1.35rem, 5vw, 1.7rem);
+    line-height: 1.15;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0;
+    color: var(--cwaaa-ink);
+  }
+  .ct--cwaaa .ct__close {
+    font-family: var(--font-cwaaa);
+    font-style: italic;
+    font-size: clamp(0.78rem, 1vw, 0.88rem);
+    letter-spacing: 0.04em;
+    color: color-mix(in srgb, var(--cwaaa-ink) 75%, var(--cwaaa-manila));
+  }
+  .ct--cwaaa .ct__close:hover {
+    color: var(--cwaaa-stamp);
+  }
+  /* The ledger double rule — the letterhead grammar, not the gold gradient. */
+  .ct--cwaaa .ct__rule {
+    block-size: 5px;
+    border-block: 1px solid var(--cwaaa-ink);
+  }
+  .ct--cwaaa .ct__group-label {
+    font-family: var(--font-cwaaa);
+    color: color-mix(in srgb, var(--cwaaa-ink) 62%, var(--cwaaa-manila));
+  }
+  .ct--cwaaa .ct__link--route {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cwaaa-ink);
+    padding-block: 0.75em; /* rows clear the 44px §12 target */
+    border-bottom: 1px solid color-mix(in srgb, var(--cwaaa-ink) 25%, transparent);
+    transition: color 140ms ease;
+  }
+  .ct--cwaaa .ct__link--route:hover {
+    color: var(--cwaaa-stamp);
+  }
+  .ct--cwaaa .ct__link--route[aria-current='page'] {
+    color: var(--cwaaa-stamp);
+  }
+  .ct--cwaaa .ct__link--return {
+    color: var(--cwaaa-stamp);
+  }
+
+  /* §6/§11: reduced motion resolves every state instantly. */
+  @media (prefers-reduced-motion: reduce) {
+    .ct[open] {
+      animation: none;
+    }
+    .ct__link,
+    .ct__close {
+      transition: none;
+    }
+  }
+</style>

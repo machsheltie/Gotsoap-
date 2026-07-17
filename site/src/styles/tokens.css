@@ -301,10 +301,18 @@
   /* Warm marble ground (poster-5 world; promoted from Spot.astro's flagged
      placeholder so the marble spot + future surfaces share one token). */
   --marble-warm-ground: #f1e7d2;
-  /* Nameplate masthead height (homev2/Masthead replaces the navbar with an
-     elegant high-fashion nameplate — North Star ROUND 3). The hero subtracts
+  /* Nameplate masthead height (chrome/CampaignMasthead monumental — the
+     home's high-fashion nameplate, North Star ROUND 3). The hero subtracts
      this so it fills the viewport below the sticky masthead. */
   --masthead-h: clamp(64px, 6vw, 84px);
+  /* Compact running-head height (chrome unification, 2026-07-16): every
+     interior page's sticky masthead measures exactly this at NORMAL text
+     metrics — it is a min-block-size, and under §12 text scaling the bar
+     GROWS so scaled type is never clipped (Sol review finding 2). The five
+     poster environments' §5.1 stage budgets (100svh − masthead − gutters)
+     read THIS token; when the chrome grows past it the budgets merely turn
+     conservative (normal flow, plain scroll — never overlap). */
+  --masthead-compact-h: 57px;
 }
 
 /* Full-cover film grain. Put on an aria-hidden <span> that fills a positioned

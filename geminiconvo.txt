@@ -1,0 +1,475 @@
+I need you to find me ad campaign websites that are interesting, interactive, creative, and sell a movement without being preachy that are visually stunning to look at. Not, and by stunning and interesting, I do not mean middle of the road safe that AI typically chooses for UX design. I mean something that an art director would look at as visually interesting. I need to wow people. We are, if you review my last chat, creating the Got Soap web campaign, and so far, AI has Claude has failed three times at attempting to make it, each with very different problems, but it essentially has looked like a text SAS template every time and just terrible garbage, and it keeps defaulting to trying to basically set up a gallery of here are my ads that I've created along with quotes taken directly off of the ads and not this website is the campaign with a little section that then displays my posters or maybe even from page to page, kind of like the old Got Milk campaigns, handles the each page as if it's a Got Milk ad as the background of it, uh, with everything designed around it and me lifting the text off of it and using it throughout the page instead of here is my gallery of my advertisements. We're trying to sell a movement with the website, not just show ads. So, I need to find inspiration websites that fit the aesthetic. 
+
+Standard LLMs fail at this because they are trained on typical corporate patterns. They default to layout grids (Hero → Features → Testimonials → Contact) because that satisfies a standard software product template.
+
+When you want an ad campaign site that acts like an immersive spatial experience—where the core creative asset is the interface itself rather than an item inside a gallery—you have to think like an agency art director.
+
+Here are three distinct structural frameworks from award-winning interactive campaigns (Awwwards/Webby standard) that sell a movement, pull typography straight out of the print assets, and avoid looking like a generic layout.
+
+1. The Full-Screen "Living Poster" Carousel
+Instead of a gallery with thumbnails, the website is a seamless loop of your full-screen poster assets. The text is completely decoupled from standard layout columns; it sits directly over massive, high-contrast visual backdrops, moving on a scroll or custom cursor interaction.
+
+Real-World Precedent: The Other Side of Truth (The New York Times campaign by The First The Last agency) or Persepolis Reimagined (Active Theory).
+
+The Interface: The viewport is a stark, high-contrast canvas. When the user scrolls, they aren't moving down a page—they are pushing the current "poster" background out of frame while the main typographic headline transforms into the next phrase.
+
+How it applies to "Got Soap":
+
+Screen 1: A striking, full-frame image of bare, greasy hands gripping a pristine porcelain dinner plate. Giant, raw editorial typography tracks down the left side: "You wouldn't eat off a plate wiped with a dry napkin."
+
+The Transition: As the user drags or scrolls, the plate slides out violently, replaced by a hyper-macro shot of skin texture and soap suds fracturing.
+
+Screen 2: Typographic shift: "So why are you treating your skin like it's different?"
+
+2. The Interactive Manifesto (Scroll-Driven Editorial)
+This structure treats the campaign text as a singular piece of rhythmic prose. The text takes center stage in a massive, brutalist font size, and the visuals are dynamically masked or revealed inside or behind the letters as the user moves.
+
+Real-World Precedent: Simply Chocolate (Spring/Summer agency) or Pangram Pangram Foundry (Locomotive).
+
+The Interface: A relentless focus on typography. The movement is driven by horizontal or vertical fluid text tracking. The copy reads like a manifest, not a product breakdown.
+
+How it applies to "Got Soap":
+
+The user lands on a single, giant question mark or a stark "GOT SOAP?" that fills 90% of the viewport.
+
+As they scroll, the letters scale up until the counter-spaces (the holes inside the characters) act as windows showing video clips or gritty photography of industrial grease, subway poles, and raw tactile touch.
+
+The messaging unrolls like a continuous stream of consciousness: Dirt isn't clean. Sweat isn't sterile. Water alone just moves the grease around.
+
+3. The Digital Soapbox (A Kinetic Type Machine)
+This layout completely throws out conventional navigation. It operates as an interactive canvas where the user can cycle through different "stances" or "commandments" of the movement.
+
+Real-World Precedent: Cleo AI (OddCommon) or Umami Land (Media.Monks).
+
+The Interface: Asynchronous scrolling where the left side of the screen might slide down while the right side slides up, creating a constant, restless visual friction. The color palettes change completely with every tick of the scroll wheel to signify a shift in mood.
+
+How it applies to "Got Soap":
+
+A split-screen layout. Left side: Stark, bold typography highlighting a modern sanitation hypocrisy. Right side: A gritty, un-sanatized photo asset matching that exact thought.
+
+Clicking "Join" doesn't take you to a contact form; it shifts the viewport into a full-bleed interactive submission wall where other people's raw text inputs populate the grid in real-time.
+
+Structural Blueprints for Development
+To stop Claude from writing a SaaS template, don't let it write standard HTML containers. Force it to build using a canvas-like configuration or an absolute-positioned view-state engine.
+
+JSON
+{
+  "ux_paradigm": "Immersive Editorial Viewport",
+  "banned_elements": ["Navbar", "Feature Cards", "Grid Gallery", "Hero Section"],
+  "allow_elements": ["Full-bleed Background Mask", "Kinetic Typography", "Asynchronous Split Panes"]
+}
+Instead of a gallery, you are building a stage where the assets are woven into the structural CSS layout itself.
+
+How would you prefer to execute the interactive element—should the movement focus on stark, fluid typography transitions on scroll, or a high-contrast split-screen mechanic?
+Which of these structures do you think works best given what I've said? You know, we're doing Got Soap and it's based as a satire piece kind of on the whole Got Milk campaign from back in the 90s where the goal of the milk industry was get people to drink more milk, specifically kids. I can always remember in the lunchroom and bathrooms and other kid-focused places there being all these Got Milk posters with celebrities on them. They were very iconic to the point where I still remember them easily today. Well, similarly, this is our call to action to get the unwashed sort that are men and troll Tinder, uh, thinking that basic hygiene is not a necessity and that if I don't shower for the day, I can still go out on a date if I just layer myself up with Axe body spray. And you know, for those guys that are stubbornly aiming for a three- to five-day window of no showering, I think that a dousing themselves in Axe Big Brother for Breeze is going to cut it. Um, so our goal here is the same iconic type of ad. Sell sexy, sell clean, sell the idea of washing and being clean as being sexy and helping them in their dating game. We want to present them with an image of who they would aspire to be. Uh, you know, the hot guys guy that they wish they were shown clean and washed and encouraging them to bite the bullet and take the shower and show up to their dates clean. We're trying to sell the same thing that the initial Got Milk campaign sold in the same way, utilizing the same mental tactics that campaign used and just converting that into being a website and not just saying, here's a poster, but making an interactive experience of that that gets men on board to say, yes, this is what I need to do. All while being satirical because it's supposed to be funny and tongue-in-cheek and punching up at this. It's social commentary on the male aspect of dating on places like Tinder. They have this impossible standard for women to meet and yet they themselves put in minimal effort by and large.
+
+Given that the foundation is a high-concept satire of 90s Got Milk? posters weaponized against low-effort dating app culture, the structure that will best achieve that "art director" level of wow is Framework #1: The Full-Screen "Living Poster" Carousel, but executed as a high-contrast, kinetic parody.
+
+The Got Milk? campaigns didn't have sidebars, "Features" sections, or grid layouts. They were a single, high-impact image, a stark serif headline, a milk mustache, and a tiny block of copy. To make this an interactive movement rather than a static archive, the website must become a living, breathing digital manifestation of those posters.
+
+Here is exactly why this structure works best for this concept and how to lay it out to break Claude out of its standard SaaS-template habits.
+
+The Concept: "The Disgusting vs. The Divine" Viewport
+Instead of standard scrolling, the user experiences a full-viewport, high-contrast toggle. It forces a direct confrontation between the grim reality of the "Axe Body Spray Shower" and the aspirational, high-effort standard.
+
+Viewport State A: The Aspirational Reality (The "Got Milk" Parody)
+The Visual: A full-bleed, high-fashion, hyper-clean portrait of an impossibly attractive, sharp man. He looks like he just stepped out of a luxury fragrance ad—except instead of a milk mustache, he has a subtle, perfectly clean, glistening white smudge of soap lather on his upper lip or jawline.
+
+The Typography: Massive, stark, centered, or aggressively tracked left:
+
+GOT SOAP?
+
+The Interactive Layer: The user doesn't scroll down. If they drag their mouse or swipe up, a liquid "suds" or "wiper" mask slices through the screen, violently transitioning to the satire breakdown.
+
+Viewport State B: The Call-Out (The Social Commentary)
+The Visual: The sleek image shatters or dissolves into a raw, brutalist typography layout that lifts the text directly off your poster concepts.
+
+The Copy Strategy: A tiny, editorial paragraph types out in the corner, mimicking the original 90s ads but biting with modern commentary:
+
+"Axe Body Spray is not a shower. Febreze is not a laundry cycle. If your Tinder bio says 'fluent in sarcasm' but your bathroom towel has been damp since Tuesday, she knows. Take the shower. Wear the soap. Elevate the bare minimum."
+
+The Interactive Element: A giant, interactive 3D or high-contrast button that reads "COMMIT TO THE BARE MINIMUM" or "PLEDGE THE SHOWER." Clicking it doesn't take them to a form—it logs their "pledge" onto a giant, live-updating global counter that says: “42,912 men have washed their legs today.”
+
+Why This Completely Obliterates the "SaaS Template" Problem
+Standard AI tools default to templates because they expect a "product value proposition." By choosing the Living Poster framework, you change the code instructions entirely.
+
+To prevent the layout from collapsing into a generic grid, the architectural blueprint should look like this:
+
+Layout Element	What AI Wants to Do (Banned)	What the Creative Direction Demands
+Navigation	Sticky header with "Home, About, Ads, Contact"	No header. A single, fixed, minimalist icon in the corner that opens a full-screen overlay menu only if clicked.
+Background	White canvas with section divs (<section>)	Absolute full-screen viewport (100vh/100vw) with CSS blend modes (mix-blend-mode: difference) so typography cuts through the imagery.
+Typography	Inter or Roboto, 16px body text	Aggressive, heavy-weight editorial serif (like Gazpacho or Ogg) scaling dynamically to fill the screen space.
+The "Gallery"	A 3-column responsive card grid showing PNGs	A single container where the posters are the background layers, swapping dynamically via slide transitions.
+The Next Step
+By treating the entire website as an interactive, multi-layered digital poster rather than a website about posters, you keep the satire sharp, the aesthetic incredibly premium, and the punchline clear.
+
+To get the structural coding aligned with this specific vision, should the transition between these poster states feel like a sharp, aggressive edit cut, or a fluid, liquid-soap masking effect that wipes across the screen as the user interacts?
+
+I'm going to allow Google Stitch to prototype it first. Go ahead and give me a strong, well thought out, thorough design prompt to hand it to generate the prototype. Ideally, we should hand it a DESIGN.md file
+
+Here is a comprehensive, production-ready DESIGN.md specification file. It is explicitly structured to hijack the LLM's default behaviors, using rigid constraints and front-end engineering terminology to force it into building a canvas-driven, immersive editorial experience rather than a generic SaaS layout.
+
+DESIGN.md
+Markdown
+# Project Specification: "Got Soap" Web Campaign
+## Architectural & Art Direction Blueprint
+
+### 1. Conceptual Intent & Tone
+*   **The Mission:** A high-fashion, high-contrast digital satire of the iconic 1990s "Got Milk?" print campaigns, weaponized against low-effort dating app culture (specifically targeting the "Axe Body Spray instead of a shower" demographic).
+*   **The Vibe:** Premium, hyper-clean, cynical, and highly editorial. It must look like an award-winning agency campaign site (Awwwards/Webby style). 
+*   **The Anti-Goal:** Absolutely NO standard SaaS patterns. No top navigation headers, no feature card grids, no testimonial blocks, and no "ad gallery" section. The website *is* the campaign, not a portfolio showcasing the campaign.
+
+---
+
+### 2. Layout & UX Architecture
+The interface must operate as a **Single-Viewport View-State Engine** (`100vh`/`100vw`). The user does not scroll through a page of content; they transition between absolute-positioned "Living Poster" states using custom interactive controls or a fluid drag/swipe mechanic.
+
+#### Global Constraints (The "Banned" List)
+*   **BANNED:** Standard vertical scrolling (`overflow-y: scroll` on body is prohibited).
+*   **BANNED:** Sticky headers, multi-link navbars, and standard footers.
+*   **BANNED:** Layout grids containing cards or thumbnail galleries.
+
+#### Screen State 1: The Aspirational Reality (The "Got Milk" Parody)
+*   **Visual Dominance:** A full-bleed, high-fashion portrait of an impeccably groomed, attractive man (mimicking a luxury fragrance or 90s celebrity ad). The key satirical detail: a pristine, glistening white smudge of soap lather on his upper lip or jawline.
+*   **Typography:** The iconic phrase **"GOT SOAP?"** rendered in a massive, ultra-bold, high-contrast serif typeface, center-aligned or aggressively tracked to the left edge.
+*   **UI Elements:** A single, minimal floating interaction indicator at the bottom (e.g., "DRAG TO FACE REALITY").
+
+#### Screen State 2: The Confrontation (The Satirical Commentary)
+*   **Visual Dominance:** The sleek background shifts or shatters into a stark, high-friction layout. 
+*   **Typography:** The text is lifted directly off the campaign's print/poster assets. A giant headline dominates the upper half: *"Axe Body Spray is not a laundry cycle."*
+*   **Editorial Block:** A tight, sophisticated paragraph positioned asymmetrical in a corner:
+    > "If your dating profile claims you are 'fluent in sarcasm' but your bathroom towel has been damp since Tuesday, she knows. Take the shower. Wear the soap. Elevate the bare minimum."
+*   **The Interactive Call-to-Action:** A brutalist, high-contrast interactive button reading: `"PLEDGE THE BARE MINIMUM"`. Clicking it increments a global, live-updating counter: `[X,XXX] Men Clean Today`.
+
+---
+
+### 3. Visual System & Typography
+*   **Color Palette:** Strict high-contrast minimalism. Stark obsidian blacks, sterile porcelain whites, and a high-visibility accent color (e.g., a toxic chemical neon yellow or deep industrial blue) used *exclusively* for the core interactive state change.
+*   **Typography Hierarchy:**
+    *   *Display/Headlines:* High-end, heavy-weight editorial serif (e.g., Gazpacho, Ogg, or a stylized Times Variant). Font size must scale dynamically with viewport width (`vw` units).
+    *   *Body/Editorial Text:* Crisp, monospaced or highly utilitarian sans-serif (e.g., SF Mono, Space Grotesk) to mimic raw data/commentary cutting through the luxury aesthetic.
+*   **Blend Modes:** Text elements should utilize CSS properties like `mix-blend-mode: difference` or `exclusion` to violently slice through dark and light sections of the underlying visual assets during transitions.
+
+---
+
+### 4. Interactive Mechanics & Transitions
+*   **State Transition:** The switch between State 1 and State 2 must feel like a fluid, liquid-soap masking effect or a sharp, vertical "wiper" transition that cuts across the screen when the user drags or triggers the interaction.
+*   **State Management:** Build this using a clean view-state toggle (e.g., a `currentState` state machine). When `state === 'confrontation'`, elements from the first state must cleanly animate out (scale up/fade) while the typography blocks from the poster text cleanly transition into position.
+*   **Micro-interactions:** Interactive buttons must feel tactile—scaling slightly on hover or violently reversing their text/background colors via inverted CSS properties to maintain the aggressive, premium art-direction style.
+How to use this with Google Stitch:
+Copy the code block above exactly as it is written.
+
+Save it as a file named DESIGN.md in your environment or paste it directly as the root setup file.
+
+If Stitch prompts you for a starting layout frame, tell it: "Initialize a single-page app using an absolute-positioned canvas state machine, utilizing the design constraints outlined in DESIGN.md."
+
+Here is my promo.txt file if this helps. And pics of the ads.
+
+These source images and the copy details change the entire execution. The typography effects (the heavy drop shadows, outer glows, and metal textures) combined with the foggy shower tile backgrounds dictate a specific interactive UI approach.  
+TXT
+
+To make this functional as an agency-grade web campaign instead of a standard gallery grid, the website shouldn't just show the posters; it needs to use them as dynamic viewports where the text can be pulled directly out of the imagery to serve as modern web overlays.
+
+Here is the updated, production-ready DESIGN.md explicitly updated with your assets, fonts, styling choices, and the "Funded by Concerned Women Against Axe Abuse" subtext.  
+TXT
+
+DESIGN.md
+Markdown
+# Project Specification: "Got Soap" Web Campaign
+## Architectural & Art Direction Blueprint (Production Build)
+
+### 1. Conceptual Intent & Tone
+*   **The Mission:** A high-fashion, high-contrast digital satire of the iconic 1990s "Got Milk?" print campaigns, weaponized against low-effort dating app culture (specifically targeting the "Axe Body Spray instead of a shower" demographic).
+*   **The Vibe:** Premium, hyper-clean, cynical, and highly editorial[cite: 1]. It must look like an award-winning agency campaign site (Awwwards/Webby style). 
+*   **The Anti-Goal:** Absolutely NO standard SaaS patterns. No top navigation headers, no feature card grids, no testimonial blocks, and no static grid gallery[cite: 1]. The website *is* the campaign experience.
+
+---
+
+### 2. Layout & UX Architecture
+The interface must operate as an **Absolute-Positioned Viewport State Engine** (`100vh`/`100vw`). The background is a full-bleed, seamless image slider switching between the 5 campaign posters. The interactive layer splits the design text dynamically across the viewport using z-indexing.
+
+#### Global Constraints (The "Banned" List)
+*   **BANNED:** Standard vertical scrolling (`overflow-y: scroll` on body is prohibited).
+*   **BANNED:** Layout grids containing cards or thumbnail galleries[cite: 1].
+
+#### Viewport Component Layers (Bottom to Top)
+1.  **Layer 1: The Base Canvas (`z-index: 1`)**
+    *   Full-bleed, responsive background containers displaying the core "Thirst Trap" models against the shower tile and steam imagery[cite: 1].
+2.  **Layer 2: Kinetic Typography Overlays (`z-index: 2`)**
+    *   The primary campaign headers and call-out text extracted directly from the posters to scale natively with the viewport size[cite: 1].
+3.  **Layer 3: Interactive Movement Console (`z-index: 3`)**
+    *   Fixed, minimal left/right editorial arrows or a fluid horizontal swiper to cycle through the states.
+    *   A bottom persistent sticky banner displaying the satirical funding source: *"Funded by Concerned Women Against Axe Abuse"*[cite: 1].
+
+---
+
+### 3. Visual System & Asset Manifest
+
+The state machine cycles through five specific visual templates[cite: 1]:
+
+#### State 1: The Confident Cowboy
+*   **Background Asset:** cleanmansatire.jpg (White tile background, misty vignette)[cite: 1].
+*   **Display Header:** "got soap?" (Phenix American style styling, tracked heavily)[cite: 1].
+*   **Sub-Headline:** "Because your axe body spray isn’t fooling anyone, cowboy."[cite: 1]
+*   **Core Editorial Text:** 
+    > A CLEAN MAN IS A CONFIDENT MAN. LATHER UP. SMELL LIKE EFFORT.[cite: 1]
+
+#### State 2: Soap-Smoldering
+*   **Background Asset:** cleanmansatire2.jpg (White tile background, profile view)[cite: 1].
+*   **Sub-Headline:** "Because your “natural scent” isn’t as charming as you think."[cite: 1]
+*   **Core Editorial Text:** 
+    > He’s not just fresh — he’s soap-smoldering. You could skip the wash… But you won’t smell like him.[cite: 1]
+
+#### State 3: Unholy (The Sermon)
+*   **Background Asset:** cleanmansatire3.jpg (Dark slate tile background, heavy steam)[cite: 1].
+*   **Sub-Headline:** "Because deodorant without a shower is just… layering lies."[cite: 1]
+*   **Core Editorial Text:** 
+    > Washes daily. UNCOMMON. UNHOLY. Unreasonably hot.[cite: 1]
+
+#### State 4: The Redemption
+*   **Background Asset:** cleanmansatire4.jpg (Dark slate tile background, centered presentation)[cite: 1].
+*   **Sub-Headline:** "Because cleansing isn’t just for your sins."[cite: 1]
+*   **Core Editorial Text:** 
+    > Repent in warm water. Forgiveness is a full body cleanse. DEODORANT ISN’T DIVINE INTERVENTION.[cite: 1]
+
+#### State 5: Public Thirst Announcement
+*   **Background Asset:** cleanmansatire5.jpg (Warm terracotta/marble tiles, heavy amber moisture)[cite: 1].
+*   **Sub-Headline:** "Because your tinder shouldn’t come with a scratch-n-sniff warning"[cite: 1]
+*   **Core Editorial Text:** 
+    > He’s scrubbed. Sudsed. Seductive. And you? You need soap and self-awareness.[cite: 1]
+
+---
+
+### 4. Styling & Typography Spec
+To honor the manual Photoshop styling from the assets, CSS text elements must emulate the campy, high-impact rendering of vintage fragrance ads[cite: 1]:
+
+*   **Main Branding Type:** Phenix American / Tall narrow display font. Set color to `#000000` or `#FFFFFF` dynamically depending on state background contrast[cite: 1]. Use substantial tracking.
+*   **Slogan & CTA Type:** Franklin Gothic Heavy / Futura PT[cite: 1]. 
+*   **Text Effects:** Apply explicit CSS styling for readability across complex skin tones[cite: 1]:
+    ```css
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.85);
+    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.6));
+    ```
+
+### 5. Interactive Mechanics
+*   **The Switch:** When transitioning between slides, background images should fade smoothly while the text elements slide or scale horizontally from off-screen, giving it an active, kinetic motion design feel.
+*   **Global Persistent Footer:** A fixed thin rule at `bottom: 20px` stretching across the viewport containing[cite: 1]:
+    *   Left: `Funded by Concerned Women Against Axe Abuse`[cite: 1]
+    *   Right: `© Stacey Breckel 2025`[cite: 1]
+Hand this straight to Google Stitch. Because it lays out the specific typography configuration, background combinations, and states, it blocks the LLM from attempting to map out a standard landing page[cite: 1].
+
+I plan to dissect the posters to use them as backgrounds on various pages and to use the text on the pages as quotes in various spots. So it won't even be displaying the whole ads except on the PSAs page
+
+That shifts the architectural strategy beautifully. Instead of a linear slideshow or carousel of the posters, you are turning the design elements inside your posters into the structural DNA of the entire multi-page application.
+
+By pulling the typography out of the assets and rendering it as clean, selectable web text over the deconstructed, full-bleed backgrounds, the site will feel like a high-fashion digital editorial spread rather than an image gallery.
+
+Here is the updated DESIGN.md tailored specifically for this multi-page asset dissection.
+
+DESIGN.md
+Markdown
+# Project Specification: "Got Soap" Web Campaign
+## Multi-Page Deconstructed Asset & Editorial Blueprint
+
+### 1. Conceptual Intent & Art Direction
+*   **The Mission:** A high-fashion, high-contrast digital satire of the iconic 1990s "Got Milk?" print campaigns, weaponized against low-effort dating app culture (specifically targeting the "Axe Body Spray instead of a shower" demographic).
+*   **The Vibe:** Premium, hyper-clean, cynical, and highly editorial[cite: 1]. It must look like an award-winning agency campaign site (Awwwards/Webby style).
+*   **The Strategy:** Do NOT display the flattened, finished posters on the main narrative pages. Instead, dissect the posters: use the high-contrast, steamy model/tile photography as full-bleed page backgrounds, and lift the copy directly out of the posters to serve as raw, kinetic web typography layout elements[cite: 1]. The fully assembled posters are reserved strictly for a dedicated "PSAs" page[cite: 1].
+*   **The Anti-Goal:** Absolutely NO standard SaaS patterns (no grid blocks, no generic feature cards, no icon rows)[cite: 1].
+
+---
+
+### 2. Multi-Page Architecture & Mapping
+
+The application is structured across distinct narrative pages. Each page adopts a unique deconstructed visual state from the campaign assets[cite: 1]:
+
+#### Page 1: Home (The Confrontation)
+*   **Visual Backdrop:** `cleanmansatire.jpg` (The "Confident Cowboy" tile & steam asset, model centered)[cite: 1].
+*   **Typography Overlays:**
+    *   Massive, screen-spanning display text: **"GOT SOAP?"** using a tall, narrow display serif layout[cite: 1].
+    *   Asymmetric, sharp sub-headline floating near the top/center: *"Because your axe body spray isn’t fooling anyone, cowboy."*[cite: 1]
+    *   Bottom callout text: *"A CLEAN MAN IS A CONFIDENT MAN. LATHER UP. SMELL LIKE EFFORT."*[cite: 1]
+
+#### Page 2: The Reality Check (The Smolder)
+*   **Visual Backdrop:** `cleanmansatire2.jpg` (The white-tile profile composition)[cite: 1].
+*   **Typography Overlays:**
+    *   Lefthand aligned, heavy editorial quote block: *"Because your 'natural scent' isn’t as charming as you think."*[cite: 1]
+    *   Righthand narrative block: *"He’s not just fresh — he’s soap-smoldering. You could skip the wash… But you won’t smell like him."*[cite: 1]
+
+#### Page 3: The Exorcism (Unholy)
+*   **Visual Backdrop:** `cleanmansatire3.jpg` (The dark slate, heavy-steam layout)[cite: 1].
+*   **Typography Overlays:**
+    *   Stark, centralized, vertically stacked manifesto type: 
+        > "Washes daily. UNCOMMON. UNHOLY. Unreasonably hot."[cite: 1]
+    *   Large interactive call-to-action anchored below it: *"Join the movement. Axe is not an exorcism."*[cite: 1]
+
+#### Page 4: The Redemption (Sins & Soap)
+*   **Visual Backdrop:** `cleanmansatire4.jpg` (Dark slate canvas with centered model)[cite: 1].
+*   **Typography Overlays:**
+    *   Top banner type: *"Because cleansing isn’t just for your sins."*[cite: 1]
+    *   Interspersed narrative typography crashing over the background details: *"Repent in warm water. Forgiveness is a full body cleanse. DEODORANT ISN’T DIVINE INTERVENTION."*[cite: 1]
+
+#### Page 5: Public Thirst Announcement
+*   **Visual Backdrop:** `cleanmansatire5.jpg` (Warm terracotta/marble background with heavy amber lighting)[cite: 1].
+*   **Typography Overlays:**
+    *   Subversive headline text: *"Because your tinder shouldn’t come with a scratch-n-sniff warning"*[cite: 1]
+    *   Editorial block: *"He’s scrubbed. Sudsed. Seductive. And you? You need soap and self-awareness. Wash accordingly."*[cite: 1]
+
+#### Page 6: The PSAs (The Archive)
+*   **Layout:** The only page that breaks the full-bleed rule. It operates as a high-end fashion catalog index layout. 
+*   **Content:** Displays the 5 fully assembled, flattened poster assets side-by-side or in a large vertical editorial stack for full portfolio appreciation[cite: 1].
+
+---
+
+### 3. Structural Constraints & Visual System
+*   **Canvas Configuration:** Every narrative page (Pages 1–5) must use `background-size: cover` and `background-position: center` to lock the visual assets as un-scrolling viewport backdrops.
+*   **Typography Styling:**
+    *   *Display Type:* Tall, narrow, all-caps display font (emulating Phenix American) scaling with fluid viewport sizing (`vw`)[cite: 1].
+    *   *Body/Quote Type:* Heavy-weight sans-serif (emulating Futura PT Bold / Franklin Gothic Heavy)[cite: 1].
+*   **Readability Safeguards:** Text elements must implement clean CSS drop-shadows and subtle backdrops to pop perfectly off the underlying muscle highlights and tile seams without looking cluttered[cite: 1]:
+    ```css
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.7));
+    ```
+
+### 4. Navigation & Global Framework
+*   **Global Navigation:** Absolute-positioned, minimalist corner links (e.g., `Top Right: [ MENU ]` or a loose horizontal list of numbers `01 / 02 / 03 / 04 / 05 / PSAs`). No heavy header bars.
+*   **Persistent Satirical Footer:** A fixed baseline bar spanning the bottom of every page[cite: 1]:
+    *   Left: `Funded by Concerned Women Against Axe Abuse`[cite: 1]
+    *   Right: `© Stacey Breckel 2025`[cite: 1]
+Next Step with Google Stitch
+When you hand this to Stitch, explicitly command it:
+
+"Create a multi-page app architecture. Use the provided code in DESIGN.md to pull the copy out of each poster image to style it as live webpage typography, using the respective poster artwork strictly as a full-bleed viewport backdrop for each separate page route."
+
+[cite: 1]
+
+Well, it won't just be each page is a different ad "theme" presenting each page as this is it. The first image is for the main page though obviously picked apart is the background for the main image concept. Then we have links to PSAs, The Sniff Test, The Pledge, The Crisis and About. What are your thoughts on each PSA on the PSA link being clickable and having the fully immersive interactive background treated like the first image with the text removed and used as quotes on the page? And are we using this particular format that you said would work best for our site:
+
+1. The Full-Screen "Living Poster" Carousel
+
+Instead of a gallery with thumbnails, the website is a seamless loop of your full-screen poster assets. The text is completely decoupled from standard layout columns; it sits directly over massive, high-contrast visual backdrops, moving on a scroll or custom cursor interaction.
+
+
+
+Real-World Precedent: The Other Side of Truth (The New York Times campaign by The First The Last agency) or Persepolis Reimagined (Active Theory).
+
+The Interface: The viewport is a stark, high-contrast canvas. When the user scrolls, they aren't moving down a page—they are pushing the current "poster" background out of frame while the main typographic headline transforms into the next phrase.
+
+How it applies to "Got Soap":
+
+Screen 1: A striking, full-frame image of bare, greasy hands gripping a pristine porcelain dinner plate. Giant, raw editorial typography tracks down the left side: "You wouldn't eat off a plate wiped with a dry napkin."
+
+The Transition: As the user drags or scrolls, the plate slides out violently, replaced by a hyper-macro shot of skin texture and soap suds fracturing.
+
+Screen 2: Typographic shift: "So why are you treating your skin like it's different?"
+
+Making the individual posters on the PSAs page fully clickable destinations that open into their own immersive, "Living Poster" viewports is the exact way an art director would handle this. It solves the gallery problem completely.
+
+Instead of treating the PSAs page like a static archive grid, it becomes an interactive launchpad. Clicking a poster transitions the user into a dedicated, full-screen micro-experience where the imagery is the background, the flattened text is stripped out, and the copy is rendered dynamically as raw, kinetic web typography shifting across the screen.  
+TXT
+
+Yes, we are using a modified version of Framework #1 (The Living Poster Carousel), but instead of a forced global loop, we are applying it asymmetrically across a true site map.  
+TXT
+
+Here is how this architecture maps out to your specific pages, ensuring that Google Stitch builds a cohesive narrative site instead of a generic layout.
+
+The Updated Site Architecture
+1. Main Page (The Entryway)
+Background Asset: cleanmansatire.jpg (The "Confident Cowboy" tile & steam asset, model centered).  
+TXT
+
+The Interface: A stark, high-fashion landing viewport. The text is lifted entirely off the asset: "GOT SOAP?" commands the top space, while "Because your axe body spray isn’t fooling anyone, cowboy" acts as the opening salvo.  
+TXT
++ 1
+
+Navigation: Minimalist, high-contrast text links (The Crisis, The Sniff Test, The Pledge, PSAs, About) floating asymmetrically or in a clean layout overlay, keeping the model asset completely unobstructed.
+
+2. The Crisis
+The Vibe: The cultural commentary and data page.
+
+The Execution: Instead of blocks of corporate text, it uses stark, massive typographic call-outs breaking down the modern dating hygiene emergency (e.g., "Minimal effort. Impossible standards."). The text functions as a heavy editorial layout cutting across a high-contrast tile texture.
+
+3. The Sniff Test
+The Vibe: The ultimate interactive satire checkpoint.
+
+The Execution: A playful, cynical interactive web component. It could act as a mock "diagnostic questionnaire" for dating app users (e.g., "Did you apply Axe today? [-10 points]", "Is your bathroom towel damp? [Red Flag]"), rendering the results in aggressive, retro-inspired campaign typography.  
+TXT
++ 1
+
+4. The Pledge
+The Vibe: The call to action and community hub.
+
+The Execution: A brutalist, full-bleed screen where men "Commit to the Bare Minimum". It features a giant, live-updating counter tracking how many dates have been saved by actual soap usage.  
+TXT
+
+5. PSAs (The Immersive Hub)
+The Entry State: A premium, editorial index layout displaying the five campaign themes.  
+TXT
+
+The Interaction: Clicking any of the items doesn't open a pop-up or a standard portfolio view. It morphs the entire viewport using the Living Poster Framework.  
+TXT
+
+The Deep-Dive State: The chosen poster asset scales to fill 100% of the screen. The static text vanishes, and the copy types out or slides dynamically across the viewport as live, selectable web text.  
+TXT
++ 1
+
+Example (The Redemption Ad): Clicking it shifts the site into the dark slate canvas. The copy blocks ("Repent in warm water," "Deodorant isn't divine intervention" ) animate independently on a custom cursor or scroll trigger over the model asset.  
+TXT
++ 1
+
+Updated DESIGN.md for Google Stitch
+Here is the revised DESIGN.md file optimized for this specific site map and interactive PSA framework.
+
+Markdown
+# Project Specification: "Got Soap" Web Campaign
+## Multi-Page Immersive Viewport & Interactive PSA Engine
+
+### 1. Conceptual Intent & Art Direction
+*   **The Mission:** A premium, high-fashion digital satire of the iconic 1990s "Got Milk?" print campaigns, targeting low-effort dating app culture[cite: 1].
+*   **The Strategy:** The application uses a multi-page routing system where individual pages utilize deconstructed poster assets as full-bleed viewports (`100vh`/`100vw`)[cite: 1]. The typography is completely uncoupled from the images and rendered as live, high-contrast web elements[cite: 1].
+*   **The Interactive Core:** The "PSAs" route acts as an interactive launchpad[cite: 1]. Clicking any PSA switches the entire viewport into an immersive "Living Poster" state where the text moves dynamically across the clean background asset on user interaction[cite: 1].
+
+---
+
+### 2. Route & Layout Mapping
+
+#### / (Home)
+*   **Background Canvas:** `cleanmansatire.jpg` (Model centered, white tile)[cite: 1].
+*   **Typography:** "GOT SOAP?" (Massive display header) and "Because your axe body spray isn’t fooling anyone, cowboy."[cite: 1]
+
+#### /crisis
+*   **Background Canvas:** High-contrast, textured monochrome tile grid.
+*   **Typography:** Aggressive, heavy-weight editorial call-outs exposing modern dating app hygiene standards[cite: 1].
+
+#### /sniff-test
+*   **Layout:** An interactive, satirical diagnostic engine utilizing utilitarian sans-serif typography elements[cite: 1].
+
+#### /pledge
+*   **Layout:** High-contrast submission portal featuring a prominent, live-updating counter: `[X,XXX] Men Clean Today`[cite: 1].
+
+#### /psas (The Hub & Living Poster Engine)
+*   **Index State:** A high-end fashion index displaying the campaign titles[cite: 1].
+*   **Active Viewport State (On Click):** Morphs into a full-screen, absolute-positioned showcase of the selected theme, utilizing the stripped background asset with text rendered as kinetic layout typography[cite: 1]:
+    *   *PSA 1 (Confident Cowboy):* `cleanmansatire.jpg` -> "SMELL LIKE EFFORT."[cite: 1]
+    *   *PSA 2 (Soap-Smoldering):* `cleanmansatire2.jpg` -> "You won’t smell like him."[cite: 1]
+    *   *PSA 3 (Unholy):* `cleanmansatire3.jpg` -> "Axe is not an exorcism."[cite: 1]
+    *   *PSA 4 (The Redemption):* `cleanmansatire4.jpg` -> "DEODORANT ISN’T DIVINE INTERVENTION."[cite: 1]
+    *   *PSA 5 (Public Thirst):* `cleanmansatire5.jpg` -> "Because your tinder shouldn’t come with a scratch-n-sniff warning"[cite: 1]
+
+#### /about
+*   **Layout:** Minimalist, dual-column editorial layout detailing the creative execution, project tools (Adobe Photoshop, openart.ai), and portfolio credits[cite: 1].
+
+---
+
+### 3. Technical Constraints & Global Elements
+*   **BANNED PATTERNS:** No generic bootstrap card grids, no top-bar navigation menus, no standard layout footers[cite: 1].
+*   **Global Navigation:** Handled via minimalist, absolute-positioned text links in the viewport corners to preserve the art-directed imagery.
+*   **Persistent Footer:** Fixed rule at `bottom: 20px` across all routes[cite: 1]:
+    *   Left: `Funded by Concerned Women Against Axe Abuse`[cite: 1]
+    *   Right: `© Stacey Breckel 2025`[cite: 1]
+*   **Typography Safeguards:** To ensure flawless legibility across changing skin tones and lighting conditions, all live text elements must employ high-opacity drop shadows[cite: 1]:
+    ```css
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.7));
+    ```

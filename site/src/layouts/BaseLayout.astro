@@ -2,8 +2,8 @@
 /**
  * BaseLayout.astro — the site shell every page renders through.
  *
- * Props: { title, description, ogImage?, ogType?, register?, jsonLd?, hideNav?,
- *          hideScratchSniff? }
+ * Props: { title, description, ogImage?, ogType?, register?, jsonLd?,
+ *          mastheadScale?, hideScratchSniff? }
  *   title/description  per-route meta (copy-deck §2), transcribed verbatim.
  *   ogImage            absolute URL to an OG image (optional; Phase 1 supplies).
  *   ogType             OpenGraph type (default 'website').
@@ -11,13 +11,18 @@
  *                      pages (e.g. 'cwaaa' for /pledge, /crisis, /404;
  *                      'porcelain' for /about). Omit on mixed pages (home)
  *                      where each section sets its own register.
- *   hideNav            suppress the standard <Nav/> (home ships its own
- *                      Masthead instead).
+ *   mastheadScale      'monumental' on the home only (the magazine cover);
+ *                      defaults to 'compact' (the interior running head).
  *   hideScratchSniff   suppress the ScratchSniff gag toast. Required on
  *                      /psas/[slug]: the fixed card crosses the canonical
  *                      poster box on mobile (specs.md §5.1 — nothing may
  *                      cross the poster at rest).
  *   jsonLd             optional JSON-LD object for the page.
+ *
+ * CHROME (unification, owner-confirmed 2026-07-16): the layout renders the
+ * register-correct Masthead directly — derived from `register`, so a CWAAA
+ * page cannot accidentally wear campaign chrome (§1). Nav.astro is retired;
+ * the §9.1 contents dialog is the one navigation mechanism, site-wide.
  *
  * The viewport-locking "immersive" mode died with the legacy single-viewport
  * home (§3: home uses normal vertical scrolling).
@@ -25,7 +30,7 @@
 import '../styles/tokens.css';
 import '../styles/base.css';
 import Seo from '../components/Seo.astro';
-import Nav from '../components/Nav.astro';
+import Masthead from '../components/chrome/Masthead.astro';
 import Footer from '../components/Footer.astro';
 import ScratchSniff from '../components/ScratchSniff.astro';
 import { GOATCOUNTER_CODE } from '../config/site';
@@ -37,7 +42,7 @@ interface Props {
   ogImage?: string;
   ogType?: string;
   register?: Register | 'cwaaa';
-  hideNav?: boolean;
+  mastheadScale?: 'monumental' | 'compact';
   hideScratchSniff?: boolean;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
@@ -47,10 +52,14 @@ const {
   ogImage,
   ogType,
   register,
-  hideNav = false,
+  mastheadScale = 'compact',
   hideScratchSniff = false,
   jsonLd,
 } = Astro.props;
+
+// One header system, two registers (§1): CWAAA pages get the org letterhead,
+// everything else gets the campaign nameplate. Derived, not opted into.
+const chromeRegister = register === 'cwaaa' ? 'cwaaa' : 'campaign';
 
 const goatCounterEndpoint = `https://${GOATCOUNTER_CODE}.goatcounter.com/count`;
 
@@ -137,7 +146,7 @@ const preloadFonts = [
 
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    {!hideNav && <Nav />}
+    <Masthead register={chromeRegister} scale={mastheadScale} />
     <main id="main" class:list={[register && `register-${register}`]}>
       <slot />
     </main>

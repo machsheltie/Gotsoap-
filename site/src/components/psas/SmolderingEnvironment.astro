@@ -281,7 +281,7 @@ const {
     }
     .vanity {
       grid-column: 1 / -1;
-      min-block-size: calc(100svh - 57px);
+      min-block-size: calc(100svh - var(--masthead-compact-h));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -295,7 +295,7 @@ const {
       max-inline-size: none;
       block-size: min(
         83svh,
-        calc(100svh - 57px - 2 * var(--vanity-pad)),
+        calc(100svh - var(--masthead-compact-h) - 2 * var(--vanity-pad)),
         calc(70vw * 1.25)
       );
       margin-inline: 0;

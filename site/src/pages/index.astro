@@ -13,18 +13,21 @@
  *   4 Confrontation — §3.4 the Sniff Test invitation → /sniff-test
  *   5 Oath          — §3.5 the Gold Foil Summons → /pledge
  *   6 MovementReal  — §3.6 the one CWAAA seam: the Seal Takes the Page → /crisis
- *   7 Reveal        — §3.7 the quiet reveal → /about
+ *   7 Reveal        — the closing THESIS beat, no route (owner consolidation
+ *                     2026-07-16: the home's one /about path is the footer
+ *                     folio credit)
  *
- * `hideNav` swaps the standard <Nav> for the high-fashion <Masthead>; the
- * BaseLayout Footer still renders and carries the §3.7 maker credit
- * (footer-only per the 2026-07-15 owner amendment). `hideScratchSniff` is
- * REQUIRED here: the fixed QC card would cross the flagship poster's box on
- * scroll, and §3.3 says the untouched poster is never overlaid (Sol Phase-3
- * F4 — the same defect class already removed from the detail routes).
+ * The layout renders the site's one Masthead system (chrome unification,
+ * 2026-07-16); `mastheadScale="monumental"` gives the home its magazine-cover
+ * nameplate — every interior page runs the compact running head. The
+ * BaseLayout Footer carries the §3.7 maker credit (footer-only per the
+ * 2026-07-15 owner amendment). `hideScratchSniff` is REQUIRED here: the fixed
+ * QC card would cross the flagship poster's box on scroll, and §3.3 says the
+ * untouched poster is never overlaid (Sol Phase-3 F4 — the same defect class
+ * already removed from the detail routes).
  * Normal vertical scrolling throughout (§3).
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Masthead from '../components/homev2/Masthead.astro';
 import Hero from '../components/homev2/Hero.astro';
 import Case from '../components/homev2/Case.astro';
 import Campaign from '../components/homev2/Campaign.astro';
@@ -32,13 +35,13 @@ import Confrontation from '../components/homev2/Confrontation.astro';
 import Oath from '../components/homev2/Oath.astro';
 import MovementReal from '../components/homev2/MovementReal.astro';
 import Reveal from '../components/homev2/Reveal.astro';
-import { meta } from '../content/copy';
+import { meta, nav } from '../content/copy';
 import { SITE_URL } from '../config/site';
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'got soap?',
+  name: nav.mark,
   url: SITE_URL,
   description: meta.home.description,
 };
@@ -48,10 +51,9 @@ const jsonLd = {
   title={meta.home.title}
   description={meta.home.description}
   jsonLd={jsonLd}
-  hideNav={true}
+  mastheadScale="monumental"
   hideScratchSniff={true}
 >
-  <Masthead />
   <Hero />
   <Case />
   <Campaign />

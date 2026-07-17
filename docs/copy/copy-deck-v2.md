@@ -1,8 +1,29 @@
 # Got Soap? — Website Copy Deck v2 (voice-forward)
 
 **Supersedes `copy-deck-v1.md`** (v1 was written from the docs; v2 is written in Stacey's voice per `voice-bible.md`).
-**Status:** ✅ **FROZEN for implementation (2026-07-08).** Reviewed through humanizer + prose-critique + marketing passes; owner-approved voice. Build against this verbatim. Any further change is a copy-lane edit, re-versioned — implementers do not edit strings in place.
-**Binding:** `voice-bible.md` (the north star) · `CLAUDE.md` creative rules · PRD §3, §5 · `docs/design.md` §4 (two authors).
+**Status:** ✅ **FROZEN for implementation (2026-07-08; re-versioned v2.1, 2026-07-16).** Reviewed through humanizer + prose-critique + marketing passes; owner-approved voice. Build against this verbatim. Any further change is a copy-lane edit, re-versioned — implementers do not edit strings in place.
+**Binding:** `voice-bible.md` (the north star) · `CLAUDE.md` creative rules · PRD §3, §5 · `docs/design.md` §4 (two authors) · specs.md §7 (signer model).
+
+> ### v2.1 change log (2026-07-16 — Claude↔Sol copy dialectic; rationales in `copy-session-draft.md`)
+> Specs §7.2 signer corrections + homev2 placeholder resolutions, per-line consensus:
+> 1. §2 `/pledge` meta: the declarant no longer "joins two million women" — he signs, CWAAA files him in triplicate.
+> 2. §2 `/psas/*` metas ×5: "Spot No. n." numbering retired (specs §9.2); openers made standalone (the "Because…" invariant governs subheads, not SERP snippets).
+> 3. §3.1 hero sub RATIFIED unchanged (the steam performs the sentence); institutional signature added — exact PSA-credit format.
+> 4. §3.2b (new): flagship propaganda caption — an executable distribution order, poster-agnostic.
+> 5. §3.3 confrontation provocation added — replaces "Are you the fog?" (borrowed CWAAA's metaphor before CWAAA defines it).
+> 6. §3.4 letterhead: "Two million **concerned** women" — CWAAA's proper noun for its membership, matching §8.4 and §7.8.
+> 7. §3.5 oath heading: dual-address executed — he signs it, she sends it.
+> 8. §8.5 ribbon closer: "your intent" was hers; now she sends him to put **his** intent in writing.
+> 9. §1b (new): home contents-sheet framing finalized — "Contents" plays the magazine format straight; `close` and `routesLabel` voiced ("Back to the campaign" / "The rest of the movement").
+> 10. §4.1b (new): /psas plaque nav aria-label = "The five announcements" (replaces the structural default; names the set without colliding with Poster 5's title).
+
+> ### v2.2 change log (2026-07-16 — footer consolidation, owner decision; spec in `docs/build/reports/footer-consolidation-spec.md`, logged in `style-lock.md` §10)
+> The home commits to the bit (Onion model): the reveal is `/about`'s payload, one neutral path from the home.
+> 1. §1 footer: the © line is plain text (no link, no "satirical spec campaign" tell); the parody disclaimer leaves the global footer. The folio credit `PRODUCED BY HOPE2 STUDIO · DIRECTED BY STACEY BRECKEL` (→ /about) is the one maker attribution and the one campaign path to the reveal.
+> 2. §3.6 reveal beat: the thesis line stays; the meta tail ("…satirical campaign by Hope2 Studio") and the "See who's behind it →" cta are KILLED (style-lock §7).
+> 3. §1c (new): home masthead fiction routed through `copy.ts` — the killed NGO-brochure credit is replaced by the format-perfect PSA credit (same line as §3.1's institutional signature; page-internal echo, legal per style-lock §8).
+> 4. §9.5: credit and disclaimer split — the reveal sentence is the page's voice; the non-affiliation disclaimer (relocated from the footer) is reworded to do the legal job only.
+> 5. §1d (new): home section chrome swept out of component markup into `copy.ts` (kickers, eyebrows, route labels, landmark aria-labels) — no new voice, ownership fix only.
 
 ## Read first
 - 🧼 = **Campaign voice** (smolders — fragrance-ad drama + PSA sincerity + edge). 📋 = **CWAAA voice** (deadpan bureaucracy — files, never flirts). Never blended on one surface.
@@ -18,12 +39,36 @@
 ### Nav (Libre Franklin, uppercase)
 Mark: `got soap?` · Links: `THE PSAS · THE SNIFF TEST · THE PLEDGE · THE CRISIS` · quiet: `ABOUT`
 
-### Footer (every page) 🧼→seam→📋
+### Footer (every page) 🧼→seam→📋 *(v2.2 — footer consolidation)*
 > **Join the movement. Smell like someone chose you back.**
 > `#GotSoap · #SoapyThirstTrap · #CleanManEnergy`
 > Funded by **Concerned Women Against Axe Abuse** → *(links /crisis)*
-> © Stacey Breckel 2025 · A satirical spec campaign by **Hope2 Studio** → *(links /about)*
-> *This is parody. Not affiliated with any brand, fragrance, publication, health organization, or your ex. No axes were abused in the making of this movement.*
+> © Stacey Breckel 2025 *(plain text — unlinked)*
+> `PRODUCED BY HOPE2 STUDIO · DIRECTED BY STACEY BRECKEL` *(links /about — the ONE maker attribution and /about path on campaign surfaces; specs §3.7 verbatim, hardcoded in Footer.astro per gate G11)*
+>
+> *(v2.2: the "satirical spec campaign" credit tell and the parody disclaimer are gone from the global footer — the reveal + reworded legal disclaimer live at /about, §9.5. Social labels — Behance / Instagram / Facebook — render only when config URLs are non-empty.)*
+
+### 1b. Home contents sheet framing (specs §9.1 overlay — v2.1) 🧼
+Entry labels are §9.1's fixed taxonomy (Case, Campaign, Confrontation, Oath, Movement / PSAs, Sniff Test, Pledge, Crisis, Production Notes). Framing strings:
+> trigger / title: **Contents** · close: **Back to the campaign** · anchors group: **On this page** · routes group: **The rest of the movement**
+
+*Voice rule (style-lock): the masthead shouts voiced destinations (`THE PSAS`); the contents sheet keeps §9.1's plain taxonomy (`PSAs`) — hierarchy within one campaign voice, not two authors blending. "Contents" is the magazine format played straight; revoicing structural chrome ("The receipts" was proposed and rejected) must never misdescribe the destination.*
+
+### 1c. Home masthead fiction (v2.2) 🧼
+Straight-faced Vogue-masthead dressing, owned by `copy.ts` `masthead` (the hardcoded markup was how a killed line survived a closed session):
+> est: **Est. MMXXIV** · credit: **A public service announcement · Funded by Concerned Women Against Axe Abuse** · series: **Series One** · issue: **No. 26**
+> aria-label: *Got Soap? — masthead* · nameplate = nav mark `got soap?`
+> screen-reader funding line (a11y tree at widths where the flank hides): *Funded by Concerned Women Against Axe Abuse.*
+
+*(The credit is the §3.1 institutional signature's exact line — a page-internal echo, legal per style-lock §8. Its NGO-brochure predecessor is on the style-lock §7 kill list. "No. 26" echoes CWAAA Memorandum No. 26-114.)*
+
+### 1d. Home section chrome (v2.2 sweep — structural, function-first per style-lock §4) 🧼
+Swept from component markup into `copy.ts` verbatim; no new voice:
+> §3.2 Case: demand **Soap. / Applied to men. / Regularly.** (typographic setting of the documented demand, crisis founding) · creed **We do not oppose fragrance. We oppose substitution.** (founding clause, verbatim) · route **Read the full findings →**
+> §3.3 Campaign: kicker **The Flagship** · route **See all five announcements →**
+> §3.4 Confrontation: eyebrow **The Sniff Test · Field Assessment CW-7**
+> §3.5 Oath: kicker **The Oath** · sign-off **Lather. Rinse. Respect.** (the movement's verbatim sign-off)
+> §3.1 Hero landmark aria-label: *Got Soap? — a public service announcement* · Footer funded-by lead: *Funded by*
 
 ### Scratch-n-sniff gag (first visit, dismissible — never a modal) 🧼
 > **This website is certified 100% scent-free.** Which already puts it ahead of him.
@@ -38,13 +83,13 @@ Rotation: *"You can't smell this page. That's the nicest thing we can say about 
 |---|---|---|
 | `/` | got soap? — the movement | A public thirst announcement. Five posters, one demand: use the soap. Because "I usually shower" is not a hygiene routine. It's a confession. |
 | `/psas` | The PSAs — Series One \| got soap? | The public-service archive. Five thirst-trap hygiene PSAs, presented untouched. Study them. Then bathe. |
-| `/psas/confident-man` | A Clean Man Is A Confident Man \| got soap? | Spot No. 1. Because your Axe body spray isn't fooling anyone, cowboy. Smell like effort. |
-| `/psas/soap-smoldering` | Soap-Smoldering \| got soap? | Spot No. 2. Because your "natural scent" is a threat, not a flex. Lather. Rinse. Respect. |
-| `/psas/unholy` | Unholy \| got soap? | Spot No. 3. Because deodorant without a shower is just layering lies. Axe is not an exorcism. |
-| `/psas/redemption` | The Redemption \| got soap? | Spot No. 4. Because cleansing isn't just for your sins. Deodorant isn't divine intervention. |
-| `/psas/thirst-announcement` | Public Thirst Announcement \| got soap? | Spot No. 5. Because your Tinder shouldn't come with a scratch-n-sniff warning. Wash accordingly. |
+| `/psas/confident-man` | A Clean Man Is A Confident Man \| got soap? | Your Axe body spray isn't fooling anyone, cowboy. Smell like effort. |
+| `/psas/soap-smoldering` | Soap-Smoldering \| got soap? | Your "natural scent" is a threat, not a flex. Lather. Rinse. Respect. |
+| `/psas/unholy` | Unholy \| got soap? | Deodorant without a shower is just layering lies. Axe is not an exorcism. |
+| `/psas/redemption` | The Redemption \| got soap? | Cleansing isn't just for your sins. Deodorant isn't divine intervention. Anyone can change. |
+| `/psas/thirst-announcement` | Public Thirst Announcement \| got soap? | Your Tinder shouldn't come with a scratch-n-sniff warning. Wash accordingly. |
 | `/sniff-test` | The Sniff Test — Field Assessment CW-7 \| got soap? | Seven questions between you and the truth your group chat already knows. Administered by CWAAA field assessors. |
-| `/pledge` | The Lather Pledge — Form CW-1 \| got soap? | Declaration of Intent to Lather. Sign the oath, join two million women who've had enough, and smell like you meant it. |
+| `/pledge` | The Lather Pledge — Form CW-1 \| got soap? | Declaration of Intent to Lather. Sign the oath, get filed in triplicate, and smell like you meant it. |
 | `/crisis` | The Crisis \| Concerned Women Against Axe Abuse | The state of male hygiene, documented. A memorandum from the women who had smelled enough. |
 | `/about` | The Reveal — Hope2 Studio \| got soap? | It was a portfolio piece the whole time. Here's the satire, the craft, and the woman who made it. |
 | `/404` | Missing \| got soap? | This page didn't shower. It's gone. |
@@ -54,9 +99,11 @@ Rotation: *"You can't smell this page. That's the nicest thing we can say about 
 # 3. Home 🧼 (one 📋 seam)
 
 ### 3.1 Hero — self-clearing steam (~2s squeegee sweep over a widescreen re-stage of Poster 1; live type resolves as it clears)
+> *A public service announcement · Funded by Concerned Women Against Axe Abuse*
 > ## got soap?
 > **Because he thinks the steam is hiding it. It never was.**
 
+The sub is RATIFIED (v2.1): the steam wipes itself away while the line is read — the site performs the sentence; no replacement gets that interplay back. The signature above the mark uses the exact 90s-PSA credit format: the straight man the org name detonates against ("initiative"-style NGO phrasing is killed on sight).
 Reduced-motion / LCP state: identical lines, steam pre-cleared.
 Scroll cue: *"Keep scrolling. It only gets cleaner. He didn't."*
 
@@ -82,7 +129,16 @@ Scroll cue: *"Keep scrolling. It only gets cleaner. He didn't."*
 > *He's scrubbed, sudsed, and would survive meeting your mother. And you?*
 > `[ Post it in the locker room ]  [ View spot → ]`
 
-### 3.3 Sniff Test insert 🧼 (CWAAA-credited)
+### 3.2b The Flagship caption 🧼 (homev2 Campaign beat — v2.1)
+One monumental untouched poster as the movement's propaganda; the gold caption is an **executable distribution order**, not a description, and must stay poster-agnostic (the owner swaps the flagship between Poster 5 and Unholy):
+> **Pin him up in the locker room.**
+
+*(Killed on sight and logged so it never resurfaces: "Hang him in the locker room" — violent/racial misreadings; "This is what clean looks like" — any soap brand could say it.)*
+
+### 3.3 Sniff Test insert 🧼 (CWAAA-credited) — the Confrontation beat
+Chrome provocation above the insert (v2.1 — replaces "Are you the fog?", which borrowed CWAAA's metaphor before the letterhead defines it; the dual-address turns exactly where the mirror element appears):
+> # You've smelled him. Are you him?
+
 > ## Seven questions between you and the truth your group chat already knows.
 > One honest verdict. No wrong answers — only wet ones.
 > `[ Take the Sniff Test → ]`
@@ -94,17 +150,20 @@ Scroll cue: *"Keep scrolling. It only gets cleaner. He didn't."*
 > ───────────────────────
 > The men are not the problem. The men are, in most cases, lovely.
 > **The fog is the problem.** We intend to lift it. In writing. With copies filed.
-> Two million women. One demand. Soap, applied regularly, as directed.
+> Two million concerned women. One demand. Soap, applied regularly, as directed.
 > `[ Read the full brief → ]` *(links /crisis)*
 
 ### 3.5 Pledge CTA band 🧼 (`marble-amber` on `grout-black`)
-> ## Join the movement. Put it in writing.
+> ## Join the movement. Sign it — or send it to the man who should.
 > Because "I usually shower" is not a hygiene routine. It's a confession.
 > `[ Take the Lather Pledge → ]`
 
-### 3.6 Reveal beat 🧼 (quiet, chrome-mist)
+*(v2.1, specs §7.2: the declarant is the man — "Put it in writing" read as her swearing his oath. The heading now runs the dual-address engine in one sentence: him — sign it; her — send it.)*
+
+### 3.6 Closing beat 🧼 (quiet, chrome-mist — v2.2: the THESIS, not a reveal)
 > *None of these men are real. The problem is very, very real.*
-> Got Soap? is a satirical campaign by Hope2 Studio. `[ See who's behind it → ]`
+
+*(v2.2, footer consolidation: the line stays — it names neither the joke nor the maker; PSA-sincere, commits to the bit. The meta tail "Got Soap? is a satirical campaign by Hope2 Studio." and the cta "See who's behind it →" are KILLED — style-lock §7. No route from this beat; the home's one /about path is the footer folio credit.)*
 
 ---
 
@@ -114,6 +173,12 @@ Scroll cue: *"Keep scrolling. It only gets cleaner. He didn't."*
 > # Public Service Announcements
 > ## Series One
 > Five announcements in the public interest, issued untouched. Study them at your leisure. Bathe at your earliest. Series Two arrives when the crisis does.
+
+### 4.1b Installation plaque nav (accessibility surface — v2.1)
+The chrome route plaque's `aria-label`:
+> **The five announcements**
+
+*Names the complete set in the campaign's own noun (from the index body's "Five announcements in the public interest"); a noun phrase, not an imperative, so the landmarks rotor reads cleanly — and no collision with Poster 5's title, which "Choose a public thirst announcement" (proposed, rejected) would have caused.*
 
 ### 4.2 Case notes (deadpan, edged) 🧼
 
@@ -364,7 +429,7 @@ Cadence: only when there's real news (new poster drop, milestone, a finding). Ne
 
 ### 8.5 Tie One On For Suds (ribbon program / pledge funnel)
 > ### Tie One On For Suds
-> Our washcloth ribbon says what words cannot: he showers now. Tie one on the rearview mirror, the gym bag, the doorknob of the room he won't leave — a gentle, constant reminder that soap exists and he is loved enough to use it. Wear it for the reformed. Wear it for the suds-curious. Then put your intent in writing.
+> Our washcloth ribbon says what words cannot: he showers now. Tie one on the rearview mirror, the gym bag, the doorknob of the room he won't leave — a gentle, constant reminder that soap exists and he is loved enough to use it. Wear it for the reformed. Wear it for the suds-curious. Then send him to put his intent in writing.
 > `[ File Form CW-1 → ]`
 
 ### 8.6 Press Room (each "FOR IMMEDIATE RELEASE" — deadpan escalates the closer you read)
@@ -479,9 +544,11 @@ Generator flow microcopy (📋 — the form is CWAAA's, played straight):
 > **hope2studio@yahoo.com** *(obfuscated from scrapers)*
 > `[ See the full campaign on Behance → ]` *(config-gated)*
 
-### 9.5 Credit / legal
-> © Stacey Breckel 2025. A satirical spec campaign by Hope2 Studio. All visual elements are parody and not affiliated with any brand, product, publication, or public health organization. Models generated with openart.ai; all art direction, compositing, and typography by hand.
-> *(Freepik attribution renders only if a Freepik-derived texture ships.)*
+### 9.5 Credit / legal *(v2.2 — split: the reveal is the page's voice, the disclaimer its fine print)*
+> © Stacey Breckel 2025. A satirical spec campaign by Hope2 Studio.
+>
+> *Parody. Not affiliated with any brand, product, publication, or public-health organization. Models generated with openart.ai; art direction, compositing, and typography by hand.*
+> *(The disclaimer relocated here from the global footer — v2.2 footer consolidation — reworded to do the legal job without announcing the joke. Freepik attribution renders only if a Freepik-derived texture ships.)*
 
 ---
 

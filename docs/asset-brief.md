@@ -1,3 +1,9 @@
+> ⚠️ **The current, canonical asset inventory is `docs/ASSETS-NEEDED.md` (2026-07-17).** This file
+> is the original 2026-07-08 ROI brief — still useful for the *design reasoning* behind each asset,
+> but its **dimensions and completeness are stale** (e.g. it lists the hero at ≈2400×1350; the real
+> size is 3200×1800). For *what to make and at what size*, use `ASSETS-NEEDED.md`. Use this doc only
+> for the "why/how" behind each card.
+
 # Got Soap? — Owner Asset Brief (Photoshop task list)
 
 **For:** Stacey · **Prepared by:** copy + marketing/content lens · **Date:** 2026-07-08

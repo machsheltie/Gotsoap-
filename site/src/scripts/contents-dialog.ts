@@ -1,7 +1,9 @@
 /**
- * contents-dialog.ts — behavior for the §9.1 home contents sheet.
+ * contents-dialog.ts — behavior for the §9.1 contents sheet, site-wide.
  *
- * The markup contract lives in homev2/Contents.astro:
+ * The markup contract lives in chrome/ContentsDialog.astro (the sheet) and
+ * the chrome/*Masthead components (the triggers; the inline list covers
+ * no-JS). One dialog per page, any number of triggers:
  *   [data-contents-open]    the masthead trigger (JS-only; inline list covers no-JS)
  *   dialog[data-contents]   the native contents sheet
  *   [data-contents-close]   the close control inside the sheet

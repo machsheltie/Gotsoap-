@@ -1,6 +1,18 @@
+# ⛔ SUPERSEDED — DO NOT BUILD OR AUDIT FROM THIS FILE
+
+> **This file was consolidated into the root `/specs.md` on 2026-07-15 and is retired.**
+> The root `specs.md` is now the single canonical build spec. It carries everything
+> below **plus** the 2026-07-15 owner amendment this file predates: the maker credit is
+> **footer-only** (§3.7), not masthead + footer. If this file and `/specs.md` ever
+> disagree, `/specs.md` wins. Build and audit against `/specs.md` only.
+>
+> Kept for history; not law.
+
+---
+
 # Got Soap? Campaign Architecture — Build Specification
 
-**Status:** Approved for implementation; Unholy is locked as the home flagship
+**Status:** SUPERSEDED 2026-07-15 — see `/specs.md`. (Historical: approved; Unholy locked.)
 **Date:** 2026-07-14
 **Scope:** Home, `/psas`, `/psas/[slug]`, mechanic ownership, navigation, motion, performance, accessibility, and the Hope2 Studio reveal
 **Governing documents:** `AGENTS.md` creative rules · `docs/design-north-star.md` Round 3 · `docs/prd/PRD-gotsoap-web-v1.md` · `docs/design.md` · `docs/copy/copy-deck-v2.md`

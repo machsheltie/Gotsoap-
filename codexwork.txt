@@ -1,0 +1,339 @@
+You are an elite, highly creative UX Strategist and Visual Designer who loathes sterile, minimalist corporate web layouts, boring white-space-heavy grids, and generic "SaaS tax app" templates. Your style is bold, maximalist, tactile, immersive, and narrative-driven. 
+Project: Got Soap?
+A Satirical Thirst Trap Hygiene PSA for the Chronically Unwashed (parodying the iconic "Got Milk?" campaign)[cite: 1, 3]. The target audience is Gen Z/Millennial web users, creative directors looking for edgy spec work, and women tired of low-effort male hygiene[cite: 1, 3]. 
+The Problem:
+The current site designed by a previous LLM is a total failure. It looks like a generic SaaS app for filling out taxes—low effort, safe, middle-of-the-road, and identical to the copycat trash currently flooding the internet. It acts like a passive portfolio gallery displaying poster assets rather than a living campaign[cite: 3].
+Your Task:
+Redesign this website from scratch so that the website IS the campaign. It must look and behave like the official digital headquarters of a deadpan, fictional public service movement ("Funded by Concerned Women Against Axe Abuse"), with the actual designer portfolio/case study elements smoothly integrated as a secondary layer[cite: 3]. 
+Strict Constraints & Design Language:
+BAN THE GRID & THE SAAS TEMPLATE: Absolutely no hero sections with generic centered CTAs, no 3-column feature cards, and no sterile corporate white space. 
+NO GALLERY FRAMING: The five main posters ("A Clean Man", "Soap-Smoldering", "Unholy", "The Redemption Ad", and "Public Thirst Announcement") cannot just sit in a static grid[cite: 1]. They must be the environment the user interacts with, not content inside a cabinet[cite: 3].
+TACTILE AND SENSORY-FIRST: The theme is soap, steam, showering, and cleanliness[cite: 1, 3]. Propose immersive transitions, "steamy glass" overlay effects where users have to wipe away condensation to reveal content, water-droplet micro-interactions, and high-impact, bold typography (leaning into Phenix American, Futura PT, and Franklin Gothic style hierarchies)[cite: 1, 3].
+DEADPAN SATIRE: The UI must fully commit to the bit[cite: 3]. It should look like a serious, high-end fragrance campaign met an aggressive government public health warning[cite: 1, 3].
+Please structure your response into the following 4 distinct phases:
+Phase 1: THE CRITIQUE
+Briefly tear down why a standard, middle-of-the-road "tax app" template model completely kills a sensory, satirical campaign like "Got Soap?", and explain why a transgressive "website-as-campaign" architecture actually converts creative directors looking for bold talent[cite: 3].
+Phase 2: CAMPAIGN PORTAL ARCHITECTURE
+Map out the exact layout of a single-page immersive experience. Detail how the user enters, how they experience the "PSA movement" fiction (e.g., mock statistics on Axe abuse, the movement manifesto), and how they navigate or discover the 5 core posters[cite: 3].
+Phase 3: INTERACTIVE "DEPRIVATION" MECHANICS
+Propose 2-3 unique, non-standard web interactions that bring the "Got Soap?" concept to life physically.
+(Include ideas like: a mock "Sniff Test" / hygiene self-assessment quiz that generates a shareable verdict card, a "Steamy Glass" reveal interaction, or a satirical "Take the Pledge" email capture styled as a public service commitment)[cite: 3].
+Phase 4: THE SUBVERSIVE REVEAL (The Portfolio Layer)
+How do we smoothly transition the user from the fictional "Concerned Women Against Axe Abuse" campaign space into the actual "Hope2 Studio / Stacey Breckel" professional design case study (revealing the Photoshop process, type specs, and the "Let's make clean design dirty fun" call to action) without breaking the magic of the campaign[cite: 1, 3]? Provide the exact UI transition or navigation flow that reveals the portfolio as a high-value "post-credits scene"[cite: 3].
+
+
+
+
+Show more
+
+6:00 AM
+
+
+
+
+
+
+Worked for 7m 59s
+
+
+
+The right direction is not “more decoration.” It is a complete genre change: an elite, hyper-glossy fragrance campaign being administered with the solemnity of a public-health movement. Maximalism comes from scale, material, pacing, and commitment—not interface clutter. This follows the project’s final [high-fashion North Star (line 85)](C:/Users/heirr/OneDrive/Desktop/Hope2_Studio/GotSoap/docs/design-north-star.md:85).
+Phase 1: THE CRITIQUE
+The “tax app” template fails because it uses the wrong interaction contract.
+A SaaS page says: scan these evenly weighted modules, understand the features, click a polite button. Got Soap? needs to say: you have entered a fully operational hygiene movement, the evidence is overwhelming, and you may be implicated.
+The usual template kills the campaign in four ways:
+Boxed posters become thumbnails. The artwork is demoted from cultural artifact to product screenshot.
+Repeated image-left/text-right rows flatten five distinct worlds into one component with different wallpaper.
+Centered headlines, pill buttons, and soft cards make the satire feel timid. A movement cannot look like it is asking permission to exist.
+Portfolio language breaks the spell too early. The visitor starts evaluating Stacey before they have experienced what Stacey can do.
+Creative directors do not need another paragraph claiming that a designer is “bold.” They need proof that she can extend one idea across photography, typography, motion, narrative, participation, conversion, and shareable media without losing the concept.
+The conversion path should therefore be:
+Stop → laugh → feel implicated → participate → share or pledge → wonder who made this → discover Stacey.
+That final moment of curiosity is far more valuable than leading with a résumé.
+Phase 2: CAMPAIGN PORTAL ARCHITECTURE
+Recommended architecture: Movement first, poster encounters second
+Three viable models exist:
+Movement-first portal — recommended: establishes the crisis, then encounters all five posters as environmental campaign acts. Best balance of fiction, spectacle, and conversion.
+Five-poster pilgrimage: opens directly into five consecutive visual worlds. Spectacular, but risks becoming a very expensive gallery.
+CWAAA headquarters: frames every poster as institutional evidence. Strong fiction, but the paperwork can overpower the glossy art direction.
+The recommended home is one uninterrupted vertical film. Supporting routes still exist for shareable verdicts, poster downloads, and the case study, but the essential campaign narrative lives in the scroll.
+Beat	What appears	What it accomplishes
+1. The official masthead	An elegant got soap? fashion nameplate, a restrained “Public Hygiene Initiative” folio line, and one INDEX control. No conventional logo-left/navbar-right header.	Makes the site feel issued, not assembled.
+2. The condensation threshold	A full-screen, high-key porcelain hero arrives behind steam. The steam clears itself in roughly two seconds while the live got soap? type resolves.	Creates a brief deprivation-and-reward moment without demanding work.
+3. The case against complacency	Monumental “Because…” manifesto language and absurd findings appear across the architecture—never inside statistic cards.	Explains why the movement exists and implicates the visitor.
+4. Series One begins	An edge-mounted folio rail announces five interventions. The visitor enters five radically different environments.	Turns the posters into campaign events rather than inventory.
+5. Field assessment	The page confronts the visitor with the Sniff Test. It occupies the viewport rather than appearing as a teaser card.	Converts passive spectatorship into self-incrimination.
+6. CWAAA memorandum	The glossy campaign gives way to one full-viewport manila document: founding myth, crisis findings, chapter claims, seal, and procedural fine print.	Establishes the sponsor as a competent fictional institution.
+7. The oath	Form CW-1 becomes a full-screen engraved declaration, not a web form in a floating panel.	Converts participation into real email capture.
+8. Official fine print	Hashtags, sponsor gag, copyright, parody disclosure, and the quiet Hope2 Studio credit.	Closes the fiction and plants the post-credits door.
+
+The five poster environments
+The canonical posters remain intact. No baked type is removed, cropped out, or duplicated at billboard scale beside them. Environmental extensions may use text-free restagings, CSS materials, or blurred decorative derivatives behind the untouched art.
+A Clean Man — porcelain wall
+The poster rises floor-to-ceiling from the left edge as if installed directly into wet tile. Reflections, grout, and thin steam drift continue beyond its boundaries. A live campaign hook occupies the opposite architectural space.
+
+Soap-Smoldering — broken numeral
+A monumental ghosted “02” becomes part of the bathroom architecture. The untouched poster intersects its counterform, while a giant “Because…” pull-quote cuts across the composition. Nothing is centered.
+
+Unholy — chrome altarpiece
+The page drops into the smoke register for a 120–130vh crescendo. The poster appears monumental in a shaft of lather-white light, surrounded by moving chrome reflections. This should feel like a fragrance ad entered a cathedral.
+
+The Redemption Ad — confessional diptych
+Two unequal vertical planes split the viewport. Copy climbs one margin; the poster bleeds off the opposite edge. The layout feels editorial, tense, and slightly penitential.
+
+Public Thirst Announcement — marble folio
+Warm amber marble, a visible magazine gutter, gold treatment, and narrow editorial typography create a GQ/Vogue spread. The Black model remains visually central; inclusive casting is campaign direction, not a footnote.
+
+The homepage gets no repeated share/download toolbar. Clicking an intervention opens its dedicated poster page, where the untouched art, lightbox, sharing, and downloads can breathe.
+Navigation is a full-screen typographic INDEX, containing the five interventions, Field Assessment CW-7, Findings, Form CW-1, and Production Notes. Natural scrolling remains intact—no scroll-jacking, forced carousel, or horizontal mobile trap.
+The authorship rule remains absolute:
+The campaign smolders and speaks at him.
+The sharing language speaks to her.
+CWAAA files paperwork for women.
+Those voices touch only at deliberate seams.
+Phase 3: INTERACTIVE “DEPRIVATION” MECHANICS
+1. Steam-clear reveal
+Visibility is withheld for a breath, then restored.
+First 400ms: condensed glass and diffuse silhouette.
+Next 1.6–1.8 seconds: an unseen squeegee sweep clears the frame directionally.
+The live headline sharpens as the image clears.
+Scrolling immediately completes the effect.
+Reduced-motion visitors receive a crossfade or the already-clear hero.
+I would not restore mandatory drag-to-wipe. It is delightful once and labor on every subsequent visit. The confirmed [steam interaction (line 275)](C:/Users/heirr/OneDrive/Desktop/Hope2_Studio/GotSoap/docs/design.md:275) preserves the sensory payoff without making access to the hero a chore. Pointer-driven droplets or squeegee-like button sheens can remain optional decoration, never a gate.
+2. Field Assessment CW-7: The Sniff Test
+The quiz becomes a glamorous public interrogation:
+Seven questions, one per viewport.
+Progress appears as QUESTION 3 OF 7 · FIELD ASSESSMENT CW-7.
+Answers are large, full-width typographic statements—not radio buttons inside a card.
+Selection sends one water droplet down a vertical assessment line.
+Scoring stays invisible.
+Completion produces one of four static verdicts: Certified Soap-Smoldering, Suds-Curious, Axe-Dependent, or Public Thirst Hazard.
+No numeric score appears on the verdict page. The verdict name is the punchline. The card receives a CWAAA stamp, then offers in-fiction actions:
+“Post it in the locker room”
+“Copy the citation”
+“Request re-assessment”
+“Certified or not — swear the oath”
+That provides the viral loop defined in the [participation mechanics (line 11)](C:/Users/heirr/OneDrive/Desktop/Hope2_Studio/GotSoap/docs/strategy/participation-mechanics.md:11).
+3. Form CW-1: The Lather Pledge
+Belonging is withheld until the declaration is filed.
+The page becomes an engraved, full-viewport certificate:
+Guilloché border and corner rosettes
+Oversized CWAAA seal watermark
+PT Serif oath language
+Name and email entered directly onto ruled filing lines
+Real privacy language in the document footer
+Submit action: “File my declaration.”
+Success does not produce a green alert box. A red SWORN stamp lands once with physical weight, followed by the washcloth-ribbon badge and a shareable “I took the pledge” asset. This is both the campaign’s conversion moment and a satisfying narrative payoff. See the existing [pledge mechanic (line 57)](C:/Users/heirr/OneDrive/Desktop/Hope2_Studio/GotSoap/docs/strategy/participation-mechanics.md:57).
+Phase 4: THE SUBVERSIVE REVEAL
+The portfolio layer should feel like turning over the finished advertisement and discovering the production proof on the back.
+Exact transition
+The fictional experience concludes with the poster-style footer: hashtags, CWAAA funding line, copyright, and legal-ish fine print.
+Inside that fine print—but visibly and keyboard-accessibly—the visitor finds:
+“A satirical spec campaign by Hope2 Studio → View production notes.”
+Activating it holds the final campaign image in place while its surface lifts like a printed proof being removed from a lightbox.
+Crop marks, registration marks, layer annotations, and type specimens are revealed underneath.
+The URL changes to /about. With reduced motion, it becomes a clean cut using the same opening frame.
+The CWAAA identity disappears completely. The visitor has crossed authors; the two systems are never blended.
+The case-study sequence
+The reveal page should remain visually connected to the campaign, but become calmer and more forensic:
+The finished result: one full-bleed campaign image.
+The strategic premise: parody, audience, cultural target, and why the campaign behaves as a movement.
+The visual system: porcelain, smoke, marble, and the deliberate campaign/CWAAA authorship split.
+The Photoshop breakdown: scroll from finished poster into model layer, environment, atmospheric effects, color grade, typography, and final compositing.
+Typography as performance: full-width specimens for Oswald, Jost, Libre Franklin, and Montserrat; PT Serif is explicitly shown as the quarantined CWAAA voice.
+Craft transparency: OpenArt model generation disclosed alongside Stacey’s art direction, compositing, typography, retouching, and hand execution.
+The digital extension: steam-clear hero, Sniff Test, verdict system, and pledge demonstrate that the idea can expand beyond five posters.
+Professional close:
+“Let’s make clean design dirty fun.”
+hope2studio@yahoo.com · Behance · selected credits.
+No portfolio-card grid. No “tools used” badge collection. The process should unfold from finished seduction to visible construction, proving that the spectacle was deliberately designed.
+That is the post-credits reward: the campaign was fictional, but the creative direction, systems thinking, and execution were very real.
+
+
+
+
+
+
+
+
+
+gotsoapdescription.txtpromo.txt
+
+Here are the promo details and descriptions on what this project is too. This was written for the actual poster campaign that was already completed, but useful all the same for this to tell you what this project is. We don't want the website to be a glorified gallery... The website itself IS the campaign. So just thought I'd mention all of that
+
+
+
+
+
+
+6:16 AM
+
+
+
+
+
+
+Worked for 1m 6s
+
+
+
+Absolutely—this sharpens the brief. I’ve read both [gotsoapdescription.txt](C:/Users/heirr/OneDrive/Desktop/Hope2_Studio/GotSoap/gotsoapdescription.txt) and [promo.txt](C:/Users/heirr/OneDrive/Desktop/Hope2_Studio/GotSoap/promo.txt).
+They confirm that the website must extend the campaign, not explain it from a distance:
+The core idea is a “protest in punchlines”: seduction, satire, social commentary, and PSA conviction working simultaneously.
+The five posters form a narrative progression—confidence, smolder, transgression, redemption, then understated public thirst—not five interchangeable portfolio images.
+The imagined locker-room, GQ-spread, social-PSA, and intervention placements should influence the website’s environments and interactions.
+The designer reveal should demonstrate Stacey’s actual craft: art direction, hand compositing, lighting corrections, typography, gradients, readability engineering, and Photoshop execution. AI supplied initial model renders; it did not design the campaign.
+The type specifications and early fogged-shower-door experiment give the sensory web direction genuine project lineage rather than a decorative gimmick.
+“Let’s make clean design dirty fun” remains the natural professional closing.
+So the hierarchy is now very clear:
+Campaign experience first → participation second → poster archive third → designer/process reveal last.
+These documents are creative source material; the finalized poster artwork remains authoritative wherever wording differs. No glorified gallery. The website itself joins the movement.
+
+
+6:18 AM
+
+
+
+
+
+
+I had Claude Fable 5 and Google Gemini do adversarial reviews on this. Here is what each had to say. Here is Claude's first:
+ Part 2 — Adversarial review of Codex Sol 5.6's plan
+  Where it's right, adopt it without ego: the genre-change framing; the conversion path (stop → laugh → implicated →
+  participate → wonder → discover); manifesto language "across the architecture, never inside statistic cards";
+  full-viewport quiz and pledge as documents rather than forms; no numeric score; no drag-to-wipe; the steam-clear
+  timing; the authorship rule; the /about proof-lift concept (a printed proof peeling off the lightbox — genuinely good,
+  keep it in the bank).
+  Where it fails its own critique:
+Beat 4 smuggles the gallery back onto the homepage. "The visitor enters five radically different environments,"
+  each 100–130vh, is the "five-poster pilgrimage" Codex itself rejected as option 2 — wearing a trench coat. It
+  contradicts the committed spec (commit 71b9027: home sells the movement, gallery moves to /psas, home borrows ONE
+  poster) and it makes the home ~15 viewports long with five hero-grade image payloads, putting the pledge — the
+  conversion — at viewport thirteen on a page whose mobile LCP is now unshippable. The five environments are the right
+  idea at the wrong address. Each poster already has a dedicated page at /psas/[slug]. Put the porcelain wall, the
+  chrome altarpiece, the confessional diptych, the marble folio there — one bespoke environment per poster page, where
+  each one is the entire page and can afford to be. That's the reconciliation, and it makes /psas a pilgrimage instead
+  of an archive.
+It duplicates both conversion surfaces. A full Sniff Test occupying the home viewport and /sniff-test; Form CW-1
+  full-screen on the home and /pledge. Two live email forms for one list, two sources of truth, mushed analytics. The
+  home confronts; the routes convert. Pick one address per mechanic — the docs already did.
+Beats 6 and 7 are two consecutive full-viewport paper documents. The memorandum and the engraved declaration are
+  both CWAAA-authored surfaces. The author collision is the punchline, and a punchline lands once. Back-to-back manila
+  dilutes the seam that design.md says must be designed, singular.
+The ghosted monumental "02" re-imports the numbering Round 2 killed. "SPOT NO. n" was auto-rejected; a broken
+  architectural numeral is the same taxonomy through the wallpaper — and it's also the single most-photographed trope on
+  awwwards this decade. A default of the maximalist genre is still a default.
+It's a mood film where the engineering should be. "Monumental manifesto language," "moving chrome reflections" — no
+  scale system, no mobile answer for five environmental compositions, no answer to the real geometry problem: a 4:5
+  poster "rising floor-to-ceiling" on a 16:9 viewport either gets cropped (forbidden — the baked type is the artwork) or
+  doesn't actually fill. My plan below supplies the missing mechanics.
+Here's Gemini's review:
+The Adversarial Review: Sol vs. The Tax AppSol didn't just step out of the "tax app" box; it completely flattened it and set it on fire.By framing its response through a complete genre change—treating the interface as a high-end, hyper-glossy fragrance campaign colliding with a rigid government public health warning—Sol successfully avoided the standard corporate AI traps. It understood that maximalism in creative design isn't about throwing arbitrary UI clutter or floating emojis at the screen; it’s about scale, material, pacing, and complete commitment to the bit.  Here is an unfiltered, adversarial breakdown of where this blueprint brilliantly succeeds, along with two specific vulnerabilities you need to watch out for during implementation.Where Sol Nails the Brief1. The Death of the ThumbnailsSol accurately identified the core failure of standard web design for an art project: dropping high-impact, full-bleed posters into a grid demotes them to "product screenshots". Moving to a layout where the posters are the environment—scaling floor-to-ceiling, cutting across counterforms, and sinking into distinct thematic textures (porcelain, heavy smoke, amber marble)—respects your manual compositing and typography. It treats the artwork as a cultural artifact rather than inventory.  2. High-Horizon Interaction (The "Squeegee" Effect)The choice to drop a mandatory "drag-to-wipe" mechanic for the steam threshold is a massive win for user experience. Drag-to-wipe is a cheap gimmick that feels like work on a second visit. The timed 2-second automatic squeegee sweep gives the visual payoff of the "fogged shower door" experiment without annoying a creative director who just wants to see the work[cite: 1, 3].  3. The "Post-Credits Scene" RevealThe transition plan in Phase 4 is exceptionally smart. By burying the portfolio link inside the "official fine print" and legal gags of the fictional movement, the site maintains its magic until the very last second. When a user clicks it, treating the campaign surface like a "printed proof being lifted from a lightbox"—complete with crop marks and layer annotations—is a brilliant way to showcase your hand-composited Photoshop craft, color-grading, and typographical choices without relying on a generic "Tools Used" badge list[cite: 1, 3].  The Critical Weak Points (What to Watch For)While the strategic architecture is top-tier, you need to push back on two specific implementation details to ensure the site runs flawlessly:⚠️ The Vertical Film vs. The "Index" TrapSol recommends structured navigation as an uninterrupted, vertical scrolling "film," but simultaneously introduces a full-screen typographic INDEX control.  The Risk: If a user opens a dedicated page for an individual poster, you risk breaking the continuous momentum of the main campaign narrative.The Fix: Ensure the INDEX acts as a quick overlay drawer that quickly snaps the user to specific vertical beats of the main page, rather than routing them away to isolated sub-pages that kill the pacing.⚠️ The Sniff Test Performance DragCreating full-viewport, highly typographic layouts for a 7-question quiz where a water droplet dynamically traces down a vertical assessment line sounds incredible on paper.  The Risk: Heavy layout shifts caused by custom canvas animations or unoptimized JavaScript can make the scroll feel sluggish, completely ruining the "hyper-glossy" premium speed of the site.The Fix: Use simple, high-performance CSS transforms and hardware-accelerated SVG paths to handle the droplet movement so it feels incredibly slick, not laggy.The VerdictSol successfully acted like a real Creative Director here. It built a bulletproof conceptual framework that bridges deadpan parody with high-end portfolio presentation. It perfectly honors the rule that the campaign speaks at the viewer, while the portfolio demonstrates the craft. 
+
+
+
+
+Show more
+
+8:31 AM
+
+
+
+
+
+
+I’m using the brainstorming skill to reconcile this critique before proposing any build changes. Claude found a genuine architectural contradiction in my first pass; Gemini validates the art direction but is reviewing the concept more than the route strategy. I’ll verify the committed home spec and then give you a revised, decisive architecture—adopting the valid criticism without flattening the campaign back into a gallery.
+
+
+
+
+The committed spec confirms Claude’s main point: my five-environment homepage contradicted the already-written “movement pitch” architecture. The clean reconciliation is emerging: home recruits with one flagship campaign moment; /psas becomes the pilgrimage; each /psas/[slug] earns the bespoke environmental staging. I’m checking the current route geometry now so the revision answers the 4:5-poster and navigation problems concretely rather than only aesthetically.
+
+
+
+
+
+
+
+Claude wins the architecture argument. Gemini correctly validates the aesthetic direction and performance caution, but it does not catch the contradiction between my five-poster homepage and the committed movement-pitch spec.
+My revised governing rule is:
+Home recruits. Routes convert. Poster pages immerse. /about reveals the maker.
+What I’m adopting
+Critique	Verdict
+Five environments smuggle the gallery back home	Correct. Remove four posters from home.
+Quiz and pledge were duplicated	Correct. Home gets confrontational invitations; /sniff-test and /pledge own the real mechanics.
+Two consecutive CWAAA documents weaken the seam	Correct. Home gets one CWAAA-authored intervention only.
+Monumental numbering is another maximalist template	Correct. Remove SPOT NO., giant 02, and decorative chapter numerals.
+The proposal lacked geometry and performance rules	Correct. These become binding specifications.
+Gemini’s navigation concern	Partly correct. Use context-aware navigation, not one universal index.
+Gemini’s quiz-animation warning	Correct. CSS transforms and lightweight SVG only; no canvas animation.
+
+The existing movement preview already solves part of this: its Sniff Test and pledge sections are invitations linking to their dedicated routes, and it uses one CWAAA seam. That is the correct ownership model.
+Three architectural options
+Distributed campaign architecture — recommended
+Home presents the movement’s argument using one flagship poster. Each poster detail page becomes its own environmental campaign world.
+
+Single-viewport route hub
+This is close to the current / implementation: extremely fast and dramatic, but too shallow. It announces the brand without actually recruiting anyone.
+
+Five-act homepage pilgrimage
+Visually impressive, but rejected. It delays conversion, loads too much artwork, and reconstructs the gallery as a long mood film.
+
+Revised route architecture
+/ — recruitment
+Use the committed [movement-pitch sequence (line 11)](C:/Users/heirr/OneDrive/Desktop/Hope2_Studio/GotSoap/docs/superpowers/specs/2026-07-09-home-movement-pitch-design.md:11):
+Auto-clearing porcelain hero
+“The Case” manifesto and monumental findings
+One flagship poster as campaign propaganda
+Sniff Test confrontation → /sniff-test
+Campaign-authored oath invitation → /pledge
+One CWAAA memorandum establishing scale and social proof
+Quiet Hope2 Studio reveal → /about
+Poster 5 remains my flagship recommendation. The hero already lives in Poster 1’s porcelain world; Poster 5 introduces the warm editorial register, foregrounds the campaign’s inclusive casting, and avoids making the home visually monochromatic.
+/psas — the pilgrimage threshold
+This should not be another staggered gallery.
+It becomes the cover of “Public Service Announcements — Series One”:
+One active, completely visible poster
+Five poster titles as a restrained campaign contents list
+“Begin Series One” enters the first poster
+Selecting a title enters that poster’s environment
+No thumbnails ×5, overlay headlines, SPOT NO. labels, or giant numerals
+/psas/[slug] — one environment per poster
+This is where the five environmental ideas belong:
+Confident Man: wet porcelain architecture
+Soap-Smoldering: steam-lit high-fashion bathroom
+Unholy: chrome altarpiece
+Redemption: confessional diptych
+Public Thirst Announcement: amber-marble folio
+Each route loads one poster, one environmental treatment, and its share/download controls. Previous and next navigation uses poster titles—not numbers.
+The 4:5 geometry answer
+The poster never fills the 16:9 viewport. The environment fills it.
+The canonical artwork uses object-fit: contain, never cover. On desktop:
+Maximum poster height: approximately 82–88svh
+Width derives from the 4:5 ratio
+Remaining viewport space belongs to tile, steam, smoke, marble, live copy, and controls
+Decorative environmental washes may crop; the canonical artwork may not
+On mobile:
+Poster width caps around 92vw
+Height remains automatic
+Content continues naturally beneath it
+No viewport lock or horizontal carousel
+This is not theoretical: the current detail template uses object-fit: cover, which can crop the baked typography and must be replaced when implementation begins: [poster detail (line 186)](C:/Users/heirr/OneDrive/Desktop/Hope2_Studio/GotSoap/site/src/pages/psas/[slug].astro:186). It also currently applies one repeated split-screen layout and retains the rejected SPOT NO. taxonomy.
+Navigation reconciliation
+Gemini is right that a giant universal INDEX could fracture momentum. The solution is contextual navigation:
+Home: an overlay contents sheet anchors to Case, Campaign, Confrontation, Oath, and Movement. Dedicated routes appear as secondary exits.
+Poster pages: a Series One rail provides previous, next, and return-to-series.
+Quiz and pledge: local progress/navigation only.
+About: “Return to the movement” restores the campaign path.
+Opening an overlay never routes anywhere by itself. Leaving the page is always an explicit choice.
+Performance contract
+Only the hero image loads eagerly on home.
+The flagship poster is responsive and lazy-loaded below the fold.
+Quiz logic loads only on /sniff-test.
+Form logic loads only on /pledge.
+Each poster detail loads one optimized poster derivative and one lightweight environmental treatment.
+Steam and droplet motion use clip-path, transform, opacity, or SVG strokes—never canvas.
+Reduced motion removes all nonessential travel.
+No five hero-grade poster payloads on the homepage.
+The proof-lift /about transition remains untouched; both reviews correctly identify it as one of the strongest ideas.
+Do you approve this governing architecture—home recruits, routes convert, and each poster detail page becomes the bespoke environment—so I can reconcile the design spec around it before any implementation changes?

@@ -167,6 +167,15 @@ ol[role='list'] {
   margin-block-start: var(--flow-space, 1em);
 }
 
+/* ---- Anchor targets clear the sticky masthead ------------------------------
+   The compact running head (chrome unification) is sticky at
+   --masthead-compact-h; any in-page anchor must land below it, not under it.
+   :where() keeps specificity at zero so the home's taller monumental
+   scroll-margins (chrome/CampaignMasthead) still win. */
+:where([id]) {
+  scroll-margin-block-start: calc(var(--masthead-compact-h) + 1rem);
+}
+
 /* ---- Motion policy (design.md §8) ----------------------------------------
    Only three motions exist site-wide: hero steam auto-clear (~2s), quiet
    scroll-reveals, the SWORN stamp settle. prefers-reduced-motion disables

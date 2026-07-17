@@ -2,23 +2,21 @@
 /**
  * Footer.astro — the poster footer, translated (design.md §7, copy-deck §1).
  * Every string here is a verbatim voice invariant. The "Funded by …" line is
- * the 🧼→📋 seam (links /crisis); the © line links /about. Social links render
- * only when their config URL is non-empty (PRD §5.6) — absent means invisible.
+ * the 🧼→📋 seam (links /crisis). Consolidation (owner, 2026-07-16): the folio
+ * credit below is the site's ONE /about path — the © line is plain text, and
+ * the parody disclaimer moved to /about, reworded as legal fine print. Social
+ * links render only when their config URL is non-empty (PRD §5.6) — absent
+ * means invisible.
  */
 import { footer } from '../content/copy';
 import { EXTERNAL_LINKS } from '../config/site';
 
 // copy.ts holds the hashtag stack as an array; the footer renders it middot-joined.
 const hashtagLine = footer.hashtags.join(' · ');
-// The "Funded by …" seam links /crisis; the © credit links /about (copy.ts comments).
+// The "Funded by …" seam links /crisis (copy.ts comments).
 const fundedHref = '/crisis';
-const creditHref = '/about';
 
-const socialLabels: Record<string, string> = {
-  behance: 'Behance',
-  instagram: 'Instagram',
-  facebook: 'Facebook',
-};
+const socialLabels: Record<string, string> = footer.socialLabels;
 const socials = (
   Object.entries(EXTERNAL_LINKS) as [string, string][]
 ).filter(([, url]) => url.trim().length > 0);
@@ -31,17 +29,19 @@ const socials = (
     <p class="footer__hashtags">{hashtagLine}</p>
 
     <p class="footer__funded">
-      Funded by <a href={fundedHref}>{footer.fundedBy}</a>
+      {footer.fundedByLead} <a href={fundedHref}>{footer.fundedBy}</a>
     </p>
 
-    <p class="footer__copyright">
-      <a href={creditHref}>{footer.credit}</a>
-    </p>
+    <p class="footer__copyright">{footer.credit}</p>
 
     <!-- The production folio credit (§3.7 as amended 2026-07-15, G11):
          FOOTER-ONLY, and the source string is the approved literal — real
          caps in the markup, not lower-case dressed up by small-caps CSS
-         (Sol Phase-3 F6). Linked to /about. -->
+         (Sol Phase-3 F6). Gate G11 greps THIS file for the verbatim literal,
+         so it stays hardcoded here by design (the gate's own comment: it does
+         not route through the copy lane). Linked to /about — the ONE campaign
+         path to the reveal (2026-07-16 consolidation) and the §10 proof-lift
+         trigger. -->
     <p class="footer__folio">
       <a href="/about">PRODUCED BY HOPE2 STUDIO · DIRECTED BY STACEY BRECKEL</a>
     </p>
@@ -60,7 +60,6 @@ const socials = (
       )
     }
 
-    <p class="footer__disclaimer">{footer.disclaimer}</p>
   </div>
 </footer>
 
@@ -136,14 +135,5 @@ const socials = (
   }
   .footer__socials a:hover {
     text-decoration: underline;
-  }
-  .footer__disclaimer {
-    font-family: var(--font-fine);
-    font-size: var(--step--2);
-    font-style: italic;
-    line-height: 1.5;
-    color: color-mix(in srgb, var(--chrome-mist) 80%, transparent);
-    max-width: 52ch;
-    margin: 0.5rem auto 0;
   }
 </style>

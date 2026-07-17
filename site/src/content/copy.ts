@@ -58,6 +58,14 @@ export const contents = {
   trigger: "Contents",
   title: "Contents",
   close: "Back to the campaign",
+  /** Close control on CWAAA surfaces (chrome unification, remediated
+   * 2026-07-17): "Back to the campaign" is campaign-voiced and wrong inside
+   * the sponsor's document (§1 — one surface, one author). This is a plain
+   * IMPLEMENTATION DEFAULT — structural chrome carrying no voice, the same
+   * class as the Phase-4 defaults (`close: "Close"` among them) that the copy
+   * lane later re-voiced (PROMPT-COPY work item 8; style-lock §4). Voicing it
+   * is PROMPT-COPY work item 10; the plain label is compliant to ship. */
+  closeCwaaa: "Close",
   anchorsLabel: "On this page",
   routesLabel: "The rest of the movement",
   anchors: [
@@ -74,15 +82,59 @@ export const contents = {
     { label: "Crisis", href: "/crisis" },
     { label: "Production Notes", href: "/about" },
   ],
+  /** Interior-page dialog exit (chrome unification, owner decision B,
+   * 2026-07-16): interior contents sheets list the route exits plus this
+   * return-home entry. Label VERBATIM from specs.md §9.2 ("Return to the
+   * movement") — structural taxonomy, like the entries above. */
+  returnHome: { label: "Return to the movement", href: "/" },
+} as const;
+
+/**
+ * Home masthead fiction (post-freeze consolidation, 2026-07-16 — style-lock §7/§10).
+ * Pure straight-faced Vogue-masthead dressing: Est./Series/No. 26 commit to the
+ * bit ("No. 26" echoes CWAAA Memorandum No. 26-114). The institutional credit is
+ * the format-perfect PSA credit; its killed NGO-brochure predecessor
+ * (style-lock §7 kill list) must never return. The nameplate itself is nav.mark.
+ */
+export const masthead = {
+  ariaLabel: "Got Soap? — masthead",
+  est: "Est. MMXXIV",
+  // A no-break space (U+00A0) glues the middot to "announcement" so a
+  // wrapped flank line never opens with a hanging "·" — typographic setting only.
+  credit: `A public service announcement · Funded by ${FUNDED_BY}`,
+  series: "Series One",
+  issue: "No. 26",
+  /** Screen-reader funding line: keeps the gag in the a11y tree at widths
+   * where the flank credit is display:none (≤640px). */
+  srFunding: `Funded by ${FUNDED_BY}.`,
+  /** CWAAA letterhead chrome (chrome unification, owner decision A,
+   * 2026-07-16): org surfaces carry the sponsor's letterhead and NO campaign
+   * wordmark. Visible letterhead strings reuse crisis.header verbatim; this
+   * is only the structural landmark label (composed from the verbatim org
+   * name — not voice copy). */
+  cwaaa: {
+    ariaLabel: `${FUNDED_BY} — letterhead`,
+  },
 } as const;
 
 export const footer = {
   movementLine: "Join the movement. Smell like someone chose you back.",
   hashtags: HASHTAGS,
+  fundedByLead: "Funded by", // renders around the linked org name (→ /crisis)
   fundedBy: FUNDED_BY, // links /crisis
-  credit: `${COPYRIGHT} · A satirical spec campaign by Hope2 Studio →`, // links /about
-  disclaimer:
-    "This is parody. Not affiliated with any brand, fragrance, publication, health organization, or your ex. No axes were abused in the making of this movement.",
+  /** Plain unlinked text (2026-07-16 footer consolidation): the folio credit —
+   * PRODUCED BY HOPE2 STUDIO · DIRECTED BY STACEY BRECKEL, hardcoded in
+   * Footer.astro because gate G11 requires the verbatim literal there — is the
+   * home's ONE /about path. The old spec-campaign tell is killed on campaign
+   * surfaces (style-lock kill list); the reveal + disclaimer live at /about. */
+  credit: COPYRIGHT,
+  /** Social platform labels: proper nouns, render only when the matching
+   * config/site.ts EXTERNAL_LINKS url is non-empty (PRD §5.6). */
+  socialLabels: {
+    behance: "Behance",
+    instagram: "Instagram",
+    facebook: "Facebook",
+  },
 } as const;
 
 export const scratchGag = {
@@ -112,17 +164,30 @@ export const meta = {
 
 export const home = {
   hero: {
+    ariaLabel: "Got Soap? — a public service announcement",
     headline: "got soap?",
     sub: "Because he thinks the steam is hiding it. It never was.",
-    scrollCue: "Keep going. It only gets cleaner. He didn't.",
+    scrollCue: "Keep scrolling. It only gets cleaner. He didn't.",
     /** §7.2 institutional signature (renders above the headline) — the exact 90s-PSA credit format; the org name detonates against it. */
     signature: `A public service announcement · Funded by ${FUNDED_BY}`,
   },
+  /** §3.2 Porcelain Evidence Wall typographic settings — the demand is a
+   * reassembly of the documented demand ("soap, applied to men, regularly",
+   * crisis.founding[1]); the creed is founding[2]'s verbatim clause. Moved from
+   * Case.astro markup in the 2026-07-16 hardcoded-copy sweep. */
+  case: {
+    demand: ["Soap.", "Applied to men.", "Regularly."],
+    creed: "We do not oppose fragrance. We oppose substitution.",
+    cta: "Read the full findings", // ornament arrow stays aria-hidden markup
+  },
   campaign: {
+    kicker: "The Flagship",
     /** §3.3 flagship propaganda caption — poster-agnostic (HOME_FLAGSHIP is owner-swappable). An order, not a caption. */
     caption: "Pin him up in the locker room.",
+    cta: "See all five announcements", // ornament arrow stays aria-hidden markup
   },
   confrontation: {
+    eyebrow: "The Sniff Test · Field Assessment CW-7",
     /** §4 second-person provocation — the dual-address engine turned literal at the mirror beat. */
     provocation: "You've smelled him. Are you him?",
   },
@@ -144,14 +209,20 @@ export const home = {
     cta: "Read the full brief →",
   },
   pledgeBand: {
+    kicker: "The Oath",
     heading: "Join the movement. Sign it — or send it to the man who should.",
     body: `Because "I usually shower" is not a hygiene routine. It's a confession.`,
+    /** The movement's verbatim sign-off (pledge.oath / crisis.motto). */
+    signoff: "Lather. Rinse. Respect.",
     cta: "Take the Lather Pledge →",
   },
+  /** The home's closing beat — the campaign THESIS, not a reveal (owner
+   * decision 2026-07-16, footer-consolidation spec): it names neither the joke
+   * nor the maker, and carries no route. The former meta-reveal tail and
+   * who-is-behind-it cta are on the style-lock kill list; the home's one
+   * /about path is the footer folio credit. */
   revealBeat: {
     line: "None of these men are real. The problem is very, very real.",
-    tail: "Got Soap? is a satirical campaign by Hope2 Studio.",
-    cta: "See who's behind it →",
   },
 } as const;
 
@@ -452,8 +523,13 @@ export const about = {
     tagline: "Let's make clean design dirty fun.",
     // contact + behance come from config/site.ts (obfuscate email from scrapers at render)
   },
-  credit:
-    "© Stacey Breckel 2025. A satirical spec campaign by Hope2 Studio. All visual elements are parody and not affiliated with any brand, product, publication, or public health organization. Models generated with openart.ai; all art direction, compositing, and typography by hand.",
+  /** The reveal is the page's voice; the disclaimer below is its fine print. */
+  credit: `${COPYRIGHT}. A satirical spec campaign by Hope2 Studio.`,
+  /** Relocated from the global footer (2026-07-16 footer consolidation) and
+   * reworded to do the LEGAL job only — non-affiliation, not "surprise, it's
+   * satire". Spec-verbatim wording (footer-consolidation-spec "Target state"). */
+  disclaimer:
+    "Parody. Not affiliated with any brand, product, publication, or public-health organization. Models generated with openart.ai; art direction, compositing, and typography by hand.",
 } as const;
 
 export const notFound = {
@@ -464,7 +540,7 @@ export const notFound = {
 } as const;
 
 const copy = {
-  HASHTAGS, FUNDED_BY, COPYRIGHT, labels, nav, contents, footer, scratchGag, meta,
+  HASHTAGS, FUNDED_BY, COPYRIGHT, labels, nav, contents, masthead, footer, scratchGag, meta,
   home, posterCopy, psas, sniffTest, verdicts, pledge, crisis, about, notFound,
 } as const;
 

@@ -1,0 +1,549 @@
+---
+/**
+ * chrome/CampaignMasthead.astro — the campaign's nameplate, at two scales.
+ *
+ * One identity, two performances (chrome unification, 2026-07-16 — the
+ * cover-vs-running-head pattern):
+ *
+ *   monumental — the HOME only. The high-fashion Vogue nameplate (North Star
+ *                ROUND 3): large centered ink-gloss "got soap?", symmetric
+ *                institutional flanks, gold rule + double hairlines, the
+ *                Contents trigger centered beneath the mid hairline. The cover.
+ *
+ *   compact    — every campaign interior page. The same identity dialed down
+ *                to a sticky 57px running head: small ink-gloss wordmark
+ *                (links home), the Series One · No. 26 fiction centered, the
+ *                Contents trigger right. Pinned to --masthead-compact-h so the
+ *                five environments' §5.1 stage budgets stay single-sourced.
+ *
+ * Navigation is the §9.1 CONTENTS SHEET (chrome/ContentsDialog.astro) at both
+ * scales. Without JS the trigger never renders; the same list is exposed as an
+ * inline anchor row — navigation is never behind a dead button (§9.1).
+ *
+ * No maker credit here — OWNER AMENDMENT 2026-07-15 (specs.md §3.7): a
+ * real-world credit above the fold tips the satire before the campaign lands.
+ * The masthead stays pure in-fiction; the credit lives in the FOOTER only
+ * (G11 fails a masthead credit).
+ */
+import ContentsDialog from './ContentsDialog.astro';
+import { masthead, nav, contents } from '../../content/copy';
+
+interface Props {
+  scale: 'monumental' | 'compact';
+  /** Current pathname, for aria-current on route lists. */
+  path?: string;
+}
+const { scale, path = '' } = Astro.props;
+const monumental = scale === 'monumental';
+
+/* No-JS inline fallback entries mirror the dialog's variant (§9.1): the home
+ * lists anchors then routes; interior pages list routes then the return-home
+ * exit ("Return to the movement", §9.2's verbatim phrase). */
+const inlineEntries = monumental
+  ? [...contents.anchors, ...contents.routes]
+  : [...contents.routes, contents.returnHome];
+---
+
+{
+  monumental ? (
+    <header class="mh" aria-label={masthead.ariaLabel}>
+      <div class="mh__gold" aria-hidden="true" />
+      <div class="mh__hair mh__hair--top" aria-hidden="true" />
+      <span class="mh__sheen" aria-hidden="true" />
+
+      <div class="mh__bar">
+        <p class="mh__flank mh__flank--l">
+          <span class="mh__est">{masthead.est}</span>
+          {/* The institutional credit is the format-perfect PSA credit (copy
+              lane, style-lock §7); its NGO-brochure predecessor is on the
+              kill list. */}
+          <span class="mh__credit">{masthead.credit}</span>
+        </p>
+
+        <a class="mh__nameplate" href="/">{nav.mark}</a>
+
+        <p class="mh__flank mh__flank--r">
+          <span class="mh__series">{masthead.series}</span>
+          <span class="mh__issue">{masthead.issue}</span>
+        </p>
+      </div>
+
+      <div class="mh__hair mh__hair--mid" aria-hidden="true" />
+
+      <div class="mh__contents">
+        <button
+          type="button"
+          class="mh__trigger"
+          data-contents-open
+          aria-haspopup="dialog"
+        >
+          <span class="mh__trigger-rule" aria-hidden="true" />
+          <span class="mh__trigger-label">{contents.trigger}</span>
+          <span class="mh__trigger-rule" aria-hidden="true" />
+        </button>
+
+        {/* No-JS fallback (§9.1): the inline anchor list, anchors first. */}
+        <nav class="mh__inline" aria-label={contents.title}>
+          <ul class="mh__inline-list" role="list">
+            {inlineEntries.map((l) => (
+              <li>
+                <a
+                  class:list={[
+                    'mh__inline-link',
+                    l.href.startsWith('/') && 'mh__inline-link--route',
+                  ]}
+                  href={l.href}
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      <p class="sr-only">{masthead.srFunding}</p>
+
+      <ContentsDialog register="campaign" variant="home" path={path} />
+    </header>
+  ) : (
+    <header class="cm" aria-label={masthead.ariaLabel}>
+      <div class="cm__gold" aria-hidden="true" />
+
+      <div class="cm__bar">
+        <a class="cm__nameplate" href="/">{nav.mark}</a>
+
+        <p class="cm__fiction" aria-hidden="true">
+          <span class="cm__series">{masthead.series}</span>
+          <span class="cm__dot">·</span>
+          <span class="cm__issue">{masthead.issue}</span>
+        </p>
+
+        <button
+          type="button"
+          class="cm__trigger"
+          data-contents-open
+          aria-haspopup="dialog"
+        >
+          <span class="cm__trigger-rule" aria-hidden="true" />
+          <span class="cm__trigger-label">{contents.trigger}</span>
+        </button>
+      </div>
+
+      {/* No-JS fallback (§9.1): the inline route list, on every page. */}
+      <nav class="cm__inline" aria-label={contents.title}>
+        <ul class="cm__inline-list" role="list">
+          {inlineEntries.map((l) => (
+            <li>
+              <a class="cm__inline-link" href={l.href}>
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <p class="sr-only">{masthead.srFunding}</p>
+
+      <ContentsDialog register="campaign" variant="interior" path={path} />
+    </header>
+  )
+}
+
+<style>
+  /* ======================================================================
+     MONUMENTAL — the home's magazine cover nameplate.
+     ====================================================================== */
+  .mh {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    isolation: isolate;
+    background: var(--steam-white);
+    color: var(--grout-black);
+    /* AA-safe amber for focus on the light porcelain ground (tokens.css). */
+    --focus-ring: var(--marble-amber-ink);
+    padding-block: clamp(0.55rem, 1.5vw, 0.95rem);
+    padding-inline: clamp(1rem, 4vw, 3rem);
+    border-bottom: 1px solid color-mix(in srgb, var(--grout-black) 14%, transparent);
+    box-shadow: 0 10px 30px -22px rgba(20, 16, 10, 0.5);
+  }
+  /* glossy porcelain sheen so the nameplate reads premium, not flat UI */
+  .mh__sheen {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(140% 130% at 50% -40%, color-mix(in srgb, #fff 80%, transparent), transparent 58%),
+      linear-gradient(180deg, color-mix(in srgb, #fff 45%, transparent), transparent 40%);
+  }
+
+  .mh__gold {
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--marble-amber) 16%,
+      color-mix(in srgb, var(--marble-amber) 70%, #fff) 50%,
+      var(--marble-amber) 84%,
+      transparent
+    );
+  }
+  .mh__hair {
+    height: 1px;
+  }
+  .mh__hair--top {
+    background: color-mix(in srgb, var(--grout-black) 20%, transparent);
+    margin-top: 3px;
+    margin-bottom: clamp(0.4rem, 1vw, 0.75rem);
+  }
+  .mh__hair--mid {
+    background: color-mix(in srgb, var(--grout-black) 18%, transparent);
+    margin-block: clamp(0.4rem, 1vw, 0.65rem);
+  }
+
+  .mh__bar {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: clamp(0.75rem, 3vw, 2rem);
+  }
+
+  .mh__flank {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+    font-family: var(--font-fine);
+    font-size: clamp(0.53rem, 0.82vw, 0.66rem);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--grout-black) 66%, var(--steam-white));
+  }
+  .mh__flank--l { align-items: flex-start; }
+  .mh__flank--r { align-items: flex-end; text-align: right; }
+  .mh__est,
+  .mh__series {
+    color: var(--marble-amber-ink);
+    font-weight: 500;
+  }
+  /* The PSA credit is the flank's long line — cap the measure so it wraps as
+     stacked microcopy instead of running under the nameplate. */
+  .mh__credit {
+    max-width: 44ch;
+    text-wrap: balance;
+  }
+  .mh__issue {
+    white-space: nowrap;
+  }
+
+  .mh__nameplate {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.05rem, 4.7vw, 3.4rem);
+    /* background-clip:text paints only the padding box: a sub-1.0 line box
+       sliced the g/p descenders flat. ≥1.05 line-height + padding-block gives
+       the glyphs painted room; the negative margin hands the extra layout
+       height back so the bar stays a nameplate. */
+    line-height: 1.1;
+    padding-block: 0.12em;
+    margin-block: -0.12em;
+    letter-spacing: -0.012em;
+    text-transform: lowercase;
+    text-decoration: none;
+    white-space: nowrap;
+    /* polished-ink gloss with a bright top highlight = premium chrome */
+    background-image: linear-gradient(176deg, #5a5a62 0%, #262529 30%, #0b0b0d 62%, #34343b 84%, #0e0e11 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.65));
+  }
+  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .mh__nameplate {
+      -webkit-text-fill-color: var(--grout-black);
+      color: var(--grout-black);
+    }
+  }
+  .mh__nameplate:hover {
+    background-image: linear-gradient(176deg, var(--marble-amber-ink), #6b4d18);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  /* The Contents slot: trigger with JS, inline anchor list without — centered
+     beneath the mid hairline where a conventional link row would sit. */
+  .mh__contents {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .mh__trigger {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.8rem, 2.5vw, 1.5rem);
+    inline-size: 100%;
+    min-block-size: 44px; /* §12 touch target */
+    padding: 0.35em 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: clamp(0.62rem, 0.95vw, 0.74rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--grout-black);
+  }
+  :global(html.has-js) .mh__trigger {
+    display: inline-flex;
+  }
+  :global(html.has-js) .mh__inline {
+    display: none;
+  }
+  .mh__trigger-rule {
+    inline-size: clamp(2rem, 8vw, 5rem);
+    block-size: 1px;
+    background: color-mix(in srgb, var(--grout-black) 30%, transparent);
+    transition: background-color 140ms ease, inline-size 140ms ease;
+  }
+  .mh__trigger:hover .mh__trigger-rule {
+    background: var(--marble-amber-ink);
+  }
+  .mh__trigger:hover .mh__trigger-label {
+    color: var(--marble-amber-ink);
+  }
+
+  /* No-JS inline anchor list: compact tracked row under the nameplate. */
+  .mh__inline-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    column-gap: clamp(0.8rem, 2.4vw, 1.6rem);
+    row-gap: 0.2rem;
+    margin: 0;
+    padding: 0;
+  }
+  .mh__inline-link {
+    display: inline-block;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: clamp(0.58rem, 0.9vw, 0.7rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--grout-black);
+    padding-block: 0.6em;
+  }
+  .mh__inline-link--route {
+    color: color-mix(in srgb, var(--grout-black) 60%, var(--steam-white));
+  }
+
+  /* The masthead is sticky, so the §9.1 contents-sheet anchor targets must
+     land BELOW it rather than underneath it. */
+  :global(#case),
+  :global(#campaign),
+  :global(#confrontation),
+  :global(#oath),
+  :global(#movement) {
+    scroll-margin-block-start: 10.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .mh__flank { display: none; }
+    .mh__bar {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+    .mh__nameplate { font-size: clamp(2rem, 9vw, 2.6rem); }
+  }
+
+  /* ======================================================================
+     COMPACT — the interior running head. Same DNA (gold rule, hairlines,
+     ink-gloss wordmark, tracked fiction), one 57px bar.
+     ====================================================================== */
+  .cm {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    isolation: isolate;
+    background: var(--steam-white);
+    color: var(--grout-black);
+    --focus-ring: var(--marble-amber-ink);
+    box-shadow: 0 10px 30px -22px rgba(20, 16, 10, 0.5);
+  }
+  .cm__gold {
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--marble-amber) 16%,
+      color-mix(in srgb, var(--marble-amber) 70%, #fff) 50%,
+      var(--marble-amber) 84%,
+      transparent
+    );
+  }
+  .cm__bar {
+    /* 2px gold rule + 55px bar (the two hairlines live INSIDE the border-box)
+       = --masthead-compact-h (57px) at NORMAL text metrics — the single source
+       the five environments' §5.1 budgets read. min-block-size, not block-size:
+       §12 requires 200% text scaling without loss or overlap, and the scaled
+       nameplate line box (~60px at 200%) must grow the bar rather than
+       protrude through it (Sol, chrome-unification review finding 2). A grown
+       bar only makes the environments' svh caps conservative — normal flow,
+       never overlap. */
+    min-block-size: calc(var(--masthead-compact-h) - 2px);
+    border-top: 1px solid color-mix(in srgb, var(--grout-black) 20%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--grout-black) 14%, transparent);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: clamp(0.75rem, 3vw, 2rem);
+    padding-block: 0.15rem;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+  }
+
+  .cm__nameplate {
+    grid-column: 1;
+    justify-self: start;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.1;
+    padding-block: 0.12em;
+    letter-spacing: -0.012em;
+    text-transform: lowercase;
+    text-decoration: none;
+    white-space: nowrap;
+    background-image: linear-gradient(176deg, #5a5a62 0%, #262529 30%, #0b0b0d 62%, #34343b 84%, #0e0e11 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.65));
+  }
+  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .cm__nameplate {
+      -webkit-text-fill-color: var(--grout-black);
+      color: var(--grout-black);
+    }
+  }
+  .cm__nameplate:hover {
+    background-image: linear-gradient(176deg, var(--marble-amber-ink), #6b4d18);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  /* The fiction row, minimized: the running head keeps the issue gag alive. */
+  .cm__fiction {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.55em;
+    margin: 0;
+    font-family: var(--font-fine);
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: color-mix(in srgb, var(--grout-black) 66%, var(--steam-white));
+  }
+  .cm__series {
+    color: var(--marble-amber-ink);
+    font-weight: 500;
+  }
+
+  .cm__trigger {
+    grid-column: 3;
+    justify-self: end;
+    display: none;
+    align-items: center;
+    gap: clamp(0.55rem, 1.5vw, 0.9rem);
+    min-block-size: 44px; /* §12 touch target */
+    padding: 0.35em 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: 0.64rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--grout-black);
+  }
+  :global(html.has-js) .cm__trigger {
+    display: inline-flex;
+  }
+  :global(html.has-js) .cm__inline {
+    display: none;
+  }
+  .cm__trigger-rule {
+    inline-size: clamp(1.4rem, 4vw, 3rem);
+    block-size: 1px;
+    background: color-mix(in srgb, var(--grout-black) 30%, transparent);
+    transition: background-color 140ms ease;
+  }
+  .cm__trigger:hover .cm__trigger-rule {
+    background: var(--marble-amber-ink);
+  }
+  .cm__trigger:hover .cm__trigger-label {
+    color: var(--marble-amber-ink);
+  }
+
+  /* No-JS inline route list: a tracked row under the running head. */
+  .cm__inline {
+    border-bottom: 1px solid color-mix(in srgb, var(--grout-black) 14%, transparent);
+  }
+  .cm__inline-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    column-gap: clamp(0.8rem, 2.4vw, 1.6rem);
+    row-gap: 0.2rem;
+    margin: 0;
+    padding: 0.15rem clamp(1rem, 4vw, 3rem);
+  }
+  .cm__inline-link {
+    display: inline-block;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--grout-black);
+    padding-block: 0.6em;
+  }
+
+  /* §12 horizontal headroom: at 200% text scaling the nameplate (~180px) +
+     fiction (~275px) + trigger (~230px) exceed mid-range widths, so the
+     decorative fiction retires below 768px — not 640 — leaving two columns
+     that fit 641–767px even at double text size. */
+  @media (max-width: 767px) {
+    .cm__fiction { display: none; }
+  }
+
+  @media (max-width: 640px) {
+    .cm__bar { grid-template-columns: auto 1fr; }
+    .cm__trigger { grid-column: 2; }
+    /* The decorative rule yields its width so nameplate + label fit 390px
+       at 200% text scale (§12); the label alone is the 44px target. */
+    .cm__trigger-rule { display: none; }
+  }
+
+  /* §6/§11: reduced motion resolves every state instantly. */
+  @media (prefers-reduced-motion: reduce) {
+    .mh__trigger-rule,
+    .cm__trigger-rule {
+      transition: none;
+    }
+  }
+</style>

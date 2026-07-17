@@ -36,7 +36,7 @@ const portraitAvif = await getImage({ src: heroPortrait, format: 'avif', widths:
 const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths: [720, 1080, 1350] });
 ---
 
-<section id="hero" class="hero" aria-label="Got Soap? — a public service announcement">
+<section id="hero" class="hero" aria-label={home.hero.ariaLabel}>
   <!-- The text-free hero environment. Decorative composite: empty alt (§12);
        the live type below carries all content. `cover` is legitimate here —
        this is atmosphere staging, not the canonical poster rectangle. -->

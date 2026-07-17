@@ -295,7 +295,7 @@ const staggered = clauses.filter((c) => c !== versicle);
      chrome / width. */
   @media (min-width: 1024px) {
     .nave {
-      min-block-size: calc(100svh - 57px);
+      min-block-size: calc(100svh - var(--masthead-compact-h));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -311,7 +311,7 @@ const staggered = clauses.filter((c) => c !== versicle);
       max-inline-size: none;
       block-size: min(
         86svh,
-        calc(100svh - 57px - var(--nave-pad-start) - var(--nave-pad-end)),
+        calc(100svh - var(--masthead-compact-h) - var(--nave-pad-start) - var(--nave-pad-end)),
         calc(72vw * 1.25)
       );
       margin-inline: 0;

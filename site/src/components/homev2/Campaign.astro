@@ -59,7 +59,7 @@ const poster = getPoster(slug)!;
 
     <div class="camp__rail">
       <p id="camp-kicker" class="camp__kicker">
-        The Flagship<span aria-hidden="true"> · </span><span class="camp__kicker-sub">{poster.title}</span>
+        {home.campaign.kicker}<span aria-hidden="true"> · </span><span class="camp__kicker-sub">{poster.title}</span>
       </p>
 
       <p class="camp__caption fx-gold">{home.campaign.caption}</p>
@@ -69,7 +69,7 @@ const poster = getPoster(slug)!;
       <span class="camp__rule" aria-hidden="true"></span>
 
       <p class="camp__route">
-        <a class="camp__link" href="/psas">See all five announcements <span aria-hidden="true">→</span></a>
+        <a class="camp__link" href="/psas">{home.campaign.cta} <span aria-hidden="true">→</span></a>
       </p>
     </div>
   </div>

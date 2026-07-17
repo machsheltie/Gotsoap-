@@ -303,7 +303,7 @@ const steps = pull.split(/(?<=\.)\s+/).filter(Boolean);
     .confessional {
       grid-column: 1;
       grid-row: 1;
-      min-block-size: calc(100svh - 57px);
+      min-block-size: calc(100svh - var(--masthead-compact-h));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -320,7 +320,7 @@ const steps = pull.split(/(?<=\.)\s+/).filter(Boolean);
       max-inline-size: none;
       block-size: min(
         85svh,
-        calc(100svh - 57px - 2 * var(--room-pad)),
+        calc(100svh - var(--masthead-compact-h) - 2 * var(--room-pad)),
         calc((100vw - 30rem) * 1.25)
       );
       margin-inline: 0;

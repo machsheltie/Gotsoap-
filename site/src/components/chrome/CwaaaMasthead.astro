@@ -1,0 +1,206 @@
+---
+/**
+ * chrome/CwaaaMasthead.astro — the sponsor's letterhead running head.
+ *
+ * OWNER DECISION A (chrome unification, 2026-07-16, binding): CWAAA-authored
+ * surfaces (/pledge, /crisis, /404) carry the org letterhead — PT Serif,
+ * manila/ink, the CWAAA seal — and the "got soap?" campaign wordmark is
+ * ABSENT. The visitor is inside the sponsor's document; the footer funded-by
+ * seam and the inbound links carry the connection back to the campaign. A
+ * campaign wordmark here would be a two-author violation (§1), not cohesion.
+ *
+ * The identity block (seal + org name + motto) reuses the crisis letterhead
+ * strings verbatim and links to /crisis — the org's own front page. The
+ * running head echoes the /crisis dossier letterhead grammar (double ink
+ * rule, PT Serif caps, italic motto) at document-header scale.
+ *
+ * Navigation is the same §9.1 contents sheet as everywhere else, dressed in
+ * the org's materials (chrome/ContentsDialog.astro, register="cwaaa"). The
+ * no-JS inline route list renders on every page (§9.1).
+ */
+import ContentsDialog from './ContentsDialog.astro';
+import Seal from '../cwaaa/Seal.astro';
+import { masthead, contents, crisis } from '../../content/copy';
+
+interface Props {
+  /** Current pathname, for aria-current on route lists. */
+  path?: string;
+}
+const { path = '' } = Astro.props;
+
+const inlineEntries = [...contents.routes, contents.returnHome];
+---
+
+<header class="lh register-cwaaa" aria-label={masthead.cwaaa.ariaLabel}>
+  <div class="lh__bar">
+    <a class="lh__ident" href="/crisis">
+      <span class="lh__seal">
+        <Seal size={38} decorative />
+      </span>
+      <span class="lh__idtext">
+        <span class="lh__org">{crisis.header.org}</span>
+        <span class="lh__motto"><em>{crisis.header.motto}</em></span>
+      </span>
+    </a>
+
+    <button
+      type="button"
+      class="lh__trigger"
+      data-contents-open
+      aria-haspopup="dialog"
+    >
+      {contents.trigger}
+    </button>
+  </div>
+
+  <!-- No-JS fallback (§9.1): the inline route list, on every page. -->
+  <nav class="lh__inline" aria-label={contents.title}>
+    <ul class="lh__inline-list" role="list">
+      {
+        inlineEntries.map((l) => (
+          <li>
+            <a class="lh__inline-link" href={l.href}>{l.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <ContentsDialog register="cwaaa" variant="interior" path={path} />
+</header>
+
+<style>
+  .lh {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    isolation: isolate;
+    /* .register-cwaaa supplies the manila ground, ink color, PT Serif, and
+       the stamp-red focus ring (tokens.css) — the letterhead IS a CWAAA
+       surface, independent of what <main> renders below it. */
+    border-top: 5px double var(--cwaaa-ink);
+    border-bottom: 1px solid color-mix(in srgb, var(--cwaaa-ink) 35%, transparent);
+    box-shadow: 0 10px 30px -24px rgba(24, 28, 38, 0.55);
+  }
+
+  .lh__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-block-size: 52px;
+    padding-block: 0.35rem;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+  }
+
+  .lh__ident {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    color: var(--cwaaa-ink);
+    min-inline-size: 0;
+  }
+  .lh__seal {
+    flex: none;
+    display: inline-flex;
+  }
+  .lh__idtext {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+    min-inline-size: 0;
+  }
+  .lh__org {
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: clamp(0.72rem, 1.6vw, 0.84rem);
+    line-height: 1.2;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .lh__ident:hover .lh__org {
+    color: var(--cwaaa-stamp);
+  }
+  .lh__motto {
+    font-family: var(--font-cwaaa);
+    font-size: 0.66rem;
+    line-height: 1.2;
+    letter-spacing: 0.06em;
+    color: color-mix(in srgb, var(--cwaaa-ink) 72%, var(--cwaaa-manila));
+  }
+
+  .lh__trigger {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    min-block-size: 44px; /* §12 touch target */
+    padding: 0.4em 1em;
+    background: transparent;
+    border: 1px solid color-mix(in srgb, var(--cwaaa-ink) 45%, transparent);
+    cursor: pointer;
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cwaaa-ink);
+    transition: color 140ms ease, border-color 140ms ease;
+  }
+  .lh__trigger:hover {
+    color: var(--cwaaa-stamp);
+    border-color: var(--cwaaa-stamp);
+  }
+  :global(html.has-js) .lh__trigger {
+    display: inline-flex;
+  }
+  :global(html.has-js) .lh__inline {
+    display: none;
+  }
+
+  /* No-JS inline route list: a ruled index row under the letterhead. */
+  .lh__inline {
+    border-top: 1px solid color-mix(in srgb, var(--cwaaa-ink) 25%, transparent);
+  }
+  .lh__inline-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    column-gap: clamp(0.8rem, 2.4vw, 1.6rem);
+    row-gap: 0.2rem;
+    margin: 0;
+    padding: 0.15rem clamp(1rem, 4vw, 3rem);
+  }
+  .lh__inline-link {
+    display: inline-block;
+    font-family: var(--font-cwaaa);
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--cwaaa-ink);
+    padding-block: 0.6em;
+  }
+  .lh__inline-link:hover {
+    color: var(--cwaaa-stamp);
+  }
+
+  @media (max-width: 640px) {
+    .lh__motto {
+      display: none;
+    }
+    .lh__org {
+      font-size: 0.66rem;
+    }
+  }
+
+  /* §6/§11: reduced motion resolves every state instantly. */
+  @media (prefers-reduced-motion: reduce) {
+    .lh__trigger {
+      transition: none;
+    }
+  }
+</style>

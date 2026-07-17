@@ -1,21 +1,27 @@
 ---
 /**
- * homev2/Reveal.astro — SECTION 7: THE QUIET REVEAL.
+ * homev2/Reveal.astro — SECTION 7: THE CLOSING BEAT — the campaign thesis.
  *
- * One subtle line to /about — the page-three punchline. Deliberately the
- * quietest thing on the page: no monumental type, no confession. The
- * "None of these men are real" disclaimer stays BURIED in the footer only
- * (North Star: no mid-scroll apology). This is a whisper that rewards curiosity.
+ * One quiet line and NO route: "None of these men are real. The problem is
+ * very, very real." It names neither the joke nor the maker — the imagery is
+ * fantasy, the problem is real — so the home commits to the bit to its last
+ * pixel (owner decision 2026-07-16, footer-consolidation spec). The former
+ * meta-reveal tail and the who-is-behind-it cta are on the style-lock kill
+ * list. The home's ONE path to /about is the footer folio credit, which
+ * doubles as the §10 proof-lift trigger.
  *
- * COPY: the link label is VERBATIM from `home.revealBeat.cta`.
+ * Deliberately the quietest thing on the page: chrome-mist on grout-black,
+ * no monumental type, no route, no confession.
+ *
+ * COPY: the line is VERBATIM from `home.revealBeat.line`.
  */
 import { home } from '../../content/copy';
 ---
 
-<section class="rv" aria-label="About this campaign">
+<section class="rv" aria-labelledby="rv-line">
   <div class="rv__inner">
     <span class="rv__mark" aria-hidden="true">✦</span>
-    <a class="rv__link" href="/about">{home.revealBeat.cta}</a>
+    <h2 class="rv__line" id="rv-line">{home.revealBeat.line}</h2>
   </div>
 </section>
 
@@ -28,36 +34,27 @@ import { home } from '../../content/copy';
     text-align: center;
   }
   .rv__inner {
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
+    gap: clamp(0.9rem, 2.5vh, 1.4rem);
   }
   .rv__mark {
     color: color-mix(in srgb, var(--marble-amber) 70%, transparent);
     font-size: 0.7rem;
   }
-  .rv__link {
-    font-family: var(--font-label);
-    font-weight: 700;
-    font-size: var(--step--1);
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+  .rv__line {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.6vw, 1.9rem);
+    line-height: 1.3;
+    letter-spacing: 0.005em;
     color: var(--chrome-mist);
-    text-decoration: none;
-    border-bottom: 1px solid color-mix(in srgb, var(--chrome-mist) 40%, transparent);
-    padding-bottom: 0.25em;
-    transition: color 140ms ease, border-color 140ms ease;
-  }
-  .rv__link:hover {
-    color: var(--marble-amber);
-    border-bottom-color: var(--marble-amber);
+    max-width: 28ch;
+    text-wrap: balance;
+    margin: 0;
   }
 
-  /* §6/§11: the beat's composition is already final (hover feedback is the
-     only motion) — reduced motion switches states instantly. */
-  @media (prefers-reduced-motion: reduce) {
-    .rv__link {
-      transition: none;
-    }
-  }
+  /* §6/§11: nothing here moves — the beat is a held breath, reduced motion or
+     not. */
 </style>

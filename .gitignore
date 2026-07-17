@@ -4,6 +4,24 @@
 # Web-ready derivatives live under site/ and are committed there.
 # See PRD §6.5 + CLAUDE.md "Asset warnings".
 # ─────────────────────────────────────────────────────────────
+.DS_Store
+/zips/
+/test/
+/.mars/
+/.meridian/
+.claude/settings.local.json
+
+/.agents/agents/
+/.agents/skills/
+/.claude/agents/
+/.claude/skills/
+mars.lock
+/.cursor/agents/
+/.cursor/skills/
+/.codex/agents/
+/.codex/skills/
+/.opencode/agents/
+/.opencode/skills/
 
 # Dependencies & build output
 node_modules/
@@ -49,3 +67,6 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
+
+# Browser-session artifacts from Playwright MCP verification runs (transient)
+.playwright-mcp/

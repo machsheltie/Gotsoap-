@@ -260,7 +260,7 @@ const {
       grid-template-rows: 1fr auto;
       column-gap: clamp(2.5rem, 5vw, 6rem);
       align-items: start;
-      min-block-size: calc(100svh - 57px);
+      min-block-size: calc(100svh - var(--masthead-compact-h));
       /* Gutter declared once; the poster cap subtracts the same variable
          plus the 13px sill — §5.1's budget by construction. */
       --bay-pad-start: clamp(2rem, 5svh, 3.25rem);
@@ -284,7 +284,7 @@ const {
       max-inline-size: none;
       block-size: min(
         84svh,
-        calc(100svh - 57px - var(--bay-pad-start) - 13px),
+        calc(100svh - var(--masthead-compact-h) - var(--bay-pad-start) - 13px),
         calc((100vw - 36rem) * 1.25)
       );
       margin-inline: 0;

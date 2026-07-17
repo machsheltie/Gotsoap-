@@ -81,9 +81,15 @@ const src = tree('src');
 /* ── CG4 — no unresolved copy-lane placeholders remain ────────────────────── */
 /* The build flags strings it will not invent with an explicit marker. The copy
  * lane's job is to resolve them AND remove the marker. A surviving marker means a
- * placeholder shipped. */
+ * placeholder shipped.
+ *
+ * HOLE FIXED 2026-07-17 (Sol, chrome-unification review finding 1): the marker
+ * vocabulary writes "copy lane" with a space OR "COPY-LANE" with a hyphen, and
+ * this regex only matched the spaced forms — so "FLAGGED FOR COPY-LANE
+ * RATIFICATION" evaded the gate and produced a false green over an admitted
+ * stand-in. The separator is now normalized ([-\s]) in both alternates. */
 {
-  const markers = grep(/COPY-LANE PLACEHOLDER|flagged for (the )?copy lane|PLACEHOLDER \(institutional/i, src);
+  const markers = grep(/COPY[-\s]LANE PLACEHOLDER|flagged for (the )?copy[-\s]lane|PLACEHOLDER \(institutional/i, src);
   markers.length
     ? fail('CG4', 'contract', `${markers.length} unresolved copy-lane placeholder marker(s) — resolve the string and remove the marker`, markers)
     : pass('CG4', 'contract', 'no unresolved copy-lane placeholders');

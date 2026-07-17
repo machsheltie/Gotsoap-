@@ -372,8 +372,16 @@ const stripComments = (s) =>
  * composition." An entry animation with no reduced-motion branch is a
  * vestibular hazard, and the spec treats it as non-negotiable. */
 {
+  /* COVERAGE EXTENDED 2026-07-17 (chrome unification): the §9.1 contents
+   * sheet and the masthead system moved from homev2/ to components/chrome/
+   * and now ship on EVERY page. Without this, the animated dialog would have
+   * silently left this gate's scan set by being renamed — the exact hole
+   * class this harness exists to close. */
   const animated = sources(['.astro']).filter(
-    (f) => /Environment\.astro$/.test(f.path) || /homev2\//.test(f.path),
+    (f) =>
+      /Environment\.astro$/.test(f.path) ||
+      /homev2\//.test(f.path) ||
+      /components\/chrome\//.test(f.path),
   );
   const offenders = animated.filter(
     (f) => /@keyframes|animation:|transition:/.test(f.text) && !/prefers-reduced-motion/.test(f.text),

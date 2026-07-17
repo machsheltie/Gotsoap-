@@ -20,21 +20,19 @@
  * [data-reveal] one-shot — it cannot replay on scroll reversal because
  * .is-revealed is never removed). Campaign register (🧼) only.
  *
- * COPY: findings, tags, heading, subnote, and the founding clause are VERBATIM
- * from `crisis` in copy.ts. The demand "Soap. Applied to men. Regularly." is a
- * typographic setting of the documented demand ("soap, applied to men,
- * regularly", crisis.founding[1]) — reassembled, not invented. The route label
- * is a wayfinding label.
+ * COPY: findings, tags, heading, subnote, demand, creed, and the route label
+ * are VERBATIM from `crisis` / `home.case` in copy.ts (the demand is copy.ts's
+ * documented reassembly of "soap, applied to men, regularly",
+ * crisis.founding[1] — moved out of this markup in the 2026-07-16
+ * hardcoded-copy sweep).
  */
-import { crisis } from '../../content/copy';
+import { crisis, home } from '../../content/copy';
 
 // The three findings staged on the wall, each hand-placed below. The `figure`
 // is the design lift of the number already inside the verbatim line.
 const broadside = crisis.findings.rows.find((r) => r.tag.endsWith('26-04'))!;
 const flush = crisis.findings.rows.find((r) => r.tag.endsWith('26-03'))!;
 const rail = crisis.findings.rows.find((r) => r.tag.endsWith('26-02'))!;
-
-const creed = 'We do not oppose fragrance. We oppose substitution.'; // crisis.founding[2], verbatim clause
 ---
 
 <section id="case" class="case register-porcelain" aria-labelledby="case-manifesto">
@@ -51,11 +49,11 @@ const creed = 'We do not oppose fragrance. We oppose substitution.'; // crisis.f
     <!-- The manifesto zone: the demand runs across the tile joints, stepped
          by whole tile units. Never a centered text column. -->
     <h2 id="case-manifesto" class="case__manifesto">
-      <span class="case__demand case__demand--1">Soap.</span>
-      <span class="case__demand case__demand--2">Applied to men.</span>
-      <span class="case__demand case__demand--3">Regularly.</span>
+      <span class="case__demand case__demand--1">{home.case.demand[0]}</span>
+      <span class="case__demand case__demand--2">{home.case.demand[1]}</span>
+      <span class="case__demand case__demand--3">{home.case.demand[2]}</span>
     </h2>
-    <p class="case__creed">{creed}</p>
+    <p class="case__creed">{home.case.creed}</p>
 
     <!-- The ledger plaque: a small glazed placard screwed to the wall. -->
     <header class="case__plaque">
@@ -103,7 +101,7 @@ const creed = 'We do not oppose fragrance. We oppose substitution.'; // crisis.f
     </article>
 
     <p class="case__more">
-      <a class="case__link" href="/crisis">Read the full findings <span aria-hidden="true">→</span></a>
+      <a class="case__link" href="/crisis">{home.case.cta} <span aria-hidden="true">→</span></a>
     </p>
   </div>
 </section>
