@@ -1,0 +1,21 @@
+{
+  "_comment": "Independent fixed route manifest for fidelity-check.mjs (Sol HOLD 2, P1: dist verification must not derive its expectations from the deck being verified). One entry per required built page. Changing the site's route set requires editing THIS file in the same commit — the checker fails on any missing entry and reports extras.",
+  "routes": [
+    "index.html",
+    "404.html",
+    "about/index.html",
+    "crisis/index.html",
+    "pledge/index.html",
+    "psas/index.html",
+    "psas/confident-man/index.html",
+    "psas/soap-smoldering/index.html",
+    "psas/unholy/index.html",
+    "psas/redemption/index.html",
+    "psas/thirst-announcement/index.html",
+    "sniff-test/index.html",
+    "sniff-test/soap-smoldering/index.html",
+    "sniff-test/suds-curious/index.html",
+    "sniff-test/axe-dependent/index.html",
+    "sniff-test/thirst-hazard/index.html"
+  ]
+}
