@@ -51,6 +51,12 @@ if (!TEST_MODE && overrides.length) {
   process.exit(1);
 }
 const banner = TEST_MODE ? ' [TEST MODE — NON-AUTHORITATIVE]' : '';
+/** Exit-code contract (Sol residual, 2026-07-20): proof mode exits 0 (pass) or
+ * 1 (fail/fatal). Test mode NEVER exits 0 or 1 — it exits 3 (all rows landed,
+ * non-authoritative) or 2 (failures/fatal) — so no pipeline, script, or human
+ * can mistake a test-mode run for an authoritative pass. */
+const EXIT_FAIL = TEST_MODE ? 2 : 1;
+const EXIT_PASS = TEST_MODE ? 3 : 0;
 
 const PLAN = (TEST_MODE && process.env.FIDELITY_PLAN) || '../docs/copy/copy-correction-plan.md';
 const ORDER = (TEST_MODE && process.env.FIDELITY_ORDER) || '../docs/copy/copy-implementation-order.md';
@@ -236,7 +242,7 @@ const extraPages = distPages.map((p) => p.rel).filter((r) => !manifestRoutes.inc
 
 if (fatal.length) {
   for (const f of fatal) console.error(`FATAL${banner}: ${f}`);
-  process.exit(1);
+  process.exit(EXIT_FAIL);
 }
 
 const distHits = (s) => distPages.filter((p) => p.text.includes(s)).map((p) => p.rel);
@@ -250,7 +256,7 @@ const start = planText.indexOf('## 1.');
 const end = planText.indexOf('## 8.');
 if (start === -1 || end === -1) {
   console.error(`FATAL${banner}: plan section markers (## 1. … ## 8.) not found — truncated/substituted plan`);
-  process.exit(1);
+  process.exit(EXIT_FAIL);
 }
 const body = planText.slice(start, end);
 
@@ -268,11 +274,11 @@ for (const line of body.split('\n')) {
   rows.push({ section, cells, raw: line });
 }
 for (let i = 1; i <= 7; i++)
-  if (!seenSections.has(i)) { console.error(`FATAL${banner}: plan section §${i} missing — truncated plan`); process.exit(1); }
-if (rows.length === 0) { console.error(`FATAL${banner}: zero rows parsed — vacuous`); process.exit(1); }
+  if (!seenSections.has(i)) { console.error(`FATAL${banner}: plan section §${i} missing — truncated plan`); process.exit(EXIT_FAIL); }
+if (rows.length === 0) { console.error(`FATAL${banner}: zero rows parsed — vacuous`); process.exit(EXIT_FAIL); }
 if (Number.isFinite(declaredRows) && rows.length !== declaredRows) {
   console.error(`FATAL${banner}: parsed ${rows.length} rows but the order declares ${declaredRows} — partial or padded plan`);
-  process.exit(1);
+  process.exit(EXIT_FAIL);
 }
 
 /* ---------- classify + assert --------------------------------------------- */
@@ -485,4 +491,4 @@ for (const r of results) {
 }
 console.log(`\n  rows parsed: ${results.length} · landed: ${landed}/${results.length} · containment-only rows: 0 (binding is mandatory)`);
 console.log(`  authoritative: ${TEST_MODE ? 'NO — TEST MODE' : 'yes (proof mode, overrides rejected)'}\n`);
-if (landed !== results.length) process.exit(1);
+process.exit(landed !== results.length ? EXIT_FAIL : EXIT_PASS);
