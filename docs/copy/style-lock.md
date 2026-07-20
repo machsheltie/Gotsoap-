@@ -59,6 +59,31 @@ The Onion model: straight-faced satire commits on the front page; the reveal is 
 - **The disclaimer is legal fine print at `/about`, not a footer confession:** *"Parody. Not affiliated with any brand, product, publication, or public-health organization. Models generated with openart.ai; art direction, compositing, and typography by hand."* Non-affiliation ≠ "surprise, it's satire."
 - **Root-cause fix:** the masthead and home section chrome now route through `copy.ts` (`masthead` group + `home.*` additions; deck §1c/§1d). Hardcoded markup is how a killed line survived a closed session — the copy lane owns every home string now.
 
+## 11a. Phase 4 REDO consensus locks (2026-07-20)
+
+Argued to consensus in the four-round Vivian ⇄ Sol redo (`phase4-redo-r1..r4`, zero deadlocks);
+implemented as Phase 5 (`copy-correction-plan.md`). Overturning any of these requires a new argued
+round:
+
+1. **Share units are per-verdict.** Each verdict carries its own portable `share` payload written to
+   travel cold; a one-size share receipt may not return. Pledge cues are verdict-keyed — no shared
+   exit line across verdicts.
+2. **CWAAA surfaces carry no fiction confessions.** The crisis fine print is fully in-world;
+   "true in spirit"-class disclaimers are dead. The real-world disclosure lives at /about +
+   structured metadata only (extends §10/§11).
+3. **Alt text never transcribes baked poster copy.** One composed visual description per poster;
+   the lightbox renders at most one description per dialog (a11y contract, plan §3).
+4. **The case-file roster is five.** RC-014, RC-052, RC-063, RC-071 are cut and stay cut — the
+   killed-roster analog of §7. RC-058 is owner-locked verbatim. At most one aphorism ending on the
+   roster (Chad's).
+5. **Additional killed lines:** "The men are not the problem. The men are, in most cases, lovely." ·
+   "Nobody's beyond redemption." · "Redemption starts in the shower." · "Shame optional." ·
+   "In this economy, that's basically a miracle." · "We are concerned, not clingy." ·
+   "I'm not here to be nice about it…" (the /about permission paragraph) · "This has genuinely
+   never happened, and we both know why."
+6. **CG2's source anchor is `masthead.credit`** (literal, not template) — moved when the
+   confident-man alt transcription died. Do not re-templatize without re-anchoring the gate.
+
 ## 11. Structured metadata is the real-world layer (owner ruling, 2026-07-16)
 
 JSON-LD / structured data is **exempt from the fiction-first rule**. It already speaks

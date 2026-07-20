@@ -579,3 +579,38 @@ Generator flow microcopy (📋 — the form is CWAAA's, played straight):
 - [ ] **"She" isn't a reaction shot:** the woman shows up as authority/wit, not only as the nose that recoils. Vary her role across surfaces.
 - [ ] **Four verdicts, four temperatures:** short-smug / coaching / clinical / anaphora-into-redemption — no shared shape or closing device.
 - [ ] **Tonal line:** every blade lands on behavior or the double standard, never imported shock (no "body count"–type imagery).
+
+---
+
+# 12. Phase 5 addendum (2026-07-20) — the Phase 4 REDO consensus lands
+
+**Deck re-version.** The frozen v2 deck above remains the base document. The 54 corrections argued
+to consensus in the Phase 4 redo dialectic (R1–R4, no deadlocks) and validated as Phase 5 are
+**deck-canonical** as recorded, string-verbatim, in `copy-correction-plan.md` §§1–7 — committed
+alongside this deck and enforced against `copy.ts` + `dist/` by `site/scripts/fidelity-check.mjs`.
+Where this addendum and the base deck disagree, the addendum wins.
+
+**Slot index of what changed (final strings live in the plan, one per row):**
+
+- **Chrome:** `labels.cwaaa.copyLink` · `labels.cwaaa.shareBadge` *(new)* · `scratchGag.rotation[1]`.
+- **Home:** `home.movementSeam.body` (3 → 2 lines, reassurance lede dead) ·
+  `home.movementSeam.featuredId`/`featuredCaption` *(new — RC-039; RC-071 home hardcode retired)* ·
+  flagship pull slot omitted.
+- **/psas:** `psas.downloadNotice.body` (full notice, index-only) · `psas.downloadNotice.compact`
+  *(new)* · `psas.sniffRoute.*` *(new — the quiz spine)* · `posterCopy.unholy.pull` · four
+  `caseNote` rewrites (soap-smoldering / unholy / redemption / thirst-announcement) · all five
+  `alt` strings (no baked-text transcription; lightbox a11y contract in the plan §3).
+- **Quiz + verdicts:** Q6 answer (d) · `verdicts.*.share` *(new, per-verdict — `sniffTest.shareDefault`
+  retired)* · `verdicts.*.exit` (verdict-keyed) · `verdicts.thirst-hazard.body`.
+- **/pledge:** consent label · `errors.noConsent` · `success.body` · success controls routed to the
+  CWAAA label group · `badgeShare` + `badgeShareTitle` *(new)* · two `welcomeEmail.body` lines ·
+  `newsletter.subjectFormulas` (token semantics in the plan §5).
+- **/crisis:** `founding[2]` · `findings.rows[0]` · `ribbon.body` · `caseFiles.files` 9 → 5
+  (RC-022/031/039/047 re-edited; RC-058 inherited verbatim; RC-014/052/063/071 cut — stay dead) ·
+  `caseFiles.exitLine` deleted · `finePrint` (fully in-world).
+- **/about:** `why[0]` · `why[2]` deleted · `pitch.body`.
+- **Anchor note:** `masthead.credit` is now a LITERAL (CG2's source anchor moved here when the
+  confident-man alt transcription died). Rendered output unchanged.
+
+**Out of this pass:** the four missing-content items (plan §8), F1 (`vector2-citation-path-spec.md`),
+and the posters (always).
