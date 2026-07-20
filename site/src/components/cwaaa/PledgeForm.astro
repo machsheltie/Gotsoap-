@@ -24,7 +24,8 @@
 import Seal from './Seal.astro';
 import RibbonBadge from './RibbonBadge.astro';
 import Guilloche from './Guilloche.astro';
-import WaxSeal from './WaxSeal.astro';
+import { Image } from 'astro:assets';
+import cwaaaSeal from '../../assets/graphics/cwaaaseal.png';
 import { pledge as p } from '../../content/copy';
 import { absoluteUrl, buttondownEmbedUrl } from '../../config/site';
 
@@ -225,8 +226,10 @@ const formAction = buttondownEmbedUrl();
         <button type="submit" class="stamp-btn">
           <span class="stamp-btn__label">{p.submit}</span>
         </button>
-        <span class="submit-wax"><WaxSeal size={104} rotate={-8} /></span>
         <span class="submit-aside"><em>{p.submitMicro}</em></span>
+        <span class="submit-wax">
+          <Image src={cwaaaSeal} alt="" width={104} densities={[1, 2]} loading="lazy" />
+        </span>
       </div>
     </form>
 
@@ -666,9 +669,16 @@ const formAction = buttondownEmbedUrl();
       0 0 0 3px var(--cwaaa-stamp) inset,
       0 0 0 0 color-mix(in srgb, var(--cwaaa-ink) 70%, transparent);
   }
+  /* The seal drops to its own line under the stamp + aside, centered. */
   .submit-wax {
-    flex: 0 0 auto;
-    display: inline-flex;
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .submit-wax :global(img) {
+    width: 104px;
+    height: auto;
+    transform: rotate(-8deg);
   }
   .submit-aside {
     font-style: italic;
