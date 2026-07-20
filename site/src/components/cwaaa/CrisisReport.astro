@@ -5,9 +5,10 @@
  * This is an overwhelming, massive bureaucratic dossier. Brutalist scale,
  * edge-to-edge tables, and giant rubber-stamp typography.
  */
-import Seal from './Seal.astro';
 import RibbonBadge from './RibbonBadge.astro';
 import Button from '../Button.astro';
+import { Image } from 'astro:assets';
+import cwaaaLogo from '../../assets/graphics/cwaaalogo.png';
 import { crisis as c } from '../../content/copy';
 
 const exits = [c.exits.assessment, c.exits.pledge];
@@ -21,7 +22,7 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
   <!-- Massive Letterhead -->
   <header class="dossier-lh">
     <div class="dossier-lh-seal">
-      <Seal size={200} decorative />
+      <Image src={cwaaaLogo} alt="" width={200} densities={[1, 2]} loading="lazy" />
     </div>
     <div class="dossier-lh-text">
       <p class="dossier-org">{c.header.org}</p>
@@ -194,9 +195,10 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
     }
   }
 
-  .dossier-lh-seal :global(svg) {
+  .dossier-lh-seal :global(img) {
     display: block;
-    fill: var(--cwaaa-ink);
+    width: 200px;
+    height: auto;
   }
 
   /* CWAAA writes in PT Serif only (design.md §5) — Oswald belongs to the
