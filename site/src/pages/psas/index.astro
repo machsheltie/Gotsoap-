@@ -191,6 +191,18 @@ const spots = placementHub.wide.map((w) => {
     <div class="hub__floor">
       <div class="hub__note" data-reveal>
         <p>{psas.indexBody}</p>
+        <!-- Phase 4 consensus (F15): the FULL distribution notice lives here,
+             once — detail-page stations carry the compact line only. -->
+        <p class="hub__notice">
+          <strong class="hub__notice-heading">{psas.downloadNotice.heading}</strong>
+          {psas.downloadNotice.body}
+        </p>
+        <!-- Phase 4 consensus (F4): the archive routes to the conversion
+             instrument — one runway line, one structural CTA. -->
+        <p class="hub__sniff">
+          <span class="hub__sniff-lead">{psas.sniffRoute.lead}</span>
+          <a class="hub__sniff-cta" href={psas.sniffRoute.href}>{psas.sniffRoute.cta}</a>
+        </p>
       </div>
 
       <!-- §4.3 — the route plaque. Visible, keyboard-accessible, every poster
@@ -381,6 +393,49 @@ const spots = placementHub.wide.map((w) => {
     color: var(--reg-fg);
     border-inline-start: 2px solid var(--reg-accent);
     padding-inline-start: var(--space-lg);
+  }
+  /* The standing distribution notice + the Sniff Test runway share the ink
+     column; type steps down so the archive note stays the lead voice. */
+  .hub__note .hub__notice {
+    margin-block-start: var(--space-lg);
+    font-size: var(--step-0);
+  }
+  .hub__notice-heading {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    margin-block-end: var(--space-2xs, 0.25rem);
+  }
+  .hub__note .hub__sniff {
+    margin-block-start: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .hub__sniff-lead {
+    font-family: var(--font-body);
+    font-weight: 500;
+  }
+  .hub__sniff-cta {
+    align-self: flex-start;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--marble-amber-ink, var(--reg-accent));
+    border: 1.5px solid currentColor;
+    border-radius: var(--radius-tile);
+    padding: 0.55em 1.1em;
+    min-block-size: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .hub__sniff-cta:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
   }
 
   /* ---- The chrome installation plaque (§4.3) ------------------------------ */

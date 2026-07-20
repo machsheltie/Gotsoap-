@@ -16,7 +16,7 @@ import UnholyEnvironment from '../../components/psas/UnholyEnvironment.astro';
 import RedemptionEnvironment from '../../components/psas/RedemptionEnvironment.astro';
 import ThirstEnvironment from '../../components/psas/ThirstEnvironment.astro';
 import { POSTERS, absoluteUrl, type Poster } from '../../config/site';
-import { posterCopy, meta } from '../../content/copy';
+import { posterCopy, psas, meta } from '../../content/copy';
 
 type PosterSlug = keyof typeof posterCopy;
 
@@ -94,4 +94,39 @@ const jsonLd = {
     prevPoster={prevPoster}
     nextPoster={nextPoster}
   />
+
+  <!-- Phase 4 consensus (F4): every poster page routes to the conversion
+       instrument. CTA only — no repeated lead (the index carries the runway;
+       a lead ×5 would recreate the F15 componentized-joke failure). -->
+  <div class="sniff-route">
+    <a class="sniff-route__cta" href={psas.sniffRoute.href}>{psas.sniffRoute.cta}</a>
+  </div>
 </BaseLayout>
+
+<style>
+  .sniff-route {
+    display: flex;
+    justify-content: center;
+    padding-block: clamp(2rem, 6vh, 3.5rem);
+    background: var(--reg-bg);
+  }
+  .sniff-route__cta {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--reg-accent, var(--marble-amber));
+    border: 1.5px solid currentColor;
+    border-radius: var(--radius-tile);
+    padding: 0.65em 1.4em;
+    min-block-size: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .sniff-route__cta:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+</style>

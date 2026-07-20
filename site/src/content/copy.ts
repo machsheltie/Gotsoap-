@@ -29,8 +29,11 @@ export const labels = {
     retake: "Request re-assessment",
   },
   cwaaa: {
-    copyLink: "Copy the case number",
+    copyLink: "Copy the filing link",
     submitPledge: "File my declaration",
+    /** Pledge-success share control (Phase 4 consensus, F11): the success state
+     * is a CWAAA document — it never borrows a campaign verdict verb. */
+    shareBadge: "Circulate my declaration",
   },
 } as const;
 
@@ -101,7 +104,11 @@ export const masthead = {
   est: "Est. MMXXIV",
   // A no-break space (U+00A0) glues the middot to "announcement" so a
   // wrapped flank line never opens with a hanging "·" — typographic setting only.
-  credit: `A public service announcement · Funded by ${FUNDED_BY}`,
+  credit: `A public service announcement · Funded by Concerned Women Against Axe Abuse`,
+  /* ^ LITERAL org name, not ${FUNDED_BY}: CG2 asserts the composed funded-by
+   * gag verbatim in SOURCE, and its previous literal anchor (the confident-man
+   * alt transcription) was removed by the Phase 4 F13 alt rewrite. Rendered
+   * output is identical. */
   series: "Series One",
   issue: "No. 26",
   /** Screen-reader funding line: keeps the gag in the a11y tree at widths
@@ -142,7 +149,7 @@ export const scratchGag = {
   dismiss: "Noted →",
   rotation: [
     "You can't smell this page. That's the nicest thing we can say about the genre.",
-    "No fragrance detected. We ran it twice, to be fair to him.",
+    "No fragrance detected. We ran it twice.",
   ],
 } as const;
 
@@ -202,10 +209,15 @@ export const home = {
     org: "CONCERNED WOMEN AGAINST AXE ABUSE",
     subhead: "Office of Lather Compliance — Memorandum No. 26-114",
     body: [
-      "The men are not the problem. The men are, in most cases, lovely.",
-      "The fog is the problem. We intend to lift it. In writing. With copies filed.",
+      "The fog is now a matter of record. Copies have been filed.",
       "Two million concerned women. One demand. Soap, applied regularly, as directed.",
     ],
+    /** Featured recovery on the home seam (Phase 4 consensus, F5): the caption
+     * is CWAAA's docket summary — the reformed-bro voice stays inside the full
+     * file on /crisis. The component resolves name/status from
+     * crisis.caseFiles.files by this id (RC-071 hardcode retired). */
+    featuredId: "RC-039",
+    featuredCaption: "Ninety dollars of cologne. Zero bars of soap. The arithmetic arrived anonymously.",
     cta: "Read the full brief →",
   },
   pledgeBand: {
@@ -237,31 +249,31 @@ export const posterCopy = {
     pull: "Because your Axe body spray isn't fooling anyone, cowboy.",
     caseNote:
       "A cologne ad selling nothing but soap. Our cowboy doesn't smell like masculinity; he defines it, rinses it off, and reapplies in the morning like a person with standards. The gaze says power. The tile says he owns more than one bar of soap and knows where both of them are. Confidence isn't the cologne. It's not needing it.",
-    alt: "A clean-cut man stands shirtless against steamy white bathroom tile under the headline 'got soap?' Baked poster text: 'A clean man is a confident man. Lather up. Smell like effort.' Funded by Concerned Women Against Axe Abuse.",
+    alt: "A clean-cut, shirtless man meets the camera against bright white bathroom tile and rising steam, posed like soap finally hired a cologne model.",
   },
   "soap-smoldering": {
     pull: `Because "it's just my natural scent" has never once been good news.`,
     caseNote:
-      "The smolder, patched to the current version: now with self-awareness. He's fresh and knows it, which is the hottest thing a man can be and, statistically, the rarest. You could skip the wash. You could layer the spray. You will still never smell like him — and everyone at brunch will know which one you are. Lather. Rinse. Respect.",
-    alt: "A lightly stubbled man leans on fogged tile beneath 'got soap?' Baked poster text: 'He's not just fresh — he's soap-smoldering. You could skip the wash… but you won't smell like him.'",
+      "He's fresh and he knows it: the rarest combination on the market. Steam, good posture, and the nerve to wear clean like cologne. Brunch remembers him. Be him by Saturday.",
+    alt: "A lightly stubbled man with damp hair leans against fogged white tile, wearing the deliberate smolder of a luxury fragrance ad after a shower.",
   },
   unholy: {
-    pull: "He washes. Daily. With soap. In this economy, that's basically a miracle.",
+    pull: "He washes. Daily. With soap. The congregation is asked to remain calm.",
     caseNote:
-      "Some men leave a room speechless. Others leave a trail of Axe and a group chat full of screenshots. This one washes daily, with soap, which in the year of our Lord currently qualifies as a personality. Fragrance-ad drama, sermon-grade conviction: clean isn't a flex, it's the bare minimum, and he's wearing it like a crown.",
-    alt: "A brooding man in a towel emerges from dark chrome-lit smoke under a chrome 'got soap?' Baked poster text: 'Washes daily. Uncommon. Unholy. Unreasonably hot. Axe is not an exorcism.'",
+      "Some men leave a room speechless. Others leave a trail of Axe and a group chat full of screenshots. This one enters clean, and the congregation has one question: where has this man been? Chrome light, holy steam, testimony you can smell from the third pew — clean preaches. The water is right there. The sermon is optional.",
+    alt: "A brooding man in a towel emerges from black smoke under chrome light, lit like a fragrance ad shot in a cathedral.",
   },
   redemption: {
     pull: "He sinned. He sprayed. He saw the loofah. Anyone can change.",
     caseNote:
-      "He sinned. He sprayed. He treated a squirt of aerosol like holy water for a body that had genuinely wronged the people standing next to it. Then, grace: a shower. A redemption arc told in steam, and the moral is short — deodorant is not divine intervention, and the gym does not count. Anyone can change. Some of you should start tonight.",
-    alt: "A solemn, slicked-back man in smoky low light beneath a chrome 'got soap?' Baked poster text: 'Repent in warm water. Forgiveness is a full body cleanse. Deodorant isn't divine intervention.'",
+      "He sinned. He sprayed. He treated a squirt of aerosol like holy water for a body that had wronged the people standing next to it. Then, grace: a shower. The steam took the confession. The towel handled absolution. He walked out the same man, and the people standing next to him stood a little closer. Some of you should start tonight.",
+    alt: "A solemn man with slicked-back wet hair stands in dark smoke and low chrome light — a sinner freshly absolved by warm water.",
   },
   "thirst-announcement": {
     pull: "He's scrubbed, sudsed, and would survive meeting your mother. And you?",
     caseNote:
-      "No fog machine. No flex. A man who is scrubbed, sudsed, and, critically, aware of it: the \"would introduce to Mom without a risk assessment\" tier of clean. Consider this your notice. Personal hygiene is the floor, not a plot twist. This has been a public thirst announcement. Wash accordingly.",
-    alt: "A confident Black man against warm amber marble under a gold-lit 'got soap?' Baked poster text: 'He's scrubbed. Sudsed. Seductive. And you? You need soap and self-awareness. This has been a public thirst announcement.'",
+      "The risk assessor has been dismissed. The dinner reservation stands. One shower put him in the amber light; the next one keeps him there. Consider this your notice. Wash accordingly.",
+    alt: "A confident Black man stands against warm amber marble in golden light, meeting the camera with the composure of a man who showered on purpose.",
   },
 } as const;
 
@@ -272,8 +284,19 @@ export const psas = {
     "Five announcements in the public interest, issued untouched. Study them at your leisure. Bathe at your earliest. Series Two arrives when the crisis does.",
   downloadNotice: {
     heading: "Take one for the wall.",
-    body: "Free for locker rooms, dorm hallways, break rooms, and interventions — planned or spontaneous. Attribution appreciated. Shame optional. Results not guaranteed but statistically likely.",
+    /** Full distribution notice — renders ONCE, on the /psas index (Phase 4
+     * consensus, F15). Detail pages carry `compact` only. */
+    body: "Free for locker rooms, dorm hallways, break rooms, and interventions — planned or spontaneous. Attribution appreciated. Results statistically likely.",
+    /** Detail-page functional line — chrome-short, repeats without dying. */
+    compact: "Free to print. Aim it where he'll see it.",
     button: labels.campaign.download,
+  },
+  /** Sniff Test spine through the archive (Phase 4 consensus, F4): the index
+   * gets the one-line runway; detail pages get the CTA only. */
+  sniffRoute: {
+    lead: "Every man in Series One was one shower away.",
+    cta: "Take the Sniff Test →",
+    href: "/sniff-test",
   },
 } as const;
 
@@ -295,7 +318,7 @@ export const sniffTest = {
     { q: `Finish the sentence: "I shower…"`, a: ["Daily. With soap. Like it's not a whole thing.", "Most days. Unless the vibes are off.", "After the gym. I think about the gym constantly.", "When the group chat stages an intervention."] },
     { q: "What does your towel smell like?", a: ["Nothing. A towel should smell like nothing.", "Faintly of victory.", "A pond. A specific pond. It has a name.", "We don't smell the towel. We fear the towel."] },
     { q: "Your relationship with body spray is best described as:", a: ["A finishing touch. Never a foundation.", "Exclusive, committed, a little codependent.", "My primary weather system.", `I refer to applying it as "showering."`] },
-    { q: `A date says "you smell nice." You:`, a: ["Say thanks. It's soap.", "Panic — which layer did they detect?", "Take full credit on behalf of Axe.", "This has genuinely never happened, and we both know why."] },
+    { q: `A date says "you smell nice." You:`, a: ["Say thanks. It's soap.", "Panic — which layer did they detect?", "Take full credit on behalf of Axe.", "Bank the compliment against next week's showers."] },
     { q: "Steam rises. You're in the shower. Your move?", a: ["Lather, rinse, self-respect.", "A quick rinse. Water is basically soap.", "Stand there, contemplating my rivals.", "I'm not in the shower. I am never in the shower."] },
   ],
   /** score bands → verdict slug */
@@ -311,7 +334,8 @@ export const sniffTest = {
     labels.campaign.download,
     labels.campaign.retake,
   ],
-  shareDefault: "I took the Sniff Test. Verdict: [Verdict]. #GotSoap gotsoap.netlify.app",
+  /** shareDefault retired (Phase 4 consensus, F7): the forwarded text was a
+   * receipt. Each verdict now carries its own portable `share` payload. */
 } as const;
 
 /** verdict pages /sniff-test/<slug>. register keys design.md tokens. */
@@ -321,7 +345,8 @@ export const verdicts = {
     register: "porcelain",
     lead: "You wash. Daily. With soap. Unreasonably hot of you.",
     body: "The men in these posters are fictional. You're proof the standard can be met by a real one. Frame this and hang it somewhere the others will see it and quietly panic.",
-    exit: "Certified or not — sign the oath.",
+    share: "Verdict: Certified Soap-Smoldering. Frame this where the others can see it and quietly panic. #GotSoap gotsoap.netlify.app",
+    exit: "Put it in writing. Raise the average.",
     exitCta: "Take the Lather Pledge →",
   },
   "suds-curious": {
@@ -329,7 +354,8 @@ export const verdicts = {
     register: "marble",
     lead: "There's a clean man in there. We can hear him tapping. Let him out.",
     body: "You own soap. You've met the loofah. You just keep betting a spritz will cover the gap between you and an actual shower, and that bet has never once paid out. Close it. One honest lather and you're on the good list. It's a short list. The view is excellent.",
-    exit: "Certified or not — sign the oath.",
+    share: "Verdict: Suds-Curious. The clean man is in there, tapping. Tonight I hand him the soap. #GotSoap gotsoap.netlify.app",
+    exit: "When he's out, sign him in.",
     exitCta: "Take the Lather Pledge →",
   },
   "axe-dependent": {
@@ -337,15 +363,17 @@ export const verdicts = {
     register: "smoke",
     lead: "We could smell you from the results page.",
     body: "What you're calling a signature scent is a rumor about a shower you didn't take, and everyone in a five-foot radius has already heard it. The good news is almost insulting: soap costs four dollars, works on contact, and asks nothing of your personality. Seek lather immediately.",
-    exit: "Certified or not — sign the oath.",
+    share: "Verdict: Axe-Dependent. My signature scent has been reclassified as a rumor. #GotSoap gotsoap.netlify.app",
+    exit: "Lather first. Sign second. The order matters.",
     exitCta: "Take the Lather Pledge →",
   },
   "thirst-hazard": {
     name: "Public Thirst Hazard",
     register: "smoke",
     lead: "This has been a public thirst announcement. You were the announcement.",
-    body: "You are why the group chat has a code word. You are why the rideshare cracks a window in January. Here's the part nobody tells you: this is a maintenance problem, not a character one, and maintenance is the easiest kind to fix. Soap. Water. The wild decision to use both. Nobody's beyond redemption. But the clock started the moment you read this.",
-    exit: "Redemption starts in the shower.",
+    body: "You are why the group chat has a code word. You are why the rideshare cracks a window in January. Soap. Water. The wild decision to use both. Make it today. Retire the code word.",
+    share: "Verdict: Public Thirst Hazard. On file with CWAAA. Take the Sniff Test before you laugh. #GotSoap gotsoap.netlify.app",
+    exit: "The rideshare window is still open.",
     exitCta: "Take the Lather Pledge →",
   },
 } as const;
@@ -381,25 +409,27 @@ export const pledge = {
   fields: {
     firstName: { label: "First name", required: true, placeholder: "As it will appear on the roll." },
     email: { label: "Email", required: true, placeholder: "Where to send Movement Updates." },
-    consent: { label: "I understand this is satire and also a binding moral contract.", required: true },
+    consent: { label: "I understand this declaration is a binding moral contract.", required: true },
   },
   submit: labels.cwaaa.submitPledge,
   submitMicro: "Filed in triplicate. One copy goes to the loofah.",
   errors: {
     noName: "A declaration requires a declarant. First name, please.",
     badEmail: "The Records Division cannot file this email address as written.",
-    noConsent: "The satire acknowledgment is required. It is binding. Morally.",
+    noConsent: "The contract requires acknowledgment. Morally.",
   },
   success: {
     stamp: "SWORN.",
-    body: "Declaration filed, [name]. The Office of Lather Compliance thanks you and quietly believes in you. You are now on the roll of a movement that declines to say how large it will grow.",
+    body: "Declaration filed, [name]. Your name is on the roll. Daily lather is now expected.",
     note: "Movement Updates will arrive when there is movement.",
-    shareBadge: labels.campaign.shareVerdict,
+    shareBadge: labels.cwaaa.shareBadge,
     copyLink: labels.cwaaa.copyLink,
   },
   privacy:
     `Your email does one job: Movement Updates — new posters, the occasional bulletin, nothing you'd resent. We don't sell it, share it, or hand it to "partners." Unsubscribe any time. CWAAA keeps records, not secrets.`,
-  badgeShare: "I took the pledge. Lather. Rinse. Respect. #GotSoap",
+  badgeShare: "Form CW-1 filed. Sworn to lather. The loofah retains a copy. #GotSoap",
+  /** Share-sheet title for the filed declaration (Phase 4 consensus, F7/F11). */
+  badgeShareTitle: "My Declaration of Intent to Lather is on file.",
   /** Sent via Buttondown (PRD §5.4). [First name] token substituted at send. */
   welcomeEmail: {
     subject: "Your declaration has been filed.",
@@ -407,13 +437,13 @@ export const pledge = {
     body: [
       "Dear [First name],",
       "This letter confirms that your Declaration of Intent to Lather (Form CW-1) has been received, reviewed, and filed in triplicate by the Office of Lather Compliance. One copy is retained for our records. One copy is yours to keep. The third, per protocol, goes to the loofah.",
-      "You are now on the roll of a movement that declines to say how large it will grow. That is not a threat. It is a scent forecast.",
+      "You are now on the roll of a movement that declines to say how large it will grow. The Office classifies this as a scent forecast.",
       "Your obligations, as sworn:",
       "— Lather daily.",
       "— Retire body spray as a personality.",
       "— Respect the loofah in word and deed.",
       "— Never again mistake deodorant for divine intervention.",
-      "We will write again when there is movement — a new poster, a bulletin, the occasional finding from the Field Data Committee. Not often. We are concerned, not clingy.",
+      "We will write again when there is movement — a new poster, a bulletin, the occasional finding from the Field Data Committee. Not often. The Committee has a caseload.",
       "Lather. Rinse. Respect.",
       "The Office of Lather Compliance",
       "Concerned Women Against Axe Abuse · Est. 2024",
@@ -422,10 +452,14 @@ export const pledge = {
     footerNote: "CWAAA National Office, Suite 2B, above the pharmacy. Unsubscribe: [link].",
   },
   newsletter: {
+    /** [n] = bulletin/series number · [subject] = REQUIRED topic token ·
+     * [tag] renders the FULL stored finding tag (e.g. "FINDING 26-04") — never
+     * prefix it with the word "Finding" (Phase 4 consensus, F17). The towel
+     * sentence is the formula's example slot; vary it per bulletin's object. */
     subjectFormulas: [
-      "Bulletin from the Office of Lather Compliance",
-      "New evidence has come to light.",
-      "Series [n]: a new announcement is now public.",
+      "Bulletin No. [n] — [subject] · Office of Lather Compliance",
+      "[tag] is now public. It concerns the towel.",
+      "Series [n] has entered the public record.",
     ],
     milestoneExample: {
       subject: "The roll has passed 1,000.",
@@ -445,13 +479,13 @@ export const crisis = {
   founding: [
     "Founded in 2024 by women who had smelled enough.",
     "What began as one book club's informal grievance log is now a national coalition with a single, reasonable demand: soap, applied to men, regularly. There was no founding incident — there were thousands, occurring simultaneously, in elevators and rideshares and the third row of every theater. What united our founders was not anger. Anger is loud. It was a quiet, unshakeable certainty that it did not have to smell like this.",
-    "We wish to be clear. We do not oppose fragrance. We oppose substitution. A body spray is a citrus arrangement on a condemned building. We are not against men — several of us are related to them. We are against the fog, and we intend to lift it. In writing. With copies filed.",
+    "We do not oppose fragrance. We oppose substitution. A body spray is a citrus arrangement on a condemned building. We are against the fog, and we intend to lift it. In writing. With copies filed.",
   ],
   findings: {
     heading: "The State of Male Hygiene — Annual Findings",
     subnote: "Compiled by the Field Data Committee. Methodology available upon written request. Please do not request it.",
     rows: [
-      { finding: "In independent testing, 100% of men who showered got measurably wet.", tag: "FINDING 26-01" },
+      { finding: "87% of surveyed men require a partner who 'takes care of herself.' 14% remembered when they last washed their towel.", tag: "FINDING 26-01" },
       { finding: "9 out of 10 women correctly identified which volunteer had showered. The tenth asked to leave the study.", tag: "FINDING 26-02" },
       { finding: "Axe body spray contains 0% soap. This figure has not improved since 1983.", tag: "FINDING 26-03" },
       { finding: "73% of body-spray applications occur in lieu of, not in addition to, a shower.", tag: "FINDING 26-04" },
@@ -461,7 +495,7 @@ export const crisis = {
   scale: "Two million concerned women. Chapters in all fifty states. One demand.",
   ribbon: {
     heading: "Tie One On For Suds",
-    body: "Our washcloth ribbon says what words cannot: he showers now. Tie one on the rearview mirror, the gym bag, the doorknob of the room he won't leave — a gentle, constant reminder that soap exists and he is loved enough to use it. Wear it for the reformed. Wear it for the suds-curious. Then send him to put his intent in writing.",
+    body: "Our washcloth ribbon carries the Coalition's official position: he showers now. Tie one on the rearview mirror, the gym bag, the doorknob of the room he won't leave. Wear it for the reformed. Wear it for the suds-curious. Then send him to put his intent in writing.",
     cta: "File Form CW-1 →",
   },
   pressRoom: {
@@ -478,18 +512,19 @@ export const crisis = {
     heading: "RECOVERY CASE FILES",
     subhead: "Documented recoveries, published with subject consent. Names changed to protect the reformed.",
     // The `quote` field is the ONLY place the third (reformed-bro) voice appears.
+    /** Phase 4 consensus (F2): five files, five distinct transmission vectors —
+     * man→man intervention, aspiration/self-recognition, anonymous coworker,
+     * woman→man (daughter), and the owner-locked RC-058. The cut four
+     * (RC-014/RC-052/RC-063/RC-071) stay dead: occupation, duplicate-vector
+     * warmth, age-as-joke, and the unanimous leftover. */
     files: [
-      { id: "RC-014", quote: `"I do lawn care. I figured the smell was just… my finish. My natural top-note. I'd hit the Axe, maybe a Febreze coat if it was a two-day situation, and call that grooming. Then a girl left me on read after one date and texted back exactly once: 'the truck smelled like a hamper, man.' I took the Sniff Test. Public Thirst Hazard. I bought my first loofah since middle school. Swamp ass is real. I know that now. I'm sorry to everyone who's ridden in the truck."`, name: "Derek, 31", status: "REFORMED. Showers daily. Truck aired out." },
-      { id: "RC-022", quote: `"Weekends were a lot. By Sunday I had no gas left for a shower, so I'd mist the sheets, mist myself, and let Febreze carry the week. I thought I was being efficient. My roommate staged what he called 'a conversation.' There was a printout. I scored Axe-Dependent. Four dollars of soap later I'm a different man. Turns out Febreze was not, in fact, showering. I was the only one who didn't know."`, name: "Brayden, 27", status: "REFORMED. Sheets washed, no longer seasoned." },
-      { id: "RC-031", quote: `"Honestly? I'm hot. I never thought hygiene mattered — I could pull regardless. What I couldn't figure out was why nobody came back for round two. Then every girl on my feed started posting this Got Soap? thing like scripture, so I clicked to see what the fuss was. Took the quiz to prove I'd ace it. I did not ace it. Clean is the actual flex and I'd been coasting on face alone. Vanity got me in the door. Soap kept me there."`, name: "Chad (yes, really), 29", status: "CERTIFIED SOAP-SMOLDERING. Insufferable again, but clean." },
-      { id: "RC-039", quote: `"I owned a ninety-dollar bottle of cologne and zero bars of soap. In my mind that math worked. I was applying luxury directly to the problem. A coworker forwarded me the Crisis page — anonymously, which I respect — and the finding about body spray containing 0% soap did something to me. Cologne is a garnish. You do not garnish a dumpster. I own soap now. The cologne goes on top of clean, which, it turns out, is the entire point."`, name: "Marcus, 34", status: "REFORMED. Cologne demoted to garnish." },
-      { id: "RC-047", quote: `"Back on the apps at forty-six after the divorce. I'd been off the market so long I forgot the rules had teeth. My daughter looked me dead in the eye and said, 'Dad, you smell like the garage.' She sent me the link herself. I took the assessment at the kitchen table. Suds-Curious — 'there's a clean man in there, let him out.' So I did. Three dates this month. She screens them now. We're both thriving."`, name: "Gary, 46", status: "REFORMED. No longer smells like the garage. Daughter approves." },
-      { id: "RC-052", quote: `"My mom didn't yell. That's the thing. She just pulled me aside after Sunday dinner, quiet, and said, 'Baby, I love you, and I need you to hear this from me before you hear it from a girl: you have to shower more.' Then she texted me the link so I wouldn't have to look her in the eye. Suds-Curious. She was right — she's always right. I fixed it. Last month I brought Hannah from two doors down home for dinner. Mom cried. Hannah stayed for seconds. I owe both of them a shower's worth of gratitude and I intend to pay it daily."`, name: "Tyler, 26", status: "REFORMED. Introduced a girl to Mom. Both approve. Mom is framing this case file." },
+      { id: "RC-022", quote: `"By Sunday I'd mist the sheets, mist myself, and let Febreze carry the week. I thought I was being efficient. My roommate staged what he called 'a conversation.' There was a printout."`, name: "Brayden, 27", status: "REFORMED. Scored Axe-Dependent. Bought soap the same afternoon. Sheets no longer seasoned." },
+      { id: "RC-031", quote: `"Honestly? I'm hot. I never thought hygiene mattered — I could pull regardless. What I couldn't figure out was why nobody came back for round two. Then every girl on my feed started posting this Got Soap? thing like scripture, so I clicked to see what the fuss was. Took the quiz to prove I'd ace it. I did not ace it. I'd been coasting on face alone. Vanity got me in the door. Soap kept me there."`, name: "Chad (yes, really), 29", status: "CERTIFIED SOAP-SMOLDERING. Insufferable again, but clean." },
+      { id: "RC-039", quote: `"I owned a ninety-dollar bottle of cologne and zero bars of soap. In my mind that math worked. I was applying luxury directly to the problem. A coworker forwarded me the Crisis page — anonymously, which I respect. Body spray contains 0% soap. Cologne is a garnish. You do not garnish a dumpster. I own soap now."`, name: "Marcus, 34", status: "REFORMED. Cologne demoted to garnish. Referral source unidentified. Referral source knows." },
+      { id: "RC-047", quote: `"Back on the apps at forty-six after the divorce. My daughter looked me dead in the eye and said, 'Dad, you smell like the garage.' She sent me the link herself. I took the assessment at the kitchen table. Suds-Curious. I was in the shower before she'd backed out of the driveway. Three dates this month. She screens them now."`, name: "Gary, 46", status: "REFORMED. Shower routine restored. Three dates pending daughter review." },
       { id: "RC-058", quote: `"She said she'd drive four hours to meet me. Top of the server, miles out of my league. My first thought wasn't joy — it was 'what does my room actually smell like,' and the answer scared me sober. I stream; my whole life happens in this chair; I'd quietly decided hygiene was an IRL problem and I don't do IRL. Shower for who, the webcam? It's shoulders-up. But she was real now, and driving. Axe-Dependent. So I showered. I opened a window. I washed the hoodie. She stayed the whole weekend. Best raid of my life."`, name: `"Kaelthas," 22`, status: "REFORMED. Logs off to shower now. GG." },
-      { id: "RC-063", quote: `"I was a catch in 1978. Ask anyone who was there. I coasted on it for about five decades, and somewhere in the coasting, 'a shower every day' quietly became 'a shower when the spirit moves me.' I did not connect this to why my lady friend from the community center started driving with her window cracked in February. My buddy Earl said it at poker night, the way old friends do, with zero cushion: 'Ron. That's not your cologne. That's you.' Then he pulled this website up on his phone, right there over the cards. Public Thirst Hazard, at my age, with my reputation. I've showered daily since. Doris held my hand through the entire movie last Sunday. The catch still had it. He'd just stopped rinsing it."`, name: "Big Ron, 71", status: "REFORMED. Doris approves. Window's back up." },
-      { id: "RC-071", quote: `"I said cold rinses build character. They built a two-foot exclusion zone around me at all times. Took the quiz on a dare. It was not kind. I bought soap."`, name: "Sean, 34", status: "REFORMED. Exclusion zone lifted." },
     ],
-    exitLine: "Every recovery begins with a single honest assessment.",
+    /** exitLine deleted (Phase 4 consensus, F10): the CTA stands alone. */
     exitCta: "Schedule a field assessment →",
   },
   /** v2 — ships with the caption generator, not v1. */
@@ -506,8 +541,11 @@ export const crisis = {
     outputWink: "Verification is on the honor system. So was the funk.",
     buttons: ["Issue my case file", labels.cwaaa.copyLink],
   },
+  /** Phase 4 consensus (F3/#14): fully in-world — the real-world parody
+   * disclosure lives at /about and in structured metadata (owner ruling,
+   * style-lock §10/§11). No fiction confessions on this surface. */
   finePrint:
-    "CWAAA is a fictional advocacy body and is not affiliated with any real organization, fragrance, or your ex. Recovery Case Files are dramatizations; the subjects are invented and any resemblance to a specific unwashed man is a you problem, not a legal one. Findings are directional, emotional, and true in spirit. The Field Data Committee meets Thursdays. Form CW-1 confers no legal standing but considerable moral standing. Est. 2024.",
+    "Recovery Case File names are changed under Office of Lather Compliance records policy. Recognition of an active subject does not constitute a filed declaration; the subject must complete Form CW-1. The Field Data Committee meets Thursdays. The form confers no legal standing but considerable moral standing. Est. 2024.",
   exits: {
     assessment: { label: "Schedule a field assessment →", href: "/sniff-test" },
     pledge: { label: "File Form CW-1 →", href: "/pledge" },
@@ -521,9 +559,8 @@ export const about = {
     body: "Got Soap? is a satirical hygiene-PSA campaign — a thirst-trap parody of the 90s \"Got Milk?\" ads, aimed at low-effort masculinity and the gallon of Axe some men deploy in place of a shower. It's told from the POV the satire aisle usually skips: the woman standing too close to it. The movement is fake. The craft is not. Neither is the frustration that started it.",
   },
   why: [
-    "This started on a dating app, where men who hadn't met soap since the Obama administration were holding out for a 10 — clean, manicured, model-adjacent — while they themselves looked, and presumably smelled, like damp disappointment.",
+    "This started on a dating app, where men who hadn't met soap since the Obama administration were holding out for a clean, manicured, model-adjacent 10. Their offer: a five-day funk worn as a lifestyle, plus the serene conviction that she'd be lucky to have it. So I made them an ad campaign.",
     `"Got Milk?" got a generation to drink milk by making it a status symbol and putting it where kids already looked. So I did it for soap. Made clean the flex. Made effort the thirst trap. Aimed the whole thing where the ads would actually land — locker rooms, men's rooms, GQ — and let the women do the sharing, because they've been living the research the whole time.`,
-    "I'm not here to be nice about it. I'm here to be right about it, and funny, and unapologetic. That's the job.",
   ],
   caseStudy: [
     { label: "Concept & art direction", body: "Every poster walks one tightrope: visually seductive, thematically ridiculous. Thirst-trap imagery, PSA-sincere copy, engineered to provoke, amuse, and push." },
@@ -532,7 +569,7 @@ export const about = {
   ],
   pitch: {
     heading: "Want a campaign like this?",
-    body: "I'm Stacey M. Breckel — satirical creative director, graphic designer, content creator, and the studio behind Hope2 Studio. I make work that looks good and has a point of view: cheeky PSAs, full-scale parodies, brands that need teeth. There aren't many women working this lane. That's exactly why you want one.",
+    body: "I'm Stacey M. Breckel — satirical creative director, graphic designer, content creator, and the studio behind Hope2 Studio. Everything you just read — the campaign, the fake nonprofit, the paperwork that out-writes most brands' hero copy — is one hand. Cheeky PSAs, full-scale parodies, campaign worlds with teeth. If the joke has to survive the headline, the form error, and the fine print, that's my lane. Not many women drive it. That's exactly why you want one.",
     tagline: "Let's make clean design dirty fun.",
     // contact + behance come from config/site.ts (obfuscate email from scrapers at render)
   },

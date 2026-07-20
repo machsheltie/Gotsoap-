@@ -19,16 +19,19 @@
  * redactions, hazard bars, or tactical labels (§3.6).
  *
  * COPY: org, motto, memorandum subhead, lede, scale, case-file heading and
- * subhead, the RC-071 case file, and the route label are ALL VERBATIM from
- * `crisis` / `home` in copy.ts. The reformed-bro voice appears ONLY inside
- * the case-file quote (per copy.ts rules).
+ * subhead, the featured docket, and the route label are ALL VERBATIM from
+ * `crisis` / `home` in copy.ts. The featured content is CWAAA's docket
+ * caption (home.movementSeam.featuredCaption — Phase 4 consensus, F5), NOT a
+ * bro-voice quote; name/status resolve from the crisis file by featuredId.
  */
 import Seal from '../cwaaa/Seal.astro';
 import Guilloche from '../cwaaa/Guilloche.astro';
 import { crisis, home } from '../../content/copy';
 
-// Featured recovery — verbatim from crisis.caseFiles.files.
-const file = crisis.caseFiles.files.find((f) => f.id === 'RC-071')!;
+// Featured recovery — id + caption from copy.ts (RC-071 hardcode retired).
+const file = crisis.caseFiles.files.find(
+  (f) => f.id === home.movementSeam.featuredId,
+)!;
 ---
 
 <section id="movement" class="mv" aria-labelledby="mv-scale">
@@ -63,7 +66,7 @@ const file = crisis.caseFiles.files.find((f) => f.id === 'RC-071')!;
           <p class="mv__case-title">{crisis.caseFiles.heading}</p>
           <p class="mv__case-id">{file.id}</p>
         </div>
-        <blockquote class="mv__quote">{file.quote}</blockquote>
+        <p class="mv__quote">{home.movementSeam.featuredCaption}</p>
         <div class="mv__attrib">
           <p class="mv__name">— {file.name}</p>
           <p class="mv__status">{file.status}</p>

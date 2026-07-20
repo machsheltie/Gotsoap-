@@ -13,7 +13,8 @@ import PosterImage from '../PosterImage.astro';
 
 interface Props {
   slug: string;
-  /** Voice-carrying alt text (copy-deck §5) — reused for the zoomed view. */
+  /** Composed visual alt (copy-deck §5). Accepted for caller stability but NOT
+   * re-announced in the dialog — see the a11y contract on the image below. */
   alt: string;
   /** Poster title, for the dialog's accessible name and sr-only trigger context. */
   posterTitle: string;
@@ -52,9 +53,14 @@ const dialogId = `lightbox-${slug}`;
     >
       <span aria-hidden="true">&#10005;</span> Close
     </button>
+    <!-- A11y contract (Phase 4 consensus, F13/#55): the enlarged image is
+         decorative (alt="") ONLY because (a) this dialog is named by the
+         poster title (aria-label above) and (b) the page's poster image has
+         already delivered the composed description once. If either condition
+         changes, the dialog gets ONE description — never two. -->
     <PosterImage
       slug={slug}
-      alt={alt}
+      alt=""
       loading="lazy"
       sizes="(min-width: 900px) 80vw, 94vw"
       widths={[720, 1080]}

@@ -20,7 +20,9 @@ const notice = psas.downloadNotice;
 
 <section class="download-station">
   <h2 class="download-heading">{notice.heading}</h2>
-  <p class="download-body">{notice.body}</p>
+  <!-- Phase 4 consensus (F15): the full distribution notice renders ONCE on
+       the /psas index; detail stations carry the chrome-short line only. -->
+  <p class="download-body">{notice.compact}</p>
   <Button
     label={notice.button}
     href={downloadHref}

@@ -13,7 +13,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import VerdictCard from '../../components/quiz/VerdictCard.astro';
 import ShareRow from '../../components/ShareRow.astro';
 import Button from '../../components/Button.astro';
-import { verdicts, sniffTest, labels } from '../../content/copy';
+import { verdicts, labels } from '../../content/copy';
 import { absoluteUrl, type Register } from '../../config/site';
 
 type VerdictSlug = keyof typeof verdicts;
@@ -33,12 +33,14 @@ interface Props {
   register: Register;
   lead: string;
   body: string;
+  /** Per-verdict portable share payload (copy.ts `share` — Phase 4, F7). */
+  share: string;
   /** Pledge-cue line above the CTA (copy.ts `exit`). */
   exit: string;
   /** Pledge CTA label (copy.ts `exitCta`). */
   exitCta: string;
 }
-const { slug, name, register, lead, body, exit, exitCta } = Astro.props;
+const { slug, name, register, lead, body, share, exit, exitCta } = Astro.props;
 
 const pageUrl = absoluteUrl(`/sniff-test/${slug}`);
 // OG/share card path is a build/asset convention — copy.ts carries no image path.
@@ -47,7 +49,9 @@ const ogImage = absoluteUrl(ogImagePath);
 // Per-verdict meta isn't in copy.ts; derive it from the (copy) name + lead —
 // reproduces the prior "<name> | got soap?" / lead pair exactly.
 const metaTitle = `${name} | got soap?`;
-const shareText = sniffTest.shareDefault.replace('[Verdict]', name);
+// Phase 4 consensus (F7): each verdict ships its own portable payload — the
+// one-size receipt (`sniffTest.shareDefault`) is retired.
+const shareText = share;
 ---
 
 <BaseLayout

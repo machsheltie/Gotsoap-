@@ -28,10 +28,11 @@
  * contract either way. The untouched rectangle itself is never cropped,
  * masked, or overlaid.
  *
- * COPY: poster ALT + the deadpan pull are VERBATIM from `posterCopy`; the
- * propaganda caption from `home.campaign` (copy-lane final, 2026-07-16
- * Claude↔Sol consensus — an executable distribution order, poster-agnostic
- * across the owner's flagship swap).
+ * COPY: poster ALT is VERBATIM from `posterCopy`; the propaganda caption from
+ * `home.campaign` (copy-lane final, 2026-07-16 Claude↔Sol consensus — an
+ * executable distribution order, poster-agnostic across the owner's flagship
+ * swap). The imported detail-page pull is OMITTED (Phase 4 consensus, F14):
+ * the rail carries one order; a second caption re-exposed the component seam.
  */
 import PosterImage from '../PosterImage.astro';
 import { home, posterCopy } from '../../content/copy';
@@ -63,8 +64,6 @@ const poster = getPoster(slug)!;
       </p>
 
       <p class="camp__caption fx-gold">{home.campaign.caption}</p>
-
-      <p class="camp__pull">{posterCopy[slug].pull}</p>
 
       <span class="camp__rule" aria-hidden="true"></span>
 
@@ -188,14 +187,6 @@ const poster = getPoster(slug)!;
        (marble and smoke) sit on. A register-mixed dark stop went muddy on
        smoke-slate — caught in the remediation render pass. */
   }
-  .camp__pull {
-    font-family: var(--font-body);
-    font-size: var(--step-1);
-    line-height: 1.5;
-    color: var(--lather-white);
-    margin-top: clamp(1rem, 2.5vh, 1.5rem);
-    max-width: 34ch;
-  }
   .camp__rule {
     display: block;
     width: clamp(3rem, 8vw, 6rem);
@@ -239,6 +230,5 @@ const poster = getPoster(slug)!;
     }
     .camp__rail { align-items: center; }
     .camp__caption,
-    .camp__pull { max-width: 26ch; }
   }
 </style>
