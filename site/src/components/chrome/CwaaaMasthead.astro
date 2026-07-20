@@ -19,7 +19,8 @@
  * no-JS inline route list renders on every page (§9.1).
  */
 import ContentsDialog from './ContentsDialog.astro';
-import Seal from '../cwaaa/Seal.astro';
+import { Image } from 'astro:assets';
+import cwaaaLogo from '../../assets/graphics/cwaaalogo.png';
 import { masthead, contents, crisis } from '../../content/copy';
 
 interface Props {
@@ -35,7 +36,7 @@ const inlineEntries = [...contents.routes, contents.returnHome];
   <div class="lh__bar">
     <a class="lh__ident" href="/crisis">
       <span class="lh__seal">
-        <Seal size={38} decorative />
+        <Image src={cwaaaLogo} alt="" width={38} densities={[1, 2]} loading="eager" />
       </span>
       <span class="lh__idtext">
         <span class="lh__org">{crisis.header.org}</span>
@@ -104,6 +105,11 @@ const inlineEntries = [...contents.routes, contents.returnHome];
   .lh__seal {
     flex: none;
     display: inline-flex;
+  }
+  .lh__seal :global(img) {
+    display: block;
+    width: 38px;
+    height: auto;
   }
   .lh__idtext {
     display: flex;
