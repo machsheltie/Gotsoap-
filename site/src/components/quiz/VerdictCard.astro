@@ -11,6 +11,7 @@
  * editorial default), axe-dependent=smoke, thirst-hazard=smoke (heavier).
  */
 import Seal from '../cwaaa/Seal.astro';
+import { nav, verdictCard } from '../../content/copy';
 import type { Register } from '../../config/site';
 
 /** The verdict fields this card renders (copy.ts verdicts[slug] + its slug). */
@@ -42,14 +43,14 @@ const heavy = verdict.slug === 'thirst-hazard';
 >
   <header class="vcard__head">
     <div class="vcard__id">
-      <span class="vcard__tag">got soap?</span>
-      <span class="vcard__eyebrow">Sniff Test · Verdict</span>
+      <span class="vcard__tag">{nav.mark}</span>
+      <span class="vcard__eyebrow">{verdictCard.eyebrow}</span>
     </div>
     <!-- The seam: CWAAA stamp. Decorative — the heading/body carry the meaning. -->
     <div class="vcard__stamp" aria-hidden="true">
       <Seal size={78} decorative />
       <span class="vcard__stamp-name">{verdict.name}</span>
-      <span class="vcard__stamp-meta">Field Assessment CW-7 · Filed</span>
+      <span class="vcard__stamp-meta">{verdictCard.stampMeta}</span>
     </div>
   </header>
 

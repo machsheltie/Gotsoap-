@@ -17,7 +17,7 @@
     "gates:build": "astro build && node scripts/gates.mjs --build",
     "gates:prod": "astro build && node scripts/gates.mjs --build --prod",
     "distinguish": "node scripts/distinguishability.mjs",
-    "copy-gates": "node scripts/copy-gates.mjs"
+    "copy-gates": "node --experimental-strip-types scripts/copy-gates.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

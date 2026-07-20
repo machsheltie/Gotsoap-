@@ -350,6 +350,19 @@ export const verdicts = {
   },
 } as const;
 
+/**
+ * Verdict card chrome (VerdictCard.astro) — in-fiction utility labels routed
+ * through copy.ts (2026-07-17 interior-copy sweep; same defect class as the
+ * masthead's killed NGO-brochure credit leftover). `eyebrow` is campaign
+ * chrome; `stampMeta` is the CWAAA seam's rubber-stamp caption (📋). Both are
+ * VERBATIM from the shipped card — routing, not revoicing (the copy lane owns
+ * the words). "CW-7" echoes the Sniff Test's Field Assessment CW-7 elsewhere.
+ */
+export const verdictCard = {
+  eyebrow: "Sniff Test · Verdict",
+  stampMeta: "Field Assessment CW-7 · Filed",
+} as const;
+
 /** 📋 CWAAA — Form CW-1 */
 export const pledge = {
   header: {
@@ -541,7 +554,7 @@ export const notFound = {
 
 const copy = {
   HASHTAGS, FUNDED_BY, COPYRIGHT, labels, nav, contents, masthead, footer, scratchGag, meta,
-  home, posterCopy, psas, sniffTest, verdicts, pledge, crisis, about, notFound,
+  home, posterCopy, psas, sniffTest, verdicts, verdictCard, pledge, crisis, about, notFound,
 } as const;
 
 export default copy;

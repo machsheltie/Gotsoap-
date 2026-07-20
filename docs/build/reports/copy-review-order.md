@@ -102,6 +102,10 @@ Same rules as the copy session, which worked:
 - **Sharper beats safer on every tie.** The voice bible already ruled: when in doubt, go sharper.
   Polite loses.
 - **Round cap 3 per line.** Deadlocks go to Stacey with both versions and both arguments.
+- **HALT if Sol goes dark.** If Sol can't respond (usage limit, outage), the dialectic **stops** at
+  the open round and waits — Fable never rules for Sol, never "concedes on his likely verdict," never
+  calls Phase 4 closed on the adversary's behalf, never advances to Phase 5. An unanswered round is
+  OPEN. A deadlock goes to Stacey; an *unreachable adversary* is a halt, not a deadlock.
 
 **Fable writes AS Vivian.** Invoke the **`vivian-vane`** skill — she is the satirical-CD voice with
 the nerve that *prevents the "sorry" from being written in the first place* (the apologies in the
@@ -125,6 +129,32 @@ argues why the fix lands harder. "Could be punchier" is not a finding.
 Output `docs/copy/copy-correction-plan.md`: every agreed change, grouped by surface, each with its
 one-line rationale; the **missing-content** items as new work; and anything deadlocked, for Stacey.
 Then implementation routes through the copy lane as usual (`copy.ts` + deck + `style-lock.md`).
+
+---
+
+---
+
+## Phase 4 dispatch — owner routing (2026-07-17)
+
+Sol's Phase 3 audit landed (`docs/copy/copy-review-findings.md`): 17 findings, 3 P0 blockers. Owner
+ruling on how Phase 4 consumes them:
+
+- **F1 (Vector-2 citation path) is OUT of the dialectic.** It's a net-new feature with a
+  harassment-safety surface → specced separately (`docs/copy/vector2-citation-path-spec.md`) for its
+  own design pass. The dialectic runs on **F2–F17** only. Do not design the citation mechanic here.
+- **F2 (9 → 5 case files) — rebuild, don't double-cut.** The 9-is-too-many finding is near-fact
+  (three blind readers converged). But **RC-058 "Kaelthas" was already rebuilt around *behavior***
+  ("shower for who?") in the earlier eval window — inherit that version; Sol's "cut unless rebuilt
+  around a chosen behavior" is *satisfied* by it. Cull the rest per F2; keep five with distinct
+  transmission vectors.
+- **F3 (disclosure move) is lock-enforcement, not a reopen.** Moving "this is satire" off `/pledge`
+  and `/crisis` onto `/about` + structured metadata *executes* the committed commit-to-the-bit
+  ruling. Owner confirmed comfort with the disclosure living only at `/about` + metadata.
+- **Everything else (F4–F17)** is standard dialectic fodder — the line/craft findings are where
+  Vivian ⇄ Sol spends its rounds.
+
+Hand Fable: invoke **`vivian-vane`**, read `copy-review-findings.md`, run the Phase-4 dialectic with
+Sol on F2–F17 under the rules below.
 
 ---
 
