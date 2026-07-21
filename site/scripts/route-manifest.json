@@ -16,6 +16,12 @@
     "sniff-test/soap-smoldering/index.html",
     "sniff-test/suds-curious/index.html",
     "sniff-test/axe-dependent/index.html",
-    "sniff-test/thirst-hazard/index.html"
+    "sniff-test/thirst-hazard/index.html",
+    "shop/index.html",
+    "shop/soap/index.html",
+    "shop/got-soap-tee/index.html",
+    "shop/clean-sexy-tee/index.html",
+    "shop/hat/index.html",
+    "shop/effort-bottle/index.html"
   ]
 }

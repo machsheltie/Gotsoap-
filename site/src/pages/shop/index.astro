@@ -1,0 +1,307 @@
+---
+/**
+ * /shop — the faux store (OWNER ORDER 2026-07-21, faux-shop-legal-order.md).
+ *
+ * Played completely straight: a real Got Soap? retail floor in the campaign's
+ * porcelain register — wet ceramic ground (the /psas grout grammar), product
+ * tiles, prices, cart chrome. The believability IS the chrome's whole job;
+ * the joke lives in the products and their copy (Part 2, copy lane). Nothing
+ * here winks — the fourth wall breaks only in the footer, site-wide.
+ *
+ * DEAD-END (owner decision 2): every Add to Cart is a real-looking control,
+ * rendered disabled, with "Coming Soon!" beside it. The header cart chip is
+ * the same dead-end. The store reads as about to open: it takes no money and
+ * promises no fulfillment.
+ *
+ * COPY: every string routes through content/copy.ts `shop.*` (single source).
+ * IMAGES: cleaned masters via content/shop-assets.ts only (artifact hygiene —
+ * scripts/prep-shop-assets.mjs); AVIF/WebP derivatives generated at build per
+ * the CLAUDE.md asset rule. Originals never ship.
+ */
+import { getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { shop, meta } from '../../content/copy';
+import { SHOP_IMAGES } from '../../content/shop-assets';
+
+const GRID_SIZES = '(min-width: 1100px) 30vw, (min-width: 640px) 44vw, 92vw';
+
+const cards = await Promise.all(
+  shop.products.map(async (p) => {
+    const src = SHOP_IMAGES[p.slug];
+    if (!src) throw new Error(`shop-assets.ts: no image for product slug "${p.slug}"`);
+    const [avif, webp, jpg] = await Promise.all([
+      getImage({ src, format: 'avif', widths: [420, 640, 1024] }),
+      getImage({ src, format: 'webp', widths: [420, 640, 1024] }),
+      getImage({ src, format: 'jpeg', widths: [640, 1024] }),
+    ]);
+    return { ...p, avif, webp, jpg, href: `/shop/${p.slug}` };
+  }),
+);
+---
+
+<BaseLayout title={meta.shop.title} description={meta.shop.description} register="porcelain">
+  <section class="shop">
+    <!-- The store label — the /psas wall-label grammar wearing retail: kicker,
+         lowercase display title, rule, and the cart chip closing the row. -->
+    <header class="shop__label">
+      <p class="shop__kicker">{shop.header.kicker}</p>
+      <h1 class="shop__title">{shop.header.heading}</h1>
+      <span class="shop__rule" aria-hidden="true"></span>
+      <button class="shop__cart" type="button" disabled>{shop.header.cartLabel}</button>
+    </header>
+
+    <ul class="shop__grid" role="list">
+      {
+        cards.map((c) => (
+          <li class="card" data-reveal>
+            <a class="card__media" href={c.href} aria-label={c.name}>
+              <picture>
+                <source type="image/avif" srcset={c.avif.srcSet.attribute} sizes={GRID_SIZES} />
+                <source type="image/webp" srcset={c.webp.srcSet.attribute} sizes={GRID_SIZES} />
+                <img
+                  src={c.jpg.src}
+                  srcset={c.jpg.srcSet.attribute}
+                  sizes={GRID_SIZES}
+                  alt={c.alt}
+                  width={1024}
+                  height={1024}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </a>
+            <div class="card__row">
+              <h2 class="card__name">
+                <a class="card__name-link" href={c.href}>{c.name}</a>
+              </h2>
+              <p class="card__price">{c.price}</p>
+            </div>
+            <p class="card__blurb">{c.blurb}</p>
+            <div class="card__cartrow">
+              <button class="card__add" type="button" disabled>{shop.addToCart}</button>
+              <span class="card__soon">{shop.comingSoon}</span>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- The retail floor: wet ceramic, same grout grammar as /psas. -------- */
+  .shop {
+    --grout-line: color-mix(in srgb, var(--grout-black) 5%, transparent);
+    background-color: var(--reg-bg);
+    background-image:
+      radial-gradient(
+        120% 55% at 50% 0%,
+        color-mix(in srgb, var(--lather-white) 55%, transparent),
+        transparent 70%
+      ),
+      repeating-linear-gradient(to right, transparent 0 95px, var(--grout-line) 95px 96px),
+      repeating-linear-gradient(to bottom, transparent 0 95px, var(--grout-line) 95px 96px);
+    padding-block-end: var(--space-3xl);
+  }
+
+  /* ---- Store label --------------------------------------------------------- */
+  .shop__label {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    column-gap: var(--space-lg);
+    row-gap: var(--space-sm);
+    padding: var(--space-md) clamp(1rem, 4vw, 4rem) var(--space-sm);
+  }
+  .shop__kicker {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--2);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--reg-accent);
+  }
+  .shop__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.35rem, 3.2vw, 2.2rem);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+    color: var(--reg-heading);
+  }
+  .shop__rule {
+    flex: 1 1 6rem;
+    min-inline-size: 3rem;
+    block-size: 2px;
+    align-self: center;
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--grout-black) 40%, var(--chrome-mist)),
+      color-mix(in srgb, var(--lather-white) 70%, var(--chrome-mist)) 30%,
+      color-mix(in srgb, var(--grout-black) 25%, var(--chrome-mist)) 65%,
+      transparent
+    );
+  }
+  /* The cart chip — believable store furniture, dead-ended (disabled). */
+  .shop__cart {
+    align-self: center;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--2);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--grout-black) 45%, var(--steam-white));
+    background: transparent;
+    border: 1.5px solid color-mix(in srgb, var(--grout-black) 25%, transparent);
+    border-radius: var(--radius-tile);
+    padding: 0.5em 1em;
+    min-block-size: 44px;
+  }
+  .shop__cart:disabled {
+    cursor: not-allowed;
+  }
+
+  /* ---- The shelf ----------------------------------------------------------- */
+  .shop__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    gap: clamp(1.5rem, 3.5vw, 3rem);
+    margin: 0;
+    padding: var(--space-lg) clamp(1rem, 4vw, 4rem) 0;
+    max-inline-size: 90rem;
+    margin-inline: auto;
+  }
+
+  /* ---- Product tile -------------------------------------------------------- */
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .card__media {
+    display: block;
+    border: 1px solid color-mix(in srgb, var(--grout-black) 14%, transparent);
+    border-radius: var(--radius-tile);
+    overflow: hidden;
+    background: var(--lather-white);
+    box-shadow: 0 14px 34px -22px color-mix(in srgb, var(--grout-black) 55%, transparent);
+    transition: box-shadow 180ms ease, border-color 180ms ease;
+  }
+  .card__media img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    aspect-ratio: 1;
+    object-fit: cover; /* decorative studio margin only — mockups, not posters */
+    transition: transform 320ms ease;
+  }
+  .card__media:hover,
+  .card__media:focus-visible {
+    border-color: color-mix(in srgb, var(--marble-amber-ink) 55%, transparent);
+    box-shadow: 0 18px 40px -20px color-mix(in srgb, var(--grout-black) 60%, transparent);
+  }
+  .card__media:hover img {
+    transform: scale(1.025);
+  }
+  .card__media:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  .card__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+  .card__name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    line-height: 1.15;
+    color: var(--reg-heading);
+  }
+  .card__name-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card__name-link:hover {
+    color: var(--marble-amber-ink);
+  }
+  .card__name-link:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+  .card__price {
+    margin: 0;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step-0);
+    letter-spacing: 0.04em;
+    color: var(--marble-amber-ink);
+    white-space: nowrap;
+  }
+  .card__blurb {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--step--1);
+    line-height: 1.55;
+    color: var(--reg-muted);
+    max-inline-size: 38ch;
+  }
+
+  /* ---- The dead-end (owner decision 2) ------------------------------------ */
+  .card__cartrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-block-start: var(--space-2xs);
+  }
+  .card__add {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: var(--radius-tile);
+    padding: 0.55em 1.2em;
+    min-block-size: 44px;
+    /* Grayed out, per the owner decision: unmistakably a real control,
+       unmistakably not live yet. */
+    color: color-mix(in srgb, var(--grout-black) 42%, var(--steam-white));
+    background: color-mix(in srgb, var(--grout-black) 6%, var(--steam-white));
+    border: 1.5px solid color-mix(in srgb, var(--grout-black) 22%, transparent);
+  }
+  .card__add:disabled {
+    cursor: not-allowed;
+  }
+  .card__soon {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--2);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--marble-amber-ink);
+  }
+
+  /* Narrow store label: the kicker takes its own line so the title, rule, and
+     cart chip compose one deliberate row beneath it. */
+  @media (max-width: 640px) {
+    .shop__kicker {
+      flex-basis: 100%;
+    }
+  }
+
+  /* §6/§11: reduced motion resolves every state instantly. */
+  @media (prefers-reduced-motion: reduce) {
+    .card__media,
+    .card__media img {
+      transition: none;
+    }
+    .card__media:hover img {
+      transform: none;
+    }
+  }
+</style>

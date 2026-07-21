@@ -128,6 +128,8 @@ This is the home’s only CWAAA-authored surface.
 >   unsolicited* page experience — a deliberate contents-dialog entry ("Production Notes", §9.1) is
 >   navigation the visitor opens on intent, reads as a neutral editorial term, and does not count as
 >   a tell; it stays. Rationale in `docs/build/reports/footer-consolidation-spec.md`.
+>   *(SUPERSEDED 2026-07-21, faux-shop owner order: the "Production Notes" contents entry is
+>   retired; the footer folio credit is now the ONLY `/about` path site-wide. See §9.1 amendment.)*
 - The folio credit literal stays hardcoded in `Footer.astro` (it is approved-verbatim and gate G11
   greps that file for the exact string); this is the one intentional exception to "home copy routes
   through `copy.ts`."
@@ -250,7 +252,12 @@ The production folio credit is approved verbatim and does not require copy-lane 
 
 - Use a styled native `<dialog>` for the home contents sheet.
 - List home anchors first: Case, Campaign, Confrontation, Oath, and Movement.
-- List route exits second: PSAs, Sniff Test, Pledge, Crisis, and Production Notes.
+- List route exits second: PSAs, Sniff Test, Pledge, Crisis, and Shop.
+  > **OWNER AMENDMENT 2026-07-21 (faux shop; `docs/build/reports/faux-shop-legal-order.md`).**
+  > The "Production Notes" → `/about` exit is retired from all navigation. Its slot is the faux
+  > Shop (`/shop` — campaign register, played straight, "Coming Soon!" cart dead-end). `/about`
+  > stays at its route, reachable ONLY via the footer folio credit — the footer is the airlock;
+  > everything above it holds the fiction.
 - On open, move focus into the dialog and lock background scroll.
 - Trap focus within the dialog, close on Escape, and return focus to the trigger.
 - With JavaScript disabled, expose an inline anchor list instead of hiding navigation.

@@ -83,7 +83,11 @@ export const contents = {
     { label: "Sniff Test", href: "/sniff-test" },
     { label: "Pledge", href: "/pledge" },
     { label: "Crisis", href: "/crisis" },
-    { label: "Production Notes", href: "/about" },
+    /** OWNER ORDER 2026-07-21 (faux-shop-legal-order.md): the nav's /about
+     * slot becomes the faux Shop. "Production Notes" → /about is retired from
+     * ALL navigation — the footer folio credit is now the only path to the
+     * reveal. specs.md §9.1 amended same-commit. */
+    { label: "Shop", href: "/shop" },
   ],
   /** Interior-page dialog exit (chrome unification, owner decision B,
    * 2026-07-16): interior contents sheets list the route exits plus this
@@ -166,6 +170,11 @@ export const meta = {
   pledge: { title: "The Lather Pledge — Form CW-1 | got soap?", description: "Declaration of Intent to Lather. Sign the oath, get filed in triplicate, and smell like you meant it." },
   crisis: { title: "The Crisis | Concerned Women Against Axe Abuse", description: "The state of male hygiene, documented. A memorandum from the women who had smelled enough." },
   about: { title: "The Reveal — Hope2 Studio | got soap?", description: "It was a portfolio piece the whole time. Here's the satire, the craft, and the woman who made it." },
+  /** Faux shop (owner order 2026-07-21). IMPLEMENTATION DEFAULT pending the
+   * Part-2 product-copy dialectic — flat retail register, no winks, holds the
+   * line (the store is real above the footer). Per-product page meta composes
+   * from shop.products[] at render (single source; no second copy here). */
+  shop: { title: "The Shop — Official Campaign Supply | got soap?", description: "The official Got Soap? store. The bar, the tees, the hat, the bottle. Opening soon." },
   notFound: { title: "Missing | got soap?", description: "This page didn't shower. It's gone." },
 } as const;
 
@@ -582,6 +591,73 @@ export const about = {
     "Parody. Not affiliated with any brand, product, publication, or public-health organization. Models generated with openart.ai; art direction, compositing, and typography by hand.",
 } as const;
 
+/**
+ * 🧼 The faux shop (OWNER ORDER 2026-07-21, faux-shop-legal-order.md).
+ * Campaign register, played completely straight: the store is 100% real above
+ * the footer — it never winks, never spoils. The joke lives in the copy and
+ * the products, never the chrome.
+ *
+ * LANES: chrome strings here (header, cart, comingSoon, addToCart, back) are
+ * structural retail furniture — build-lane implementation defaults, the same
+ * ratified class as `contents.closeCwaaa`. Product `name`/`blurb` entries are
+ * flat-register defaults that the order's PART 2 hands to the copy lane
+ * (Vivian ⇄ Sol dialectic) for the real retail pitch — replace values only;
+ * slugs are URLs and stay. `alt` is accessibility chrome (build lane).
+ *
+ * DEAD-END (owner decision 2, resolved): prices + descriptions listed,
+ * "Coming Soon!" beside each grayed-out Add to Cart. The store reads as about
+ * to open — takes no money, promises no fulfillment, spoils nothing.
+ */
+export const shop = {
+  header: {
+    kicker: "Official Campaign Supply",
+    heading: "The Shop",
+    /** The believable-store cart affordance — rendered as a disabled control;
+     * same dead-end as Add to Cart. */
+    cartLabel: "Cart (0)",
+  },
+  comingSoon: "Coming Soon!",
+  addToCart: "Add to Cart",
+  backToShop: "← Back to the shop",
+  products: [
+    {
+      slug: "soap",
+      name: "The Embossed Bar",
+      price: "$9",
+      blurb: "The campaign wordmark, pressed deep into a cream bar. It is soap.",
+      alt: "A cream soap bar with “got soap?” embossed on top, ringed with lather.",
+    },
+    {
+      slug: "got-soap-tee",
+      name: "The Wordmark Tee",
+      price: "$25",
+      blurb: "Black cotton, distressed wordmark print across the chest.",
+      alt: "A black t-shirt with a distressed white “got soap?” print across the chest.",
+    },
+    {
+      slug: "clean-sexy-tee",
+      name: "The Statement Tee",
+      price: "$25",
+      blurb: "CLEAN IS THE NEW SEXY. Gold and rose print on black cotton.",
+      alt: "A black t-shirt printed with “CLEAN IS THE NEW SEXY.” in gold and rose.",
+    },
+    {
+      slug: "hat",
+      name: "The Dad Hat",
+      price: "$28",
+      blurb: "Black cotton twill, the wordmark embroidered in white.",
+      alt: "A black dad hat with “got soap?” embroidered in white thread.",
+    },
+    {
+      slug: "effort-bottle",
+      name: "The Effort Bottle",
+      price: "$22",
+      blurb: "SMELL LIKE EFFORT. Matte black steel, white print.",
+      alt: "A matte black steel water bottle printed with “SMELL LIKE EFFORT.”",
+    },
+  ],
+} as const;
+
 export const notFound = {
   stamp: "MISSING",
   body: "This page didn't shower. It's gone. If found, do not approach. Report all sightings to the Office of Lather Compliance.",
@@ -591,7 +667,7 @@ export const notFound = {
 
 const copy = {
   HASHTAGS, FUNDED_BY, COPYRIGHT, labels, nav, contents, masthead, footer, scratchGag, meta,
-  home, posterCopy, psas, sniffTest, verdicts, verdictCard, pledge, crisis, about, notFound,
+  home, posterCopy, psas, sniffTest, verdicts, verdictCard, pledge, crisis, about, shop, notFound,
 } as const;
 
 export default copy;

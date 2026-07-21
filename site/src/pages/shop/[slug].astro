@@ -1,0 +1,238 @@
+---
+/**
+ * /shop/[slug] — the product-detail pattern (faux-shop order, Part 1).
+ *
+ * One product, played straight: big studio shot, name, price, retail blurb,
+ * and the owner-decision-2 dead-end (grayed Add to Cart + "Coming Soon!").
+ * Same porcelain floor as /shop; the fourth wall stays intact — the joke is
+ * the product, never the chrome.
+ *
+ * COPY: single source — everything renders from copy.ts `shop.*`. Page meta
+ * composes from the product entry (title/description), so Part 2's copy pass
+ * updates the products array and every surface follows.
+ */
+import { getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { shop } from '../../content/copy';
+import { SHOP_IMAGES } from '../../content/shop-assets';
+
+export function getStaticPaths() {
+  return shop.products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+type Product = (typeof shop.products)[number];
+const { product } = Astro.props as { product: Product };
+
+const src = SHOP_IMAGES[product.slug];
+if (!src) throw new Error(`shop-assets.ts: no image for product slug "${product.slug}"`);
+
+const DETAIL_SIZES = '(min-width: 900px) 46vw, 92vw';
+const [avif, webp, jpg] = await Promise.all([
+  getImage({ src, format: 'avif', widths: [640, 1024] }),
+  getImage({ src, format: 'webp', widths: [640, 1024] }),
+  getImage({ src, format: 'jpeg', widths: [640, 1024] }),
+]);
+
+const title = `${product.name} — The Shop | got soap?`;
+---
+
+<BaseLayout title={title} description={product.blurb} register="porcelain">
+  <section class="pd">
+    <nav class="pd__crumb" aria-label={shop.header.heading}>
+      <a class="pd__back" href="/shop">{shop.backToShop}</a>
+    </nav>
+
+    <div class="pd__stage">
+      <div class="pd__media">
+        <picture>
+          <source type="image/avif" srcset={avif.srcSet.attribute} sizes={DETAIL_SIZES} />
+          <source type="image/webp" srcset={webp.srcSet.attribute} sizes={DETAIL_SIZES} />
+          <img
+            src={jpg.src}
+            srcset={jpg.srcSet.attribute}
+            sizes={DETAIL_SIZES}
+            alt={product.alt}
+            width={1024}
+            height={1024}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
+      </div>
+
+      <div class="pd__info">
+        <p class="pd__kicker">{shop.header.kicker}</p>
+        <h1 class="pd__name">{product.name}</h1>
+        <p class="pd__price">{product.price}</p>
+        <span class="pd__rule" aria-hidden="true"></span>
+        <p class="pd__blurb">{product.blurb}</p>
+        <div class="pd__cartrow">
+          <button class="pd__add" type="button" disabled>{shop.addToCart}</button>
+          <span class="pd__soon">{shop.comingSoon}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Same retail floor as /shop — one store, one material world. */
+  .pd {
+    --grout-line: color-mix(in srgb, var(--grout-black) 5%, transparent);
+    background-color: var(--reg-bg);
+    background-image:
+      radial-gradient(
+        120% 55% at 50% 0%,
+        color-mix(in srgb, var(--lather-white) 55%, transparent),
+        transparent 70%
+      ),
+      repeating-linear-gradient(to right, transparent 0 95px, var(--grout-line) 95px 96px),
+      repeating-linear-gradient(to bottom, transparent 0 95px, var(--grout-line) 95px 96px);
+    padding: var(--space-md) clamp(1rem, 4vw, 4rem) var(--space-3xl);
+  }
+
+  .pd__crumb {
+    padding-block: var(--space-sm) var(--space-lg);
+  }
+  .pd__back {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 44px; /* §12 touch target */
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: color-mix(in srgb, var(--grout-black) 60%, var(--steam-white));
+  }
+  .pd__back:hover {
+    color: var(--marble-amber-ink);
+  }
+  .pd__back:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  .pd__stage {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    max-inline-size: 80rem;
+    margin-inline: auto;
+  }
+  @media (min-width: 900px) {
+    .pd__stage {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: start;
+    }
+  }
+
+  .pd__media {
+    border: 1px solid color-mix(in srgb, var(--grout-black) 14%, transparent);
+    border-radius: var(--radius-tile);
+    overflow: hidden;
+    background: var(--lather-white);
+    box-shadow: 0 18px 44px -24px color-mix(in srgb, var(--grout-black) 55%, transparent);
+  }
+  .pd__media img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+  }
+
+  .pd__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  @media (min-width: 900px) {
+    .pd__info {
+      position: sticky;
+      top: calc(var(--masthead-compact-h) + var(--space-lg));
+      padding-block-start: var(--space-md);
+    }
+  }
+
+  .pd__kicker {
+    margin: 0;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--2);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--reg-accent);
+  }
+  .pd__name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--step-3);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--reg-heading);
+  }
+  .pd__price {
+    margin: 0;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step-1);
+    letter-spacing: 0.04em;
+    color: var(--marble-amber-ink);
+  }
+  .pd__rule {
+    inline-size: 5rem;
+    block-size: 2px;
+    margin-block: var(--space-xs);
+    background: linear-gradient(
+      to right,
+      var(--marble-amber),
+      color-mix(in srgb, var(--marble-amber) 70%, #fff) 60%,
+      transparent
+    );
+  }
+  .pd__blurb {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--step-1);
+    line-height: 1.6;
+    color: var(--reg-fg);
+    max-inline-size: 44ch;
+  }
+
+  /* The dead-end (owner decision 2): real control, grayed, not live yet. */
+  .pd__cartrow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-block-start: var(--space-md);
+  }
+  .pd__add {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step-0);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: var(--radius-tile);
+    padding: 0.65em 1.6em;
+    min-block-size: 44px;
+    color: color-mix(in srgb, var(--grout-black) 42%, var(--steam-white));
+    background: color-mix(in srgb, var(--grout-black) 6%, var(--steam-white));
+    border: 1.5px solid color-mix(in srgb, var(--grout-black) 22%, transparent);
+  }
+  .pd__add:disabled {
+    cursor: not-allowed;
+  }
+  .pd__soon {
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: var(--step--1);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--marble-amber-ink);
+  }
+</style>
