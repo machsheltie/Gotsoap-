@@ -46,6 +46,13 @@
  *    `$LASTEXITCODE`-checking (PowerShell) is used — filtering the output can
  *    hide the code, never the per-line branding.
  *
+ * v3.3 (Sol HOLD follow-through):
+ *  - EXACT LEAF: branch-1 binding resolves each agreed string to one specific
+ *    string leaf of the row's slot (full path reported), consumed at most
+ *    once. Documented residual: a compound-slot row quoting several strings
+ *    carries no per-string sub-path in the plan, so a swap of verbatim agreed
+ *    values between that slot's own fields is undetectable from the plan.
+ *
  *   node --experimental-strip-types scripts/fidelity-check.mjs
  */
 
@@ -99,6 +106,17 @@ function walkStrings(node, out = [], seen = new Set()) {
   if (seen.has(node)) return out;
   seen.add(node);
   for (const v of Object.values(node)) walkStrings(v, out, seen);
+  return out;
+}
+
+/** Like walkStrings but keeps each leaf's full path, so slot binding can name
+ * (and consume) the EXACT leaf it matched — no any-in-subtree ambiguity. */
+function walkLeaves(node, at = '', out = [], seen = new Set()) {
+  if (typeof node === 'string') { out.push({ at, value: norm(node) }); return out; }
+  if (node === null || typeof node !== 'object') return out;
+  if (seen.has(node)) return out;
+  seen.add(node);
+  for (const [k, v] of Object.entries(node)) walkLeaves(v, at ? `${at}.${k}` : k, out, seen);
   return out;
 }
 
@@ -236,7 +254,9 @@ let baseMod = null, baselineErr = null;
 try {
   const baseSrc = git(['show', `${BASELINE_REF}:site/src/content/copy.ts`]);
   const tmp = mkdtempSync(join(tmpdir(), 'fidelity-base-'));
-  const basePath = join(tmp, 'copy-baseline.ts');
+  // .mts: explicit ESM, so Node 22's "Reparsing as ES module" advisory never
+  // fires for a temp-dir file outside the package's "type":"module" scope.
+  const basePath = join(tmp, 'copy-baseline.mts');
   writeFileSync(basePath, baseSrc);
   baseMod = await import(pathToFileURL(basePath).href);
 } catch (e) {
@@ -441,20 +461,21 @@ for (const row of rows) {
   } else if (strings.length) {
     r.class = 'PRESENCE';
     // Exact slot binding, in priority order. NO containment-only escape hatch.
+    // scope: [{at, value}] leaves of the row's own slot, with full paths.
     let scope = null, scopeName = null;
     if (labeledPath) {
       const hit = resolveSlot(mod, labeledPath);
       if (!hit) { r.ok = false; r.notes.push(`labeled slot ${labeledPath} does not resolve in the deck`); }
-      else { scope = walkStrings(hit.value, []); scopeName = hit.at; }
+      else { scope = walkLeaves(hit.value, hit.at); scopeName = hit.at; }
     } else if (rcSlot) {
       const f = files.find((x) => x.id === rcSlot[1]);
       if (!f) { r.ok = false; r.notes.push(`${rcSlot[1]} missing from roster`); }
-      else { scope = [norm(f[rcSlot[2]])]; scopeName = `caseFiles[${rcSlot[1]}].${rcSlot[2]}`; }
+      else { scope = [{ at: `caseFiles[${rcSlot[1]}].${rcSlot[2]}`, value: norm(f[rcSlot[2]]) }]; scopeName = scope[0].at; }
     } else if (qSlot) {
       const q = root.sniffTest?.questions?.[Number(qSlot[1]) - 1];
       const idx = 'abcd'.indexOf(qSlot[2]);
       if (!q || !q.a?.[idx]) { r.ok = false; r.notes.push(`Q${qSlot[1]}(${qSlot[2]}) missing`); }
-      else { scope = [norm(q.a[idx])]; scopeName = `sniffTest.questions[${Number(qSlot[1]) - 1}].a[${idx}]`; }
+      else { scope = [{ at: `sniffTest.questions[${Number(qSlot[1]) - 1}].a[${idx}]`, value: norm(q.a[idx]) }]; scopeName = scope[0].at; }
     }
     if (r.ok) {
       const slugByString = new Map(slugPairs.map((p) => [p.s, p.key]));
@@ -464,7 +485,23 @@ for (const row of rows) {
       // is a FAIL. Case-file quote values carry literal surrounding "s; strip
       // them before equality so exactness compares the spoken text.
       const stripQ = (t) => t.replace(/^"/, '').replace(/"$/, '');
-      const exactInScope = (s) => scope && scope.some((d) => stripQ(d) === s);
+      // EXACT-LEAF binding (v3.3, Sol): each agreed string must equal one
+      // specific string leaf of the row's slot — resolved to and reported at
+      // its full path, and consumed at most once (one leaf can never satisfy
+      // two agreed strings). No substring test survives anywhere in branch 1.
+      // Residual, documented: when a row labels a COMPOUND slot and quotes
+      // several strings, the plan carries no per-string sub-path, so a swap of
+      // verbatim agreed values between that slot's own fields is not
+      // detectable from the plan alone. Every superstring, padded, or
+      // out-of-slot placement fails.
+      const consumed = new Set();
+      const bindLeaf = (s) => {
+        if (!scope) return null;
+        const i = scope.findIndex((d, idx) => !consumed.has(idx) && stripQ(d.value) === s);
+        if (i === -1) return null;
+        consumed.add(i);
+        return scope[i].at;
+      };
       // Fragment mode exists ONLY where the plan itself quotes part of a longer
       // line: an RC row saying "through … then", or a labeled slot whose label
       // carries a sub-part designator (e.g. `welcomeEmail.body` threat line)
@@ -481,19 +518,20 @@ for (const row of rows) {
         if (!scope || !fragAllowed) return null;
         if (baselineErr) return null; // no baseline → no fragment proof
         const tail = ss.join(' ');
-        for (const leafRaw of scope) {
+        for (const { at, value: leafRaw } of scope) {
           const leaf = stripQ(leafRaw);
           if (!leaf.endsWith(tail)) continue;
           const head = leaf.slice(0, leaf.length - tail.length).trim();
           if (head === '' || baselineStrings.some((b) => b.includes(head)))
-            return `terminal fragment @ ${scopeName} (head baseline-attested)`;
+            return `terminal fragment @ ${at} (head baseline-attested)`;
         }
         return null;
       };
       const unresolved = [];
       for (const s of strings) {
-        // 1) the row's own labeled slot — EXACT leaf equality
-        if (exactInScope(s)) { r.notes.push(`ok @ ${scopeName} (exact)`); continue; }
+        // 1) the row's own labeled slot — EXACT leaf equality, consume-once
+        const leafAt = bindLeaf(s);
+        if (leafAt) { r.notes.push(`ok @ ${leafAt} (exact leaf)`); continue; }
         // 2) slug-labeled verdicts field (share payloads / pledge cues) — exact
         const slug = slugByString.get(s);
         if (slug && field) {
@@ -545,7 +583,7 @@ for (const row of rows) {
 
 const landed = results.filter((r) => r.ok).length;
 out();
-out(`  fidelity check v3.2${banner} — extraction from ${PLAN}`);
+out(`  fidelity check v3.3${banner} — extraction from ${PLAN}`);
 out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${rows.length}/${declaredRows} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
 let lastSection = '';
@@ -555,7 +593,7 @@ for (const r of results) {
   if (!r.ok) for (const n of r.notes) out(`          ${n}`);
 }
 out();
-out(`  rows parsed: ${results.length} · landed: ${landed}/${results.length} · binding: exact (padding fails); fragment rows end-anchored + baseline-attested`);
+out(`  rows parsed: ${results.length} · landed: ${landed}/${results.length} · binding: exact leaf, consume-once (padding/superstring fail); fragment rows end-anchored + baseline-attested`);
 out(`  authoritative: ${TEST_MODE ? 'NO — TEST MODE' : 'yes (proof mode, overrides rejected)'}`);
 out(`  exit contract: proof 0=landed · 1=failed/fatal/override — test mode 3=landed · 2=failed/fatal (never 0 or 1). Direct invocation only: a pipeline reports the LAST command's status — use pipefail (bash) or check $LASTEXITCODE (PowerShell).`);
 out();
