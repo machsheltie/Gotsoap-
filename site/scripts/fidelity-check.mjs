@@ -30,6 +30,22 @@
  * order doc, the deck §12 index, the committed manifest, and git — never
  * from a hand-copied list of agreed strings in this file.
  *
+ * v3.2 (Sol round 3):
+ *  - PADDING: slot binding is EXACT, not containment. A string-leaf slot must
+ *    equal the agreed text; agreed-text-plus-appendix fails. Fragment rows
+ *    (the plan quotes part of a longer retained value, e.g. the welcome-email
+ *    lines and the RC-031 partial quote) must sit at the END of their leaf and
+ *    the un-quoted remainder must be attested by the BASELINE deck — so both
+ *    appended and prepended padding fail. Baseline unavailable → fragment
+ *    rows fail.
+ *  - BRANDING: in test mode EVERY output line — section, PASS, FAIL, note,
+ *    summary — carries the TEST MODE — NON-AUTHORITATIVE prefix, and both
+ *    modes print the exit contract. Honest scope note: the exit codes are
+ *    authoritative for DIRECT invocation; a shell pipeline replaces them with
+ *    the last command's status unless `set -o pipefail` (bash) or
+ *    `$LASTEXITCODE`-checking (PowerShell) is used — filtering the output can
+ *    hide the code, never the per-line branding.
+ *
  *   node --experimental-strip-types scripts/fidelity-check.mjs
  */
 
@@ -51,6 +67,11 @@ if (!TEST_MODE && overrides.length) {
   process.exit(1);
 }
 const banner = TEST_MODE ? ' [TEST MODE — NON-AUTHORITATIVE]' : '';
+/** EVERY emitted line is branded in test mode — a grep/findstr filter can hide
+ * the exit code, but never the per-line provenance. */
+const LP = TEST_MODE ? 'TEST MODE — NON-AUTHORITATIVE | ' : '';
+const out = (s = '') => console.log(s.split('\n').map((l) => (LP + l).trimEnd()).join('\n'));
+const err = (s) => console.error(s.split('\n').map((l) => (LP + l).trimEnd()).join('\n'));
 /** Exit-code contract (Sol residual, 2026-07-20): proof mode exits 0 (pass) or
  * 1 (fail/fatal). Test mode NEVER exits 0 or 1 — it exits 3 (all rows landed,
  * non-authoritative) or 2 (failures/fatal) — so no pipeline, script, or human
@@ -221,6 +242,7 @@ try {
 } catch (e) {
   baselineErr = `baseline deck unavailable (git show ${BASELINE_REF}): ${e.message.split('\n')[0]}`;
 }
+const baselineStrings = baseMod ? walkStrings(baseMod.default ?? baseMod) : [];
 
 // Dist vs the INDEPENDENT manifest.
 let distPages = [];
@@ -241,7 +263,7 @@ else {
 const extraPages = distPages.map((p) => p.rel).filter((r) => !manifestRoutes.includes(r));
 
 if (fatal.length) {
-  for (const f of fatal) console.error(`FATAL${banner}: ${f}`);
+  for (const f of fatal) err(`FATAL: ${f}`);
   process.exit(EXIT_FAIL);
 }
 
@@ -255,7 +277,7 @@ const exactAtIndexed = (s) =>
 const start = planText.indexOf('## 1.');
 const end = planText.indexOf('## 8.');
 if (start === -1 || end === -1) {
-  console.error(`FATAL${banner}: plan section markers (## 1. … ## 8.) not found — truncated/substituted plan`);
+  err(`FATAL: plan section markers (## 1. … ## 8.) not found — truncated/substituted plan`);
   process.exit(EXIT_FAIL);
 }
 const body = planText.slice(start, end);
@@ -274,10 +296,10 @@ for (const line of body.split('\n')) {
   rows.push({ section, cells, raw: line });
 }
 for (let i = 1; i <= 7; i++)
-  if (!seenSections.has(i)) { console.error(`FATAL${banner}: plan section §${i} missing — truncated plan`); process.exit(EXIT_FAIL); }
-if (rows.length === 0) { console.error(`FATAL${banner}: zero rows parsed — vacuous`); process.exit(EXIT_FAIL); }
+  if (!seenSections.has(i)) { err(`FATAL: plan section §${i} missing — truncated plan`); process.exit(EXIT_FAIL); }
+if (rows.length === 0) { err(`FATAL: zero rows parsed — vacuous`); process.exit(EXIT_FAIL); }
 if (Number.isFinite(declaredRows) && rows.length !== declaredRows) {
-  console.error(`FATAL${banner}: parsed ${rows.length} rows but the order declares ${declaredRows} — partial or padded plan`);
+  err(`FATAL: parsed ${rows.length} rows but the order declares ${declaredRows} — partial or padded plan`);
   process.exit(EXIT_FAIL);
 }
 
@@ -438,10 +460,41 @@ for (const row of rows) {
       const slugByString = new Map(slugPairs.map((p) => [p.s, p.key]));
       const keyByString = new Map(keyPairs.map((p) => [p.s, p.key]));
       const field = /share payload/i.test(rowText) ? 'share' : /pledge cue/i.test(rowText) ? 'exit' : null;
+      // PADDING contract (v3.2): binding is EXACT — agreed-text-plus-appendix
+      // is a FAIL. Case-file quote values carry literal surrounding "s; strip
+      // them before equality so exactness compares the spoken text.
+      const stripQ = (t) => t.replace(/^"/, '').replace(/"$/, '');
+      const exactInScope = (s) => scope && scope.some((d) => stripQ(d) === s);
+      // Fragment mode exists ONLY where the plan itself quotes part of a longer
+      // line: an RC row saying "through … then", or a labeled slot whose label
+      // carries a sub-part designator (e.g. `welcomeEmail.body` threat line)
+      // and resolves to an array/object. A fragment must TERMINATE its leaf
+      // and the residual head must be attested by the BASELINE deck — so both
+      // appended and prepended padding fail. (Residual, documented: a head
+      // spliced verbatim from baseline text on these few rows passes; every
+      // full-value row is exact and immune.)
+      const labelTrailing = slotLabeled ? slotCell.replace(/^`[^`]+`/, '').trim() : '';
+      const scopeIsCompound = labeledPath ? typeof resolveSlot(mod, labeledPath)?.value === 'object' : false;
+      const fragAllowed =
+        (rcSlot && /\bthrough\b/i.test(agreedCell)) || (labeledPath && labelTrailing !== '' && scopeIsCompound);
+      const fragmentBind = (ss) => {
+        if (!scope || !fragAllowed) return null;
+        if (baselineErr) return null; // no baseline → no fragment proof
+        const tail = ss.join(' ');
+        for (const leafRaw of scope) {
+          const leaf = stripQ(leafRaw);
+          if (!leaf.endsWith(tail)) continue;
+          const head = leaf.slice(0, leaf.length - tail.length).trim();
+          if (head === '' || baselineStrings.some((b) => b.includes(head)))
+            return `terminal fragment @ ${scopeName} (head baseline-attested)`;
+        }
+        return null;
+      };
+      const unresolved = [];
       for (const s of strings) {
-        // 1) the row's own labeled slot
-        if (scope && scope.some((d) => d.includes(s))) { r.notes.push(`ok @ ${scopeName}`); continue; }
-        // 2) slug-labeled verdicts field (share payloads / pledge cues)
+        // 1) the row's own labeled slot — EXACT leaf equality
+        if (exactInScope(s)) { r.notes.push(`ok @ ${scopeName} (exact)`); continue; }
+        // 2) slug-labeled verdicts field (share payloads / pledge cues) — exact
         const slug = slugByString.get(s);
         if (slug && field) {
           const v = root.verdicts?.[slug]?.[field];
@@ -459,8 +512,18 @@ for (const row of rows) {
         // 4) exact-value match at a §12-indexed slot
         const hit = exactAtIndexed(s);
         if (hit) { r.notes.push(`ok @ ${hit.at} (exact, §12-indexed)`); continue; }
-        r.ok = false;
-        r.notes.push(`NOT slot-bound: "${s.slice(0, 55)}…"${scope ? ` (absent from ${scopeName})` : ''}${deckStrings.some((d) => d.includes(s)) ? ' — exists elsewhere in deck: RELOCATION' : ''}`);
+        unresolved.push(s);
+      }
+      // 5) the fragment path — only for the plan's own partial-quote rows,
+      // applied to ALL unresolved strings of the row as one ordered tail.
+      if (unresolved.length) {
+        const note = fragmentBind(unresolved);
+        if (note) r.notes.push(note);
+        else {
+          r.ok = false;
+          for (const s of unresolved)
+            r.notes.push(`NOT slot-bound (exact${fragAllowed ? '/fragment' : ''}): "${s.slice(0, 55)}…"${scope ? ` @ ${scopeName}` : ''}${deckStrings.some((d) => d.includes(s)) ? ' — text present but not exact at slot: PADDING or RELOCATION' : ''}`);
+        }
       }
       // The featured-file row also pins featuredId by its RC-id.
       if (!slotLabeled && !rcSlot && !qSlot && /featured/i.test(slotCell)) {
@@ -481,14 +544,19 @@ for (const row of rows) {
 /* ---------- report -------------------------------------------------------- */
 
 const landed = results.filter((r) => r.ok).length;
-console.log(`\n  fidelity check v3${banner} — extraction from ${PLAN}`);
-console.log(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${rows.length}/${declaredRows} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}\n`);
+out();
+out(`  fidelity check v3.2${banner} — extraction from ${PLAN}`);
+out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${rows.length}/${declaredRows} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
+out();
 let lastSection = '';
 for (const r of results) {
-  if (r.section !== lastSection) { console.log(`  — ${r.section}`); lastSection = r.section; }
-  console.log(`  ${r.ok ? 'PASS' : 'FAIL'}  [${r.class.padEnd(9)}] ${r.slot}`);
-  if (!r.ok) for (const n of r.notes) console.log(`          ${n}`);
+  if (r.section !== lastSection) { out(`  — ${r.section}`); lastSection = r.section; }
+  out(`  ${r.ok ? 'PASS' : 'FAIL'}  [${r.class.padEnd(9)}] ${r.slot}`);
+  if (!r.ok) for (const n of r.notes) out(`          ${n}`);
 }
-console.log(`\n  rows parsed: ${results.length} · landed: ${landed}/${results.length} · containment-only rows: 0 (binding is mandatory)`);
-console.log(`  authoritative: ${TEST_MODE ? 'NO — TEST MODE' : 'yes (proof mode, overrides rejected)'}\n`);
+out();
+out(`  rows parsed: ${results.length} · landed: ${landed}/${results.length} · binding: exact (padding fails); fragment rows end-anchored + baseline-attested`);
+out(`  authoritative: ${TEST_MODE ? 'NO — TEST MODE' : 'yes (proof mode, overrides rejected)'}`);
+out(`  exit contract: proof 0=landed · 1=failed/fatal/override — test mode 3=landed · 2=failed/fatal (never 0 or 1). Direct invocation only: a pipeline reports the LAST command's status — use pipefail (bash) or check $LASTEXITCODE (PowerShell).`);
+out();
 process.exit(landed !== results.length ? EXIT_FAIL : EXIT_PASS);
