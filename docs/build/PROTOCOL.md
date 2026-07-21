@@ -30,6 +30,46 @@ entirely to the gates a machine *cannot* decide — above all:
 
 That is the failure this whole loop exists to catch.
 
+## Law: a checker the implementer wrote is UNTRUSTED until the adversary made it lie
+
+A verification artifact — a gate, a fidelity checker, a test harness — written by the
+party it verifies **does not count as evidence** until an adversary has tried to make it
+report green on a known-bad state and *failed*. Its green is a claim, not a proof, until
+then.
+
+This is not a maybe. It is **3 for 3** in this project:
+
+1. **The killed-lines text scanner** — three lexer-level escapes in three rounds; only an
+   adversary's attacks proved it structurally unsalvageable.
+2. **CG7's `dist` exemption** — the author wrote *"exact, never suffix"*, applied it
+   correctly one layer up, then shipped a suffix regex one layer down. `campaign/about/
+   index.html` rode `/about`'s exemption. The author could not see it; Sol's fixture did.
+3. **The Phase-5 fidelity checker** — the author's own smoke test (delete a payload, mangle
+   a line) passed and it declared "has teeth." Sol then found **five** ways to make it
+   report 54/54 on a fake dist, a truncated plan, relocated text, and non-empty-only
+   INHERIT/UNCHANGED handlers.
+
+The mechanism is the same yes-man failure one level up: **an author tests the attacks it
+already defended against; only an adversary tests the ones it never imagined.** A model
+cannot adversarially test its own adversarial tool any more than it can be its own critic.
+
+**How it runs.** The implementer hands the adversary the *tool itself*, not just its
+output, with the mandate: **make it lie.** Delete a required thing and see if it still
+passes; mangle a value by one character; point it at a stale, fake, or truncated artifact;
+set every env/config seam off-default. If the checker can be made to report green on a bad
+state, it is not done — and the work it was vouching for is not verified.
+
+**Highest-risk shapes, always test first:**
+- **Circular trust** — the artifact under verification also defines what the verification
+  requires (a deck that derives its own required page list; a plan that declares its own
+  row count). A doctored input shrinks its own obligations. This is the shape both the CG7
+  and fidelity holes share.
+- **Env/config seams** — any override on a verification tool is attack surface. A real run
+  must ignore them or refuse to report green when they are set off-default.
+- **Existence ≠ satisfaction** — "a section was added" / "the string is non-empty" is not
+  "the required content is present at the required place." Bind to exact slot and exact
+  baseline.
+
 ## The loop
 
 ```

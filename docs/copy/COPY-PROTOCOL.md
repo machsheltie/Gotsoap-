@@ -104,6 +104,19 @@ When anyone asks "is this line working?", it is asking against all three:
   halts rather than rewriting for her. An unanswered adversary halts the loop; it never collapses the
   two chairs into one. *(2026-07-17: Codex hit its usage limit mid-Phase-4; the one unruled line is
   open until Sol returns — the correct outcome is a halt, not a self-ruled "close.")*
+- **A checker the implementer wrote is UNTRUSTED until the adversary made it lie.** A verification
+  artifact — gate, fidelity checker, test harness — written by the party it verifies does **not count
+  as evidence** until an adversary has tried to make it report green on a known-bad state and failed.
+  Its green is a claim, not a proof, until then. This is **3 for 3** here (killed-lines text scanner →
+  CG7's suffix exemption → the Phase-5 fidelity checker that reported 54/54 on a fake dist and a
+  truncated plan). The mechanism is the yes-man failure one level up: an author tests the attacks it
+  already defended against; only an adversary tests the ones it never imagined — a model cannot
+  adversarially test its own adversarial tool. **How it runs:** the implementer hands the adversary the
+  *tool itself*, not just its output — "make it lie": delete a required thing, mangle one character,
+  point it at a stale/fake/truncated artifact, set every env seam off-default. If it can be made green
+  on a bad state, it is not done. **Highest-risk shapes:** circular trust (the artifact under check
+  also defines what the check requires), env/config seams (attack surface on a verification tool), and
+  existence-≠-satisfaction (exact slot + exact baseline, never "non-empty" or "a section exists").
 - **Never punch down.** Any line aimed at a person's body, race, class, age, or identity is rejected
   on sight — however funny. Behavior, ad tropes, and the double standard only. The reformed-hero exit
   stays open: he's the convert, not the villain. *(The 2026-07-17 readers flagged a class/age pattern
