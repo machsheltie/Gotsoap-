@@ -809,4 +809,18 @@ const formAction = buttondownEmbedUrl();
       letter-spacing: 0.01em;
     }
   }
+
+  /* Desktop: center the SIGN-stamp row (left-aligned reads as a stray on the
+     wide certificate) + enlarge the pressed seal so its glyph/legend are legible.
+     Mobile (≤560px) is deliberately left untouched. The seal's 2× density source
+     (208px) keeps it crisp at this display width. */
+  @media (min-width: 561px) {
+    .submit-row {
+      justify-content: center;
+      text-align: center;
+    }
+    .submit-wax :global(img) {
+      width: 180px;
+    }
+  }
 </style>

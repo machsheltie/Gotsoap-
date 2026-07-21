@@ -8,7 +8,7 @@
 import RibbonBadge from './RibbonBadge.astro';
 import Button from '../Button.astro';
 import { Image } from 'astro:assets';
-import cwaaaLogo from '../../assets/graphics/cwaaalogo.png';
+import cwaaaLogo from '../../assets/graphics/cwaaalogo-tight.png';
 import { crisis as c } from '../../content/copy';
 
 const exits = [c.exits.assessment, c.exits.pledge];
@@ -178,27 +178,32 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
   }
 
   /* ---- Massive Letterhead ---- */
+  /* Stacked letterhead: the seal sits on its own line with the CWAAA org block
+     dropped directly beneath it (both breakpoints), tightly paired so the mark
+     and the name read as one unit. The tighter row gap closes the old ~1" void
+     between the seal and the org text on mobile. */
   .dossier-lh {
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-xl);
-    align-items: end;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    justify-items: center;
+    text-align: center;
     border-bottom: 8px solid var(--cwaaa-ink);
     padding-bottom: var(--space-xl);
     margin-bottom: var(--space-3xl);
-  }
-  @media (max-width: 800px) {
-    .dossier-lh {
-      grid-template-columns: 1fr;
-      text-align: center;
-      justify-items: center;
-    }
   }
 
   .dossier-lh-seal :global(img) {
     display: block;
     width: 200px;
     height: auto;
+  }
+  /* Desktop only: enlarge the seal for presence/legibility. Its 2× density
+     source is 400px, so it stays crisp at this width. Mobile keeps 200px. */
+  @media (min-width: 801px) {
+    .dossier-lh-seal :global(img) {
+      width: 300px;
+    }
   }
 
   /* CWAAA writes in PT Serif only (design.md §5) — Oswald belongs to the
