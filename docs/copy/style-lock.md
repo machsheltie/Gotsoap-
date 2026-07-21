@@ -93,3 +93,20 @@ Studio`) and carry the real © notice — so the truthful `"satirical"` disclosu
 honest parody disclosure while the visible fiction is untouched. The commit-to-the-bit
 rule (§10) and the §7 kill list govern **rendered** surfaces only. (Ruled by Stacey in
 the footer-consolidation close-out, answering Sol's CONCERN 3.)
+
+## 12. Shop Part-2 consensus locks (2026-07-21)
+
+Argued to consensus in the two-round Vivian ⇄ Sol shop-product dialectic
+(`proposals-2026-07-21-shop-products.md`, 6/6 CONSENT, zero deadlocks):
+
+1. **Sell around the print — paraphrase is not rhyme.** A shop blurb never re-prints
+   the hook printed on its product AND never restates the hook's metaphor in store
+   voice ("Effort is the only fragrance we carry" died as a paraphrase of SMELL LIKE
+   EFFORT.). Quiet thematic rhyme is legal; the same equation in new words is not.
+2. **The 1993 simile technicality.** In the Wordmark Tee blurb, "distressed *like*
+   it's been asking since 1993" — the "like" is load-bearing. The simile keeps the
+   Got Milk? deep cut a vintage-wash claim; sanding it to a plain "since 1993" would
+   contradict the `Est. MMXXIV` masthead fiction. Do not "tighten" it away.
+3. **The tie-break principle.** Between two law-clean candidate lines, the one
+   carrying an additional working beat wins. "Ends on the strongest word" is a taste
+   argument and does not decide.

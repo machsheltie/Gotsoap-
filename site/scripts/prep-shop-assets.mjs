@@ -38,8 +38,24 @@ const PRODUCTS = {
 
 /** Sparkle patch box (union bbox + glow margin) and its clean donor region,
  * verified against all five mockups (see file header). */
-const BOX = { left: 860, top: 862, width: 84, height: 82 };
-const DONOR = { left: 860, top: 942, width: 84, height: 82 };
+const BOX_DEFAULT = { left: 860, top: 862, width: 84, height: 82 };
+const DONOR_DEFAULT = { left: 860, top: 942, width: 84, height: 82 };
+
+/* The bottle's watermark is the sparkle INSIDE a translucent gray rounded
+ * chip (~858–950 × 876–964) that only shows against its mid-gray studio
+ * background — invisible on the four near-white mockups. The default box
+ * clips the chip and its below-donor samples the chip's own lower edge back
+ * in, leaving a visible gray square. The chip also sits ON the backdrop's
+ * wall-floor shadow band (a darker horizontal sweep, y≈860–930), so the
+ * donor must come from the SAME ROWS — shifted left to x 700–832, clean
+ * background clear of the bottle's cast shadow (which ends ≈x 690) — so the
+ * band's vertical profile carries through the patch. */
+const OVERRIDES = {
+  'gotsoapwaterbottle.png': {
+    box: { left: 836, top: 852, width: 132, height: 132 },
+    donor: { left: 700, top: 852, width: 132, height: 132 },
+  },
+};
 
 mkdirSync(OUT, { recursive: true });
 
@@ -47,11 +63,13 @@ mkdirSync(OUT, { recursive: true });
  * the smooth studio gradient (verified visually on the soap mockup), so the
  * patch fades over its outer ~10px. The sparkle core sits ≥14px inside the
  * box on every image, safely under the fully-opaque center. */
-const maskSvg = Buffer.from(
-  `<svg width="${BOX.width}" height="${BOX.height}">` +
-    `<rect x="10" y="10" width="${BOX.width - 20}" height="${BOX.height - 20}" fill="white"/></svg>`,
-);
-const mask = await sharp(maskSvg).blur(5).greyscale().raw().toBuffer();
+async function featherMask(box) {
+  const maskSvg = Buffer.from(
+    `<svg width="${box.width}" height="${box.height}">` +
+      `<rect x="10" y="10" width="${box.width - 20}" height="${box.height - 20}" fill="white"/></svg>`,
+  );
+  return sharp(maskSvg).blur(5).greyscale().raw().toBuffer();
+}
 
 /** Per-channel mean of the outer `ring`-px frame of a raw RGB region. */
 function ringMean(buf, w, h, ring) {
@@ -70,6 +88,8 @@ function ringMean(buf, w, h, ring) {
 
 for (const [file, slug] of Object.entries(PRODUCTS)) {
   const src = join(SRC, file);
+  const { box: BOX, donor: DONOR } = OVERRIDES[file] ?? { box: BOX_DEFAULT, donor: DONOR_DEFAULT };
+  const mask = await featherMask(BOX);
   const donor = await sharp(src).extract(DONOR).removeAlpha().raw().toBuffer();
   /* Brightness-match the donor to the destination: the studio gradient makes
    * the donor region measurably brighter/darker than the sparkle area on some

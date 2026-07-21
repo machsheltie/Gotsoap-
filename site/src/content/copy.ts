@@ -170,11 +170,12 @@ export const meta = {
   pledge: { title: "The Lather Pledge — Form CW-1 | got soap?", description: "Declaration of Intent to Lather. Sign the oath, get filed in triplicate, and smell like you meant it." },
   crisis: { title: "The Crisis | Concerned Women Against Axe Abuse", description: "The state of male hygiene, documented. A memorandum from the women who had smelled enough." },
   about: { title: "The Reveal — Hope2 Studio | got soap?", description: "It was a portfolio piece the whole time. Here's the satire, the craft, and the woman who made it." },
-  /** Faux shop (owner order 2026-07-21). IMPLEMENTATION DEFAULT pending the
-   * Part-2 product-copy dialectic — flat retail register, no winks, holds the
-   * line (the store is real above the footer). Per-product page meta composes
+  /** Faux shop (owner order 2026-07-21). Part-2 dialectic consensus
+   * (Vivian ⇄ Sol, 2 rounds, 2026-07-21 — see
+   * docs/copy/proposals-2026-07-21-shop-products.md): products lead the
+   * snippet, the official-supply stamp closes. Per-product page meta composes
    * from shop.products[] at render (single source; no second copy here). */
-  shop: { title: "The Shop — Official Campaign Supply | got soap?", description: "The official Got Soap? store. The bar, the tees, the hat, the bottle. Opening soon." },
+  shop: { title: "The Shop — Official Campaign Supply | got soap?", description: "The embossed bar, the tees, the dad hat, and the bottle that says it for you. Official campaign supply — opening soon." },
   notFound: { title: "Missing | got soap?", description: "This page didn't shower. It's gone." },
 } as const;
 
@@ -600,9 +601,11 @@ export const about = {
  * LANES: chrome strings here (header, cart, comingSoon, addToCart, back) are
  * structural retail furniture — build-lane implementation defaults, the same
  * ratified class as `contents.closeCwaaa`. Product `name`/`blurb` entries are
- * flat-register defaults that the order's PART 2 hands to the copy lane
- * (Vivian ⇄ Sol dialectic) for the real retail pitch — replace values only;
- * slugs are URLs and stay. `alt` is accessibility chrome (build lane).
+ * the PART-2 COPY-LANE CONSENSUS (Vivian ⇄ Sol, 2 rounds, 0 deadlocks,
+ * 2026-07-21 — docs/copy/proposals-2026-07-21-shop-products.md): each blurb
+ * sells AROUND the printed hook, never re-prints or paraphrases it
+ * (style-lock §12). Slugs are URLs and stay. `alt` is accessibility chrome
+ * (build lane).
  *
  * DEAD-END (owner decision 2, resolved): prices + descriptions listed,
  * "Coming Soon!" beside each grayed-out Add to Cart. The store reads as about
@@ -624,35 +627,40 @@ export const shop = {
       slug: "soap",
       name: "The Embossed Bar",
       price: "$9",
-      blurb: "The campaign wordmark, pressed deep into a cream bar. It is soap.",
+      blurb: "The question, pressed into the answer: triple-milled cream, unscented, legible to the last sliver. Buy one for your shower and one for a sink that isn't yours.",
       alt: "A cream soap bar with “got soap?” embossed on top, ringed with lather.",
     },
     {
       slug: "got-soap-tee",
       name: "The Wordmark Tee",
       price: "$25",
-      blurb: "Black cotton, distressed wordmark print across the chest.",
+      /* "like" is load-bearing (style-lock §12): the simile keeps the 1993
+       * deep cut a vintage-wash claim, never a founding date that would
+       * contradict Est. MMXXIV. */
+      blurb: "Heavyweight black cotton, print distressed like it's been asking since 1993. People expect the man in this shirt to have an answer.",
       alt: "A black t-shirt with a distressed white “got soap?” print across the chest.",
     },
     {
       slug: "clean-sexy-tee",
       name: "The Statement Tee",
       price: "$25",
-      blurb: "CLEAN IS THE NEW SEXY. Gold and rose print on black cotton.",
+      blurb: "Gold and rose on black, printed where the cologne used to do the talking. Reads at first-date distance — the range it was made for.",
       alt: "A black t-shirt printed with “CLEAN IS THE NEW SEXY.” in gold and rose.",
     },
     {
       slug: "hat",
       name: "The Dad Hat",
       price: "$28",
-      blurb: "Black cotton twill, the wordmark embroidered in white.",
+      blurb: "Unstructured black twill, white embroidery, adjustable strap. Every other hat is an alibi for the hair underneath. This one asks about it.",
       alt: "A black dad hat with “got soap?” embroidered in white thread.",
     },
     {
       slug: "effort-bottle",
       name: "The Effort Bottle",
       price: "$22",
-      blurb: "SMELL LIKE EFFORT. Matte black steel, white print.",
+      /* Sell-around ruling (style-lock §12): no restatement of the printed
+       * hook's effort-as-fragrance metaphor may appear in this blurb. */
+      blurb: "Matte black steel, carry-loop cap, built for the man who earns his musk at the gym and retires it in the shower. Hydration is the easy part.",
       alt: "A matte black steel water bottle printed with “SMELL LIKE EFFORT.”",
     },
   ],
