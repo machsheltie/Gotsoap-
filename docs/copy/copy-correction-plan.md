@@ -101,7 +101,13 @@ plan. After implementation: `copy-gates` green + clean Astro build (floor, not p
 | `about.why[0]` | **"This started on a dating app, where men who hadn't met soap since the Obama administration were holding out for a clean, manicured, model-adjacent 10. Their offer: a five-day funk worn as a lifestyle, plus the serene conviction that she'd be lucky to have it. So I made them an ad campaign."** | The invoice split makes the double standard readable on first pass; the button lands on the entitlement gap, not an appraisal of the man. (R2#46) |
 | `about.why[1]` | Unchanged | /about is the one surface where revealing the strategy is the payload. (R1, CLEAR) |
 | `about.why[2]` | **Delete** | Announcing "unapologetic" is the apology; the page above is the proof. (R1) |
-| `about.pitch.body` | **"I'm Stacey M. Breckel — satirical creative director, graphic designer, content creator, and the studio behind Hope2 Studio. Everything you just read — the campaign, the fake nonprofit, the paperwork that out-writes most brands' hero copy — is one hand. Cheeky PSAs, full-scale parodies, campaign worlds with teeth. If the joke has to survive the headline, the form error, and the fine print, that's my lane. Not many women drive it. That's exactly why you want one."** | Proof → buyer-specific lane sentence → the claim Priya said to keep; scarcity converted from permission slip to moat-with-receipts. (R4#49) |
+| `about.pitch.body` | **"I'm Stacey M. Breckel. Everything you just read — the campaign, the fake nonprofit, the paperwork that out-writes most brands' hero copy — came from one hand: mine. A dating app made me mad, so I declared a national hygiene crisis. I file my grudges in triplicate."** | Superseded R4#49 via the 2026-07-21 A1–A4 dialectic (`proposals-2026-07-21-about-pitch.md`): the Phase-6 blind read showed both women cooling at the sales pivot, so the title stack, services triad, and scarcity line ("Not many women drive it. That's exactly why you want one.") are cut — the sale now performs in the site's voice and ends on the proof-backed flex. |
+
+**A1–A4 addendum (2026-07-21, not a correction row):** the same dialectic also replaced
+`about.caseStudy[2].body` with the consensus text **"Porcelain. Smoke. Marble. Then I incorporated
+the grudge. It smolders on the posters and files paperwork everywhere else."** — killing the
+tidy-summary tail ("Built like it's real, because that's the whole point") Priya flagged blind.
+Full record: `proposals-2026-07-21-about-pitch.md` (Slots 1–5, closed at consensus, no holds).
 
 ## 8. New work (missing-content items — not in this correction pass)
 

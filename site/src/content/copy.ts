@@ -565,11 +565,11 @@ export const about = {
   caseStudy: [
     { label: "Concept & art direction", body: "Every poster walks one tightrope: visually seductive, thematically ridiculous. Thirst-trap imagery, PSA-sincere copy, engineered to provoke, amuse, and push." },
     { label: "Execution", body: "Male models generated with openart.ai — then everything that makes them ads was done by hand in Photoshop: compositing, lighting, steam, chrome, marble, and a type system built to stay legible across every skin tone and background in the set. Where a legible fix killed the tone, I moved the light instead of the type." },
-    { label: "The system", body: "Three registers — porcelain, smoke, marble — a fictional sponsor with its own identity and its own deadpan voice, and a campaign that smolders and files paperwork in the same breath. Built like it's real, because that's the whole point." },
+    { label: "The system", body: "Porcelain. Smoke. Marble. Then I incorporated the grudge. It smolders on the posters and files paperwork everywhere else." },
   ],
   pitch: {
     heading: "Want a campaign like this?",
-    body: "I'm Stacey M. Breckel — satirical creative director, graphic designer, content creator, and the studio behind Hope2 Studio. Everything you just read — the campaign, the fake nonprofit, the paperwork that out-writes most brands' hero copy — is one hand. Cheeky PSAs, full-scale parodies, campaign worlds with teeth. If the joke has to survive the headline, the form error, and the fine print, that's my lane. Not many women drive it. That's exactly why you want one.",
+    body: "I'm Stacey M. Breckel. Everything you just read — the campaign, the fake nonprofit, the paperwork that out-writes most brands' hero copy — came from one hand: mine. A dating app made me mad, so I declared a national hygiene crisis. I file my grudges in triplicate.",
     tagline: "Let's make clean design dirty fun.",
     // contact + behance come from config/site.ts (obfuscate email from scrapers at render)
   },
