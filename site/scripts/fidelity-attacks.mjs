@@ -246,6 +246,36 @@ scenario('T18 compound order: numbered movement lines swapped inside named array
   }),
 }, { exit: 2, mustSee: ['NOT slot-bound'], branded: true });
 
+// Sol HOLD round 2 (2026-07-22, vs c557a40): five near-misses that returned
+// test-mode green. RED until the checker closes them, then permanent.
+
+scenario('T19 root relocation w/ alias preserved: labels.cwaaa.copyLink re-homed under home', {
+  ...T, FIDELITY_COPY_TS: mutateDeck('root-relocation-alias', (s) => {
+    // Unlike T16, every in-deck alias of the slot is patched to a literal, so
+    // nothing else breaks — only resolveSlot's cross-root fallback vouches.
+    const steps = [
+      ['    copyLink: ' + JSON.stringify(copyLink) + ',', ''],
+      ['copyLink: labels.cwaaa.copyLink', 'copyLink: ' + JSON.stringify(copyLink)],
+      ['labels.cwaaa.copyLink]', JSON.stringify(copyLink) + ']'],
+      ['export const home = {', 'export const home = {\n  labels: { cwaaa: { copyLink: ' + JSON.stringify(copyLink) + ' } },'],
+    ];
+    for (const [a, b] of steps) {
+      if (!s.includes(a)) throw new Error('T19 step target missing: ' + a.slice(0, 44));
+      s = s.replace(a, b);
+    }
+    return s;
+  }),
+}, { exit: 2, mustSee: ['does not resolve'], branded: true });
+
+scenario('T20 array arity: unapproved third movement line appended at [2]', {
+  ...T, FIDELITY_COPY_TS: mutateDeck('array-arity', (s) =>
+    s.replace(JSON.stringify(movementBody[1]) + ',', JSON.stringify(movementBody[1]) + ',\n      "A third, unapproved movement line.",')),
+}, { exit: 2, mustSee: ['arity'], branded: true });
+
+scenario('T21 fragment head deletion: welcome-email leaf reduced to the quoted tail alone', {
+  ...T, FIDELITY_COPY_TS: mutateDeck('fragment-head-deletion', (s) => s.replace(welcomeThreat, threatTail)),
+}, { exit: 2, mustSee: ['NOT slot-bound'], branded: true });
+
 // Dist attacks work on a throwaway copy.
 const distCopy = join(tmp, 'dist');
 cpSync(DIST, distCopy, { recursive: true });
@@ -289,6 +319,35 @@ cpSync(DIST, distCopy, { recursive: true });
   writeFileSync(pledgePage, mutated);
   scenario('T17 stale dist: agreed label removed from rendered pledge page', {
     ...T, FIDELITY_DIST: stale,
+  }, { exit: 2, mustSee: ['NOT RENDERED'], branded: true });
+}
+
+// Sol HOLD round 2: route binding must be slug-exact, and HTML comments are
+// not "rendered".
+{
+  const reloc = join(tmp, 'dist-route-reloc');
+  cpSync(distCopy, reloc, { recursive: true });
+  const pull = deck.posterCopy['unholy'].pull;
+  const up = join(reloc, 'psas', 'unholy', 'index.html');
+  const uo = readFileSync(up, 'utf8');
+  if (!uo.includes(pull)) throw new Error('T22: unholy pull not verbatim on its poster page');
+  writeFileSync(up, uo.replaceAll(pull, 'Relocated elsewhere.'));
+  const ip = join(reloc, 'psas', 'index.html');
+  writeFileSync(ip, readFileSync(ip, 'utf8').replace('</body>', '<p>' + pull + '</p></body>'));
+  scenario('T22 route relocation: unholy pull moved from its poster page to /psas index', {
+    ...T, FIDELITY_DIST: reloc,
+  }, { exit: 2, mustSee: ['NOT RENDERED'], branded: true });
+}
+
+{
+  const hid = join(tmp, 'dist-comment-hide');
+  cpSync(distCopy, hid, { recursive: true });
+  const hp = join(hid, 'index.html');
+  const ho = readFileSync(hp, 'utf8');
+  if (!ho.includes(movementBody[1])) throw new Error('T23: movement line 2 not rendered on home');
+  writeFileSync(hp, ho.replace(movementBody[1], '<!-- ' + movementBody[1] + ' -->'));
+  scenario('T23 comment hiding: movement line survives only inside an HTML comment', {
+    ...T, FIDELITY_DIST: hid,
   }, { exit: 2, mustSee: ['NOT RENDERED'], branded: true });
 }
 

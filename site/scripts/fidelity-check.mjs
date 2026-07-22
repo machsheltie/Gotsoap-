@@ -75,6 +75,22 @@
  *    reports SIM-OK / "sim rows green:" so no substring filter can dress a
  *    sabotage run as an authoritative pass.
  *
+ * v3.5 (Sol HOLD round 2, 2026-07-22 — five near-misses vs c557a40):
+ *  - ROOT ANCHOR: resolveSlot() is terminal when the path's first segment
+ *    names a root object — the cross-root fallback no longer rescues a slot
+ *    re-homed under another root (alias-preserving relocation fails). The
+ *    fallback survives only for non-root shorthands, and must be UNIQUE.
+ *  - EXACT ARITY: numbered plan lines declare an array's FULL membership;
+ *    an unapproved extra member fails even when every index verifies.
+ *  - NON-EMPTY HEAD: fragment rows must RETAIN a prefix — replacing the leaf
+ *    with the quoted tail alone (head === '') fails.
+ *  - SLUG-EXACT ROUTES: when a slot path segment (or slug label) names a
+ *    route directory under the section prefix, the string must render on
+ *    that page, not merely somewhere in the route family.
+ *  - COMMENTS ≠ RENDERED: <!-- … --> is stripped before text extraction —
+ *    hiding copy (or leaking a cut case file) inside a comment counts as
+ *    not rendered.
+ *
  *   node --experimental-strip-types scripts/fidelity-check.mjs
  */
 
@@ -158,13 +174,21 @@ function resolveSlot(mod, path) {
   const root = mod.default ?? mod;
   const direct = resolveAt(root, path);
   if (direct !== undefined) return { value: direct, at: path };
+  // v3.5 (Sol round 2): a path whose FIRST segment names a root object is
+  // root-anchored — a miss beneath that root is TERMINAL. The cross-root
+  // fallback let `labels.cwaaa.copyLink` be satisfied by a copy re-homed
+  // under `home.labels.…`. The fallback survives only for label shorthands
+  // whose first segment is not a root key (e.g. `welcomeEmail.body` lives
+  // under pledge), and even then the nested hit must be UNIQUE.
+  if (root[segsOf(path)[0]] !== undefined) return undefined;
+  const hits = [];
   for (const [k, v] of Object.entries(root)) {
     if (v && typeof v === 'object') {
       const nested = resolveAt(v, path);
-      if (nested !== undefined) return { value: nested, at: `${k}.${path}` };
+      if (nested !== undefined) hits.push({ value: nested, at: `${k}.${path}` });
     }
   }
-  return undefined;
+  return hits.length === 1 ? hits[0] : undefined;
 }
 
 /** Deep unique-key search for bare §12 tokens (e.g. `featuredCaption`). */
@@ -294,7 +318,10 @@ else {
     rel: relative(DIST, p).split(sep).join('/'),
     raw: readFileSync(p, 'utf8'),
   }));
-  for (const p of distPages) p.text = norm(unescapeHtml(p.raw));
+  // v3.5 (Sol round 2): HTML comments are NOT rendered content — text hidden
+  // in <!-- … --> must satisfy nothing (and a commented-out cut case file is
+  // genuinely not rendered). Strip comments before normalizing.
+  for (const p of distPages) p.text = norm(unescapeHtml(p.raw.replace(/<!--[\s\S]*?-->/g, ' ')));
   for (const req of manifestRoutes) {
     const page = distPages.find((p) => p.rel === req);
     if (!page) fatal.push(`dist is PARTIAL/SUBSTITUTED — manifest route missing: ${req}`);
@@ -578,14 +605,25 @@ for (const row of rows) {
           const baseRaw = baseLeafByRel.get(relAt(at));
           if (baseRaw === undefined) continue; // no same-path baseline leaf → no proof
           const base = isQuoteLeaf(at) ? stripQ(baseRaw) : baseRaw;
-          if (head === '' || base.startsWith(head))
-            return `terminal fragment @ ${at} (head is the SAME baseline leaf's exact prefix)`;
+          // v3.5 (Sol round 2): a fragment row quotes PART of a longer line,
+          // so the retained head must be NON-EMPTY — deleting the retained
+          // prefix and keeping only the quoted tail is a copy change, not a
+          // landing. head === '' no longer passes.
+          if (head !== '' && base.startsWith(head))
+            return `terminal fragment @ ${at} (non-empty head is the SAME baseline leaf's exact prefix)`;
         }
         return null;
       };
       const unresolved = [];
       if (indexPinned) {
-        // Explicit index binding: plan line N ↔ slot[N-1], exact.
+        // Explicit index binding: plan line N ↔ slot[N-1], exact — and EXACT
+        // ARITY (v3.5, Sol round 2): the numbered lines declare the FULL
+        // membership of the array; an unapproved extra member fails even when
+        // every declared index verifies.
+        if (scope.length !== numPairs.length) {
+          r.ok = false;
+          r.notes.push(`slot arity ${scope.length} ≠ ${numPairs.length} numbered plan lines @ ${scopeName} — unapproved extra/missing member`);
+        }
         for (const { n, s } of numPairs) {
           const target = scope.find((d) => relAt(d.at) === String(n - 1));
           if (!target) { r.ok = false; r.notes.push(`NOT slot-bound (exact): line ${n} has no leaf @ ${scopeName}[${n - 1}]`); continue; }
@@ -603,7 +641,12 @@ for (const row of rows) {
           //    `pledge.badgeShare` · share title → pledge.badgeShareTitle:
           //    the sibling's key must carry the label word AND equal the
           //    agreed text exactly), or the row's fragment path.
-          const leafAt = bindLeaf(s);
+          //    Fragment rows NEVER bind branch-1 (v3.5, Sol round 2): the
+          //    plan quotes PART of a longer line there, so a leaf that
+          //    exactly equals the quote means the retained head was deleted
+          //    — only the fragment path (non-empty baseline-anchored head)
+          //    can bind those rows.
+          const leafAt = fragAllowed ? null : bindLeaf(s);
           if (leafAt) { r.notes.push(`ok @ ${leafAt} (exact leaf)`); continue; }
           const lab = subLabelByString.get(s);
           if (lab && labeledPath && labeledPath.includes('.')) {
@@ -670,21 +713,39 @@ for (const row of rows) {
       const NON_ROUTED_PREFIXES = ['welcomeEmail', 'newsletter'];
       const routed = !NON_ROUTED_PREFIXES.some((p) => (labeledPath || '').startsWith(p));
       if (routed) {
-        const routePages = /^Home$/i.test(row.section)
+        const isHome = /^Home$/i.test(row.section);
+        const secPrefixes = isHome ? null : (row.section.match(/\/[\w-]+/g) || []).map((t) => t.slice(1) + '/');
+        const routePages = isHome
           ? distPages.filter((p) => p.rel === 'index.html')
-          : (() => {
-              const toks = row.section.match(/\/[\w-]+/g);
-              if (!toks) return distPages; // global chrome — any page
-              const prefixes = toks.map((t) => t.slice(1) + '/');
-              return distPages.filter((p) => prefixes.some((x) => p.rel.startsWith(x)));
-            })();
+          : secPrefixes.length === 0
+            ? distPages // global chrome — any page
+            : distPages.filter((p) => secPrefixes.some((x) => p.rel.startsWith(x)));
+        // SLUG-EXACT binding (v3.5, Sol round 2): family-wide route scope let
+        // a poster page's pull relocate to the section index. When a path
+        // segment of the row's slot (or a string's own slug label) names a
+        // route directory under the section prefix, the string must render on
+        // THAT page — not merely somewhere in the family.
+        const rowSegs = labeledPath ? labeledPath.split(/[.[\]"'`]+/).filter(Boolean) : [];
+        const pagesFor = (s) => {
+          if (!secPrefixes || secPrefixes.length === 0) return routePages;
+          const segs = [...rowSegs, ...(slugByString.has(s) ? [slugByString.get(s)] : [])];
+          for (const seg of segs) {
+            const sub = routePages.filter((p) => secPrefixes.some((x) => p.rel.startsWith(x + seg + '/')));
+            if (sub.length) return sub;
+          }
+          return routePages;
+        };
         const segsRender = (page, s) =>
           s.split(/\[[^\]]+\]/).map((seg) => norm(seg)).filter((seg) => seg.length >= 4)
             .every((seg) => page.text.includes(seg));
         for (const s of strings) {
-          if (!routePages.some((p) => segsRender(p, s))) {
+          const pages = pagesFor(s);
+          if (!pages.some((p) => segsRender(p, s))) {
             r.ok = false;
-            r.notes.push(`NOT RENDERED on ${/^Home$/i.test(row.section) ? 'index.html' : (row.section.match(/\/[\w-]+/g) || ['any route']).join('|')}: "${s.slice(0, 45)}…" — dist is stale or the surface dropped the agreed copy`);
+            const where = isHome ? 'index.html'
+              : pages !== routePages ? pages.map((p) => p.rel).join('|')
+              : (row.section.match(/\/[\w-]+/g) || ['any route']).join('|');
+            r.notes.push(`NOT RENDERED on ${where}: "${s.slice(0, 45)}…" — dist is stale, the surface dropped the agreed copy, or it renders off its slug-exact route`);
           }
         }
       }
@@ -705,7 +766,7 @@ const landed = results.filter((r) => r.ok).length;
 // vocabulary. Test mode renders every count as "N of M".
 const frac = (a, b) => (TEST_MODE ? `${a} of ${b}` : `${a}/${b}`);
 out();
-out(`  fidelity check v3.4${banner} — extraction from ${PLAN}`);
+out(`  fidelity check v3.5${banner} — extraction from ${PLAN}`);
 out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${frac(rows.length, declaredRows)} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
 // VOCABULARY SPLIT (v3.4, Sol): test-mode output shares NO success vocabulary
