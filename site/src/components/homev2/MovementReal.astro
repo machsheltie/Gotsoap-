@@ -59,7 +59,7 @@ const file = crisis.caseFiles.files.find(
         <h2 id="mv-scale" class="mv__scale fx-letterpress">{crisis.scale}</h2>
       </div>
 
-      <p class="mv__lede">{home.movementSeam.body[0]}</p>
+      {home.movementSeam.body.map((line) => <p class="mv__lede">{line}</p>)}
 
       <div class="mv__case">
         <div class="mv__case-head">

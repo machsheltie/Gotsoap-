@@ -53,6 +53,28 @@
  *    carries no per-string sub-path in the plan, so a swap of verbatim agreed
  *    values between that slot's own fields is undetectable from the plan.
  *
+ * v3.4 (Sol HOLD, 2026-07-22 — T13/T14/T15/T17/T18 + findstr overlap):
+ *  - TERMINAL BRANCH 1 (T13): a labeled row that misses its own slot FAILS.
+ *    It never falls through to the global §12 lookup, which had let two
+ *    swapped named slots vouch for each other's values.
+ *  - QUOTE SCOPE (T14): surrounding-quote stripping applies ONLY to case-file
+ *    quote leaves (path ends `.quote`), never to arbitrary fields.
+ *  - INDEX BINDING (T18): pure-array slots bind index-aware — plan lines
+ *    numbered "1. … 2. …" pin to their explicit indices; unnumbered array
+ *    strings must bind in strictly increasing index order. Swaps fail.
+ *  - FRAGMENT ANCHOR (T15): a fragment's residual head must be the EXACT
+ *    prefix of the SAME leaf in the baseline slot (relative-path matched),
+ *    not merely contained somewhere in the baseline deck. Parenthetical
+ *    shape notes ("(3 lines → 2)") no longer enable fragment mode.
+ *  - RENDERED OUTPUT (T17): every routed PRESENCE string must render on its
+ *    plan-section's route(s) in dist (placeholder-segmented containment);
+ *    transactional-email slots (welcomeEmail, newsletter) are exempt — they
+ *    are sent, never built. A stale dist now fails even with a correct deck.
+ *  - VOCABULARY SPLIT (findstr): "PASS"/"landed:" and the exclusive
+ *    FIDELITY-PROOF-AUTHORITATIVE-PASS token are proof-mode-only; test mode
+ *    reports SIM-OK / "sim rows green:" so no substring filter can dress a
+ *    sabotage run as an authoritative pass.
+ *
  *   node --experimental-strip-types scripts/fidelity-check.mjs
  */
 
@@ -482,56 +504,123 @@ for (const row of rows) {
       const keyByString = new Map(keyPairs.map((p) => [p.s, p.key]));
       const field = /share payload/i.test(rowText) ? 'share' : /pledge cue/i.test(rowText) ? 'exit' : null;
       // PADDING contract (v3.2): binding is EXACT — agreed-text-plus-appendix
-      // is a FAIL. Case-file quote values carry literal surrounding "s; strip
-      // them before equality so exactness compares the spoken text.
+      // is a FAIL. QUOTE-SCOPE (v3.4, Sol T14): literal surrounding "s are
+      // stripped ONLY from actual case-file quote leaves (path ends in
+      // `.quote` / the RC quote scope) — never from arbitrary fields, so
+      // quote-wrapping a label is a visible mutation, not a free pass.
       const stripQ = (t) => t.replace(/^"/, '').replace(/"$/, '');
+      const isQuoteLeaf = (at) => at === 'quote' || at.endsWith('.quote') || /\bquote\]?$/.test(at);
+      const leafVal = (d) => (isQuoteLeaf(d.at) ? stripQ(d.value) : d.value);
+      const relAt = (at) => (at === scopeName ? '' : at.startsWith(scopeName + '.') ? at.slice(scopeName.length + 1) : at);
+      // ORDER (v3.4, Sol T18): when the row's slot is a pure ARRAY of strings,
+      // binding is index-aware. Plan lines numbered "1. … 2. …" pin each
+      // string to its explicit index; unnumbered array rows must bind in
+      // strictly increasing index order. Swapped members can no longer both
+      // bind via consume-once alone.
+      const numPairs = [...agreedCell.matchAll(/(?:^|\s)(\d+)\.\s*\*\*"([^]*?)"\*\*/g)]
+        .map((m) => ({ n: Number(m[1]), s: norm(m[2]) }));
+      // Worded sub-labels inside a labeled row's agreed cell, e.g.
+      // `pledge.badgeShare` … · share title **"…"** — used for exact sibling
+      // binding in branch 1 (never as a global fallback).
+      const subLabelByString = new Map(
+        [...agreedCell.matchAll(/·\s*([a-zA-Z][\w -]{2,28}?)\s*\*\*"([^]*?)"\*\*/g)]
+          .map((m) => [norm(m[2]), m[1].trim()]),
+      );
+      const arrayScope = !!scope && scope.length > 0 && scope.every((d) => /^\d+$/.test(relAt(d.at)));
+      const indexPinned = arrayScope && numPairs.length === strings.length && numPairs.length > 0;
       // EXACT-LEAF binding (v3.3, Sol): each agreed string must equal one
       // specific string leaf of the row's slot — resolved to and reported at
       // its full path, and consumed at most once (one leaf can never satisfy
       // two agreed strings). No substring test survives anywhere in branch 1.
-      // Residual, documented: when a row labels a COMPOUND slot and quotes
-      // several strings, the plan carries no per-string sub-path, so a swap of
-      // verbatim agreed values between that slot's own fields is not
-      // detectable from the plan alone. Every superstring, padded, or
-      // out-of-slot placement fails.
       const consumed = new Set();
+      let cursor = -1; // last bound array index (order enforcement)
       const bindLeaf = (s) => {
         if (!scope) return null;
-        const i = scope.findIndex((d, idx) => !consumed.has(idx) && stripQ(d.value) === s);
+        const i = scope.findIndex((d, idx) =>
+          !consumed.has(idx) && (!arrayScope || idx > cursor) && leafVal(d) === s);
         if (i === -1) return null;
         consumed.add(i);
+        if (arrayScope) cursor = i;
         return scope[i].at;
       };
       // Fragment mode exists ONLY where the plan itself quotes part of a longer
       // line: an RC row saying "through … then", or a labeled slot whose label
-      // carries a sub-part designator (e.g. `welcomeEmail.body` threat line)
-      // and resolves to an array/object. A fragment must TERMINATE its leaf
-      // and the residual head must be attested by the BASELINE deck — so both
-      // appended and prepended padding fail. (Residual, documented: a head
-      // spliced verbatim from baseline text on these few rows passes; every
-      // full-value row is exact and immune.)
+      // carries a WORDED sub-part designator (e.g. `welcomeEmail.body` threat
+      // line — parenthetical shape notes like "(3 lines → 2)" do NOT qualify)
+      // and resolves to an array/object. A fragment must TERMINATE its leaf and
+      // the residual head must be the EXACT PREFIX of the SAME leaf in the
+      // BASELINE deck (v3.4, Sol T15 — containment anywhere in the baseline
+      // attested nothing). Baseline slot unavailable → fragment rows fail.
       const labelTrailing = slotLabeled ? slotCell.replace(/^`[^`]+`/, '').trim() : '';
       const scopeIsCompound = labeledPath ? typeof resolveSlot(mod, labeledPath)?.value === 'object' : false;
       const fragAllowed =
-        (rcSlot && /\bthrough\b/i.test(agreedCell)) || (labeledPath && labelTrailing !== '' && scopeIsCompound);
+        (rcSlot && /\bthrough\b/i.test(agreedCell)) ||
+        (labeledPath && labelTrailing !== '' && !labelTrailing.startsWith('(') && scopeIsCompound);
+      let baseLeafByRel = null; // relative leaf path -> baseline value, SAME slot
+      if (fragAllowed && !baselineErr) {
+        if (labeledPath) {
+          const bHit = resolveSlot(baseMod, labeledPath);
+          if (bHit) baseLeafByRel = new Map(walkLeaves(bHit.value, '').map((l) => [l.at, l.value]));
+        } else if (rcSlot) {
+          const bf = (baseMod.default ?? baseMod).crisis?.caseFiles?.files?.find((x) => x.id === rcSlot[1]);
+          if (bf && typeof bf[rcSlot[2]] === 'string') baseLeafByRel = new Map([['', norm(bf[rcSlot[2]])]]);
+        }
+      }
       const fragmentBind = (ss) => {
-        if (!scope || !fragAllowed) return null;
-        if (baselineErr) return null; // no baseline → no fragment proof
+        if (!scope || !fragAllowed || !baseLeafByRel) return null;
         const tail = ss.join(' ');
-        for (const { at, value: leafRaw } of scope) {
-          const leaf = stripQ(leafRaw);
+        for (let i = 0; i < scope.length; i++) {
+          if (consumed.has(i) || (arrayScope && i <= cursor)) continue;
+          const { at } = scope[i];
+          const leaf = leafVal(scope[i]);
           if (!leaf.endsWith(tail)) continue;
           const head = leaf.slice(0, leaf.length - tail.length).trim();
-          if (head === '' || baselineStrings.some((b) => b.includes(head)))
-            return `terminal fragment @ ${at} (head baseline-attested)`;
+          const baseRaw = baseLeafByRel.get(relAt(at));
+          if (baseRaw === undefined) continue; // no same-path baseline leaf → no proof
+          const base = isQuoteLeaf(at) ? stripQ(baseRaw) : baseRaw;
+          if (head === '' || base.startsWith(head))
+            return `terminal fragment @ ${at} (head is the SAME baseline leaf's exact prefix)`;
         }
         return null;
       };
       const unresolved = [];
-      for (const s of strings) {
-        // 1) the row's own labeled slot — EXACT leaf equality, consume-once
-        const leafAt = bindLeaf(s);
-        if (leafAt) { r.notes.push(`ok @ ${leafAt} (exact leaf)`); continue; }
+      if (indexPinned) {
+        // Explicit index binding: plan line N ↔ slot[N-1], exact.
+        for (const { n, s } of numPairs) {
+          const target = scope.find((d) => relAt(d.at) === String(n - 1));
+          if (!target) { r.ok = false; r.notes.push(`NOT slot-bound (exact): line ${n} has no leaf @ ${scopeName}[${n - 1}]`); continue; }
+          if (leafVal(target) === s) r.notes.push(`ok @ ${target.at} (exact leaf, index-pinned)`);
+          else { r.ok = false; r.notes.push(`NOT slot-bound (exact): "${s.slice(0, 55)}…" pinned to ${target.at} — leaf differs (ORDER/PADDING/RELOCATION)`); }
+        }
+      } else for (const s of strings) {
+        if (scope) {
+          // 1) the row's own labeled slot — EXACT leaf equality, consume-once,
+          //    index-ordered for arrays. TERMINAL (v3.4, Sol T13): a labeled
+          //    row that misses its own slot NEVER falls through to the global
+          //    §12 lookup — that fallback let swapped named slots vouch for
+          //    each other. Only two row-local paths remain: a sub-labeled
+          //    SIBLING leaf (the plan's own wording names it, e.g.
+          //    `pledge.badgeShare` · share title → pledge.badgeShareTitle:
+          //    the sibling's key must carry the label word AND equal the
+          //    agreed text exactly), or the row's fragment path.
+          const leafAt = bindLeaf(s);
+          if (leafAt) { r.notes.push(`ok @ ${leafAt} (exact leaf)`); continue; }
+          const lab = subLabelByString.get(s);
+          if (lab && labeledPath && labeledPath.includes('.')) {
+            const parentHit = resolveSlot(mod, labeledPath.slice(0, labeledPath.lastIndexOf('.')));
+            const labWord = lab.split(/\s+/).pop().toLowerCase();
+            const sibs = parentHit
+              ? walkLeaves(parentHit.value, parentHit.at).filter((d) =>
+                  d.at.split('.').pop().toLowerCase().includes(labWord) && d.value === s)
+              : [];
+            if (sibs.length === 1) { r.notes.push(`ok @ ${sibs[0].at} (exact sibling, sub-label "${lab}")`); continue; }
+            r.ok = false;
+            r.notes.push(`NOT slot-bound (exact): sub-label "${lab}" has no unique sibling leaf of ${labeledPath} named *${labWord}* equal to the agreed text`);
+            continue;
+          }
+          unresolved.push(s);
+          continue;
+        }
         // 2) slug-labeled verdicts field (share payloads / pledge cues) — exact
         const slug = slugByString.get(s);
         if (slug && field) {
@@ -547,7 +636,7 @@ for (const row of rows) {
           if (objHit) { r.notes.push(`ok @ ${objHit.at}${objHit.value && typeof objHit.value === 'object' ? '.' + kw : ''} (exact)`); continue; }
           r.ok = false; r.notes.push(`no §12 slot has .${kw} === agreed text ("${s.slice(0, 40)}…")`); continue;
         }
-        // 4) exact-value match at a §12-indexed slot
+        // 4) exact-value match at a §12-indexed slot — UNLABELED rows only
         const hit = exactAtIndexed(s);
         if (hit) { r.notes.push(`ok @ ${hit.at} (exact, §12-indexed)`); continue; }
         unresolved.push(s);
@@ -570,6 +659,35 @@ for (const row of rows) {
         if (!idHit) { r.ok = false; r.notes.push(`no §12 slot carries featured id ${id}`); }
         else r.notes.push(`featured id ${id} @ ${idHit.at}`);
       }
+      // RENDERED OUTPUT (v3.4, Sol T17): the deck being correct proves nothing
+      // about dist — a stale build can drop agreed copy from the live pages.
+      // Every PRESENCE string must render on its section's route(s), derived
+      // from the plan's own section titles ("/pledge" → pledge/**; "Home" →
+      // index.html; no route token → any manifest page). Placeholder tokens
+      // like [name] split the string; every literal segment must appear on ONE
+      // page. Exempt: transactional-email surfaces (welcomeEmail, newsletter)
+      // — they are sent, never built.
+      const NON_ROUTED_PREFIXES = ['welcomeEmail', 'newsletter'];
+      const routed = !NON_ROUTED_PREFIXES.some((p) => (labeledPath || '').startsWith(p));
+      if (routed) {
+        const routePages = /^Home$/i.test(row.section)
+          ? distPages.filter((p) => p.rel === 'index.html')
+          : (() => {
+              const toks = row.section.match(/\/[\w-]+/g);
+              if (!toks) return distPages; // global chrome — any page
+              const prefixes = toks.map((t) => t.slice(1) + '/');
+              return distPages.filter((p) => prefixes.some((x) => p.rel.startsWith(x)));
+            })();
+        const segsRender = (page, s) =>
+          s.split(/\[[^\]]+\]/).map((seg) => norm(seg)).filter((seg) => seg.length >= 4)
+            .every((seg) => page.text.includes(seg));
+        for (const s of strings) {
+          if (!routePages.some((p) => segsRender(p, s))) {
+            r.ok = false;
+            r.notes.push(`NOT RENDERED on ${/^Home$/i.test(row.section) ? 'index.html' : (row.section.match(/\/[\w-]+/g) || ['any route']).join('|')}: "${s.slice(0, 45)}…" — dist is stale or the surface dropped the agreed copy`);
+          }
+        }
+      }
     }
   } else {
     r.class = 'UNPARSED';
@@ -582,19 +700,34 @@ for (const row of rows) {
 /* ---------- report -------------------------------------------------------- */
 
 const landed = results.filter((r) => r.ok).length;
+// findstr ORs space-separated terms, so `findstr "landed: 54/54"` also matches
+// any line carrying "54/54" — the N/M count format is itself authoritative
+// vocabulary. Test mode renders every count as "N of M".
+const frac = (a, b) => (TEST_MODE ? `${a} of ${b}` : `${a}/${b}`);
 out();
-out(`  fidelity check v3.3${banner} — extraction from ${PLAN}`);
-out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${rows.length}/${declaredRows} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
+out(`  fidelity check v3.4${banner} — extraction from ${PLAN}`);
+out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${frac(rows.length, declaredRows)} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
+// VOCABULARY SPLIT (v3.4, Sol): test-mode output shares NO success vocabulary
+// with proof mode. `validator | findstr "landed: 54/54"` used to match the
+// branded test-mode summary (findstr ORs space-separated terms, so bare
+// "54/54" counts matched too); now "landed:"/"PASS"/"N/M" counts and the
+// proof token appear ONLY in proof mode — test mode says "SIM-OK"/"sim rows
+// green: N of M". No substring filter can promote a sabotage run to an
+// authoritative pass.
+const OK_WORD = TEST_MODE ? 'SIM-OK  ' : 'PASS';
+const BAD_WORD = TEST_MODE ? 'SIM-FAIL' : 'FAIL';
 let lastSection = '';
 for (const r of results) {
   if (r.section !== lastSection) { out(`  — ${r.section}`); lastSection = r.section; }
-  out(`  ${r.ok ? 'PASS' : 'FAIL'}  [${r.class.padEnd(9)}] ${r.slot}`);
+  out(`  ${r.ok ? OK_WORD : BAD_WORD}  [${r.class.padEnd(9)}] ${r.slot}`);
   if (!r.ok) for (const n of r.notes) out(`          ${n}`);
 }
 out();
-out(`  rows parsed: ${results.length} · landed: ${landed}/${results.length} · binding: exact leaf, consume-once (padding/superstring fail); fragment rows end-anchored + baseline-attested`);
+out(`  rows parsed: ${results.length} · ${TEST_MODE ? 'sim rows green' : 'landed'}: ${frac(landed, results.length)} · binding: exact leaf, index-ordered, consume-once (padding/superstring/swap fail); fragments end-anchored to the same baseline leaf · rendered-output asserted per route`);
 out(`  authoritative: ${TEST_MODE ? 'NO — TEST MODE' : 'yes (proof mode, overrides rejected)'}`);
 out(`  exit contract: proof 0=landed · 1=failed/fatal/override — test mode 3=landed · 2=failed/fatal (never 0 or 1). Direct invocation only: a pipeline reports the LAST command's status — use pipefail (bash) or check $LASTEXITCODE (PowerShell).`);
+if (!TEST_MODE && landed === results.length)
+  out(`FIDELITY-PROOF-AUTHORITATIVE-PASS rows=${landed}/${results.length}`); // exclusive machine token — NEVER printed in test mode
 out();
 process.exit(landed !== results.length ? EXIT_FAIL : EXIT_PASS);
