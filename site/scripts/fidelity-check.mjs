@@ -387,7 +387,7 @@ const body = planText.slice(start, end);
 let section = '';
 const seenSections = new Set();
 const rows = [];
-for (const line of body.split('\n')) {
+for (const line of body.split(/\r?\n/)) {
   const h = line.match(/^## (\d+)\. (.+)$/);
   if (h) { section = h[2].trim(); seenSections.add(Number(h[1])); continue; }
   if (!line.startsWith('|')) continue;

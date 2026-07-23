@@ -1,51 +1,38 @@
-# Roadmap — CWAAA diverges into its own site (the crack in the fifth wall)
+# CWAAA divergence roadmap
 
-**Status: FUTURE.** Do not build now. Owner: "a 'once we finish what we're currently trying to achieve
-through Phase 6' thing." Captured here so the vision is durable, not lost in chat.
+**Status:** architecture approved and documented; runtime extraction not yet performed.
 
-## The move
-Concerned Women Against Axe Abuse stops being a device *inside* the Got Soap? site and becomes its own
-site at its own address. The two universes formally separate:
+The former “future possibility” is now the target:
 
-- **Got Soap?** stays lean and single-minded: a campaign to get men to **take the damn shower.**
-- **CWAAA** (its own domain) absorbs the heavy procedural material: the government-style released
-  documents, the crisis info, the Pledge, the case-files section, and **"Adopt a Low-Effort Bro"**
-  (to be renamed).
+- Got Soap? remains the campaign.
+- CWAAA becomes a standalone credible advocacy nonprofit.
+- The Office of Lather Compliance becomes a separate fictional government agency with deliberately
+  unspecified jurisdiction.
 
-## The links (where the mirror slips)
-CWAAA is surfaced from Got Soap? at three seams:
-- Footer: **"Sponsored by Concerned Women Against Axe Abuse"** (replacing / beside the funded-by gag).
-- **"Want to learn more?"** at the end of the Sniff Test.
-- **"Want to learn more?"** on the Pledge.
+The target packages are:
 
-These links are deliberately **the crack in the fifth wall** — the point where a delighted visitor
-follows the sponsor out of the campaign and into something that is *too* real, too invested, too
-procedurally sincere about a joke. A beat of **dark humor / low-grade horror**: *something I can't quite
-put my finger on is wrong here.* The sponsor is not winking. The sponsor means it.
+- `../design.md` and `../prd/PRD-gotsoap-web-v1.md` for Got Soap?;
+- `../cwaaa/` for CWAAA;
+- `../office-of-lather-compliance/` for the Office.
 
-## Why it makes Got Soap? stronger
-1. **It resolves a register tension the blind readers already felt.** The CWAAA paperwork is repeatedly
-   the strongest writing on the site (Priya: she'd hire "for the paperwork, not the posters"), but
-   government-style released documents sit slightly oddly on a site that presents as a shower campaign.
-   Moving them to CWAAA's own site makes each surface coherent: Got Soap? campaigns; CWAAA files.
-2. **It gives the case files a proper home.** Maya flagged the case files over-centering men's redemption
-   arcs on the campaign site. On CWAAA's own site — a body that *does* crisis intervention — the
-   dossiers, the adopt-a-bro program, and the recovery files belong by definition.
-3. **It's a CD flex.** Holding the reins across a two-site universe — campaign voice on one domain, a
-   competent-nonprofit voice on another, linked at a single uncanny seam — demonstrates world-building
-   depth and range far beyond a single clever site. It is the portfolio argument, made structural.
+## Relationship
 
-## Design notes for when it's tackled
-- The seam is the whole trick: the transition from Got Soap? (playful, hot) to CWAAA (procedural, sincere,
-  faintly wrong) has to *land the tonal drop* as intentional dread-comedy, not as a broken link to a
-  duller site. The uncanny is the product.
-- Two domains = two footers, two legal surfaces, two `SITE_URL` constants. The existing
-  "all external links live in one config module, rendered only when non-empty" pattern already
-  accommodates a CWAAA URL that's empty until the site exists.
-- Rename "Adopt a Low-Effort Bro" before it ships anywhere.
-- The two-author rule holds across domains, not just pages: Got Soap? never files paperwork; CWAAA never
-  smolders. The seam is the only place they touch.
+Got Soap? links interested visitors to CWAAA. CWAAA may link to the Office. The Office is not a
+department, program, or technical service operated by CWAAA.
 
-## Not now
-This is post-Phase-6. Current priorities finish first: the faux shop + legal pages, vector-2 spec, and
-whatever the shop blind read surfaces. This file is the placeholder that keeps the idea intact.
+The Sniff Test stays on Got Soap?. The Lather Pledge exists on both Got Soap? and CWAAA through one
+portable contract and one Buttondown audience.
+
+## Implementation status
+
+The Astro runtime is still combined. Do not delete the current `/crisis`, pledge, findings, case-file,
+or CWAAA assets before the standalone nonprofit replacement is built and verified. Follow
+`../cwaaa/migration-manifest.md`.
+
+The Office is not implemented. Its entire public site must be the four-state custom error experience;
+it gets no normal homepage or agency content.
+
+## Domain status
+
+Final CWAAA and Office addresses remain owner decisions. Cross-site configuration stays empty and
+conditional until those addresses exist.

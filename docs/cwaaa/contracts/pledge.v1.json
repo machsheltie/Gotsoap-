@@ -1,0 +1,55 @@
+{
+  "contractId": "lather-pledge.v1",
+  "version": 1,
+  "owner": "CWAAA",
+  "implementations": [
+    "Got Soap?",
+    "CWAAA"
+  ],
+  "backend": {
+    "provider": "Buttondown",
+    "audience": "one shared audience",
+    "configurationKey": "BUTTONDOWN_USERNAME"
+  },
+  "fields": [
+    {
+      "id": "firstName",
+      "type": "text",
+      "required": true,
+      "buttondownName": "metadata__first_name"
+    },
+    {
+      "id": "email",
+      "type": "email",
+      "required": true,
+      "buttondownName": "email"
+    },
+    {
+      "id": "consent",
+      "type": "checkbox",
+      "required": true,
+      "buttondownName": null
+    },
+    {
+      "id": "company",
+      "type": "honeypot",
+      "required": false,
+      "buttondownName": null
+    }
+  ],
+  "success": {
+    "semantic": "SWORN",
+    "mustOfferShare": true,
+    "mustOfferCopyLink": true
+  },
+  "privacy": {
+    "analyticsMayReceiveFieldValues": false,
+    "requiresAffirmativeConsent": true
+  },
+  "invariants": [
+    "Both public implementations submit to the same Buttondown audience.",
+    "Visual treatment and surrounding copy may differ; field meaning and success semantics may not.",
+    "Got Soap? adds a conditional Want to Learn More? seam to CWAAA after success.",
+    "A missing cross-site URL produces no dead link."
+  ]
+}
