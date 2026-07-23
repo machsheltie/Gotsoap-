@@ -119,6 +119,53 @@
  *    `hidden` elements counts, because the site's own state-gated surfaces
  *    (pledge success, role="alert" errors) ship hidden until interaction.
  *
+ * ─────────────────────────────────────────────────────────────────────────────
+ * SCOPE CONTRACT — the checker's threat model (v3.7, pinned at 60812f7)
+ *
+ * WHAT THIS CHECKER DEFENDS AGAINST (in scope): HONEST DRIFT.
+ *   Copy changed in copy.ts but not propagated to a route; a correction row
+ *   that didn't land or landed in the wrong slot; a route rendering a stale
+ *   string from an old build; wrong slot binding (relocation, swap, padding,
+ *   superstring, quote-wrapping); arity and leaf mismatches against the
+ *   pinned baseline; truncated/padded/substituted plan artifacts; partial or
+ *   stubbed dist. These are the failure shapes an honest edit of copy.ts, a
+ *   .astro component, or a build can actually produce.
+ *
+ * OUT OF SCOPE, BY DESIGN: DELIBERATE SOURCE SABOTAGE.
+ *   Agreed copy hidden in inert or undeclared DOM, non-string members
+ *   injected into string arrays, payloads smuggled through attributes, and
+ *   similar adversarial inputs that no honest edit produces. The checker
+ *   fails many of these anyway (see the attack suite), but its guarantee is
+ *   not defined over them. Compensating control: the blind reader panel
+ *   (gotsoap-readers), which reads the RENDERED SITE and catches what the
+ *   checker's honest-process assumption cannot. This checker is one layer of
+ *   a defense-in-depth, not the whole defense.
+ *
+ * VERIFICATION-ARTIFACT LAW (COPY-PROTOCOL.md, Guardrails) + COMPANION CLAUSE:
+ *   A checker the implementer wrote is untrusted until the adversary made it
+ *   lie. Companion clause — the adversary attacks WITHIN THE DECLARED THREAT
+ *   MODEL: CLEAR means no in-scope input makes the checker lie, not that no
+ *   input of any kind can. Out-of-scope finds are welcome and may be fixed,
+ *   but they do not reopen a CLEAR.
+ *
+ * DECLARED LIMITS (accepted, with rationale + disposition — not TODOs):
+ *   1. Text inside `hidden` elements counts as shipped. Rationale: it is
+ *      byte-identical in form to the site's own state-gated surfaces (the
+ *      pledge success block, role="alert" errors), and separating them
+ *      requires executing the page's state machine. Disposition: accepted
+ *      limit; owner-flagged forward work is an OPTIONAL headless-DOM pass
+ *      (render each route, read innerText) — deferred; the blind read is the
+ *      compensating control today. Not a blocker.
+ *   2. A multi-sentence retained fragment head truncated at an interior
+ *      sentence boundary is undecidable from plan + baseline alone.
+ *      Rationale: the plan quotes only the replacement tail; the split point
+ *      is not recoverable. Disposition: accepted limit — NOT REACHABLE by
+ *      any live fragment row (every live row retains a single-sentence head,
+ *      which the proper-prefix + sentence-boundary rules pin completely).
+ *      If a future correction plan introduces a multi-sentence retained
+ *      head, that row must be re-verified before the plan is accepted.
+ * ─────────────────────────────────────────────────────────────────────────────
+ *
  *   node --experimental-strip-types scripts/fidelity-check.mjs
  */
 
