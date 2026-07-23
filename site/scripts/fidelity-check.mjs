@@ -91,6 +91,21 @@
  *    hiding copy (or leaking a cut case file) inside a comment counts as
  *    not rendered.
  *
+ * v3.6 (Sol HOLD round 3, 2026-07-23 — four near-misses vs 9584eaa):
+ *  - BASELINE ROOT ANCHORS: the root-anchor set is the UNION of current and
+ *    pinned-baseline deck roots — deleting a root wholesale and re-homing
+ *    its object under another root no longer re-enables the fallback.
+ *  - RAW ARITY: index-pinned arity counts actual array members, not string
+ *    leaves — a numeric/object stowaway that walkLeaves skips still fails.
+ *  - FULL HEAD: "through" rows are fully determined (baseline text up
+ *    through the first quote + the remaining quotes, exact equality); worded
+ *    fragment rows require the head to end with terminal punctuation exactly
+ *    at a sentence boundary of the same baseline leaf — any partial prefix
+ *    ("You ") fails.
+ *  - INERT CONTAINERS: <template>/<script>/<style> content is stripped with
+ *    comments before rendered-text extraction — agreed copy must ship in
+ *    real DOM.
+ *
  *   node --experimental-strip-types scripts/fidelity-check.mjs
  */
 
@@ -170,6 +185,14 @@ function resolveAt(root, path) {
   return cur;
 }
 
+/** Root-anchor set (v3.6, Sol round 3): populated from the CURRENT deck's
+ * roots UNION the pinned BASELINE deck's roots before any slot resolution.
+ * Anchoring only on the current deck let an attacker delete the `labels`
+ * root wholesale and re-home the object under `home.labels` — with the root
+ * key gone, the unique-fallback re-engaged. The baseline is git-pinned, so
+ * its root set cannot be edited away. */
+const ROOT_ANCHORS = new Set();
+
 function resolveSlot(mod, path) {
   const root = mod.default ?? mod;
   const direct = resolveAt(root, path);
@@ -178,9 +201,11 @@ function resolveSlot(mod, path) {
   // root-anchored — a miss beneath that root is TERMINAL. The cross-root
   // fallback let `labels.cwaaa.copyLink` be satisfied by a copy re-homed
   // under `home.labels.…`. The fallback survives only for label shorthands
-  // whose first segment is not a root key (e.g. `welcomeEmail.body` lives
-  // under pledge), and even then the nested hit must be UNIQUE.
-  if (root[segsOf(path)[0]] !== undefined) return undefined;
+  // whose first segment is not a root key in the current OR baseline deck
+  // (e.g. `welcomeEmail.body` lives under pledge), and even then the nested
+  // hit must be UNIQUE.
+  const first = segsOf(path)[0];
+  if (root[first] !== undefined || ROOT_ANCHORS.has(first)) return undefined;
   const hits = [];
   for (const [k, v] of Object.entries(root)) {
     if (v && typeof v === 'object') {
@@ -255,6 +280,24 @@ try {
   fatal.push(`deck UNLOADABLE (${e.code || e.message}) — run with node --experimental-strip-types`);
 }
 
+// Baseline deck (pinned) — loaded BEFORE any resolveSlot use so the
+// root-anchor set (v3.6) is complete when the §12 index resolves.
+let baseMod = null, baselineErr = null;
+try {
+  const baseSrc = git(['show', `${BASELINE_REF}:site/src/content/copy.ts`]);
+  const tmp = mkdtempSync(join(tmpdir(), 'fidelity-base-'));
+  // .mts: explicit ESM, so Node 22's "Reparsing as ES module" advisory never
+  // fires for a temp-dir file outside the package's "type":"module" scope.
+  const basePath = join(tmp, 'copy-baseline.mts');
+  writeFileSync(basePath, baseSrc);
+  baseMod = await import(pathToFileURL(basePath).href);
+} catch (e) {
+  baselineErr = `baseline deck unavailable (git show ${BASELINE_REF}): ${e.message.split('\n')[0]}`;
+}
+const baselineStrings = baseMod ? walkStrings(baseMod.default ?? baseMod) : [];
+if (mod) for (const k of Object.keys(mod.default ?? mod)) ROOT_ANCHORS.add(k);
+if (baseMod) for (const k of Object.keys(baseMod.default ?? baseMod)) ROOT_ANCHORS.add(k);
+
 // Deck §12 slot index — the deck-canonical addendum names every changed slot.
 let slotIndex = []; // {at, value}
 if (mod && existsSync(DECK_DOC)) {
@@ -295,21 +338,6 @@ if (mod && existsSync(DECK_DOC)) {
   }
 }
 
-// Baseline deck (pinned).
-let baseMod = null, baselineErr = null;
-try {
-  const baseSrc = git(['show', `${BASELINE_REF}:site/src/content/copy.ts`]);
-  const tmp = mkdtempSync(join(tmpdir(), 'fidelity-base-'));
-  // .mts: explicit ESM, so Node 22's "Reparsing as ES module" advisory never
-  // fires for a temp-dir file outside the package's "type":"module" scope.
-  const basePath = join(tmp, 'copy-baseline.mts');
-  writeFileSync(basePath, baseSrc);
-  baseMod = await import(pathToFileURL(basePath).href);
-} catch (e) {
-  baselineErr = `baseline deck unavailable (git show ${BASELINE_REF}): ${e.message.split('\n')[0]}`;
-}
-const baselineStrings = baseMod ? walkStrings(baseMod.default ?? baseMod) : [];
-
 // Dist vs the INDEPENDENT manifest.
 let distPages = [];
 if (!existsSync(DIST)) fatal.push('dist/ absent — run `npm run build` first');
@@ -320,8 +348,13 @@ else {
   }));
   // v3.5 (Sol round 2): HTML comments are NOT rendered content — text hidden
   // in <!-- … --> must satisfy nothing (and a commented-out cut case file is
-  // genuinely not rendered). Strip comments before normalizing.
-  for (const p of distPages) p.text = norm(unescapeHtml(p.raw.replace(/<!--[\s\S]*?-->/g, ' ')));
+  // genuinely not rendered). v3.6 (round 3): neither are inert containers —
+  // <template>/<script>/<style> content never reaches the user's eyes, so it
+  // is stripped too (all agreed copy verifiably ships in real DOM).
+  for (const p of distPages)
+    p.text = norm(unescapeHtml(
+      p.raw.replace(/<!--[\s\S]*?-->/g, ' ').replace(/<(template|script|style)\b[\s\S]*?<\/\1\s*>/gi, ' '),
+    ));
   for (const req of manifestRoutes) {
     const page = distPages.find((p) => p.rel === req);
     if (!page) fatal.push(`dist is PARTIAL/SUBSTITUTED — manifest route missing: ${req}`);
@@ -511,11 +544,11 @@ for (const row of rows) {
     r.class = 'PRESENCE';
     // Exact slot binding, in priority order. NO containment-only escape hatch.
     // scope: [{at, value}] leaves of the row's own slot, with full paths.
-    let scope = null, scopeName = null;
+    let scope = null, scopeName = null, scopeRaw = null;
     if (labeledPath) {
       const hit = resolveSlot(mod, labeledPath);
       if (!hit) { r.ok = false; r.notes.push(`labeled slot ${labeledPath} does not resolve in the deck`); }
-      else { scope = walkLeaves(hit.value, hit.at); scopeName = hit.at; }
+      else { scope = walkLeaves(hit.value, hit.at); scopeName = hit.at; scopeRaw = hit.value; }
     } else if (rcSlot) {
       const f = files.find((x) => x.id === rcSlot[1]);
       if (!f) { r.ok = false; r.notes.push(`${rcSlot[1]} missing from roster`); }
@@ -600,17 +633,33 @@ for (const row of rows) {
           if (consumed.has(i) || (arrayScope && i <= cursor)) continue;
           const { at } = scope[i];
           const leaf = leafVal(scope[i]);
-          if (!leaf.endsWith(tail)) continue;
-          const head = leaf.slice(0, leaf.length - tail.length).trim();
           const baseRaw = baseLeafByRel.get(relAt(at));
           if (baseRaw === undefined) continue; // no same-path baseline leaf → no proof
           const base = isQuoteLeaf(at) ? stripQ(baseRaw) : baseRaw;
-          // v3.5 (Sol round 2): a fragment row quotes PART of a longer line,
-          // so the retained head must be NON-EMPTY — deleting the retained
-          // prefix and keeping only the quoted tail is a copy change, not a
-          // landing. head === '' no longer passes.
-          if (head !== '' && base.startsWith(head))
-            return `terminal fragment @ ${at} (non-empty head is the SAME baseline leaf's exact prefix)`;
+          if (rcSlot && /\bthrough\b/i.test(agreedCell)) {
+            // "through" rows (v3.6, Sol round 3): the plan's own wording pins
+            // the FULL retained head — baseline text up THROUGH the first
+            // quoted string, then the remaining quoted strings. The final
+            // leaf is fully determined; require exact equality.
+            const anchorEnd = base.indexOf(ss[0]);
+            if (anchorEnd === -1) continue;
+            const expected = base.slice(0, anchorEnd + ss[0].length) + (ss.length > 1 ? ' ' + ss.slice(1).join(' ') : '');
+            if (leaf === expected) return `terminal fragment @ ${at} (baseline-through anchor — leaf fully determined)`;
+            continue;
+          }
+          if (!leaf.endsWith(tail)) continue;
+          const head = leaf.slice(0, leaf.length - tail.length).trim();
+          // v3.5: head must be NON-EMPTY (tail-only leaf = retained prefix
+          // deleted). v3.6 (Sol round 3): "You " attested because ANY
+          // non-empty baseline prefix passed — the head must now be the FULL
+          // unchanged prefix: it ends with terminal punctuation exactly at a
+          // sentence boundary of the SAME baseline leaf. (Residual,
+          // documented: a multi-sentence retained head truncated at an
+          // earlier sentence boundary would pass; every live fragment row
+          // retains a single-sentence head, which this pins completely.)
+          const boundaryOk = base === head || base.startsWith(head + ' ');
+          if (head !== '' && /[.!?…]$/.test(head) && boundaryOk)
+            return `terminal fragment @ ${at} (head is the SAME baseline leaf's full sentence-bounded prefix)`;
         }
         return null;
       };
@@ -619,10 +668,13 @@ for (const row of rows) {
         // Explicit index binding: plan line N ↔ slot[N-1], exact — and EXACT
         // ARITY (v3.5, Sol round 2): the numbered lines declare the FULL
         // membership of the array; an unapproved extra member fails even when
-        // every declared index verifies.
-        if (scope.length !== numPairs.length) {
+        // every declared index verifies. v3.6 (round 3): arity counts the RAW
+        // array members, not just string leaves — a numeric/object stowaway
+        // that walkLeaves skips still breaks arity.
+        const rawArity = Array.isArray(scopeRaw) ? scopeRaw.length : scope.length;
+        if (scope.length !== numPairs.length || rawArity !== numPairs.length) {
           r.ok = false;
-          r.notes.push(`slot arity ${scope.length} ≠ ${numPairs.length} numbered plan lines @ ${scopeName} — unapproved extra/missing member`);
+          r.notes.push(`slot arity ${rawArity} member(s) / ${scope.length} string leaf(s) ≠ ${numPairs.length} numbered plan lines @ ${scopeName} — unapproved extra/missing member`);
         }
         for (const { n, s } of numPairs) {
           const target = scope.find((d) => relAt(d.at) === String(n - 1));
@@ -766,7 +818,7 @@ const landed = results.filter((r) => r.ok).length;
 // vocabulary. Test mode renders every count as "N of M".
 const frac = (a, b) => (TEST_MODE ? `${a} of ${b}` : `${a}/${b}`);
 out();
-out(`  fidelity check v3.5${banner} — extraction from ${PLAN}`);
+out(`  fidelity check v3.6${banner} — extraction from ${PLAN}`);
 out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${frac(rows.length, declaredRows)} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
 // VOCABULARY SPLIT (v3.4, Sol): test-mode output shares NO success vocabulary

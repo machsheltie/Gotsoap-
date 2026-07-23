@@ -276,6 +276,31 @@ scenario('T21 fragment head deletion: welcome-email leaf reduced to the quoted t
   ...T, FIDELITY_COPY_TS: mutateDeck('fragment-head-deletion', (s) => s.replace(welcomeThreat, threatTail)),
 }, { exit: 2, mustSee: ['NOT slot-bound'], branded: true });
 
+// Sol HOLD round 3 (2026-07-23, vs 9584eaa): four adjacent near-misses.
+
+scenario('T24 root removal: labels object re-homed wholesale under home, root key gone', {
+  ...T, FIDELITY_COPY_TS: mutateDeck('root-removal', (s) => {
+    const steps = [
+      [' labels, nav,', ' nav,'],
+      ['export const home = {', 'export const home = {\n  labels,'],
+    ];
+    for (const [a, b] of steps) {
+      if (!s.includes(a)) throw new Error('T24 step target missing: ' + a);
+      s = s.replace(a, b);
+    }
+    return s;
+  }),
+}, { exit: 2, mustSee: ['does not resolve'], branded: true });
+
+scenario('T25 non-string arity: numeric member 123 appended at movementSeam.body[2]', {
+  ...T, FIDELITY_COPY_TS: mutateDeck('non-string-arity', (s) =>
+    s.replace(JSON.stringify(movementBody[1]) + ',', JSON.stringify(movementBody[1]) + ',\n      123,')),
+}, { exit: 2, mustSee: ['arity'], branded: true });
+
+scenario('T26 partial head: retained prefix reduced to "You " before the agreed tail', {
+  ...T, FIDELITY_COPY_TS: mutateDeck('partial-head', (s) => s.replace(welcomeThreat, 'You ' + threatTail)),
+}, { exit: 2, mustSee: ['NOT slot-bound'], branded: true });
+
 // Dist attacks work on a throwaway copy.
 const distCopy = join(tmp, 'dist');
 cpSync(DIST, distCopy, { recursive: true });
@@ -348,6 +373,21 @@ cpSync(DIST, distCopy, { recursive: true });
   writeFileSync(hp, ho.replace(movementBody[1], '<!-- ' + movementBody[1] + ' -->'));
   scenario('T23 comment hiding: movement line survives only inside an HTML comment', {
     ...T, FIDELITY_DIST: hid,
+  }, { exit: 2, mustSee: ['NOT RENDERED'], branded: true });
+}
+
+// Sol HOLD round 3: inert containers (<template>/<script>/<style>) are not
+// rendered content either.
+{
+  const tpl = join(tmp, 'dist-template-hide');
+  cpSync(distCopy, tpl, { recursive: true });
+  const hp = join(tpl, 'index.html');
+  const ho = readFileSync(hp, 'utf8');
+  if (!ho.includes(movementBody[1])) throw new Error('T27: movement line 2 not rendered on home');
+  writeFileSync(hp, ho.replace(movementBody[1], '')
+    .replace('</body>', '<template><p>' + movementBody[1] + '</p></template></body>'));
+  scenario('T27 template hiding: movement line survives only inside <template>', {
+    ...T, FIDELITY_DIST: tpl,
   }, { exit: 2, mustSee: ['NOT RENDERED'], branded: true });
 }
 
