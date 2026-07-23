@@ -1,0 +1,61 @@
+{
+  "contractId": "office-visit-state.v1",
+  "version": 1,
+  "jurisdiction": "deliberately unspecified",
+  "publicSurfaceModel": "error states only",
+  "storage": {
+    "session": "sessionStorage",
+    "persistent": "localStorage",
+    "namespace": "olc.visit.v1",
+    "serverPersistence": false,
+    "cookies": false,
+    "ipAddress": false,
+    "fingerprinting": false
+  },
+  "record": {
+    "firstContact": "ISO-8601 timestamp",
+    "lastContact": "ISO-8601 timestamp",
+    "visitCount": "positive integer",
+    "reference": "8804-X",
+    "terminalId": "locally generated fictional identifier"
+  },
+  "states": [
+    {
+      "id": "first_access",
+      "display": "FIRST ACCESS",
+      "condition": "no persistent record",
+      "effect": "create record and mark current session"
+    },
+    {
+      "id": "same_session_refresh",
+      "display": "SAME-SESSION REFRESH",
+      "condition": "persistent record and current-session marker",
+      "effect": "increment count without replacing firstContact"
+    },
+    {
+      "id": "later_return",
+      "display": "LATER RETURN",
+      "condition": "persistent record and no current-session marker and visitCount below continued-interest threshold",
+      "effect": "show first and current timestamps and increment count"
+    },
+    {
+      "id": "continued_interest",
+      "display": "CONTINUED INTEREST",
+      "condition": "visitCount at or above configured threshold",
+      "effect": "remain static except for truthful access count"
+    }
+  ],
+  "fallback": {
+    "storageUnavailable": "render first_access without claiming persistence"
+  },
+  "forbidden": [
+    "ordinary homepage",
+    "site navigation",
+    "agency explainer",
+    "named federal, state, or local jurisdiction",
+    "IP address display",
+    "backend identity record",
+    "cross-device recognition",
+    "infinite escalation"
+  ]
+}
