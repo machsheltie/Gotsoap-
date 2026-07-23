@@ -41,6 +41,12 @@ const manifestRoutes = JSON.parse(readFileSync('scripts/route-manifest.json', 'u
 const tmp = mkdtempSync(join(tmpdir(), 'fidelity-attack-'));
 const results = [];
 
+// Pinned baseline deck — for fixtures that splice superseded baseline text.
+const baseSrc = spawnSync('git', ['show', '4d67a19:site/src/content/copy.ts'], { encoding: 'utf8' }).stdout;
+const basePath = join(tmp, 'baseline-copy.mts');
+writeFileSync(basePath, baseSrc);
+const baseDeck = (await import(pathToFileURL(basePath).href)).default;
+
 function run(env) {
   const r = spawnSync(NODE, ['--experimental-strip-types', CHECK], {
     env: { ...process.env, ...env },
@@ -301,6 +307,17 @@ scenario('T26 partial head: retained prefix reduced to "You " before the agreed 
   ...T, FIDELITY_COPY_TS: mutateDeck('partial-head', (s) => s.replace(welcomeThreat, 'You ' + threatTail)),
 }, { exit: 2, mustSee: ['NOT slot-bound'], branded: true });
 
+// Sol HOLD round 4 (2026-07-23, vs 2467560): over-retention + attribute hiding.
+
+scenario('T28 head over-retention: entire superseded baseline line kept before the agreed tail', {
+  ...T, FIDELITY_COPY_TS: mutateDeck('head-over-retention', (s) => {
+    const idx = deck.pledge.welcomeEmail.body.indexOf(welcomeThreat);
+    const baseLine = baseDeck.pledge.welcomeEmail.body[idx];
+    if (typeof baseLine !== 'string' || baseLine === welcomeThreat) throw new Error('T28: baseline threat line unavailable');
+    return s.replace(welcomeThreat, baseLine + ' ' + threatTail);
+  }),
+}, { exit: 2, mustSee: ['NOT slot-bound'], branded: true });
+
 // Dist attacks work on a throwaway copy.
 const distCopy = join(tmp, 'dist');
 cpSync(DIST, distCopy, { recursive: true });
@@ -388,6 +405,20 @@ cpSync(DIST, distCopy, { recursive: true });
     .replace('</body>', '<template><p>' + movementBody[1] + '</p></template></body>'));
   scenario('T27 template hiding: movement line survives only inside <template>', {
     ...T, FIDELITY_DIST: tpl,
+  }, { exit: 2, mustSee: ['NOT RENDERED'], branded: true });
+}
+
+// Sol HOLD round 4: attribute payloads and hidden elements are not rendered.
+{
+  const attr = join(tmp, 'dist-attr-hide');
+  cpSync(distCopy, attr, { recursive: true });
+  const hp = join(attr, 'index.html');
+  const ho = readFileSync(hp, 'utf8');
+  if (!ho.includes(movementBody[1])) throw new Error('T29: movement line 2 not rendered on home');
+  writeFileSync(hp, ho.replace(movementBody[1], '')
+    .replace('</body>', '<span hidden data-fidelity-copy="' + movementBody[1] + '"></span></body>'));
+  scenario('T29 attribute hiding: movement line survives only in a hidden data-attribute', {
+    ...T, FIDELITY_DIST: attr,
   }, { exit: 2, mustSee: ['NOT RENDERED'], branded: true });
 }
 

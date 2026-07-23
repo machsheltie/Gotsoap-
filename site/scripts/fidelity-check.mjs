@@ -106,6 +106,19 @@
  *    comments before rendered-text extraction — agreed copy must ship in
  *    real DOM.
  *
+ * v3.7 (Sol HOLD round 4, 2026-07-23 — two P1s vs 2467560):
+ *  - PROPER HEAD: a worded fragment row's retained head must be a PROPER
+ *    sentence-bounded prefix of the same baseline leaf — retaining the
+ *    entire superseded line and appending the agreed tail fails; the tail
+ *    must REPLACE a non-empty trailing run.
+ *  - USER-REACHABLE TEXT: rendered-copy checks now strip all markup to
+ *    element text content; attribute values count only via the explicit
+ *    carriers this site's components own (alt, aria-label,
+ *    data-share-title/text, data-rotation). Smuggling copy into any other
+ *    attribute satisfies nothing. Residual, documented: text inside
+ *    `hidden` elements counts, because the site's own state-gated surfaces
+ *    (pledge success, role="alert" errors) ship hidden until interaction.
+ *
  *   node --experimental-strip-types scripts/fidelity-check.mjs
  */
 
@@ -346,15 +359,26 @@ else {
     rel: relative(DIST, p).split(sep).join('/'),
     raw: readFileSync(p, 'utf8'),
   }));
-  // v3.5 (Sol round 2): HTML comments are NOT rendered content — text hidden
-  // in <!-- … --> must satisfy nothing (and a commented-out cut case file is
-  // genuinely not rendered). v3.6 (round 3): neither are inert containers —
-  // <template>/<script>/<style> content never reaches the user's eyes, so it
-  // is stripped too (all agreed copy verifiably ships in real DOM).
-  for (const p of distPages)
-    p.text = norm(unescapeHtml(
-      p.raw.replace(/<!--[\s\S]*?-->/g, ' ').replace(/<(template|script|style)\b[\s\S]*?<\/\1\s*>/gi, ' '),
-    ));
+  // v3.5 (Sol round 2): HTML comments are NOT rendered content. v3.6
+  // (round 3): neither are inert containers (<template>/<script>/<style>).
+  // v3.7 (round 4): "rendered" means USER-REACHABLE — markup is stripped to
+  // element TEXT content, and attribute values do NOT count except the
+  // explicit carriers this site's components own: alt / aria-label
+  // (assistive tech), data-share-title / data-share-text (Web Share
+  // payloads), data-rotation (scratch-gag rotation). A payload smuggled into
+  // any other attribute (data-*, meta content, title, …) satisfies nothing.
+  // Documented residual: TEXT inside a `hidden` element still counts —
+  // the site's own state-gated surfaces (pledge success block, role="alert"
+  // errors) legitimately ship hidden until interaction, and the checker
+  // cannot execute the page's state machine to tell them apart.
+  for (const p of distPages) {
+    const s = p.raw
+      .replace(/<!--[\s\S]*?-->/g, ' ')
+      .replace(/<(template|script|style)\b[\s\S]*?<\/\1\s*>/gi, ' ');
+    const attrText = [...s.matchAll(/\s(?:alt|aria-label|data-share-title|data-share-text|data-rotation)="([^"]*)"/gi)]
+      .map((m) => m[1]).join(' ');
+    p.text = norm(unescapeHtml(s.replace(/<[^>]*>/g, ' ') + ' ' + attrText));
+  }
   for (const req of manifestRoutes) {
     const page = distPages.find((p) => p.rel === req);
     if (!page) fatal.push(`dist is PARTIAL/SUBSTITUTED — manifest route missing: ${req}`);
@@ -651,15 +675,21 @@ for (const row of rows) {
           const head = leaf.slice(0, leaf.length - tail.length).trim();
           // v3.5: head must be NON-EMPTY (tail-only leaf = retained prefix
           // deleted). v3.6 (Sol round 3): "You " attested because ANY
-          // non-empty baseline prefix passed — the head must now be the FULL
-          // unchanged prefix: it ends with terminal punctuation exactly at a
-          // sentence boundary of the SAME baseline leaf. (Residual,
-          // documented: a multi-sentence retained head truncated at an
-          // earlier sentence boundary would pass; every live fragment row
-          // retains a single-sentence head, which this pins completely.)
-          const boundaryOk = base === head || base.startsWith(head + ' ');
+          // non-empty baseline prefix passed — the head must end with
+          // terminal punctuation exactly at a sentence boundary of the SAME
+          // baseline leaf. v3.7 (round 4): the head must be a PROPER prefix
+          // — head === base meant the superseded baseline sentences were
+          // retained in full with the agreed tail merely appended, which is
+          // not the correction. The tail must REPLACE a non-empty trailing
+          // run of the baseline leaf. (Residual, documented: with a
+          // multi-sentence retained head, truncation at an earlier sentence
+          // boundary — or retaining an interior slice of the replaced run at
+          // a sentence boundary — is not decidable from plan + baseline
+          // alone; every live fragment row retains a single-sentence head,
+          // which these rules pin completely.)
+          const boundaryOk = base.startsWith(head + ' ') && base.length > head.length + 1;
           if (head !== '' && /[.!?…]$/.test(head) && boundaryOk)
-            return `terminal fragment @ ${at} (head is the SAME baseline leaf's full sentence-bounded prefix)`;
+            return `terminal fragment @ ${at} (head is the SAME baseline leaf's full sentence-bounded PROPER prefix)`;
         }
         return null;
       };
@@ -818,7 +848,7 @@ const landed = results.filter((r) => r.ok).length;
 // vocabulary. Test mode renders every count as "N of M".
 const frac = (a, b) => (TEST_MODE ? `${a} of ${b}` : `${a}/${b}`);
 out();
-out(`  fidelity check v3.6${banner} — extraction from ${PLAN}`);
+out(`  fidelity check v3.7${banner} — extraction from ${PLAN}`);
 out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${frac(rows.length, declaredRows)} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
 // VOCABULARY SPLIT (v3.4, Sol): test-mode output shares NO success vocabulary
