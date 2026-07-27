@@ -18,3 +18,4 @@ console.log('- shared world canon and artifact continuity markers present');
 console.log('- three-system ownership and per-system behavioral markers present');
 console.log('- portable pledge contracts match exactly');
 console.log('- Office jurisdiction, error-only surface, and local-state rules intact');
+console.log('- IVR ambiguity and Office session-state rules intact');

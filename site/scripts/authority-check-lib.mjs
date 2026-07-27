@@ -202,6 +202,27 @@ export function collectAuthorityErrors(repoRoot) {
     'OFFICE PEN',
     '1-800-GOT-SOAP',
   ], 'docs/world/artifact-continuity.md'));
+
+  const ivrAuthority = requireFile(
+    repoRoot,
+    'docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md',
+    errors,
+  );
+  errors.push(...missingRequiredMarkers(ivrAuthority, [
+    'NUMBER LIVES ON GOT SOAP?',
+    'TWO PRESENTED VOICES',
+    'NO THIRD OFFICE VOICE',
+    'NO AUDIBLE TRANSFER',
+    'WE HAVE YOUR NUMBER',
+    'SOMEONE IS ALREADY ON THEIR WAY',
+    'INTENTIONAL WRONGNESS',
+  ], 'IVR authority'));
+
+  requireFile(
+    repoRoot,
+    'docs/world/artifacts/1-800-GOT-SOAP-IVR-script.pdf',
+    errors,
+  );
   const liveDocuments = [
     'AGENTS.md',
     'CLAUDE.md',

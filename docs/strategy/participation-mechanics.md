@@ -94,13 +94,16 @@ record, or cross-device recognition.
 | Campaign release | Sniff Test, campaign pledge, poster downloads, scratch gag, one CWAAA seam |
 | CWAAA extraction | nonprofit pledge, full findings, case files, ribbon program, cross-site links |
 | Office release | first-access, same-session refresh, later-return, continued-interest states |
-| Later experiments | phone/IVR, physical evidence files, event activations—each requires its own brief |
+| Canonical transmedia artifacts | IVR, Office pen, printed card, and event table; implementation may be phased. |
+
+The IVR, Office pen, printed card, and event table are canonical transmedia artifacts whose
+production may be phased. Their canon is current even when their implementation is not.
 
 ## Measurement
 
 Track mechanic start, completion, share, copy, download, successful pledge submission, and
-cross-site navigation. Do not track pledge values, Sniff Test answers as profiles, or Office
-browser-local state through third-party analytics.
+cross-site navigation. Do not track pledge field values, caller reports, quiz answers, IP
+addresses, Office identity profiles, or Office browser-local state through third-party analytics.
 
 ## Acceptance
 
