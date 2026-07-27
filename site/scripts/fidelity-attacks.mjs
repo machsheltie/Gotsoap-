@@ -422,6 +422,54 @@ cpSync(DIST, distCopy, { recursive: true });
   }, { exit: 2, mustSee: ['NOT RENDERED'], branded: true });
 }
 
+// Sol HOLD round 5 (2026-07-27, vs c298e27): swap-blindness. Route-wide
+// membership passed three honest adjacent-carrier transpositions in the real
+// PledgeForm. Value must bind to its CARRIER, not merely to the page.
+const swapIn = (txt, a, b, name) => {
+  if (!txt.includes(a) || !txt.includes(b)) throw new Error(name + ': swap targets not both present');
+  const M = ' SWAP ';
+  const out = txt.split(a).join(M).split(b).join(a).split(M).join(b);
+  if (out === txt) throw new Error(name + ': swap was a no-op');
+  return out;
+};
+
+{
+  const d = join(tmp, 'dist-alert-swap');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'pledge', 'index.html');
+  writeFileSync(hp, swapIn(readFileSync(hp, 'utf8'),
+    deck.pledge.errors.badEmail, deck.pledge.errors.noConsent, 'T30'));
+  scenario('T30 alert swap: badEmail and noConsent texts transposed across data-error-for slots', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['MIS-CARRIED'], branded: true });
+}
+
+{
+  const d = join(tmp, 'dist-success-swap');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'pledge', 'index.html');
+  writeFileSync(hp, swapIn(readFileSync(hp, 'utf8'), shareBadge, copyLink, 'T31'));
+  scenario('T31 success-label swap: share and copy button texts transposed', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['MIS-CARRIED'], branded: true });
+}
+
+{
+  const d = join(tmp, 'dist-share-carrier-swap');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'pledge', 'index.html');
+  const tAttr = 'data-share-title="' + deck.pledge.badgeShareTitle + '"';
+  const bAttr = 'data-share-text="' + deck.pledge.badgeShare + '"';
+  const raw = readFileSync(hp, 'utf8');
+  if (!raw.includes(tAttr) || !raw.includes(bAttr)) throw new Error('T32: carrier attributes not verbatim on pledge page');
+  writeFileSync(hp, raw
+    .replace(tAttr, 'data-share-title="' + deck.pledge.badgeShare + '"')
+    .replace(bAttr, 'data-share-text="' + deck.pledge.badgeShareTitle + '"'));
+  scenario('T32 share-carrier swap: badgeShareTitle and badgeShare transposed across data-share-title/text', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['MIS-CARRIED'], branded: true });
+}
+
 /* ---------- verdict -------------------------------------------------------- */
 
 const bad = results.filter((r) => !r.ok);

@@ -119,17 +119,38 @@
  *    `hidden` elements counts, because the site's own state-gated surfaces
  *    (pledge success, role="alert" errors) ship hidden until interaction.
  *
+ * v3.8 (Sol HOLD round 5, 2026-07-27 — swap-blindness, vs c298e27):
+ *  - CARRIER BINDING: rendered checks bind value↔CARRIER, not value↔page.
+ *    A string whose slot maps to a named carrier (data-error-for element,
+ *    data-share-action button, data-share-title/text, data-rotation) must
+ *    render in ITS carrier on its route(s), and every carrier occurrence of
+ *    it must be the right carrier — adjacent-field transpositions (alert
+ *    texts, success button labels, share title/text) fail even though both
+ *    strings remain on the page. Cross-kind transpositions fail via the
+ *    own-carrier-empty side. Same strict-determination shape as the
+ *    fragment-head fix, applied to carriers.
+ *  - COMPENSATING CONTROL REPAIRED: the blind-reader extractor now surfaces
+ *    the declared value-bearing carriers (share title/text, rotation,
+ *    error↔field wiring, button↔action wiring) as marked text, and HARD
+ *    FAILS on build failure instead of extracting a stale dist. (The old
+ *    silent fallback was live: on Windows + Node ≥18.20 the npm.cmd spawn
+ *    had been failing with EINVAL on every run, so extractions were
+ *    silently stale-capable the whole time.)
+ *
  * ─────────────────────────────────────────────────────────────────────────────
- * SCOPE CONTRACT — the checker's threat model (v3.7, pinned at 60812f7)
+ * SCOPE CONTRACT — the checker's threat model (v3.8, pinned at 60812f7 + r5)
  *
  * WHAT THIS CHECKER DEFENDS AGAINST (in scope): HONEST DRIFT.
  *   Copy changed in copy.ts but not propagated to a route; a correction row
  *   that didn't land or landed in the wrong slot; a route rendering a stale
  *   string from an old build; wrong slot binding (relocation, swap, padding,
- *   superstring, quote-wrapping); arity and leaf mismatches against the
- *   pinned baseline; truncated/padded/substituted plan artifacts; partial or
- *   stubbed dist. These are the failure shapes an honest edit of copy.ts, a
- *   .astro component, or a build can actually produce.
+ *   superstring, quote-wrapping); carrier transposition in rendered output
+ *   (a value wired to the wrong data-error-for / data-share-* / button
+ *   carrier — v3.8 binds value↔carrier, closing the swap class structurally);
+ *   arity and leaf mismatches against the pinned baseline;
+ *   truncated/padded/substituted plan artifacts; partial or stubbed dist.
+ *   These are the failure shapes an honest edit of copy.ts, a .astro
+ *   component, or a build can actually produce.
  *
  * OUT OF SCOPE, BY DESIGN: DELIBERATE SOURCE SABOTAGE.
  *   Agreed copy hidden in inert or undeclared DOM, non-string members
@@ -164,6 +185,15 @@
  *      which the proper-prefix + sentence-boundary rules pin completely).
  *      If a future correction plan introduces a multi-sentence retained
  *      head, that row must be re-verified before the plan is accepted.
+ *   3. Visible-prose POSITION within a page is not bound (v3.8). Two plain
+ *      text strings with no named carrier could be transposed between
+ *      components on the same route and containment would still hold.
+ *      Rationale: prose has no static identity handle — DOM position is a
+ *      styling concern and honest component wiring swaps happen at
+ *      carrier/prop level, which IS bound. Compensating control, real and
+ *      specific: the blind-reader extract preserves full pages in reading
+ *      order, so misplaced prose reads wrong to the panel — that is the
+ *      control that catches it today. Not a blocker.
  * ─────────────────────────────────────────────────────────────────────────────
  *
  *   node --experimental-strip-types scripts/fidelity-check.mjs
@@ -441,6 +471,26 @@ if (fatal.length) {
 }
 
 const distHits = (s) => distPages.filter((p) => p.text.includes(s)).map((p) => p.rel);
+
+/** CARRIER EXTRACTION (v3.8, Sol round 5): per-page inventory of the named
+ * value-bearing carriers, so rendered checks can bind value↔carrier instead
+ * of value↔page. Route-wide membership was swap-blind by construction: three
+ * honest adjacent-field transpositions in the real PledgeForm (alert texts,
+ * success button labels, share title/text) all passed 54/54. */
+function carriersOf(p) {
+  if (p._car) return p._car;
+  const clean = p.raw.replace(/<!--[\s\S]*?-->/g, ' ').replace(/<(template|script|style)\b[\s\S]*?<\/\1\s*>/gi, ' ');
+  const nrm = (v) => norm(unescapeHtml(v));
+  const attrs = {};
+  for (const m of clean.matchAll(/\s(data-share-title|data-share-text|data-rotation)="([^"]*)"/g))
+    (attrs[m[1]] ??= []).push(nrm(m[2]));
+  const errors = [], actions = [];
+  for (const m of clean.matchAll(/<(\w+)\b[^>]*\bdata-error-for="([^"]*)"[^>]*>([\s\S]*?)<\/\1\s*>/g))
+    errors.push({ field: m[2], text: nrm(m[3].replace(/<[^>]*>/g, ' ')) });
+  for (const m of clean.matchAll(/<(\w+)\b[^>]*\bdata-share-action="([^"]*)"[^>]*>([\s\S]*?)<\/\1\s*>/g))
+    actions.push({ action: m[2], text: nrm(m[3].replace(/<[^>]*>/g, ' ')) });
+  return (p._car = { attrs, errors, actions });
+}
 /** EXACT-value match against the §12 slot index. */
 const exactAtIndexed = (s) =>
   slotIndex.find((e) => typeof e.value === 'string' && norm(e.value) === s);
@@ -481,6 +531,26 @@ if (Number.isFinite(declaredRows) && rows.length !== declaredRows) {
 const BOLD_QUOTED = /\*\*"([^]*?)"\*\*/g;
 const results = [];
 const root = mod.default ?? mod;
+
+/** Slot identity → its rendered CARRIER (v3.8). Derived from the slot path
+ * the string actually bound to, mirroring the v3.7 named-carrier allowlist:
+ * error strings live in their field's data-error-for element, cwaaa share
+ * controls in their data-share-action button, share payloads/titles in
+ * data-share-text / data-share-title, scratch-gag lines in data-rotation. */
+const carrierSpec = (path) => {
+  if (!path) return null;
+  const key = path.split(/[.[\]]/).filter(Boolean).pop() || '';
+  if (/\berrors\b/.test(path)) {
+    const f = Object.keys(root.pledge?.fields ?? {}).find((x) => key.toLowerCase().includes(x.toLowerCase()));
+    return f ? { kind: 'error', field: f, label: `data-error-for="${f}"` } : null;
+  }
+  if (path.startsWith('scratchGag.rotation')) return { kind: 'attr', name: 'data-rotation', label: 'data-rotation' };
+  if (/^labels\.cwaaa\./.test(path) && /share/i.test(key)) return { kind: 'action', action: 'share', label: 'data-share-action="share"' };
+  if (/^labels\.cwaaa\./.test(path) && /copy/i.test(key)) return { kind: 'action', action: 'copy', label: 'data-share-action="copy"' };
+  if (/share/i.test(key) && /title$/i.test(key)) return { kind: 'attr', name: 'data-share-title', label: 'data-share-title' };
+  if (key === 'badgeShare' || (/^verdicts\./.test(path) && key === 'share')) return { kind: 'attr', name: 'data-share-text', label: 'data-share-text' };
+  return null;
+};
 const files = root.crisis?.caseFiles?.files ?? [];
 const posterTitle = (slug) =>
   (root.meta?.[`psas/${slug}`]?.title || '').replace(/\s*\|\s*got soap\?\s*$/i, '').trim();
@@ -741,6 +811,7 @@ for (const row of rows) {
         return null;
       };
       const unresolved = [];
+      const boundPathByString = new Map(); // s -> deck path it bound to (v3.8 carrier binding)
       if (indexPinned) {
         // Explicit index binding: plan line N ↔ slot[N-1], exact — and EXACT
         // ARITY (v3.5, Sol round 2): the numbered lines declare the FULL
@@ -756,7 +827,7 @@ for (const row of rows) {
         for (const { n, s } of numPairs) {
           const target = scope.find((d) => relAt(d.at) === String(n - 1));
           if (!target) { r.ok = false; r.notes.push(`NOT slot-bound (exact): line ${n} has no leaf @ ${scopeName}[${n - 1}]`); continue; }
-          if (leafVal(target) === s) r.notes.push(`ok @ ${target.at} (exact leaf, index-pinned)`);
+          if (leafVal(target) === s) { boundPathByString.set(s, target.at); r.notes.push(`ok @ ${target.at} (exact leaf, index-pinned)`); }
           else { r.ok = false; r.notes.push(`NOT slot-bound (exact): "${s.slice(0, 55)}…" pinned to ${target.at} — leaf differs (ORDER/PADDING/RELOCATION)`); }
         }
       } else for (const s of strings) {
@@ -776,7 +847,7 @@ for (const row of rows) {
           //    — only the fragment path (non-empty baseline-anchored head)
           //    can bind those rows.
           const leafAt = fragAllowed ? null : bindLeaf(s);
-          if (leafAt) { r.notes.push(`ok @ ${leafAt} (exact leaf)`); continue; }
+          if (leafAt) { boundPathByString.set(s, leafAt); r.notes.push(`ok @ ${leafAt} (exact leaf)`); continue; }
           const lab = subLabelByString.get(s);
           if (lab && labeledPath && labeledPath.includes('.')) {
             const parentHit = resolveSlot(mod, labeledPath.slice(0, labeledPath.lastIndexOf('.')));
@@ -785,7 +856,7 @@ for (const row of rows) {
               ? walkLeaves(parentHit.value, parentHit.at).filter((d) =>
                   d.at.split('.').pop().toLowerCase().includes(labWord) && d.value === s)
               : [];
-            if (sibs.length === 1) { r.notes.push(`ok @ ${sibs[0].at} (exact sibling, sub-label "${lab}")`); continue; }
+            if (sibs.length === 1) { boundPathByString.set(s, sibs[0].at); r.notes.push(`ok @ ${sibs[0].at} (exact sibling, sub-label "${lab}")`); continue; }
             r.ok = false;
             r.notes.push(`NOT slot-bound (exact): sub-label "${lab}" has no unique sibling leaf of ${labeledPath} named *${labWord}* equal to the agreed text`);
             continue;
@@ -797,7 +868,7 @@ for (const row of rows) {
         const slug = slugByString.get(s);
         if (slug && field) {
           const v = root.verdicts?.[slug]?.[field];
-          if (typeof v === 'string' && norm(v) === s) { r.notes.push(`ok @ verdicts.${slug}.${field} (exact)`); continue; }
+          if (typeof v === 'string' && norm(v) === s) { boundPathByString.set(s, `verdicts.${slug}.${field}`); r.notes.push(`ok @ verdicts.${slug}.${field} (exact)`); continue; }
           r.ok = false; r.notes.push(`verdicts.${slug}.${field} !== agreed text`); continue;
         }
         // 3) key-labeled field, exact-matched inside a §12-indexed object slot
@@ -805,12 +876,12 @@ for (const row of rows) {
         if (kw) {
           const objHit = slotIndex.find((e) => e.value && typeof e.value === 'object' && typeof e.value[kw] === 'string' && norm(e.value[kw]) === s)
             || slotIndex.find((e) => typeof e.value === 'string' && e.at.endsWith(`.${kw}`) && norm(e.value) === s);
-          if (objHit) { r.notes.push(`ok @ ${objHit.at}${objHit.value && typeof objHit.value === 'object' ? '.' + kw : ''} (exact)`); continue; }
+          if (objHit) { boundPathByString.set(s, objHit.at + (objHit.value && typeof objHit.value === 'object' ? '.' + kw : '')); r.notes.push(`ok @ ${objHit.at}${objHit.value && typeof objHit.value === 'object' ? '.' + kw : ''} (exact)`); continue; }
           r.ok = false; r.notes.push(`no §12 slot has .${kw} === agreed text ("${s.slice(0, 40)}…")`); continue;
         }
         // 4) exact-value match at a §12-indexed slot — UNLABELED rows only
         const hit = exactAtIndexed(s);
-        if (hit) { r.notes.push(`ok @ ${hit.at} (exact, §12-indexed)`); continue; }
+        if (hit) { boundPathByString.set(s, hit.at); r.notes.push(`ok @ ${hit.at} (exact, §12-indexed)`); continue; }
         unresolved.push(s);
       }
       // 5) the fragment path — only for the plan's own partial-quote rows,
@@ -869,6 +940,31 @@ for (const row of rows) {
             .every((seg) => page.text.includes(seg));
         for (const s of strings) {
           const pages = pagesFor(s);
+          // CARRIER BINDING (v3.8, Sol round 5): route-wide membership is
+          // swap-blind. When the string's bound slot maps to a named carrier,
+          // the check is "this string in THIS carrier": it must appear in its
+          // own carrier at least once on its route(s), and every carrier
+          // occurrence of it must be the RIGHT carrier — an adjacent-field
+          // transposition (alert texts, success button labels, share
+          // title/text) now fails even though both strings stay on the page.
+          const spec = carrierSpec(boundPathByString.get(s) || labeledPath || '');
+          if (spec) {
+            let own = 0; const wrong = [];
+            for (const p of pages) {
+              const car = carriersOf(p);
+              if (spec.kind === 'attr') {
+                for (const [name, vals] of Object.entries(car.attrs))
+                  for (const v of vals) if (v.includes(s)) (name === spec.name ? own++ : wrong.push(`${p.rel} ${name}`));
+              } else if (spec.kind === 'error') {
+                for (const e of car.errors) if (e.text.includes(s)) (e.field === spec.field ? own++ : wrong.push(`${p.rel} data-error-for="${e.field}"`));
+              } else {
+                for (const a of car.actions) if (a.text.includes(s)) (a.action === spec.action ? own++ : wrong.push(`${p.rel} data-share-action="${a.action}"`));
+              }
+            }
+            if (own === 0) { r.ok = false; r.notes.push(`NOT RENDERED in its own carrier ${spec.label}: "${s.slice(0, 45)}…" — dropped, stale, or transposed away`); }
+            if (wrong.length) { r.ok = false; r.notes.push(`MIS-CARRIED: "${s.slice(0, 45)}…" belongs in ${spec.label} but renders in: ${wrong.join(', ')}`); }
+            continue;
+          }
           if (!pages.some((p) => segsRender(p, s))) {
             r.ok = false;
             const where = isHome ? 'index.html'
@@ -895,7 +991,7 @@ const landed = results.filter((r) => r.ok).length;
 // vocabulary. Test mode renders every count as "N of M".
 const frac = (a, b) => (TEST_MODE ? `${a} of ${b}` : `${a}/${b}`);
 out();
-out(`  fidelity check v3.7${banner} — extraction from ${PLAN}`);
+out(`  fidelity check v3.8${banner} — extraction from ${PLAN}`);
 out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${frac(rows.length, declaredRows)} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
 // VOCABULARY SPLIT (v3.4, Sol): test-mode output shares NO success vocabulary
@@ -914,7 +1010,7 @@ for (const r of results) {
   if (!r.ok) for (const n of r.notes) out(`          ${n}`);
 }
 out();
-out(`  rows parsed: ${results.length} · ${TEST_MODE ? 'sim rows green' : 'landed'}: ${frac(landed, results.length)} · binding: exact leaf, index-ordered, consume-once (padding/superstring/swap fail); fragments end-anchored to the same baseline leaf · rendered-output asserted per route`);
+out(`  rows parsed: ${results.length} · ${TEST_MODE ? 'sim rows green' : 'landed'}: ${frac(landed, results.length)} · binding: exact leaf, index-ordered, consume-once (padding/superstring/swap fail); fragments end-anchored to the same baseline leaf · rendered-output asserted per route + carrier-bound`);
 out(`  authoritative: ${TEST_MODE ? 'NO — TEST MODE' : 'yes (proof mode, overrides rejected)'}`);
 out(`  exit contract: proof 0=landed · 1=failed/fatal/override — test mode 3=landed · 2=failed/fatal (never 0 or 1). Direct invocation only: a pipeline reports the LAST command's status — use pipefail (bash) or check $LASTEXITCODE (PowerShell).`);
 if (!TEST_MODE && landed === results.length)
