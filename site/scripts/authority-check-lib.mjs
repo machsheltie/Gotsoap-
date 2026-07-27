@@ -1,8 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-export function compareJsonDocuments(left, right) {
-  return JSON.stringify(left) === JSON.stringify(right)
+export function compareRawDocuments(left, right) {
+  return left === right
     ? []
     : ['Portable pledge contracts do not match exactly.'];
 }
@@ -164,7 +164,9 @@ export function collectAuthorityErrors(repoRoot) {
   const campaignPledge = parseJson(repoRoot, 'docs/contracts/pledge.v1.json', errors);
   const cwaaaPledge = parseJson(repoRoot, 'docs/cwaaa/contracts/pledge.v1.json', errors);
   if (campaignPledge && cwaaaPledge) {
-    errors.push(...compareJsonDocuments(campaignPledge, cwaaaPledge));
+    const campaignPledgeDocument = read(repoRoot, 'docs/contracts/pledge.v1.json') ?? '';
+    const cwaaaPledgeDocument = read(repoRoot, 'docs/cwaaa/contracts/pledge.v1.json') ?? '';
+    errors.push(...compareRawDocuments(campaignPledgeDocument, cwaaaPledgeDocument));
     if (campaignPledge.backend?.provider !== 'Buttondown') {
       errors.push('Pledge contract backend must be Buttondown.');
     }

@@ -1,26 +1,69 @@
 import assert from 'node:assert/strict';
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { dirname, join, resolve } from 'node:path';
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
 
 import {
-  compareJsonDocuments,
+  compareRawDocuments,
+  collectAuthorityErrors,
   findForbiddenAuthorityPhrases,
   missingRequiredMarkers,
 } from './authority-check-lib.mjs';
 
-test('portable pledge contracts must be structurally identical', () => {
-  const canonical = {
-    contractId: 'lather-pledge.v1',
-    version: 1,
-    backend: { provider: 'Buttondown', audience: 'one shared audience' },
-  };
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
-  assert.deepEqual(compareJsonDocuments(canonical, structuredClone(canonical)), []);
+test('portable pledge contracts must match byte for byte', () => {
+  const canonical = '{"contractId":"lather-pledge.v1","version":1}';
 
-  const drifted = structuredClone(canonical);
-  drifted.backend.provider = 'Netlify Forms';
-  assert.match(compareJsonDocuments(canonical, drifted).join('\n'), /do not match/i);
+  assert.deepEqual(compareRawDocuments(canonical, canonical), []);
+
+  const whitespaceDrift = '{\n  "contractId": "lather-pledge.v1",\n  "version": 1\n}';
+  assert.match(compareRawDocuments(canonical, whitespaceDrift).join('\n'), /do not match/i);
 });
 
+test('portable pledge parity rejects whitespace-only JSON drift', () => {
+  const fixtureRoot = mkdtempSync(join(tmpdir(), 'gotsoap-authority-'));
+  const requiredPaths = [
+    'AGENTS.md',
+    'CLAUDE.md',
+    'docs/HANDOFF.md',
+    'docs/design.md',
+    'docs/prd/PRD-gotsoap-web-v1.md',
+    'docs/strategy/participation-mechanics.md',
+    'docs/strategy/cwaaa-divergence-roadmap.md',
+    'docs/world/README.md',
+    'docs/world/WORLD-BIBLE.md',
+    'docs/world/artifact-continuity.md',
+    'docs/cwaaa/README.md',
+    'docs/cwaaa/world-bible.md',
+    'docs/office-of-lather-compliance/README.md',
+    'docs/office-of-lather-compliance/design.md',
+    'docs/office-of-lather-compliance/PRD-office-v1.md',
+    'docs/contracts/pledge.v1.json',
+    'docs/cwaaa/contracts/pledge.v1.json',
+    'docs/office-of-lather-compliance/contracts/visit-state.v1.json',
+  ];
+
+  try {
+    for (const relativePath of requiredPaths) {
+      const destination = join(fixtureRoot, relativePath);
+      mkdirSync(dirname(destination), { recursive: true });
+      cpSync(join(repoRoot, relativePath), destination);
+    }
+
+    const cwaaaPledgePath = join(fixtureRoot, 'docs/cwaaa/contracts/pledge.v1.json');
+    writeFileSync(cwaaaPledgePath, `\n${readFileSync(cwaaaPledgePath, 'utf8')}`);
+
+    assert.match(
+      collectAuthorityErrors(fixtureRoot).join('\n'),
+      /Portable pledge contracts do not match exactly/i,
+    );
+  } finally {
+    rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+});
 test('stale authority claims are rejected in live guidance', () => {
   const findings = findForbiddenAuthorityPhrases(
     'There is no application code yet. The site is currently empty.',
