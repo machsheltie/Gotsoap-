@@ -67,6 +67,25 @@ test('inline authority lexer preserves distinct same-delimiter spans', () => {
     },
   ]);
 });
+test('escaped styling remains ordinary tokens and normalizes to semantic text', () => {
+  const source = 'CWAAA \\"regulates\\" hygiene.';
+  const tokens = authorityCheck.lexInlineAuthorityTokens(source);
+  const styledTokens = tokens.filter(({ raw }) => raw === '"' || raw === '\\');
+
+  assert.ok(styledTokens.every(({ kind }) => kind === 'text'));
+  assert.equal(authorityCheck.normalizeAuthorityClause(tokens), 'CWAAA regulates hygiene.');
+});
+
+test('escaped curly styling normalizes without changing possessive apostrophes', () => {
+  const source = "CWAAA is the Office's \\“partner\\”.";
+  const tokens = authorityCheck.lexInlineAuthorityTokens(source);
+
+  assert.equal(
+    authorityCheck.normalizeAuthorityClause(tokens),
+    "CWAAA is the Office's partner.",
+  );
+});
+
 const authorityFixturePaths = [
   'AGENTS.md',
   'CLAUDE.md',
@@ -776,6 +795,66 @@ const canonMutationCases = [
     statement: 'The rejected wording `is incomplete and CWAAA `regulates` hygiene. `tail',
     expected: /CWAAA.*must not regulate/i,
   },
+  {
+    name: 'escaped ASCII styling does not protect CWAAA regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA \\"regulates\\" hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'escaped inline-code styling does not protect CWAAA regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA \\`regulates\\` hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'escaped ASCII styling does not protect Office operation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The Office \\"operates\\" CWAAA.',
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'escaped ASCII styling does not protect the Office partner label',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA is the Office\'s \\"partner\\".',
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'escaped inline-code styling does not protect the Office partner label',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA is the Office\'s \\`partner\\`.',
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'escaped curly styling does not protect CWAAA regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA \\“regulates\\” hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'escaped curly styling does not protect Office operation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The Office \\“operates\\” CWAAA.',
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'curly documented list with an unquoted regulation assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'Rejected examples: “CWAAA regulates hygiene.” and CWAAA regulates hygiene, plus “The Office operates CWAAA.”',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'ASCII documented list with a live regulation assertion in the tail',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'Rejected examples: "CWAAA regulates hygiene." and "The Office operates CWAAA." CWAAA regulates hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'inline-code documented list with an unquoted partner assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'Forbidden examples: `CWAAA regulates hygiene.` and CWAAA is the Office\'s partner, plus `The Office operates CWAAA.`',
+    expected: /relationship mystery.*partner/i,
+  },
 ];
 
 for (const { name, path, statement, expected } of canonMutationCases) {
@@ -905,6 +984,18 @@ for (const [name, statement] of [
   [
     'documented inline-code span is not poisoned by a later unmatched marker',
     'The rejected wording `CWAAA regulates hygiene.` is historical. Later unmatched ` marker.',
+  ],
+  [
+    'explicit rejected curly example list',
+    'Rejected examples: “CWAAA regulates hygiene.” and “The Office operates CWAAA.”',
+  ],
+  [
+    'explicit rejected ASCII example list',
+    'Rejected examples: "CWAAA regulates hygiene." and "The Office operates CWAAA."',
+  ],
+  [
+    'explicit forbidden inline-code example list',
+    "Forbidden examples: `CWAAA regulates hygiene.` and `CWAAA is the Office's partner.`",
   ],
   [
     'correct chronology juxtaposition',

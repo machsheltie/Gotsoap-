@@ -498,3 +498,51 @@ prepare the `C:\tmp` split-root sandbox, so edits used scoped unified-diff `git 
 
 This architectural parser commit changes only this report, `site/scripts/authority-check-lib.mjs`,
 and `site/scripts/authority-check.test.mjs`.
+
+## Escaped-style and documented-list closure
+
+The final review found two remaining bypass surfaces in the shared token stream. Escaped quote,
+backtick, and curly-quote characters were emitted as ordinary text but survived normalization, so
+they could still interrupt semantic authority patterns. Separately, documentation framing supported
+one rejected quotation but not a tightly controlled list of two or more examples.
+
+Normalization now removes only escape backslashes that immediately precede authority styling
+delimiters, then strips those quote/backtick/curly delimiters from ordinary text tokens before
+concatenation. Apostrophes and span classification remain untouched, and no second parser was added.
+Multi-span exemptions require an explicit rejected/forbidden/historical/archived/superseded plural
+intro, two or more valid same-delimiter spans, connector-only interstitial text, and punctuation or
+documentation-only tail framing. Any unquoted assertion between or after spans unwraps the list for
+normal authority scanning.
+
+### Escaped-style TDD evidence
+
+1. Clean exact RED: `npm --prefix site run authority:test` exited 1 with 303 tests, 291 passed and
+   exactly 12 intended failures: two token-normalization assertions, seven escaped-style bypasses,
+   and three strict documented-list allowances.
+2. Focused GREEN: 17/17 passed across the token contract, all escaped ASCII/backtick/curly cases,
+   all three documented lists, and all three unsafe mixed-list negatives. An expanded structural
+   selection also passed 25/25.
+3. Full GREEN: `npm --prefix site run authority:test` passed 303/303.
+4. The combined prior and final direct corpora passed 83/83: 63 required rejections and 20 required
+   nonassertive/correct allowances.
+
+### Escaped-style acceptance evidence
+
+- `npm --prefix site run authority` — PASS.
+- `npm --prefix site run build` — PASS; Astro built 22 static pages.
+- `npm --prefix site run gates` — PASS, 20/20.
+- `npm --prefix site run copy-gates` — PASS, 7/7.
+- `npm --prefix site run fidelity` — authoritative PASS, 54/54.
+- `npm --prefix site run distinguish` — PASS.
+- All 8 tracked JSON files parse; byte-for-byte pledge parity passes.
+- Pledge contracts: 3,370 bytes each, SHA-256
+  `61b8361829646344928f277b375064af6dcca4ba00e4dd2aa2db5e83b82b4b8a`.
+- Office state contract: 4,643 bytes, SHA-256
+  `91b18d31c4d66c0e71b5133c29ec2f068547c933b1fa146f59fad980f21e5197`.
+- IVR PDF: 48,058 bytes, 4 `/Type /Page` markers, SHA-256
+  `7748cefced4d671e57aca64d4ba3852c693c068b89a982e2365e4fc3d6af1ab0`.
+- Stale/live scan, `git diff --check`, and Node syntax checks — PASS.
+- `site/src`, all contract files, and the canonical IVR PDF — unchanged.
+
+The expected Windows sandbox EPERM affected Astro's generated type write and fidelity's child `git`;
+both commands passed unchanged under the approved elevated path.

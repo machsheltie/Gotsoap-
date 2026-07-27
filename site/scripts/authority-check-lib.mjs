@@ -110,8 +110,8 @@ export function lexInlineAuthorityTokens(text) {
 
   for (let index = 0; index < text.length;) {
     const character = text[index];
-    const sameDelimiter = character === '"' || character === '`';
-    if (sameDelimiter && isEscapedDelimiter(text, index)) {
+    const stylingDelimiter = /["`“”]/.test(character);
+    if (stylingDelimiter && isEscapedDelimiter(text, index)) {
       tokens.push(textAuthorityToken(text, index));
       index += 1;
       continue;
@@ -168,6 +168,52 @@ export function lexInlineAuthorityTokens(text) {
 
 function tokenText(tokens, field = 'raw') {
   return tokens.map((token) => token[field]).join('');
+}
+
+const authorityStylingDelimiterPattern = /^["`“”]$/;
+const documentedListIntroPattern =
+  /^\s*(?:rejected|forbidden|historical|archived|superseded)\s+(?:examples|phrases|wording|quotations)\s*:\s*$/i;
+const documentedListConnectorPattern =
+  /^\s*(?:(?:[,;:—–-]\s*)?(?:and|or)|[,;:—–-])\s*$/i;
+const documentedListTailPattern =
+  /^\s*(?:[.,;:!?—–-]\s*)*(?:(?:and\s+)?(?:(?:(?:these|the)\s+)?(?:examples|phrases|wording|quotations)\s+)?(?:are|were|remain)\s+(?:explicitly\s+)?(?:rejected|forbidden|historical|archived|superseded|quoted)\s*[.!?]?)?\s*$/i;
+
+function isStrictDocumentedSpanList(tokens, delimiter) {
+  const spans = tokens
+    .map((token, index) => ({ token, index }))
+    .filter(({ token }) => token.kind === 'span' && token.delimiter === delimiter);
+  if (
+    spans.length < 2
+    || spans.some(({ token }) => !token.balanced || !token.valid)
+  ) {
+    return false;
+  }
+
+  const prefix = tokenText(tokens.slice(0, spans[0].index));
+  if (!documentedListIntroPattern.test(prefix)) return false;
+
+  for (let index = 1; index < spans.length; index += 1) {
+    const interstitial = tokenText(tokens.slice(
+      spans[index - 1].index + 1,
+      spans[index].index,
+    ));
+    if (!documentedListConnectorPattern.test(interstitial)) return false;
+  }
+
+  const tail = tokenText(tokens.slice(spans.at(-1).index + 1));
+  return documentedListTailPattern.test(tail);
+}
+
+function normalizeAuthorityTextToken(tokens, index) {
+  const token = tokens[index];
+  if (authorityStylingDelimiterPattern.test(token.raw)) return '';
+
+  const next = tokens[index + 1];
+  const escapesStylingDelimiter = token.raw === '\\'
+    && next?.kind === 'text'
+    && token.end === next.start
+    && authorityStylingDelimiterPattern.test(next.raw);
+  return escapesStylingDelimiter ? '' : token.raw;
 }
 
 function splitSemanticTokens(text, tokens) {
@@ -233,7 +279,7 @@ function splitSemanticTokens(text, tokens) {
   return clauses;
 }
 
-function normalizeAuthorityClause(tokens) {
+export function normalizeAuthorityClause(tokens) {
   const rawClause = tokenText(tokens);
   const spansByDelimiter = new Map();
   for (const token of tokens) {
@@ -243,11 +289,16 @@ function normalizeAuthorityClause(tokens) {
     spansByDelimiter.set(token.delimiter, spans);
   }
 
+  const documentedListDelimiters = new Set(
+    [...spansByDelimiter.keys()]
+      .filter((delimiter) => isStrictDocumentedSpanList(tokens, delimiter)),
+  );
   let normalized = '';
   let offset = 0;
-  for (const token of tokens) {
+  for (let index = 0; index < tokens.length; index += 1) {
+    const token = tokens[index];
     if (token.kind === 'text') {
-      normalized += token.raw;
+      normalized += normalizeAuthorityTextToken(tokens, index);
       offset += token.raw.length;
       continue;
     }
@@ -258,7 +309,10 @@ function normalizeAuthorityClause(tokens) {
       && token.valid;
     const prefix = rawClause.slice(0, offset);
     const suffix = rawClause.slice(offset + token.raw.length);
-    normalized += soleValidSpan && isDocumentedInlineSpan(prefix, suffix)
+    const documentedSpan = (
+      soleValidSpan && isDocumentedInlineSpan(prefix, suffix)
+    ) || documentedListDelimiters.has(token.delimiter);
+    normalized += documentedSpan
       ? ' '
       : token.content;
     offset += token.raw.length;
