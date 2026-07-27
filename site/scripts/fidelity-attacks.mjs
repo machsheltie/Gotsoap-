@@ -470,6 +470,34 @@ const swapIn = (txt, a, b, name) => {
   }, { exit: 2, mustSee: ['MIS-CARRIED'], branded: true });
 }
 
+// Sol HOLD round 6 (2026-07-27, vs 7471960): CSS visual reordering. A
+// column-reverse container ships the two movement lines in reversed VISUAL
+// order while DOM source order (all both controls read) stays correct.
+{
+  const d = join(tmp, 'dist-css-reverse');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'index.html');
+  const ho = readFileSync(hp, 'utf8');
+  if (!/class="mv__inner/.test(ho)) throw new Error('T33: mv__inner container not on home');
+  writeFileSync(hp, ho.replace('</head>', '<style>.mv__inner{display:flex;flex-direction:column-reverse}</style></head>'));
+  scenario('T33 CSS reversal: scoped rule flips visual order of the movement lines', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+}
+
+{
+  const d = join(tmp, 'dist-style-attr-reverse');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'index.html');
+  const ho = readFileSync(hp, 'utf8');
+  const two = ho.match(/<p class="mv__lede"[^>]*>[^<]*<\/p>\s*<p class="mv__lede"[^>]*>[^<]*<\/p>/);
+  if (!two) throw new Error('T34: consecutive movement lede paragraphs not found');
+  writeFileSync(hp, ho.replace(two[0], '<div style="display:flex;flex-direction:column-reverse">' + two[0] + '</div>'));
+  scenario('T34 style-attr reversal: inline column-reverse wrapper around the movement lines', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+}
+
 /* ---------- verdict -------------------------------------------------------- */
 
 const bad = results.filter((r) => !r.ok);

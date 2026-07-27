@@ -137,8 +137,21 @@
  *    had been failing with EINVAL on every run, so extractions were
  *    silently stale-capable the whole time.)
  *
+ * v3.9 (Sol HOLD round 6, 2026-07-27 — visual reordering, vs 7471960):
+ *  - VISUAL-ORDER TRIPWIRE: CSS reordering primitives (flex/grid *-reverse,
+ *    non-zero order, direction:rtl — in bundled css, inline <style>, or
+ *    style attributes) may not apply to any container holding ≥2 of one
+ *    row's agreed strings; the row fails. Scoped exactly to the plan's
+ *    assertion surface: the plan declares order only WITHIN a row. The
+ *    pre-existing legitimate use (.ascension, decorative poster stack,
+ *    contains no multi-string row) passes by construction, not exemption.
+ *  - EXTRACTOR HONESTY: the blind-read extract now marks CSS-reversed
+ *    blocks ("read it bottom-up") and its header states the source-order
+ *    limit plainly; the false claim that it preserves reading order is
+ *    withdrawn and limit #3 redrawn (see below).
+ *
  * ─────────────────────────────────────────────────────────────────────────────
- * SCOPE CONTRACT — the checker's threat model (v3.8, pinned at 60812f7 + r5)
+ * SCOPE CONTRACT — the checker's threat model (v3.9, pinned at 60812f7 + r5/r6)
  *
  * WHAT THIS CHECKER DEFENDS AGAINST (in scope): HONEST DRIFT.
  *   Copy changed in copy.ts but not propagated to a route; a correction row
@@ -185,15 +198,23 @@
  *      which the proper-prefix + sentence-boundary rules pin completely).
  *      If a future correction plan introduces a multi-sentence retained
  *      head, that row must be re-verified before the plan is accepted.
- *   3. Visible-prose POSITION within a page is not bound (v3.8). Two plain
- *      text strings with no named carrier could be transposed between
- *      components on the same route and containment would still hold.
- *      Rationale: prose has no static identity handle — DOM position is a
- *      styling concern and honest component wiring swaps happen at
- *      carrier/prop level, which IS bound. Compensating control, real and
- *      specific: the blind-reader extract preserves full pages in reading
- *      order, so misplaced prose reads wrong to the panel — that is the
- *      control that catches it today. Not a blocker.
+ *   3. Visible-prose POSITION (v3.9 — redrawn after Sol round 6 proved the
+ *      v3.8 wording false: a column-reverse container flipped shipped
+ *      visual order while both static controls read DOM source order).
+ *      What is now IN SCOPE: CSS reordering PRIMITIVES (flex/grid
+ *      *-reverse, non-zero `order`, direction:rtl) applied to a container
+ *      holding ≥2 of one row's agreed strings — the VISUAL-ORDER tripwire
+ *      fails the row; the blind-reader extract marks such blocks instead of
+ *      silently reporting source order. What REMAINS a limit, stated
+ *      honestly: (a) cross-row prose transposition in source (the plan
+ *      declares order only within a row, so there is no plan-derived
+ *      assertion to make), and (b) arbitrary visual repositioning that
+ *      needs real layout (absolute/fixed coordinates, transforms, floats) —
+ *      undetectable without executing a rendering engine. Compensating
+ *      control for BOTH, real and specific: the owner's visual pass in
+ *      Chrome at the locked breakpoints (390/1440/1920), which reviews the
+ *      painted page — the blind read is a SOURCE-ORDER control and is not
+ *      claimed to catch visual drift. Not a blocker.
  * ─────────────────────────────────────────────────────────────────────────────
  *
  *   node --experimental-strip-types scripts/fidelity-check.mjs
@@ -477,6 +498,62 @@ const distHits = (s) => distPages.filter((p) => p.text.includes(s)).map((p) => p
  * of value↔page. Route-wide membership was swap-blind by construction: three
  * honest adjacent-field transpositions in the real PledgeForm (alert texts,
  * success button labels, share title/text) all passed 54/54. */
+/** VISUAL-ORDER TRIPWIRE (v3.9, Sol round 6): CSS reordering primitives
+ * (flex/grid *-reverse, non-zero order, direction:rtl) flip SHIPPED visual
+ * order while DOM source order — all any static text extraction reads —
+ * stays correct. The plan declares order only WITHIN a row, so the tripwire
+ * is scoped exactly there: no order-altering declaration may apply to a
+ * container holding two or more of one row's agreed strings. */
+const REVERSAL_DECL = /flex-direction\s*:\s*(?:column|row)-reverse|(?:^|[;{\s])order\s*:\s*-?[1-9]|direction\s*:\s*rtl/i;
+function reversalClassesFromCss(css) {
+  const out = new Set();
+  for (const m of css.matchAll(/([^{}]+)\{([^}]*)\}/g)) {
+    if (!REVERSAL_DECL.test(m[2])) continue;
+    for (const c of m[1].matchAll(/\.([A-Za-z_][\w-]*)/g)) out.add(c[1]);
+  }
+  return out;
+}
+function cssFilesUnder(dir, out = []) {
+  for (const n of readdirSync(dir)) {
+    const p = join(dir, n);
+    if (statSync(p).isDirectory()) cssFilesUnder(p, out);
+    else if (n.endsWith('.css')) out.push(p);
+  }
+  return out;
+}
+const globalReversalClasses = new Set();
+if (existsSync(DIST))
+  for (const f of cssFilesUnder(DIST))
+    for (const c of reversalClassesFromCss(readFileSync(f, 'utf8'))) globalReversalClasses.add(c);
+/** Balanced-scan subtree extraction from an opening tag. */
+function subtreeText(raw, openIdx, tag) {
+  const re = new RegExp(`<${tag}\\b|</${tag}\\s*>`, 'gi');
+  re.lastIndex = openIdx + 1;
+  let depth = 1, m;
+  while ((m = re.exec(raw))) {
+    if (m[0][1] === '/') { if (--depth === 0) return raw.slice(openIdx, m.index); }
+    else depth++;
+  }
+  return raw.slice(openIdx);
+}
+function reversedContainersOf(p) {
+  if (p._rev) return p._rev;
+  const out = [];
+  const classes = new Set(globalReversalClasses);
+  for (const st of p.raw.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style\s*>/gi))
+    for (const c of reversalClassesFromCss(st[1])) classes.add(c);
+  const textOf = (openIdx, tag) =>
+    norm(unescapeHtml(subtreeText(p.raw, openIdx, tag).replace(/<[^>]*>/g, ' ')));
+  for (const m of p.raw.matchAll(/<([a-z][a-z0-9]*)\b[^>]*\bclass="([^"]*)"[^>]*>/gi)) {
+    const hit = m[2].split(/\s+/).find((t) => classes.has(t));
+    if (hit) out.push({ why: `.${hit}`, text: textOf(m.index, m[1]) });
+  }
+  for (const m of p.raw.matchAll(/<([a-z][a-z0-9]*)\b[^>]*\bstyle="([^"]*)"[^>]*>/gi)) {
+    if (REVERSAL_DECL.test(m[2])) out.push({ why: 'inline style', text: textOf(m.index, m[1]) });
+  }
+  return (p._rev = out);
+}
+
 function carriersOf(p) {
   if (p._car) return p._car;
   const clean = p.raw.replace(/<!--[\s\S]*?-->/g, ' ').replace(/<(template|script|style)\b[\s\S]*?<\/\1\s*>/gi, ' ');
@@ -973,6 +1050,22 @@ for (const row of rows) {
             r.notes.push(`NOT RENDERED on ${where}: "${s.slice(0, 45)}…" — dist is stale, the surface dropped the agreed copy, or it renders off its slug-exact route`);
           }
         }
+        // VISUAL-ORDER TRIPWIRE (v3.9, Sol round 6): the plan's declared
+        // intra-row order (numbered lines, quote sequences) must not be
+        // flippable by CSS. Two or more of this row's strings inside one
+        // order-altering container = the shipped visual order can contradict
+        // the plan while DOM source order still reads correct.
+        if (strings.length >= 2) {
+          for (const p of routePages) {
+            for (const el of reversedContainersOf(p)) {
+              const inEl = strings.filter((s) => el.text.includes(s)).length;
+              if (inEl >= 2) {
+                r.ok = false;
+                r.notes.push(`VISUAL ORDER: ${inEl} of this row's strings render inside an order-altering container (${el.why}) on ${p.rel} — CSS flips shipped order while source order still reads correct`);
+              }
+            }
+          }
+        }
       }
     }
   } else {
@@ -991,7 +1084,7 @@ const landed = results.filter((r) => r.ok).length;
 // vocabulary. Test mode renders every count as "N of M".
 const frac = (a, b) => (TEST_MODE ? `${a} of ${b}` : `${a}/${b}`);
 out();
-out(`  fidelity check v3.8${banner} — extraction from ${PLAN}`);
+out(`  fidelity check v3.9${banner} — extraction from ${PLAN}`);
 out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${frac(rows.length, declaredRows)} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
 // VOCABULARY SPLIT (v3.4, Sol): test-mode output shares NO success vocabulary
@@ -1010,7 +1103,7 @@ for (const r of results) {
   if (!r.ok) for (const n of r.notes) out(`          ${n}`);
 }
 out();
-out(`  rows parsed: ${results.length} · ${TEST_MODE ? 'sim rows green' : 'landed'}: ${frac(landed, results.length)} · binding: exact leaf, index-ordered, consume-once (padding/superstring/swap fail); fragments end-anchored to the same baseline leaf · rendered-output asserted per route + carrier-bound`);
+out(`  rows parsed: ${results.length} · ${TEST_MODE ? 'sim rows green' : 'landed'}: ${frac(landed, results.length)} · binding: exact leaf, index-ordered, consume-once (padding/superstring/swap fail); fragments end-anchored to the same baseline leaf · rendered-output asserted per route + carrier-bound + visual-order tripwire`);
 out(`  authoritative: ${TEST_MODE ? 'NO — TEST MODE' : 'yes (proof mode, overrides rejected)'}`);
 out(`  exit contract: proof 0=landed · 1=failed/fatal/override — test mode 3=landed · 2=failed/fatal (never 0 or 1). Direct invocation only: a pipeline reports the LAST command's status — use pipefail (bash) or check $LASTEXITCODE (PowerShell).`);
 if (!TEST_MODE && landed === results.length)

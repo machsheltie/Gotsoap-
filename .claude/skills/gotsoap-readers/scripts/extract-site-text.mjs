@@ -10,6 +10,12 @@
  * So: rebuild `dist/`, strip the machinery, keep the words. Alt text and aria-labels are kept as
  * [image alt: …] / [label: …] because a real reader (and a screen-reader user) encounters them.
  *
+ * HONEST LIMIT: this extract preserves SOURCE order, which is visual order only while no CSS
+ * reorders it. Blocks affected by order-altering CSS (flex/grid *-reverse, non-zero `order`,
+ * direction:rtl) are explicitly MARKED so the reversal is observable; arbitrary repositioning
+ * (absolute coordinates) is not detectable here — that is what the owner's visual pass in Chrome
+ * at the locked breakpoints (390/1440/1920) is for.
+ *
  * Run from the repo root:
  *   node .claude/skills/gotsoap-readers/scripts/extract-site-text.mjs
  *
@@ -50,12 +56,32 @@ const OUT = join(tmpdir(), 'gotsoap-sitetext');
 mkdirSync(OUT, { recursive: true });
 
 const pages = [];
+const cssFiles = [];
 (function walk(d) {
   for (const n of readdirSync(d)) {
     const p = join(d, n);
-    statSync(p).isDirectory() ? walk(p) : n.endsWith('.html') && pages.push(p);
+    if (statSync(p).isDirectory()) walk(p);
+    else if (n.endsWith('.html')) pages.push(p);
+    else if (n.endsWith('.css')) cssFiles.push(p);
   }
 })(DIST);
+
+// VISUAL-ORDER HONESTY (2026-07-27): this extract preserves SOURCE order —
+// CSS can flip shipped visual order (flex *-reverse, non-zero order,
+// direction:rtl) without touching the DOM, and a text extract cannot see
+// that. So blocks affected by order-altering CSS are MARKED, making the
+// reversal observable to the blind read instead of silently misrepresented.
+const REVERSAL_DECL = /flex-direction\s*:\s*(?:column|row)-reverse|(?:^|[;{\s])order\s*:\s*-?[1-9]|direction\s*:\s*rtl/i;
+const reversalClassesFrom = (css) => {
+  const out = new Set();
+  for (const m of css.matchAll(/([^{}]+)\{([^}]*)\}/g)) {
+    if (!REVERSAL_DECL.test(m[2])) continue;
+    for (const c of m[1].matchAll(/\.([A-Za-z_][\w-]*)/g)) out.add(c[1]);
+  }
+  return out;
+};
+const globalReversalClasses = new Set();
+for (const f of cssFiles) for (const c of reversalClassesFrom(readFileSync(f, 'utf8'))) globalReversalClasses.add(c);
 
 for (const p of pages) {
   let h = readFileSync(p, 'utf8');
@@ -73,8 +99,15 @@ for (const p of pages) {
   // scratch-gag rotation, and the field↔alert wiring are all real user-facing copy that lived
   // only in attributes — the blind read could not observe them, so a transposed carrier was
   // invisible to the compensating control. Surface each, marked, right after its element.
+  const pageReversalClasses = new Set(globalReversalClasses);
+  for (const st of readFileSync(p, 'utf8').matchAll(/<style\b[^>]*>([\s\S]*?)<\/style\s*>/gi))
+    for (const c of reversalClassesFrom(st[1])) pageReversalClasses.add(c);
   h = h.replace(/<[a-z][^>]*>/gi, (tag) => {
     let out = tag;
+    const cls = tag.match(/\sclass="([^"]*)"/i);
+    if ((cls && cls[1].split(/\s+/).some((t) => pageReversalClasses.has(t))) ||
+        (/\sstyle="([^"]*)"/i.test(tag) && REVERSAL_DECL.test(tag.match(/\sstyle="([^"]*)"/i)[1])))
+      out += ' [layout: this block’s VISUAL order is reversed by CSS — read it bottom-up] ';
     for (const [attr, label] of [
       ['data-share-title', 'share title'],
       ['data-share-text', 'share text'],
