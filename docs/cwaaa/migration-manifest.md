@@ -24,7 +24,7 @@ Filenames above are entry points, not permission for blind bulk moves.
 | Sniff Test questions, interaction, verdicts | stays Got Soap? |
 | Five PSA posters and spot staging | stays Got Soap? |
 | Campaign edition of Lather Pledge | stays Got Soap? |
-| Shared pledge semantics and both public presentations | copied identically to both sites |
+| Shared pledge contract and field semantics | byte-identical in both sites; Got Soap? keeps its campaign presentation and CWAAA keeps its nonprofit presentation |
 | CWAAA findings, founding account, chapters, ribbon program | moves to CWAAA |
 | Recovery records as participant advocacy files, not enforcement files | moves to CWAAA |
 | CWAAA seal/ribbon master assets | moves to CWAAA; campaign may keep optimized seam assets |

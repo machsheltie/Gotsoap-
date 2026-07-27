@@ -159,7 +159,8 @@ surveillance room.
 Email is a finite service relationship, not a retention machine. After a pledge, CWAAA sends an
 immediate receipt and one separately delivered current-issue newsletter. The issue is evergreen but
 displays the month and year at signup or send time; it is sent exactly once. No monthly subscription
-or drip campaign follows unless a future, explicitly separate program changes the contract.
+or drip campaign follows. The Form CW-1 relationship is exactly these two messages. Any future
+program requires separate owner approval and a separate contract; it does not modify Form CW-1.
 
 ## Telephone
 
