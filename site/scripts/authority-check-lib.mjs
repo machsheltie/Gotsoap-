@@ -38,14 +38,25 @@ function protectedUnresolvedContext(line) {
   return /\b(?:whether|intentionally unresolved|unresolved possibility|may wonder|allowed to wonder|does not|do not|never|must not|cannot|can't|forbidden|prohibited|historical|superseded|quoted|example|no artifact|question)\b/i.test(context);
 }
 
+const nonassertiveDocumentationPattern =
+  /\b(?:phrase|wording|draft|quotation|quote|quoted|rejected|example|historical|archived|superseded|forbidden)\b/i;
+
+function normalizeInlineAuthorityText(line) {
+  return line.replace(
+    /`([^`\r\n]*)`|“([^”\r\n]*)”|"([^"\r\n]*)"/g,
+    (span, code, curly, ascii, offset, source) => {
+      const surrounding = `${source.slice(0, offset)} ${source.slice(offset + span.length)}`;
+      if (nonassertiveDocumentationPattern.test(surrounding)) return ' ';
+      return code ?? curly ?? ascii ?? '';
+    },
+  );
+}
+
 function semanticClauses(text) {
   const assertionText = text
     .split(/\r?\n/)
     .filter((line) => !/^\s*>/.test(line))
-    .map((line) => line
-      .replace(/`[^`\r\n]*`/g, ' ')
-      .replace(/“[^”\r\n]*”/g, ' ')
-      .replace(/"[^"\r\n]*"/g, ' '))
+    .map(normalizeInlineAuthorityText)
     .join('\n');
 
   return assertionText

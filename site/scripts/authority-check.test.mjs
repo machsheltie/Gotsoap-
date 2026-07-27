@@ -529,6 +529,48 @@ const canonMutationCases = [
     statement: 'CWAAA is controlled by the Office.',
     expected: /relationship mystery.*controlled/i,
   },
+  {
+    name: 'CWAAA partner label in curly scare quotes',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: "CWAAA is the Office's “partner”.",
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'CWAAA partner label in ASCII scare quotes',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: "CWAAA is the Office's \"partner\".",
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'CWAAA regulation verb in curly scare quotes',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA “regulates” hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'Office operation verb in curly scare quotes',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The Office “operates” CWAAA.',
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'CWAAA partner label styled as inline code',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: "CWAAA is the Office's `partner`.",
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'whole forbidden partner predicate in curly quotes',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: "CWAAA “is the Office's partner”.",
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'whole forbidden partner predicate styled as inline code',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: "CWAAA `is the Office's partner`.",
+    expected: /relationship mystery.*partner/i,
+  },
 ];
 
 for (const { name, path, statement, expected } of canonMutationCases) {

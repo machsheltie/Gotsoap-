@@ -245,3 +245,51 @@ corrections remain deferred to their authorized lane.
 
 This focused commit changes only this report, `site/scripts/authority-check-lib.mjs`, and
 `site/scripts/authority-check.test.mjs`.
+
+## Inline styling checker closure
+
+The final focused review found one Important checker-only bypass: semantic clause preparation
+deleted all inline code, curly-quoted, and ASCII-quoted spans before authority matching. That let
+forbidden predicates evade the checker merely by styling a role word or the whole predicate. No
+canon, content, contract, runtime, or IVR artifact changed.
+
+Inline spans are now classified from the surrounding clause on both sides. Genuine documentation,
+historical text, rejected examples, and forbidden examples remain nonassertive; otherwise the
+styling delimiters are unwrapped and the semantic content remains available to the existing
+authority rules. Markdown blockquote lines remain structurally excluded.
+
+### Inline styling TDD evidence
+
+1. Exact RED: `npm --prefix site run authority:test` exited 1 with 250 tests, 243 passed and the
+   seven new styled-assertion regressions failed.
+2. Focused GREEN: 9/9 passed — seven required styled rejections plus the exact rejected-example
+   quotation and Markdown blockquote controls.
+3. Full GREEN: `npm --prefix site run authority:test` passed 250/250.
+4. Combined old and new direct corpora passed 34/34: 26 required rejections and 8 required
+   nonassertive/correct allowances.
+
+### Inline styling acceptance evidence
+
+- `npm --prefix site run authority` — PASS.
+- `npm --prefix site run build` — PASS; Astro built 22 static pages.
+- `npm --prefix site run gates` — PASS, 20/20.
+- `npm --prefix site run copy-gates` — PASS, 7/7.
+- `npm --prefix site run fidelity` — authoritative PASS, 54/54.
+- `npm --prefix site run distinguish` — PASS.
+- All 8 tracked JSON files parse; pledge `Buffer.equals` parity passes.
+- Pledge contracts: 3,370 bytes each, SHA-256
+  `61b8361829646344928f277b375064af6dcca4ba00e4dd2aa2db5e83b82b4b8a`.
+- Office state contract: 4,643 bytes, SHA-256
+  `91b18d31c4d66c0e71b5133c29ec2f068547c933b1fa146f59fad980f21e5197`.
+- IVR PDF: 48,058 bytes, 4 `/Type /Page` markers, SHA-256
+  `7748cefced4d671e57aca64d4ba3852c693c068b89a982e2365e4fc3d6af1ab0`.
+- Stale/live scan, including `.claude/rules/gotsoap-web-design.md`, and `git diff --check` — PASS.
+- `site/src`, all contract files, and the canonical IVR PDF — unchanged.
+
+The recurring Windows sandbox EPERM affected only Astro's generated type write, fidelity's child
+`git`, and the Node focused-test worker; each command passed unchanged under the approved elevated
+execution path. The required `apply_patch` path again could not prepare the `C:\tmp` split-root
+sandbox, so the same scoped unified-diff `git apply` fallback was used.
+
+This final focused commit changes only this report, `site/scripts/authority-check-lib.mjs`, and
+`site/scripts/authority-check.test.mjs`.
