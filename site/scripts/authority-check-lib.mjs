@@ -41,6 +41,14 @@ export function validateOfficeStateContract(contract) {
     'later_return',
     'continued_interest',
   ];
+  const stateById = Object.fromEntries(
+    (contract.states ?? []).map((state) => [state.id, state]),
+  );
+  const storage = contract.storage ?? {};
+  const terminalIdentity = contract.terminalIdentity ?? {};
+  const newSessionTransition = contract.newSessionTransition ?? {};
+  const sameSessionTransition = contract.sameSessionTransition ?? {};
+
   if (contract.thresholds?.continuedInterestSession !== 3) {
     errors.push('Continued Interest must begin on the third distinct browser session.');
   }
@@ -60,6 +68,59 @@ export function validateOfficeStateContract(contract) {
     errors.push('Office contract must retain standing containment reference 8804-X.');
   }
   if (
+    ['cookies', 'ipAddress', 'fingerprinting', 'serverPersistence']
+      .some((key) => storage[key] !== false)
+  ) {
+    errors.push('Office storage must disable cookies, IP addresses, fingerprinting, and server persistence.');
+  }
+  if (
+    contract.rendering?.resolveBeforeReveal !== true
+    || contract.rendering?.returningBrowserMayFlashFirstAccess !== false
+  ) {
+    errors.push('Office rendering must resolveBeforeReveal without a First Access flash.');
+  }
+  if (
+    terminalIdentity.scope !== 'browser-local'
+    || terminalIdentity.source !== 'locally generated fictional browser identifier'
+    || terminalIdentity.fingerprinting !== false
+  ) {
+    errors.push('Office terminal identity must remain browser-local and fingerprint-free.');
+  }
+  if (
+    contract.stateSelectionContext?.captureSessionMarkerBeforeTransition !== true
+    || contract.stateSelectionContext?.newSession !== 'session marker was absent at start of access'
+  ) {
+    errors.push('Office state selection must capture new-session status before transition.');
+  }
+  if (newSessionTransition.beforeStateSelection !== true) {
+    errors.push('Office new-session transition must run before pre-selection state resolution.');
+  }
+  if (
+    newSessionTransition.returnSessionCount?.operation !== 'increment'
+    || newSessionTransition.returnSessionCount?.amount !== 1
+    || newSessionTransition.returnSessionCount?.oncePerNewSession !== true
+  ) {
+    errors.push('Office new-session transition must increment returnSessionCount exactly once.');
+  }
+  if (
+    newSessionTransition.lifetimeAccessCount?.operation !== 'increment'
+    || newSessionTransition.lifetimeAccessCount?.amount !== 1
+  ) {
+    errors.push('Office new-session transition must increment lifetimeAccessCount once.');
+  }
+  if (
+    newSessionTransition.sessionRecord?.operation !== 'create'
+    || newSessionTransition.sessionRecord?.sessionRefreshCount !== 0
+  ) {
+    errors.push('Office new-session transition must create a fresh session record.');
+  }
+  if (
+    sameSessionTransition.returnSessionCount?.operation !== 'preserve'
+    || sameSessionTransition.returnSessionCount?.increment !== false
+  ) {
+    errors.push('Office reloads must preserve returnSessionCount without incrementing it.');
+  }
+  if (
     JSON.stringify(contract.stateSelectionOrder) !== JSON.stringify(expectedStateSelectionOrder)
   ) {
     errors.push('Office state selection must prioritize Continued Interest, refresh, later return, then first access.');
@@ -68,6 +129,16 @@ export function validateOfficeStateContract(contract) {
     JSON.stringify(contract.states?.map((state) => state.id)) !== JSON.stringify(expectedStateIds)
   ) {
     errors.push('Office contract must retain the four-state session progression.');
+  }
+  if (
+    stateById.first_access?.selection?.persistentRecordExists !== false
+    || stateById.same_session_refresh?.selection?.sessionMarkerExistedAtAccessStart !== true
+    || stateById.same_session_refresh?.selection?.maximumReturnSessionCount !== 1
+    || stateById.later_return?.selection?.newSession !== true
+    || stateById.later_return?.selection?.postTransitionReturnSessionCount !== 1
+    || stateById.continued_interest?.selection?.postTransitionReturnSessionCount?.minimum !== 2
+  ) {
+    errors.push('Office state selectors must use post-transition session counts deterministically.');
   }
   return errors;
 }

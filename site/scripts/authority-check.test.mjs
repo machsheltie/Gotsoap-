@@ -104,30 +104,10 @@ test('the Office contract is error-state-only and jurisdiction-neutral', () => {
 });
 
 test('Office escalation advances by distinct sessions, never reload count', () => {
-  const corrected = {
-    thresholds: { continuedInterestSession: 3 },
-    persistentRecord: {
-      returnSessionCount: 'non-negative integer',
-      lifetimeAccessCount: 'positive integer',
-      reference: '8804-X',
-    },
-    sessionRecord: {
-      sessionRefreshCount: 'non-negative integer',
-    },
-    referenceMeaning: 'standing containment reference',
-    stateSelectionOrder: [
-      'continued_interest',
-      'same_session_refresh',
-      'later_return',
-      'first_access',
-    ],
-    states: [
-      { id: 'first_access' },
-      { id: 'same_session_refresh' },
-      { id: 'later_return' },
-      { id: 'continued_interest' },
-    ],
-  };
+  const corrected = JSON.parse(readFileSync(
+    join(repoRoot, 'docs/office-of-lather-compliance/contracts/visit-state.v1.json'),
+    'utf8',
+  ));
 
   assert.deepEqual(validateOfficeStateContract(corrected), []);
 
@@ -141,28 +121,10 @@ test('Office escalation advances by distinct sessions, never reload count', () =
 });
 
 test('Office state selection preserves the session progression', () => {
-  const contract = {
-    thresholds: { continuedInterestSession: 3 },
-    persistentRecord: {
-      returnSessionCount: 'non-negative integer',
-      lifetimeAccessCount: 'positive integer',
-      reference: '8804-X',
-    },
-    sessionRecord: { sessionRefreshCount: 'non-negative integer' },
-    referenceMeaning: 'standing containment reference',
-    stateSelectionOrder: [
-      'continued_interest',
-      'same_session_refresh',
-      'later_return',
-      'first_access',
-    ],
-    states: [
-      { id: 'first_access' },
-      { id: 'same_session_refresh' },
-      { id: 'later_return' },
-      { id: 'continued_interest' },
-    ],
-  };
+  const contract = JSON.parse(readFileSync(
+    join(repoRoot, 'docs/office-of-lather-compliance/contracts/visit-state.v1.json'),
+    'utf8',
+  ));
 
   assert.deepEqual(validateOfficeStateContract(contract), []);
 
@@ -170,6 +132,29 @@ test('Office state selection preserves the session progression', () => {
   assert.match(
     validateOfficeStateContract(contract).join('\n'),
     /state selection/i,
+  );
+});
+
+test('Office contract rejects binding privacy, rendering, and transition drift', () => {
+  const drifted = JSON.parse(readFileSync(
+    join(repoRoot, 'docs/office-of-lather-compliance/contracts/visit-state.v1.json'),
+    'utf8',
+  ));
+
+  drifted.storage.cookies = true;
+  drifted.storage.ipAddress = true;
+  drifted.storage.fingerprinting = true;
+  drifted.storage.serverPersistence = true;
+  drifted.rendering.resolveBeforeReveal = false;
+  drifted.rendering.returningBrowserMayFlashFirstAccess = true;
+  drifted.terminalIdentity = { scope: 'visitor' };
+  drifted.newSessionTransition = { beforeStateSelection: false };
+  drifted.sameSessionTransition = { returnSessionCount: { increment: true } };
+  drifted.states.find((state) => state.id === 'later_return').selection.postTransitionReturnSessionCount = 2;
+
+  assert.match(
+    validateOfficeStateContract(drifted).join('\n'),
+    /cookies|IP-free|resolveBeforeReveal|browser-local|pre-selection|reload|post-transition/i,
   );
 });
 

@@ -33,6 +33,20 @@ Session 1: First Access; same-session reload: Refresh Denied.
 Session 2: Repeat Access; same-session reload never advances the narrative.
 Session 3 and later: Continued Interest stasis.
 
+### Deterministic resolution order
+
+1. Read the persistent record and capture whether the current session marker existed at the start of
+   the access, before creating or changing any record.
+2. With no persistent record, select First Access and create the persistent and session records.
+3. With a persistent record and a marker that existed at access start, select Same-Session Refresh;
+   reloads increment only the refresh and lifetime-access counts.
+4. With a persistent record and no marker at access start, set `newSession` to true and run the
+   pre-selection new-session transition exactly once: increment `returnSessionCount` and
+   `lifetimeAccessCount` by one, update last contact, and create a fresh session record with
+   `sessionRefreshCount` set to `0`.
+5. Select by post-transition count: `1` is Later Return; `2` or greater is Continued Interest.
+   The newly created session marker must not be mistaken for a same-session reload.
+
 ### FIRST ACCESS
 
 Render the administrative containment notice. Create persistent and session records, set
@@ -48,15 +62,18 @@ increment `returnSessionCount` or advance the narrative.
 
 ### LATER RETURN
 
-On the second distinct browser session, increment `returnSessionCount` to exactly `1`, create a new
-session record, and render repeat access with terminal ID, original timestamp, current timestamp,
-reference, and active status. Reloads within this session remain Refresh Denied and do not advance.
+On the second distinct browser session, the pre-selection new-session transition changes
+`returnSessionCount` from `0` to `1` exactly once, increments `lifetimeAccessCount`, and creates the
+fresh session record before state selection. Later Return then renders repeat access with terminal ID,
+original timestamp, current timestamp, reference, and active status. Reloads within this session remain
+Refresh Denied and do not advance.
 
 ### CONTINUED INTEREST
 
-On the third distinct browser session, `returnSessionCount` becomes `2` and the Office renders the
-continued-interest notice. Session 3 and all later sessions remain in Continued Interest stasis;
-there is no fourth-return escalation.
+On the third distinct browser session, the same pre-selection new-session transition changes
+`returnSessionCount` from `1` to `2` exactly once before state selection. Continued Interest then
+matches the post-transition count. Session 3 and all later sessions remain in Continued Interest
+stasis; there is no fourth-return escalation.
 
 Exact copy and ordering are in `design.md`.
 

@@ -115,8 +115,14 @@ Session 2: Repeat Access; same-session reload never advances the narrative.
 Session 3 and later: Continued Interest stasis.
 
 Resolve the browser-local state before revealing any state-dependent copy. A returning browser must
-never flash First Access while storage is being read. Reload count may update an internal access total,
-but it never advances the visitor to another narrative state.
+never flash First Access while storage is being read. Capture whether the session marker existed at the
+start of the access before making any transition. If a persistent record exists and the marker was absent,
+run the new-session transition exactly once before state selection: increment `returnSessionCount` and
+`lifetimeAccessCount`, update last contact, and create a fresh session record. That makes session 2 a
+post-transition count of `1` (Repeat Access) and session 3 a post-transition count of `2` (Continued
+Interest). The newly created marker does not turn the first access of that new session into a refresh.
+Reload count may update an internal access total, but it never advances the visitor to another narrative
+state or increments `returnSessionCount`.
 
 ## Terminal identity
 

@@ -24,9 +24,48 @@
     "reference": "8804-X",
     "terminalId": "locally generated fictional browser identifier"
   },
+  "terminalIdentity": {
+    "scope": "browser-local",
+    "source": "locally generated fictional browser identifier",
+    "fingerprinting": false
+  },
   "sessionRecord": {
     "sessionId": "locally generated ephemeral identifier",
     "sessionRefreshCount": "non-negative integer"
+  },
+  "stateSelectionContext": {
+    "captureSessionMarkerBeforeTransition": true,
+    "newSession": "session marker was absent at start of access"
+  },
+  "newSessionTransition": {
+    "beforeStateSelection": true,
+    "returnSessionCount": {
+      "operation": "increment",
+      "amount": 1,
+      "oncePerNewSession": true
+    },
+    "lifetimeAccessCount": {
+      "operation": "increment",
+      "amount": 1
+    },
+    "sessionRecord": {
+      "operation": "create",
+      "sessionRefreshCount": 0
+    }
+  },
+  "sameSessionTransition": {
+    "returnSessionCount": {
+      "operation": "preserve",
+      "increment": false
+    },
+    "sessionRefreshCount": {
+      "operation": "increment",
+      "amount": 1
+    },
+    "lifetimeAccessCount": {
+      "operation": "increment",
+      "amount": 1
+    }
   },
   "stateSelectionOrder": [
     "continued_interest",
@@ -38,25 +77,41 @@
     {
       "id": "first_access",
       "display": "FIRST ACCESS",
+      "selection": {
+        "persistentRecordExists": false
+      },
       "condition": "no persistent record",
-      "effect": "create persistent and session records; set returnSessionCount to 0 and lifetimeAccessCount to 1"
+      "effect": "create persistent and session records; set returnSessionCount to 0, lifetimeAccessCount to 1, and sessionRefreshCount to 0"
     },
     {
       "id": "same_session_refresh",
       "display": "SAME-SESSION REFRESH",
-      "condition": "session marker exists and returnSessionCount is below 2",
+      "selection": {
+        "sessionMarkerExistedAtAccessStart": true,
+        "maximumReturnSessionCount": 1
+      },
+      "condition": "session marker existed at access start and returnSessionCount is below 2",
       "effect": "increment sessionRefreshCount and lifetimeAccessCount; never increment returnSessionCount"
     },
     {
       "id": "later_return",
       "display": "LATER RETURN",
-      "condition": "new session increments returnSessionCount to exactly 1",
-      "effect": "show first and current timestamps and create a new session record"
+      "selection": {
+        "newSession": true,
+        "postTransitionReturnSessionCount": 1
+      },
+      "condition": "new-session transition ran and post-transition returnSessionCount is exactly 1",
+      "effect": "show first and current timestamps after the new-session transition creates the session record"
     },
     {
       "id": "continued_interest",
       "display": "CONTINUED INTEREST",
-      "condition": "returnSessionCount is 2 or greater",
+      "selection": {
+        "postTransitionReturnSessionCount": {
+          "minimum": 2
+        }
+      },
+      "condition": "post-transition returnSessionCount is 2 or greater",
       "effect": "remain in Continued Interest stasis on all later accesses"
     }
   ],
