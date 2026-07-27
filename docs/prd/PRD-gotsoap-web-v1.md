@@ -137,8 +137,22 @@ states, or a government-agency explainer.
 - Both editions implement `../contracts/pledge.v1.json` exactly.
 - Both submit to one Buttondown audience.
 - Required visible fields: first name, email, affirmative consent.
+- CWAAA authors fulfillment for both public pledge presentations. Got Soap? authors the campaign
+  invitation, form shell, and on-page success voice; CWAAA authors the delivered messages.
+- Consent visibly discloses exactly two messages: one immediate pledge receipt and one separately delivered current issue after a configurable short delay. It discloses that no ongoing subscription
+  or drip follows.
 - Include an off-screen honeypot where supported.
-- Do not log field values to analytics.
+- Do not send pledge or email values to analytics.
+- The receipt includes a consent-withdrawal/suppression path. If consent is withdrawn or unsubscribed before the current issue is sent, suppress that issue.
+- The current issue includes a functioning unsubscribe/suppression mechanism even though no automatic
+  future issues are planned.
+- Buttondown confirmation or welcome delivery either fulfills the defined receipt or is disabled; it
+  may not become a third message.
+- Retain only the minimum Buttondown data needed to deliver both messages, honor suppression, and
+  prevent an accidental resend. Remove unneeded fulfillment metadata after completion while retaining
+  only the minimum suppression record needed to honor the visitor's choice.
+- Future marketing or programs require separate approval, contract, and consent and do not alter Form
+  CW-1.
 - Show adjacent, accessible validation errors and preserve entered non-sensitive values after a
   correctable failure.
 - Success semantic is `SWORN`.
@@ -202,6 +216,7 @@ requires an explicit product decision.
 - Visible focus, semantic landmarks, useful labels, live regions for async results.
 - Respect reduced motion and high-contrast user preferences.
 - No fingerprinting or invasive analytics.
+- Pledge and email values never enter analytics; Form CW-1 follows the retention limits in §6.4.
 - Responsive image `srcset`, explicit dimensions, and modern formats.
 - Performance budgets at production review:
   - initial JS target under 100 KB compressed;

@@ -55,13 +55,13 @@ missing documentation.
 
 ## Knowledge matrix
 
-| Knower | What it can know | What it cannot establish |
+| Perspective or surface | What may be established | What its public artifacts or documents do not establish |
 | --- | --- | --- |
 | First-time visitor | Got Soap? is a hygiene campaign; CWAAA is an advocacy nonprofit; the Office link is unusual. | How CWAAA and the Office operate together. |
 | Attentive repeat visitor | Repeated names, dates, and artifacts suggest institutional continuity. | A hidden organizational chart, transfer, or jurisdiction. |
-| Got Soap? | Its campaign invitation, poster world, Sniff Test, campaign pledge edition, and campaign artifacts. | CWAAA or Office internal operation. |
-| CWAAA | Its advocacy work, filing, chapter material, pledge receipt, and carefully limited Office references. | The Office's jurisdiction or operational relationship. |
-| Office | Its unavailable resource, standing continuity, and its own error-state performance. | Any public explanation of its jurisdiction or relationship. |
+| Got Soap? public artifacts | Its campaign invitation, poster world, Sniff Test, campaign pledge edition, and campaign artifacts. | CWAAA or Office internal operation. |
+| CWAAA public artifacts | Its advocacy work, filing, chapter material, pledge receipt, and carefully limited Office references. | How much leadership knows, Office internal systems, jurisdiction, or operational relationship. |
+| Office public artifacts | Its unavailable resource, standing continuity, and its own error-state performance. | Any public explanation of its jurisdiction or relationship. |
 | Production authority | The objective canon and rules governing deliberate ambiguity. | Any explanation listed as intentionally unresolved. |
 | Protected unknowns | Nothing may answer them. | Everything named in **Intentionally unresolved**. |
 

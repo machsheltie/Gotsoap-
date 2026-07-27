@@ -31,8 +31,11 @@ The following approved facts are objective canon within the fiction:
 
 CWAAA is modest, competent, patient, and real within the fiction. The comedy comes from applying
 serious nonprofit procedure to an absurdly low bar. It does not come from misspellings, broken
-design, corruption, cruelty, or institutional incompetence. CWAAA is an advocacy nonprofit, never
-a regulator, law-enforcement body, or government front.
+design, corruption, cruelty, or institutional incompetence. On ordinary public surfaces, CWAAA
+presents itself as an advocacy nonprofit. It never publicly presents itself as a government agency
+or front, never claims regulatory power, and never explains whether the Office acts through it.
+Private production canon keeps the entities legally separate without proving that separation is
+operationally meaningful to the audience.
 
 ## What CWAAA believes
 
@@ -105,7 +108,7 @@ copy.
 
 ### Recovery records
 
-Recovery records may generate or share reform stories as campaign artifacts. They document change and
+Recovery records may generate or share reform stories as nonprofit/program artifacts. They document change and
 next action rather than adjudicating fault.
 
 ## Records and participant dignity
@@ -142,10 +145,10 @@ illusion. Do not turn a normal CWAAA page into an Office encounter.
 
 ## Knowledge boundaries
 
-CWAAA knows its own programs, participant advocacy records, chapters, findings, and public referrals.
-It may cite the Office as a separate external authority but does not know, describe, or interpret its
-internal systems. Shared canon controls what remains intentionally unresolved; CWAAA does not fill in
-those blanks.
+CWAAA publicly speaks to its own programs, participant advocacy records, chapters, findings, and
+referrals. It may cite the Office as a separate external authority, but it never reveals how much
+leadership knows. Its website does not expose or interpret Office internal systems. Shared canon
+controls what remains intentionally unresolved; CWAAA's public artifacts do not fill in those blanks.
 
 ## Physical space
 
@@ -159,8 +162,17 @@ surveillance room.
 Email is a finite service relationship, not a retention machine. After a pledge, CWAAA sends an
 immediate receipt and one separately delivered current-issue newsletter. The issue is evergreen but
 displays the month and year at signup or send time; it is sent exactly once. No monthly subscription
-or drip campaign follows. The Form CW-1 relationship is exactly these two messages. Any future
-program requires separate owner approval and a separate contract; it does not modify Form CW-1.
+or drip campaign follows. The Form CW-1 relationship is exactly these two messages, and CWAAA authors
+both messages for both public pledge presentations. The receipt provides a consent-withdrawal path;
+if consent is withdrawn or unsubscribed before the delayed issue, that issue is suppressed. The
+current issue includes a functioning unsubscribe/suppression mechanism even though no automatic
+future issues are planned.
+
+Pledge and email values do not enter analytics. Buttondown retains only the minimum data needed to
+fulfill the two messages and honor suppression; unneeded fulfillment metadata is removed after
+completion while the minimum suppression record may remain to prevent accidental resend. Any future
+marketing or program requires separate owner approval, contract, and affirmative consent; it does
+not alter Form CW-1.
 
 ## Telephone
 

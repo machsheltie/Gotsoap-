@@ -36,7 +36,7 @@ Requirements:
 
 ## 2. Lather Pledge
 
-**Purpose:** conversion and continuing relationship.
+**Purpose:** conversion and a finite two-message relationship.
 **Owner:** CWAAA program distributed on both Got Soap? and CWAAA.
 **Contract:** `../contracts/pledge.v1.json` and the identical CWAAA package copy.
 
@@ -45,6 +45,10 @@ Both forms:
 - submit first name and email to one Buttondown audience;
 - require affirmative consent;
 - use the same `SWORN` success semantic;
+- disclose the immediate CWAAA-authored receipt and one separately delivered CWAAA current issue;
+- suppress the current issue after pre-send consent withdrawal and include functioning unsubscribe;
+- create no ongoing subscription or drip; and
+- retain only minimum Buttondown fulfillment/suppression data.
 - offer share and copy-link actions;
 - never send field values to analytics.
 

@@ -37,14 +37,19 @@ Session 3 and later: Continued Interest stasis.
 
 1. Read the persistent record and capture whether the current session marker existed at the start of
    the access, before creating or changing any record.
-2. With no persistent record, select First Access and create the persistent and session records.
-3. With a persistent record and a marker that existed at access start, select Same-Session Refresh;
-   reloads increment only the refresh and lifetime-access counts.
+2. With no persistent record, select First Access, skip the new-session transition, and create the
+   persistent and session records with the initial values specified below.
+3. With a persistent record and a marker that existed at access start, run the same-session counter
+   transition: preserve `returnSessionCount`, increment `sessionRefreshCount` and
+   `lifetimeAccessCount`, then select the visible state. SAME-SESSION REFRESH APPLIES ONLY WHILE
+   `returnSessionCount` IS BELOW `2`; at `2` or greater, Continued Interest takes precedence and
+   remains visible on reload.
 4. With a persistent record and no marker at access start, set `newSession` to true and run the
    pre-selection new-session transition exactly once: increment `returnSessionCount` and
    `lifetimeAccessCount` by one, update last contact, and create a fresh session record with
    `sessionRefreshCount` set to `0`.
-5. Select by post-transition count: `1` is Later Return; `2` or greater is Continued Interest.
+5. Select by post-transition count: `1` is Later Return; `2` or greater is Continued Interest. For
+   an existing same-session marker, the unchanged count determines the same threshold.
    The newly created session marker must not be mistaken for a same-session reload.
 
 ### FIRST ACCESS
@@ -56,9 +61,10 @@ identity.
 
 ### SAME-SESSION REFRESH
 
-Render the terse refresh-denied notice. Preserve first contact, terminal ID, reference, and
-`returnSessionCount`. Increment `sessionRefreshCount` and `lifetimeAccessCount`; reloads never
-increment `returnSessionCount` or advance the narrative.
+Before the Continued Interest threshold, render the terse refresh-denied notice. Preserve first
+contact, terminal ID, reference, and `returnSessionCount`. Increment `sessionRefreshCount` and
+`lifetimeAccessCount`; reloads never increment `returnSessionCount` or advance the narrative. At the
+threshold, the same counter transition runs but the visible state remains Continued Interest.
 
 ### LATER RETURN
 
@@ -73,7 +79,8 @@ Refresh Denied and do not advance.
 On the third distinct browser session, the same pre-selection new-session transition changes
 `returnSessionCount` from `1` to `2` exactly once before state selection. Continued Interest then
 matches the post-transition count. Session 3 and all later sessions remain in Continued Interest
-stasis; there is no fourth-return escalation.
+stasis, including reloads; there is no fourth-return escalation. Reloads may increment refresh and
+lifetime-access bookkeeping but never replace Continued Interest with Refresh Denied.
 
 Exact copy and ordering are in `design.md`.
 

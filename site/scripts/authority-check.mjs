@@ -14,8 +14,9 @@ if (errors.length) {
 }
 
 console.log('AUTHORITY CHECK: PASS');
-console.log('- shared world canon and artifact continuity markers present');
-console.log('- three-system ownership and per-system behavioral markers present');
-console.log('- portable pledge contracts match exactly');
-console.log('- Office jurisdiction, error-only surface, and local-state rules intact');
-console.log('- IVR ambiguity and Office session-state rules intact');
+console.log('- shared canon, portability, artifact ownership, and HANDOFF precedence intact');
+console.log('- path-aware chronology, role, and unresolved-relationship rules intact');
+console.log('- portable pledge Buffers match and finite CWAAA fulfillment is intact');
+console.log('- Office jurisdiction, error-only surface, storage, privacy, and state rules intact');
+console.log('- IVR exact SHA-256, protected branches, two voices, and no-transfer ambiguity intact');
+console.log('- IVR Office language/authority remains distinct from browser session state');

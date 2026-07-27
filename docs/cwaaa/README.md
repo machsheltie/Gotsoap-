@@ -6,9 +6,12 @@ CWAAA—Concerned Women Against Axe Abuse—is a credible fictional advocacy non
 documents, publishes findings, maintains participant advocacy files, and receives the Lather Pledge.
 It is not a government body.
 
-The Office of Lather Compliance is a separate fictional government agency. CWAAA may link to the
-Office as an external authority. CWAAA does not contain or operate it, staff it, or speak on its
-behalf.
+Private production canon identifies the Office of Lather Compliance as a legally separate fictional
+government agency. That legal fact does not prove operational separation to the audience. CWAAA may
+link to the Office as an unexplained external authority. The PUBLIC SITE PRESENTS ONLY CWAAA
+AUTHORSHIP on ordinary nonprofit pages, never claims regulatory power, and never explains whether
+the Office acts through CWAAA. The canonical IVR remains the controlled exception: two presented
+voices, no audible transfer, and intentionally unresolved authorship.
 
 ## Package contents
 
@@ -26,5 +29,28 @@ behalf.
 The package must remain intelligible without Got Soap?'s root documentation. Relative references
 inside this folder resolve within the package unless explicitly labeled as current-repository
 migration evidence. The world bible deliberately references shared master canon instead of duplicating
-it; copy the referenced shared world authority alongside this package when extracting a standalone
-repository.
+it inside this package.
+
+## Shared-canon synchronization contract
+
+- **Contract identity:** `gotsoap-world-canon.v1`
+- **Version:** 1 (contract version 1)
+- **Upstream repository:** `https://github.com/machsheltie/Gotsoap-.git`
+- **Upstream path:** `docs/world/`
+- **Source commit:** record the full upstream commit at extraction time; this field is intentionally
+  not assigned permanently in source content.
+
+The extracted `docs/world/` copy is a subordinate snapshot, not duplicate authority. Before release,
+compare its recorded source commit and version with upstream. If shared canon changed, resync the
+entire dependency closure from one upstream commit, rerun authority/hash/parity checks, and update the
+recorded source commit.
+
+The exact CWAAA dependency closure is:
+
+- `docs/world/README.md`;
+- `docs/world/WORLD-BIBLE.md`;
+- `docs/world/artifact-continuity.md`;
+- the relevant artifact authority and source:
+  `docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md` and the canonical PDF beside it; and
+- every shared contract consumed: `docs/contracts/pledge.v1.json`, with
+  `docs/cwaaa/contracts/pledge.v1.json` remaining byte-identical.

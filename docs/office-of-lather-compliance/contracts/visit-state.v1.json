@@ -37,8 +37,24 @@
     "captureSessionMarkerBeforeTransition": true,
     "newSession": "session marker was absent at start of access"
   },
+  "firstAccessTransition": {
+    "requiresPersistentRecordAbsent": true,
+    "skipsNewSessionTransition": true,
+    "persistentRecord": {
+      "operation": "create",
+      "returnSessionCount": 0,
+      "lifetimeAccessCount": 1
+    },
+    "sessionRecord": {
+      "operation": "create",
+      "sessionRefreshCount": 0
+    }
+  },
   "newSessionTransition": {
     "beforeStateSelection": true,
+    "requiresPersistentRecord": true,
+    "requiresSessionMarkerAbsentAtAccessStart": true,
+    "literalFirstAccessSkipsTransition": true,
     "returnSessionCount": {
       "operation": "increment",
       "amount": 1,

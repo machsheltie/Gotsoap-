@@ -13,8 +13,13 @@ architecture separates three fictional institutions:
 | **CWAAA** | advocates and files | credible nonprofit, procedural and competent | `docs/cwaaa/` |
 | **Office of Lather Compliance** | regulates | unreadable authority expressed only through custom error states | `docs/office-of-lather-compliance/` |
 
-CWAAA may link to the Office. It never contains, operates, or impersonates the Office. The Office's
-jurisdiction is deliberately unspecified.
+Private production canon identifies CWAAA and the Office as legally separate fictional entities, but
+ordinary public artifacts never prove that separation is operationally meaningful. On ordinary web
+surfaces, each page uses only its named system's authorship: CWAAA pages do not write in the Office's
+regulatory voice, and the Office error site does not publish CWAAA advocacy copy. The canonical IVR
+is the controlled exception: it retains two presented voices, Office language delivered by Voice B,
+no audible transfer, and intentionally unresolved authorship. The Office's jurisdiction remains
+deliberately unspecified.
 
 Intentional uncertainty is not missing documentation. Do not explain the CWAAA/Office relationship,
 add a clean handoff, or average their rendered authorship.

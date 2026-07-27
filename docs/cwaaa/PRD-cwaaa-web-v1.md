@@ -41,21 +41,40 @@ clear.
 - Preserve accessible validation, consent, honeypot, error, and `SWORN` success behavior.
 - CWAAA owns the program; the duplicate public form is an intentional campaign distribution point,
   not a second list.
+- CWAAA authors fulfillment for both public pledge presentations. Got Soap? may author its form shell
+  and on-page success state, but the delivered receipt and current issue remain CWAAA-authored.
+- Affirmative consent must visibly disclose exactly two messages: one immediate pledge receipt and one
+  separately delivered current issue, with no ongoing subscription or drip.
 - Do not say the Office receives, files, or stores subscriber data.
 
 ## Email relationship
 
-After a successful pledge, the finite sequence is:
+After a successful pledge, the finite sequence is exactly two messages:
 
 1. Immediate pledge receipt.
-2. One current-issue newsletter delivered separately after a configurable short delay.
+2. One separately delivered current issue after a configurable short delay.
 
 The receipt confirms the declaration without turning the pledge into a subscription. The current
 issue uses evergreen content and derives its displayed month and year at signup or send time. It sends
 exactly once, with no monthly maintenance required. The short delay is deployment configuration rather
 than permanent canon, so it may change without changing the visitor promise.
 
-This is not an ongoing newsletter subscription or drip campaign.
+The receipt provides a withdrawal path. If consent is withdrawn or unsubscribed before the current issue is sent, suppress that issue. The current issue must include a
+functioning unsubscribe/suppression mechanism even though no automatic future issues are planned.
+
+Buttondown confirmation or welcome delivery must either fulfill the defined immediate receipt or be
+disabled; it may not become a third message. This is not an ongoing newsletter subscription or drip
+campaign. Any future marketing or program requires separate approval, contract, and consent and must
+not alter Form CW-1.
+
+### Email data handling
+
+- Do not send pledge or email values to analytics.
+- Retain only the minimum Buttondown data needed to deliver the two messages, honor withdrawal or
+  suppression, and prevent an accidental resend.
+- Remove unneeded fulfillment metadata after the sequence completes; retain only the minimum
+  suppression record required to honor the visitor's choice.
+- Do not introduce another email or profile provider without a separately approved contract.
 
 ## Cross-site relationships
 
@@ -90,7 +109,7 @@ This is not an ongoing newsletter subscription or drip campaign.
 
 - WCAG 2.2 AA.
 - Keyboard-complete forms and record navigation.
-- Do not send pledge field values to analytics.
+- Do not send pledge or email values to analytics.
 - Do not present fictional case files as real allegations.
 - Do not use IP addresses, fingerprinting, or Office-style recognition.
 
@@ -104,4 +123,6 @@ This is not an ongoing newsletter subscription or drip campaign.
 - No Office containment/error copy appears as CWAAA authorship.
 - The email relationship sends an immediate receipt and exactly one current issue without monthly
   maintenance, subscription enrollment, or a drip campaign.
+- Withdrawal before the delayed issue suppresses it, and both messages expose the required consent or
+  unsubscribe mechanism.
 - Build, link, accessibility, content, and authority checks pass.

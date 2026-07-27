@@ -4,6 +4,8 @@
 
 The owner-supplied `1-800-GOT-SOAP-IVR-script.pdf` is the canonical script source.
 It is preserved byte-for-byte in this directory; its SHA-256 is `7748CEFCED4D671E57ACA64D4BA3852C693C068B89A982E2365E4FC3D6AF1AB0`, and its page order and substantive lines govern.
+The verified artifact is four pages. Page count is a diagnostic; the exact SHA-256 is the integrity
+gate.
 
 ## Public placement
 
@@ -35,7 +37,7 @@ The unresolved handoff is INTENTIONAL WRONGNESS, not a production omission to co
 ## Why this does not redefine ordinary CWAAA
 
 The IVR is an exception: it preserves an authored seam between campaign, apparent advocacy, and
-Office session-state. It does not authorize regulatory language on ordinary CWAAA web surfaces.
+Office language and authority. It does not authorize regulatory language on ordinary CWAAA web surfaces.
 
 ## Production changes allowed
 

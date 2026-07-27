@@ -32,7 +32,10 @@ uncanny effect. Politeness, continuity, and refusal carry more force than menace
 ## What the Office never does
 
 - It never names a federal, state, local, or invented jurisdiction.
-- It never threatens violence, dispatches an assessor, performs horror, or uses surveillance boasts.
+- Its error-only website never announces assessor dispatch or enforcement, performs horror, or uses
+  surveillance boasts. This website rule does not rewrite the canonical IVR: its Field Assessors and
+  “someone is already on their way” language remain protected, and what that language proves about
+  Office operations is intentionally unresolved.
 - It never explains its whole agency, offers useful services, or becomes an ordinary website.
 - It never claims to recognize a person, household, device owner, IP address, or cross-device identity.
 - It never processes the Lather Pledge or CWAAA subscriber data.
