@@ -17,6 +17,10 @@ seduce, direct enough to indict, and funny because it never backs away from its 
 The visitor should experience controlled escalation—steam, skin, chrome, tile, smoke, amber,
 confession—rather than browse a tidy collection of project assets.
 
+The campaign behavioral thesis is simple: Got Soap? changes behavior through erotic aspiration, never
+health education, humiliation, or shame. Desire establishes the invitation; clean-man energy carries
+the movement; the joke lands because the campaign means every gorgeous second of it.
+
 The compositional influence is **editorial brutalism**, not brutalist styling. Use violent scale
 contrast, hard crops, asymmetric columns, abrupt rules, overlapping captions, interrupted reading
 paths, and confident negative space. Do not translate “brutalism” into concrete grey, monospace
@@ -45,6 +49,8 @@ Got Soap? owns:
 - the Sniff Test and all verdict presentation;
 - the campaign edition of the Lather Pledge;
 - campaign share assets and scratch-and-sniff gag;
+- the canonical `/broadcast` campaign-film premiere;
+- the canonical Shop and unavailable-checkout product performance;
 - the late Hope2 Studio reveal.
 
 Got Soap? may link to CWAAA at a designed seam. It does not host CWAAA's findings, case-file archive,
@@ -71,12 +77,14 @@ These are failures even if the build is polished and accessible:
 
 Every major route must name:
 
-1. a dominant visual or typographic event;
-2. an off-axis counterweight;
-3. a designed transition;
-4. the default layout it is refusing.
+1. dominant event;
+2. off-axis counterweight;
+3. material transition;
+4. refused default layout;
+5. emotional change; and
+6. authorship boundary.
 
-If those four answers are absent, the page is not designed yet.
+If those six answers are absent, the page is not designed yet.
 
 ## 5. Visual registers
 
@@ -187,43 +195,109 @@ Motion is an editorial cue, not ambient entertainment.
 
 ## 11. Route direction
 
+Every route direction below supplies the six required answers. The campaign behavioral thesis governs
+all of them: Got Soap? changes behavior through erotic aspiration, never health education,
+humiliation, or shame.
+
 ### Home
 
 **Dominant event:** widescreen, text-free Clean Man hero under self-clearing steam.
-**Counterweight:** live campaign command cut into the image edge.
-**Transition:** bright tile drops through a grout-black cut into the first spot.
-**Refuses:** centered launch-page hero and feature-card summary.
+**Off-axis counterweight:** live campaign command cut into the image edge.
+**Material transition:** bright tile drops through a grout-black cut into the first spot and a
+full-bleed premiere seam to `/broadcast`.
+**Refused default layout:** centered launch-page hero and feature-card summary.
+**Emotional change:** intrigue becomes recruitment.
+**Authorship boundary:** Got Soap? recruits; CWAAA appears only as a compact, configured sponsor seam.
 
-Home recruits into the movement, previews one campaign spot at a time, invites the Sniff Test, and
-contains only a compact CWAAA sponsorship seam.
+Home previews one campaign spot at a time, invites the Sniff Test and pledge, and keeps the
+creator/portfolio explanation out of the opening experience.
 
 ### PSA index and detail
 
-The index behaves like a campaign broadcast schedule, not a gallery. Sequence can be scanned, but
-each spot receives a distinct full-bleed staging. Detail routes preserve the poster, give it air, and
-place downloads/share controls as production artifacts rather than ecommerce buttons.
+**Dominant event:** a campaign broadcast schedule, not a gallery.
+**Off-axis counterweight:** each poster receives a distinct full-bleed staging and live supporting
+artifact.
+**Material transition:** each spot changes register through steam, grout, smoke, chrome, or amber.
+**Refused default layout:** equal-width poster grid and repeated card component.
+**Emotional change:** attention becomes devotion and shareability.
+**Authorship boundary:** canonical posters, downloads, and shares remain Got Soap? material.
+
+Detail routes preserve the poster, give it air, and place download/share controls as production
+artifacts rather than ecommerce buttons.
+
+### Shop
+
+**Dominant event:** a canonical faux storefront that performs campaign desire rather than ordinary
+retail.
+**Off-axis counterweight:** an explicit unavailable-checkout interruption reading “Coming Soon!”.
+**Material transition:** campaign product imagery resolves into a deliberate unavailability seam,
+not a broken commerce flow.
+**Refused default layout:** product-grid ecommerce and conversion-funnel checkout.
+**Emotional change:** coveting becomes complicity in the campaign joke.
+**Authorship boundary:** Shop is Got Soap? campaign material; CWAAA and the Office do not operate it.
+
+Shop remains canonical while checkout is unavailable. Product pages are campaign performances, not
+promises of transactional commerce.
+
+### Broadcast
+
+**Dominant event:** a full-bleed campaign-film premiere staged as an event.
+**Off-axis counterweight:** a live premiere command or campaign artifact that interrupts passive
+viewing.
+**Material transition:** the route arrives through the home premiere seam and returns to campaign
+material rather than a media-library shell.
+**Refused default layout:** generic video card, embedded-player dashboard, or content feed.
+**Emotional change:** curiosity becomes attendance.
+**Authorship boundary:** the premiere belongs to Got Soap?; CWAAA and the Office do not frame or
+advertise it.
+
+Film is presented as a campaign event, never a generic video card. Direction may frame the premiere
+without inventing campaign-film content before that material is approved.
 
 ### Sniff Test
 
-Campaign-authored field theatre: one question at a time, no numeric score, strong keyboard and focus
-states, verdicts framed as identities worth sharing. CWAAA may be credited as sponsor, but the
-interaction does not become a manila form.
+**Dominant event:** campaign-authored field theatre, one question at a time.
+**Off-axis counterweight:** an identity verdict framed as something worth sharing.
+**Material transition:** direct address resolves into a named campaign identity.
+**Refused default layout:** multipage survey, numerical dashboard, or manila nonprofit form.
+**Emotional change:** recognition becomes self-identification and recruitment.
+**Authorship boundary:** Got Soap? owns the interaction; CWAAA may receive sponsor credit only.
+
+The Sniff Test has strong keyboard and focus states and no numeric score.
 
 ### Lather Pledge
 
-Campaign edition: seductive declaration rather than nonprofit paperwork. It implements the same
-fields, consent, Buttondown audience, and success semantics as CWAAA. After `SWORN`, the sequence is:
-share/copy actions, then a quiet **“Want to Learn More?”** seam to CWAAA.
+**Dominant event:** a seductive declaration.
+**Off-axis counterweight:** the quiet final “Want to Learn More?” seam to CWAAA after `SWORN`.
+**Material transition:** steam, confession, or campaign command gives way to a restrained cross-site
+seam.
+**Refused default layout:** nonprofit paperwork, generic newsletter signup, or advocacy intake form.
+**Emotional change:** declaration becomes a social act.
+**Authorship boundary:** Got Soap? owns this edition; it implements the shared contract without
+claiming CWAAA's filing or receipt voice.
+
+It uses the same fields, consent, Buttondown audience, and success semantics as CWAAA. After `SWORN`,
+the sequence is share/copy actions, then the configured CWAAA seam.
 
 ### About
 
-The post-credits scene. Begin inside the campaign fiction, reveal the creative mechanism late, and
-then name Stacey M. Breckel / Hope2 Studio. Do not cool the site into a pitch deck before the reveal.
+**Dominant event:** a post-credits scene inside campaign fiction.
+**Off-axis counterweight:** the creative mechanism surfaces only after the campaign has paid off.
+**Material transition:** campaign material opens into the Hope2 Studio reveal.
+**Refused default layout:** early pitch deck, services grid, résumé block, or process timeline.
+**Emotional change:** complicity becomes authorship recognition.
+**Authorship boundary:** Hope2 Studio is revealed late; it is not a CWAAA or Office explanation.
+
+Name Stacey M. Breckel / Hope2 Studio only after the fiction has earned that reveal.
 
 ### 404
 
-A missing broadcast, authored by the campaign. Do not use CWAAA letterhead or Office denial language.
-
+**Dominant event:** a missing broadcast.
+**Off-axis counterweight:** a campaign-authored absence cue.
+**Material transition:** the failed route returns to campaign material without becoming a help desk.
+**Refused default layout:** generic error screen, CWAAA letterhead, or Office denial state.
+**Emotional change:** interruption becomes a small continuation of the campaign.
+**Authorship boundary:** the missing broadcast is authored by Got Soap? alone.
 ## 12. Responsive behavior
 
 Mobile is a new composition, not a shrunken desktop:

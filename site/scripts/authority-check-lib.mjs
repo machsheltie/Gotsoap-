@@ -110,12 +110,26 @@ export function collectAuthorityErrors(repoRoot) {
     'ANTI-TEMPLATE',
   ], 'docs/design.md'));
 
+  const gotSoapBible = requireFile(repoRoot, 'docs/gotsoap/world-bible.md', errors);
+  errors.push(...missingRequiredMarkers(gotSoapBible, [
+    'EROTIC ASPIRATION',
+    'POTENTIAL CONVERT',
+    'WITNESS AND RECRUITER',
+    'WHAT GOT SOAP? FINDS FUNNY',
+    'WHAT BREAKS THE ILLUSION',
+    'UTILITY VOICE',
+  ], 'docs/gotsoap/world-bible.md'));
+
   const gotSoapPrd = requireFile(repoRoot, 'docs/prd/PRD-gotsoap-web-v1.md', errors);
   errors.push(...missingRequiredMarkers(gotSoapPrd, [
     'ONE BUTTONDOWN AUDIENCE',
     'SNIFF TEST',
     'CWAAA_SITE_URL',
     'WANT TO LEARN MORE?',
+    'SHOP',
+    '/BROADCAST',
+    '1-800-GOT-SOAP',
+    'UNAVAILABLE CHECKOUT',
   ], 'docs/prd/PRD-gotsoap-web-v1.md'));
 
   const cwaaaReadme = requireFile(repoRoot, 'docs/cwaaa/README.md', errors);

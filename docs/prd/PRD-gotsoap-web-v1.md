@@ -62,6 +62,9 @@ GoatCounter remains the privacy-conscious analytics provider unless separately c
 | `/` | campaign recruitment and controlled escalation | Got Soap? |
 | `/psas` | broadcast index, not gallery grid | Got Soap? |
 | `/psas/[slug]` | canonical poster, spot staging, download/share | Got Soap? |
+| `/broadcast` | canonical campaign-film premiere | Got Soap? |
+| `/shop` | canonical faux storefront | Got Soap? |
+| `/shop/[slug]` | campaign product performance with unavailable checkout | Got Soap? |
 | `/sniff-test` | quiz interaction | Got Soap? |
 | `/sniff-test/[verdict]` | shareable verdict, no numeric score | Got Soap? |
 | `/pledge` | campaign edition of shared pledge | Got Soap? |
@@ -78,6 +81,7 @@ states, or a government-agency explainer.
 - Use the owner-produced widescreen, text-free hero when available; use a dimensionally accurate
   placeholder without blocking implementation.
 - Auto-clear steam in roughly two seconds. No drag-to-wipe.
+- Include a full-bleed campaign-film premiere seam linking to `/broadcast`.
 - Render live HTML type; do not replace the hero with a poster crop carrying baked-in web copy.
 - Give Unholy flagship emphasis in the campaign sequence.
 - Invite the Sniff Test and pledge without a feature-card row.
@@ -103,6 +107,29 @@ states, or a government-agency explainer.
 - Provide a reduced-motion and JavaScript-light fallback.
 - Track start, answer progression, completion, share, and copy-link events without storing answers as
   personal profiles.
+
+### 6.3 Shop and broadcast
+
+#### Shop
+
+- `/shop` remains the canonical faux storefront even while checkout says “Coming Soon!”.
+- `/shop/[slug]` treats each product as campaign performance with unavailable checkout, never a
+  broken or implied transactional flow.
+- Shop utility copy, downloads, and sharing remain Got Soap? material; CWAAA and the Office do not
+  operate or frame the storefront.
+
+#### Broadcast
+
+- `/broadcast` is the canonical campaign-film premiere.
+- The film is staged as a campaign event, never a generic video card, media-library item, or player
+  dashboard.
+- The homepage premiere seam leads to `/broadcast`; it does not invent film content before campaign
+  material is approved.
+
+#### Campaign phone material
+
+- `1-800-GOT-SOAP` appears as campaign material on Got Soap?.
+- Neither CWAAA nor the Office advertises the number as a normal contact channel.
 
 ### 6.4 Lather Pledge
 
@@ -142,6 +169,7 @@ states, or a government-agency explainer.
 - Calls to movement may open with “Join the movement.”
 - Hashtag stack: `#GotSoap · #SoapyThirstTrap · #CleanManEnergy`.
 - Do not invent CWAAA findings or Office policy on campaign pages.
+- `1-800-GOT-SOAP` is campaign material, not a CWAAA or Office contact channel.
 
 ## 8. Configuration
 
@@ -197,7 +225,7 @@ Before deleting combined-site CWAAA routes:
 - Building or operating the Office site.
 - Moving runtime files during this documentation phase.
 - Accounts, profiles, leaderboards, numeric smell scores.
-- Ecommerce checkout.
+- A working ecommerce checkout; Shop remains canonical with unavailable checkout.
 - A CMS before editing pressure proves one is needed.
 - Re-typesetting canonical posters.
 - A conventional portfolio home or early case-study shell.
