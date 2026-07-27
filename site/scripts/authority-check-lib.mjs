@@ -35,30 +35,38 @@ function protectedUnresolvedContext(line) {
     /\b(?:CWAAA|Office(?: of Lather Compliance)?)\b|Got Soap\?/i,
   );
   const context = assertionStart === -1 ? line : line.slice(0, assertionStart);
-  return /\b(?:whether|intentionally unresolved|unresolved possibility|may wonder|allowed to wonder|does not|do not|never|must not|cannot|can't|forbidden|prohibited|no artifact|question)\b/i.test(context);
+  return /\b(?:whether|intentionally unresolved|unresolved possibility|may wonder|allowed to wonder|does not|do not|never|must not|cannot|can't|forbidden|prohibited|historical|superseded|quoted|example|no artifact|question)\b/i.test(context);
+}
+
+function semanticClauses(text) {
+  return text
+    .split(/\r?\n\s*\r?\n/)
+    .flatMap((paragraph) => paragraph.replace(/\r?\n/g, ' ')
+      .split(/(?<!Got Soap\?)(?<=[.!?])\s+|;\s*|,\s+(?:and|but|yet)\s+/i));
 }
 
 function matchingLines(text, pattern) {
-  return text
-    .split(/\r?\n/).flatMap((line) => line.split(/(?<!Got Soap\?)(?<=[.!?])\s+/))
-    .filter((line) => pattern.test(line));
+  return semanticClauses(text).filter((line) => pattern.test(line));
 }
 
 export function validatePathAwareCanon(path, text) {
   const errors = [];
   const lowerPath = path.toLowerCase().replaceAll('\\', '/');
 
-  const isCwaaa = lowerPath.includes('/cwaaa/');
-  const isGotSoap = lowerPath.includes('/gotsoap/')
+  const isCwaaa = /\bCWAAA\b/i.test(text) || lowerPath.includes('/cwaaa/');
+  const isGotSoap = /Got Soap\?/i.test(text)
+    || lowerPath.includes('/gotsoap/')
     || lowerPath.endsWith('/prd/prd-gotsoap-web-v1.md')
     || lowerPath === 'docs/design.md';
-  const isOffice = lowerPath.includes('/office-of-lather-compliance/');
+  const isOffice = /\b(?:The\s+)?Office(?: of Lather Compliance)?\b/i.test(text)
+    || lowerPath.includes('/office-of-lather-compliance/');
 
   if (isCwaaa) {
-    if (
-      /\bCWAAA\b[^.\n]{0,100}\b(?:was\s+)?(?:established|founded|formed|has existed since|dates? to)\b[^.\n]{0,30}\b1961\b/i.test(text)
-      || /\*\*Established:\*\*\s*1961\b/i.test(text)
-    ) {
+    const cwaaa1961 = /(?:\bCWAAA\b[^.\n]{0,100}\b(?:was\s+)?(?:established|founded|formed|has existed since|dates? to)\b[^.\n]{0,30}\b1961\b|\b1961\b[^.\n]{0,80}\bCWAAA\b[^.\n]{0,50}\b(?:was\s+)?(?:established|founded|formed)\b)/i;
+    const cwaaaMarkerAssigns1961 = lowerPath.includes('/cwaaa/')
+      && /\*\*Established:\*\*\s*1961\b/i.test(text);
+    if (cwaaaMarkerAssigns1961 || matchingLines(text, cwaaa1961)
+      .some((line) => !protectedUnresolvedContext(line))) {
       errors.push(`${path}: CWAAA chronology must not assign 1961 to CWAAA.`);
     }
     for (const line of matchingLines(text, /\bCWAAA\s+(?:campaigns?|regulates?|claims?\s+jurisdiction|assumes?\s+jurisdiction)\b/i)) {
@@ -88,10 +96,11 @@ export function validatePathAwareCanon(path, text) {
   }
 
   if (isOffice) {
-    if (
-      /\b(?:The\s+)?Office(?: of Lather Compliance)?\b[^.\n]{0,100}\b(?:was\s+)?(?:established|founded|formed|has existed since|dates? to)\b[^.\n]{0,30}\b2024\b/i.test(text)
-      || /\*\*Established:\*\*\s*2024\b/i.test(text)
-    ) {
+    const office2024 = /(?:\b(?:The\s+)?Office(?: of Lather Compliance)?\b[^.\n]{0,100}\b(?:was\s+)?(?:established|founded|formed|has existed since|dates? to)\b[^.\n]{0,30}\b2024\b|\b2024\b[^.\n]{0,80}\b(?:the\s+)?Office(?: of Lather Compliance)?\b[^.\n]{0,50}\b(?:was\s+)?(?:established|founded|formed)\b)/i;
+    const officeMarkerAssigns2024 = lowerPath.includes('/office-of-lather-compliance/')
+      && /\*\*Established:\*\*\s*2024\b/i.test(text);
+    if (officeMarkerAssigns2024 || matchingLines(text, office2024)
+      .some((line) => !protectedUnresolvedContext(line))) {
       errors.push(`${path}: Office chronology must not assign 2024 to the Office.`);
     }
     for (const line of matchingLines(
@@ -111,13 +120,27 @@ export function validatePathAwareCanon(path, text) {
     }
   }
 
+  const relationshipDenialPatterns = [
+    /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+is not\s+(?:an?\s+)?technical service operated by\s+CWAAA\b/i,
+    /\bCWAAA\s+does not operate\s+(?:the\s+)?Office(?: of Lather Compliance)?\b/i,
+  ];
+  for (const line of semanticClauses(text)) {
+    if (protectedUnresolvedContext(line)) continue;
+    if (relationshipDenialPatterns.some((pattern) => pattern.test(line))) {
+      errors.push(`${path}: over-resolves protected CWAAA/Office ambiguity via "operational separation".`);
+    }
+  }
+
   const relationshipPatterns = [
     /\bCWAAA\s+(?:is|serves as|functions as|acts as)\s+(?:an?\s+|the\s+)?(?:Office(?: of Lather Compliance)?(?:'s)?\s+)?(?:public-facing\s+(?:layer|front)|front|division|parent(?:\s+(?:agency|organization))?)/i,
     /\bCWAAA\s+(?:fronts for|is operated by|is a division of|is the parent of)\s+(?:the\s+)?Office\b/i,
     /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+(?:operates|uses|controls)\s+CWAAA\s+as\s+(?:its\s+)?(?:public-facing\s+layer|front|division)/i,
+    /\bCWAAA\s+(?:operates?|acts?\s+through)\s+(?:the\s+)?Office(?: of Lather Compliance)?\b/i,
+    /\bCWAAA\s+provides?\s+technical services?\s+to\s+(?:the\s+)?Office(?: of Lather Compliance)?\b/i,
+    /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+(?:is\s+(?:an?\s+)?division of|is operated by|acts?\s+through)\s+CWAAA\b/i,
+    /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+is\s+(?:an?\s+)?technical service operated by\s+CWAAA\b/i,
   ];
-  for (const line of text
-    .split(/\r?\n/).flatMap((entry) => entry.split(/(?<!Got Soap\?)(?<=[.!?])\s+/))) {
+  for (const line of semanticClauses(text)) {
     if (protectedUnresolvedContext(line)) continue;
     const match = relationshipPatterns.map((pattern) => line.match(pattern)).find(Boolean);
     if (match) {
@@ -127,8 +150,14 @@ export function validatePathAwareCanon(path, text) {
           ? 'front'
           : /division/i.test(match[0])
             ? 'division'
-            : 'parent';
-      errors.push(`${path}: relationship mystery must not resolve CWAAA as the Office ${label}.`);
+            : /technical service/i.test(match[0])
+              ? 'technical services'
+              : /operat/i.test(match[0])
+                ? 'operates'
+                : /acts?\s+through/i.test(match[0])
+                  ? 'operational channel'
+                  : 'parent';
+      errors.push(`${path}: relationship mystery must not resolve the CWAAA/Office relationship as "${label}".`);
     }
   }
 
@@ -171,10 +200,12 @@ export function validatePathAwareCanon(path, text) {
   }
 
   if (lowerPath.endsWith('/1-800-got-soap-ivr-authority.md')) {
-    if (/^\s*(?:(?:There is|The call (?:has|uses|includes))\s+(?:a\s+)?third Office voice\b|A third Office voice\b)/im.test(text)) {
-      errors.push(`${path}: IVR authority must not add a third Office voice.`);
+    if (matchingLines(text, /(?:\b(?:There is|The call (?:has|uses|includes))\s+(?:a\s+)?third Office voice\b|\bA third Office voice\b|\bThe call has (?:three|3) presented voices\b|\bVoice C\s+is\s+(?:the\s+)?Office representative\b)/i)
+      .some((line) => !protectedUnresolvedContext(line))) {
+      errors.push(`${path}: IVR authority must not add a third Office voice; retain two presented voices and no Voice C Office representative.`);
     }
-    if (/^\s*(?:(?:There is|The caller hears)\s+an audible transfer\b|Voice [AB]\s+audibly transfers?\b)/im.test(text)) {
+    if (matchingLines(text, /(?:\b(?:There is|The caller hears)\s+an audible (?:transfer|handoff)\b|\bVoice [AB]\s+audibly transfers?\b|\bAn audible handoff transfers the caller to (?:the\s+)?Office\b)/i)
+      .some((line) => !protectedUnresolvedContext(line))) {
       errors.push(`${path}: IVR authority must not add an audible transfer.`);
     }
   }
@@ -206,6 +237,38 @@ export function validateOfficeStateContract(contract) {
     'same_session_refresh',
     'later_return',
     'continued_interest',
+  ];
+  const expectedStateSemantics = {
+    first_access: {
+      condition: 'no persistent record',
+      effect: 'create persistent and session records; set returnSessionCount to 0, lifetimeAccessCount to 1, and sessionRefreshCount to 0',
+    },
+    same_session_refresh: {
+      condition: 'session marker existed at access start and returnSessionCount is below 2',
+      effect: 'increment sessionRefreshCount and lifetimeAccessCount; never increment returnSessionCount',
+    },
+    later_return: {
+      condition: 'new-session transition ran and post-transition returnSessionCount is exactly 1',
+      effect: 'show first and current timestamps after the new-session transition creates the session record',
+    },
+    continued_interest: {
+      condition: 'post-transition returnSessionCount is 2 or greater',
+      effect: 'remain in Continued Interest stasis on all later accesses',
+    },
+  };
+  const expectedFallback = {
+    storageUnavailable: 'render a neutral inaccessible-resource state without claiming recognition',
+  };
+  const expectedForbidden = [
+    'ordinary homepage',
+    'site navigation',
+    'agency explainer',
+    'named federal, state, or local jurisdiction',
+    'IP address display',
+    'backend identity record',
+    'cross-device recognition',
+    'reload-driven escalation',
+    'infinite escalation',
   ];
   const stateById = Object.fromEntries(
     (contract.states ?? []).map((state) => [state.id, state]),
@@ -366,6 +429,20 @@ export function validateOfficeStateContract(contract) {
   ) {
     errors.push('Office state selectors must use post-transition session counts deterministically.');
   }
+  for (const [stateId, expected] of Object.entries(expectedStateSemantics)) {
+    if (stateById[stateId]?.condition !== expected.condition) {
+      errors.push(`Office ${stateId} condition must remain exact.`);
+    }
+    if (stateById[stateId]?.effect !== expected.effect) {
+      errors.push(`Office ${stateId} effect must remain exact.`);
+    }
+  }
+  if (JSON.stringify(contract.fallback) !== JSON.stringify(expectedFallback)) {
+    errors.push('Office fallback object must remain exact and must not claim recognition.');
+  }
+  if (JSON.stringify(contract.forbidden) !== JSON.stringify(expectedForbidden)) {
+    errors.push('Office forbidden rules must remain exact, including reload-driven escalation.');
+  }
   return errors;
 }
 
@@ -378,15 +455,47 @@ export function validatePledgeContract(contract) {
   const consent = contract.consent ?? {};
   const futurePrograms = contract.futurePrograms ?? {};
   const privacy = contract.privacy ?? {};
+  const success = contract.success ?? {};
+  const expectedFields = [
+    { id: 'firstName', type: 'text', required: true, buttondownName: 'metadata__first_name' },
+    { id: 'email', type: 'email', required: true, buttondownName: 'email' },
+    { id: 'consent', type: 'checkbox', required: true, buttondownName: null },
+    { id: 'company', type: 'honeypot', required: false, buttondownName: null },
+  ];
+  const expectedInvariants = [
+    'Both public implementations submit to the same Buttondown audience.',
+    'Visual treatment and surrounding copy may differ; field meaning and success semantics may not.',
+    'Got Soap? adds a conditional Want to Learn More? seam to CWAAA after success.',
+    'A missing cross-site URL produces no dead link.',
+    'CWAAA authors the receipt and current issue for both public presentations.',
+    'Buttondown confirmation or welcome delivery must fulfill the defined receipt or remain disabled; it may not become a third message.',
+    'Consent withdrawal before current-issue delivery suppresses that issue.',
+    'Future programs require separate approval, contract, and consent without altering Form CW-1.',
+  ];
 
+  if (contract.contractId !== 'lather-pledge.v1') {
+    errors.push('Pledge contractId must be lather-pledge.v1.');
+  }
+  if (contract.version !== 1) {
+    errors.push('Pledge contract version must be 1.');
+  }
   if (contract.owner !== 'CWAAA') {
     errors.push('Pledge contract owner must remain CWAAA.');
+  }
+  if (JSON.stringify(contract.implementations) !== JSON.stringify(['Got Soap?', 'CWAAA'])) {
+    errors.push('Pledge implementations must be Got Soap? and CWAAA in that order.');
   }
   if (contract.backend?.provider !== 'Buttondown') {
     errors.push('Pledge contract backend must be Buttondown.');
   }
   if (contract.backend?.audience !== 'one shared audience') {
     errors.push('Pledge contract must specify one shared audience.');
+  }
+  if (contract.backend?.configurationKey !== 'BUTTONDOWN_USERNAME') {
+    errors.push('Pledge backend configurationKey must be BUTTONDOWN_USERNAME.');
+  }
+  if (JSON.stringify(contract.fields) !== JSON.stringify(expectedFields)) {
+    errors.push('Pledge field definitions must remain exact, including required consent.');
   }
   if (fulfillment.author !== 'CWAAA') {
     errors.push('Pledge fulfillment author must be CWAAA.');
@@ -495,6 +604,21 @@ export function validatePledgeContract(contract) {
   }
   if (privacy.additionalProviderAuthorized !== false) {
     errors.push('Pledge no additional provider is authorized.');
+  }
+  if (success.semantic !== 'SWORN') {
+    errors.push('Pledge success semantic must be SWORN.');
+  }
+  if (success.mustOfferShare !== true) {
+    errors.push('Pledge success must offer share.');
+  }
+  if (success.mustOfferCopyLink !== true) {
+    errors.push('Pledge success must offer copy link.');
+  }
+  if (privacy.requiresAffirmativeConsent !== true) {
+    errors.push('Pledge privacy requires affirmative consent.');
+  }
+  if (JSON.stringify(contract.invariants) !== JSON.stringify(expectedInvariants)) {
+    errors.push('Pledge contract invariants must remain exact and complete.');
   }
 
   return errors;
@@ -820,7 +944,9 @@ export function collectAuthorityErrors(repoRoot) {
 
   const pathAwareDocuments = new Map([
     ...liveDocumentContents,
+    ['docs/world/README.md', worldReadme],
     ['docs/world/WORLD-BIBLE.md', worldBible],
+    ['docs/world/artifact-continuity.md', artifactContinuity],
     ['docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md', ivrAuthority],
     ['docs/gotsoap/world-bible.md', gotSoapBible],
     ['docs/prd/PRD-gotsoap-web-v1.md', gotSoapPrd],

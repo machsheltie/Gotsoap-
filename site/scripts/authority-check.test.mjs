@@ -402,6 +402,90 @@ const canonMutationCases = [
     statement: 'Voice B audibly transfers the caller to the Office.',
     expected: /IVR authority.*audible transfer/i,
   },
+  {
+    name: 'CWAAA operating the Office',
+    path: 'docs/strategy/cwaaa-divergence-roadmap.md',
+    statement: 'CWAAA operates the Office.',
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'Office declared as a division of CWAAA',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The Office is a division of CWAAA.',
+    expected: /relationship mystery.*division/i,
+  },
+  {
+    name: 'Office declared as a technical service operated by CWAAA',
+    path: 'docs/strategy/cwaaa-divergence-roadmap.md',
+    statement: 'The Office is a technical service operated by CWAAA.',
+    expected: /relationship mystery.*technical service/i,
+  },
+  {
+    name: 'CWAAA declared as a technical-services provider to the Office',
+    path: 'docs/strategy/cwaaa-divergence-roadmap.md',
+    statement: 'CWAAA provides technical services to the Office.',
+    expected: /relationship mystery.*technical services/i,
+  },
+  {
+    name: 'CWAAA regulating in shared world authority',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA regulates hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'Office owning the pledge in shared world authority',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The Office owns the Lather Pledge.',
+    expected: /Office.*must not own the pledge/i,
+  },
+  {
+    name: 'date-first CWAAA 1961 chronology drift',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'In 1961, CWAAA was established.',
+    expected: /CWAAA chronology.*1961/i,
+  },
+  {
+    name: 'date-first Office 2024 chronology drift',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'In 2024, the Office was founded.',
+    expected: /Office chronology.*2024/i,
+  },
+  {
+    name: 'same-sentence unrelated-negation relationship bypass',
+    path: 'docs/cwaaa/world-bible.md',
+    statement: "This does not affect the seal, and CWAAA is the Office's public-facing layer.",
+    expected: /relationship mystery.*public-facing layer/i,
+  },
+  {
+    name: 'three presented voices in IVR authority',
+    path: 'docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md',
+    statement: 'The call has three presented voices.',
+    expected: /IVR authority.*two presented voices/i,
+  },
+  {
+    name: 'Voice C as Office representative in IVR authority',
+    path: 'docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md',
+    statement: 'Voice C is the Office representative.',
+    expected: /IVR authority.*Voice C/i,
+  },
+  {
+    name: 'audible handoff to the Office in IVR authority',
+    path: 'docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md',
+    statement: 'An audible handoff transfers the caller to the Office.',
+    expected: /IVR authority.*audible transfer/i,
+  },
+  {
+    name: 'objective denial that Office is technically operated by CWAAA',
+    path: 'docs/strategy/cwaaa-divergence-roadmap.md',
+    statement: 'The Office is not a technical service operated by CWAAA.',
+    expected: /over-resolves.*operational separation/i,
+  },
+  {
+    name: 'objective denial that CWAAA operates the Office',
+    path: 'docs/strategy/cwaaa-divergence-roadmap.md',
+    statement: 'CWAAA does not operate the Office.',
+    expected: /over-resolves.*operational separation/i,
+  },
 ];
 
 for (const { name, path, statement, expected } of canonMutationCases) {
@@ -409,6 +493,67 @@ for (const { name, path, statement, expected } of canonMutationCases) {
     withCleanAuthorityFixture((fixtureRoot) => {
       appendFixtureText(fixtureRoot, path, statement);
       assert.match(collectAuthorityErrors(fixtureRoot).join('\n'), expected);
+    });
+  });
+}
+
+const currentLiveAuthorityPaths = [
+  'AGENTS.md',
+  'CLAUDE.md',
+  'docs/HANDOFF.md',
+  'docs/design.md',
+  'docs/prd/PRD-gotsoap-web-v1.md',
+  'docs/strategy/participation-mechanics.md',
+  'docs/strategy/cwaaa-divergence-roadmap.md',
+  'docs/world/README.md',
+  'docs/world/WORLD-BIBLE.md',
+  'docs/world/artifact-continuity.md',
+  'docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md',
+  'docs/gotsoap/world-bible.md',
+  'docs/cwaaa/README.md',
+  'docs/cwaaa/world-bible.md',
+  'docs/cwaaa/design.md',
+  'docs/cwaaa/PRD-cwaaa-web-v1.md',
+  'docs/cwaaa/migration-manifest.md',
+  'docs/office-of-lather-compliance/README.md',
+  'docs/office-of-lather-compliance/world-bible.md',
+  'docs/office-of-lather-compliance/design.md',
+  'docs/office-of-lather-compliance/PRD-office-v1.md',
+];
+
+for (const path of currentLiveAuthorityPaths) {
+  test(`path-aware canon scans current live authority: ${path}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, 'CWAAA regulates hygiene.');
+      assert.match(
+        collectAuthorityErrors(fixtureRoot).join('\n'),
+        /CWAAA.*must not regulate/i,
+      );
+    });
+  });
+}
+
+for (const [name, path, statement] of [
+  [
+    'intentionally unresolved operational possibility',
+    'docs/world/WORLD-BIBLE.md',
+    'It remains intentionally unresolved whether CWAAA operates the Office.',
+  ],
+  [
+    'forbidden inline-code example',
+    'docs/world/README.md',
+    'Forbidden example: `CWAAA operates the Office.`',
+  ],
+  [
+    'historical superseded quotation',
+    'docs/world/artifact-continuity.md',
+    'Historical/superseded wording: "The Office is a division of CWAAA."',
+  ],
+]) {
+  test(`path-aware canon permits documented non-assertion: ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, statement);
+      assert.deepEqual(collectAuthorityErrors(fixtureRoot), []);
     });
   });
 }
@@ -819,6 +964,77 @@ const officeContractMutationCases = [
     mutate: (contract) => { contract.states.find((state) => state.id === 'continued_interest').selection.postTransitionReturnSessionCount.minimum = 3; },
     expected: /state selectors.*post-transition session counts/i,
   },
+  {
+    name: 'first-access condition',
+    mutate: (contract) => { contract.states.find((state) => state.id === 'first_access').condition = 'first load'; },
+    expected: /first_access condition/i,
+  },
+  {
+    name: 'first-access effect',
+    mutate: (contract) => { contract.states.find((state) => state.id === 'first_access').effect = 'create a session record only'; },
+    expected: /first_access effect/i,
+  },
+  {
+    name: 'same-session condition',
+    mutate: (contract) => { contract.states.find((state) => state.id === 'same_session_refresh').condition = 'any reload'; },
+    expected: /same_session_refresh condition/i,
+  },
+  {
+    name: 'same-session effect cannot advance return narrative',
+    mutate: (contract) => { contract.states.find((state) => state.id === 'same_session_refresh').effect = 'increment returnSessionCount and advance the narrative'; },
+    expected: /same_session_refresh effect/i,
+  },
+  {
+    name: 'later-return condition',
+    mutate: (contract) => { contract.states.find((state) => state.id === 'later_return').condition = 'any returning browser'; },
+    expected: /later_return condition/i,
+  },
+  {
+    name: 'later-return effect',
+    mutate: (contract) => { contract.states.find((state) => state.id === 'later_return').effect = 'show Continued Interest'; },
+    expected: /later_return effect/i,
+  },
+  {
+    name: 'Continued Interest condition',
+    mutate: (contract) => { contract.states.find((state) => state.id === 'continued_interest').condition = 'post-transition returnSessionCount is 3 or greater'; },
+    expected: /continued_interest condition/i,
+  },
+  {
+    name: 'Continued Interest effect',
+    mutate: (contract) => { contract.states.find((state) => state.id === 'continued_interest').effect = 'advance on each access'; },
+    expected: /continued_interest effect/i,
+  },
+  {
+    name: 'storage-unavailable fallback claiming recognition',
+    mutate: (contract) => { contract.fallback.storageUnavailable = 'render First Access and claim recognition'; },
+    expected: /fallback object/i,
+  },
+  {
+    name: 'fallback object extra behavior',
+    mutate: (contract) => { contract.fallback.claimRecognition = true; },
+    expected: /fallback object/i,
+  },
+  ...[
+    'ordinary homepage',
+    'site navigation',
+    'agency explainer',
+    'named federal, state, or local jurisdiction',
+    'IP address display',
+    'backend identity record',
+    'cross-device recognition',
+    'reload-driven escalation',
+    'infinite escalation',
+  ].map((rule, index) => ({
+    name: `forbidden rule: ${rule}`,
+    mutate: (contract) => {
+      if (rule === 'reload-driven escalation') {
+        contract.forbidden.splice(index, 1);
+      } else {
+        contract.forbidden[index] = `removed-${rule}`;
+      }
+    },
+    expected: /forbidden rules/i,
+  })),
 ];
 
 for (const { name, mutate, expected } of officeContractMutationCases) {
@@ -1064,6 +1280,103 @@ const pledgeContractMutationCases = [
     mutate: (contract) => { contract.privacy.additionalProviderAuthorized = true; },
     expected: /no additional provider is authorized/i,
   },
+  {
+    name: 'contract identity',
+    mutate: (contract) => { contract.contractId = 'lather-pledge.v2'; },
+    expected: /contractId must be lather-pledge\.v1/i,
+  },
+  {
+    name: 'contract version',
+    mutate: (contract) => { contract.version = 2; },
+    expected: /version must be 1/i,
+  },
+  {
+    name: 'contract owner',
+    mutate: (contract) => { contract.owner = 'Got Soap?'; },
+    expected: /owner must remain CWAAA/i,
+  },
+  {
+    name: 'implementation order and coverage',
+    mutate: (contract) => { contract.implementations.reverse(); },
+    expected: /implementations must be Got Soap\? and CWAAA/i,
+  },
+  {
+    name: 'backend provider',
+    mutate: (contract) => { contract.backend.provider = 'Other'; },
+    expected: /backend must be Buttondown/i,
+  },
+  {
+    name: 'backend audience',
+    mutate: (contract) => { contract.backend.audience = 'two audiences'; },
+    expected: /one shared audience/i,
+  },
+  {
+    name: 'backend configuration key',
+    mutate: (contract) => { contract.backend.configurationKey = 'NEWSLETTER_ID'; },
+    expected: /configurationKey must be BUTTONDOWN_USERNAME/i,
+  },
+  {
+    name: 'field order and identities',
+    mutate: (contract) => { contract.fields.reverse(); },
+    expected: /field definitions/i,
+  },
+  ...[
+    ['firstName', 'type', 'textarea'],
+    ['firstName', 'required', false],
+    ['firstName', 'buttondownName', 'first_name'],
+    ['email', 'type', 'text'],
+    ['email', 'required', false],
+    ['email', 'buttondownName', 'metadata__email'],
+    ['consent', 'type', 'text'],
+    ['consent', 'required', false],
+    ['consent', 'buttondownName', 'metadata__consent'],
+    ['company', 'type', 'text'],
+    ['company', 'required', true],
+    ['company', 'buttondownName', 'company'],
+  ].map(([fieldId, property, value]) => ({
+    name: `${fieldId} field ${property}`,
+    mutate: (contract) => { contract.fields.find((field) => field.id === fieldId)[property] = value; },
+    expected: /field definitions/i,
+  })),
+  {
+    name: 'success semantic',
+    mutate: (contract) => { contract.success.semantic = 'SUBSCRIBED'; },
+    expected: /success semantic must be SWORN/i,
+  },
+  {
+    name: 'success share action',
+    mutate: (contract) => { contract.success.mustOfferShare = false; },
+    expected: /success must offer share/i,
+  },
+  {
+    name: 'success copy-link action',
+    mutate: (contract) => { contract.success.mustOfferCopyLink = false; },
+    expected: /success must offer copy link/i,
+  },
+  {
+    name: 'privacy analytics exclusion',
+    mutate: (contract) => { contract.privacy.analyticsMayReceiveFieldValues = true; },
+    expected: /field values must not enter analytics/i,
+  },
+  {
+    name: 'privacy affirmative-consent requirement',
+    mutate: (contract) => { contract.privacy.requiresAffirmativeConsent = false; },
+    expected: /privacy requires affirmative consent/i,
+  },
+  ...[
+    'Both public implementations submit to the same Buttondown audience.',
+    'Visual treatment and surrounding copy may differ; field meaning and success semantics may not.',
+    'Got Soap? adds a conditional Want to Learn More? seam to CWAAA after success.',
+    'A missing cross-site URL produces no dead link.',
+    'CWAAA authors the receipt and current issue for both public presentations.',
+    'Buttondown confirmation or welcome delivery must fulfill the defined receipt or remain disabled; it may not become a third message.',
+    'Consent withdrawal before current-issue delivery suppresses that issue.',
+    'Future programs require separate approval, contract, and consent without altering Form CW-1.',
+  ].map((invariant, index) => ({
+    name: `invariant ${index + 1}`,
+    mutate: (contract) => { contract.invariants[index] = `${invariant} drift`; },
+    expected: /contract invariants/i,
+  })),
 ];
 
 for (const { name, mutate, expected } of pledgeContractMutationCases) {

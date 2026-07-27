@@ -130,3 +130,66 @@ The required `apply_patch` path was attempted first but the known Windows `C:\tm
 ## Remaining concerns
 
 No blocker remains for this documentation/contract correction. Two deliberately deferred runtime copy corrections remain recorded for the later copy lane: recurring “Movement Updates” language and CWAAA Field Assessor ownership in the Sniff Test. The general gate also reports four development stand-ins allowed by the current spec; production launch still requires their existing replacement workflow. Extraction packages must populate the source-commit field at transfer time and resync shared canon before release, as designed.
+
+## Independent re-review hardening
+
+The independent re-review found one remaining objective relationship resolution in the divergence
+roadmap and several semantic-gate gaps. The roadmap now keeps only private legal separation as
+objective canon; ordinary public artifacts do not establish operation, technical-service provision,
+or acting-through relationships. The validator now joins soft-wrapped prose before clause analysis,
+scopes negation and unresolved-context protection to the relevant clause, and scans the shared world
+README, WORLD-BIBLE, artifact-continuity authority, IVR authority, and every current live authority
+document.
+
+Adversarial coverage now rejects all requested positive and objective-denial relationship variants,
+shared-authority role and pledge drift, date-first chronology drift, same-sentence negation bypasses,
+and all requested IVR voice/handoff variants. Office validation now pins each state condition and
+effect, the exact fallback object, and all forbidden rules. Pledge validation now pins contract
+identity/version, implementations, Buttondown configuration, every field definition (including the
+actual consent field's `required` property), success semantics/actions,
+`privacy.requiresAffirmativeConsent`, and all executable invariants.
+
+### Re-review TDD evidence
+
+1. Re-review RED: `npm --prefix site run authority:test` exited 1 with 224 tests, 148 passed and 76
+   expected failures.
+2. Two additional objective-denial probes were then added and run by focused name pattern; both
+   failed before implementation.
+3. First implementation run exposed clean-corpus false positives and diagnostic mismatches:
+   226 tests, 137 passed and 89 failed.
+4. After paragraph soft-wrap handling and package-scoped bare chronology markers: 226 tests,
+   222 passed and 4 diagnostic-only failures.
+5. Final GREEN, rerun after the last validator scope cleanup:
+   `npm --prefix site run authority:test` passed 226/226.
+6. A direct 12-string probe passed for every phrase named by the re-review, including the two
+   objective-denial forms.
+
+### Re-review acceptance evidence
+
+- `npm --prefix site run authority:test` — PASS, 226/226.
+- `npm --prefix site run authority` — PASS.
+- `npm --prefix site run build` — PASS; Astro built 22 static pages.
+- `npm --prefix site run gates` — PASS, 20/20.
+- `npm --prefix site run copy-gates` — PASS, 7/7.
+- `npm --prefix site run fidelity` — authoritative PASS, 54/54 rows.
+- `npm --prefix site run distinguish` — PASS.
+- All 8 tracked JSON files parse with `JSON.parse`.
+- Pledge raw-byte parity — PASS (`Buffer.equals === true`).
+- IVR integrity — exact SHA-256
+  `7748cefced4d671e57aca64d4ba3852c693c068b89a982e2365e4fc3d6af1ab0`; 4 `/Type /Page`
+  markers.
+- `git diff --check` — PASS; only the repository-configured LF-to-CRLF notice.
+- Stale/live authority scan — PASS, no matches.
+- `git diff --exit-code -- site/src` — PASS, no runtime changes.
+- `git diff --exit-code -- docs/world/artifacts/1-800-GOT-SOAP-IVR-script.pdf` — PASS, no PDF
+  changes.
+
+The Astro build initially hit a sandbox-only EPERM while writing `site/.astro/content.d.ts`, and
+fidelity initially hit a sandbox-only EPERM spawning its child `git` process. Both commands passed
+unchanged under the approved elevated execution path. The required `apply_patch` edit path again
+failed because the known Windows `C:\tmp` sandbox wrapper could not prepare split writable roots;
+edits used the same scoped unified-diff `git apply` fallback documented above.
+
+The focused re-review commit changes only this report,
+`docs/strategy/cwaaa-divergence-roadmap.md`, `site/scripts/authority-check-lib.mjs`, and
+`site/scripts/authority-check.test.mjs`.

@@ -22,8 +22,10 @@ Office under `docs/office-of-lather-compliance/`. Shared facts travel by explici
 
 ## Relationship
 
-Got Soap? links interested visitors to CWAAA. CWAAA may link to the Office. The Office is not a
-department, program, or technical service operated by CWAAA.
+Got Soap? links interested visitors to CWAAA. CWAAA may link to the Office. Private production canon
+establishes only that CWAAA and the Office are legally separate fictional entities. Ordinary public
+artifacts never establish whether either operates, provides technical services to, or acts through
+the other. Their institutional relationship remains intentionally unresolved.
 Intentional uncertainty is not missing documentation. Do not explain the CWAAA/Office relationship,
 add a clean handoff, or average their rendered authorship.
 
