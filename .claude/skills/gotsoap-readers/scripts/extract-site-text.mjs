@@ -71,17 +71,54 @@ const cssFiles = [];
 // direction:rtl) without touching the DOM, and a text extract cannot see
 // that. So blocks affected by order-altering CSS are MARKED, making the
 // reversal observable to the blind read instead of silently misrepresented.
-const REVERSAL_DECL = /flex-direction\s*:\s*(?:column|row)-reverse|(?:^|[;{\s])order\s*:\s*-?[1-9]|direction\s*:\s*rtl/i;
+// Mirrors fidelity-check.mjs v3.10: brace tokenizer (sees @media/@supports/
+// nested rules), the full primitive set (flex-direction/flex-flow/flex-wrap
+// *-reverse, direction:rtl, writing-mode:*-rl, grid-auto-flow dense), and
+// two taint kinds — SELF (the element is the reversed container) vs PARENT
+// (`order` reorders the element among its siblings, so the PARENT is what
+// reads out of order).
+const SELF_TAINT = /(?:flex-direction|flex-flow|flex-wrap)\s*:[^;}]*-reverse|direction\s*:\s*rtl|writing-mode\s*:[^;}]*-rl|grid-auto-flow\s*:[^;}]*dense/i;
+const PARENT_TAINT = /(?:^|[;{\s])order\s*:\s*-?(?:0*[1-9]|\d*\.\d*[1-9])/i;
 const reversalClassesFrom = (css) => {
-  const out = new Set();
-  for (const m of css.matchAll(/([^{}]+)\{([^}]*)\}/g)) {
-    if (!REVERSAL_DECL.test(m[2])) continue;
-    for (const c of m[1].matchAll(/\.([A-Za-z_][\w-]*)/g)) out.add(c[1]);
+  const out = new Map(); // class -> {self, parent}
+  const add = (cls, kind) => {
+    const e = out.get(cls) || { self: false, parent: false };
+    e[kind] = true;
+    out.set(cls, e);
+  };
+  css = css.replace(/\/\*[\s\S]*?\*\//g, ' ');
+  const stack = [];
+  let buf = '';
+  for (const ch of css) {
+    if (ch === '{') { stack.push(buf.trim()); buf = ''; continue; }
+    if (ch === '}') {
+      const sel = stack.pop() ?? '';
+      if (sel && !sel.startsWith('@')) {
+        const self = SELF_TAINT.test(buf), parent = PARENT_TAINT.test(buf);
+        if (self || parent)
+          for (const c of sel.matchAll(/\.([A-Za-z_][\w-]*)/g)) {
+            if (self) add(c[1], 'self');
+            if (parent) add(c[1], 'parent');
+          }
+      }
+      buf = '';
+      continue;
+    }
+    buf += ch;
   }
   return out;
 };
-const globalReversalClasses = new Set();
-for (const f of cssFiles) for (const c of reversalClassesFrom(readFileSync(f, 'utf8'))) globalReversalClasses.add(c);
+const mergeTaints = (into, from) => {
+  for (const [cls, kinds] of from) {
+    const e = into.get(cls) || { self: false, parent: false };
+    e.self = e.self || kinds.self;
+    e.parent = e.parent || kinds.parent;
+    into.set(cls, e);
+  }
+};
+const globalReversalClasses = new Map();
+for (const f of cssFiles) mergeTaints(globalReversalClasses, reversalClassesFrom(readFileSync(f, 'utf8')));
+const VOID_TAGS = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']);
 
 for (const p of pages) {
   let h = readFileSync(p, 'utf8');
@@ -99,15 +136,43 @@ for (const p of pages) {
   // scratch-gag rotation, and the field↔alert wiring are all real user-facing copy that lived
   // only in attributes — the blind read could not observe them, so a transposed carrier was
   // invisible to the compensating control. Surface each, marked, right after its element.
-  const pageReversalClasses = new Set(globalReversalClasses);
+  const pageReversalClasses = new Map();
+  mergeTaints(pageReversalClasses, globalReversalClasses);
   for (const st of readFileSync(p, 'utf8').matchAll(/<style\b[^>]*>([\s\S]*?)<\/style\s*>/gi))
-    for (const c of reversalClassesFrom(st[1])) pageReversalClasses.add(c);
-  h = h.replace(/<[a-z][^>]*>/gi, (tag) => {
+    mergeTaints(pageReversalClasses, reversalClassesFrom(st[1]));
+  // Pre-pass with an open-element stack: SELF taints mark the element itself;
+  // PARENT taints (child `order`) mark the element's PARENT — that is the
+  // block whose children read out of order.
+  const markAt = new Map(); // opening-tag offset -> marker text
+  {
+    const stack = [];
+    for (const m of h.matchAll(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi)) {
+      const tag = m[1].toLowerCase();
+      if (m[0][1] === '/') {
+        while (stack.length && stack[stack.length - 1].tag !== tag) stack.pop();
+        if (stack.length) stack.pop();
+        continue;
+      }
+      const cls = (m[0].match(/\sclass="([^"]*)"/i) || [])[1];
+      const style = (m[0].match(/\sstyle="([^"]*)"/i) || [])[1];
+      let self = false, parent = false;
+      if (cls) for (const t of cls.split(/\s+/)) {
+        const k = pageReversalClasses.get(t);
+        if (k) { self = self || k.self; parent = parent || k.parent; }
+      }
+      if (style) {
+        if (SELF_TAINT.test(style)) self = true;
+        if (PARENT_TAINT.test(style)) parent = true;
+      }
+      if (self) markAt.set(m.index, ' [layout: CSS alters this block’s VISUAL order/flow — the on-page arrangement differs from this text’s source order] ');
+      const par = stack[stack.length - 1];
+      if (parent && par) markAt.set(par.idx, ' [layout: children of this block are visually REORDERED by CSS `order` — on-page sequence differs from this text] ');
+      if (!VOID_TAGS.has(tag) && !/\/>$/.test(m[0])) stack.push({ tag, idx: m.index });
+    }
+  }
+  h = h.replace(/<[a-z][^>]*>/gi, (tag, offset) => {
     let out = tag;
-    const cls = tag.match(/\sclass="([^"]*)"/i);
-    if ((cls && cls[1].split(/\s+/).some((t) => pageReversalClasses.has(t))) ||
-        (/\sstyle="([^"]*)"/i.test(tag) && REVERSAL_DECL.test(tag.match(/\sstyle="([^"]*)"/i)[1])))
-      out += ' [layout: this block’s VISUAL order is reversed by CSS — read it bottom-up] ';
+    if (markAt.has(offset)) out += markAt.get(offset);
     for (const [attr, label] of [
       ['data-share-title', 'share title'],
       ['data-share-text', 'share text'],

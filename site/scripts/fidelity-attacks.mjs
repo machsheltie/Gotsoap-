@@ -498,6 +498,35 @@ const swapIn = (txt, a, b, name) => {
   }, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
 }
 
+// Sol HOLD round 7 (2026-07-27, vs 569aac6): three in-scope spellings the
+// v3.9 tripwire missed — @media-nested rules, the flex-flow shorthand, and
+// child `order` (which reorders SIBLINGS, so the tainted container is the
+// PARENT, where each child holds only one string).
+const injectStyle = (name, cssRule) => {
+  const d = join(tmp, name);
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'index.html');
+  const ho = readFileSync(hp, 'utf8');
+  if (!/class="mv__inner/.test(ho) || !/class="mv__lede/.test(ho)) throw new Error(name + ': movement markup not found');
+  writeFileSync(hp, ho.replace('</head>', '<style>' + cssRule + '</style></head>'));
+  return d;
+};
+
+scenario('T35 media-nested reversal: column-reverse inside @media (min-width: 0px)', {
+  ...T, FIDELITY_DIST: injectStyle('dist-media-reverse',
+    '@media (min-width: 0px){.mv__inner{display:flex;flex-direction:column-reverse}}'),
+}, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+
+scenario('T36 flex-flow shorthand reversal: flex-flow: column-reverse nowrap', {
+  ...T, FIDELITY_DIST: injectStyle('dist-flexflow-reverse',
+    '.mv__inner{display:flex;flex-flow:column-reverse nowrap}'),
+}, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+
+scenario('T37 child order: .mv__lede:first-of-type{order:1} reorders siblings via the parent', {
+  ...T, FIDELITY_DIST: injectStyle('dist-child-order',
+    '.mv__inner{display:flex;flex-direction:column}.mv__lede:first-of-type{order:1}'),
+}, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+
 /* ---------- verdict -------------------------------------------------------- */
 
 const bad = results.filter((r) => !r.ok);
