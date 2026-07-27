@@ -602,3 +602,54 @@ line-counted unified-diff `git apply` patches.
 
 This closure commit changes only this report, `site/scripts/authority-check-lib.mjs`, and
 `site/scripts/authority-check.test.mjs`.
+
+## Invalid-span escape-boundary closure
+
+The final intersection review found one remaining distinction in escape-run normalization. The
+styling-boundary helper recognized valid span tokens but excluded invalid/unbalanced span tokens.
+Consequently, an even two-or-more-backslash run before an unclosed ASCII quote, backtick, curly
+opener, or orphan curly closer survived normalization even though the delimiter token itself was
+removed and its following authority predicate remained ordinary text.
+
+The fix removes only the validity requirement from the styling-boundary predicate: every span token
+marks an adjacent escape-run boundary. Invalid spans remain invalid, contribute no opaque content,
+and receive no documentation exemption; clause splitting and strict documentation classification
+continue to require `token.valid`. Their following characters therefore remain ordinary semantic
+text and are scanned after the adjacent escape residue is removed.
+
+### Invalid-span TDD evidence
+
+1. Clean exact RED: `npm --prefix site run authority:test` exited 1 with 325 tests, 317 passed and
+   exactly eight intended failures: one normalized-output/token-validity unit and seven authority
+   rejection cases spanning unclosed ASCII, backtick, curly opener, orphan curly closer, Office
+   operation, Office partner, and a four-slash run.
+2. Focused GREEN: 19/19 passed across the new cases and the prior malformed/unbalanced-span controls.
+3. Full GREEN: `npm --prefix site run authority:test` passed 325/325.
+4. Direct source-array replay passed 130/130: 106 required rejections and 24 required allowances.
+   An additional assertion confirmed the invalid token remains `valid: false` and non-opaque while
+   its normalized semantic content remains present.
+
+### Invalid-span acceptance evidence
+
+- `npm --prefix site run authority` — PASS.
+- `npm --prefix site run build` — PASS; Astro built 22 static pages.
+- `npm --prefix site run gates` — PASS, 20/20.
+- `npm --prefix site run copy-gates` — PASS, 7/7.
+- `npm --prefix site run fidelity` — authoritative PASS, 54/54.
+- `npm --prefix site run distinguish` — PASS.
+- All 8 tracked JSON files parse; byte-for-byte pledge parity passes.
+- Pledge contracts: 3,370 bytes each, SHA-256
+  `61b8361829646344928f277b375064af6dcca4ba00e4dd2aa2db5e83b82b4b8a`.
+- Office state contract: 4,643 bytes, SHA-256
+  `91b18d31c4d66c0e71b5133c29ec2f068547c933b1fa146f59fad980f21e5197`.
+- IVR PDF: 48,058 bytes, 4 `/Type /Page` markers, SHA-256
+  `7748cefced4d671e57aca64d4ba3852c693c068b89a982e2365e4fc3d6af1ab0`.
+- Stale/live scan, `git diff --check`, and Node syntax checks — PASS.
+- `site/src`, all contract files, and the canonical IVR PDF — unchanged.
+
+The expected Windows sandbox EPERM affected Astro's generated type write and fidelity's child `git`;
+both commands passed unchanged under the approved elevated path. `apply_patch` could not initialize
+the `C:\tmp` split-root sandbox, so edits used scoped unified-diff `git apply` patches.
+
+This exact-intersection commit changes only this report, `site/scripts/authority-check-lib.mjs`, and
+`site/scripts/authority-check.test.mjs`.

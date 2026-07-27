@@ -91,6 +91,34 @@ function escapedAuthorityStyle(runLength, opener, content, closer = opener) {
   return `${escapeRun}${opener}${content}${escapeRun}${closer}`;
 }
 
+function escapedAuthorityOpening(runLength, delimiter, content) {
+  return `${'\\'.repeat(runLength)}${delimiter}${content}`;
+}
+
+test('invalid styling tokens lose adjacent escape runs but keep semantic content', () => {
+  const cases = [
+    [`CWAAA ${escapedAuthorityOpening(2, '"', 'regulates hygiene.')}`, 'CWAAA regulates hygiene.'],
+    [`CWAAA ${escapedAuthorityOpening(2, '`', 'regulates hygiene.')}`, 'CWAAA regulates hygiene.'],
+    [`CWAAA ${escapedAuthorityOpening(2, '“', 'regulates hygiene.')}`, 'CWAAA regulates hygiene.'],
+    [`CWAAA ${escapedAuthorityOpening(2, '”', 'regulates hygiene.')}`, 'CWAAA regulates hygiene.'],
+    [`The Office ${escapedAuthorityOpening(2, '"', 'operates CWAAA.')}`, 'The Office operates CWAAA.'],
+    [
+      `CWAAA is the Office's ${escapedAuthorityOpening(2, '`', 'partner.')}`,
+      "CWAAA is the Office's partner.",
+    ],
+    [`CWAAA ${escapedAuthorityOpening(4, '"', 'regulates hygiene.')}`, 'CWAAA regulates hygiene.'],
+  ];
+
+  assert.equal(cases[0][0], String.raw`CWAAA \\"regulates hygiene.`);
+  for (const [source, expected] of cases) {
+    const tokens = authorityCheck.lexInlineAuthorityTokens(source);
+    const invalidSpan = tokens.find(({ kind }) => kind === 'span');
+
+    assert.equal(invalidSpan?.valid, false);
+    assert.equal(authorityCheck.normalizeAuthorityClause(tokens), expected);
+  }
+});
+
 test('semantic normalization removes complete repeated escape runs around styling', () => {
   const sources = [
     `CWAAA ${escapedAuthorityStyle(2, '"', 'regulates')} hygiene.`,
@@ -921,6 +949,48 @@ const canonMutationCases = [
     path: 'docs/world/WORLD-BIBLE.md',
     statement: `CWAAA is the Office's ${escapedAuthorityStyle(3, '“', 'partner', '”')}.`,
     expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'two-slash unclosed ASCII styling does not protect CWAAA regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `CWAAA ${escapedAuthorityOpening(2, '"', 'regulates hygiene.')}`,
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'two-slash unclosed inline-code styling does not protect CWAAA regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `CWAAA ${escapedAuthorityOpening(2, '`', 'regulates hygiene.')}`,
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'two-slash unclosed curly styling does not protect CWAAA regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `CWAAA ${escapedAuthorityOpening(2, '“', 'regulates hygiene.')}`,
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'two-slash orphan curly closer does not protect CWAAA regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `CWAAA ${escapedAuthorityOpening(2, '”', 'regulates hygiene.')}`,
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'two-slash unclosed ASCII styling does not protect Office operation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `The Office ${escapedAuthorityOpening(2, '"', 'operates CWAAA.')}`,
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'two-slash unclosed inline-code styling does not protect the Office partner label',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `CWAAA is the Office's ${escapedAuthorityOpening(2, '`', 'partner.')}`,
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'four-slash unclosed ASCII styling does not protect CWAAA regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `CWAAA ${escapedAuthorityOpening(4, '"', 'regulates hygiene.')}`,
+    expected: /CWAAA.*must not regulate/i,
   },
   {
     name: 'curly documented list with an unquoted regulation assertion',

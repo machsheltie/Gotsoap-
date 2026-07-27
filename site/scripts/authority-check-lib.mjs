@@ -206,7 +206,7 @@ function isStrictDocumentedSpanList(tokens, delimiter) {
 
 function isAuthorityStylingBoundary(token) {
   return (
-    token?.kind === 'span' && token.valid
+    token?.kind === 'span'
   ) || (
     token?.kind === 'text' && authorityStylingDelimiterPattern.test(token.raw)
   );
