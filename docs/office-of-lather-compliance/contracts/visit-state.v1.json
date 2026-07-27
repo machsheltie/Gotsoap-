@@ -3,6 +3,10 @@
   "version": 1,
   "jurisdiction": "deliberately unspecified",
   "publicSurfaceModel": "error states only",
+  "referenceMeaning": "standing containment reference",
+  "thresholds": {
+    "continuedInterestSession": 3
+  },
   "storage": {
     "session": "sessionStorage",
     "persistent": "localStorage",
@@ -12,41 +16,56 @@
     "ipAddress": false,
     "fingerprinting": false
   },
-  "record": {
+  "persistentRecord": {
     "firstContact": "ISO-8601 timestamp",
     "lastContact": "ISO-8601 timestamp",
-    "visitCount": "positive integer",
+    "returnSessionCount": "non-negative integer",
+    "lifetimeAccessCount": "positive integer",
     "reference": "8804-X",
-    "terminalId": "locally generated fictional identifier"
+    "terminalId": "locally generated fictional browser identifier"
   },
+  "sessionRecord": {
+    "sessionId": "locally generated ephemeral identifier",
+    "sessionRefreshCount": "non-negative integer"
+  },
+  "stateSelectionOrder": [
+    "continued_interest",
+    "same_session_refresh",
+    "later_return",
+    "first_access"
+  ],
   "states": [
     {
       "id": "first_access",
       "display": "FIRST ACCESS",
       "condition": "no persistent record",
-      "effect": "create record and mark current session"
+      "effect": "create persistent and session records; set returnSessionCount to 0 and lifetimeAccessCount to 1"
     },
     {
       "id": "same_session_refresh",
       "display": "SAME-SESSION REFRESH",
-      "condition": "persistent record and current-session marker",
-      "effect": "increment count without replacing firstContact"
+      "condition": "session marker exists and returnSessionCount is below 2",
+      "effect": "increment sessionRefreshCount and lifetimeAccessCount; never increment returnSessionCount"
     },
     {
       "id": "later_return",
       "display": "LATER RETURN",
-      "condition": "persistent record and no current-session marker and visitCount below continued-interest threshold",
-      "effect": "show first and current timestamps and increment count"
+      "condition": "new session increments returnSessionCount to exactly 1",
+      "effect": "show first and current timestamps and create a new session record"
     },
     {
       "id": "continued_interest",
       "display": "CONTINUED INTEREST",
-      "condition": "visitCount at or above configured threshold",
-      "effect": "remain static except for truthful access count"
+      "condition": "returnSessionCount is 2 or greater",
+      "effect": "remain in Continued Interest stasis on all later accesses"
     }
   ],
+  "rendering": {
+    "resolveBeforeReveal": true,
+    "returningBrowserMayFlashFirstAccess": false
+  },
   "fallback": {
-    "storageUnavailable": "render first_access without claiming persistence"
+    "storageUnavailable": "render a neutral inaccessible-resource state without claiming recognition"
   },
   "forbidden": [
     "ordinary homepage",
@@ -56,6 +75,7 @@
     "IP address display",
     "backend identity record",
     "cross-device recognition",
+    "reload-driven escalation",
     "infinite escalation"
   ]
 }

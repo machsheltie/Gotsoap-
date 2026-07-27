@@ -108,11 +108,22 @@ Status: OBSERVED
 After continued interest, the state becomes stubbornly static. Do not escalate forever or unlock a
 normal site. A future Easter egg requires a separate owner decision.
 
+## Session progression
+
+Session 1: First Access; same-session reload: Refresh Denied.
+Session 2: Repeat Access; same-session reload never advances the narrative.
+Session 3 and later: Continued Interest stasis.
+
+Resolve the browser-local state before revealing any state-dependent copy. A returning browser must
+never flash First Access while storage is being read. Reload count may update an internal access total,
+but it never advances the visitor to another narrative state.
+
 ## Terminal identity
 
 Generate a fictional local identifier such as `LC-7F3A-8804`. Never display or request the visitor's
-IP address. Do not use browser fingerprinting. The remembered first-contact timestamp and reference
-number create the recognition effect.
+IP address. Do not use browser fingerprinting. The terminal ID is browser-local, not a visitor identity.
+Reference `8804-X` is a standing containment reference shared by the condition, not a visitor-specific
+identifier. The remembered first-contact timestamp creates the recognition effect.
 
 ## Interaction
 
@@ -128,7 +139,8 @@ stored only in the browser.
 - Status color never carries meaning alone.
 - No flashing or motion dependence.
 - System works with zoom, high contrast, keyboard, and reduced motion.
-- If storage is unavailable, safely render FIRST ACCESS on each load.
+- If storage is unavailable, render a neutral inaccessible-resource state without claiming
+  recognition or persistence.
 
 ## Acceptance
 

@@ -10,6 +10,7 @@ import {
   collectAuthorityErrors,
   findForbiddenAuthorityPhrases,
   missingRequiredMarkers,
+  validateOfficeStateContract,
 } from './authority-check-lib.mjs';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
@@ -99,6 +100,76 @@ test('the Office contract is error-state-only and jurisdiction-neutral', () => {
       'NO ORDINARY HOMEPAGE',
     ]),
     [],
+  );
+});
+
+test('Office escalation advances by distinct sessions, never reload count', () => {
+  const corrected = {
+    thresholds: { continuedInterestSession: 3 },
+    persistentRecord: {
+      returnSessionCount: 'non-negative integer',
+      lifetimeAccessCount: 'positive integer',
+      reference: '8804-X',
+    },
+    sessionRecord: {
+      sessionRefreshCount: 'non-negative integer',
+    },
+    referenceMeaning: 'standing containment reference',
+    stateSelectionOrder: [
+      'continued_interest',
+      'same_session_refresh',
+      'later_return',
+      'first_access',
+    ],
+    states: [
+      { id: 'first_access' },
+      { id: 'same_session_refresh' },
+      { id: 'later_return' },
+      { id: 'continued_interest' },
+    ],
+  };
+
+  assert.deepEqual(validateOfficeStateContract(corrected), []);
+
+  const drifted = structuredClone(corrected);
+  drifted.thresholds.continuedInterestSession = 4;
+  delete drifted.sessionRecord.sessionRefreshCount;
+  assert.match(
+    validateOfficeStateContract(drifted).join('\n'),
+    /third distinct browser session|sessionRefreshCount/i,
+  );
+});
+
+test('Office state selection preserves the session progression', () => {
+  const contract = {
+    thresholds: { continuedInterestSession: 3 },
+    persistentRecord: {
+      returnSessionCount: 'non-negative integer',
+      lifetimeAccessCount: 'positive integer',
+      reference: '8804-X',
+    },
+    sessionRecord: { sessionRefreshCount: 'non-negative integer' },
+    referenceMeaning: 'standing containment reference',
+    stateSelectionOrder: [
+      'continued_interest',
+      'same_session_refresh',
+      'later_return',
+      'first_access',
+    ],
+    states: [
+      { id: 'first_access' },
+      { id: 'same_session_refresh' },
+      { id: 'later_return' },
+      { id: 'continued_interest' },
+    ],
+  };
+
+  assert.deepEqual(validateOfficeStateContract(contract), []);
+
+  contract.stateSelectionOrder.reverse();
+  assert.match(
+    validateOfficeStateContract(contract).join('\n'),
+    /state selection/i,
   );
 });
 

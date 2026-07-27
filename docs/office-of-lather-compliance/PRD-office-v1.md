@@ -29,25 +29,34 @@ The domain root is not an exception.
 
 ## States
 
+Session 1: First Access; same-session reload: Refresh Denied.
+Session 2: Repeat Access; same-session reload never advances the narrative.
+Session 3 and later: Continued Interest stasis.
+
 ### FIRST ACCESS
 
-Render the administrative containment notice. Generate and store first contact, visit count,
-reference `8804-X`, and fictional terminal ID in the browser.
+Render the administrative containment notice. Create persistent and session records, set
+`returnSessionCount` to `0` and `lifetimeAccessCount` to `1`, and store first contact and a fictional
+terminal ID in the browser. Reference `8804-X` is a standing containment reference, not visitor
+identity.
 
 ### SAME-SESSION REFRESH
 
-Render the terse refresh-denied notice. Preserve first contact and reference. Recognize the action
-without revealing the full later-return composition.
+Render the terse refresh-denied notice. Preserve first contact, terminal ID, reference, and
+`returnSessionCount`. Increment `sessionRefreshCount` and `lifetimeAccessCount`; reloads never
+increment `returnSessionCount` or advance the narrative.
 
 ### LATER RETURN
 
-When a persistent record exists but the session marker does not, render repeat access with terminal
-ID, original timestamp, current timestamp, reference, and active status.
+On the second distinct browser session, increment `returnSessionCount` to exactly `1`, create a new
+session record, and render repeat access with terminal ID, original timestamp, current timestamp,
+reference, and active status. Reloads within this session remain Refresh Denied and do not advance.
 
 ### CONTINUED INTEREST
 
-At the configured third/fourth-return threshold, render the continued-interest notice and stop
-escalating. Subsequent returns remain in this state.
+On the third distinct browser session, `returnSessionCount` becomes `2` and the Office renders the
+continued-interest notice. Session 3 and all later sessions remain in Continued Interest stasis;
+there is no fourth-return escalation.
 
 Exact copy and ordering are in `design.md`.
 
@@ -59,7 +68,10 @@ Exact copy and ordering are in `design.md`.
 - Generate terminal ID locally.
 - Do not request, derive, display, or store an IP address.
 - No fingerprinting, cookies, authentication, server database, or cross-device stitching.
-- If storage throws or is blocked, render first access without falsely claiming saved persistence.
+- Resolve state before revealing state-dependent copy; a returning browser must never flash First
+  Access while local storage is read.
+- If storage throws or is blocked, render a neutral inaccessible-resource state without claiming
+  recognition or persistence.
 - Provide a quiet, truthful privacy disclosure if required by deployment policy.
 
 ## Routing
@@ -82,7 +94,8 @@ semantics without allowing platform default error pages to replace the experienc
 - Functional without a backend.
 - All state-machine branches unit tested with injectable time and storage.
 - Deterministic terminal-ID format without using fingerprint inputs.
-- Accessible server-rendered first-access shell; script upgrades to the correct stored state.
+- Accessible neutral inaccessible-resource shell; client logic resolves the correct stored state
+  before revealing state-dependent copy.
 - Content Security Policy compatible with self-hosted CSS/JS/fonts.
 - No third-party analytics on the Office domain unless separately approved; recognition behavior
   itself is the sensitive effect.
@@ -91,11 +104,12 @@ semantics without allowing platform default error pages to replace the experienc
 
 | Scenario | Expected |
 |---|---|
-| new browser profile | FIRST ACCESS |
-| reload in same session | SAME-SESSION REFRESH |
-| close/reopen later | LATER RETURN |
-| threshold reached | CONTINUED INTEREST |
-| storage blocked | FIRST ACCESS fallback, no crash |
+| session 1, new browser profile | FIRST ACCESS |
+| session 1 reload | SAME-SESSION REFRESH / Refresh Denied; no narrative advance |
+| session 2, close/reopen later | LATER RETURN / Repeat Access |
+| session 2 reload | SAME-SESSION REFRESH / Refresh Denied; no narrative advance |
+| session 3 and later | CONTINUED INTEREST stasis |
+| storage blocked | neutral inaccessible-resource fallback, no recognition claim or crash |
 | private session reopened after disposal | FIRST ACCESS |
 | different browser/device | FIRST ACCESS |
 | arbitrary path | same state engine, no useful content |
@@ -104,6 +118,8 @@ semantics without allowing platform default error pages to replace the experienc
 
 - All public paths are error states only.
 - All four states match approved copy and hierarchy.
+- Session state advances only on distinct browser sessions; reload count never drives escalation.
+- State-dependent copy is not revealed until browser-local state has resolved.
 - Jurisdiction remains deliberately unspecified.
 - Terminal ID is fictional and local; no IP or fingerprint data is used.
 - First-contact timestamp survives later returns in the same browser profile.

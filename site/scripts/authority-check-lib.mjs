@@ -27,6 +27,51 @@ export function missingRequiredMarkers(text, markers, path = 'document') {
     .map((marker) => `${path}: missing required marker "${marker}"`);
 }
 
+export function validateOfficeStateContract(contract) {
+  const errors = [];
+  const expectedStateSelectionOrder = [
+    'continued_interest',
+    'same_session_refresh',
+    'later_return',
+    'first_access',
+  ];
+  const expectedStateIds = [
+    'first_access',
+    'same_session_refresh',
+    'later_return',
+    'continued_interest',
+  ];
+  if (contract.thresholds?.continuedInterestSession !== 3) {
+    errors.push('Continued Interest must begin on the third distinct browser session.');
+  }
+  if (!contract.sessionRecord?.sessionRefreshCount) {
+    errors.push('Office contract must define sessionRefreshCount.');
+  }
+  if (!contract.persistentRecord?.returnSessionCount) {
+    errors.push('Office contract must define returnSessionCount.');
+  }
+  if (!contract.persistentRecord?.lifetimeAccessCount) {
+    errors.push('Office contract must define lifetimeAccessCount.');
+  }
+  if (contract.referenceMeaning !== 'standing containment reference') {
+    errors.push('8804-X must be a standing containment reference.');
+  }
+  if (contract.persistentRecord?.reference !== '8804-X') {
+    errors.push('Office contract must retain standing containment reference 8804-X.');
+  }
+  if (
+    JSON.stringify(contract.stateSelectionOrder) !== JSON.stringify(expectedStateSelectionOrder)
+  ) {
+    errors.push('Office state selection must prioritize Continued Interest, refresh, later return, then first access.');
+  }
+  if (
+    JSON.stringify(contract.states?.map((state) => state.id)) !== JSON.stringify(expectedStateIds)
+  ) {
+    errors.push('Office contract must retain the four-state session progression.');
+  }
+  return errors;
+}
+
 function read(root, relativePath) {
   const path = resolve(root, relativePath);
   return existsSync(path) ? readFileSync(path, 'utf8') : null;
@@ -175,6 +220,18 @@ export function collectAuthorityErrors(repoRoot) {
     'docs/office-of-lather-compliance/README.md',
     errors,
   );
+  const officeBible = requireFile(
+    repoRoot,
+    'docs/office-of-lather-compliance/world-bible.md',
+    errors,
+  );
+  errors.push(...missingRequiredMarkers(officeBible, [
+    '1961',
+    'DELIBERATELY UNSPECIFIED',
+    'STANDING CONTAINMENT REFERENCE',
+    'VISITOR SUPPLIES THE FEAR',
+    'INTENTIONALLY UNRESOLVED',
+  ], 'Office world bible'));
   const officeDesign = requireFile(
     repoRoot,
     'docs/office-of-lather-compliance/design.md',
@@ -218,6 +275,7 @@ export function collectAuthorityErrors(repoRoot) {
     errors,
   );
   if (officeState) {
+    errors.push(...validateOfficeStateContract(officeState));
     if (officeState.jurisdiction !== 'deliberately unspecified') {
       errors.push('Office jurisdiction must remain deliberately unspecified.');
     }
@@ -230,16 +288,6 @@ export function collectAuthorityErrors(repoRoot) {
       || officeState.storage?.serverPersistence !== false
     ) {
       errors.push('Office recognition must remain local, IP-free, and fingerprint-free.');
-    }
-    const stateIds = officeState.states?.map((state) => state.id) ?? [];
-    const expected = [
-      'first_access',
-      'same_session_refresh',
-      'later_return',
-      'continued_interest',
-    ];
-    if (JSON.stringify(stateIds) !== JSON.stringify(expected)) {
-      errors.push('Office visit-state sequence has drifted.');
     }
   }
 
