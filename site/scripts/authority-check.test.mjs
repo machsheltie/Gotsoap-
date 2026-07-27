@@ -27,6 +27,7 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const authorityFixturePaths = [
   'AGENTS.md',
   'CLAUDE.md',
+  '.claude/rules/gotsoap-web-design.md',
   'docs/HANDOFF.md',
   'docs/design.md',
   'docs/prd/PRD-gotsoap-web-v1.md',
@@ -486,6 +487,48 @@ const canonMutationCases = [
     statement: 'CWAAA does not operate the Office.',
     expected: /over-resolves.*operational separation/i,
   },
+  {
+    name: 'CWAAA labelled as the Office partner',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: "CWAAA is the Office's partner.",
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'CWAAA overseen by the Office',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA is overseen by the Office.',
+    expected: /relationship mystery.*overseen/i,
+  },
+  {
+    name: 'CWAAA coordinating with the Office',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA works in coordination with the Office.',
+    expected: /relationship mystery.*coordination/i,
+  },
+  {
+    name: 'CWAAA acting on behalf of the Office',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA works on behalf of the Office.',
+    expected: /relationship mystery.*behalf/i,
+  },
+  {
+    name: 'Office operating CWAAA',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The Office operates CWAAA.',
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'Office operating through CWAAA',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The Office operates through CWAAA.',
+    expected: /relationship mystery.*operates through/i,
+  },
+  {
+    name: 'CWAAA controlled by the Office',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA is controlled by the Office.',
+    expected: /relationship mystery.*controlled/i,
+  },
 ];
 
 for (const { name, path, statement, expected } of canonMutationCases) {
@@ -500,6 +543,7 @@ for (const { name, path, statement, expected } of canonMutationCases) {
 const currentLiveAuthorityPaths = [
   'AGENTS.md',
   'CLAUDE.md',
+  '.claude/rules/gotsoap-web-design.md',
   'docs/HANDOFF.md',
   'docs/design.md',
   'docs/prd/PRD-gotsoap-web-v1.md',
@@ -566,6 +610,50 @@ test('path-aware canon permits a relationship possibility that remains intention
       "It remains intentionally unresolved whether CWAAA is the Office's public-facing layer.",
     );
     assert.deepEqual(collectAuthorityErrors(fixtureRoot), []);
+  });
+});
+
+for (const [name, statement] of [
+  ['Markdown block quote', '> “CWAAA regulates hygiene.”'],
+  [
+    'archived draft separated from its block quote',
+    'The archived draft said:\n\n> “CWAAA regulates hygiene.”',
+  ],
+  [
+    'inline rejected quotation',
+    'The phrase “CWAAA regulates hygiene.” is quoted here as a rejected example.',
+  ],
+  [
+    'correct chronology juxtaposition',
+    'The Office has existed since 1961, while CWAAA was established in 2024.',
+  ],
+  ['corrective CWAAA date negation', 'CWAAA was established in 2024, not 1961.'],
+  ['corrective Office date negation', 'The Office was founded in 1961, not 2024.'],
+  [
+    'forbidden partner example',
+    "Forbidden example: `CWAAA is the Office's partner.`",
+  ],
+  [
+    'unresolved control relationship',
+    'It remains intentionally unresolved whether CWAAA is controlled by the Office.',
+  ],
+]) {
+  test(`path-aware canon permits non-assertive or correct statement: ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, 'docs/world/WORLD-BIBLE.md', statement);
+      assert.deepEqual(collectAuthorityErrors(fixtureRoot), []);
+    });
+  });
+}
+
+test('collector reads contradictions from the expanded live Claude design rule', () => {
+  withCleanAuthorityFixture((fixtureRoot) => {
+    appendFixtureText(
+      fixtureRoot,
+      '.claude/rules/gotsoap-web-design.md',
+      'CWAAA regulates hygiene.',
+    );
+    assert.match(collectAuthorityErrors(fixtureRoot).join('\n'), /CWAAA.*must not regulate/i);
   });
 });
 

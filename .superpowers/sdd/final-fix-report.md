@@ -193,3 +193,55 @@ edits used the same scoped unified-diff `git apply` fallback documented above.
 The focused re-review commit changes only this report,
 `docs/strategy/cwaaa-divergence-roadmap.md`, `site/scripts/authority-check-lib.mjs`, and
 `site/scripts/authority-check.test.mjs`.
+
+## Final checker hardening
+
+A final read-only checker verdict identified three validator-only gaps; no canon content changed.
+Seven direct relationship labels now reject partner, operator/operation, coordinator/coordination,
+oversight, on-behalf, acts-through, and control formulations in either institutional direction.
+Markdown blockquotes and inline quoted/code spans are classified out of semantic assertion scanning
+instead of relying on magic prefixes. Chronology checks now split `while` clauses and remove only
+explicitly negated wrong-date tails before matching, preserving the direct wrong-date rejections.
+
+The implementation plan's expanded-authority list was audited against the collector. The only
+missing active prose path was `.claude/rules/gotsoap-web-design.md`; it is now copied into test
+fixtures, scanned as current live authority, and proven clean in its actual form while fixture
+contradictions fail. Historical plans and archived/superseded files remain outside the active scan.
+
+### Final checker TDD evidence
+
+1. RED: `npm --prefix site run authority:test` exited 1 with 243 tests, 228 passed and 15 expected
+   failures: seven relationship false passes, six quote/correct-chronology false positives, and two
+   live-path collector failures.
+2. Focused GREEN: 17/17 new relationship, quote, chronology, control, and live-path tests passed.
+3. Full GREEN: `npm --prefix site run authority:test` passed 243/243.
+4. Combined old and new direct corpora passed 27/27: 19 required rejections and 8 required
+   non-assertive/correct allowances.
+
+### Final checker acceptance evidence
+
+- `npm --prefix site run authority` — PASS.
+- `npm --prefix site run build` — PASS; Astro built 22 static pages.
+- `npm --prefix site run gates` — PASS, 20/20.
+- `npm --prefix site run copy-gates` — PASS, 7/7.
+- `npm --prefix site run fidelity` — authoritative PASS, 54/54.
+- `npm --prefix site run distinguish` — PASS.
+- All 8 tracked JSON files parse; pledge `Buffer.equals` parity passes.
+- IVR: 48,058 bytes, 4 `/Type /Page` markers, SHA-256
+  `7748cefced4d671e57aca64d4ba3852c693c068b89a982e2365e4fc3d6af1ab0`.
+- Pledge SHA-256 (both copies):
+  `61b8361829646344928f277b375064af6dcca4ba00e4dd2aa2db5e83b82b4b8a`.
+- Office state SHA-256:
+  `91b18d31c4d66c0e71b5133c29ec2f068547c933b1fa146f59fad980f21e5197`.
+- Stale/live scan and `git diff --check` — PASS.
+- `site/src`, all contract files, and the canonical IVR PDF — unchanged.
+
+The recurring Windows sandbox EPERM affected only Astro's generated type write, fidelity's child
+`git`, and the Node focused-test worker. Each command passed unchanged under the approved elevated
+execution path. `apply_patch` again could not prepare the `C:\tmp` split-root sandbox; scoped
+unified-diff `git apply` was used. Remaining concerns are unchanged: four current development
+stand-ins are allowed by the non-production gate, and the two previously documented runtime copy
+corrections remain deferred to their authorized lane.
+
+This focused commit changes only this report, `site/scripts/authority-check-lib.mjs`, and
+`site/scripts/authority-check.test.mjs`.

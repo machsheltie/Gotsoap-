@@ -39,14 +39,29 @@ function protectedUnresolvedContext(line) {
 }
 
 function semanticClauses(text) {
-  return text
+  const assertionText = text
+    .split(/\r?\n/)
+    .filter((line) => !/^\s*>/.test(line))
+    .map((line) => line
+      .replace(/`[^`\r\n]*`/g, ' ')
+      .replace(/“[^”\r\n]*”/g, ' ')
+      .replace(/"[^"\r\n]*"/g, ' '))
+    .join('\n');
+
+  return assertionText
     .split(/\r?\n\s*\r?\n/)
     .flatMap((paragraph) => paragraph.replace(/\r?\n/g, ' ')
-      .split(/(?<!Got Soap\?)(?<=[.!?])\s+|;\s*|,\s+(?:and|but|yet)\s+/i));
+      .split(/(?<!Got Soap\?)(?<=[.!?])\s+|;\s*|,\s+(?:and|but|yet|while)\s+/i));
 }
 
 function matchingLines(text, pattern) {
   return semanticClauses(text).filter((line) => pattern.test(line));
+}
+
+function matchingChronologyClauses(text, pattern) {
+  return semanticClauses(text)
+    .map((line) => line.replace(/\bnot\s+(?:in\s+)?(?:1961|2024)\b/gi, ' '))
+    .filter((line) => pattern.test(line));
 }
 
 export function validatePathAwareCanon(path, text) {
@@ -65,7 +80,7 @@ export function validatePathAwareCanon(path, text) {
     const cwaaa1961 = /(?:\bCWAAA\b[^.\n]{0,100}\b(?:was\s+)?(?:established|founded|formed|has existed since|dates? to)\b[^.\n]{0,30}\b1961\b|\b1961\b[^.\n]{0,80}\bCWAAA\b[^.\n]{0,50}\b(?:was\s+)?(?:established|founded|formed)\b)/i;
     const cwaaaMarkerAssigns1961 = lowerPath.includes('/cwaaa/')
       && /\*\*Established:\*\*\s*1961\b/i.test(text);
-    if (cwaaaMarkerAssigns1961 || matchingLines(text, cwaaa1961)
+    if (cwaaaMarkerAssigns1961 || matchingChronologyClauses(text, cwaaa1961)
       .some((line) => !protectedUnresolvedContext(line))) {
       errors.push(`${path}: CWAAA chronology must not assign 1961 to CWAAA.`);
     }
@@ -99,7 +114,7 @@ export function validatePathAwareCanon(path, text) {
     const office2024 = /(?:\b(?:The\s+)?Office(?: of Lather Compliance)?\b[^.\n]{0,100}\b(?:was\s+)?(?:established|founded|formed|has existed since|dates? to)\b[^.\n]{0,30}\b2024\b|\b2024\b[^.\n]{0,80}\b(?:the\s+)?Office(?: of Lather Compliance)?\b[^.\n]{0,50}\b(?:was\s+)?(?:established|founded|formed)\b)/i;
     const officeMarkerAssigns2024 = lowerPath.includes('/office-of-lather-compliance/')
       && /\*\*Established:\*\*\s*2024\b/i.test(text);
-    if (officeMarkerAssigns2024 || matchingLines(text, office2024)
+    if (officeMarkerAssigns2024 || matchingChronologyClauses(text, office2024)
       .some((line) => !protectedUnresolvedContext(line))) {
       errors.push(`${path}: Office chronology must not assign 2024 to the Office.`);
     }
@@ -132,6 +147,12 @@ export function validatePathAwareCanon(path, text) {
   }
 
   const relationshipPatterns = [
+    /\bCWAAA\s+is\s+(?:the\s+)?Office(?: of Lather Compliance)?(?:'s)?\s+(?:partner|operator|coordinator)\b/i,
+    /\bCWAAA\s+is\s+(?:a\s+|the\s+)?(?:partner|operator|coordinator)\s+(?:of|for|with)\s+(?:the\s+)?Office(?: of Lather Compliance)?\b/i,
+    /\bCWAAA\s+is\s+(?:overseen|controlled|operated)\s+by\s+(?:the\s+)?Office(?: of Lather Compliance)?\b/i,
+    /\bCWAAA\s+works?\s+(?:in coordination with|on behalf of)\s+(?:the\s+)?Office(?: of Lather Compliance)?\b/i,
+    /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+(?:operates?|controls?|oversees?)\s+CWAAA\b/i,
+    /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+(?:operates?|acts?)\s+through\s+CWAAA\b/i,
     /\bCWAAA\s+(?:is|serves as|functions as|acts as)\s+(?:an?\s+|the\s+)?(?:Office(?: of Lather Compliance)?(?:'s)?\s+)?(?:public-facing\s+(?:layer|front)|front|division|parent(?:\s+(?:agency|organization))?)/i,
     /\bCWAAA\s+(?:fronts for|is operated by|is a division of|is the parent of)\s+(?:the\s+)?Office\b/i,
     /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+(?:operates|uses|controls)\s+CWAAA\s+as\s+(?:its\s+)?(?:public-facing\s+layer|front|division)/i,
@@ -146,17 +167,29 @@ export function validatePathAwareCanon(path, text) {
     if (match) {
       const label = /public-facing layer/i.test(match[0])
         ? 'public-facing layer'
-        : /front/i.test(match[0])
-          ? 'front'
-          : /division/i.test(match[0])
-            ? 'division'
-            : /technical service/i.test(match[0])
-              ? 'technical services'
-              : /operat/i.test(match[0])
-                ? 'operates'
-                : /acts?\s+through/i.test(match[0])
-                  ? 'operational channel'
-                  : 'parent';
+        : /operates?\s+through/i.test(match[0])
+          ? 'operates through'
+          : /\bpartner\b/i.test(match[0])
+            ? 'partner'
+            : /\boverseen\b/i.test(match[0])
+              ? 'overseen'
+              : /\bcoordination\b|\bcoordinator\b/i.test(match[0])
+                ? 'coordination'
+                : /\bbehalf\b/i.test(match[0])
+                  ? 'on behalf'
+                  : /\bcontrolled\b|\bcontrols?\b/i.test(match[0])
+                    ? 'controlled'
+                    : /front/i.test(match[0])
+                      ? 'front'
+                      : /division/i.test(match[0])
+                        ? 'division'
+                        : /technical service/i.test(match[0])
+                          ? 'technical services'
+                          : /operat/i.test(match[0])
+                            ? 'operates'
+                            : /acts?\s+through/i.test(match[0])
+                              ? 'operational channel'
+                              : 'parent';
       errors.push(`${path}: relationship mystery must not resolve the CWAAA/Office relationship as "${label}".`);
     }
   }
@@ -724,6 +757,7 @@ export function collectAuthorityErrors(repoRoot) {
   const liveDocuments = [
     'AGENTS.md',
     'CLAUDE.md',
+    '.claude/rules/gotsoap-web-design.md',
     'docs/HANDOFF.md',
     'docs/design.md',
     'docs/prd/PRD-gotsoap-web-v1.md',
