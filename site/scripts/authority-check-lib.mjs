@@ -61,18 +61,6 @@ function isDocumentedInlineSpan(prefix, suffix) {
     );
 }
 
-function normalizeInlineAuthorityText(line) {
-  return line.replace(
-    /`([^`\r\n]*)`|“([^”\r\n]*)”|"([^"\r\n]*)"/g,
-    (span, code, curly, ascii, offset, source) => {
-      const prefix = source.slice(0, offset);
-      const suffix = source.slice(offset + span.length);
-      if (isDocumentedInlineSpan(prefix, suffix)) return ' ';
-      return code ?? curly ?? ascii ?? '';
-    },
-  );
-}
-
 function isEscapedDelimiter(text, index) {
   let slashCount = 0;
   for (let cursor = index - 1; cursor >= 0 && text[cursor] === '\\'; cursor -= 1) {
@@ -81,85 +69,202 @@ function isEscapedDelimiter(text, index) {
   return slashCount % 2 === 1;
 }
 
-function unescapedDelimiterCount(text, delimiter) {
-  let count = 0;
-  for (let index = 0; index < text.length; index += 1) {
-    if (text[index] === delimiter && !isEscapedDelimiter(text, index)) count += 1;
-  }
-  return count;
-}
-
-function balancedSpanEnd(text, start) {
-  const opener = text[start];
-  const closer = opener === '“' ? '”' : opener === '"' || opener === '`' ? opener : null;
-  if (!closer) return -1;
-
-  for (let index = start + 1; index < text.length; index += 1) {
-    if (opener === '“' && text[index] === '“') return -1;
-    if (text[index] === closer && (closer === '”' || !isEscapedDelimiter(text, index))) {
-      return index;
-    }
-  }
-  return -1;
-}
-
-function splitSemanticProse(text) {
-  const clauses = [];
-  const malformedSameDelimiters = new Set(
-    ['"', '`'].filter((delimiter) => unescapedDelimiterCount(text, delimiter) % 2 === 1),
-  );
-  let clause = '';
-
-  const emitClause = () => {
-    if (clause.trim()) clauses.push(clause.trim());
-    clause = '';
+function textAuthorityToken(text, index) {
+  return {
+    kind: 'text',
+    raw: text[index],
+    content: text[index],
+    start: index,
+    end: index + 1,
   };
+}
+
+function invalidSpanToken(text, index, delimiter) {
+  return {
+    kind: 'span',
+    delimiter,
+    raw: text[index],
+    content: '',
+    start: index,
+    end: index + 1,
+    balanced: false,
+    valid: false,
+  };
+}
+
+function validSpanToken(text, start, end, delimiter) {
+  return {
+    kind: 'span',
+    delimiter,
+    raw: text.slice(start, end),
+    content: text.slice(start + 1, end - 1),
+    start,
+    end,
+    balanced: true,
+    valid: true,
+  };
+}
+
+export function lexInlineAuthorityTokens(text) {
+  const tokens = [];
 
   for (let index = 0; index < text.length;) {
-    if (
-      malformedSameDelimiters.has(text[index])
-      && !isEscapedDelimiter(text, index)
-    ) {
+    const character = text[index];
+    const sameDelimiter = character === '"' || character === '`';
+    if (sameDelimiter && isEscapedDelimiter(text, index)) {
+      tokens.push(textAuthorityToken(text, index));
       index += 1;
       continue;
     }
 
-    const spanEnd = balancedSpanEnd(text, index);
-    if (spanEnd !== -1) {
-      clause += text.slice(index, spanEnd + 1);
-      index = spanEnd + 1;
+    const delimiter = character === '“' || character === '”'
+      ? 'curly'
+      : character === '"'
+        ? 'ascii'
+        : character === '`'
+          ? 'backtick'
+          : null;
+    if (!delimiter) {
+      tokens.push(textAuthorityToken(text, index));
+      index += 1;
       continue;
     }
 
-    const commaConjunction = text.slice(index).match(/^,\s+(?:and|but|yet|while)\s+/i);
+    if (character === '”') {
+      tokens.push(invalidSpanToken(text, index, delimiter));
+      index += 1;
+      continue;
+    }
+
+    const closer = character === '“' ? '”' : character;
+    let closerIndex = -1;
+    let nestedCurlyOpener = false;
+    for (let cursor = index + 1; cursor < text.length; cursor += 1) {
+      if (character === '“' && text[cursor] === '“') {
+        nestedCurlyOpener = true;
+        break;
+      }
+      if (text[cursor] === closer && (
+        closer === '”' || !isEscapedDelimiter(text, cursor)
+      )) {
+        closerIndex = cursor;
+        break;
+      }
+    }
+
+    if (nestedCurlyOpener || closerIndex === -1) {
+      tokens.push(invalidSpanToken(text, index, delimiter));
+      index += 1;
+      continue;
+    }
+
+    const end = closerIndex + 1;
+    tokens.push(validSpanToken(text, index, end, delimiter));
+    index = end;
+  }
+
+  return tokens;
+}
+
+function tokenText(tokens, field = 'raw') {
+  return tokens.map((token) => token[field]).join('');
+}
+
+function splitSemanticTokens(text, tokens) {
+  const clauses = [];
+  let clauseTokens = [];
+  let clauseRaw = '';
+
+  const emitClause = () => {
+    if (clauseRaw.trim()) clauses.push(clauseTokens);
+    clauseTokens = [];
+    clauseRaw = '';
+  };
+
+  const skipTokensBefore = (index, position) => {
+    let next = index;
+    while (next < tokens.length && tokens[next].start < position) next += 1;
+    return next;
+  };
+
+  for (let index = 0; index < tokens.length;) {
+    const token = tokens[index];
+    if (token.kind === 'span' && token.valid) {
+      clauseTokens.push(token);
+      clauseRaw += token.raw;
+      index += 1;
+      continue;
+    }
+
+    const commaConjunction = token.kind === 'text' && token.raw === ','
+      ? text.slice(token.start).match(/^,\s+(?:and|but|yet|while)\s+/i)
+      : null;
     if (commaConjunction) {
       emitClause();
-      index += commaConjunction[0].length;
+      index = skipTokensBefore(index, token.start + commaConjunction[0].length);
       continue;
     }
 
-    if (text[index] === ';') {
+    if (token.kind === 'text' && token.raw === ';') {
       emitClause();
-      index += 1;
-      while (/\s/.test(text[index] ?? '')) index += 1;
+      let nextPosition = token.end;
+      while (/\s/.test(text[nextPosition] ?? '')) nextPosition += 1;
+      index = skipTokensBefore(index, nextPosition);
       continue;
     }
 
-    const character = text[index];
-    clause += character;
+    clauseTokens.push(token);
+    clauseRaw += token.raw;
     index += 1;
 
-    const sentenceBoundary = /[.!?]/.test(character)
-      && /\s/.test(text[index] ?? '')
-      && !(character === '?' && clause.trimEnd().endsWith('Got Soap?'));
+    const sentenceBoundary = token.kind === 'text'
+      && /[.!?]/.test(token.raw)
+      && /\s/.test(text[token.end] ?? '')
+      && !(token.raw === '?' && clauseRaw.trimEnd().endsWith('Got Soap?'));
     if (sentenceBoundary) {
       emitClause();
-      while (/\s/.test(text[index] ?? '')) index += 1;
+      let nextPosition = token.end;
+      while (/\s/.test(text[nextPosition] ?? '')) nextPosition += 1;
+      index = skipTokensBefore(index, nextPosition);
     }
   }
 
   emitClause();
   return clauses;
+}
+
+function normalizeAuthorityClause(tokens) {
+  const rawClause = tokenText(tokens);
+  const spansByDelimiter = new Map();
+  for (const token of tokens) {
+    if (token.kind !== 'span') continue;
+    const spans = spansByDelimiter.get(token.delimiter) ?? [];
+    spans.push(token);
+    spansByDelimiter.set(token.delimiter, spans);
+  }
+
+  let normalized = '';
+  let offset = 0;
+  for (const token of tokens) {
+    if (token.kind === 'text') {
+      normalized += token.raw;
+      offset += token.raw.length;
+      continue;
+    }
+
+    const sameDelimiterSpans = spansByDelimiter.get(token.delimiter) ?? [];
+    const soleValidSpan = sameDelimiterSpans.length === 1
+      && token.balanced
+      && token.valid;
+    const prefix = rawClause.slice(0, offset);
+    const suffix = rawClause.slice(offset + token.raw.length);
+    normalized += soleValidSpan && isDocumentedInlineSpan(prefix, suffix)
+      ? ' '
+      : token.content;
+    offset += token.raw.length;
+  }
+
+  return normalized.trim();
 }
 
 function semanticClauses(text) {
@@ -170,8 +275,11 @@ function semanticClauses(text) {
 
   return assertionText
     .split(/\r?\n\s*\r?\n/)
-    .flatMap((paragraph) => splitSemanticProse(paragraph.replace(/\r?\n/g, ' ')))
-    .map(normalizeInlineAuthorityText);
+    .flatMap((paragraph) => {
+      const prose = paragraph.replace(/\r?\n/g, ' ');
+      const tokens = lexInlineAuthorityTokens(prose);
+      return splitSemanticTokens(prose, tokens).map(normalizeAuthorityClause);
+    });
 }
 
 function matchingLines(text, pattern) {

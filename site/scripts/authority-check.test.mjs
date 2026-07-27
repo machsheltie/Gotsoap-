@@ -24,6 +24,49 @@ import {
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
+test('inline authority lexer exposes nested-curly validity without reparsing', () => {
+  const spans = authorityCheck.lexInlineAuthorityTokens('“bad “live”')
+    .filter(({ kind }) => kind === 'span');
+
+  assert.deepEqual(spans, [
+    {
+      kind: 'span',
+      delimiter: 'curly',
+      raw: '“',
+      content: '',
+      start: 0,
+      end: 1,
+      balanced: false,
+      valid: false,
+    },
+    {
+      kind: 'span',
+      delimiter: 'curly',
+      raw: '“live”',
+      content: 'live',
+      start: 5,
+      end: 11,
+      balanced: true,
+      valid: true,
+    },
+  ]);
+});
+
+test('inline authority lexer preserves distinct same-delimiter spans', () => {
+  const spans = authorityCheck.lexInlineAuthorityTokens('"left""right"')
+    .filter(({ kind }) => kind === 'span');
+
+  assert.deepEqual(spans, [
+    {
+      kind: 'span', delimiter: 'ascii', raw: '"left"', content: 'left',
+      start: 0, end: 6, balanced: true, valid: true,
+    },
+    {
+      kind: 'span', delimiter: 'ascii', raw: '"right"', content: 'right',
+      start: 6, end: 13, balanced: true, valid: true,
+    },
+  ]);
+});
 const authorityFixturePaths = [
   'AGENTS.md',
   'CLAUDE.md',
@@ -691,6 +734,48 @@ const canonMutationCases = [
     statement: 'The rejected wording `is incomplete; CWAAA `regulates` hygiene.',
     expected: /CWAAA.*must not regulate/i,
   },
+  {
+    name: 'nested curly opener without a clause boundary does not protect regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording “is incomplete and CWAAA “regulates” hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'consecutive curly openers do not create a documented regulation span',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording ““CWAAA regulates hygiene.”',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'nested curly opener without a clause boundary does not protect Office operation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording “is incomplete and The Office “operates” CWAAA.',
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'even ASCII mispairing with a separator does not protect regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording "is incomplete; CWAAA "regulates" hygiene. "tail',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'even inline-code mispairing with a separator does not protect regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording `is incomplete; CWAAA `regulates` hygiene. `tail',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'even ASCII mispairing without a clause boundary does not protect regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording "is incomplete and CWAAA "regulates" hygiene. "tail',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'even inline-code mispairing without a clause boundary does not protect regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording `is incomplete and CWAAA `regulates` hygiene. `tail',
+    expected: /CWAAA.*must not regulate/i,
+  },
 ];
 
 for (const { name, path, statement, expected } of canonMutationCases) {
@@ -812,6 +897,14 @@ for (const [name, statement] of [
   [
     'generic copular quotation has an explicit rejection predicate',
     'This quotation was “CWAAA regulates hygiene.” and is explicitly rejected.',
+  ],
+  [
+    'documented ASCII span is not poisoned by a later unmatched marker',
+    'The rejected wording "CWAAA regulates hygiene." is historical. Later unmatched " marker.',
+  ],
+  [
+    'documented inline-code span is not poisoned by a later unmatched marker',
+    'The rejected wording `CWAAA regulates hygiene.` is historical. Later unmatched ` marker.',
   ],
   [
     'correct chronology juxtaposition',
