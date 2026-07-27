@@ -619,6 +619,54 @@ const canonMutationCases = [
     statement: 'CWAAA is the Office’s partner.',
     expected: /relationship mystery.*partner/i,
   },
+  {
+    name: 'historical keywords after an unrelated styled regulation assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA “regulates” hygiene (historical files are archived).',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'archived example after an unrelated styled partner assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: "CWAAA is the Office's “partner” — this unrelated example is archived.",
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'historical quote after an unrelated styled Office operation assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The Office “operates” CWAAA — the historical quote is separate.',
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'historical prefix unrelated to styled regulation assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'Historical files are archived and CWAAA “regulates” hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'separator outside a balanced span still exposes later assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording “CWAAA regulates hygiene.” is historical; CWAAA “regulates” hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'unbalanced curly quote does not protect later clause',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording “is incomplete; CWAAA regulates hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'unbalanced ASCII quote does not protect later clause',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording "is incomplete; CWAAA regulates hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'unbalanced inline code does not protect later clause',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording `is incomplete; CWAAA regulates hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
 ];
 
 for (const { name, path, statement, expected } of canonMutationCases) {
@@ -712,6 +760,22 @@ for (const [name, statement] of [
   [
     'inline rejected quotation',
     'The phrase “CWAAA regulates hygiene.” is quoted here as a rejected example.',
+  ],
+  [
+    'balanced curly quote keeps comma conjunction inside rejected wording',
+    'The rejected wording “CWAAA regulates hygiene, but the Office does not.” is historical.',
+  ],
+  [
+    'balanced curly quote keeps semicolon inside forbidden example',
+    "The forbidden example “CWAAA is the Office's partner; the Office operates CWAAA.” is quoted here.",
+  ],
+  [
+    'balanced inline code keeps semicolon inside forbidden example',
+    "The forbidden example `CWAAA is the Office's partner; the Office operates CWAAA.` is quoted here.",
+  ],
+  [
+    'balanced ASCII quote keeps comma conjunction inside rejected wording',
+    'The rejected wording "CWAAA regulates hygiene, but the Office does not." is historical.',
   ],
   [
     'correct chronology juxtaposition',

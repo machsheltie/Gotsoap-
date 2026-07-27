@@ -341,3 +341,57 @@ the scoped unified-diff `git apply` fallback.
 
 This parser-order commit changes only this report, `site/scripts/authority-check-lib.mjs`, and
 `site/scripts/authority-check.test.mjs`.
+
+## Span-aware parser closure
+
+The final parser review found two Important validator-only defects. Raw semantic splitting treated
+semicolons and comma conjunctions inside balanced curly quotes, ASCII quotes, and inline code as
+real clause boundaries. Separately, documentation words anywhere around a span—and historical or
+example words in the legacy uncertainty guard—could exempt an unrelated styled assertion.
+
+Semantic prose now passes through a small scanner that treats only balanced `“…”`, `"…"`, and
+backtick spans as opaque while splitting sentence, semicolon, and comma-conjunction boundaries
+outside them. Unbalanced openers remain ordinary text, so later separators and assertions stay
+visible. Span contents are exempted only when an explicit documentation label immediately
+introduces that span, or when a named span has an immediate predicate marking that same span as
+rejected, forbidden, historical, archived, superseded, or quoted documentation. The uncertainty
+guard now contains only genuine uncertainty and negation cues.
+
+### Span-aware TDD evidence
+
+1. Exact RED: `npm --prefix site run authority:test` exited 1 with 270 tests, 262 passed and exactly
+   eight intended failures: four balanced-span false positives and four loose-framing bypasses.
+2. The first focused implementation run passed 16/17 and exposed the independent legacy
+   historical-keyword guard; tightening that guard completed the same root-cause correction.
+3. Final focused GREEN: 19/19 passed, covering balanced curly/ASCII/code spans, separators outside
+   spans, all three unbalanced opener types, strict framing, prior mixed clauses, structural
+   blockquotes, documented examples, and correct chronology.
+4. Full GREEN: `npm --prefix site run authority:test` passed 270/270.
+5. Combined prior and span-aware direct corpora passed 54/54: 42 required rejections and 12
+   required nonassertive/correct allowances.
+
+### Span-aware acceptance evidence
+
+- `npm --prefix site run authority` — PASS.
+- `npm --prefix site run build` — PASS; Astro built 22 static pages.
+- `npm --prefix site run gates` — PASS, 20/20.
+- `npm --prefix site run copy-gates` — PASS, 7/7.
+- `npm --prefix site run fidelity` — authoritative PASS, 54/54.
+- `npm --prefix site run distinguish` — PASS.
+- All 8 tracked JSON files parse; pledge `Buffer.equals` parity passes.
+- Pledge contracts: 3,370 bytes each, SHA-256
+  `61b8361829646344928f277b375064af6dcca4ba00e4dd2aa2db5e83b82b4b8a`.
+- Office state contract: 4,643 bytes, SHA-256
+  `91b18d31c4d66c0e71b5133c29ec2f068547c933b1fa146f59fad980f21e5197`.
+- IVR PDF: 48,058 bytes, 4 `/Type /Page` markers, SHA-256
+  `7748cefced4d671e57aca64d4ba3852c693c068b89a982e2365e4fc3d6af1ab0`.
+- Stale/live scan, including `.claude/rules/gotsoap-web-design.md`, and `git diff --check` — PASS.
+- `site/src`, all contract files, all canon/content files, and the canonical IVR PDF — unchanged.
+
+The expected Windows sandbox EPERM affected Astro's generated type write, fidelity's child `git`,
+and the Node focused-test worker; all commands passed unchanged under the approved elevated path.
+`apply_patch` again could not prepare the `C:\tmp` split-root sandbox, so edits used scoped
+unified-diff `git apply`.
+
+This span-aware commit changes only this report, `site/scripts/authority-check-lib.mjs`, and
+`site/scripts/authority-check.test.mjs`.

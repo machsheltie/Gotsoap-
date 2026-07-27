@@ -35,21 +35,90 @@ function protectedUnresolvedContext(line) {
     /\b(?:CWAAA|Office(?: of Lather Compliance)?)\b|Got Soap\?/i,
   );
   const context = assertionStart === -1 ? line : line.slice(0, assertionStart);
-  return /\b(?:whether|intentionally unresolved|unresolved possibility|may wonder|allowed to wonder|does not|do not|never|must not|cannot|can't|forbidden|prohibited|historical|superseded|quoted|example|no artifact|question)\b/i.test(context);
+  return /\b(?:whether|intentionally unresolved|unresolved possibility|may wonder|allowed to wonder|does not|do not|never|must not|cannot|can't|no artifact|question)\b/i.test(context);
 }
 
-const nonassertiveDocumentationPattern =
-  /\b(?:phrase|wording|draft|quotation|quote|quoted|rejected|example|historical|archived|superseded|forbidden)\b/i;
+const documentedSpanIntroPattern =
+  /\b(?:rejected|forbidden|historical|archived|superseded|quoted)(?:\s*\/\s*(?:rejected|forbidden|historical|archived|superseded|quoted))*\s+(?:wording|example|quotation|quote|draft|phrase)\s*:?\s*$/i;
+const namedSpanIntroPattern =
+  /\b(?:the|this|that)\s+(?:wording|example|quotation|quote|draft|phrase)\s*:?\s*$/i;
+const documentedSpanPredicatePattern =
+  /^\s*(?:is|was)\s+(?:(?:explicitly\s+)?(?:rejected|forbidden|historical|archived|superseded)\b|quoted\b[\s\S]*\b(?:rejected|forbidden|historical|archived|superseded|example|quotation)\b)/i;
+
+function isDocumentedInlineSpan(prefix, suffix) {
+  return documentedSpanIntroPattern.test(prefix)
+    || (namedSpanIntroPattern.test(prefix) && documentedSpanPredicatePattern.test(suffix));
+}
 
 function normalizeInlineAuthorityText(line) {
   return line.replace(
     /`([^`\r\n]*)`|“([^”\r\n]*)”|"([^"\r\n]*)"/g,
     (span, code, curly, ascii, offset, source) => {
-      const surrounding = `${source.slice(0, offset)} ${source.slice(offset + span.length)}`;
-      if (nonassertiveDocumentationPattern.test(surrounding)) return ' ';
+      const prefix = source.slice(0, offset);
+      const suffix = source.slice(offset + span.length);
+      if (isDocumentedInlineSpan(prefix, suffix)) return ' ';
       return code ?? curly ?? ascii ?? '';
     },
   );
+}
+
+function balancedSpanEnd(text, start) {
+  const opener = text[start];
+  const closer = opener === '“' ? '”' : opener === '"' || opener === '`' ? opener : null;
+  if (!closer) return -1;
+
+  for (let index = start + 1; index < text.length; index += 1) {
+    if (text[index] === closer && (closer === '”' || text[index - 1] !== '\\')) return index;
+  }
+  return -1;
+}
+
+function splitSemanticProse(text) {
+  const clauses = [];
+  let clause = '';
+
+  const emitClause = () => {
+    if (clause.trim()) clauses.push(clause.trim());
+    clause = '';
+  };
+
+  for (let index = 0; index < text.length;) {
+    const spanEnd = balancedSpanEnd(text, index);
+    if (spanEnd !== -1) {
+      clause += text.slice(index, spanEnd + 1);
+      index = spanEnd + 1;
+      continue;
+    }
+
+    const commaConjunction = text.slice(index).match(/^,\s+(?:and|but|yet|while)\s+/i);
+    if (commaConjunction) {
+      emitClause();
+      index += commaConjunction[0].length;
+      continue;
+    }
+
+    if (text[index] === ';') {
+      emitClause();
+      index += 1;
+      while (/\s/.test(text[index] ?? '')) index += 1;
+      continue;
+    }
+
+    const character = text[index];
+    clause += character;
+    index += 1;
+
+    const sentenceBoundary = /[.!?]/.test(character)
+      && /\s/.test(text[index] ?? '')
+      && !(character === '?' && clause.trimEnd().endsWith('Got Soap?'));
+    if (sentenceBoundary) {
+      emitClause();
+      while (/\s/.test(text[index] ?? '')) index += 1;
+    }
+  }
+
+  emitClause();
+  return clauses;
 }
 
 function semanticClauses(text) {
@@ -60,8 +129,7 @@ function semanticClauses(text) {
 
   return assertionText
     .split(/\r?\n\s*\r?\n/)
-    .flatMap((paragraph) => paragraph.replace(/\r?\n/g, ' ')
-      .split(/(?<!Got Soap\?)(?<=[.!?])\s+|;\s*|,\s+(?:and|but|yet|while)\s+/i))
+    .flatMap((paragraph) => splitSemanticProse(paragraph.replace(/\r?\n/g, ' ')))
     .map(normalizeInlineAuthorityText);
 }
 
