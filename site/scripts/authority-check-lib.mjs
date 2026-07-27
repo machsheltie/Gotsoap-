@@ -44,10 +44,21 @@ const namedSpanIntroPattern =
   /\b(?:the|this|that)\s+(?:wording|example|quotation|quote|draft|phrase)\s*:?\s*$/i;
 const documentedSpanPredicatePattern =
   /^\s*(?:is|was)\s+(?:(?:explicitly\s+)?(?:rejected|forbidden|historical|archived|superseded)\b|quoted\b[\s\S]*\b(?:rejected|forbidden|historical|archived|superseded|example|quotation)\b)/i;
+const documentedCopularSpanIntroPattern =
+  /\b(?:the\s+)?(?:rejected|forbidden|historical|archived|superseded|quoted)(?:\s*\/\s*(?:rejected|forbidden|historical|archived|superseded|quoted))*\s+(?:wording|example|quotation|quote|draft|phrase)\s+(?:is|was)\s*$/i;
+const namedCopularSpanIntroPattern =
+  /\b(?:the|this|that)\s+(?:wording|example|quotation|quote|draft|phrase)\s+(?:is|was)\s*$/i;
+const postCopularDocumentationPattern =
+  /^\s*(?:and\s+)?(?:is|was)\s+(?:explicitly\s+)?(?:rejected|forbidden|historical|archived|superseded)\b/i;
 
 function isDocumentedInlineSpan(prefix, suffix) {
   return documentedSpanIntroPattern.test(prefix)
-    || (namedSpanIntroPattern.test(prefix) && documentedSpanPredicatePattern.test(suffix));
+    || documentedCopularSpanIntroPattern.test(prefix)
+    || (namedSpanIntroPattern.test(prefix) && documentedSpanPredicatePattern.test(suffix))
+    || (
+      namedCopularSpanIntroPattern.test(prefix)
+      && postCopularDocumentationPattern.test(suffix)
+    );
 }
 
 function normalizeInlineAuthorityText(line) {
@@ -62,19 +73,41 @@ function normalizeInlineAuthorityText(line) {
   );
 }
 
+function isEscapedDelimiter(text, index) {
+  let slashCount = 0;
+  for (let cursor = index - 1; cursor >= 0 && text[cursor] === '\\'; cursor -= 1) {
+    slashCount += 1;
+  }
+  return slashCount % 2 === 1;
+}
+
+function unescapedDelimiterCount(text, delimiter) {
+  let count = 0;
+  for (let index = 0; index < text.length; index += 1) {
+    if (text[index] === delimiter && !isEscapedDelimiter(text, index)) count += 1;
+  }
+  return count;
+}
+
 function balancedSpanEnd(text, start) {
   const opener = text[start];
   const closer = opener === '“' ? '”' : opener === '"' || opener === '`' ? opener : null;
   if (!closer) return -1;
 
   for (let index = start + 1; index < text.length; index += 1) {
-    if (text[index] === closer && (closer === '”' || text[index - 1] !== '\\')) return index;
+    if (opener === '“' && text[index] === '“') return -1;
+    if (text[index] === closer && (closer === '”' || !isEscapedDelimiter(text, index))) {
+      return index;
+    }
   }
   return -1;
 }
 
 function splitSemanticProse(text) {
   const clauses = [];
+  const malformedSameDelimiters = new Set(
+    ['"', '`'].filter((delimiter) => unescapedDelimiterCount(text, delimiter) % 2 === 1),
+  );
   let clause = '';
 
   const emitClause = () => {
@@ -83,6 +116,14 @@ function splitSemanticProse(text) {
   };
 
   for (let index = 0; index < text.length;) {
+    if (
+      malformedSameDelimiters.has(text[index])
+      && !isEscapedDelimiter(text, index)
+    ) {
+      index += 1;
+      continue;
+    }
+
     const spanEnd = balancedSpanEnd(text, index);
     if (spanEnd !== -1) {
       clause += text.slice(index, spanEnd + 1);

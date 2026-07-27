@@ -667,6 +667,30 @@ const canonMutationCases = [
     statement: 'The rejected wording `is incomplete; CWAAA regulates hygiene.',
     expected: /CWAAA.*must not regulate/i,
   },
+  {
+    name: 'nested curly opener does not protect later styled regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording “is incomplete; CWAAA “regulates” hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'nested curly opener does not protect later styled Office operation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording “is incomplete. The Office “operates” CWAAA.',
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'odd ASCII quote stream does not protect later styled regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording "is incomplete; CWAAA "regulates" hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'odd inline-code stream does not protect later styled regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The rejected wording `is incomplete; CWAAA `regulates` hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
 ];
 
 for (const { name, path, statement, expected } of canonMutationCases) {
@@ -776,6 +800,18 @@ for (const [name, statement] of [
   [
     'balanced ASCII quote keeps comma conjunction inside rejected wording',
     'The rejected wording "CWAAA regulates hygiene, but the Office does not." is historical.',
+  ],
+  [
+    'copular rejected example directly binds its quotation',
+    'The rejected example is “CWAAA regulates hygiene.”',
+  ],
+  [
+    'copular historical wording directly binds its quotation',
+    'The historical wording was “CWAAA regulates hygiene.”',
+  ],
+  [
+    'generic copular quotation has an explicit rejection predicate',
+    'This quotation was “CWAAA regulates hygiene.” and is explicitly rejected.',
   ],
   [
     'correct chronology juxtaposition',
