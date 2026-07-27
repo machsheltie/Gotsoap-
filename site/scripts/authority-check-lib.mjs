@@ -145,7 +145,30 @@ export function collectAuthorityErrors(repoRoot) {
     'CWAAA ADVOCATES AND FILES',
     'OFFICE OF LATHER COMPLIANCE REGULATES',
     'THE LATHER PLEDGE',
+    'OBJECTIVE CANON',
+    'NEVER MANUFACTURES FEAR',
+    'ACCIDENTALLY REVEAL',
+    'PHYSICAL SPACE',
+    'EMAIL',
+    'TELEPHONE',
+    'EVENTS',
+    'WHAT IT NEVER SAYS',
   ], 'docs/cwaaa/world-bible.md'));
+
+  const cwaaaDesign = requireFile(repoRoot, 'docs/cwaaa/design.md', errors);
+  errors.push(...missingRequiredMarkers(cwaaaDesign, [
+    'PARTICIPANT ADVOCACY FILES',
+    'NOT POLICE EVIDENCE',
+    'NEUTRAL CITATION',
+  ], 'docs/cwaaa/design.md'));
+
+  const cwaaaPrd = requireFile(repoRoot, 'docs/cwaaa/PRD-cwaaa-web-v1.md', errors);
+  errors.push(...missingRequiredMarkers(cwaaaPrd, [
+    'IMMEDIATE PLEDGE RECEIPT',
+    'ONE CURRENT-ISSUE NEWSLETTER',
+    'MONTH AND YEAR',
+    'NOT AN ONGOING',
+  ], 'docs/cwaaa/PRD-cwaaa-web-v1.md'));
 
   const officeReadme = requireFile(
     repoRoot,

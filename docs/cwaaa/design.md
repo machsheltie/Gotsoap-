@@ -9,7 +9,7 @@
 CWAAA should feel like the small national nonprofit whose briefing packet lands on the right desks:
 competent enough to trust, specific enough to be funny, and materially human. The design language is
 letterhead, field reports, chapter packets, washcloth ribbons, stamped declarations, annotated
-findings, and carefully maintained case files.
+findings, and carefully maintained participant advocacy files.
 
 It is not “ugly on purpose.” It is not a faux government portal. It does not borrow the Office's
 containment language or unnerving error infrastructure.
@@ -97,8 +97,9 @@ recomposing into labeled records, not horizontal scrolling dashboards.
 
 ### Case files
 
-Arrange as a records room with index logic and distinct status bands. Do not treat people as
-criminals. A file opens into testimony, reform status, and next action.
+Arrange participant advocacy files with index logic and distinct status bands. They are not police evidence, intelligence files, criminal dossiers, mugshots, classified folders, or suspect boards. A
+file opens into testimony, reform status, and next action; it never turns a participant into a case to
+be prosecuted.
 
 ### Pledge
 
@@ -107,8 +108,9 @@ and reveals share/copy actions. It implements `contracts/pledge.v1.json` exactly
 
 ### Office referral
 
-Render as a quiet related-authority citation or external-reference line. It must clearly leave CWAAA
-and must not say the Office is a CWAAA division.
+Render as a neutral citation, external-reference line, or ordinary document reference. It must clearly
+leave CWAAA and must not say the Office is a CWAAA division, partner, parent agency, operator, or
+coordinator.
 
 ## Motion
 

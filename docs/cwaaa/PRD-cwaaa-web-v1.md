@@ -7,8 +7,8 @@
 ## Product
 
 CWAAA is a credible fictional advocacy nonprofit that turns the campaign's joke into organized
-participation, findings, recovery stories, and a real email relationship. It links back to Got Soap?
-and outward to the separate Office of Lather Compliance.
+participation, findings, recovery stories, and a finite real email relationship. It links back to Got
+Soap? and outward to the separate Office of Lather Compliance.
 
 ## Goals
 
@@ -43,13 +43,29 @@ clear.
   not a second list.
 - Do not say the Office receives, files, or stores subscriber data.
 
+## Email relationship
+
+After a successful pledge, the finite sequence is:
+
+1. Immediate pledge receipt.
+2. One current-issue newsletter delivered separately after a configurable short delay.
+
+The receipt confirms the declaration without turning the pledge into a subscription. The current
+issue uses evergreen content and derives its displayed month and year at signup or send time. It sends
+exactly once, with no monthly maintenance required. The short delay is deployment configuration rather
+than permanent canon, so it may change without changing the visitor promise.
+
+This is not an ongoing newsletter subscription or drip campaign.
+
 ## Cross-site relationships
 
 - `GOT_SOAP_SITE_URL` and `OFFICE_SITE_URL` are centralized optional configuration.
 - Empty values render no dead controls.
 - Got Soap? link can be prominent in campaign-credit context.
-- Office link is a restrained external-authority reference.
+- Office link is a restrained external-authority reference or neutral citation.
 - All external links clearly signal the domain transition.
+- CWAAA never labels the Office as its partner, parent agency, supervisor, operator, division, or
+  coordinator.
 
 ## Content
 
@@ -58,6 +74,7 @@ clear.
 - Move Office-authored lines out of CWAAA copy. In particular, current language claiming the Office
   files Form CW-1 is target-state incorrect.
 - Maintain fictional/satirical disclosure without breaking the page's voice.
+- Present recovery records as participant advocacy files, never police evidence or enforcement files.
 
 ## Technical baseline
 
@@ -82,7 +99,9 @@ clear.
 - The site is visually and verbally distinct from Got Soap? and the Office.
 - CWAAA is unmistakably a nonprofit, not a regulator.
 - All required material survives extraction.
-- Both pledge contracts are structurally identical and submit to one audience.
+- Both pledge contracts are byte-for-byte identical and submit to one audience.
 - Cross-site links are conditional and correctly attributed.
 - No Office containment/error copy appears as CWAAA authorship.
+- The email relationship sends an immediate receipt and exactly one current issue without monthly
+  maintenance, subscription enrollment, or a drip campaign.
 - Build, link, accessibility, content, and authority checks pass.
