@@ -19,6 +19,7 @@ deliberately unspecified, and its public site consists exclusively of custom err
 
 | Question | Read this |
 |---|---|
+| What cross-system facts, ambiguity, and artifact continuity govern the world? | `docs/world/WORLD-BIBLE.md` + `docs/world/artifact-continuity.md` |
 | What does the current combined build render? | `specs.md` |
 | What should Got Soap? become? | `docs/design.md` + `docs/prd/PRD-gotsoap-web-v1.md` |
 | What should the CWAAA site become? | `docs/cwaaa/design.md` + `docs/cwaaa/PRD-cwaaa-web-v1.md` |
@@ -29,6 +30,16 @@ deliberately unspecified, and its public site consists exclusively of custom err
 | What must both pledge forms submit? | `docs/contracts/pledge.v1.json` |
 | What copy is implemented today? | `site/src/content/copy.ts` |
 | What copy process is binding? | `COPY-PROTOCOL.md`, `CAMPAIGN-INTENT.md`, `docs/copy/` |
+
+## Canon statuses
+
+- **Objective canon:** true within the fictional world.
+- **Public claim:** asserted by a fictional author but not independently confirmed.
+- **Intentionally unresolved:** a question the project protects from resolution.
+- **Historical/inherited copy:** material preserved for provenance but not binding until approved.
+
+For cross-system questions, `docs/world/WORLD-BIBLE.md` is the highest shared authority. A lower
+authority may add execution detail but may not contradict a higher authority.
 
 ## Current state versus target state
 

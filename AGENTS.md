@@ -16,12 +16,16 @@ architecture separates three fictional institutions:
 CWAAA may link to the Office. It never contains, operates, or impersonates the Office. The Office's
 jurisdiction is deliberately unspecified.
 
+Intentional uncertainty is not missing documentation. Do not explain the CWAAA/Office relationship,
+add a clean handoff, or average their rendered authorship.
+
 ## Read in this order
 
 1. `docs/HANDOFF.md` — authority map and transition status.
-2. `specs.md` — current combined runtime contract.
-3. The target package for the system being changed.
-4. `site/src/content/copy.ts` and the applicable copy protocol before copy work.
+2. `docs/world/WORLD-BIBLE.md` — cross-system canon and protected uncertainty.
+3. `specs.md` — current combined runtime contract.
+4. The target package for the system being changed.
+5. `site/src/content/copy.ts` and the applicable copy protocol before copy work.
 
 Historical plans are evidence, not live authority, when `docs/HANDOFF.md` marks them superseded.
 

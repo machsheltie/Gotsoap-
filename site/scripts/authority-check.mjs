@@ -14,7 +14,7 @@ if (errors.length) {
 }
 
 console.log('AUTHORITY CHECK: PASS');
-console.log('- three-system ownership markers present');
-console.log('- Got Soap? anti-template and participation markers present');
+console.log('- shared world canon and artifact continuity markers present');
+console.log('- three-system ownership and per-system behavioral markers present');
 console.log('- portable pledge contracts match exactly');
 console.log('- Office jurisdiction, error-only surface, and local-state rules intact');

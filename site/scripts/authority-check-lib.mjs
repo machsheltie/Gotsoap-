@@ -52,6 +52,40 @@ function parseJson(root, relativePath, errors) {
 export function collectAuthorityErrors(repoRoot) {
   const errors = [];
 
+
+  const worldReadme = requireFile(repoRoot, 'docs/world/README.md', errors);
+  errors.push(...missingRequiredMarkers(worldReadme, [
+    'SHARED AUTHORITY',
+    'PER-SYSTEM AUTHORITY',
+    'EXTRACTION',
+  ], 'docs/world/README.md'));
+
+  const worldBible = requireFile(repoRoot, 'docs/world/WORLD-BIBLE.md', errors);
+  errors.push(...missingRequiredMarkers(worldBible, [
+    'OBJECTIVE CANON',
+    'PUBLIC CLAIM',
+    'INTENTIONALLY UNRESOLVED',
+    '1961',
+    '2024',
+    'GOT SOAP? SEDUCES',
+    'CWAAA VALIDATES AND ORGANIZES',
+    'THE OFFICE ASSUMES JURISDICTION',
+    'KNOWLEDGE MATRIX',
+  ], 'docs/world/WORLD-BIBLE.md'));
+
+  const artifactContinuity = requireFile(
+    repoRoot,
+    'docs/world/artifact-continuity.md',
+    errors,
+  );
+  errors.push(...missingRequiredMarkers(artifactContinuity, [
+    'FIRST MEANING',
+    'LATER MEANING',
+    'RECURRENCE RULE',
+    'FORBIDDEN EXPLANATION',
+    'OFFICE PEN',
+    '1-800-GOT-SOAP',
+  ], 'docs/world/artifact-continuity.md'));
   const liveDocuments = [
     'AGENTS.md',
     'CLAUDE.md',

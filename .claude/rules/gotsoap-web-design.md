@@ -4,12 +4,16 @@ paths:
   - "site/public/**"
   - "docs/design.md"
   - "docs/cwaaa/**"
+  - "docs/world/**"
   - "docs/office-of-lather-compliance/**"
 ---
 
 # Three authors, three visual systems
 
 Identify the author before touching layout or copy.
+
+Intentional uncertainty is not missing documentation. Do not explain the CWAAA/Office relationship,
+add a clean handoff, or average their rendered authorship.
 
 - Got Soap? campaigns: high-fashion heat, steam/tile/smoke/chrome/amber, aggressive scale,
   asymmetric editorial pacing.

@@ -14,6 +14,9 @@ Before proposing or building a surface:
 Do not average the three systems into a tasteful shared design system. Shared engineering primitives
 may exist beneath them, but the rendered authors must remain visibly and behaviorally distinct.
 
+
+Intentional uncertainty is not missing documentation. Do not explain the CWAAA/Office relationship,
+add a clean handoff, or average their rendered authorship.
 When a requirement seems ambiguous, preserve the campaign's commitment and the institution boundary.
 Do not “solve” uncertainty with centered containers, equal cards, safe gradients, generic editorial
 serifs, pill buttons, or a conventional agency homepage.

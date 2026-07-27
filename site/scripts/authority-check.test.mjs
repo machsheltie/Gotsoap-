@@ -58,3 +58,22 @@ test('the Office contract is error-state-only and jurisdiction-neutral', () => {
     [],
   );
 });
+
+test('master canon markers distinguish truth from protected uncertainty', () => {
+  const master = [
+    'OBJECTIVE CANON',
+    'PUBLIC CLAIM',
+    'INTENTIONALLY UNRESOLVED',
+    'KNOWLEDGE MATRIX',
+  ].join('\n');
+
+  assert.deepEqual(
+    missingRequiredMarkers(master, [
+      'OBJECTIVE CANON',
+      'PUBLIC CLAIM',
+      'INTENTIONALLY UNRESOLVED',
+      'KNOWLEDGE MATRIX',
+    ]),
+    [],
+  );
+});

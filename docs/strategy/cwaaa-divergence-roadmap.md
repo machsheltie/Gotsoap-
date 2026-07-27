@@ -11,14 +11,22 @@ The former “future possibility” is now the target:
 
 The target packages are:
 
+- `../world/` for shared cross-system canon and artifact continuity;
 - `../design.md` and `../prd/PRD-gotsoap-web-v1.md` for Got Soap?;
 - `../cwaaa/` for CWAAA;
 - `../office-of-lather-compliance/` for the Office.
+
+Portable institutional material remains inside its own package: CWAAA under `docs/cwaaa/` and the
+Office under `docs/office-of-lather-compliance/`. Shared facts travel by explicit reference from
+`docs/world/`; they are not duplicated into either portable package.
 
 ## Relationship
 
 Got Soap? links interested visitors to CWAAA. CWAAA may link to the Office. The Office is not a
 department, program, or technical service operated by CWAAA.
+Intentional uncertainty is not missing documentation. Do not explain the CWAAA/Office relationship,
+add a clean handoff, or average their rendered authorship.
+
 
 The Sniff Test stays on Got Soap?. The Lather Pledge exists on both Got Soap? and CWAAA through one
 portable contract and one Buttondown audience.
