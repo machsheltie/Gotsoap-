@@ -293,3 +293,51 @@ sandbox, so the same scoped unified-diff `git apply` fallback was used.
 
 This final focused commit changes only this report, `site/scripts/authority-check-lib.mjs`, and
 `site/scripts/authority-check.test.mjs`.
+
+## Clause-local parser-order closure
+
+The follow-up review found two Important validator-only gaps. Inline documentation classification
+ran before semantic clause splitting, so a harmless earlier clause containing words such as
+“example,” “archived,” “phrase,” “draft,” “historical,” or “wording” could suppress a later styled
+assertion on the same physical line. Relationship patterns also recognized only the ASCII
+possessive in `Office's`, not the typographic possessive in `Office’s`.
+
+The validator now structurally removes Markdown blockquote lines, joins soft-wrapped prose, splits
+semantic clauses, and only then classifies and normalizes inline spans within each clause. Both
+relationship patterns containing an Office possessive now accept ASCII `'` and Unicode `’`.
+
+### Parser-order TDD evidence
+
+1. Exact RED: `npm --prefix site run authority:test` exited 1 with 258 tests, 250 passed and exactly
+   the eight new mixed-clause/typographic-possessive regressions failed.
+2. Focused GREEN: 12/12 passed — all eight required rejections plus the Markdown blockquote,
+   archived-draft blockquote, exact rejected quotation, and correct chronology controls.
+3. Full GREEN: `npm --prefix site run authority:test` passed 258/258.
+4. Combined prior and mixed-clause direct corpora passed 42/42: 34 required rejections and 8
+   required nonassertive/correct allowances.
+
+### Parser-order acceptance evidence
+
+- `npm --prefix site run authority` — PASS.
+- `npm --prefix site run build` — PASS; Astro built 22 static pages.
+- `npm --prefix site run gates` — PASS, 20/20.
+- `npm --prefix site run copy-gates` — PASS, 7/7.
+- `npm --prefix site run fidelity` — authoritative PASS, 54/54.
+- `npm --prefix site run distinguish` — PASS.
+- All 8 tracked JSON files parse; pledge `Buffer.equals` parity passes.
+- Pledge contracts: 3,370 bytes each, SHA-256
+  `61b8361829646344928f277b375064af6dcca4ba00e4dd2aa2db5e83b82b4b8a`.
+- Office state contract: 4,643 bytes, SHA-256
+  `91b18d31c4d66c0e71b5133c29ec2f068547c933b1fa146f59fad980f21e5197`.
+- IVR PDF: 48,058 bytes, 4 `/Type /Page` markers, SHA-256
+  `7748cefced4d671e57aca64d4ba3852c693c068b89a982e2365e4fc3d6af1ab0`.
+- Stale/live scan, including `.claude/rules/gotsoap-web-design.md`, and `git diff --check` — PASS.
+- `site/src`, all contract files, all canon/content files, and the canonical IVR PDF — unchanged.
+
+The expected Windows sandbox EPERM affected Astro's generated type write, fidelity's child `git`,
+and the Node focused-test worker; all three commands passed unchanged under the approved elevated
+execution path. `apply_patch` again could not prepare the `C:\tmp` split-root sandbox, so edits used
+the scoped unified-diff `git apply` fallback.
+
+This parser-order commit changes only this report, `site/scripts/authority-check-lib.mjs`, and
+`site/scripts/authority-check.test.mjs`.

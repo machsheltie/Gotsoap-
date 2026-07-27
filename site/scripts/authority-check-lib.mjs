@@ -56,13 +56,13 @@ function semanticClauses(text) {
   const assertionText = text
     .split(/\r?\n/)
     .filter((line) => !/^\s*>/.test(line))
-    .map(normalizeInlineAuthorityText)
     .join('\n');
 
   return assertionText
     .split(/\r?\n\s*\r?\n/)
     .flatMap((paragraph) => paragraph.replace(/\r?\n/g, ' ')
-      .split(/(?<!Got Soap\?)(?<=[.!?])\s+|;\s*|,\s+(?:and|but|yet|while)\s+/i));
+      .split(/(?<!Got Soap\?)(?<=[.!?])\s+|;\s*|,\s+(?:and|but|yet|while)\s+/i))
+    .map(normalizeInlineAuthorityText);
 }
 
 function matchingLines(text, pattern) {
@@ -158,13 +158,13 @@ export function validatePathAwareCanon(path, text) {
   }
 
   const relationshipPatterns = [
-    /\bCWAAA\s+is\s+(?:the\s+)?Office(?: of Lather Compliance)?(?:'s)?\s+(?:partner|operator|coordinator)\b/i,
+    /\bCWAAA\s+is\s+(?:the\s+)?Office(?: of Lather Compliance)?(?:['’]s)?\s+(?:partner|operator|coordinator)\b/i,
     /\bCWAAA\s+is\s+(?:a\s+|the\s+)?(?:partner|operator|coordinator)\s+(?:of|for|with)\s+(?:the\s+)?Office(?: of Lather Compliance)?\b/i,
     /\bCWAAA\s+is\s+(?:overseen|controlled|operated)\s+by\s+(?:the\s+)?Office(?: of Lather Compliance)?\b/i,
     /\bCWAAA\s+works?\s+(?:in coordination with|on behalf of)\s+(?:the\s+)?Office(?: of Lather Compliance)?\b/i,
     /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+(?:operates?|controls?|oversees?)\s+CWAAA\b/i,
     /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+(?:operates?|acts?)\s+through\s+CWAAA\b/i,
-    /\bCWAAA\s+(?:is|serves as|functions as|acts as)\s+(?:an?\s+|the\s+)?(?:Office(?: of Lather Compliance)?(?:'s)?\s+)?(?:public-facing\s+(?:layer|front)|front|division|parent(?:\s+(?:agency|organization))?)/i,
+    /\bCWAAA\s+(?:is|serves as|functions as|acts as)\s+(?:an?\s+|the\s+)?(?:Office(?: of Lather Compliance)?(?:['’]s)?\s+)?(?:public-facing\s+(?:layer|front)|front|division|parent(?:\s+(?:agency|organization))?)/i,
     /\bCWAAA\s+(?:fronts for|is operated by|is a division of|is the parent of)\s+(?:the\s+)?Office\b/i,
     /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+(?:operates|uses|controls)\s+CWAAA\s+as\s+(?:its\s+)?(?:public-facing\s+layer|front|division)/i,
     /\bCWAAA\s+(?:operates?|acts?\s+through)\s+(?:the\s+)?Office(?: of Lather Compliance)?\b/i,

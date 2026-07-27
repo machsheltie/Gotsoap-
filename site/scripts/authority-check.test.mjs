@@ -571,6 +571,54 @@ const canonMutationCases = [
     statement: "CWAAA `is the Office's partner`.",
     expected: /relationship mystery.*partner/i,
   },
+  {
+    name: 'unrelated example clause before styled partner assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: "This example is unrelated; CWAAA is the Office's “partner”.",
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'archived clause before styled regulation assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The archived material is separate, but CWAAA “regulates” hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'phrase clause before styled Office operation assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The phrase is approved; The Office “operates” CWAAA.',
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'draft clause before inline-code partner assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: "The draft is final; CWAAA `is the Office's partner`.",
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'historical clause before styled partner assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: "Historical notes are separate; CWAAA is the Office's “partner”.",
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'wording clause before styled regulation assertion',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'The wording is approved, but CWAAA “regulates” hygiene.',
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'typographic Office possessive with styled partner',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA is the Office’s “partner”.',
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'typographic Office possessive with unquoted partner',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: 'CWAAA is the Office’s partner.',
+    expected: /relationship mystery.*partner/i,
+  },
 ];
 
 for (const { name, path, statement, expected } of canonMutationCases) {
