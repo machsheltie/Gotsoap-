@@ -527,6 +527,38 @@ scenario('T37 child order: .mv__lede:first-of-type{order:1} reorders siblings vi
     '.mv__inner{display:flex;flex-direction:column}.mv__lede:first-of-type{order:1}'),
 }, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
 
+// Sol HOLD round 8 (2026-07-27, vs 0ea9e79): native-nesting declaration loss,
+// ID selectors, signed order values, and var() indirection.
+
+scenario('T38 native nesting: outer column-reverse declarations beside a nested & rule', {
+  ...T, FIDELITY_DIST: injectStyle('dist-native-nesting',
+    '.mv__inner{display:flex;flex-direction:column-reverse;& .unused-child{color:inherit}}'),
+}, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+
+{
+  const d = join(tmp, 'dist-id-selector');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'index.html');
+  const ho = readFileSync(hp, 'utf8');
+  if (!ho.includes('class="mv__inner')) throw new Error('T39: mv__inner not found');
+  writeFileSync(hp, ho
+    .replace('class="mv__inner', 'id="sol-inner" class="mv__inner')
+    .replace('</head>', '<style>#sol-inner{display:flex;flex-direction:column-reverse}</style></head>'));
+  scenario('T39 ID selector: #sol-inner{flex-direction:column-reverse} on the movement container', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+}
+
+scenario('T40 signed order: .mv__lede:first-of-type{order:+1} with explicit plus sign', {
+  ...T, FIDELITY_DIST: injectStyle('dist-signed-order',
+    '.mv__inner{display:flex;flex-direction:column}.mv__lede:first-of-type{order:+1}'),
+}, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+
+scenario('T41 var() indirection: flex-direction:var(--sol-flow) resolving to column-reverse', {
+  ...T, FIDELITY_DIST: injectStyle('dist-var-indirection',
+    ':root{--sol-flow:column-reverse}.mv__inner{display:flex;flex-direction:var(--sol-flow)}'),
+}, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+
 /* ---------- verdict -------------------------------------------------------- */
 
 const bad = results.filter((r) => !r.ok);

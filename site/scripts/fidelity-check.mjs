@@ -167,8 +167,24 @@
  *  - The extractor mirrors all three and marks order-affected parents
  *    ("children of this block are visually REORDERED").
  *
+ * v3.11 (Sol HOLD round 8, 2026-07-27 — native-nesting loss + selector/value
+ * gaps vs 0ea9e79):
+ *  - FRAME TOKENIZER: each rule frame keeps its own declaration buffer, so
+ *    native nesting no longer LOSES the outer declarations (`.x{…reverse;
+ *    & .y{…}}` previously evaporated the outer taint at the child's brace).
+ *  - SELECTOR COVERAGE: taints credit class AND id tokens; a tainted
+ *    selector with neither (type/universal/pseudo-only) becomes a GLOBAL
+ *    page taint — statically unlocalizable, so every multi-string row on
+ *    that page fails (conservative, fail-side).
+ *  - VALUE COVERAGE: order accepts signed values (+1); var()/calc() in any
+ *    flow/order property is tainted by over-approximation — an indirect
+ *    value cannot be statically resolved, so it is presumed reordering; a
+ *    legitimate future var() there forces a contract amendment, never a
+ *    silent pass.
+ *  - Extractor mirrors all three.
+ *
  * ─────────────────────────────────────────────────────────────────────────────
- * SCOPE CONTRACT — the checker's threat model (v3.10, pinned at 60812f7 + r5-r7)
+ * SCOPE CONTRACT — the checker's threat model (v3.11, pinned at 60812f7 + r5-r8)
  *
  * WHAT THIS CHECKER DEFENDS AGAINST (in scope): HONEST DRIFT.
  *   Copy changed in copy.ts but not propagated to a route; a correction row
@@ -528,42 +544,63 @@ const distHits = (s) => distPages.filter((p) => p.text.includes(s)).map((p) => p
  *  - PARENT: `order` (non-zero) reorders the element among its SIBLINGS —
  *    the tainted container is the element's PARENT, where each child may
  *    hold only one agreed string. */
-const SELF_TAINT = /(?:flex-direction|flex-flow|flex-wrap)\s*:[^;}]*-reverse|direction\s*:\s*rtl|writing-mode\s*:[^;}]*-rl|grid-auto-flow\s*:[^;}]*dense/i;
-const PARENT_TAINT = /(?:^|[;{\s])order\s*:\s*-?(?:0*[1-9]|\d*\.\d*[1-9])/i;
+/** v3.11 (Sol round 8): values may be signed (+1) or INDIRECT — a var()/calc()
+ * in a flow/order property cannot be statically resolved, so it is tainted by
+ * over-approximation (unresolvable ⇒ assume reordering; a legitimate future
+ * var() there forces a contract amendment, not a silent pass). */
+const SELF_TAINT = /(?:flex-direction|flex-flow|flex-wrap)\s*:[^;}]*(?:-reverse|(?:var|calc)\()|direction\s*:\s*(?:rtl|(?:var|calc)\()|writing-mode\s*:[^;}]*(?:-rl|(?:var|calc)\()|grid-auto-flow\s*:[^;}]*(?:dense|(?:var|calc)\()/i;
+const PARENT_TAINT = /(?:^|[;{\s])order\s*:\s*(?:[-+]?0*[1-9]\d*|[-+]?\d*\.\d*[1-9]\d*|[^;}]*(?:var|calc)\()/i;
 const REVERSAL_DECL = new RegExp(`${SELF_TAINT.source}|${PARENT_TAINT.source}`, 'i');
-/** Brace tokenizer, not a flat rule regex (v3.10): flat matching cannot see
- * rules nested inside @media/@supports/@layer or native CSS nesting — a
- * breakpoint-scoped reversal is an ordinary honest edit at this site's three
- * locked breakpoints. Returns Map(class -> {self, parent}). */
-function reversalClassesFromCss(css) {
-  const out = new Map();
-  const add = (cls, kind) => {
-    const e = out.get(cls) || { self: false, parent: false };
+const emptyTaints = () => ({ classes: new Map(), ids: new Map(), global: { self: false, parent: false } });
+/** Frame-based brace tokenizer (v3.11): each frame keeps its OWN declaration
+ * buffer, so native nesting no longer loses the outer declarations — at a
+ * nested rule's `{`, everything before the last `;` is credited back to the
+ * ENCLOSING frame instead of being consumed as part of the child selector.
+ * Selectors are credited by class AND id token; a tainted selector with
+ * neither (type/universal/pseudo-only) becomes a GLOBAL page taint —
+ * unlocalizable statically, so every multi-string row on the page fails. */
+function reversalTaintsFromCss(css) {
+  const res = emptyTaints();
+  const addTo = (map, k, kind) => {
+    const e = map.get(k) || { self: false, parent: false };
     e[kind] = true;
-    out.set(cls, e);
+    map.set(k, e);
+  };
+  const credit = (sel, decls) => {
+    if (!sel || sel.startsWith('@')) return;
+    const self = SELF_TAINT.test(decls), parent = PARENT_TAINT.test(decls);
+    if (!self && !parent) return;
+    const classes = [...sel.matchAll(/\.([A-Za-z_][\w-]*)/g)].map((m) => m[1]);
+    const ids = [...sel.matchAll(/#([A-Za-z_][\w-]*)/g)].map((m) => m[1]);
+    if (classes.length === 0 && ids.length === 0) {
+      res.global.self = res.global.self || self;
+      res.global.parent = res.global.parent || parent;
+      return;
+    }
+    for (const c of classes) { if (self) addTo(res.classes, c, 'self'); if (parent) addTo(res.classes, c, 'parent'); }
+    for (const c of ids) { if (self) addTo(res.ids, c, 'self'); if (parent) addTo(res.ids, c, 'parent'); }
   };
   css = css.replace(/\/\*[\s\S]*?\*\//g, ' ');
   const stack = [];
   let buf = '';
-  for (let i = 0; i < css.length; i++) {
-    const ch = css[i];
-    if (ch === '{') { stack.push(buf.trim()); buf = ''; continue; }
+  for (const ch of css) {
+    if (ch === '{') {
+      const cut = buf.lastIndexOf(';');
+      const childSel = buf.slice(cut + 1).trim();
+      if (cut >= 0 && stack.length) stack[stack.length - 1].decls += buf.slice(0, cut + 1);
+      stack.push({ sel: childSel, decls: '' });
+      buf = '';
+      continue;
+    }
     if (ch === '}') {
-      const sel = stack.pop() ?? '';
-      if (sel && !sel.startsWith('@')) {
-        const self = SELF_TAINT.test(buf), parent = PARENT_TAINT.test(buf);
-        if (self || parent)
-          for (const c of sel.matchAll(/\.([A-Za-z_][\w-]*)/g)) {
-            if (self) add(c[1], 'self');
-            if (parent) add(c[1], 'parent');
-          }
-      }
+      const frame = stack.pop() || { sel: '', decls: '' };
+      credit(frame.sel, frame.decls + buf);
       buf = '';
       continue;
     }
     buf += ch;
   }
-  return out;
+  return res;
 }
 function cssFilesUnder(dir, out = []) {
   for (const n of readdirSync(dir)) {
@@ -574,17 +611,20 @@ function cssFilesUnder(dir, out = []) {
   return out;
 }
 const mergeTaints = (into, from) => {
-  for (const [cls, kinds] of from) {
-    const e = into.get(cls) || { self: false, parent: false };
-    e.self = e.self || kinds.self;
-    e.parent = e.parent || kinds.parent;
-    into.set(cls, e);
-  }
+  for (const map of ['classes', 'ids'])
+    for (const [k, kinds] of from[map]) {
+      const e = into[map].get(k) || { self: false, parent: false };
+      e.self = e.self || kinds.self;
+      e.parent = e.parent || kinds.parent;
+      into[map].set(k, e);
+    }
+  into.global.self = into.global.self || from.global.self;
+  into.global.parent = into.global.parent || from.global.parent;
 };
-const globalReversalClasses = new Map();
+const sheetTaints = emptyTaints();
 if (existsSync(DIST))
   for (const f of cssFilesUnder(DIST))
-    mergeTaints(globalReversalClasses, reversalClassesFromCss(readFileSync(f, 'utf8')));
+    mergeTaints(sheetTaints, reversalTaintsFromCss(readFileSync(f, 'utf8')));
 /** Balanced-scan subtree extraction from an opening tag. */
 function subtreeText(raw, openIdx, tag) {
   const re = new RegExp(`<${tag}\\b|</${tag}\\s*>`, 'gi');
@@ -621,10 +661,14 @@ function tagIndexOf(raw) {
 function reversedContainersOf(p) {
   if (p._rev) return p._rev;
   const out = [];
-  const classes = new Map();
-  mergeTaints(classes, globalReversalClasses);
+  const taints = emptyTaints();
+  mergeTaints(taints, sheetTaints);
   for (const st of p.raw.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style\s*>/gi))
-    mergeTaints(classes, reversalClassesFromCss(st[1]));
+    mergeTaints(taints, reversalTaintsFromCss(st[1]));
+  // Unlocalizable (type/universal/pseudo-only) tainted selectors poison the
+  // whole page: any multi-string row rendering here fails.
+  if (taints.global.self || taints.global.parent)
+    out.push({ why: 'type-level selector — unlocalizable', text: p.text });
   const textOf = (openIdx, tag) =>
     norm(unescapeHtml(subtreeText(p.raw, openIdx, tag).replace(/<[^>]*>/g, ' ')));
   const seen = new Set();
@@ -636,13 +680,18 @@ function reversedContainersOf(p) {
   };
   for (const el of tagIndexOf(p.raw)) {
     const cls = (el.open.match(/\bclass="([^"]*)"/i) || [])[1];
+    const id = (el.open.match(/\bid="([^"]*)"/i) || [])[1];
     const style = (el.open.match(/\bstyle="([^"]*)"/i) || [])[1];
     let self = false, parent = false, why = '';
     if (cls) {
       for (const t of cls.split(/\s+/)) {
-        const k = classes.get(t);
+        const k = taints.classes.get(t);
         if (k) { self = self || k.self; parent = parent || k.parent; why = `.${t}`; }
       }
+    }
+    if (id) {
+      const k = taints.ids.get(id.trim());
+      if (k) { self = self || k.self; parent = parent || k.parent; why = `#${id.trim()}`; }
     }
     if (style) {
       if (SELF_TAINT.test(style)) { self = true; why = 'inline style'; }
@@ -1184,7 +1233,7 @@ const landed = results.filter((r) => r.ok).length;
 // vocabulary. Test mode renders every count as "N of M".
 const frac = (a, b) => (TEST_MODE ? `${a} of ${b}` : `${a}/${b}`);
 out();
-out(`  fidelity check v3.10${banner} — extraction from ${PLAN}`);
+out(`  fidelity check v3.11${banner} — extraction from ${PLAN}`);
 out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${frac(rows.length, declaredRows)} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
 // VOCABULARY SPLIT (v3.4, Sol): test-mode output shares NO success vocabulary

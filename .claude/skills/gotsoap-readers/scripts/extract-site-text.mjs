@@ -77,47 +77,69 @@ const cssFiles = [];
 // two taint kinds — SELF (the element is the reversed container) vs PARENT
 // (`order` reorders the element among its siblings, so the PARENT is what
 // reads out of order).
-const SELF_TAINT = /(?:flex-direction|flex-flow|flex-wrap)\s*:[^;}]*-reverse|direction\s*:\s*rtl|writing-mode\s*:[^;}]*-rl|grid-auto-flow\s*:[^;}]*dense/i;
-const PARENT_TAINT = /(?:^|[;{\s])order\s*:\s*-?(?:0*[1-9]|\d*\.\d*[1-9])/i;
-const reversalClassesFrom = (css) => {
-  const out = new Map(); // class -> {self, parent}
-  const add = (cls, kind) => {
-    const e = out.get(cls) || { self: false, parent: false };
+const SELF_TAINT = /(?:flex-direction|flex-flow|flex-wrap)\s*:[^;}]*(?:-reverse|(?:var|calc)\()|direction\s*:\s*(?:rtl|(?:var|calc)\()|writing-mode\s*:[^;}]*(?:-rl|(?:var|calc)\()|grid-auto-flow\s*:[^;}]*(?:dense|(?:var|calc)\()/i;
+const PARENT_TAINT = /(?:^|[;{\s])order\s*:\s*(?:[-+]?0*[1-9]\d*|[-+]?\d*\.\d*[1-9]\d*|[^;}]*(?:var|calc)\()/i;
+const emptyTaints = () => ({ classes: new Map(), ids: new Map(), global: { self: false, parent: false } });
+// Frame-based tokenizer (mirrors fidelity-check.mjs v3.11): native nesting no
+// longer loses outer declarations; selectors credit class AND id tokens; a
+// tainted selector with neither becomes a GLOBAL page taint. var()/calc() in
+// a flow/order property is tainted by over-approximation.
+const reversalTaintsFrom = (css) => {
+  const res = emptyTaints();
+  const addTo = (map, k, kind) => {
+    const e = map.get(k) || { self: false, parent: false };
     e[kind] = true;
-    out.set(cls, e);
+    map.set(k, e);
+  };
+  const credit = (sel, decls) => {
+    if (!sel || sel.startsWith('@')) return;
+    const self = SELF_TAINT.test(decls), parent = PARENT_TAINT.test(decls);
+    if (!self && !parent) return;
+    const classes = [...sel.matchAll(/\.([A-Za-z_][\w-]*)/g)].map((m) => m[1]);
+    const ids = [...sel.matchAll(/#([A-Za-z_][\w-]*)/g)].map((m) => m[1]);
+    if (classes.length === 0 && ids.length === 0) {
+      res.global.self = res.global.self || self;
+      res.global.parent = res.global.parent || parent;
+      return;
+    }
+    for (const c of classes) { if (self) addTo(res.classes, c, 'self'); if (parent) addTo(res.classes, c, 'parent'); }
+    for (const c of ids) { if (self) addTo(res.ids, c, 'self'); if (parent) addTo(res.ids, c, 'parent'); }
   };
   css = css.replace(/\/\*[\s\S]*?\*\//g, ' ');
   const stack = [];
   let buf = '';
   for (const ch of css) {
-    if (ch === '{') { stack.push(buf.trim()); buf = ''; continue; }
+    if (ch === '{') {
+      const cut = buf.lastIndexOf(';');
+      const childSel = buf.slice(cut + 1).trim();
+      if (cut >= 0 && stack.length) stack[stack.length - 1].decls += buf.slice(0, cut + 1);
+      stack.push({ sel: childSel, decls: '' });
+      buf = '';
+      continue;
+    }
     if (ch === '}') {
-      const sel = stack.pop() ?? '';
-      if (sel && !sel.startsWith('@')) {
-        const self = SELF_TAINT.test(buf), parent = PARENT_TAINT.test(buf);
-        if (self || parent)
-          for (const c of sel.matchAll(/\.([A-Za-z_][\w-]*)/g)) {
-            if (self) add(c[1], 'self');
-            if (parent) add(c[1], 'parent');
-          }
-      }
+      const frame = stack.pop() || { sel: '', decls: '' };
+      credit(frame.sel, frame.decls + buf);
       buf = '';
       continue;
     }
     buf += ch;
   }
-  return out;
+  return res;
 };
 const mergeTaints = (into, from) => {
-  for (const [cls, kinds] of from) {
-    const e = into.get(cls) || { self: false, parent: false };
-    e.self = e.self || kinds.self;
-    e.parent = e.parent || kinds.parent;
-    into.set(cls, e);
-  }
+  for (const map of ['classes', 'ids'])
+    for (const [k, kinds] of from[map]) {
+      const e = into[map].get(k) || { self: false, parent: false };
+      e.self = e.self || kinds.self;
+      e.parent = e.parent || kinds.parent;
+      into[map].set(k, e);
+    }
+  into.global.self = into.global.self || from.global.self;
+  into.global.parent = into.global.parent || from.global.parent;
 };
-const globalReversalClasses = new Map();
-for (const f of cssFiles) mergeTaints(globalReversalClasses, reversalClassesFrom(readFileSync(f, 'utf8')));
+const globalTaints = emptyTaints();
+for (const f of cssFiles) mergeTaints(globalTaints, reversalTaintsFrom(readFileSync(f, 'utf8')));
 const VOID_TAGS = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']);
 
 for (const p of pages) {
@@ -136,10 +158,10 @@ for (const p of pages) {
   // scratch-gag rotation, and the field↔alert wiring are all real user-facing copy that lived
   // only in attributes — the blind read could not observe them, so a transposed carrier was
   // invisible to the compensating control. Surface each, marked, right after its element.
-  const pageReversalClasses = new Map();
-  mergeTaints(pageReversalClasses, globalReversalClasses);
+  const pageTaints = emptyTaints();
+  mergeTaints(pageTaints, globalTaints);
   for (const st of readFileSync(p, 'utf8').matchAll(/<style\b[^>]*>([\s\S]*?)<\/style\s*>/gi))
-    mergeTaints(pageReversalClasses, reversalClassesFrom(st[1]));
+    mergeTaints(pageTaints, reversalTaintsFrom(st[1]));
   // Pre-pass with an open-element stack: SELF taints mark the element itself;
   // PARENT taints (child `order`) mark the element's PARENT — that is the
   // block whose children read out of order.
@@ -154,10 +176,15 @@ for (const p of pages) {
         continue;
       }
       const cls = (m[0].match(/\sclass="([^"]*)"/i) || [])[1];
+      const idAttr = (m[0].match(/\sid="([^"]*)"/i) || [])[1];
       const style = (m[0].match(/\sstyle="([^"]*)"/i) || [])[1];
       let self = false, parent = false;
       if (cls) for (const t of cls.split(/\s+/)) {
-        const k = pageReversalClasses.get(t);
+        const k = pageTaints.classes.get(t);
+        if (k) { self = self || k.self; parent = parent || k.parent; }
+      }
+      if (idAttr) {
+        const k = pageTaints.ids.get(idAttr.trim());
         if (k) { self = self || k.self; parent = parent || k.parent; }
       }
       if (style) {
@@ -200,7 +227,10 @@ for (const p of pages) {
 
   const route = '/' + relative(DIST, p).replace(/\\/g, '/').replace(/index\.html$/, '').replace(/\.html$/, '');
   const name = (relative(DIST, p).replace(/\\/g, '/').replace(/\//g, '_').replace(/\.html$/, '')) || 'index';
-  writeFileSync(join(OUT, `${name}.txt`), `=== PAGE: ${route} ===\n\n${h}`);
+  const globalNote = (pageTaints.global.self || pageTaints.global.parent)
+    ? '[layout note: a type-level CSS rule reorders elements on this page — visual order may differ from this text]\n\n'
+    : '';
+  writeFileSync(join(OUT, `${name}.txt`), `=== PAGE: ${route} ===\n\n${globalNote}${h}`);
 }
 
 console.log(`extracted ${pages.length} pages →\n${OUT}`);
