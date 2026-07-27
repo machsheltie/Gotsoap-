@@ -546,3 +546,59 @@ normal authority scanning.
 
 The expected Windows sandbox EPERM affected Astro's generated type write and fidelity's child `git`;
 both commands passed unchanged under the approved elevated path.
+
+## Repeated escape-run and list-boundary closure
+
+The follow-up review found that normalization removed only the single backslash immediately touching
+an escaped styling delimiter. Two-slash runs could create a valid span with trailing slashes inside
+its content, while odd runs remained text tokens with two residual slashes. Both paths left semantic
+predicate words bracketed by backslashes and bypassed authority patterns. The clause splitter also
+emitted a boundary at an Oxford `, and` or semicolon before the strict plural-list classifier could
+inspect the complete list.
+
+A single semantic-token normalizer now removes an entire contiguous backslash run only when that run
+touches an ASCII quote, backtick, curly quote, or a tokenized styling span. Valid span content is
+normalized through the same helper when unwrapped, so leading/trailing escape residues cannot remain.
+Possessive apostrophes and ordinary path backslashes remain intact. Clause splitting now retains an
+outside-span Oxford-comma or semicolon connector only when the current clause starts with an explicit
+strict plural documentation label, already contains valid same-delimiter spans, and the connector
+leads directly to another valid span of that delimiter. Every other separator keeps the existing
+split behavior, and unsafe mixed lists still unwrap for authority scanning.
+
+### Repeated-run TDD evidence
+
+1. Clean exact RED: `npm --prefix site run authority:test` exited 1 with 317 tests, 303 passed and
+   exactly 14 intended failures: two normalized-output units, eight repeated escape-run bypasses,
+   and four Oxford-comma/semicolon documented-list allowances.
+2. Focused GREEN: 17/17 passed, covering all new normalization/rejection/allowance cases and the
+   three prior unsafe mixed-list negatives.
+3. Full GREEN: `npm --prefix site run authority:test` passed 317/317.
+4. A direct replay of the complete source arrays passed 123/123: 99 required rejections and 24
+   required allowances. This subsumes the prior 83-case corpus and all 12 new validator cases; an
+   additional assertion confirmed ordinary `C:\docs\world-bible.md` path text is preserved.
+
+### Repeated-run acceptance evidence
+
+- `npm --prefix site run authority` — PASS.
+- `npm --prefix site run build` — PASS; Astro built 22 static pages.
+- `npm --prefix site run gates` — PASS, 20/20.
+- `npm --prefix site run copy-gates` — PASS, 7/7.
+- `npm --prefix site run fidelity` — authoritative PASS, 54/54.
+- `npm --prefix site run distinguish` — PASS.
+- All 8 tracked JSON files parse; byte-for-byte pledge parity passes.
+- Pledge contracts: 3,370 bytes each, SHA-256
+  `61b8361829646344928f277b375064af6dcca4ba00e4dd2aa2db5e83b82b4b8a`.
+- Office state contract: 4,643 bytes, SHA-256
+  `91b18d31c4d66c0e71b5133c29ec2f068547c933b1fa146f59fad980f21e5197`.
+- IVR PDF: 48,058 bytes, 4 `/Type /Page` markers, SHA-256
+  `7748cefced4d671e57aca64d4ba3852c693c068b89a982e2365e4fc3d6af1ab0`.
+- Stale/live scan, `git diff --check`, and Node syntax checks — PASS.
+- `site/src`, all contract files, and the canonical IVR PDF — unchanged.
+
+The expected Windows sandbox EPERM affected the focused Node worker, Astro's generated type write,
+and fidelity's child `git`; each command passed unchanged under the approved elevated path.
+`apply_patch` could not initialize the `C:\tmp` split-root sandbox, so edits used scoped,
+line-counted unified-diff `git apply` patches.
+
+This closure commit changes only this report, `site/scripts/authority-check-lib.mjs`, and
+`site/scripts/authority-check.test.mjs`.

@@ -204,16 +204,87 @@ function isStrictDocumentedSpanList(tokens, delimiter) {
   return documentedListTailPattern.test(tail);
 }
 
-function normalizeAuthorityTextToken(tokens, index) {
-  const token = tokens[index];
-  if (authorityStylingDelimiterPattern.test(token.raw)) return '';
+function isAuthorityStylingBoundary(token) {
+  return (
+    token?.kind === 'span' && token.valid
+  ) || (
+    token?.kind === 'text' && authorityStylingDelimiterPattern.test(token.raw)
+  );
+}
 
-  const next = tokens[index + 1];
-  const escapesStylingDelimiter = token.raw === '\\'
-    && next?.kind === 'text'
-    && token.end === next.start
-    && authorityStylingDelimiterPattern.test(next.raw);
-  return escapesStylingDelimiter ? '' : token.raw;
+function normalizeAuthoritySemanticToken(tokens, index) {
+  const token = tokens[index];
+  if (token.kind === 'span') {
+    return token.content.replace(/^\\+|\\+$/g, '');
+  }
+
+  if (authorityStylingDelimiterPattern.test(token.raw)) return '';
+  if (token.raw !== '\\') return token.raw;
+
+  let before = index - 1;
+  while (
+    before >= 0
+    && tokens[before].kind === 'text'
+    && tokens[before].raw === '\\'
+    && tokens[before].end === tokens[before + 1].start
+  ) {
+    before -= 1;
+  }
+
+  let after = index + 1;
+  while (
+    after < tokens.length
+    && tokens[after].kind === 'text'
+    && tokens[after].raw === '\\'
+    && tokens[after - 1].end === tokens[after].start
+  ) {
+    after += 1;
+  }
+
+  const adjacentToStyling = (
+    before >= 0
+    && tokens[before].end === tokens[before + 1].start
+    && isAuthorityStylingBoundary(tokens[before])
+  ) || (
+    after < tokens.length
+    && tokens[after - 1].end === tokens[after].start
+    && isAuthorityStylingBoundary(tokens[after])
+  );
+  return adjacentToStyling ? '' : token.raw;
+}
+
+function isDocumentedListContinuation(text, tokens, index, clauseTokens) {
+  const spans = clauseTokens.filter(({ kind }) => kind === 'span');
+  if (
+    spans.length === 0
+    || spans.some(({ balanced, valid }) => !balanced || !valid)
+    || new Set(spans.map(({ delimiter }) => delimiter)).size !== 1
+  ) {
+    return false;
+  }
+
+  const firstSpanIndex = clauseTokens.findIndex(({ kind }) => kind === 'span');
+  const listIntro = tokenText(clauseTokens.slice(0, firstSpanIndex));
+  if (!documentedListIntroPattern.test(listIntro)) {
+    return false;
+  }
+
+  const token = tokens[index];
+  const connector = token.raw === ','
+    ? text.slice(token.start).match(/^,\s+(?:and|or)\s+/i)
+    : text.slice(token.start).match(/^;\s*(?:(?:and|or)\s+)?/i);
+  if (!connector) return false;
+
+  const nextPosition = token.start + connector[0].length;
+  let nextIndex = index + 1;
+  while (nextIndex < tokens.length && tokens[nextIndex].start < nextPosition) {
+    nextIndex += 1;
+  }
+
+  const next = tokens[nextIndex];
+  return next?.kind === 'span'
+    && next.valid
+    && next.delimiter === spans[0].delimiter;
 }
 
 function splitSemanticTokens(text, tokens) {
@@ -245,13 +316,21 @@ function splitSemanticTokens(text, tokens) {
     const commaConjunction = token.kind === 'text' && token.raw === ','
       ? text.slice(token.start).match(/^,\s+(?:and|but|yet|while)\s+/i)
       : null;
-    if (commaConjunction) {
+    const documentedListContinuation = (
+      (commaConjunction || (token.kind === 'text' && token.raw === ';'))
+      && isDocumentedListContinuation(text, tokens, index, clauseTokens)
+    );
+    if (commaConjunction && !documentedListContinuation) {
       emitClause();
       index = skipTokensBefore(index, token.start + commaConjunction[0].length);
       continue;
     }
 
-    if (token.kind === 'text' && token.raw === ';') {
+    if (
+      token.kind === 'text'
+      && token.raw === ';'
+      && !documentedListContinuation
+    ) {
       emitClause();
       let nextPosition = token.end;
       while (/\s/.test(text[nextPosition] ?? '')) nextPosition += 1;
@@ -298,7 +377,7 @@ export function normalizeAuthorityClause(tokens) {
   for (let index = 0; index < tokens.length; index += 1) {
     const token = tokens[index];
     if (token.kind === 'text') {
-      normalized += normalizeAuthorityTextToken(tokens, index);
+      normalized += normalizeAuthoritySemanticToken(tokens, index);
       offset += token.raw.length;
       continue;
     }
@@ -314,7 +393,7 @@ export function normalizeAuthorityClause(tokens) {
     ) || documentedListDelimiters.has(token.delimiter);
     normalized += documentedSpan
       ? ' '
-      : token.content;
+      : normalizeAuthoritySemanticToken(tokens, index);
     offset += token.raw.length;
   }
 

@@ -86,6 +86,43 @@ test('escaped curly styling normalizes without changing possessive apostrophes',
   );
 });
 
+function escapedAuthorityStyle(runLength, opener, content, closer = opener) {
+  const escapeRun = '\\'.repeat(runLength);
+  return `${escapeRun}${opener}${content}${escapeRun}${closer}`;
+}
+
+test('semantic normalization removes complete repeated escape runs around styling', () => {
+  const sources = [
+    `CWAAA ${escapedAuthorityStyle(2, '"', 'regulates')} hygiene.`,
+    `CWAAA ${escapedAuthorityStyle(3, '"', 'regulates')} hygiene.`,
+    `CWAAA ${escapedAuthorityStyle(2, '`', 'regulates')} hygiene.`,
+    `CWAAA ${escapedAuthorityStyle(3, '`', 'regulates')} hygiene.`,
+    `CWAAA ${escapedAuthorityStyle(2, '“', 'regulates', '”')} hygiene.`,
+    `CWAAA ${escapedAuthorityStyle(3, '“', 'regulates', '”')} hygiene.`,
+  ];
+
+  assert.equal(sources[0], String.raw`CWAAA \\"regulates\\" hygiene.`);
+  for (const source of sources) {
+    assert.equal(
+      authorityCheck.normalizeAuthorityClause(
+        authorityCheck.lexInlineAuthorityTokens(source),
+      ),
+      'CWAAA regulates hygiene.',
+    );
+  }
+});
+
+test('repeated escape-run normalization preserves possessive apostrophes', () => {
+  const source = `CWAAA is the Office's ${escapedAuthorityStyle(2, '"', 'partner')}.`;
+
+  assert.equal(
+    authorityCheck.normalizeAuthorityClause(
+      authorityCheck.lexInlineAuthorityTokens(source),
+    ),
+    "CWAAA is the Office's partner.",
+  );
+});
+
 const authorityFixturePaths = [
   'AGENTS.md',
   'CLAUDE.md',
@@ -838,6 +875,54 @@ const canonMutationCases = [
     expected: /relationship mystery.*operates/i,
   },
   {
+    name: 'two-slash ASCII styling does not protect CWAAA regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `CWAAA ${escapedAuthorityStyle(2, '"', 'regulates')} hygiene.`,
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'two-slash inline-code styling does not protect CWAAA regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `CWAAA ${escapedAuthorityStyle(2, '`', 'regulates')} hygiene.`,
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'two-slash ASCII styling does not protect Office operation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `The Office ${escapedAuthorityStyle(2, '"', 'operates')} CWAAA.`,
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'two-slash ASCII styling does not protect the Office partner label',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `CWAAA is the Office's ${escapedAuthorityStyle(2, '"', 'partner')}.`,
+    expected: /relationship mystery.*partner/i,
+  },
+  {
+    name: 'three-slash ASCII styling does not protect CWAAA regulation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `CWAAA ${escapedAuthorityStyle(3, '"', 'regulates')} hygiene.`,
+    expected: /CWAAA.*must not regulate/i,
+  },
+  {
+    name: 'three-slash inline-code styling does not protect Office operation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `The Office ${escapedAuthorityStyle(3, '`', 'operates')} CWAAA.`,
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'two-slash curly styling does not protect Office operation',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `The Office ${escapedAuthorityStyle(2, '“', 'operates', '”')} CWAAA.`,
+    expected: /relationship mystery.*operates/i,
+  },
+  {
+    name: 'three-slash curly styling does not protect the Office partner label',
+    path: 'docs/world/WORLD-BIBLE.md',
+    statement: `CWAAA is the Office's ${escapedAuthorityStyle(3, '“', 'partner', '”')}.`,
+    expected: /relationship mystery.*partner/i,
+  },
+  {
     name: 'curly documented list with an unquoted regulation assertion',
     path: 'docs/world/WORLD-BIBLE.md',
     statement: 'Rejected examples: “CWAAA regulates hygiene.” and CWAAA regulates hygiene, plus “The Office operates CWAAA.”',
@@ -996,6 +1081,22 @@ for (const [name, statement] of [
   [
     'explicit forbidden inline-code example list',
     "Forbidden examples: `CWAAA regulates hygiene.` and `CWAAA is the Office's partner.`",
+  ],
+  [
+    'explicit rejected curly example list with an Oxford comma',
+    'Rejected examples: “CWAAA regulates hygiene.”, and “The Office operates CWAAA.”',
+  ],
+  [
+    'explicit rejected curly three-example semicolon list',
+    "Rejected examples: “CWAAA regulates hygiene.”; “The Office operates CWAAA.”; and “CWAAA is the Office's partner.”",
+  ],
+  [
+    'explicit rejected ASCII example list with an Oxford comma',
+    'Rejected examples: "CWAAA regulates hygiene.", and "The Office operates CWAAA."',
+  ],
+  [
+    'explicit forbidden inline-code three-example semicolon list',
+    "Forbidden examples: `CWAAA regulates hygiene.`; `The Office operates CWAAA.`; and `CWAAA is the Office's partner.`",
   ],
   [
     'correct chronology juxtaposition',
