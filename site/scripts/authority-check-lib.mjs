@@ -38,13 +38,14 @@ export function findPublicDisclosureDrift(text, path) {
   const directivePattern = /\b(?:add|announce|disclose|display|include|place|publish|put|render|show|state)\b/i;
   const prohibitionPattern = /\b(?:do not|never|must not|cannot|can't|not permitted|prohibited|forbidden)\b/i;
 
-  return text.split(/\r?\n/).flatMap((line, index) => {
-    const liveDirective = disclosurePattern.test(line)
-      && publicSurfacePattern.test(line)
-      && directivePattern.test(line)
-      && !prohibitionPattern.test(line);
+  return semanticClauses(text).flatMap((clause) => {
+    const liveDirective = disclosurePattern.test(clause)
+      && publicSurfacePattern.test(clause)
+      && directivePattern.test(clause)
+      && !prohibitionPattern.test(clause)
+      && !protectedUnresolvedContext(clause, directivePattern, true);
     return liveDirective
-      ? [`${path}:${index + 1}: fiction disclosure belongs behind the creator/About seam`]
+      ? [`${path}: fiction disclosure belongs behind the creator/About seam`]
       : [];
   });
 }

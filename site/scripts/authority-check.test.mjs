@@ -1110,6 +1110,20 @@ for (const { path, text } of publicDisclosureDriftCases) {
   });
 }
 
+test('public fiction disclosure rejects a Markdown-wrapped directive', () => {
+  withCleanAuthorityFixture((fixtureRoot) => {
+    appendFixtureText(
+      fixtureRoot,
+      'docs/prd/PRD-gotsoap-web-v1.md',
+      'Render “This is satire and unaffiliated spec work” in the\nglobal footer.',
+    );
+    assert.match(
+      collectAuthorityErrors(fixtureRoot).join('\n'),
+      /docs\/prd\/PRD-gotsoap-web-v1\.md:.*fiction disclosure belongs behind the creator\/About seam/i,
+    );
+  });
+});
+
 for (const [name, path, text] of [
   [
     'private production canon',
@@ -1120,6 +1134,16 @@ for (const [name, path, text] of [
     'explicit global-footer prohibition',
     'docs/cwaaa/PRD-cwaaa-web-v1.md',
     'Do not state that CWAAA is fictional satire in global footer copy.',
+  ],
+  [
+    'rejected global-footer example',
+    'docs/prd/PRD-gotsoap-web-v1.md',
+    'Rejected example: Render “This is satire” in the global footer.',
+  ],
+  [
+    'historical superseded CWAAA footer direction',
+    'docs/cwaaa/PRD-cwaaa-web-v1.md',
+    'Historical/superseded wording: State that CWAAA is fictional satire in global footer copy.',
   ],
 ]) {
   test(`public disclosure drift permits ${name}`, () => {
