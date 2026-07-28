@@ -593,6 +593,21 @@ export function validatePathAwareCanon(path, text) {
     }
   }
 
+  if (lowerPath.endsWith('/office-of-lather-compliance/design.md')) {
+    if (matchingLines(text, /\bUse a centered legacy terminal frame\b/i).length > 0) {
+      errors.push(`${path}: obsolete Office terminal styling.`);
+    }
+    if (matchingLines(text, /\bUse muted red as the Office accent color\b/i).length > 0) {
+      errors.push(`${path}: obsolete Office accent styling.`);
+    }
+    if (matchingLines(text, /\bPair the mono face with a serif display face\b/i).length > 0) {
+      errors.push(`${path}: obsolete Office type pairing.`);
+    }
+    if (matchingLines(text, /\bAdd subtle scanlines to the page\b/i).length > 0) {
+      errors.push(`${path}: obsolete Office horror styling.`);
+    }
+  }
+
   if (lowerPath.endsWith('/cwaaa/design.md')) {
     if (matchingLines(text, /\bPrimary stock:\s*paper-manila\b/i).length > 0) {
       errors.push(`${path}: obsolete CWAAA paper-universe guidance.`);
@@ -1316,6 +1331,22 @@ export function collectAuthorityErrors(repoRoot) {
     'docs/office-of-lather-compliance/design.md',
     errors,
   );
+  errors.push(...missingRequiredMarkers(officeDesign, [
+    'THE OFFICE PAGE MUST APPEAR UNDER-DESIGNED',
+    'WHITE BACKGROUND',
+    'BLACK TEXT',
+    'COURIER NEW',
+    'NO LOGO',
+    'NO NAVIGATION',
+    'NO DECORATIVE FRAME',
+    'NO STATUS CHIP',
+    'NO SECOND TYPEFACE',
+    'NO ACCENT COLOR',
+    'NO SHADOW',
+    'NO TEXTURE',
+    'NO SCANLINES',
+    'NO ANIMATION',
+  ], 'docs/office-of-lather-compliance/design.md'));
   const officePrd = requireFile(
     repoRoot,
     'docs/office-of-lather-compliance/PRD-office-v1.md',

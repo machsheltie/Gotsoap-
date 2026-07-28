@@ -1057,6 +1057,35 @@ for (const { name, path, text, expected } of staleCreativeDirectionCases) {
   });
 }
 
+const obsoleteOfficeDesignCases = [
+  ['styled terminal frame', 'Use a centered legacy terminal frame.', /obsolete Office terminal styling/i],
+  ['Office accent color', 'Use muted red as the Office accent color.', /obsolete Office accent styling/i],
+  ['Office type pairing', 'Pair the mono face with a serif display face.', /obsolete Office type pairing/i],
+  ['Office scanlines', 'Add subtle scanlines to the page.', /obsolete Office horror styling/i],
+];
+
+for (const [name, text, expected] of obsoleteOfficeDesignCases) {
+  test(`Office design drift is rejected: ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, 'docs/office-of-lather-compliance/design.md', text);
+      assert.match(collectAuthorityErrors(fixtureRoot).join('\n'), expected);
+    });
+  });
+}
+
+test('Office design drift permits explicitly rejected styled-terminal examples', () => {
+  withCleanAuthorityFixture((fixtureRoot) => {
+    for (const [, text] of obsoleteOfficeDesignCases) {
+      appendFixtureText(
+        fixtureRoot,
+        'docs/office-of-lather-compliance/design.md',
+        `Rejected example: \`${text}\``,
+      );
+    }
+    assert.deepEqual(collectAuthorityErrors(fixtureRoot), []);
+  });
+});
+
 const currentLiveAuthorityPaths = [
   'AGENTS.md',
   'CLAUDE.md',
