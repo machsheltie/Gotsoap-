@@ -234,11 +234,12 @@ speak for the Office.
 
 ## Legal and ethical frame
 
-- Privacy, Terms, and DMCA remain available wherever the site exposes legal navigation. Satire,
-  parody, fictional, spec-work, and non-affiliation disclosure appears only after the visitor follows
-  the restrained creator credit through the creator/About seam.
-- Global legal labels and entry points do not announce the fiction. The legal documents remain
-  truthful about actual data collection, rights, and contact behavior.
+Privacy, Terms, and DMCA remain globally accessible wherever the site exposes legal navigation.
+Their labels and entry points do not announce the fiction. Satire, parody, fictional, spec-work,
+and non-affiliation disclosure appears only after the visitor follows the restrained creator credit
+through the creator/About seam. No public global satire disclosure is permitted.
+- The legal documents remain truthful about actual data collection, rights, contact, storage, and
+  accessibility behavior.
 - Do not imply affiliation with MADD, Axe/Unilever, a public-health organization, or a government in
   the creator/About disclosure or machine-readable metadata.
 - Never publish real personal allegations as participant advocacy records.

@@ -124,15 +124,13 @@ not alter Form CW-1.
 
 ## Creator/About seam and disclosure
 
-Privacy, Terms, and DMCA remain globally accessible wherever legal navigation is exposed. Their labels
-and entry points do not announce the fiction, and their documents remain truthful about actual data
-collection, rights, and contact behavior.
-
-Audience-facing satire, parody, fictional, spec-work, and non-affiliation disclosure appears only
-after the visitor deliberately follows the restrained creator credit through the **creator/About
-seam** to the creator, About, or Hope2 Studio destination. Do not place that disclosure in the global
-CWAAA footer, navigation, ordinary program pages, or Office referral.
-
+Privacy, Terms, and DMCA remain globally accessible wherever the site exposes legal navigation.
+Their labels and entry points do not announce the fiction. Satire, parody, fictional, spec-work,
+and non-affiliation disclosure appears only after the visitor follows the restrained creator credit
+through the creator/About seam. No public global satire disclosure is permitted.
+The legal destinations remain truthful about actual data collection, rights, contact, storage, and
+accessibility behavior. Do not put fictional satire disclosure in the global footer, navigation,
+ordinary program pages, or Office referral.
 Machine-readable metadata may remain truthful and legally prudent when it is not rendered as
 audience-facing disclosure.
 

@@ -211,6 +211,14 @@ function removeFixtureText(fixtureRoot, relativePath, text) {
   writeFileSync(path, content.replace(text, ''));
 }
 
+function removeAllFixtureText(fixtureRoot, relativePath, text) {
+  const path = join(fixtureRoot, relativePath);
+  const content = readFileSync(path, 'utf8');
+  const pattern = new RegExp(text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+  assert.ok(pattern.test(content), `fixture text must exist before removal: ${text}`);
+  writeFileSync(path, content.replace(pattern, ''));
+}
+
 test('portable pledge contracts must match byte for byte', () => {
   const canonical = Buffer.from('{"contractId":"lather-pledge.v1","version":1}');
 
@@ -1071,6 +1079,70 @@ for (const { name, path, text, expected } of staleCreativeDirectionCases) {
     withCleanAuthorityFixture((fixtureRoot) => {
       appendFixtureText(fixtureRoot, path, text);
       assert.match(collectAuthorityErrors(fixtureRoot).join('\n'), expected);
+    });
+  });
+}
+
+const publicDisclosureDriftCases = [
+  {
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    text: 'Render “This is satire and unaffiliated spec work” in the global footer.',
+  },
+  {
+    path: 'docs/cwaaa/PRD-cwaaa-web-v1.md',
+    text: 'State that CWAAA is fictional satire in global footer copy.',
+  },
+  {
+    path: 'docs/cwaaa/world-bible.md',
+    text: 'State clearly in accessible legal/footer copy that CWAAA is fictional satire.',
+  },
+];
+
+for (const { path, text } of publicDisclosureDriftCases) {
+  test(`public fiction disclosure is rejected in ${path}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, text);
+      assert.match(
+        collectAuthorityErrors(fixtureRoot).join('\n'),
+        /fiction disclosure belongs behind the creator\/About seam/i,
+      );
+    });
+  });
+}
+
+for (const [name, path, text] of [
+  [
+    'private production canon',
+    'docs/cwaaa/world-bible.md',
+    'Private production canon identifies CWAAA as a fictional advocacy nonprofit.',
+  ],
+  [
+    'explicit global-footer prohibition',
+    'docs/cwaaa/PRD-cwaaa-web-v1.md',
+    'Do not state that CWAAA is fictional satire in global footer copy.',
+  ],
+]) {
+  test(`public disclosure drift permits ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, text);
+      assert.deepEqual(
+        collectAuthorityErrors(fixtureRoot).filter((error) => (
+          /fiction disclosure belongs behind the creator\/About seam/i.test(error)
+        )),
+        [],
+      );
+    });
+  });
+}
+
+for (const marker of ['Privacy', 'Terms', 'DMCA']) {
+  test(`legal-seam authority gates ${marker}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      removeAllFixtureText(fixtureRoot, 'docs/HANDOFF.md', marker);
+      assert.match(
+        collectAuthorityErrors(fixtureRoot).join('\n'),
+        new RegExp(`missing required marker.*${marker}`, 'i'),
+      );
     });
   });
 }

@@ -23,6 +23,32 @@ export function findForbiddenAuthorityPhrases(text, path) {
     .map((phrase) => `${path}: forbidden stale authority phrase "${phrase}"`);
 }
 
+const legalSeamMarkers = [
+  'PRIVACY',
+  'TERMS',
+  'DMCA',
+  'REMAIN GLOBALLY ACCESSIBLE',
+  'CREATOR/ABOUT SEAM',
+  'NO PUBLIC GLOBAL SATIRE DISCLOSURE',
+];
+
+export function findPublicDisclosureDrift(text, path) {
+  const disclosurePattern = /\b(?:satire|parody|fictional|spec(?:[- ]work)?|unaffiliated|non-affiliation)\b/i;
+  const publicSurfacePattern = /\b(?:global\s+footer|footer\s+copy|legal\s*\/\s*footer\s+copy)\b/i;
+  const directivePattern = /\b(?:add|announce|disclose|display|include|place|publish|put|render|show|state)\b/i;
+  const prohibitionPattern = /\b(?:do not|never|must not|cannot|can't|not permitted|prohibited|forbidden)\b/i;
+
+  return text.split(/\r?\n/).flatMap((line, index) => {
+    const liveDirective = disclosurePattern.test(line)
+      && publicSurfacePattern.test(line)
+      && directivePattern.test(line)
+      && !prohibitionPattern.test(line);
+    return liveDirective
+      ? [`${path}:${index + 1}: fiction disclosure belongs behind the creator/About seam`]
+      : [];
+  });
+}
+
 export function missingRequiredMarkers(text, markers, path = 'document') {
   const upper = text.toUpperCase();
   return markers
@@ -1193,6 +1219,7 @@ export function collectAuthorityErrors(repoRoot) {
   }
 
   errors.push(...missingRequiredMarkers(liveDocumentContents.get('docs/HANDOFF.md') ?? '', [
+    ...legalSeamMarkers,
     'AUTHORITY PRECEDENCE',
     '1. OWNER DECISIONS RECORDED IN `DOCS/HANDOFF.MD`',
     '2. `DOCS/WORLD/WORLD-BIBLE.MD`',
@@ -1245,6 +1272,7 @@ export function collectAuthorityErrors(repoRoot) {
 
   const gotSoapPrd = requireFile(repoRoot, 'docs/prd/PRD-gotsoap-web-v1.md', errors);
   errors.push(...missingRequiredMarkers(gotSoapPrd, [
+    ...legalSeamMarkers,
     'ONE BUTTONDOWN AUDIENCE',
     'SNIFF TEST',
     'CWAAA_SITE_URL',
@@ -1279,6 +1307,7 @@ export function collectAuthorityErrors(repoRoot) {
 
   const cwaaaBible = requireFile(repoRoot, 'docs/cwaaa/world-bible.md', errors);
   errors.push(...missingRequiredMarkers(cwaaaBible, [
+    ...legalSeamMarkers,
     'GOT SOAP? CAMPAIGNS',
     'CWAAA ADVOCATES AND FILES',
     'OFFICE OF LATHER COMPLIANCE REGULATES',
@@ -1317,6 +1346,7 @@ export function collectAuthorityErrors(repoRoot) {
 
   const cwaaaPrd = requireFile(repoRoot, 'docs/cwaaa/PRD-cwaaa-web-v1.md', errors);
   errors.push(...missingRequiredMarkers(cwaaaPrd, [
+    ...legalSeamMarkers,
     'IMMEDIATE PLEDGE RECEIPT',
     'ONE SEPARATELY DELIVERED CURRENT ISSUE',
     'MONTH AND YEAR',
@@ -1332,6 +1362,15 @@ export function collectAuthorityErrors(repoRoot) {
     'THE BAR IS SOAP',
     'CREATOR/ABOUT SEAM',
   ], 'docs/cwaaa/PRD-cwaaa-web-v1.md'));
+
+  for (const [path, content] of [
+    ['docs/HANDOFF.md', liveDocumentContents.get('docs/HANDOFF.md') ?? ''],
+    ['docs/prd/PRD-gotsoap-web-v1.md', gotSoapPrd],
+    ['docs/cwaaa/PRD-cwaaa-web-v1.md', cwaaaPrd],
+    ['docs/cwaaa/world-bible.md', cwaaaBible],
+  ]) {
+    errors.push(...findPublicDisclosureDrift(content, path));
+  }
 
   const cwaaaMigration = requireFile(
     repoRoot,

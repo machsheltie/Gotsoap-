@@ -101,6 +101,13 @@ task explicitly authorizes it.
 - The artifact registry separates **Fictional owner** from **Documentation authority**; this closed
   decision supersedes the older `Actual owner` table header in the approved design spec.
 
+### Legal navigation and disclosure
+
+Privacy, Terms, and DMCA remain globally accessible wherever the site exposes legal navigation.
+Their labels and entry points do not announce the fiction. Satire, parody, fictional, spec-work,
+and non-affiliation disclosure appears only after the visitor follows the restrained creator credit
+through the creator/About seam. No public global satire disclosure is permitted.
+
 ## Historical material
 
 `docs/design-v1-sonnet.md`, `docs/design-north-star.md`, and earlier superpowers specs remain useful

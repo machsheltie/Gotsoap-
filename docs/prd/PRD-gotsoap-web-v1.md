@@ -178,6 +178,13 @@ states, or a government-agency explainer.
 - Link the Behance case study from the creator section.
 - Avoid a generic services grid, résumé block, process timeline, or early pitch-deck summary.
 
+Privacy, Terms, and DMCA remain globally accessible wherever the site exposes legal navigation.
+Their labels and entry points do not announce the fiction. Satire, parody, fictional, spec-work,
+and non-affiliation disclosure appears only after the visitor follows the restrained creator credit
+through the creator/About seam. No public global satire disclosure is permitted.
+The legal destinations remain truthful about actual data collection, rights, contact, storage, and
+accessibility behavior.
+
 ### 6.6 Error handling
 
 - Campaign 404 uses missing-broadcast language and campaign styling.
