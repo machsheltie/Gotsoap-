@@ -1065,15 +1065,21 @@ const obsoleteOfficeDesignCases = [
 ];
 
 for (const [name, text, expected] of obsoleteOfficeDesignCases) {
-  test(`Office design drift is rejected: ${name}`, () => {
+  test(`Office styling drift is rejected with a path-aware diagnostic: ${name}`, () => {
     withCleanAuthorityFixture((fixtureRoot) => {
       appendFixtureText(fixtureRoot, 'docs/office-of-lather-compliance/design.md', text);
-      assert.match(collectAuthorityErrors(fixtureRoot).join('\n'), expected);
+      assert.match(
+        collectAuthorityErrors(fixtureRoot).join('\n'),
+        new RegExp(
+          `docs/office-of-lather-compliance/design\\.md:.*${expected.source}`,
+          expected.flags,
+        ),
+      );
     });
   });
 }
 
-test('Office design drift permits explicitly rejected styled-terminal examples', () => {
+test('Office styling permits explicitly rejected styled-terminal examples', () => {
   withCleanAuthorityFixture((fixtureRoot) => {
     for (const [, text] of obsoleteOfficeDesignCases) {
       appendFixtureText(
@@ -1083,6 +1089,38 @@ test('Office design drift permits explicitly rejected styled-terminal examples',
       );
     }
     assert.deepEqual(collectAuthorityErrors(fixtureRoot), []);
+  });
+});
+
+test('Office styling permits an explicit prohibition of the terminal-frame claim', () => {
+  withCleanAuthorityFixture((fixtureRoot) => {
+    appendFixtureText(
+      fixtureRoot,
+      'docs/office-of-lather-compliance/design.md',
+      'Do not use a centered legacy terminal frame.',
+    );
+    assert.deepEqual(
+      collectAuthorityErrors(fixtureRoot).filter((error) => (
+        /obsolete Office terminal styling/i.test(error)
+      )),
+      [],
+    );
+  });
+});
+
+test('Office styling permits historical superseded accent guidance', () => {
+  withCleanAuthorityFixture((fixtureRoot) => {
+    appendFixtureText(
+      fixtureRoot,
+      'docs/office-of-lather-compliance/design.md',
+      'Historical/superseded wording: "Use muted red as the Office accent color."',
+    );
+    assert.deepEqual(
+      collectAuthorityErrors(fixtureRoot).filter((error) => (
+        /obsolete Office accent styling/i.test(error)
+      )),
+      [],
+    );
   });
 });
 

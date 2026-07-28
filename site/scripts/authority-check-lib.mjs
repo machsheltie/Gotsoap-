@@ -594,16 +594,18 @@ export function validatePathAwareCanon(path, text) {
   }
 
   if (lowerPath.endsWith('/office-of-lather-compliance/design.md')) {
-    if (matchingLines(text, /\bUse a centered legacy terminal frame\b/i).length > 0) {
+    const hasLiveOfficeStyleClaim = (pattern) => matchingLines(text, pattern)
+      .some((line) => !protectedUnresolvedContext(line));
+    if (hasLiveOfficeStyleClaim(/\bUse a centered legacy terminal frame\b/i)) {
       errors.push(`${path}: obsolete Office terminal styling.`);
     }
-    if (matchingLines(text, /\bUse muted red as the Office accent color\b/i).length > 0) {
+    if (hasLiveOfficeStyleClaim(/\bUse muted red as the Office accent color\b/i)) {
       errors.push(`${path}: obsolete Office accent styling.`);
     }
-    if (matchingLines(text, /\bPair the mono face with a serif display face\b/i).length > 0) {
+    if (hasLiveOfficeStyleClaim(/\bPair the mono face with a serif display face\b/i)) {
       errors.push(`${path}: obsolete Office type pairing.`);
     }
-    if (matchingLines(text, /\bAdd subtle scanlines to the page\b/i).length > 0) {
+    if (hasLiveOfficeStyleClaim(/\bAdd subtle scanlines to the page\b/i)) {
       errors.push(`${path}: obsolete Office horror styling.`);
     }
   }
