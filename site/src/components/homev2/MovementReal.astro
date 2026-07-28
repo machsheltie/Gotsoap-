@@ -74,6 +74,11 @@ const file = crisis.caseFiles.files.find(
         <p class="mv__subhead">{crisis.caseFiles.subhead}</p>
       </div>
 
+      <!-- Enclosure line (IA lift 2026-07-28): cites the February press
+           release by short title — teases the Press Room without spoiling it.
+           One typeset line, no new chrome (§3.6 restraint). -->
+      <p class="mv__enclosure">{home.movementSeam.enclosure}</p>
+
       <p class="mv__route">
         <a class="mv__link" href="/crisis">{home.movementSeam.cta}</a>
       </p>
@@ -302,6 +307,16 @@ const file = crisis.caseFiles.files.find(
     margin-top: 1.25rem;
     padding-top: 0.75rem;
     border-top: 1px solid color-mix(in srgb, var(--cwaaa-ink) 22%, transparent);
+  }
+
+  /* Enclosure line: memo furniture, not chrome — same quiet ink as the lede. */
+  .mv__enclosure {
+    font-family: var(--font-cwaaa);
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: color-mix(in srgb, var(--cwaaa-ink) 84%, var(--cwaaa-manila));
+    max-width: 52ch;
+    margin-top: clamp(1.5rem, 4vh, 2.25rem);
   }
 
   .mv__route { margin-top: clamp(2rem, 5vh, 3rem); }

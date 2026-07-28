@@ -63,14 +63,37 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
       </section>
     </div>
 
-    <!-- Right Column: Findings & Cases -->
+    <!-- Right Column: Press, Findings & Cases.
+         IA lift (owner order, 2026-07-28): the Press Room leads the column so a
+         click-through greets the strongest writing before the stats table —
+         DOM source order carries the same intent into the mobile stack. No CSS
+         reordering primitives (fidelity visual-order tripwire stays quiet). -->
     <div class="dossier-col dossier-col--right">
-      
+
+      <!-- Press Room -->
+      <section class="dossier-block" aria-labelledby="crisis-press">
+        <h2 id="crisis-press" class="dossier-h2">{c.pressRoom.heading}</h2>
+        <ul class="press-list" role="list">
+          {
+            c.pressRoom.releases.map((r) => (
+              <li class="release-item">
+                <div class="release-stamp">{immediateRelease}</div>
+                <div class="release-content">
+                  <span class="release-date">{r.date}</span>
+                  <h3 class="release-headline">{r.headline}</h3>
+                  {r.body && <p class="release-body dossier-body"><em>{r.body}</em></p>}
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
       <!-- Annual findings: Massive Table -->
       <section class="dossier-block" aria-labelledby="crisis-findings">
         <h2 id="crisis-findings" class="dossier-h2">{c.findings.heading}</h2>
         <p class="dossier-subtitle"><em>{c.findings.subnote}</em></p>
-        
+
         <table class="dossier-table">
           <caption class="sr-only">{c.findings.heading}</caption>
           <thead>
@@ -90,25 +113,6 @@ const immediateRelease = 'FOR IMMEDIATE RELEASE';
             }
           </tbody>
         </table>
-      </section>
-
-      <!-- Press Room -->
-      <section class="dossier-block" aria-labelledby="crisis-press">
-        <h2 id="crisis-press" class="dossier-h2">{c.pressRoom.heading}</h2>
-        <ul class="press-list" role="list">
-          {
-            c.pressRoom.releases.map((r) => (
-              <li class="release-item">
-                <div class="release-stamp">{immediateRelease}</div>
-                <div class="release-content">
-                  <span class="release-date">{r.date}</span>
-                  <h3 class="release-headline">{r.headline}</h3>
-                  {r.body && <p class="release-body dossier-body"><em>{r.body}</em></p>}
-                </div>
-              </li>
-            ))
-          }
-        </ul>
       </section>
 
       <!-- Recovery Case Files -->

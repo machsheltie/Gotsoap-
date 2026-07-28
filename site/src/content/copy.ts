@@ -228,6 +228,11 @@ export const home = {
      * crisis.caseFiles.files by this id (RC-071 hardcode retired). */
     featuredId: "RC-039",
     featuredCaption: "Ninety dollars of cologne. Zero bars of soap. The arithmetic arrived anonymously.",
+    /** Beat-6 IA lift (owner order 2026-07-28): one memo enclosure line teasing
+     * the /crisis Press Room by citing the February release's short title — a
+     * §8-legal citation-as-pointer; the headline's home stays /crisis. Bounded
+     * Sol review: proposals-2026-07-28-crisis-ia-lift.md (C1 CLEAR). */
+    enclosure: `Enclosure: Coalition press release, February 2026 — "The Gym Does Not Count." The Office considers the matter closed.`,
     cta: "Read the full brief →",
   },
   pledgeBand: {
