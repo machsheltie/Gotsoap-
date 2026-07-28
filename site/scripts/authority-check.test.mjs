@@ -1046,6 +1046,24 @@ const staleCreativeDirectionCases = [
     text: '| `/case-files` | Public case-file index |',
     expected: /obsolete CWAAA public route/i,
   },
+  {
+    name: 'equal responsive Shop product grid',
+    path: 'docs/design.md',
+    text: 'Arrange products in an equal responsive product grid.',
+    expected: /obsolete Shop grid guidance/i,
+  },
+  {
+    name: 'standard ecommerce Shop product cards',
+    path: 'docs/design.md',
+    text: 'Use standard ecommerce product cards.',
+    expected: /obsolete Shop card guidance/i,
+  },
+  {
+    name: 'Shop ratings and recommendations',
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    text: 'Include ratings and customers-also-bought recommendations.',
+    expected: /obsolete Shop ecommerce guidance/i,
+  },
 ];
 
 for (const { name, path, text, expected } of staleCreativeDirectionCases) {

@@ -627,6 +627,23 @@ export function validatePathAwareCanon(path, text) {
     errors.push(`${path}: obsolete CWAAA public route.`);
   }
 
+  if (/(?:^|\/)docs\/design\.md$/.test(lowerPath)) {
+    if (matchingLines(text, /\bArrange products in an equal responsive product grid\b/i).length > 0) {
+      errors.push(`${path}: obsolete Shop grid guidance.`);
+    }
+    if (matchingLines(text, /\bUse standard ecommerce product cards\b/i).length > 0) {
+      errors.push(`${path}: obsolete Shop card guidance.`);
+    }
+  }
+
+  if (/(?:^|\/)docs\/prd\/prd-gotsoap-web-v1\.md$/.test(lowerPath)
+    && matchingLines(
+      text,
+      /\bInclude ratings and customers-also-bought recommendations\b/i,
+    ).length > 0) {
+    errors.push(`${path}: obsolete Shop ecommerce guidance.`);
+  }
+
   if (lowerPath.endsWith('/1-800-got-soap-ivr-authority.md')) {
     if (matchingLines(text, /(?:\b(?:There is|The call (?:has|uses|includes))\s+(?:a\s+)?third Office voice\b|\bA third Office voice\b|\bThe call has (?:three|3) presented voices\b|\bVoice C\s+is\s+(?:the\s+)?Office representative\b)/i)
       .some((line) => !protectedUnresolvedContext(line))) {
@@ -1197,6 +1214,15 @@ export function collectAuthorityErrors(repoRoot) {
     'SNIFF TEST',
     'WANT TO LEARN MORE?',
     'ANTI-TEMPLATE',
+    'OFFICIAL CAMPAIGN SUPPLY',
+    'FASHION CATALOGUE PRETENDING TO BE A STORE',
+    'THE EMBOSSED BAR',
+    'THE WORDMARK TEE',
+    'THE STATEMENT TEE',
+    'THE DAD HAT',
+    'THE EFFORT BOTTLE',
+    'SUPPLY INDEX',
+    'NO PRODUCT GRID',
   ], 'docs/design.md'));
 
   const gotSoapBible = requireFile(repoRoot, 'docs/gotsoap/world-bible.md', errors);
@@ -1223,6 +1249,10 @@ export function collectAuthorityErrors(repoRoot) {
     'EXACTLY TWO MESSAGES',
     'FUNCTIONING UNSUBSCRIBE',
     'MINIMUM BUTTONDOWN DATA',
+    'OVERSIZED EDITORIAL PERFORMANCE',
+    'COMING SOON!',
+    'NO RATINGS',
+    'NO RECOMMENDATIONS',
   ], 'docs/prd/PRD-gotsoap-web-v1.md'));
 
   const cwaaaReadme = requireFile(repoRoot, 'docs/cwaaa/README.md', errors);

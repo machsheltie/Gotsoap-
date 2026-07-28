@@ -112,11 +112,22 @@ states, or a government-agency explainer.
 
 #### Shop
 
-- `/shop` remains the canonical faux storefront even while checkout says “Coming Soon!”.
-- `/shop/[slug]` treats each product as campaign performance with unavailable checkout, never a
-  broken or implied transactional flow.
-- Shop utility copy, downloads, and sharing remain Got Soap? material; CWAAA and the Office do not
-  operate or frame the storefront.
+- `/shop` remains the canonical faux storefront and is directed as Official Campaign Supply: a
+  fashion catalogue pretending to be a store.
+- The index gives all five products—The Embossed Bar, The Wordmark Tee, The Statement Tee, The Dad
+  Hat, and The Effort Bottle—a distinct **oversized editorial performance** with an image-owned
+  viewport, oversized name, short sell line, secondary price, and restrained unavailable control.
+- A narrow **Supply Index** may provide direct access without becoming a card grid or repeated
+  product inventory.
+- **Coming Soon!** appears only at the normal purchase point. Checkout remains unavailable, and
+  ecommerce transactions remain out of scope; the state must not imply a broken or functioning
+  transaction.
+- Detail pages use one full-bleed hero, one severe crop, one materials/specification block, one
+  price, one unavailable purchase control, and previous/next supply navigation.
+- **No ratings, no recommendations,** no product tabs, accordions, thumbnail carousel,
+  customers-also-bought rail, card inventory, or ordinary ecommerce shell is permitted.
+- Shop utility copy, imagery, navigation, and sharing remain Got Soap? material; CWAAA and the Office
+  do not operate, frame, or fulfill the catalogue.
 
 #### Broadcast
 

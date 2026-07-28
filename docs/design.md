@@ -227,17 +227,73 @@ artifacts rather than ecommerce buttons.
 
 ### Shop
 
-**Dominant event:** a canonical faux storefront that performs campaign desire rather than ordinary
-retail.
-**Off-axis counterweight:** an explicit unavailable-checkout interruption reading “Coming Soon!”.
-**Material transition:** campaign product imagery resolves into a deliberate unavailability seam,
-not a broken commerce flow.
-**Refused default layout:** product-grid ecommerce and conversion-funnel checkout.
-**Emotional change:** coveting becomes complicity in the campaign joke.
-**Authorship boundary:** Shop is Got Soap? campaign material; CWAAA and the Office do not operate it.
+#### Platform
 
-Shop remains canonical while checkout is unavailable. Product pages are campaign performances, not
-promises of transactional commerce.
+**Official Campaign Supply: a fashion catalogue pretending to be a store.** Shop stays canonical, but
+it behaves like a 1990s–2000s fashion campaign, luxury men’s-grooming launch, fragrance
+advertisement, lookbook, and editorial merchandise catalogue—not Shopify.
+
+**Dominant event:** one campaign product at a time owns an oversized, image-led lookbook scene.
+**Off-axis counterweight:** a narrow supply locator and restrained unavailable purchase point keep
+the catalogue usable without flattening it into inventory.
+**Material transition:** cream porcelain, locker-room black, chrome or amber, controlled candid, and
+gym-to-shower imagery create five distinct product worlds before resolving into deliberate
+unavailability.
+**Refused default layout:** equal product tiles, a Shopify shell, and conversion-funnel checkout.
+**Emotional change:** coveting becomes complicity in the campaign joke.
+**Authorship boundary:** Shop is Got Soap? campaign material; CWAAA and the Office do not operate,
+frame, or fulfill it.
+
+#### Index choreography
+
+The index gives each approved product a distinct oversized editorial performance. It is paced as a
+fashion lookbook: every product receives an image-owned viewport, an oversized name, one short sell
+line, a visually secondary price, and a restrained unavailable control only where purchase normally
+occurs. Scale, crop, register, and transition change with the product; repeated inventory modules do
+not establish the rhythm.
+
+#### Product performances
+
+- **The Embossed Bar:** cream soap, wet stone, lather, an embossed mark, and a macro porcelain still
+  life. The bar is photographed as the answer pressed into material, never as a pack-shot SKU.
+- **The Wordmark Tee:** a male torso, dressing room, or locker-room editorial. The shirt performs
+  identity rather than inventory.
+- **The Statement Tee:** chrome or amber register, composed so the statement reads at first-date
+  distance before price or utility copy enters.
+- **The Dad Hat:** a controlled candid or casting moment. Attitude owns the frame; SKU logic does
+  not.
+- **The Effort Bottle:** a gym-to-shower transition in which sweat is earned and lingering musk is
+  retired.
+
+Across all five performances, photography owns the viewport, names run oversized, sell lines stay
+short, prices remain caption-scale details, and unavailable controls stay visually restrained.
+
+#### Supply Index
+
+A narrow **Supply Index** may give direct text-led access to all five products. It behaves like a
+lookbook contents strip or folio index, never a substitute product matrix, card inventory, or second
+merchandising rail.
+
+#### Unavailable checkout
+
+Checkout remains unavailable and ecommerce transactions remain out of scope. **Coming Soon!** is a
+small, intentional interruption shown only at the normal purchase point, paired with the single
+price and restrained purchase control. It is not a sitewide banner, lead-capture trick, disabled-cart
+simulation, or broken-commerce apology.
+
+#### Product detail
+
+Each `/shop/[slug]` detail uses one full-bleed hero, one severe crop, one
+materials/specification block, one price, one unavailable purchase control, and previous/next supply
+navigation. The hero establishes desire, the severe crop proves material character, and the
+specification block carries only information that supports the approved product performance.
+
+#### Refused ecommerce defaults
+
+**No product grid.** Do not use equal responsive tiles, a Shopify shell, standard ecommerce cards,
+repeated card inventory, recommendations, ratings, accordions, tabs, thumbnail carousels,
+“customers also bought,” or extra merchandising rails. Product discovery must never overpower the
+five authored performances, and unavailability must never imply a functioning transaction.
 
 ### Broadcast
 
