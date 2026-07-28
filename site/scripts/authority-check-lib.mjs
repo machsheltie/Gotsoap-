@@ -30,12 +30,15 @@ export function missingRequiredMarkers(text, markers, path = 'document') {
     .map((marker) => `${path}: missing required marker "${marker}"`);
 }
 
-function protectedUnresolvedContext(line) {
-  const assertionStart = line.search(
-    /\b(?:CWAAA|Office(?: of Lather Compliance)?)\b|Got Soap\?/i,
-  );
+function protectedUnresolvedContext(
+  line,
+  assertionPattern = /\b(?:CWAAA|Office(?: of Lather Compliance)?)\b|Got Soap\?/i,
+  allowDocumentedPrefix = false,
+) {
+  const assertionStart = line.search(assertionPattern);
   const context = assertionStart === -1 ? line : line.slice(0, assertionStart);
-  return /\b(?:whether|intentionally unresolved|unresolved possibility|may wonder|allowed to wonder|does not|do not|never|must not|cannot|can't|no artifact|question)\b/i.test(context);
+  return /\b(?:whether|intentionally unresolved|unresolved possibility|may wonder|allowed to wonder|does not|do not|never|must not|cannot|can't|no artifact|question)\b/i.test(context)
+    || (allowDocumentedPrefix && documentedSpanIntroPattern.test(context));
 }
 
 const documentedSpanIntroPattern =
@@ -628,20 +631,25 @@ export function validatePathAwareCanon(path, text) {
   }
 
   if (/(?:^|\/)docs\/design\.md$/.test(lowerPath)) {
-    if (matchingLines(text, /\bArrange products in an equal responsive product grid\b/i).length > 0) {
+    const obsoleteGrid = /\bArrange products in an equal responsive product grid\b/i;
+    const obsoleteCards = /\bUse standard ecommerce product cards\b/i;
+    if (matchingLines(text, obsoleteGrid)
+      .some((line) => !protectedUnresolvedContext(line, obsoleteGrid, true))) {
       errors.push(`${path}: obsolete Shop grid guidance.`);
     }
-    if (matchingLines(text, /\bUse standard ecommerce product cards\b/i).length > 0) {
+    if (matchingLines(text, obsoleteCards)
+      .some((line) => !protectedUnresolvedContext(line, obsoleteCards, true))) {
       errors.push(`${path}: obsolete Shop card guidance.`);
     }
   }
 
-  if (/(?:^|\/)docs\/prd\/prd-gotsoap-web-v1\.md$/.test(lowerPath)
-    && matchingLines(
-      text,
-      /\bInclude ratings and customers-also-bought recommendations\b/i,
-    ).length > 0) {
-    errors.push(`${path}: obsolete Shop ecommerce guidance.`);
+  if (/(?:^|\/)docs\/prd\/prd-gotsoap-web-v1\.md$/.test(lowerPath)) {
+    const obsoleteEcommerce =
+      /\bInclude ratings and customers-also-bought recommendations\b/i;
+    if (matchingLines(text, obsoleteEcommerce)
+      .some((line) => !protectedUnresolvedContext(line, obsoleteEcommerce, true))) {
+      errors.push(`${path}: obsolete Shop ecommerce guidance.`);
+    }
   }
 
   if (lowerPath.endsWith('/1-800-got-soap-ivr-authority.md')) {

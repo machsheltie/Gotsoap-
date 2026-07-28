@@ -1075,6 +1075,45 @@ for (const { name, path, text, expected } of staleCreativeDirectionCases) {
   });
 }
 
+const protectedShopGuidanceCases = [
+  {
+    name: 'explicit grid prohibition',
+    path: 'docs/design.md',
+    text: 'Do not arrange products in an equal responsive product grid.',
+    diagnostic: /obsolete Shop grid guidance/i,
+  },
+  {
+    name: 'explicit ecommerce-card prohibition',
+    path: 'docs/design.md',
+    text: 'Never use standard ecommerce product cards.',
+    diagnostic: /obsolete Shop card guidance/i,
+  },
+  {
+    name: 'historical ratings and recommendations example',
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    text: 'Historical example: Include ratings and customers-also-bought recommendations.',
+    diagnostic: /obsolete Shop ecommerce guidance/i,
+  },
+  {
+    name: 'rejected ratings and recommendations example',
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    text: 'Rejected example: Include ratings and customers-also-bought recommendations.',
+    diagnostic: /obsolete Shop ecommerce guidance/i,
+  },
+];
+
+for (const { name, path, text, diagnostic } of protectedShopGuidanceCases) {
+  test(`Shop drift permits protected semantic context: ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, text);
+      assert.deepEqual(
+        collectAuthorityErrors(fixtureRoot).filter((error) => diagnostic.test(error)),
+        [],
+      );
+    });
+  });
+}
+
 const obsoleteOfficeDesignCases = [
   ['styled terminal frame', 'Use a centered legacy terminal frame.', /obsolete Office terminal styling/i],
   ['Office accent color', 'Use muted red as the Office accent color.', /obsolete Office accent styling/i],
