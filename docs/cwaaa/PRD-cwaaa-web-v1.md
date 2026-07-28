@@ -6,46 +6,79 @@
 
 ## Product
 
-CWAAA is a credible fictional advocacy nonprofit that turns the campaign's joke into organized
-participation, findings, recovery stories, and a finite real email relationship. It links back to Got
-Soap? and outward to the separate Office of Lather Compliance.
+CWAAA is a credible fictional advocacy nonprofit and national coalition that makes its case in public.
+It turns the campaign's joke into organized participation, monumental findings, humane Recovery
+Stories, chapter life, tactile programs, and a finite real email relationship. Its locked public
+proposition is **THE BAR IS SOAP.**
+
+The site links back to Got Soap? and, only at the deepest appropriate seam, outward to the separate
+Office of Lather Compliance. Public CWAAA pages build trust and never perform horror.
 
 ## Goals
 
-- Make CWAAA believable as a competent nonprofit.
-- Preserve and deepen existing CWAAA material instead of deleting it from Got Soap?.
+- Present CWAAA as competent, contemporary, humane, expressive, and operational.
+- Preserve and deepen approved CWAAA material without importing Got Soap? or Office authorship.
 - Host the canonical nonprofit edition of Form CW-1.
-- Make findings and recovery case files useful shareable artifacts.
-- Create a subtle path to the Office without claiming ownership of it.
+- Make Findings and Recovery Stories useful, dignified, shareable advocacy artifacts.
+- Establish real chapter life and Tie One On For Suds participation.
+- Create a subtle creator/About seam for real-world disclosure and a separate deep Office referral.
+- Maintain one coherent visitor progression:
+  `Home → Findings → Recovery Stories → Tie One On → Pledge → Chapters / About → Office referral`.
 
 ## Required routes
 
-| Route | Requirement |
+| Route | Purpose |
 |---|---|
-| `/` | mission, one finding, one program, current action |
-| `/findings` | numbered State of Male Hygiene record |
-| `/case-files` | index of recovery cases |
-| `/case-files/[id]` | testimony, status, next action |
-| `/tie-one-on` | washcloth-ribbon program |
+| `/` | Public advocacy home |
+| `/findings` | Monumental collective findings |
+| `/recovery-stories` | Humane participant-story index |
+| `/recovery-stories/[id]` | Individual Recovery Record |
+| `/tie-one-on` | Tie One On For Suds program |
+| `/chapters` | National chapter life and participation |
+| `/about` | 2024 origin and deepest Office referral |
 | `/pledge` | Form CW-1 |
-| `/about` | founding account, chapters, fiction/legal disclosure |
-| `/404` | CWAAA missing-record notice, not an Office denial |
+| `/404` | CWAAA-authored not-found state |
 
-Route names may change during standalone implementation if redirects and content ownership remain
-clear.
+Route names are canonical. Public navigation uses **Recovery Stories**, never Case Files. The labels
+**Recovery Record** and `RC-NNN` are allowed only after a visitor opens an individual story.
+
+### Redirects
+
+The extraction must provide explicit permanent redirect or static migration rules:
+
+- `/case-files` → `/recovery-stories`
+- `/case-files/[id]` → `/recovery-stories/[id]`
+
+The redirect preserves deep links without retaining the obsolete public label or route as canonical.
+
+## Homepage and route responsibilities
+
+The Home route presents **THE BAR IS SOAP.**, “Routine washing is a reasonable collective
+expectation,” the hands/red-washcloth/used-black-gym-bag documentary hero, and one continuous
+**DOCUMENT. ADVOCATE. ORGANIZE.** composition. It then introduces one Finding, one recovery voice,
+Tie One On, coalition scale, one pledge action, and a controlled Got Soap? artifact seam.
+
+Findings are monumental public claims, not dashboards. Recovery Stories are humane participant
+advocacy files, not police evidence, intelligence archives, criminal dossiers, mugshots, or suspect
+boards. Tie One On uses real cloth and plausible program artifacts. Chapters show human dispatches
+and participation rather than a card grid or animated map. About establishes the 2024 book-club
+origin and may contain the deepest neutral Office referral.
 
 ## Pledge
 
-- Implement `contracts/pledge.v1.json`.
+- Implement `contracts/pledge.v1.json` exactly.
 - Submit to the same Buttondown audience as Got Soap?.
 - Preserve accessible validation, consent, honeypot, error, and `SWORN` success behavior.
+- Use persistent labels, adjacent errors, visible focus, generous targets, and plain consent language.
 - CWAAA owns the program; the duplicate public form is an intentional campaign distribution point,
   not a second list.
-- CWAAA authors fulfillment for both public pledge presentations. Got Soap? may author its form shell
-  and on-page success state, but the delivered receipt and current issue remain CWAAA-authored.
-- Affirmative consent must visibly disclose exactly two messages: one immediate pledge receipt and one
-  separately delivered current issue, with no ongoing subscription or drip.
-- Do not say the Office receives, files, or stores subscriber data.
+- **CWAAA authors fulfillment for both public pledge presentations.** Got Soap? may author its form
+  shell and on-page success state, but the delivered receipt and current issue remain CWAAA-authored.
+- Affirmative consent visibly discloses **exactly two messages**: one **immediate pledge receipt** and
+  **one separately delivered current issue**, with no ongoing subscription or drip.
+- Do not say the Office receives, files, owns, stores, or fulfills subscriber data.
+- The Pledge route contains no Office reference, transmission language, review threat, or surveillance
+  joke.
 
 ## Email relationship
 
@@ -55,74 +88,100 @@ After a successful pledge, the finite sequence is exactly two messages:
 2. One separately delivered current issue after a configurable short delay.
 
 The receipt confirms the declaration without turning the pledge into a subscription. The current
-issue uses evergreen content and derives its displayed month and year at signup or send time. It sends
-exactly once, with no monthly maintenance required. The short delay is deployment configuration rather
-than permanent canon, so it may change without changing the visitor promise.
+issue uses evergreen content and derives its displayed **month and year** at signup or send time. It
+sends exactly once, with no monthly maintenance required. The delay is deployment configuration, not
+permanent canon, and may change without changing the visitor promise.
 
-The receipt provides a withdrawal path. If consent is withdrawn or unsubscribed before the current issue is sent, suppress that issue. The current issue must include a
-functioning unsubscribe/suppression mechanism even though no automatic future issues are planned.
+The receipt provides a withdrawal path. If consent is withdrawn or unsubscribed before the current issue
+is sent, suppress that issue. The current issue includes a **functioning unsubscribe** or
+suppression mechanism even though no automatic future issue is planned.
 
-Buttondown confirmation or welcome delivery must either fulfill the defined immediate receipt or be
-disabled; it may not become a third message. This is not an ongoing newsletter subscription or drip
+Buttondown confirmation or welcome delivery must either fulfill the immediate receipt or be disabled;
+it may not become a third message. This is **not an ongoing** newsletter subscription or drip
 campaign. Any future marketing or program requires separate approval, contract, and consent and must
 not alter Form CW-1.
 
 ### Email data handling
 
 - Do not send pledge or email values to analytics.
-- Retain only the minimum Buttondown data needed to deliver the two messages, honor withdrawal or
+- Retain only the **minimum Buttondown data** needed to deliver the two messages, honor withdrawal or
   suppression, and prevent an accidental resend.
 - Remove unneeded fulfillment metadata after the sequence completes; retain only the minimum
-  suppression record required to honor the visitor's choice.
+  suppression record needed to honor the visitor's choice.
 - Do not introduce another email or profile provider without a separately approved contract.
 
 ## Cross-site relationships
 
 - `GOT_SOAP_SITE_URL` and `OFFICE_SITE_URL` are centralized optional configuration.
 - Empty values render no dead controls.
-- Got Soap? link can be prominent in campaign-credit context.
-- Office link is a restrained external-authority reference or neutral citation.
+- The Got Soap? link may be prominent only in campaign-credit context.
+- The Office link is a restrained external-authority reference or neutral citation at the deepest
+  About seam.
 - All external links clearly signal the domain transition.
 - CWAAA never labels the Office as its partner, parent agency, supervisor, operator, division, or
   coordinator.
+- No ordinary page previews Office behavior or uses Office-authored containment/error language.
+
+## Creator/About seam and disclosure
+
+Privacy, Terms, and DMCA remain globally accessible wherever legal navigation is exposed. Their labels
+and entry points do not announce the fiction, and their documents remain truthful about actual data
+collection, rights, and contact behavior.
+
+Audience-facing satire, parody, fictional, spec-work, and non-affiliation disclosure appears only
+after the visitor deliberately follows the restrained creator credit through the **creator/About
+seam** to the creator, About, or Hope2 Studio destination. Do not place that disclosure in the global
+CWAAA footer, navigation, ordinary program pages, or Office referral.
+
+Machine-readable metadata may remain truthful and legally prudent when it is not rendered as
+audience-facing disclosure.
 
 ## Content
 
 - Migrate approved CWAAA copy from `site/src/content/copy.ts` using `migration-manifest.md`.
 - Apply the existing copy protocol before edits.
-- Move Office-authored lines out of CWAAA copy. In particular, current language claiming the Office
-  files Form CW-1 is target-state incorrect.
-- Maintain fictional/satirical disclosure without breaking the page's voice.
-- Present recovery records as participant advocacy files, never police evidence or enforcement files.
+- Move Office-authored lines out of CWAAA copy; the Office never files Form CW-1.
+- Preserve the two-author seam between CWAAA and Got Soap? materials.
+- Present Recovery Stories as participant advocacy files that document change and next action.
+- Protect participant names within the fiction and never imply government custody, surveillance,
+  prosecution, or a real allegation.
 
 ## Technical baseline
 
-- Portable static-site implementation; Astro is preferred for compatibility but not mandated until
-  extraction begins.
-- Netlify-compatible deployment.
-- One content module and one external-link config.
+- Portable static-output implementation; Astro is preferred for compatibility but is not mandated
+  until extraction begins.
+- Netlify-compatible deployment and redirect configuration.
+- One content module and one external-link configuration module.
 - Responsive images and self-hosted fonts.
-- GoatCounter or equivalent privacy-conscious analytics.
-- No user accounts or backend personal profiles.
+- GoatCounter privacy-conscious analytics, with no pledge or email values sent to analytics.
+- No user accounts, backend personal profiles, IP identity, fingerprinting, Office-style recognition,
+  or cross-device state.
+- Critical Findings and participant content remain semantic live HTML/CSS.
 
 ## Accessibility and privacy
 
-- WCAG 2.2 AA.
-- Keyboard-complete forms and record navigation.
-- Do not send pledge or email values to analytics.
-- Do not present fictional case files as real allegations.
-- Do not use IP addresses, fingerprinting, or Office-style recognition.
+- Meet WCAG 2.2 AA.
+- Provide keyboard-complete forms, navigation, and story access.
+- Use semantic headings, landmarks, lists, tables, and form relationships.
+- Recompose wide civic records into labeled mobile structures rather than dashboard scrolling.
+- Never convey information through red alone; honor reduced motion.
+- Do not present fictional participant records as real allegations.
+- Do not send pledge or email values to GoatCounter or any analytics provider.
 
 ## Acceptance
 
 - The site is visually and verbally distinct from Got Soap? and the Office.
-- CWAAA is unmistakably a nonprofit, not a regulator.
-- All required material survives extraction.
+- CWAAA is unmistakably a nonprofit advocacy coalition, never a regulator.
+- The homepage is a public advocacy composition rather than a simulated document or archive interior.
+- Findings are monumental, Recovery Stories intimate, Tie One On tactile, Pledge safe, Chapters human,
+  and About establishes 2024 before the deep Office seam.
 - Both pledge contracts are byte-for-byte identical and submit to one audience.
-- Cross-site links are conditional and correctly attributed.
-- No Office containment/error copy appears as CWAAA authorship.
 - The email relationship sends an immediate receipt and exactly one current issue without monthly
   maintenance, subscription enrollment, or a drip campaign.
 - Withdrawal before the delayed issue suppresses it, and both messages expose the required consent or
   unsubscribe mechanism.
-- Build, link, accessibility, content, and authority checks pass.
+- The `/case-files` paths redirect to the canonical Recovery Stories routes.
+- Public fiction disclosure appears only behind the creator/About seam while Privacy, Terms, and DMCA
+  remain accessible.
+- Cross-site links are conditional, sparse, and correctly attributed.
+- Static build, redirects, links, accessibility, content, contract parity, and authority checks pass.

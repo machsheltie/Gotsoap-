@@ -1021,6 +1021,42 @@ for (const { name, path, statement, expected } of canonMutationCases) {
   });
 }
 
+const staleCreativeDirectionCases = [
+  {
+    name: 'paper-manila as the CWAAA primary stock',
+    path: 'docs/cwaaa/design.md',
+    text: 'Primary stock: paper-manila.',
+    expected: /obsolete CWAAA paper-universe guidance/i,
+  },
+  {
+    name: 'CWAAA records room as the governing composition',
+    path: 'docs/cwaaa/design.md',
+    text: 'The site behaves like a records room with index logic.',
+    expected: /obsolete CWAAA records-room guidance/i,
+  },
+  {
+    name: 'photo-led CWAAA hero prohibition',
+    path: 'docs/cwaaa/design.md',
+    text: 'Avoid a photo-led hero.',
+    expected: /obsolete CWAAA hero guidance/i,
+  },
+  {
+    name: 'case files retained as the public route',
+    path: 'docs/cwaaa/PRD-cwaaa-web-v1.md',
+    text: '| `/case-files` | Public case-file index |',
+    expected: /obsolete CWAAA public route/i,
+  },
+];
+
+for (const { name, path, text, expected } of staleCreativeDirectionCases) {
+  test(`creative-direction drift is rejected: ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, text);
+      assert.match(collectAuthorityErrors(fixtureRoot).join('\n'), expected);
+    });
+  });
+}
+
 const currentLiveAuthorityPaths = [
   'AGENTS.md',
   'CLAUDE.md',

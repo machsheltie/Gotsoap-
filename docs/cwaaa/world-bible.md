@@ -37,6 +37,23 @@ or front, never claims regulatory power, and never explains whether the Office a
 Private production canon keeps the entities legally separate without proving that separation is
 operationally meaningful to the audience.
 
+CWAAA is competent, contemporary, humane, and expressive. It makes its case in public through clear
+advocacy, understandable actions, participant stories, chapters, findings, and credible programs.
+It can have an unusually strong creative department without behaving like a campaign or regulator.
+
+## Public advocacy behavior
+
+CWAAA earns trust first. It never performs horror.
+
+Its public platform validates a reasonable expectation, organizes participation, and documents
+change. The site is not a document, filing cabinet, records-room simulation, government portal, or
+museum exhibit. Its governing public progression is Home → Findings → Recovery Stories → Tie One On
+→ Pledge → Chapters / About → Office referral.
+
+The public proposition is **THE BAR IS SOAP.** Routine washing is a reasonable collective
+expectation. CWAAA can present that case with monumental civic graphics, documentary human traces,
+tactile program materials, and intimate testimony while remaining readable and operational.
+
 ## What CWAAA believes
 
 Routine washing is a reasonable collective expectation. People deserve a practical path to change,
@@ -103,15 +120,17 @@ not a government insignia.
 ### Findings
 
 Findings parody annual-report evidence through ruled tables, citations, and precise labels. Do not add
-fake scientific apparatus beyond what the joke can support. Facts are clearly fictional in quiet legal
-copy.
+fake scientific apparatus beyond what the joke can support. Findings remain plainly authored as
+coalition advocacy and do not impersonate independent scientific or government conclusions.
 
-### Recovery records
+### Recovery Stories
 
-Recovery records may generate or share reform stories as nonprofit/program artifacts. They document change and
-next action rather than adjudicating fault.
+Recovery Stories share reform as nonprofit and program advocacy. The public index uses the label
+**Recovery Stories**. Only after opening an individual story may the artifact use **Recovery Record**
+and its `RC-NNN` identifier. Every story documents change and next action rather than adjudicating
+fault.
 
-## Records and participant dignity
+## Recovery records and participant dignity
 
 Recovery records behave like participant advocacy files, recovery histories, chapter correspondence,
 reform documentation, program findings, and physically maintained nonprofit records. They are not
@@ -126,7 +145,7 @@ criminal finding.
 
 - **Home:** relief that a reasonable expectation has been named.
 - **Findings:** confidence that the coalition can explain its case plainly.
-- **Recovery records:** respect for the participant and belief that change is possible.
+- **Recovery Stories:** respect for the participant and belief that change is possible.
 - **Pledge:** agency, clarity, and a low-friction next step.
 - **Tie One On For Suds:** welcome into visible, affectionate solidarity.
 - **About and chapters:** trust that the coalition has real human continuity.
@@ -139,9 +158,15 @@ record navigation. They should feel like competent office work in service of par
 
 ## Interactions that break the illusion
 
-Surveillance-like animation, forced mystery, hidden state, fake system errors, ominous countdowns,
-randomized dossiers, hostile gates, and campaign-style seduction across nonprofit prose break the
-illusion. Do not turn a normal CWAAA page into an Office encounter.
+Surveillance animation, forced mystery, hidden state, glitches, warnings, fake system errors,
+countdowns, ominous audio, randomized dossiers, hostile validation, threats, and campaign-style
+seduction across nonprofit prose break the illusion. Office language never appears on ordinary
+pages. Do not turn a normal CWAAA page into an Office encounter.
+
+CWAAA's wrongness comes only from sparse chronology, neutral citations, repeated codes, unusually
+complete continuity, an institution treated as routine, or an artifact returning with new meaning.
+Most routes need no fracture, and no route uses more than one meaningful fracture. Unease is a quiet
+byproduct of consistency, never the page's performed objective.
 
 ## Knowledge boundaries
 
@@ -156,6 +181,17 @@ CWAAA occupies ordinary, carefully maintained nonprofit space: a reception desk,
 chapter mail, folding tables, printed packets, washcloth ribbons, and a records shelf. The physical
 space is warm, orderly, and used. It is never a bunker, evidence locker, command center, or
 surveillance room.
+
+## Material practice
+
+Paper is content, not the universe. CWAAA uses clean digital fields, live civic typography,
+documentary human traces, real woven red cloth, and coherent physical artifacts. Paper appears when a
+form, report, letter, packet, correspondence item, or citation actually requires it; clips, stamps,
+folds, pins, and registration marks never become decorative office-supply scenery.
+
+The target balance is approximately 50% documentary human traces, 30% coherent physical artifacts,
+and 20% live civic graphics and typography. Every artifact has a fictional owner, real function,
+complete copy, plausible construction, and reason to exist beyond the crop.
 
 ## Email
 
@@ -198,8 +234,13 @@ speak for the Office.
 
 ## Legal and ethical frame
 
-- State clearly in accessible legal/footer copy that CWAAA is fictional satire.
-- Do not imply affiliation with MADD, Axe/Unilever, a public-health organization, or a government.
+- Privacy, Terms, and DMCA remain available wherever the site exposes legal navigation. Satire,
+  parody, fictional, spec-work, and non-affiliation disclosure appears only after the visitor follows
+  the restrained creator credit through the creator/About seam.
+- Global legal labels and entry points do not announce the fiction. The legal documents remain
+  truthful about actual data collection, rights, and contact behavior.
+- Do not imply affiliation with MADD, Axe/Unilever, a public-health organization, or a government in
+  the creator/About disclosure or machine-readable metadata.
 - Never publish real personal allegations as participant advocacy records.
 - Do not imitate a specific live government seal or use a jurisdictional name.
 - Humor targets low-effort masculinity and fragrance substitution, not protected classes or people

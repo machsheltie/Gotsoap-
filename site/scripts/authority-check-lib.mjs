@@ -593,6 +593,23 @@ export function validatePathAwareCanon(path, text) {
     }
   }
 
+  if (lowerPath.endsWith('/cwaaa/design.md')) {
+    if (matchingLines(text, /\bPrimary stock:\s*paper-manila\b/i).length > 0) {
+      errors.push(`${path}: obsolete CWAAA paper-universe guidance.`);
+    }
+    if (matchingLines(text, /\bsite behaves like a records room with index logic\b/i).length > 0) {
+      errors.push(`${path}: obsolete CWAAA records-room guidance.`);
+    }
+    if (matchingLines(text, /\bAvoid a photo-led hero\b/i).length > 0) {
+      errors.push(`${path}: obsolete CWAAA hero guidance.`);
+    }
+  }
+
+  if (lowerPath.endsWith('/cwaaa/prd-cwaaa-web-v1.md')
+    && matchingLines(text, /\|\s*\/case-files\s*\|\s*Public case-file index\s*\|/i).length > 0) {
+    errors.push(`${path}: obsolete CWAAA public route.`);
+  }
+
   if (lowerPath.endsWith('/1-800-got-soap-ivr-authority.md')) {
     if (matchingLines(text, /(?:\b(?:There is|The call (?:has|uses|includes))\s+(?:a\s+)?third Office voice\b|\bA third Office voice\b|\bThe call has (?:three|3) presented voices\b|\bVoice C\s+is\s+(?:the\s+)?Office representative\b)/i)
       .some((line) => !protectedUnresolvedContext(line))) {
@@ -1219,10 +1236,25 @@ export function collectAuthorityErrors(repoRoot) {
     'TELEPHONE',
     'EVENTS',
     'WHAT IT NEVER SAYS',
+    'MAKES ITS CASE IN PUBLIC',
+    'EARNS TRUST FIRST',
+    'NEVER PERFORMS HORROR',
+    'PAPER IS CONTENT',
+    'CREATOR/ABOUT SEAM',
   ], 'docs/cwaaa/world-bible.md'));
 
   const cwaaaDesign = requireFile(repoRoot, 'docs/cwaaa/design.md', errors);
   errors.push(...missingRequiredMarkers(cwaaaDesign, [
+    'A COALITION MAKING ITS CASE IN PUBLIC',
+    'THE BAR IS SOAP',
+    'DOCUMENT. ADVOCATE. ORGANIZE.',
+    'RECOVERY STORIES',
+    'TIE ONE ON',
+    'CHAPTERS',
+    'PAPER IS CONTENT, NOT THE UNIVERSE',
+    '50% DOCUMENTARY HUMAN TRACES',
+    '30% COHERENT PHYSICAL ARTIFACTS',
+    '20% LIVE CIVIC GRAPHICS',
     'PARTICIPANT ADVOCACY FILES',
     'NOT POLICE EVIDENCE',
     'NEUTRAL CITATION',
@@ -1238,6 +1270,12 @@ export function collectAuthorityErrors(repoRoot) {
     'EXACTLY TWO MESSAGES',
     'FUNCTIONING UNSUBSCRIBE',
     'MINIMUM BUTTONDOWN DATA',
+    '/RECOVERY-STORIES',
+    '/CHAPTERS',
+    '/CASE-FILES',
+    'REDIRECT',
+    'THE BAR IS SOAP',
+    'CREATOR/ABOUT SEAM',
   ], 'docs/cwaaa/PRD-cwaaa-web-v1.md'));
 
   const cwaaaMigration = requireFile(
