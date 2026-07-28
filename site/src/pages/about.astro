@@ -1,8 +1,10 @@
 ---
 /**
- * /about — The Reveal.
- * REDESIGNED as a sprawling, high-fashion agency portfolio case study.
- * Abandons the narrow text column for a massive, asymmetrical grid.
+ * /about — The Reveal. The site's one fourth-wall break.
+ * Layout: massive asymmetrical grid with an anchored pitch sidebar.
+ * Register: plain Stacey, sourced from reality (reality-sourcing law) — the
+ * making block is unlabeled continuous prose; capability bins may not return
+ * in content or schema (style-lock format kill, owner-ratified 2026-07-28).
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/Button.astro';
@@ -12,7 +14,7 @@ import { obfuscateEmail, EXTERNAL_LINKS, absoluteUrl } from '../config/site';
 const aboutMeta = meta.about;
 
 const whyEyebrow = 'Why it exists';
-const caseStudyEyebrow = 'Case study';
+const makingEyebrow = "How it's made";
 const creditEyebrow = 'Credit & legal';
 const behanceLabel = 'See the full campaign on Behance →';
 
@@ -83,7 +85,7 @@ const jsonLd = {
         </div>
       </aside>
 
-      <!-- Right Column: Case Study Flow -->
+      <!-- Right Column: the reveal content (why · making · credit) -->
       <div class="reveal-content">
         
         <section class="reveal-block">
@@ -94,15 +96,9 @@ const jsonLd = {
         </section>
 
         <section class="reveal-block">
-          <h3 class="block-eyebrow">{caseStudyEyebrow}</h3>
+          <h3 class="block-eyebrow">{makingEyebrow}</h3>
           <div class="block-text">
-            {
-              about.caseStudy.map((item) => (
-                <p>
-                  <strong>{item.label}.</strong> {item.body}
-                </p>
-              ))
-            }
+            {about.making.map((para) => <p>{para}</p>)}
           </div>
         </section>
 

@@ -138,6 +138,23 @@ const src = tree('src');
     'A satirical spec campaign by Hope2 Studio',
     'Got Soap? is a satirical campaign by Hope2 Studio.',
     "See who's behind it",
+    /* /about REDO extension (owner-ratified 2026-07-28, style-lock §7/§13 +
+     * proposals-2026-07-22-about-inframe.md R12 checklist item 4). Substrings
+     * chosen collision-safe against live copy: "case files"/"holding out"
+     * alone would hit legitimate lines, so the funk strings are full
+     * sentences. */
+    'visually seductive, thematically ridiculous',
+    'engineered to provoke, amuse, and push',
+    "out-writes most brands' hero copy",
+    "Let's make clean design dirty fun",
+    'clean design for dirty fights',
+    'declared a national hygiene crisis',
+    'I file my grudges in triplicate',
+    'incorporated the grudge',
+    'shower sat there like a gym membership',
+    'By day four I smelled like the case files',
+    "I'm still on the apps, still holding out for a 10",
+    'I show up as advertised',
   ];
   const SANCTIONED_NEEDLE = 'a satirical spec campaign by hope2 studio';
   /* Anchor discipline (round 8): every sanction comparison is EXACT, ROOT-ANCHORED,
