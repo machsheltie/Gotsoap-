@@ -1,13 +1,13 @@
 # Got Soap? typography specification
 
-**Status:** active working authority; font cast, responsive scale, and weight allocation locked; leading, tracking, and detailed responsive behavior pending owner interview  
+**Status:** active working authority; font cast, responsive scale, weight allocation, and line-height locked; tracking and detailed responsive behavior pending owner interview  
 **Applies to:** Got Soap? campaign website only  
 **Reads with:** `ui-system.md`, `../design.md`, `../prd/PRD-gotsoap-web-v1.md`, `world-bible.md`, and `../HANDOFF.md`  
 **Does not apply to:** CWAAA or the Office of Lather Compliance
 
 This file defines the exact responsive typography behavior for the curated Got Soap? type system. It is subordinate to the approved font roles in `ui-system.md` and exists so an implementation agent cannot flatten the selected typefaces into a generic web hierarchy.
 
-Where this specification assigns an exact weight, it supersedes earlier provisional weight candidates in `ui-system.md`.
+Where this specification assigns an exact weight or line-height, it supersedes earlier provisional candidates in `ui-system.md`.
 
 The canonical cast remains:
 
@@ -389,11 +389,162 @@ Thin, Extra Light, and Light are prohibited in the production system. Regular is
 
 ---
 
-# 6. Pending typography decisions
+# 6. Canonical line-height system
+
+Line-height protects two opposing qualities:
+
+- display typography must feel compressed, physical, and composed;
+- reading typography must remain effortless rather than fashionably cramped.
+
+Line-height is part of the voice system. It is not a substitute for layout spacing.
+
+## 6.1 Line-height map
+
+| Token | Desktop | Mobile | Purpose |
+|---|---:|---:|---|
+| `type-command-hero` | `0.84` | `0.88` | Architectural compression; slightly more room when mobile wrapping occurs |
+| `type-command-route` | `0.88` | `0.92` | Tight poster behavior without hero-level extremity |
+| `type-command-section` | `0.94` | `0.98` | Graphic internal statements with safer wrapping |
+| `type-identity` | `0.90` | `0.94` | Dense named-object and verdict treatment |
+| `type-whisper` | `0.98` | `1.02` | Intimate Moxie treatment without tangled forms |
+| `type-editorial-major` | `1.10` | `1.14` | Editorial density with room for character detail |
+| `type-confession` | `1.32` | `1.36` | Intimate, readable, and distinct from standard body |
+| `type-body-large` | `1.34` | `1.40` | Confident direct address |
+| `type-body` | `1.52` | `1.56` | Comfortable sustained reading in Behind The Nineties Medium |
+| `type-control` | `1.15` | `1.15` | Compact interface labels; target height comes from padding |
+| `type-utility` | `1.45` | `1.48` | Clear forms, consent, feedback, and instructions |
+| `type-production` | `1.30` | `1.34` | Compact production notation without congestion |
+| `type-micro` | `1.45` | `1.48` | Essential small text receives real breathing room |
+| `type-production-atmosphere` | `1.25` | omitted | Tight, nonessential desktop notation only |
+
+## 6.2 Single-line display exceptions
+
+The canonical values above assume that two-line wrapping may occur.
+
+A verified single-line Oswald event may tighten only to these minimums:
+
+- `type-command-hero`: `0.80` minimum;
+- `type-command-route`: `0.84` minimum;
+- `type-identity`: `0.86` minimum.
+
+Anything tighter requires a new owner-approved proof covering:
+
+- clipping;
+- punctuation;
+- accents;
+- descenders;
+- browser rendering;
+- actual copy at the intended width.
+
+Claude may not use negative margins, transforms, or clipping containers to disguise an unsuitable line-height.
+
+## 6.3 Display spacing law
+
+Line-height controls lines inside one typographic event. It does not control the spatial relationship between separate elements.
+
+Spacing between:
+
+- a command and supporting copy;
+- two separate campaign statements;
+- a heading and production metadata;
+- a hero and navigation;
+- a verdict and its explanation;
+
+must come from layout and spacing tokens.
+
+Do not use:
+
+- repeated `<br>` elements to force visual spacing;
+- inflated line-height as section spacing;
+- negative margins to undo browser heading defaults;
+- arbitrary element transforms to simulate editorial leading.
+
+## 6.4 Oswald line-height law
+
+Oswald uses compressed leading to feel physical and poster-led.
+
+Rules:
+
+- Hero leading is the tightest regular multiline treatment.
+- Route leading must remain visibly less extreme than hero leading.
+- Internal command leading must permit safer line breaks and complete reading.
+- A display event may tighten only under the approved single-line exception.
+- Display type must be tested with the final words, punctuation, width, and image overlap.
+
+## 6.5 Behind The Nineties line-height law
+
+### Standard body
+
+`type-body` uses `1.52` desktop and `1.56` mobile.
+
+This preserves the family’s interior detail at the locked Medium weight and prevents dense editorial styling from compromising sustained reading.
+
+Tighter standard body leading risks:
+
+- losing letterform detail;
+- making Medium feel blunt;
+- creating decorative editorial texture instead of campaign prose.
+
+Looser standard body leading risks:
+
+- lifestyle-blog softness;
+- luxury-wellness tone;
+- disconnected lines;
+- weakening the advertising-direct voice.
+
+### Confession
+
+`type-confession` uses `1.32` desktop and `1.36` mobile.
+
+This creates a distinct reading temperature without formatting the passage as centered poetry or precious editorial fragments.
+
+### Direct address and editorial-major
+
+- `type-body-large` remains open enough for direct speech while tighter than sustained body.
+- `type-editorial-major` remains dense enough to support Oswald without becoming a display clone.
+
+## 6.6 Moxie Twist line-height law
+
+Moxie Twist uses `0.98` desktop and `1.02` mobile.
+
+Rules:
+
+- Do not apply ultra-tight display leading merely because the face is expressive.
+- Two-line Moxie must remain collision-free.
+- Do not overlap Moxie lines manually.
+- Do not compress Moxie to imitate a fashion logo.
+- If a phrase cannot remain elegant within two lines at the approved scale and leading, rewrite or recompose the phrase rather than squeezing it.
+
+## 6.7 Marlin Sans SQ line-height law
+
+### Controls
+
+`type-control` uses `1.15` on desktop and mobile.
+
+Clickable height comes from control padding and minimum target dimensions, not from an enlarged text line box.
+
+### Utility and microcopy
+
+- `type-utility` uses `1.45` desktop and `1.48` mobile.
+- `type-micro` uses `1.45` desktop and `1.48` mobile.
+
+Essential small text must remain comfortable even when production notation nearby is deliberately more compact.
+
+## 6.8 Moanslight line-height law
+
+- `type-production` uses `1.30` desktop and `1.34` mobile.
+- `type-production-atmosphere` uses `1.25` on desktop and is omitted by default on mobile.
+
+Moanslight remains compact and catalog-like. It must not inherit Marlin’s more open utility leading, because doing so would erase the distinction between production notation and interface language.
+
+It also must not become so tight that punctuation, figures, or stacked specification lines merge visually.
+
+---
+
+# 7. Pending typography decisions
 
 The following remain **UNLOCKED** and may not be inferred by Claude:
 
-- line-height for every token;
 - letter-spacing for every token;
 - final `clamp()` formulas;
 - viewport interpolation ranges;
@@ -408,7 +559,7 @@ The following remain **UNLOCKED** and may not be inferred by Claude:
 
 ---
 
-# 7. Decision log
+# 8. Decision log
 
 ## 2026-07-29 — responsive scale lock
 
@@ -446,3 +597,25 @@ Approved:
 - Moanslight Semibold for labels and folios;
 - prohibition of Thin and Light production weights;
 - owner browser proof showing that Behind The Nineties Regular loses detail at `17–18px`, establishing Medium as the body standard.
+
+## 2026-07-29 — line-height lock
+
+Approved:
+
+- the complete desktop and mobile line-height map in Section 6;
+- `0.84 / 0.88` for hero commands;
+- `0.88 / 0.92` for route commands;
+- `0.94 / 0.98` for internal commands;
+- `0.90 / 0.94` for named identities;
+- `0.98 / 1.02` for Moxie Twist;
+- `1.10 / 1.14` for editorial-major propositions;
+- `1.32 / 1.36` for confession passages;
+- `1.34 / 1.40` for direct-address lead copy;
+- `1.52 / 1.56` for standard Behind The Nineties body copy;
+- `1.15` for Marlin controls, with target height supplied by padding;
+- `1.45 / 1.48` for Marlin utility and essential microcopy;
+- `1.30 / 1.34` for standard Moanslight production notation;
+- `1.25` desktop-only for approved production atmosphere;
+- narrow single-line Oswald exceptions with absolute minimums;
+- separation of line-height from component and section spacing;
+- prohibition against negative margins, manual line overlap, and inflated line-height as layout correction.
