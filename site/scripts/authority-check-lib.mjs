@@ -458,6 +458,45 @@ function matchingChronologyClauses(text, pattern) {
 export function validatePathAwareCanon(path, text) {
   const errors = [];
   const lowerPath = path.toLowerCase().replaceAll('\\', '/');
+  const topLevelAuthorityPaths = new Set([
+    'agents.md',
+    'claude.md',
+    '.claude/rules/gotsoap-web-design.md',
+    'docs/handoff.md',
+  ]);
+  if (topLevelAuthorityPaths.has(lowerPath)) {
+    const staleDirectionRules = [
+      {
+        pattern: /(?:\bpaper-manila\b[^.;!?]{0,100}\b(?:primary stock|visual universe)\b|\b(?:primary stock|visual universe)\b[^.;!?]{0,100}\bpaper-manila\b)/i,
+        diagnostic: 'obsolete CWAAA paper-universe guidance',
+      },
+      {
+        pattern: /(?:\b(?:build|create|design|make|present|render|treat|use)\b[^.;!?]{0,160}\brecords[- ]room\b|\b(?:site|website)\s+behaves?\s+like\s+a\s+records[- ]room\b)/i,
+        diagnostic: 'obsolete CWAAA records-room guidance',
+      },
+      {
+        pattern: /\bstyled\s+legacy\s+terminal\b/i,
+        diagnostic: 'obsolete Office terminal styling',
+      },
+      {
+        pattern: /\bequal(?:\s+responsive)?\s+product\s+grid\b/i,
+        diagnostic: 'obsolete Shop grid guidance',
+      },
+    ];
+
+    for (const { pattern, diagnostic } of staleDirectionRules) {
+      const hasLiveDirective = matchingLines(text, pattern)
+        .some((clause) => !protectedUnresolvedContext(
+          clause,
+          pattern,
+          true,
+        ));
+      if (hasLiveDirective) {
+        errors.push(`${path}: ${diagnostic}.`);
+      }
+    }
+  }
+
 
   const isCwaaa = /\bCWAAA\b/i.test(text) || lowerPath.includes('/cwaaa/');
   const isGotSoap = /Got Soap\?/i.test(text)
@@ -1426,6 +1465,9 @@ export function collectAuthorityErrors(repoRoot) {
   ], 'docs/cwaaa/PRD-cwaaa-web-v1.md'));
 
   for (const [path, content] of [
+    ['AGENTS.md', liveDocumentContents.get('AGENTS.md') ?? ''],
+    ['CLAUDE.md', liveDocumentContents.get('CLAUDE.md') ?? ''],
+    ['.claude/rules/gotsoap-web-design.md', liveDocumentContents.get('.claude/rules/gotsoap-web-design.md') ?? ''],
     ['docs/HANDOFF.md', liveDocumentContents.get('docs/HANDOFF.md') ?? ''],
     ['docs/prd/PRD-gotsoap-web-v1.md', gotSoapPrd],
     ['docs/cwaaa/PRD-cwaaa-web-v1.md', cwaaaPrd],

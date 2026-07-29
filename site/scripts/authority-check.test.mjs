@@ -1107,6 +1107,80 @@ for (const { name, path, text, expected } of staleCreativeDirectionCases) {
   });
 }
 
+const topLevelStalePositiveCases = [
+  {
+    name: 'AGENTS restores paper-manila as CWAAA primary stock',
+    path: 'AGENTS.md',
+    text: 'Use paper-manila as CWAAA primary stock and visual universe.',
+    expected: /AGENTS\.md:.*obsolete CWAAA paper-universe guidance/i,
+  },
+  {
+    name: 'CLAUDE restores a CWAAA records-room website',
+    path: 'CLAUDE.md',
+    text: 'Build the CWAAA website as a records room with index logic.',
+    expected: /CLAUDE\.md:.*obsolete CWAAA records-room guidance/i,
+  },
+  {
+    name: 'path-scoped rule restores a styled Office terminal',
+    path: '.claude/rules/gotsoap-web-design.md',
+    text: 'Use a styled legacy terminal for the Office page.',
+    expected: /\.claude\/rules\/gotsoap-web-design\.md:.*obsolete Office terminal styling/i,
+  },
+  {
+    name: 'HANDOFF restores an equal Shop product grid',
+    path: 'docs/HANDOFF.md',
+    text: 'Arrange Shop in an equal product grid.',
+    expected: /docs\/HANDOFF\.md:.*obsolete Shop grid guidance/i,
+  },
+  {
+    name: 'AGENTS restores global legal-footer fiction disclosure',
+    path: 'AGENTS.md',
+    text: 'State that CWAAA is fictional satire in the global legal/footer copy.',
+    expected: /AGENTS\.md:.*fiction disclosure belongs behind the creator\/About seam/i,
+  },
+];
+
+for (const { name, path, text, expected } of topLevelStalePositiveCases) {
+  test(`top-level stale-positive drift is rejected: ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, text);
+      assert.match(collectAuthorityErrors(fixtureRoot).join('\n'), expected);
+    });
+  });
+}
+
+test('top-level stale-positive scan permits an explicit prohibition', () => {
+  withCleanAuthorityFixture((fixtureRoot) => {
+    appendFixtureText(
+      fixtureRoot,
+      '.claude/rules/gotsoap-web-design.md',
+      'Do not use paper-manila as CWAAA primary stock or visual universe.',
+    );
+    assert.deepEqual(
+      collectAuthorityErrors(fixtureRoot).filter((error) => (
+        /obsolete CWAAA paper-universe guidance/i.test(error)
+      )),
+      [],
+    );
+  });
+});
+
+test('top-level stale-positive scan permits documented historical wording', () => {
+  withCleanAuthorityFixture((fixtureRoot) => {
+    appendFixtureText(
+      fixtureRoot,
+      'CLAUDE.md',
+      'Historical/superseded wording: “Use a styled legacy terminal for the Office page.”',
+    );
+    assert.deepEqual(
+      collectAuthorityErrors(fixtureRoot).filter((error) => (
+        /obsolete Office terminal styling/i.test(error)
+      )),
+      [],
+    );
+  });
+});
+
 const publicDisclosureDriftCases = [
   {
     path: 'docs/prd/PRD-gotsoap-web-v1.md',
