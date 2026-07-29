@@ -11,10 +11,10 @@
  * [image alt: …] / [label: …] because a real reader (and a screen-reader user) encounters them.
  *
  * HONEST LIMIT: this extract preserves SOURCE order, which is visual order only while no CSS
- * reorders it. Blocks affected by order-altering CSS (flex/grid *-reverse, non-zero `order`,
- * direction:rtl) are explicitly MARKED so the reversal is observable; arbitrary repositioning
- * (absolute coordinates) is not detectable here — that is what the owner's visual pass in Chrome
- * at the locked breakpoints (390/1440/1920) is for.
+ * reorders it. The layout markers below (order-altering CSS detection) are a BEST-EFFORT
+ * heuristic, not a guarantee — CSS-computed visual order is declared out of scope for static
+ * copy tooling (owner decision 2026-07-29; see the fidelity checker's scope contract). Visual
+ * order is verified by the owner's Chrome pass at the locked breakpoints (390/1440/1920).
  *
  * Run from the repo root:
  *   node .claude/skills/gotsoap-readers/scripts/extract-site-text.mjs

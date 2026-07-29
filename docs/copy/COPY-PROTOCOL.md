@@ -132,7 +132,16 @@ When anyone asks "is this line working?", it is asking against all three:
   way and separating them would require executing the page's state machine (optional headless-DOM
   pass is owner-flagged forward work; the blind read compensates); (2) multi-sentence retained
   fragment heads are undecidable from plan + baseline and unreachable by any live row — any future
-  plan that introduces one re-verifies that row first. This clause is what makes the review loop
+  plan that introduces one re-verifies that row first; (3) **CSS-computed visual order** (frozen by
+  owner decision 2026-07-29, at checker v3.11): the checker verifies copy content and slot/carrier
+  binding in **DOM/source order** and does not model layout-engine outcomes — flex/grid direction
+  and `order`, rtl/writing modes, nesting, `var()` indirection, positioning, transforms.
+  Exhaustively parsing CSS is unbounded and is **visual QA's job, not copy fidelity's** (three
+  hardening rounds each closed real spellings and each revealed more — the chase does not
+  converge). The visual-order tripwire remains in the checker as a best-effort, non-authoritative
+  heuristic; new CSS spellings that bypass it are **not** in-scope HOLD findings. Compensating
+  controls for visual order, by design: the owner's Chrome pass at the locked breakpoints
+  (390/1440/1920) and the rendered blind read. This clause is what makes the review loop
   **terminable** for every future checker, not just this one.
 - **Never punch down.** Any line aimed at a person's body, race, class, age, or identity is rejected
   on sight — however funny. Behavior, ad tropes, and the double standard only. The reformed-hero exit

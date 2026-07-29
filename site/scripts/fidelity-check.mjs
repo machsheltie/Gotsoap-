@@ -183,6 +183,15 @@
  *    silent pass.
  *  - Extractor mirrors all three.
  *
+ * 2026-07-29 — CSS CHASE FROZEN at v3.11 (owner decision, no logic change):
+ *  - The visual-order tripwire (v3.9–v3.11, T33–T41) is reclassified as a
+ *    BEST-EFFORT, NON-AUTHORITATIVE heuristic. The contract no longer
+ *    claims any completeness over CSS-computed visual order — see declared
+ *    limit #3 below. No further CSS-syntax hardening rounds: new CSS
+ *    spellings that bypass the heuristic are NOT in-scope HOLD findings;
+ *    visual QA and the rendered blind read are the compensating controls
+ *    for visual order, by design.
+ *
  * ─────────────────────────────────────────────────────────────────────────────
  * SCOPE CONTRACT — the checker's threat model (v3.11, pinned at 60812f7 + r5-r8)
  *
@@ -231,23 +240,29 @@
  *      which the proper-prefix + sentence-boundary rules pin completely).
  *      If a future correction plan introduces a multi-sentence retained
  *      head, that row must be re-verified before the plan is accepted.
- *   3. Visible-prose POSITION (v3.9 — redrawn after Sol round 6 proved the
- *      v3.8 wording false: a column-reverse container flipped shipped
- *      visual order while both static controls read DOM source order).
- *      What is now IN SCOPE: CSS reordering PRIMITIVES (flex/grid
- *      *-reverse, non-zero `order`, direction:rtl) applied to a container
- *      holding ≥2 of one row's agreed strings — the VISUAL-ORDER tripwire
- *      fails the row; the blind-reader extract marks such blocks instead of
- *      silently reporting source order. What REMAINS a limit, stated
- *      honestly: (a) cross-row prose transposition in source (the plan
- *      declares order only within a row, so there is no plan-derived
- *      assertion to make), and (b) arbitrary visual repositioning that
- *      needs real layout (absolute/fixed coordinates, transforms, floats) —
- *      undetectable without executing a rendering engine. Compensating
- *      control for BOTH, real and specific: the owner's visual pass in
- *      Chrome at the locked breakpoints (390/1440/1920), which reviews the
- *      painted page — the blind read is a SOURCE-ORDER control and is not
- *      claimed to catch visual drift. Not a blocker.
+ *   3. CSS-COMPUTED VISUAL ORDER — FROZEN as a declared limit (owner
+ *      decision, 2026-07-29, superseding the v3.9–v3.11 in-scope claim).
+ *      The checker verifies COPY CONTENT and SLOT/CARRIER BINDING in
+ *      DOM/source order. It does NOT model CSS-computed visual reordering
+ *      of any kind — flex/grid direction and `order`, rtl/writing modes,
+ *      nesting, var()/calc() indirection, selector resolution, positioning,
+ *      transforms, floats, or any other layout-engine outcome. A layout
+ *      that makes visual order differ from source order is NOT statically
+ *      verified here. Rationale: exhaustively parsing CSS is unbounded
+ *      (rounds 6–8, T33–T41, each closed real spellings and each revealed
+ *      more — the chase does not converge), and computed layout is visual
+ *      QA's job, not copy fidelity's. The VISUAL-ORDER tripwire from those
+ *      rounds REMAINS in the code as a BEST-EFFORT, NON-AUTHORITATIVE
+ *      heuristic: what it catches fails loudly; what it misses is not a
+ *      checker lie, because visual order is outside the declared
+ *      guarantee. New CSS spellings that bypass the heuristic are NOT
+ *      in-scope HOLD findings. Compensating controls, by design: the
+ *      owner's visual QA pass in Chrome at the locked breakpoints
+ *      (390/1440/1920), and the rendered blind read (whose extract marks
+ *      flow-altered blocks — likewise best-effort). Also still a limit:
+ *      cross-row prose transposition in source — the plan declares order
+ *      only within a row, so no plan-derived assertion exists to make.
+ *      Not a blocker.
  * ─────────────────────────────────────────────────────────────────────────────
  *
  *   node --experimental-strip-types scripts/fidelity-check.mjs
@@ -536,12 +551,16 @@ const distHits = (s) => distPages.filter((p) => p.text.includes(s)).map((p) => p
  * of value↔page. Route-wide membership was swap-blind by construction: three
  * honest adjacent-field transpositions in the real PledgeForm (alert texts,
  * success button labels, share title/text) all passed 54/54. */
-/** VISUAL-ORDER TRIPWIRE (v3.9, Sol round 6): CSS reordering primitives
- * (flex/grid *-reverse, non-zero order, direction:rtl) flip SHIPPED visual
- * order while DOM source order — all any static text extraction reads —
- * stays correct. The plan declares order only WITHIN a row, so the tripwire
- * is scoped exactly there: no order-altering declaration may apply to a
- * container holding two or more of one row's agreed strings. */
+/** VISUAL-ORDER TRIPWIRE (v3.9–v3.11; FROZEN 2026-07-29 as a BEST-EFFORT
+ * HEURISTIC — see the scope contract, declared limit #3): CSS reordering
+ * primitives (flex/grid *-reverse, non-zero order, direction:rtl, …) flip
+ * SHIPPED visual order while DOM source order — all any static text
+ * extraction reads — stays correct. The plan declares order only WITHIN a
+ * row, so the wire is scoped exactly there: no order-altering declaration
+ * may apply to a container holding two or more of one row's agreed strings.
+ * What this catches, it fails loudly; what it misses is OUTSIDE the
+ * checker's declared guarantee — CSS-computed visual order belongs to
+ * visual QA, and this heuristic is not part of the authoritative contract. */
 /** Two taint kinds (v3.10, Sol round 7):
  *  - SELF: the declaring element is the reordered container (flex-direction /
  *    flex-flow / flex-wrap with a *-reverse value, direction:rtl,
@@ -1257,7 +1276,7 @@ for (const r of results) {
   if (!r.ok) for (const n of r.notes) out(`          ${n}`);
 }
 out();
-out(`  rows parsed: ${results.length} · ${TEST_MODE ? 'sim rows green' : 'landed'}: ${frac(landed, results.length)} · binding: exact leaf, index-ordered, consume-once (padding/superstring/swap fail); fragments end-anchored to the same baseline leaf · rendered-output asserted per route + carrier-bound + visual-order tripwire`);
+out(`  rows parsed: ${results.length} · ${TEST_MODE ? 'sim rows green' : 'landed'}: ${frac(landed, results.length)} · binding: exact leaf, index-ordered, consume-once (padding/superstring/swap fail); fragments end-anchored to the same baseline leaf · rendered-output asserted per route + carrier-bound (visual-order tripwire: best-effort heuristic, outside the guarantee)`);
 out(`  authoritative: ${TEST_MODE ? 'NO — TEST MODE' : 'yes (proof mode, overrides rejected)'}`);
 out(`  exit contract: proof 0=landed · 1=failed/fatal/override — test mode 3=landed · 2=failed/fatal (never 0 or 1). Direct invocation only: a pipeline reports the LAST command's status — use pipefail (bash) or check $LASTEXITCODE (PowerShell).`);
 if (!TEST_MODE && landed === results.length)

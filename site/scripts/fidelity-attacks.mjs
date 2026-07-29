@@ -34,6 +34,11 @@ const DIST = 'dist';
 const BRAND = 'TEST MODE — NON-AUTHORITATIVE';
 
 const planText = readFileSync(PLAN, 'utf8');
+// Row count comes from the committed order doc, exactly as the checker reads
+// it — the suite must not go stale when the consensus adds a row.
+const DECLARED = Number((readFileSync('../docs/copy/copy-implementation-order.md', 'utf8')
+  .match(/All \*\*(\d+) correction rows\*\*/) || [])[1]);
+if (!Number.isFinite(DECLARED)) throw new Error('order doc declares no correction-row total');
 const copySrc = readFileSync(COPY_TS, 'utf8');
 const deck = (await import(pathToFileURL(COPY_TS).href)).default;
 const manifestRoutes = JSON.parse(readFileSync('scripts/route-manifest.json', 'utf8')).routes;
@@ -148,7 +153,7 @@ console.log('— proof mode');
 
 scenario('P1 control: clean proof run passes, unbranded, exit 0', {}, {
   exit: 0,
-  mustSee: ['authoritative: yes', 'landed: 54/54', 'FIDELITY-PROOF-AUTHORITATIVE-PASS rows=54/54'],
+  mustSee: ['authoritative: yes', `landed: ${DECLARED}/${DECLARED}`, `FIDELITY-PROOF-AUTHORITATIVE-PASS rows=${DECLARED}/${DECLARED}`],
   channel: 'stdout', branded: false,
 });
 scenario('P2 override rejected: FIDELITY_PLAN in proof mode', { FIDELITY_PLAN: 'x.md' }, {
@@ -176,7 +181,7 @@ console.log('— test mode (sabotage via overrides; exit contract 3=landed, 2=fa
 const T = { FIDELITY_TEST_MODE: '1' };
 
 scenario('T1 control: clean test run exits 3 (never 0), fully branded, disjoint vocabulary', T, {
-  exit: 3, mustSee: ['SIM-OK', 'sim rows green: 54 of 54', 'authoritative: NO'], branded: true, passLikeBranded: true,
+  exit: 3, mustSee: ['SIM-OK', `sim rows green: ${DECLARED} of ${DECLARED}`, 'authoritative: NO'], branded: true, passLikeBranded: true,
 });
 
 scenario('T2 truncated plan: §7 removed', {
@@ -185,9 +190,9 @@ scenario('T2 truncated plan: §7 removed', {
 
 {
   const rowLine = planText.split('\n').find((l) => l.includes('`crisis.finePrint`'));
-  scenario('T3 padded plan: fabricated 55th row vs order-declared 54', {
+  scenario(`T3 padded plan: fabricated extra row vs order-declared ${DECLARED}`, {
     ...T, FIDELITY_PLAN: writePlan('padded', planText.replace(rowLine, rowLine + '\n' + rowLine.replace('crisis.finePrint', 'crisis.fakeSlot'))),
-  }, { exit: 2, mustSee: ['54'], branded: true });
+  }, { exit: 2, mustSee: [String(DECLARED)], branded: true });
 }
 
 scenario('T4 padding: agreed text + appendix at its slot', {
