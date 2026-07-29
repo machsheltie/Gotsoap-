@@ -467,11 +467,11 @@ export function validatePathAwareCanon(path, text) {
   if (topLevelAuthorityPaths.has(lowerPath)) {
     const staleDirectionRules = [
       {
-        pattern: /(?:\bpaper-manila\b[^.;!?]{0,100}\b(?:primary stock|visual universe)\b|\b(?:primary stock|visual universe)\b[^.;!?]{0,100}\bpaper-manila\b)/i,
+        pattern: /\bpaper-manila\b/i,
         diagnostic: 'obsolete CWAAA paper-universe guidance',
       },
       {
-        pattern: /(?:\b(?:build|create|design|make|present|render|treat|use)\b[^.;!?]{0,160}\brecords[- ]room\b|\b(?:site|website)\s+behaves?\s+like\s+a\s+records[- ]room\b)/i,
+        pattern: /\brecords[- ]room\b/i,
         diagnostic: 'obsolete CWAAA records-room guidance',
       },
       {
@@ -486,11 +486,13 @@ export function validatePathAwareCanon(path, text) {
 
     for (const { pattern, diagnostic } of staleDirectionRules) {
       const hasLiveDirective = matchingLines(text, pattern)
-        .some((clause) => !protectedUnresolvedContext(
-          clause,
-          pattern,
-          true,
-        ));
+        .some((clause) => {
+          if (protectedUnresolvedContext(clause, pattern, true)) return false;
+          const directiveStart = clause.search(pattern);
+          const context = directiveStart === -1 ? clause : clause.slice(0, directiveStart);
+          const copularNegation = /\b(?:is|are|was|were)\s+not\b[^.;:!?]{0,40}$/i;
+          return !copularNegation.test(context);
+        });
       if (hasLiveDirective) {
         errors.push(`${path}: ${diagnostic}.`);
       }

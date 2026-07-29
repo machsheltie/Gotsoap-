@@ -1115,6 +1115,18 @@ const topLevelStalePositiveCases = [
     expected: /AGENTS\.md:.*obsolete CWAAA paper-universe guidance/i,
   },
   {
+    name: 'AGENTS restores paper-manila throughout CWAAA',
+    path: 'AGENTS.md',
+    text: 'Use paper-manila throughout CWAAA.',
+    expected: /AGENTS\.md:.*obsolete CWAAA paper-universe guidance/i,
+  },
+  {
+    name: 'CLAUDE declares CWAAA a records-room website',
+    path: 'CLAUDE.md',
+    text: 'CWAAA is a records-room website.',
+    expected: /CLAUDE\.md:.*obsolete CWAAA records-room guidance/i,
+  },
+  {
     name: 'CLAUDE restores a CWAAA records-room website',
     path: 'CLAUDE.md',
     text: 'Build the CWAAA website as a records room with index logic.',
@@ -1159,6 +1171,22 @@ test('top-level stale-positive scan permits an explicit prohibition', () => {
     assert.deepEqual(
       collectAuthorityErrors(fixtureRoot).filter((error) => (
         /obsolete CWAAA paper-universe guidance/i.test(error)
+      )),
+      [],
+    );
+  });
+});
+
+test('top-level stale-positive scan permits a records-room negation', () => {
+  withCleanAuthorityFixture((fixtureRoot) => {
+    appendFixtureText(
+      fixtureRoot,
+      'CLAUDE.md',
+      'CWAAA is not a records-room website.',
+    );
+    assert.deepEqual(
+      collectAuthorityErrors(fixtureRoot).filter((error) => (
+        /obsolete CWAAA records-room guidance/i.test(error)
       )),
       [],
     );
