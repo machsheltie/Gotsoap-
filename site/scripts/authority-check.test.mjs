@@ -1566,6 +1566,43 @@ test('HANDOFF contains the full precedence, target decisions, and runtime distin
   ], 'docs/HANDOFF.md'), []);
 });
 
+test('top-level agent entry points synchronize the revised creative authority', () => {
+  const markerSets = new Map([
+    ['docs/HANDOFF.md', [
+      'A COALITION MAKING ITS CASE IN PUBLIC',
+      'THE OFFICE PAGE MUST APPEAR UNDER-DESIGNED',
+      'FASHION CATALOGUE PRETENDING TO BE A STORE',
+      'RECOVERY STORIES',
+      'CREATOR/ABOUT SEAM',
+      'OPERATIONAL OWNER',
+      'INTENTIONALLY UNRESOLVED',
+    ]],
+    ['AGENTS.md', [
+      'A COALITION MAKING ITS CASE IN PUBLIC',
+      'RECOVERY STORIES',
+      'OPERATIONAL OWNER',
+      'INTENTIONALLY UNRESOLVED',
+    ]],
+    ['CLAUDE.md', [
+      'A COALITION MAKING ITS CASE IN PUBLIC',
+      'THE OFFICE PAGE MUST APPEAR UNDER-DESIGNED',
+      'FASHION CATALOGUE PRETENDING TO BE A STORE',
+    ]],
+    ['.claude/rules/gotsoap-web-design.md', [
+      'A COALITION MAKING ITS CASE IN PUBLIC',
+      'THE OFFICE PAGE MUST APPEAR UNDER-DESIGNED',
+      'FASHION CATALOGUE PRETENDING TO BE A STORE',
+      'RECOVERY STORIES',
+      'CREATOR/ABOUT SEAM',
+    ]],
+  ]);
+
+  for (const [relativePath, markers] of markerSets) {
+    const content = readFileSync(join(repoRoot, relativePath), 'utf8');
+    assert.deepEqual(missingRequiredMarkers(content, markers, relativePath), []);
+  }
+});
+
 test('portable packages declare the shared-canon synchronization contract and dependency closure', () => {
   for (const relativePath of [
     'docs/cwaaa/README.md',

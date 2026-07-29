@@ -1244,6 +1244,35 @@ export function collectAuthorityErrors(repoRoot) {
     errors.push(...findForbiddenAuthorityPhrases(content, path));
   }
 
+  const topLevelAgentMarkerSets = new Map([
+    ['AGENTS.md', [
+      'A COALITION MAKING ITS CASE IN PUBLIC',
+      'RECOVERY STORIES',
+      'OPERATIONAL OWNER',
+      'INTENTIONALLY UNRESOLVED',
+    ]],
+    ['CLAUDE.md', [
+      'A COALITION MAKING ITS CASE IN PUBLIC',
+      'THE OFFICE PAGE MUST APPEAR UNDER-DESIGNED',
+      'FASHION CATALOGUE PRETENDING TO BE A STORE',
+    ]],
+    ['.claude/rules/gotsoap-web-design.md', [
+      'A COALITION MAKING ITS CASE IN PUBLIC',
+      'THE OFFICE PAGE MUST APPEAR UNDER-DESIGNED',
+      'FASHION CATALOGUE PRETENDING TO BE A STORE',
+      'RECOVERY STORIES',
+      'CREATOR/ABOUT SEAM',
+    ]],
+  ]);
+
+  for (const [path, markers] of topLevelAgentMarkerSets) {
+    errors.push(...missingRequiredMarkers(
+      liveDocumentContents.get(path) ?? '',
+      markers,
+      path,
+    ));
+  }
+
   errors.push(...missingRequiredMarkers(liveDocumentContents.get('docs/HANDOFF.md') ?? '', [
     ...legalSeamMarkers,
     'AUTHORITY PRECEDENCE',
@@ -1252,6 +1281,13 @@ export function collectAuthorityErrors(repoRoot) {
     '3. THE RELEVANT PER-SYSTEM WORLD BIBLE',
     '4. THE RELEVANT CURRENT DESIGN AUTHORITY AND PRD',
     '5. SHARED AND PER-SYSTEM MACHINE-READABLE CONTRACTS',
+    'A COALITION MAKING ITS CASE IN PUBLIC',
+    'THE OFFICE PAGE MUST APPEAR UNDER-DESIGNED',
+    'FASHION CATALOGUE PRETENDING TO BE A STORE',
+    'RECOVERY STORIES',
+    'CREATOR/ABOUT SEAM',
+    'OPERATIONAL OWNER',
+    'INTENTIONALLY UNRESOLVED',
     '6. ARTIFACT BRIEFS AND COPY DECKS',
     '7. HISTORICAL DOCUMENTS',
     '`DOCS/GOTSOAP/WORLD-BIBLE.MD`',
