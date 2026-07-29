@@ -1,0 +1,108 @@
+{
+  "contractId": "lather-pledge.v1",
+  "version": 1,
+  "owner": "CWAAA",
+  "implementations": [
+    "Got Soap?",
+    "CWAAA"
+  ],
+  "backend": {
+    "provider": "Buttondown",
+    "audience": "one shared audience",
+    "configurationKey": "BUTTONDOWN_USERNAME"
+  },
+  "fields": [
+    {
+      "id": "firstName",
+      "type": "text",
+      "required": true,
+      "buttondownName": "metadata__first_name"
+    },
+    {
+      "id": "email",
+      "type": "email",
+      "required": true,
+      "buttondownName": "email"
+    },
+    {
+      "id": "consent",
+      "type": "checkbox",
+      "required": true,
+      "buttondownName": null
+    },
+    {
+      "id": "company",
+      "type": "honeypot",
+      "required": false,
+      "buttondownName": null
+    }
+  ],
+  "fulfillment": {
+    "author": "CWAAA",
+    "appliesToImplementations": [
+      "Got Soap?",
+      "CWAAA"
+    ],
+    "totalMessages": 2,
+    "messages": [
+      {
+        "id": "pledgeReceipt",
+        "sequence": 1,
+        "delivery": "immediate",
+        "maximumDeliveries": 1,
+        "consentWithdrawalMechanismRequired": true
+      },
+      {
+        "id": "currentIssue",
+        "sequence": 2,
+        "delivery": "separately after a configurable short delay",
+        "maximumDeliveries": 1,
+        "displayDateSource": "signup or send time",
+        "preSendConsentCheckRequired": true,
+        "suppressIfConsentWithdrawn": true,
+        "unsubscribeMechanismRequired": true
+      }
+    ],
+    "providerExtraMessageAllowed": false,
+    "ongoingSubscription": false,
+    "dripCampaign": false
+  },
+  "consent": {
+    "required": true,
+    "disclosesExactlyTwoMessages": true,
+    "disclosesImmediateReceipt": true,
+    "disclosesSeparateCurrentIssue": true,
+    "disclosesNoOngoingSubscription": true,
+    "withdrawalBeforeCurrentIssueSuppressesDelivery": true
+  },
+  "futurePrograms": {
+    "requiresSeparateOwnerApproval": true,
+    "requiresSeparateContract": true,
+    "requiresSeparateConsent": true,
+    "altersFormCw1": false
+  },
+  "success": {
+    "semantic": "SWORN",
+    "mustOfferShare": true,
+    "mustOfferCopyLink": true
+  },
+  "privacy": {
+    "analyticsMayReceiveFieldValues": false,
+    "requiresAffirmativeConsent": true,
+    "pledgeAndEmailValuesMayEnterAnalytics": false,
+    "retentionScope": "minimum Buttondown data needed to fulfill two messages and honor suppression",
+    "removeUnneededFulfillmentMetadataAfterCompletion": true,
+    "suppressionRecordMayBeRetained": true,
+    "additionalProviderAuthorized": false
+  },
+  "invariants": [
+    "Both public implementations submit to the same Buttondown audience.",
+    "Visual treatment and surrounding copy may differ; field meaning and success semantics may not.",
+    "Got Soap? adds a conditional Want to Learn More? seam to CWAAA after success.",
+    "A missing cross-site URL produces no dead link.",
+    "CWAAA authors the receipt and current issue for both public presentations.",
+    "Buttondown confirmation or welcome delivery must fulfill the defined receipt or remain disabled; it may not become a third message.",
+    "Consent withdrawal before current-issue delivery suppresses that issue.",
+    "Future programs require separate approval, contract, and consent without altering Form CW-1."
+  ]
+}

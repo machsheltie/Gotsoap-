@@ -1,9 +1,17 @@
 # Got Soap? Campaign Architecture — Build Specification
 
-**Status:** Approved for implementation; Unholy is locked as the home flagship. **This root `specs.md` is the single canonical build spec** (consolidated 2026-07-15, absorbing the former `docs/superpowers/specs/2026-07-14-…build-spec.md`, now retired). Owner amendments dated 2026-07-15 govern where they touch §3.7.
+**Status:** canonical description of the current combined runtime; Unholy is locked as the home
+flagship. This file does not define the approved extraction target.
 **Date:** 2026-07-14
 **Scope:** Home, `/psas`, `/psas/[slug]`, mechanic ownership, navigation, motion, performance, accessibility, and the Hope2 Studio reveal
-**Governing documents:** `AGENTS.md` creative rules · `docs/design-north-star.md` Round 3 · `docs/prd/PRD-gotsoap-web-v1.md` · `docs/design.md` · `docs/copy/copy-deck-v2.md`
+**Target-state authority:** `docs/HANDOFF.md` · `docs/design.md` ·
+`docs/prd/PRD-gotsoap-web-v1.md` · `docs/cwaaa/` · `docs/office-of-lather-compliance/`
+
+> **Transition boundary:** sections below truthfully specify the currently implemented
+> site-within-a-site runtime. They do not authorize rebuilding CWAAA inside Got Soap? after
+> extraction. Got Soap? campaigns; CWAAA advocates and files; the Office regulates. The Sniff Test
+> remains Got Soap?, and the Lather Pledge ships on both campaign and nonprofit sites through the
+> shared contract.
 
 This specification ratifies the 2026-07-09 movement-pitch skeleton and replaces its open execution questions. It also supersedes any visual-execution note that would flatten the campaign into a gallery, a repeated desktop split, a mobile image-above-copy stack, or a restrained editorial archive.
 

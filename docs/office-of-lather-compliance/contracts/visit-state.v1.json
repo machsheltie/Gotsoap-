@@ -1,0 +1,152 @@
+{
+  "contractId": "office-visit-state.v1",
+  "version": 1,
+  "jurisdiction": "deliberately unspecified",
+  "publicSurfaceModel": "error states only",
+  "referenceMeaning": "standing containment reference",
+  "thresholds": {
+    "continuedInterestSession": 3
+  },
+  "storage": {
+    "session": "sessionStorage",
+    "persistent": "localStorage",
+    "namespace": "olc.visit.v1",
+    "serverPersistence": false,
+    "cookies": false,
+    "ipAddress": false,
+    "fingerprinting": false
+  },
+  "persistentRecord": {
+    "firstContact": "ISO-8601 timestamp",
+    "lastContact": "ISO-8601 timestamp",
+    "returnSessionCount": "non-negative integer",
+    "lifetimeAccessCount": "positive integer",
+    "reference": "8804-X",
+    "terminalId": "locally generated fictional browser identifier"
+  },
+  "terminalIdentity": {
+    "scope": "browser-local",
+    "source": "locally generated fictional browser identifier",
+    "fingerprinting": false
+  },
+  "sessionRecord": {
+    "sessionId": "locally generated ephemeral identifier",
+    "sessionRefreshCount": "non-negative integer"
+  },
+  "stateSelectionContext": {
+    "captureSessionMarkerBeforeTransition": true,
+    "newSession": "session marker was absent at start of access"
+  },
+  "firstAccessTransition": {
+    "requiresPersistentRecordAbsent": true,
+    "skipsNewSessionTransition": true,
+    "persistentRecord": {
+      "operation": "create",
+      "returnSessionCount": 0,
+      "lifetimeAccessCount": 1
+    },
+    "sessionRecord": {
+      "operation": "create",
+      "sessionRefreshCount": 0
+    }
+  },
+  "newSessionTransition": {
+    "beforeStateSelection": true,
+    "requiresPersistentRecord": true,
+    "requiresSessionMarkerAbsentAtAccessStart": true,
+    "literalFirstAccessSkipsTransition": true,
+    "returnSessionCount": {
+      "operation": "increment",
+      "amount": 1,
+      "oncePerNewSession": true
+    },
+    "lifetimeAccessCount": {
+      "operation": "increment",
+      "amount": 1
+    },
+    "sessionRecord": {
+      "operation": "create",
+      "sessionRefreshCount": 0
+    }
+  },
+  "sameSessionTransition": {
+    "returnSessionCount": {
+      "operation": "preserve",
+      "increment": false
+    },
+    "sessionRefreshCount": {
+      "operation": "increment",
+      "amount": 1
+    },
+    "lifetimeAccessCount": {
+      "operation": "increment",
+      "amount": 1
+    }
+  },
+  "stateSelectionOrder": [
+    "continued_interest",
+    "same_session_refresh",
+    "later_return",
+    "first_access"
+  ],
+  "states": [
+    {
+      "id": "first_access",
+      "display": "FIRST ACCESS",
+      "selection": {
+        "persistentRecordExists": false
+      },
+      "condition": "no persistent record",
+      "effect": "create persistent and session records; set returnSessionCount to 0, lifetimeAccessCount to 1, and sessionRefreshCount to 0"
+    },
+    {
+      "id": "same_session_refresh",
+      "display": "SAME-SESSION REFRESH",
+      "selection": {
+        "sessionMarkerExistedAtAccessStart": true,
+        "maximumReturnSessionCount": 1
+      },
+      "condition": "session marker existed at access start and returnSessionCount is below 2",
+      "effect": "increment sessionRefreshCount and lifetimeAccessCount; never increment returnSessionCount"
+    },
+    {
+      "id": "later_return",
+      "display": "LATER RETURN",
+      "selection": {
+        "newSession": true,
+        "postTransitionReturnSessionCount": 1
+      },
+      "condition": "new-session transition ran and post-transition returnSessionCount is exactly 1",
+      "effect": "show first and current timestamps after the new-session transition creates the session record"
+    },
+    {
+      "id": "continued_interest",
+      "display": "CONTINUED INTEREST",
+      "selection": {
+        "postTransitionReturnSessionCount": {
+          "minimum": 2
+        }
+      },
+      "condition": "post-transition returnSessionCount is 2 or greater",
+      "effect": "remain in Continued Interest stasis on all later accesses"
+    }
+  ],
+  "rendering": {
+    "resolveBeforeReveal": true,
+    "returningBrowserMayFlashFirstAccess": false
+  },
+  "fallback": {
+    "storageUnavailable": "render a neutral inaccessible-resource state without claiming recognition"
+  },
+  "forbidden": [
+    "ordinary homepage",
+    "site navigation",
+    "agency explainer",
+    "named federal, state, or local jurisdiction",
+    "IP address display",
+    "backend identity record",
+    "cross-device recognition",
+    "reload-driven escalation",
+    "infinite escalation"
+  ]
+}
