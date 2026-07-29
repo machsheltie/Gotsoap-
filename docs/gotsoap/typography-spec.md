@@ -1,11 +1,13 @@
 # Got Soap? typography specification
 
-**Status:** active working authority; font cast and responsive scale locked, weight/leading/tracking details pending owner interview  
+**Status:** active working authority; font cast, responsive scale, and weight allocation locked; leading, tracking, and detailed responsive behavior pending owner interview  
 **Applies to:** Got Soap? campaign website only  
 **Reads with:** `ui-system.md`, `../design.md`, `../prd/PRD-gotsoap-web-v1.md`, `world-bible.md`, and `../HANDOFF.md`  
 **Does not apply to:** CWAAA or the Office of Lather Compliance
 
 This file defines the exact responsive typography behavior for the curated Got Soap? type system. It is subordinate to the approved font roles in `ui-system.md` and exists so an implementation agent cannot flatten the selected typefaces into a generic web hierarchy.
+
+Where this specification assigns an exact weight, it supersedes earlier provisional weight candidates in `ui-system.md`.
 
 The canonical cast remains:
 
@@ -130,7 +132,7 @@ Rules:
 
 ## 3.6 Editorial scale tokens
 
-Behind The Nineties uses three distinct reading temperatures:
+Behind The Nineties uses four distinct reading temperatures:
 
 - `type-editorial-major` for large persuasive propositions;
 - `type-confession` for narrow intimate passages;
@@ -194,11 +196,203 @@ Each token requires its own interpolation behavior. Display tokens may scale mor
 
 ---
 
-# 5. Pending typography decisions
+# 5. Canonical weight allocation
+
+Weight contrast must express changes in voice, function, and hierarchy. It must not become a blanket luxury-light treatment or a blanket masculine-heavy treatment.
+
+Binding laws:
+
+- Display authority comes primarily from scale, crop, composition, and placement.
+- The heaviest available style is never the default simply because Got Soap? is forceful.
+- Thin and Light styles are not used to manufacture luxury.
+- Synthetic bold and synthetic italic are prohibited.
+- CSS strokes, shadows, and filters may not be used to fake missing weights.
+- An implementation must load only the approved weights and styles.
+
+## 5.1 Weight map
+
+| Token or use | Family | Locked weight/style |
+|---|---|---|
+| `type-command-hero` | Oswald | `600` |
+| `type-command-route` | Oswald | `600` |
+| `type-command-section` | Oswald | `500` |
+| `type-identity` | Oswald | `600` |
+| rare flagship emphasis | Oswald | `700`, one word or one short line only |
+| `type-whisper` | Moxie Twist | native supplied style only |
+| `type-editorial-major` | Behind The Nineties | Semibold |
+| `type-confession` | Behind The Nineties | Regular or true Italic according to voice |
+| `type-body-large` | Behind The Nineties | Medium |
+| `type-body` | Behind The Nineties | Medium |
+| editorial pull quotation | Behind The Nineties | Regular Italic |
+| rare Behind The Nineties display event | Behind The Nineties | Black, owner-approved only |
+| `type-control` | Marlin Sans SQ | Medium |
+| `type-utility` | Marlin Sans SQ | Book |
+| `type-micro` at `12–13px` in strong conditions | Marlin Sans SQ | Book |
+| `type-micro` at `11px` or in difficult conditions | Marlin Sans SQ | Medium |
+| selected active functional emphasis | Marlin Sans SQ | Bold |
+| `type-production` | Moanslight | Medium |
+| production label or folio | Moanslight | Semibold |
+| `type-production-atmosphere` | Moanslight | Medium |
+
+## 5.2 Oswald weight law
+
+### Core command weight: `600`
+
+Use `600` for hero commands, route openings, verdict identities, and selected product identities.
+
+This provides density against photography without pushing the campaign into sports branding, supplement packaging, action-film typography, or generic heavy-handed masculinity.
+
+### Internal command weight: `500`
+
+Use `500` for major internal statements. The scale already supplies authority. The lighter internal weight creates a genuine step down from route-opening commands.
+
+### Rare override: `700`
+
+Use `700` only for:
+
+- one flagship word;
+- one very short Unholy command;
+- one campaign culmination;
+- one owner-approved verdict or product moment.
+
+Do not use `700` for an entire route system, paragraph, repeated module, or default heading level.
+
+> Oswald gains authority primarily through scale, crop, and placement—not by selecting the heaviest available weight.
+
+## 5.3 Behind The Nineties weight law
+
+### Standard body and direct address: Medium
+
+Medium is locked for both `type-body` and `type-body-large`.
+
+The owner tested Regular and Medium at `17px` and `18px`. Regular lost important letterform detail at those practical browser sizes. Medium retained the family’s character and readability without becoming blunt.
+
+Regular is therefore prohibited for standard body copy.
+
+### Editorial-major: Semibold
+
+Semibold supports Oswald without competing with it. Bold and Black are too assertive for ordinary persuasive propositions and risk turning the family into retro display advertising.
+
+### Confession: Regular or true Italic
+
+Use Regular for a direct private admission. Use true Italic where the voice becomes more internal, sensual, or quoted.
+
+The lighter texture is meaningful only because it marks a genuine shift in voice.
+
+### Pull quotations: Regular Italic
+
+Pull quotations use Regular Italic rather than enlarged body Medium. This creates an editorial tonal distinction rather than a generic size increase.
+
+### Black: rare display exception
+
+Behind The Nineties Black may appear only in a rare, large-scale, owner-approved moment where the family itself owns the composition.
+
+It is prohibited for:
+
+- standard headings;
+- product descriptions;
+- button labels;
+- ordinary emphasis;
+- every Shop product title.
+
+> Behind The Nineties changes weight when the voice changes—not merely when the hierarchy changes.
+
+## 5.4 Moxie Twist weight law
+
+Use only the native supplied style.
+
+Prohibited:
+
+- synthetic bold;
+- synthetic italic;
+- CSS stroke;
+- text shadow used to fake weight;
+- variable-font simulation;
+- repeated reduction into body-copy scale.
+
+The native face is the face.
+
+## 5.5 Marlin Sans SQ weight law
+
+### Medium
+
+Use Medium for:
+
+- navigation;
+- buttons;
+- form labels;
+- quiz answers;
+- share controls;
+- copy and download controls;
+- ordinary primary interface language.
+
+### Book
+
+Use Book for:
+
+- consent;
+- form explanations;
+- validation detail;
+- longer status copy;
+- functional instructions;
+- legal and accessibility text where size and contrast support it.
+
+### Microcopy context rule
+
+Use Book when:
+
+- the size is `12–13px`;
+- contrast is strong;
+- the text is not over photography;
+- line length is controlled.
+
+Use Medium when:
+
+- the size is `11px`;
+- the background is less forgiving;
+- the metadata is critical;
+- the string contains dense punctuation or numerals.
+
+### Bold
+
+Use Bold only for:
+
+- selected active states;
+- confirmed prices;
+- short error headings;
+- primary functional emphasis;
+- a current navigation state when position, underline, or another quieter treatment is insufficient.
+
+Do not make all buttons Bold.
+
+## 5.6 Moanslight weight law
+
+### Medium
+
+Medium is the standard production weight at `12–13px` and the required weight for any approved `10–11px` nonessential production atmosphere.
+
+### Semibold
+
+Use Semibold for concise labels and folios such as:
+
+```text
+CAMPAIGN SPOT 03
+BROADCAST 01
+SUPPLY NO. GS-04
+```
+
+### Prohibited weights
+
+Thin, Extra Light, and Light are prohibited in the production system. Regular is not approved for standard production notation. Bold is not a default production heading.
+
+> Moanslight may look refined, but it must never require the visitor to lean toward the screen.
+
+---
+
+# 6. Pending typography decisions
 
 The following remain **UNLOCKED** and may not be inferred by Claude:
 
-- exact weight allocation for every token;
 - line-height for every token;
 - letter-spacing for every token;
 - final `clamp()` formulas;
@@ -214,7 +408,7 @@ The following remain **UNLOCKED** and may not be inferred by Claude:
 
 ---
 
-# 6. Decision log
+# 7. Decision log
 
 ## 2026-07-29 — responsive scale lock
 
@@ -232,3 +426,23 @@ Approved:
 - `15px` minimum navigation/control size on mobile;
 - no 10px Moanslight atmosphere on mobile by default;
 - responsive drama through recomposition rather than indiscriminate shrinking.
+
+## 2026-07-29 — weight allocation lock
+
+Approved:
+
+- Oswald `600` for hero, route, and identity commands;
+- Oswald `500` for internal campaign statements;
+- Oswald `700` as a rare one-word or short-line override only;
+- Behind The Nineties Medium for standard body and direct-address lead copy;
+- Behind The Nineties Semibold for editorial-major propositions;
+- Behind The Nineties Regular or true Italic for confession voice;
+- Behind The Nineties Regular Italic for pull quotations;
+- Behind The Nineties Black only as a rare owner-approved display event;
+- Moxie Twist native style only;
+- Marlin Sans SQ Medium for controls, Book for utility, and Bold only for selected functional emphasis;
+- Marlin Sans SQ Medium at the smallest or most difficult microcopy conditions;
+- Moanslight Medium for standard production notation and production atmosphere;
+- Moanslight Semibold for labels and folios;
+- prohibition of Thin and Light production weights;
+- owner browser proof showing that Behind The Nineties Regular loses detail at `17–18px`, establishing Medium as the body standard.
