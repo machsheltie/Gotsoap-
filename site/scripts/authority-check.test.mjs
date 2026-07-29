@@ -1194,6 +1194,105 @@ for (const { name, path, statement, diagnostic } of candidateLocalProtectionCase
   });
 }
 
+const allCandidateBypassCases = [
+  {
+    name: 'repeated Shop assertion after its direct prohibition',
+    path: 'docs/design.md',
+    statement: 'Do not arrange products in an equal responsive product grid but arrange products in an equal responsive product grid.',
+    expected: /obsolete Shop grid guidance/i,
+  },
+  {
+    name: 'repeated top-level styling assertion after its direct prohibition',
+    path: 'CLAUDE.md',
+    statement: 'Do not use records-room styling but use records-room styling.',
+    expected: /obsolete CWAAA records-room guidance/i,
+  },
+  {
+    name: 'relationship assertion after and coordination',
+    path: 'docs/cwaaa/world-bible.md',
+    statement: 'This does not affect the seal and CWAAA is the Office’s public-facing layer.',
+    expected: /relationship mystery.*public-facing layer/i,
+  },
+  {
+    name: 'relationship assertion after or coordination',
+    path: 'docs/cwaaa/world-bible.md',
+    statement: 'This does not affect the seal or CWAAA is the Office’s public-facing layer.',
+    expected: /relationship mystery.*public-facing layer/i,
+  },
+  {
+    name: 'disclosure directive after and coordination',
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    statement: 'Do not render a privacy warning and render “This is satire” in the global footer.',
+    expected: /fiction disclosure belongs behind the creator\/About seam/i,
+  },
+  {
+    name: 'disclosure directive after or coordination',
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    statement: 'Do not render a privacy warning or render “This is satire” in the global footer.',
+    expected: /fiction disclosure belongs behind the creator\/About seam/i,
+  },
+  {
+    name: 'relationship assertion after no-question certainty',
+    path: 'docs/cwaaa/world-bible.md',
+    statement: 'There is no question that CWAAA is the Office’s public-facing layer.',
+    expected: /relationship mystery.*public-facing layer/i,
+  },
+];
+
+for (const { name, path, statement, expected } of allCandidateBypassCases) {
+  test(`all-candidate rejection catches ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, statement);
+      assert.match(collectAuthorityErrors(fixtureRoot).join('\n'), expected);
+    });
+  });
+}
+
+const allCandidateProtectionCases = [
+  {
+    name: 'a single direct Shop prohibition',
+    path: 'docs/design.md',
+    statement: 'Do not arrange products in an equal responsive product grid.',
+    diagnostic: /obsolete Shop grid guidance/i,
+  },
+  {
+    name: 'an open question whether the relationship exists',
+    path: 'docs/cwaaa/world-bible.md',
+    statement: 'It remains an open question whether CWAAA is the Office’s public-facing layer.',
+    diagnostic: /relationship mystery.*public-facing layer/i,
+  },
+  {
+    name: 'a question that remains unresolved whether the relationship exists',
+    path: 'docs/cwaaa/world-bible.md',
+    statement: 'The question remains unresolved whether CWAAA is the Office’s public-facing layer.',
+    diagnostic: /relationship mystery.*public-facing layer/i,
+  },
+  {
+    name: 'a documented relationship example list',
+    path: 'docs/cwaaa/world-bible.md',
+    statement: 'Forbidden examples: `CWAAA is the Office’s partner.` and `The Office operates CWAAA.`',
+    diagnostic: /relationship mystery|operational separation/i,
+  },
+  {
+    name: 'a documented disclosure example list',
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    statement: 'Rejected examples: "Render \'This is satire\' in the global footer." and "State \'This is fictional\' in the global footer."',
+    diagnostic: /fiction disclosure belongs behind the creator\/About seam/i,
+  },
+];
+
+for (const { name, path, statement, diagnostic } of allCandidateProtectionCases) {
+  test(`all-candidate protection preserves ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, statement);
+      assert.deepEqual(
+        collectAuthorityErrors(fixtureRoot).filter((error) => diagnostic.test(error)),
+        [],
+      );
+    });
+  });
+}
+
 const staleCreativeDirectionCases = [
   {
     name: 'paper-manila as the CWAAA primary stock',
