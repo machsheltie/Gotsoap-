@@ -9,7 +9,7 @@ site. That is current-state truth, not the final information architecture. The t
 distinct fictional systems:
 
 1. **Got Soap? campaigns.**
-2. **CWAAA advocates and files.**
+2. **CWAAA validates, organizes, and makes its case in public.**
 3. **The Office of Lather Compliance regulates.**
 
 Private production canon identifies CWAAA and the Office as legally separate fictional entities.
@@ -24,6 +24,7 @@ exclusively of custom error states. The IVR is the controlled ambiguity exceptio
 |---|---|
 | What cross-system facts, ambiguity, and artifact continuity govern the world? | `docs/world/WORLD-BIBLE.md` + `docs/world/artifact-continuity.md` |
 | What does the current combined build render? | `specs.md` |
+| What governs the approved 2026-07-28 creative-direction revision? | `docs/superpowers/specs/2026-07-28-creative-direction-revision-design.md` + `docs/superpowers/plans/2026-07-28-creative-direction-revision.md` |
 | What should Got Soap? become? | `docs/design.md` + `docs/prd/PRD-gotsoap-web-v1.md` |
 | What facts, psychology, and voice belong to Got Soap?? | `docs/gotsoap/world-bible.md` |
 | What should the CWAAA site become? | `docs/cwaaa/design.md` + `docs/cwaaa/PRD-cwaaa-web-v1.md` |
@@ -76,6 +77,24 @@ This documentation pass does not move runtime code. Extraction begins only when 
 task explicitly authorizes it.
 
 ## Creative decisions that are closed
+
+### 2026-07-28 creative-direction revision
+
+The owner-approved governing specification is
+`docs/superpowers/specs/2026-07-28-creative-direction-revision-design.md`; implement it through
+`docs/superpowers/plans/2026-07-28-creative-direction-revision.md` and the target packages linked
+above. This approval changes target authority, not the current combined runtime described in
+`specs.md`.
+
+- **CWAAA: A Coalition Making Its Case in Public.** It is not a paper universe or records-room
+  website.
+- Public CWAAA navigation uses **Recovery Stories** and **Chapters**.
+- **The Office page must appear under-designed.**
+- Shop is **a fashion catalogue pretending to be a store**.
+- **Privacy**, **Terms**, and **DMCA** remain globally accessible.
+- Fiction disclosure belongs behind the **creator/About seam**.
+- IVR number/placement owner is Got Soap?; presented authorship crosses Voice A and Voice B;
+  **operational owner** and exact handoff remain **intentionally unresolved**.
 
 - The website itself is the campaign; the portfolio explanation arrives late.
 - The flagship poster is **Unholy**.

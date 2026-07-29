@@ -254,7 +254,7 @@
  */
 
 import { readFileSync, readdirSync, statSync, existsSync, writeFileSync, mkdtempSync } from 'node:fs';
-import { join, relative, sep } from 'node:path';
+import { join, relative, resolve, sep } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
@@ -384,8 +384,13 @@ function htmlFiles(dir, out = []) {
 const escAttr = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 
 const git = (args) => execFileSync('git', args, { encoding: 'utf8', maxBuffer: 8 * 1024 * 1024 });
-const tracked = (p) => { try { return git(['ls-files', '--', p]).trim().length > 0; } catch { return false; } };
-const cleanVsHead = (p) => { try { return git(['status', '--porcelain', '--', p]).trim().length === 0; } catch { return false; } };
+const REPO_ROOT = git(['rev-parse', '--show-toplevel']).trim();
+// npm runs this script from site/, while the proof artifacts include ../docs.
+// Pathspec magic anchors each integrity check at the Git top level so a valid,
+// tracked repository-relative artifact cannot be mistaken for an untracked one.
+const topPathspec = (p) => `:(top)${relative(REPO_ROOT, resolve(p)).split(sep).join('/')}`;
+const tracked = (p) => { try { return git(['ls-files', '--', topPathspec(p)]).trim().length > 0; } catch { return false; } };
+const cleanVsHead = (p) => { try { return git(['status', '--porcelain', '--', topPathspec(p)]).trim().length === 0; } catch { return false; } };
 
 /* ---------- load artifacts, with integrity guards -------------------------- */
 
@@ -734,7 +739,7 @@ const body = planText.slice(start, end);
 let section = '';
 const seenSections = new Set();
 const rows = [];
-for (const line of body.split('\n')) {
+for (const line of body.split(/\r?\n/)) {
   const h = line.match(/^## (\d+)\. (.+)$/);
   if (h) { section = h[2].trim(); seenSections.add(Number(h[1])); continue; }
   if (!line.startsWith('|')) continue;
