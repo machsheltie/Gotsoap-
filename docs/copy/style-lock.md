@@ -40,6 +40,15 @@ Landmark `aria-label`s name the region as a noun phrase and must never share a n
 - **"A satirical spec campaign by Hope2 Studio"** *(on campaign surfaces)* — the tell that spends the joke early (owner, 2026-07-16, footer consolidation). The sentence lives at `/about` only, where the reveal IS the payload.
 - **"Got Soap? is a satirical campaign by Hope2 Studio."** (the home reveal-beat tail) — an explicit satire reveal on the home; killed with the consolidation. The thesis line stays; the confession goes.
 - **"See who's behind it →"** — hints at a hidden hand from a campaign surface; the home's one `/about` path is the footer folio credit.
+- *(/about REDO, owner-ratified 2026-07-28 — full record `proposals-2026-07-22-about-inframe.md`:)*
+- **"visually seductive, thematically ridiculous"** — blind-named portfolio boilerplate (Priya, retest).
+- **"engineered to provoke, amuse, and push"** — blind-named service-list rhythm (Priya, retest).
+- **"the paperwork that out-writes most brands' hero copy"** — the self-flinch that grades its own proof.
+- **"Let's make clean design dirty fun."** and **"I do clean design for dirty fights. Bring me yours."** — the original closer and its first successor, both dead. The first was superseded at owner's order (sharpened, not deleted); the second was retired by 2/2 blind convergence as a slogan template — the `I do X for Y. Bring me yours.` construction is the performed tell (R10–R12). The ratified successor is *"I'm for hire, preferably by brands that need a little bite."* — her verbatim promo.txt offer language. The clean/dirty axis retired with the taglines; neither wording may return on any rendered surface.
+- **"A dating app made me mad, so I declared a national hygiene crisis."** — owner-struck at ratification: read childish (the tantrum, not the standard).
+- **"I file my grudges in triplicate."** — owner-struck: read unhinged/vengeful, grudge-as-personality. Blind-proven with Priya, and struck anyway — **the owner overrules the readers on her own biography; do not relitigate with reader quotes.**
+- **"Then I incorporated the grudge. It smolders on the posters and files paperwork everywhere else."** — grudge-as-personality; the encapsulation survives only in its ratified detached form ("Then I incorporated the bar. It smolders…").
+- **The fabricated-funk arc** — *"my own shower sat there like a gym membership"* · *"By day four I smelled like the case files"* · the eleven-minute-shower beat · *"I'm still on the apps, still holding out for a 10."* · *"I show up as advertised."* — invented, self-refuting biography (Stacey as the unwashed) rejected by the owner on the one page that must be true.
 
 ## 8. Page-internal echoes are legal; cross-surface recycling is not
 
@@ -110,3 +119,35 @@ Argued to consensus in the two-round Vivian ⇄ Sol shop-product dialectic
 3. **The tie-break principle.** Between two law-clean candidate lines, the one
    carrying an additional working beat wins. "Ends on the strongest word" is a taste
    argument and does not decide.
+
+## 13. /about REDO consensus locks (owner-ratified 2026-07-28)
+
+Argued through the REDO dialectic (`proposals-2026-07-22-about-inframe.md`, REDO R1–R9: two
+Vivian⇄Sol rounds + owner ratification edits, zero deadlocks) after the owner rejected the
+prior consensus for fabricated biography. Overturning any of these requires a new argued round
+**plus the owner** — several are owner rulings, not writer consensus.
+
+1. **The /about reality-sourcing law.** `/about` is sourced from reality (see the note atop
+   `promo.txt`). No invented biography, funk, persona, dramatic arc, or character for Stacey;
+   she is never the unwashed and never the punchline — same enforcement class as
+   never-punch-down. Lacking true material for a beat: STOP and ask the owner (interviewing her
+   is available and preferred); never fill the gap with invention.
+2. **The voice-lock, three axes.** On `/about` Stacey is clever, witty, articulate — never
+   childish, never a "hateful crazy bitch," never a character or an arc. Her motivation renders
+   as a **standard she holds** (exasperation with low-effort men, a bar she set), never a
+   grudge she nurses or a temper she lost. And **never performed**: the wit lives in the truth
+   and the economy — never in a pun, a spec-flex, a callback, or a constructed escalation. A
+   line should read like she said it once, plainly, and it happened to land.
+3. **Casting (permanent).** The `/about` first-person register is a **creative-writing-craft
+   lane, not a Vivian lane**. Vivian authors all campaign surfaces; she does not write the
+   plain-Stacey beats. (Root cause of the R5/R6 rejections: lines conceived as devices —
+   humanizing a bit leaves the bit.)
+4. **Format kill.** On `/about`: the "Case study" eyebrow and the labeled
+   Concept / Execution / The system tri-fold. The making block is one plain structural eyebrow
+   ("How it's made") over unlabeled continuous prose; **capability bins may not return in
+   content or schema** (the deck key is `about.making`, a plain `string[]`).
+5. **Ratified strings.** `about.making` ¶1–¶2, `about.pitch.body` (spine-first: "…this is a
+   protest in punchlines"), and `about.pitch.tagline` ("I'm for hire, preferably by brands
+   that need a little bite." — the R10–R12 micro-pass successor after the blind read retired
+   the first tagline as a slogan template) are the consensus package — per-string kills listed
+   in §7.

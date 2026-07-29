@@ -41,6 +41,12 @@ const manifestRoutes = JSON.parse(readFileSync('scripts/route-manifest.json', 'u
 const tmp = mkdtempSync(join(tmpdir(), 'fidelity-attack-'));
 const results = [];
 
+// Pinned baseline deck — for fixtures that splice superseded baseline text.
+const baseSrc = spawnSync('git', ['show', '4d67a19:site/src/content/copy.ts'], { encoding: 'utf8' }).stdout;
+const basePath = join(tmp, 'baseline-copy.mts');
+writeFileSync(basePath, baseSrc);
+const baseDeck = (await import(pathToFileURL(basePath).href)).default;
+
 function run(env) {
   const r = spawnSync(NODE, ['--experimental-strip-types', CHECK], {
     env: { ...process.env, ...env },
@@ -301,6 +307,17 @@ scenario('T26 partial head: retained prefix reduced to "You " before the agreed 
   ...T, FIDELITY_COPY_TS: mutateDeck('partial-head', (s) => s.replace(welcomeThreat, 'You ' + threatTail)),
 }, { exit: 2, mustSee: ['NOT slot-bound'], branded: true });
 
+// Sol HOLD round 4 (2026-07-23, vs 2467560): over-retention + attribute hiding.
+
+scenario('T28 head over-retention: entire superseded baseline line kept before the agreed tail', {
+  ...T, FIDELITY_COPY_TS: mutateDeck('head-over-retention', (s) => {
+    const idx = deck.pledge.welcomeEmail.body.indexOf(welcomeThreat);
+    const baseLine = baseDeck.pledge.welcomeEmail.body[idx];
+    if (typeof baseLine !== 'string' || baseLine === welcomeThreat) throw new Error('T28: baseline threat line unavailable');
+    return s.replace(welcomeThreat, baseLine + ' ' + threatTail);
+  }),
+}, { exit: 2, mustSee: ['NOT slot-bound'], branded: true });
+
 // Dist attacks work on a throwaway copy.
 const distCopy = join(tmp, 'dist');
 cpSync(DIST, distCopy, { recursive: true });
@@ -390,6 +407,157 @@ cpSync(DIST, distCopy, { recursive: true });
     ...T, FIDELITY_DIST: tpl,
   }, { exit: 2, mustSee: ['NOT RENDERED'], branded: true });
 }
+
+// Sol HOLD round 4: attribute payloads and hidden elements are not rendered.
+{
+  const attr = join(tmp, 'dist-attr-hide');
+  cpSync(distCopy, attr, { recursive: true });
+  const hp = join(attr, 'index.html');
+  const ho = readFileSync(hp, 'utf8');
+  if (!ho.includes(movementBody[1])) throw new Error('T29: movement line 2 not rendered on home');
+  writeFileSync(hp, ho.replace(movementBody[1], '')
+    .replace('</body>', '<span hidden data-fidelity-copy="' + movementBody[1] + '"></span></body>'));
+  scenario('T29 attribute hiding: movement line survives only in a hidden data-attribute', {
+    ...T, FIDELITY_DIST: attr,
+  }, { exit: 2, mustSee: ['NOT RENDERED'], branded: true });
+}
+
+// Sol HOLD round 5 (2026-07-27, vs c298e27): swap-blindness. Route-wide
+// membership passed three honest adjacent-carrier transpositions in the real
+// PledgeForm. Value must bind to its CARRIER, not merely to the page.
+const swapIn = (txt, a, b, name) => {
+  if (!txt.includes(a) || !txt.includes(b)) throw new Error(name + ': swap targets not both present');
+  const M = ' SWAP ';
+  const out = txt.split(a).join(M).split(b).join(a).split(M).join(b);
+  if (out === txt) throw new Error(name + ': swap was a no-op');
+  return out;
+};
+
+{
+  const d = join(tmp, 'dist-alert-swap');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'pledge', 'index.html');
+  writeFileSync(hp, swapIn(readFileSync(hp, 'utf8'),
+    deck.pledge.errors.badEmail, deck.pledge.errors.noConsent, 'T30'));
+  scenario('T30 alert swap: badEmail and noConsent texts transposed across data-error-for slots', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['MIS-CARRIED'], branded: true });
+}
+
+{
+  const d = join(tmp, 'dist-success-swap');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'pledge', 'index.html');
+  writeFileSync(hp, swapIn(readFileSync(hp, 'utf8'), shareBadge, copyLink, 'T31'));
+  scenario('T31 success-label swap: share and copy button texts transposed', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['MIS-CARRIED'], branded: true });
+}
+
+{
+  const d = join(tmp, 'dist-share-carrier-swap');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'pledge', 'index.html');
+  const tAttr = 'data-share-title="' + deck.pledge.badgeShareTitle + '"';
+  const bAttr = 'data-share-text="' + deck.pledge.badgeShare + '"';
+  const raw = readFileSync(hp, 'utf8');
+  if (!raw.includes(tAttr) || !raw.includes(bAttr)) throw new Error('T32: carrier attributes not verbatim on pledge page');
+  writeFileSync(hp, raw
+    .replace(tAttr, 'data-share-title="' + deck.pledge.badgeShare + '"')
+    .replace(bAttr, 'data-share-text="' + deck.pledge.badgeShareTitle + '"'));
+  scenario('T32 share-carrier swap: badgeShareTitle and badgeShare transposed across data-share-title/text', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['MIS-CARRIED'], branded: true });
+}
+
+// Sol HOLD round 6 (2026-07-27, vs 7471960): CSS visual reordering. A
+// column-reverse container ships the two movement lines in reversed VISUAL
+// order while DOM source order (all both controls read) stays correct.
+{
+  const d = join(tmp, 'dist-css-reverse');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'index.html');
+  const ho = readFileSync(hp, 'utf8');
+  if (!/class="mv__inner/.test(ho)) throw new Error('T33: mv__inner container not on home');
+  writeFileSync(hp, ho.replace('</head>', '<style>.mv__inner{display:flex;flex-direction:column-reverse}</style></head>'));
+  scenario('T33 CSS reversal: scoped rule flips visual order of the movement lines', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+}
+
+{
+  const d = join(tmp, 'dist-style-attr-reverse');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'index.html');
+  const ho = readFileSync(hp, 'utf8');
+  const two = ho.match(/<p class="mv__lede"[^>]*>[^<]*<\/p>\s*<p class="mv__lede"[^>]*>[^<]*<\/p>/);
+  if (!two) throw new Error('T34: consecutive movement lede paragraphs not found');
+  writeFileSync(hp, ho.replace(two[0], '<div style="display:flex;flex-direction:column-reverse">' + two[0] + '</div>'));
+  scenario('T34 style-attr reversal: inline column-reverse wrapper around the movement lines', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+}
+
+// Sol HOLD round 7 (2026-07-27, vs 569aac6): three in-scope spellings the
+// v3.9 tripwire missed — @media-nested rules, the flex-flow shorthand, and
+// child `order` (which reorders SIBLINGS, so the tainted container is the
+// PARENT, where each child holds only one string).
+const injectStyle = (name, cssRule) => {
+  const d = join(tmp, name);
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'index.html');
+  const ho = readFileSync(hp, 'utf8');
+  if (!/class="mv__inner/.test(ho) || !/class="mv__lede/.test(ho)) throw new Error(name + ': movement markup not found');
+  writeFileSync(hp, ho.replace('</head>', '<style>' + cssRule + '</style></head>'));
+  return d;
+};
+
+scenario('T35 media-nested reversal: column-reverse inside @media (min-width: 0px)', {
+  ...T, FIDELITY_DIST: injectStyle('dist-media-reverse',
+    '@media (min-width: 0px){.mv__inner{display:flex;flex-direction:column-reverse}}'),
+}, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+
+scenario('T36 flex-flow shorthand reversal: flex-flow: column-reverse nowrap', {
+  ...T, FIDELITY_DIST: injectStyle('dist-flexflow-reverse',
+    '.mv__inner{display:flex;flex-flow:column-reverse nowrap}'),
+}, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+
+scenario('T37 child order: .mv__lede:first-of-type{order:1} reorders siblings via the parent', {
+  ...T, FIDELITY_DIST: injectStyle('dist-child-order',
+    '.mv__inner{display:flex;flex-direction:column}.mv__lede:first-of-type{order:1}'),
+}, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+
+// Sol HOLD round 8 (2026-07-27, vs 0ea9e79): native-nesting declaration loss,
+// ID selectors, signed order values, and var() indirection.
+
+scenario('T38 native nesting: outer column-reverse declarations beside a nested & rule', {
+  ...T, FIDELITY_DIST: injectStyle('dist-native-nesting',
+    '.mv__inner{display:flex;flex-direction:column-reverse;& .unused-child{color:inherit}}'),
+}, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+
+{
+  const d = join(tmp, 'dist-id-selector');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'index.html');
+  const ho = readFileSync(hp, 'utf8');
+  if (!ho.includes('class="mv__inner')) throw new Error('T39: mv__inner not found');
+  writeFileSync(hp, ho
+    .replace('class="mv__inner', 'id="sol-inner" class="mv__inner')
+    .replace('</head>', '<style>#sol-inner{display:flex;flex-direction:column-reverse}</style></head>'));
+  scenario('T39 ID selector: #sol-inner{flex-direction:column-reverse} on the movement container', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+}
+
+scenario('T40 signed order: .mv__lede:first-of-type{order:+1} with explicit plus sign', {
+  ...T, FIDELITY_DIST: injectStyle('dist-signed-order',
+    '.mv__inner{display:flex;flex-direction:column}.mv__lede:first-of-type{order:+1}'),
+}, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
+
+scenario('T41 var() indirection: flex-direction:var(--sol-flow) resolving to column-reverse', {
+  ...T, FIDELITY_DIST: injectStyle('dist-var-indirection',
+    ':root{--sol-flow:column-reverse}.mv__inner{display:flex;flex-direction:var(--sol-flow)}'),
+}, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
 
 /* ---------- verdict -------------------------------------------------------- */
 

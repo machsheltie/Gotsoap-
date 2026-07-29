@@ -117,6 +117,23 @@ When anyone asks "is this line working?", it is asking against all three:
   on a bad state, it is not done. **Highest-risk shapes:** circular trust (the artifact under check
   also defines what the check requires), env/config seams (attack surface on a verification tool), and
   existence-≠-satisfaction (exact slot + exact baseline, never "non-empty" or "a section exists").
+  **Companion clause — the scope contract (added 2026-07-23, at fidelity checker v3.7 / 60812f7):**
+  every verification artifact **declares its threat model in the artifact itself**, and the adversary
+  attacks **within that declared model**. For the fidelity checker the model is *honest drift* — copy
+  edited but not propagated, corrections that didn't land, stale routes, wrong slot bindings,
+  arity/baseline mismatches — not *deliberate source sabotage* (copy hidden in inert or undeclared
+  DOM, non-string members spliced into string arrays), which no honest edit produces and which the
+  **blind reader panel** catches by reading the rendered site: the checker is one layer of a
+  defense-in-depth, not the whole defense. **CLEAR means no in-scope input makes the artifact lie —
+  not that no input of any kind can.** Out-of-scope finds are welcome and may be fixed, but they do
+  not reopen a CLEAR. Declared, accepted limits (with rationale and disposition) live in the
+  artifact's header and count as part of the contract — for the fidelity checker today: (1) text
+  inside `hidden` elements counts as shipped, because the site's own state-gated surfaces ship that
+  way and separating them would require executing the page's state machine (optional headless-DOM
+  pass is owner-flagged forward work; the blind read compensates); (2) multi-sentence retained
+  fragment heads are undecidable from plan + baseline and unreachable by any live row — any future
+  plan that introduces one re-verifies that row first. This clause is what makes the review loop
+  **terminable** for every future checker, not just this one.
 - **Never punch down.** Any line aimed at a person's body, race, class, age, or identity is rejected
   on sight — however funny. Behavior, ad tropes, and the double standard only. The reformed-hero exit
   stays open: he's the convert, not the villain. *(The 2026-07-17 readers flagged a class/age pattern

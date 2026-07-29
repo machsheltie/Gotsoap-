@@ -612,5 +612,14 @@ Where this addendum and the base deck disagree, the addendum wins.
 - **Anchor note:** `masthead.credit` is now a LITERAL (CG2's source anchor moved here when the
   confident-man alt transcription died). Rendered output unchanged.
 
+**/about REDO re-index (owner-ratified 2026-07-28 — supersedes §9.3/§9.4 and the /about line
+above where they disagree; final strings in `copy-correction-plan.md` §7 + its REDO addendum,
+full record `proposals-2026-07-22-about-inframe.md`):**
+
+- `about.making` *(new — was `caseStudy`; plain two-paragraph array, no labels; eyebrow
+  "How it's made")* · `about.pitch.body` *(spine-first REDO text)* · `about.pitch.tagline`
+  *("I'm for hire, preferably by brands that need a little bite." — R10–R12 micro-pass
+  successor; both predecessor taglines killed, style-lock §7)*.
+
 **Out of this pass:** the four missing-content items (plan §8), F1 (`vector2-citation-path-spec.md`),
 and the posters (always).

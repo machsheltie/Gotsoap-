@@ -101,13 +101,23 @@ plan. After implementation: `copy-gates` green + clean Astro build (floor, not p
 | `about.why[0]` | **"This started on a dating app, where men who hadn't met soap since the Obama administration were holding out for a clean, manicured, model-adjacent 10. Their offer: a five-day funk worn as a lifestyle, plus the serene conviction that she'd be lucky to have it. So I made them an ad campaign."** | The invoice split makes the double standard readable on first pass; the button lands on the entitlement gap, not an appraisal of the man. (R2#46) |
 | `about.why[1]` | Unchanged | /about is the one surface where revealing the strategy is the payload. (R1, CLEAR) |
 | `about.why[2]` | **Delete** | Announcing "unapologetic" is the apology; the page above is the proof. (R1) |
-| `about.pitch.body` | **"I'm Stacey M. Breckel. Everything you just read — the campaign, the fake nonprofit, the paperwork that out-writes most brands' hero copy — came from one hand: mine. A dating app made me mad, so I declared a national hygiene crisis. I file my grudges in triplicate."** | Superseded R4#49 via the 2026-07-21 A1–A4 dialectic (`proposals-2026-07-21-about-pitch.md`): the Phase-6 blind read showed both women cooling at the sales pivot, so the title stack, services triad, and scarcity line ("Not many women drive it. That's exactly why you want one.") are cut — the sale now performs in the site's voice and ends on the proof-backed flex. |
+| `about.pitch.body` | **"I'm Stacey M. Breckel, and this is a protest in punchlines. Everything you just read came from one hand: mine. The apps kept showing me the same man: he wanted a woman who takes care of herself and wouldn't return the effort. I kept my standard. It's five posters now."** | Superseded twice: the A1–A4 text (2026-07-21) fixed the sales pivot; the /about REDO (owner-ratified 2026-07-28, `proposals-2026-07-22-about-inframe.md` R1–R9) then rebuilt the beat under the reality-sourcing law — spine-first opener (her own "protest in punchlines"), concrete true middle, standard held; the struck crisis/triplicate lines are owner-killed (style-lock §7). |
 
 **A1–A4 addendum (2026-07-21, not a correction row):** the same dialectic also replaced
 `about.caseStudy[2].body` with the consensus text **"Porcelain. Smoke. Marble. Then I incorporated
 the grudge. It smolders on the posters and files paperwork everywhere else."** — killing the
 tidy-summary tail ("Built like it's real, because that's the whole point") Priya flagged blind.
 Full record: `proposals-2026-07-21-about-pitch.md` (Slots 1–5, closed at consensus, no holds).
+
+**/about REDO addendum (owner-ratified 2026-07-28, not a correction row):** the labeled
+`about.caseStudy[*]` tri-fold is dead in content and schema (2/2 blind convergence + style-lock
+§13 format kill); its successor is `about.making` — a plain two-paragraph `string[]` under the
+"How it's made" eyebrow, with the grudge join superseded by the ratified detached form ("Then I
+incorporated the bar."). `about.pitch.tagline` is "I'm for hire, preferably by brands that need
+a little bite." — the R10–R12 micro-pass successor after the blind read retired "I do clean
+design for dirty fights. Bring me yours." as a slogan template. Full record:
+`proposals-2026-07-22-about-inframe.md` (REDO R1–R12, owner ratification + owner edits; struck
+strings in style-lock §7).
 
 ## 8. New work (missing-content items — not in this correction pass)
 

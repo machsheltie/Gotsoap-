@@ -106,6 +106,150 @@
  *    comments before rendered-text extraction — agreed copy must ship in
  *    real DOM.
  *
+ * v3.7 (Sol HOLD round 4, 2026-07-23 — two P1s vs 2467560):
+ *  - PROPER HEAD: a worded fragment row's retained head must be a PROPER
+ *    sentence-bounded prefix of the same baseline leaf — retaining the
+ *    entire superseded line and appending the agreed tail fails; the tail
+ *    must REPLACE a non-empty trailing run.
+ *  - USER-REACHABLE TEXT: rendered-copy checks now strip all markup to
+ *    element text content; attribute values count only via the explicit
+ *    carriers this site's components own (alt, aria-label,
+ *    data-share-title/text, data-rotation). Smuggling copy into any other
+ *    attribute satisfies nothing. Residual, documented: text inside
+ *    `hidden` elements counts, because the site's own state-gated surfaces
+ *    (pledge success, role="alert" errors) ship hidden until interaction.
+ *
+ * v3.8 (Sol HOLD round 5, 2026-07-27 — swap-blindness, vs c298e27):
+ *  - CARRIER BINDING: rendered checks bind value↔CARRIER, not value↔page.
+ *    A string whose slot maps to a named carrier (data-error-for element,
+ *    data-share-action button, data-share-title/text, data-rotation) must
+ *    render in ITS carrier on its route(s), and every carrier occurrence of
+ *    it must be the right carrier — adjacent-field transpositions (alert
+ *    texts, success button labels, share title/text) fail even though both
+ *    strings remain on the page. Cross-kind transpositions fail via the
+ *    own-carrier-empty side. Same strict-determination shape as the
+ *    fragment-head fix, applied to carriers.
+ *  - COMPENSATING CONTROL REPAIRED: the blind-reader extractor now surfaces
+ *    the declared value-bearing carriers (share title/text, rotation,
+ *    error↔field wiring, button↔action wiring) as marked text, and HARD
+ *    FAILS on build failure instead of extracting a stale dist. (The old
+ *    silent fallback was live: on Windows + Node ≥18.20 the npm.cmd spawn
+ *    had been failing with EINVAL on every run, so extractions were
+ *    silently stale-capable the whole time.)
+ *
+ * v3.9 (Sol HOLD round 6, 2026-07-27 — visual reordering, vs 7471960):
+ *  - VISUAL-ORDER TRIPWIRE: CSS reordering primitives (flex/grid *-reverse,
+ *    non-zero order, direction:rtl — in bundled css, inline <style>, or
+ *    style attributes) may not apply to any container holding ≥2 of one
+ *    row's agreed strings; the row fails. Scoped exactly to the plan's
+ *    assertion surface: the plan declares order only WITHIN a row. The
+ *    pre-existing legitimate use (.ascension, decorative poster stack,
+ *    contains no multi-string row) passes by construction, not exemption.
+ *  - EXTRACTOR HONESTY: the blind-read extract now marks CSS-reversed
+ *    blocks ("read it bottom-up") and its header states the source-order
+ *    limit plainly; the false claim that it preserves reading order is
+ *    withdrawn and limit #3 redrawn (see below).
+ *
+ * v3.10 (Sol HOLD round 7, 2026-07-27 — three in-scope spellings vs 569aac6):
+ *  - NESTED RULES: the CSS scan is a brace TOKENIZER, not a flat rule regex —
+ *    rules inside @media/@supports/@layer and native nesting are seen. A
+ *    breakpoint-scoped reversal is an ordinary honest edit at this site's
+ *    three locked breakpoints and now trips the wire.
+ *  - FULL PRIMITIVE SET: flex-flow and flex-wrap *-reverse spellings count
+ *    (the contract promised "flex/grid *-reverse"; the matcher now honors
+ *    it), plus writing-mode:*-rl and grid-auto-flow dense as
+ *    over-approximations — a taint only fails a row when ≥2 of its strings
+ *    sit in the tainted container.
+ *  - PARENT TAINT for `order`: non-zero order reorders the element among its
+ *    SIBLINGS, so the tainted container is the PARENT (resolved via an
+ *    open-element tag stack). `.child:first-of-type{order:1}` now fails the
+ *    row even though each child holds a single string.
+ *  - The extractor mirrors all three and marks order-affected parents
+ *    ("children of this block are visually REORDERED").
+ *
+ * v3.11 (Sol HOLD round 8, 2026-07-27 — native-nesting loss + selector/value
+ * gaps vs 0ea9e79):
+ *  - FRAME TOKENIZER: each rule frame keeps its own declaration buffer, so
+ *    native nesting no longer LOSES the outer declarations (`.x{…reverse;
+ *    & .y{…}}` previously evaporated the outer taint at the child's brace).
+ *  - SELECTOR COVERAGE: taints credit class AND id tokens; a tainted
+ *    selector with neither (type/universal/pseudo-only) becomes a GLOBAL
+ *    page taint — statically unlocalizable, so every multi-string row on
+ *    that page fails (conservative, fail-side).
+ *  - VALUE COVERAGE: order accepts signed values (+1); var()/calc() in any
+ *    flow/order property is tainted by over-approximation — an indirect
+ *    value cannot be statically resolved, so it is presumed reordering; a
+ *    legitimate future var() there forces a contract amendment, never a
+ *    silent pass.
+ *  - Extractor mirrors all three.
+ *
+ * ─────────────────────────────────────────────────────────────────────────────
+ * SCOPE CONTRACT — the checker's threat model (v3.11, pinned at 60812f7 + r5-r8)
+ *
+ * WHAT THIS CHECKER DEFENDS AGAINST (in scope): HONEST DRIFT.
+ *   Copy changed in copy.ts but not propagated to a route; a correction row
+ *   that didn't land or landed in the wrong slot; a route rendering a stale
+ *   string from an old build; wrong slot binding (relocation, swap, padding,
+ *   superstring, quote-wrapping); carrier transposition in rendered output
+ *   (a value wired to the wrong data-error-for / data-share-* / button
+ *   carrier — v3.8 binds value↔carrier, closing the swap class structurally);
+ *   arity and leaf mismatches against the pinned baseline;
+ *   truncated/padded/substituted plan artifacts; partial or stubbed dist.
+ *   These are the failure shapes an honest edit of copy.ts, a .astro
+ *   component, or a build can actually produce.
+ *
+ * OUT OF SCOPE, BY DESIGN: DELIBERATE SOURCE SABOTAGE.
+ *   Agreed copy hidden in inert or undeclared DOM, non-string members
+ *   injected into string arrays, payloads smuggled through attributes, and
+ *   similar adversarial inputs that no honest edit produces. The checker
+ *   fails many of these anyway (see the attack suite), but its guarantee is
+ *   not defined over them. Compensating control: the blind reader panel
+ *   (gotsoap-readers), which reads the RENDERED SITE and catches what the
+ *   checker's honest-process assumption cannot. This checker is one layer of
+ *   a defense-in-depth, not the whole defense.
+ *
+ * VERIFICATION-ARTIFACT LAW (COPY-PROTOCOL.md, Guardrails) + COMPANION CLAUSE:
+ *   A checker the implementer wrote is untrusted until the adversary made it
+ *   lie. Companion clause — the adversary attacks WITHIN THE DECLARED THREAT
+ *   MODEL: CLEAR means no in-scope input makes the checker lie, not that no
+ *   input of any kind can. Out-of-scope finds are welcome and may be fixed,
+ *   but they do not reopen a CLEAR.
+ *
+ * DECLARED LIMITS (accepted, with rationale + disposition — not TODOs):
+ *   1. Text inside `hidden` elements counts as shipped. Rationale: it is
+ *      byte-identical in form to the site's own state-gated surfaces (the
+ *      pledge success block, role="alert" errors), and separating them
+ *      requires executing the page's state machine. Disposition: accepted
+ *      limit; owner-flagged forward work is an OPTIONAL headless-DOM pass
+ *      (render each route, read innerText) — deferred; the blind read is the
+ *      compensating control today. Not a blocker.
+ *   2. A multi-sentence retained fragment head truncated at an interior
+ *      sentence boundary is undecidable from plan + baseline alone.
+ *      Rationale: the plan quotes only the replacement tail; the split point
+ *      is not recoverable. Disposition: accepted limit — NOT REACHABLE by
+ *      any live fragment row (every live row retains a single-sentence head,
+ *      which the proper-prefix + sentence-boundary rules pin completely).
+ *      If a future correction plan introduces a multi-sentence retained
+ *      head, that row must be re-verified before the plan is accepted.
+ *   3. Visible-prose POSITION (v3.9 — redrawn after Sol round 6 proved the
+ *      v3.8 wording false: a column-reverse container flipped shipped
+ *      visual order while both static controls read DOM source order).
+ *      What is now IN SCOPE: CSS reordering PRIMITIVES (flex/grid
+ *      *-reverse, non-zero `order`, direction:rtl) applied to a container
+ *      holding ≥2 of one row's agreed strings — the VISUAL-ORDER tripwire
+ *      fails the row; the blind-reader extract marks such blocks instead of
+ *      silently reporting source order. What REMAINS a limit, stated
+ *      honestly: (a) cross-row prose transposition in source (the plan
+ *      declares order only within a row, so there is no plan-derived
+ *      assertion to make), and (b) arbitrary visual repositioning that
+ *      needs real layout (absolute/fixed coordinates, transforms, floats) —
+ *      undetectable without executing a rendering engine. Compensating
+ *      control for BOTH, real and specific: the owner's visual pass in
+ *      Chrome at the locked breakpoints (390/1440/1920), which reviews the
+ *      painted page — the blind read is a SOURCE-ORDER control and is not
+ *      claimed to catch visual drift. Not a blocker.
+ * ─────────────────────────────────────────────────────────────────────────────
+ *
  *   node --experimental-strip-types scripts/fidelity-check.mjs
  */
 
@@ -351,15 +495,26 @@ else {
     rel: relative(DIST, p).split(sep).join('/'),
     raw: readFileSync(p, 'utf8'),
   }));
-  // v3.5 (Sol round 2): HTML comments are NOT rendered content — text hidden
-  // in <!-- … --> must satisfy nothing (and a commented-out cut case file is
-  // genuinely not rendered). v3.6 (round 3): neither are inert containers —
-  // <template>/<script>/<style> content never reaches the user's eyes, so it
-  // is stripped too (all agreed copy verifiably ships in real DOM).
-  for (const p of distPages)
-    p.text = norm(unescapeHtml(
-      p.raw.replace(/<!--[\s\S]*?-->/g, ' ').replace(/<(template|script|style)\b[\s\S]*?<\/\1\s*>/gi, ' '),
-    ));
+  // v3.5 (Sol round 2): HTML comments are NOT rendered content. v3.6
+  // (round 3): neither are inert containers (<template>/<script>/<style>).
+  // v3.7 (round 4): "rendered" means USER-REACHABLE — markup is stripped to
+  // element TEXT content, and attribute values do NOT count except the
+  // explicit carriers this site's components own: alt / aria-label
+  // (assistive tech), data-share-title / data-share-text (Web Share
+  // payloads), data-rotation (scratch-gag rotation). A payload smuggled into
+  // any other attribute (data-*, meta content, title, …) satisfies nothing.
+  // Documented residual: TEXT inside a `hidden` element still counts —
+  // the site's own state-gated surfaces (pledge success block, role="alert"
+  // errors) legitimately ship hidden until interaction, and the checker
+  // cannot execute the page's state machine to tell them apart.
+  for (const p of distPages) {
+    const s = p.raw
+      .replace(/<!--[\s\S]*?-->/g, ' ')
+      .replace(/<(template|script|style)\b[\s\S]*?<\/\1\s*>/gi, ' ');
+    const attrText = [...s.matchAll(/\s(?:alt|aria-label|data-share-title|data-share-text|data-rotation)="([^"]*)"/gi)]
+      .map((m) => m[1]).join(' ');
+    p.text = norm(unescapeHtml(s.replace(/<[^>]*>/g, ' ') + ' ' + attrText));
+  }
   for (const req of manifestRoutes) {
     const page = distPages.find((p) => p.rel === req);
     if (!page) fatal.push(`dist is PARTIAL/SUBSTITUTED — manifest route missing: ${req}`);
@@ -375,6 +530,198 @@ if (fatal.length) {
 }
 
 const distHits = (s) => distPages.filter((p) => p.text.includes(s)).map((p) => p.rel);
+
+/** CARRIER EXTRACTION (v3.8, Sol round 5): per-page inventory of the named
+ * value-bearing carriers, so rendered checks can bind value↔carrier instead
+ * of value↔page. Route-wide membership was swap-blind by construction: three
+ * honest adjacent-field transpositions in the real PledgeForm (alert texts,
+ * success button labels, share title/text) all passed 54/54. */
+/** VISUAL-ORDER TRIPWIRE (v3.9, Sol round 6): CSS reordering primitives
+ * (flex/grid *-reverse, non-zero order, direction:rtl) flip SHIPPED visual
+ * order while DOM source order — all any static text extraction reads —
+ * stays correct. The plan declares order only WITHIN a row, so the tripwire
+ * is scoped exactly there: no order-altering declaration may apply to a
+ * container holding two or more of one row's agreed strings. */
+/** Two taint kinds (v3.10, Sol round 7):
+ *  - SELF: the declaring element is the reordered container (flex-direction /
+ *    flex-flow / flex-wrap with a *-reverse value, direction:rtl,
+ *    writing-mode:*-rl, grid-auto-flow:…dense).
+ *  - PARENT: `order` (non-zero) reorders the element among its SIBLINGS —
+ *    the tainted container is the element's PARENT, where each child may
+ *    hold only one agreed string. */
+/** v3.11 (Sol round 8): values may be signed (+1) or INDIRECT — a var()/calc()
+ * in a flow/order property cannot be statically resolved, so it is tainted by
+ * over-approximation (unresolvable ⇒ assume reordering; a legitimate future
+ * var() there forces a contract amendment, not a silent pass). */
+const SELF_TAINT = /(?:flex-direction|flex-flow|flex-wrap)\s*:[^;}]*(?:-reverse|(?:var|calc)\()|direction\s*:\s*(?:rtl|(?:var|calc)\()|writing-mode\s*:[^;}]*(?:-rl|(?:var|calc)\()|grid-auto-flow\s*:[^;}]*(?:dense|(?:var|calc)\()/i;
+const PARENT_TAINT = /(?:^|[;{\s])order\s*:\s*(?:[-+]?0*[1-9]\d*|[-+]?\d*\.\d*[1-9]\d*|[^;}]*(?:var|calc)\()/i;
+const REVERSAL_DECL = new RegExp(`${SELF_TAINT.source}|${PARENT_TAINT.source}`, 'i');
+const emptyTaints = () => ({ classes: new Map(), ids: new Map(), global: { self: false, parent: false } });
+/** Frame-based brace tokenizer (v3.11): each frame keeps its OWN declaration
+ * buffer, so native nesting no longer loses the outer declarations — at a
+ * nested rule's `{`, everything before the last `;` is credited back to the
+ * ENCLOSING frame instead of being consumed as part of the child selector.
+ * Selectors are credited by class AND id token; a tainted selector with
+ * neither (type/universal/pseudo-only) becomes a GLOBAL page taint —
+ * unlocalizable statically, so every multi-string row on the page fails. */
+function reversalTaintsFromCss(css) {
+  const res = emptyTaints();
+  const addTo = (map, k, kind) => {
+    const e = map.get(k) || { self: false, parent: false };
+    e[kind] = true;
+    map.set(k, e);
+  };
+  const credit = (sel, decls) => {
+    if (!sel || sel.startsWith('@')) return;
+    const self = SELF_TAINT.test(decls), parent = PARENT_TAINT.test(decls);
+    if (!self && !parent) return;
+    const classes = [...sel.matchAll(/\.([A-Za-z_][\w-]*)/g)].map((m) => m[1]);
+    const ids = [...sel.matchAll(/#([A-Za-z_][\w-]*)/g)].map((m) => m[1]);
+    if (classes.length === 0 && ids.length === 0) {
+      res.global.self = res.global.self || self;
+      res.global.parent = res.global.parent || parent;
+      return;
+    }
+    for (const c of classes) { if (self) addTo(res.classes, c, 'self'); if (parent) addTo(res.classes, c, 'parent'); }
+    for (const c of ids) { if (self) addTo(res.ids, c, 'self'); if (parent) addTo(res.ids, c, 'parent'); }
+  };
+  css = css.replace(/\/\*[\s\S]*?\*\//g, ' ');
+  const stack = [];
+  let buf = '';
+  for (const ch of css) {
+    if (ch === '{') {
+      const cut = buf.lastIndexOf(';');
+      const childSel = buf.slice(cut + 1).trim();
+      if (cut >= 0 && stack.length) stack[stack.length - 1].decls += buf.slice(0, cut + 1);
+      stack.push({ sel: childSel, decls: '' });
+      buf = '';
+      continue;
+    }
+    if (ch === '}') {
+      const frame = stack.pop() || { sel: '', decls: '' };
+      credit(frame.sel, frame.decls + buf);
+      buf = '';
+      continue;
+    }
+    buf += ch;
+  }
+  return res;
+}
+function cssFilesUnder(dir, out = []) {
+  for (const n of readdirSync(dir)) {
+    const p = join(dir, n);
+    if (statSync(p).isDirectory()) cssFilesUnder(p, out);
+    else if (n.endsWith('.css')) out.push(p);
+  }
+  return out;
+}
+const mergeTaints = (into, from) => {
+  for (const map of ['classes', 'ids'])
+    for (const [k, kinds] of from[map]) {
+      const e = into[map].get(k) || { self: false, parent: false };
+      e.self = e.self || kinds.self;
+      e.parent = e.parent || kinds.parent;
+      into[map].set(k, e);
+    }
+  into.global.self = into.global.self || from.global.self;
+  into.global.parent = into.global.parent || from.global.parent;
+};
+const sheetTaints = emptyTaints();
+if (existsSync(DIST))
+  for (const f of cssFilesUnder(DIST))
+    mergeTaints(sheetTaints, reversalTaintsFromCss(readFileSync(f, 'utf8')));
+/** Balanced-scan subtree extraction from an opening tag. */
+function subtreeText(raw, openIdx, tag) {
+  const re = new RegExp(`<${tag}\\b|</${tag}\\s*>`, 'gi');
+  re.lastIndex = openIdx + 1;
+  let depth = 1, m;
+  while ((m = re.exec(raw))) {
+    if (m[0][1] === '/') { if (--depth === 0) return raw.slice(openIdx, m.index); }
+    else depth++;
+  }
+  return raw.slice(openIdx);
+}
+const VOID_TAGS = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']);
+/** One pass over a page's tags with an open-element stack, so every element
+ * knows its PARENT's opening position — `order` taints reorder siblings, so
+ * the container under test is the parent, not the declaring element. */
+function tagIndexOf(raw) {
+  const stack = [], els = [];
+  for (const m of raw.matchAll(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi)) {
+    const tag = m[1].toLowerCase();
+    if (m[0][1] === '/') {
+      while (stack.length && stack[stack.length - 1].tag !== tag) stack.pop();
+      if (stack.length) stack.pop();
+      continue;
+    }
+    const parent = stack[stack.length - 1] || null;
+    els.push({
+      idx: m.index, tag, open: m[0],
+      parentIdx: parent ? parent.idx : -1, parentTag: parent ? parent.tag : null,
+    });
+    if (!VOID_TAGS.has(tag) && !/\/>$/.test(m[0])) stack.push({ tag, idx: m.index });
+  }
+  return els;
+}
+function reversedContainersOf(p) {
+  if (p._rev) return p._rev;
+  const out = [];
+  const taints = emptyTaints();
+  mergeTaints(taints, sheetTaints);
+  for (const st of p.raw.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style\s*>/gi))
+    mergeTaints(taints, reversalTaintsFromCss(st[1]));
+  // Unlocalizable (type/universal/pseudo-only) tainted selectors poison the
+  // whole page: any multi-string row rendering here fails.
+  if (taints.global.self || taints.global.parent)
+    out.push({ why: 'type-level selector — unlocalizable', text: p.text });
+  const textOf = (openIdx, tag) =>
+    norm(unescapeHtml(subtreeText(p.raw, openIdx, tag).replace(/<[^>]*>/g, ' ')));
+  const seen = new Set();
+  const push = (openIdx, tag, why) => {
+    const key = `${openIdx}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    out.push({ why, text: textOf(openIdx, tag) });
+  };
+  for (const el of tagIndexOf(p.raw)) {
+    const cls = (el.open.match(/\bclass="([^"]*)"/i) || [])[1];
+    const id = (el.open.match(/\bid="([^"]*)"/i) || [])[1];
+    const style = (el.open.match(/\bstyle="([^"]*)"/i) || [])[1];
+    let self = false, parent = false, why = '';
+    if (cls) {
+      for (const t of cls.split(/\s+/)) {
+        const k = taints.classes.get(t);
+        if (k) { self = self || k.self; parent = parent || k.parent; why = `.${t}`; }
+      }
+    }
+    if (id) {
+      const k = taints.ids.get(id.trim());
+      if (k) { self = self || k.self; parent = parent || k.parent; why = `#${id.trim()}`; }
+    }
+    if (style) {
+      if (SELF_TAINT.test(style)) { self = true; why = 'inline style'; }
+      if (PARENT_TAINT.test(style)) { parent = true; why = 'inline style'; }
+    }
+    if (self) push(el.idx, el.tag, `${why} (container reversal)`);
+    if (parent && el.parentIdx >= 0) push(el.parentIdx, el.parentTag, `${why} (child \`order\` reorders siblings of its parent)`);
+  }
+  return (p._rev = out);
+}
+
+function carriersOf(p) {
+  if (p._car) return p._car;
+  const clean = p.raw.replace(/<!--[\s\S]*?-->/g, ' ').replace(/<(template|script|style)\b[\s\S]*?<\/\1\s*>/gi, ' ');
+  const nrm = (v) => norm(unescapeHtml(v));
+  const attrs = {};
+  for (const m of clean.matchAll(/\s(data-share-title|data-share-text|data-rotation)="([^"]*)"/g))
+    (attrs[m[1]] ??= []).push(nrm(m[2]));
+  const errors = [], actions = [];
+  for (const m of clean.matchAll(/<(\w+)\b[^>]*\bdata-error-for="([^"]*)"[^>]*>([\s\S]*?)<\/\1\s*>/g))
+    errors.push({ field: m[2], text: nrm(m[3].replace(/<[^>]*>/g, ' ')) });
+  for (const m of clean.matchAll(/<(\w+)\b[^>]*\bdata-share-action="([^"]*)"[^>]*>([\s\S]*?)<\/\1\s*>/g))
+    actions.push({ action: m[2], text: nrm(m[3].replace(/<[^>]*>/g, ' ')) });
+  return (p._car = { attrs, errors, actions });
+}
 /** EXACT-value match against the §12 slot index. */
 const exactAtIndexed = (s) =>
   slotIndex.find((e) => typeof e.value === 'string' && norm(e.value) === s);
@@ -415,6 +762,26 @@ if (Number.isFinite(declaredRows) && rows.length !== declaredRows) {
 const BOLD_QUOTED = /\*\*"([^]*?)"\*\*/g;
 const results = [];
 const root = mod.default ?? mod;
+
+/** Slot identity → its rendered CARRIER (v3.8). Derived from the slot path
+ * the string actually bound to, mirroring the v3.7 named-carrier allowlist:
+ * error strings live in their field's data-error-for element, cwaaa share
+ * controls in their data-share-action button, share payloads/titles in
+ * data-share-text / data-share-title, scratch-gag lines in data-rotation. */
+const carrierSpec = (path) => {
+  if (!path) return null;
+  const key = path.split(/[.[\]]/).filter(Boolean).pop() || '';
+  if (/\berrors\b/.test(path)) {
+    const f = Object.keys(root.pledge?.fields ?? {}).find((x) => key.toLowerCase().includes(x.toLowerCase()));
+    return f ? { kind: 'error', field: f, label: `data-error-for="${f}"` } : null;
+  }
+  if (path.startsWith('scratchGag.rotation')) return { kind: 'attr', name: 'data-rotation', label: 'data-rotation' };
+  if (/^labels\.cwaaa\./.test(path) && /share/i.test(key)) return { kind: 'action', action: 'share', label: 'data-share-action="share"' };
+  if (/^labels\.cwaaa\./.test(path) && /copy/i.test(key)) return { kind: 'action', action: 'copy', label: 'data-share-action="copy"' };
+  if (/share/i.test(key) && /title$/i.test(key)) return { kind: 'attr', name: 'data-share-title', label: 'data-share-title' };
+  if (key === 'badgeShare' || (/^verdicts\./.test(path) && key === 'share')) return { kind: 'attr', name: 'data-share-text', label: 'data-share-text' };
+  return null;
+};
 const files = root.crisis?.caseFiles?.files ?? [];
 const posterTitle = (slug) =>
   (root.meta?.[`psas/${slug}`]?.title || '').replace(/\s*\|\s*got soap\?\s*$/i, '').trim();
@@ -656,19 +1023,26 @@ for (const row of rows) {
           const head = leaf.slice(0, leaf.length - tail.length).trim();
           // v3.5: head must be NON-EMPTY (tail-only leaf = retained prefix
           // deleted). v3.6 (Sol round 3): "You " attested because ANY
-          // non-empty baseline prefix passed — the head must now be the FULL
-          // unchanged prefix: it ends with terminal punctuation exactly at a
-          // sentence boundary of the SAME baseline leaf. (Residual,
-          // documented: a multi-sentence retained head truncated at an
-          // earlier sentence boundary would pass; every live fragment row
-          // retains a single-sentence head, which this pins completely.)
-          const boundaryOk = base === head || base.startsWith(head + ' ');
+          // non-empty baseline prefix passed — the head must end with
+          // terminal punctuation exactly at a sentence boundary of the SAME
+          // baseline leaf. v3.7 (round 4): the head must be a PROPER prefix
+          // — head === base meant the superseded baseline sentences were
+          // retained in full with the agreed tail merely appended, which is
+          // not the correction. The tail must REPLACE a non-empty trailing
+          // run of the baseline leaf. (Residual, documented: with a
+          // multi-sentence retained head, truncation at an earlier sentence
+          // boundary — or retaining an interior slice of the replaced run at
+          // a sentence boundary — is not decidable from plan + baseline
+          // alone; every live fragment row retains a single-sentence head,
+          // which these rules pin completely.)
+          const boundaryOk = base.startsWith(head + ' ') && base.length > head.length + 1;
           if (head !== '' && /[.!?…]$/.test(head) && boundaryOk)
-            return `terminal fragment @ ${at} (head is the SAME baseline leaf's full sentence-bounded prefix)`;
+            return `terminal fragment @ ${at} (head is the SAME baseline leaf's full sentence-bounded PROPER prefix)`;
         }
         return null;
       };
       const unresolved = [];
+      const boundPathByString = new Map(); // s -> deck path it bound to (v3.8 carrier binding)
       if (indexPinned) {
         // Explicit index binding: plan line N ↔ slot[N-1], exact — and EXACT
         // ARITY (v3.5, Sol round 2): the numbered lines declare the FULL
@@ -684,7 +1058,7 @@ for (const row of rows) {
         for (const { n, s } of numPairs) {
           const target = scope.find((d) => relAt(d.at) === String(n - 1));
           if (!target) { r.ok = false; r.notes.push(`NOT slot-bound (exact): line ${n} has no leaf @ ${scopeName}[${n - 1}]`); continue; }
-          if (leafVal(target) === s) r.notes.push(`ok @ ${target.at} (exact leaf, index-pinned)`);
+          if (leafVal(target) === s) { boundPathByString.set(s, target.at); r.notes.push(`ok @ ${target.at} (exact leaf, index-pinned)`); }
           else { r.ok = false; r.notes.push(`NOT slot-bound (exact): "${s.slice(0, 55)}…" pinned to ${target.at} — leaf differs (ORDER/PADDING/RELOCATION)`); }
         }
       } else for (const s of strings) {
@@ -704,7 +1078,7 @@ for (const row of rows) {
           //    — only the fragment path (non-empty baseline-anchored head)
           //    can bind those rows.
           const leafAt = fragAllowed ? null : bindLeaf(s);
-          if (leafAt) { r.notes.push(`ok @ ${leafAt} (exact leaf)`); continue; }
+          if (leafAt) { boundPathByString.set(s, leafAt); r.notes.push(`ok @ ${leafAt} (exact leaf)`); continue; }
           const lab = subLabelByString.get(s);
           if (lab && labeledPath && labeledPath.includes('.')) {
             const parentHit = resolveSlot(mod, labeledPath.slice(0, labeledPath.lastIndexOf('.')));
@@ -713,7 +1087,7 @@ for (const row of rows) {
               ? walkLeaves(parentHit.value, parentHit.at).filter((d) =>
                   d.at.split('.').pop().toLowerCase().includes(labWord) && d.value === s)
               : [];
-            if (sibs.length === 1) { r.notes.push(`ok @ ${sibs[0].at} (exact sibling, sub-label "${lab}")`); continue; }
+            if (sibs.length === 1) { boundPathByString.set(s, sibs[0].at); r.notes.push(`ok @ ${sibs[0].at} (exact sibling, sub-label "${lab}")`); continue; }
             r.ok = false;
             r.notes.push(`NOT slot-bound (exact): sub-label "${lab}" has no unique sibling leaf of ${labeledPath} named *${labWord}* equal to the agreed text`);
             continue;
@@ -725,7 +1099,7 @@ for (const row of rows) {
         const slug = slugByString.get(s);
         if (slug && field) {
           const v = root.verdicts?.[slug]?.[field];
-          if (typeof v === 'string' && norm(v) === s) { r.notes.push(`ok @ verdicts.${slug}.${field} (exact)`); continue; }
+          if (typeof v === 'string' && norm(v) === s) { boundPathByString.set(s, `verdicts.${slug}.${field}`); r.notes.push(`ok @ verdicts.${slug}.${field} (exact)`); continue; }
           r.ok = false; r.notes.push(`verdicts.${slug}.${field} !== agreed text`); continue;
         }
         // 3) key-labeled field, exact-matched inside a §12-indexed object slot
@@ -733,12 +1107,12 @@ for (const row of rows) {
         if (kw) {
           const objHit = slotIndex.find((e) => e.value && typeof e.value === 'object' && typeof e.value[kw] === 'string' && norm(e.value[kw]) === s)
             || slotIndex.find((e) => typeof e.value === 'string' && e.at.endsWith(`.${kw}`) && norm(e.value) === s);
-          if (objHit) { r.notes.push(`ok @ ${objHit.at}${objHit.value && typeof objHit.value === 'object' ? '.' + kw : ''} (exact)`); continue; }
+          if (objHit) { boundPathByString.set(s, objHit.at + (objHit.value && typeof objHit.value === 'object' ? '.' + kw : '')); r.notes.push(`ok @ ${objHit.at}${objHit.value && typeof objHit.value === 'object' ? '.' + kw : ''} (exact)`); continue; }
           r.ok = false; r.notes.push(`no §12 slot has .${kw} === agreed text ("${s.slice(0, 40)}…")`); continue;
         }
         // 4) exact-value match at a §12-indexed slot — UNLABELED rows only
         const hit = exactAtIndexed(s);
-        if (hit) { r.notes.push(`ok @ ${hit.at} (exact, §12-indexed)`); continue; }
+        if (hit) { boundPathByString.set(s, hit.at); r.notes.push(`ok @ ${hit.at} (exact, §12-indexed)`); continue; }
         unresolved.push(s);
       }
       // 5) the fragment path — only for the plan's own partial-quote rows,
@@ -797,12 +1171,53 @@ for (const row of rows) {
             .every((seg) => page.text.includes(seg));
         for (const s of strings) {
           const pages = pagesFor(s);
+          // CARRIER BINDING (v3.8, Sol round 5): route-wide membership is
+          // swap-blind. When the string's bound slot maps to a named carrier,
+          // the check is "this string in THIS carrier": it must appear in its
+          // own carrier at least once on its route(s), and every carrier
+          // occurrence of it must be the RIGHT carrier — an adjacent-field
+          // transposition (alert texts, success button labels, share
+          // title/text) now fails even though both strings stay on the page.
+          const spec = carrierSpec(boundPathByString.get(s) || labeledPath || '');
+          if (spec) {
+            let own = 0; const wrong = [];
+            for (const p of pages) {
+              const car = carriersOf(p);
+              if (spec.kind === 'attr') {
+                for (const [name, vals] of Object.entries(car.attrs))
+                  for (const v of vals) if (v.includes(s)) (name === spec.name ? own++ : wrong.push(`${p.rel} ${name}`));
+              } else if (spec.kind === 'error') {
+                for (const e of car.errors) if (e.text.includes(s)) (e.field === spec.field ? own++ : wrong.push(`${p.rel} data-error-for="${e.field}"`));
+              } else {
+                for (const a of car.actions) if (a.text.includes(s)) (a.action === spec.action ? own++ : wrong.push(`${p.rel} data-share-action="${a.action}"`));
+              }
+            }
+            if (own === 0) { r.ok = false; r.notes.push(`NOT RENDERED in its own carrier ${spec.label}: "${s.slice(0, 45)}…" — dropped, stale, or transposed away`); }
+            if (wrong.length) { r.ok = false; r.notes.push(`MIS-CARRIED: "${s.slice(0, 45)}…" belongs in ${spec.label} but renders in: ${wrong.join(', ')}`); }
+            continue;
+          }
           if (!pages.some((p) => segsRender(p, s))) {
             r.ok = false;
             const where = isHome ? 'index.html'
               : pages !== routePages ? pages.map((p) => p.rel).join('|')
               : (row.section.match(/\/[\w-]+/g) || ['any route']).join('|');
             r.notes.push(`NOT RENDERED on ${where}: "${s.slice(0, 45)}…" — dist is stale, the surface dropped the agreed copy, or it renders off its slug-exact route`);
+          }
+        }
+        // VISUAL-ORDER TRIPWIRE (v3.9, Sol round 6): the plan's declared
+        // intra-row order (numbered lines, quote sequences) must not be
+        // flippable by CSS. Two or more of this row's strings inside one
+        // order-altering container = the shipped visual order can contradict
+        // the plan while DOM source order still reads correct.
+        if (strings.length >= 2) {
+          for (const p of routePages) {
+            for (const el of reversedContainersOf(p)) {
+              const inEl = strings.filter((s) => el.text.includes(s)).length;
+              if (inEl >= 2) {
+                r.ok = false;
+                r.notes.push(`VISUAL ORDER: ${inEl} of this row's strings render inside an order-altering container (${el.why}) on ${p.rel} — CSS flips shipped order while source order still reads correct`);
+              }
+            }
           }
         }
       }
@@ -823,7 +1238,7 @@ const landed = results.filter((r) => r.ok).length;
 // vocabulary. Test mode renders every count as "N of M".
 const frac = (a, b) => (TEST_MODE ? `${a} of ${b}` : `${a}/${b}`);
 out();
-out(`  fidelity check v3.6${banner} — extraction from ${PLAN}`);
+out(`  fidelity check v3.11${banner} — extraction from ${PLAN}`);
 out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${frac(rows.length, declaredRows)} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
 // VOCABULARY SPLIT (v3.4, Sol): test-mode output shares NO success vocabulary
@@ -842,7 +1257,7 @@ for (const r of results) {
   if (!r.ok) for (const n of r.notes) out(`          ${n}`);
 }
 out();
-out(`  rows parsed: ${results.length} · ${TEST_MODE ? 'sim rows green' : 'landed'}: ${frac(landed, results.length)} · binding: exact leaf, index-ordered, consume-once (padding/superstring/swap fail); fragments end-anchored to the same baseline leaf · rendered-output asserted per route`);
+out(`  rows parsed: ${results.length} · ${TEST_MODE ? 'sim rows green' : 'landed'}: ${frac(landed, results.length)} · binding: exact leaf, index-ordered, consume-once (padding/superstring/swap fail); fragments end-anchored to the same baseline leaf · rendered-output asserted per route + carrier-bound + visual-order tripwire`);
 out(`  authoritative: ${TEST_MODE ? 'NO — TEST MODE' : 'yes (proof mode, overrides rejected)'}`);
 out(`  exit contract: proof 0=landed · 1=failed/fatal/override — test mode 3=landed · 2=failed/fatal (never 0 or 1). Direct invocation only: a pipeline reports the LAST command's status — use pipefail (bash) or check $LASTEXITCODE (PowerShell).`);
 if (!TEST_MODE && landed === results.length)

@@ -228,6 +228,11 @@ export const home = {
      * crisis.caseFiles.files by this id (RC-071 hardcode retired). */
     featuredId: "RC-039",
     featuredCaption: "Ninety dollars of cologne. Zero bars of soap. The arithmetic arrived anonymously.",
+    /** Beat-6 IA lift (owner order 2026-07-28): one memo enclosure line teasing
+     * the /crisis Press Room by citing the February release's short title — a
+     * §8-legal citation-as-pointer; the headline's home stays /crisis. Bounded
+     * Sol review: proposals-2026-07-28-crisis-ia-lift.md (C1 CLEAR). */
+    enclosure: `Enclosure: Coalition press release, February 2026 — "The Gym Does Not Count." The Office considers the matter closed.`,
     cta: "Read the full brief →",
   },
   pledgeBand: {
@@ -572,15 +577,19 @@ export const about = {
     "This started on a dating app, where men who hadn't met soap since the Obama administration were holding out for a clean, manicured, model-adjacent 10. Their offer: a five-day funk worn as a lifestyle, plus the serene conviction that she'd be lucky to have it. So I made them an ad campaign.",
     `"Got Milk?" got a generation to drink milk by making it a status symbol and putting it where kids already looked. So I did it for soap. Made clean the flex. Made effort the thirst trap. Aimed the whole thing where the ads would actually land — locker rooms, men's rooms, GQ — and let the women do the sharing, because they've been living the research the whole time.`,
   ],
-  caseStudy: [
-    { label: "Concept & art direction", body: "Every poster walks one tightrope: visually seductive, thematically ridiculous. Thirst-trap imagery, PSA-sincere copy, engineered to provoke, amuse, and push." },
-    { label: "Execution", body: "Male models generated with openart.ai — then everything that makes them ads was done by hand in Photoshop: compositing, lighting, steam, chrome, marble, and a type system built to stay legible across every skin tone and background in the set. Where a legible fix killed the tone, I moved the light instead of the type." },
-    { label: "The system", body: "Porcelain. Smoke. Marble. Then I incorporated the grudge. It smolders on the posters and files paperwork everywhere else." },
+  /** /about REDO consensus (owner-ratified 2026-07-28; full record:
+   * docs/copy/proposals-2026-07-22-about-inframe.md, REDO R9). The labeled
+   * case-study tri-fold is dead in content AND schema (style-lock format
+   * kill) — `making` is two unlabeled paragraphs under the "How it's made"
+   * eyebrow, sourced from reality per the /about reality-sourcing law. */
+  making: [
+    "The men are generated. It took a few tries before openart.ai gave me the man I wanted, and I still had to fix the hands and add the chisel myself. Everything that makes them ads is Photoshop by hand, down to the steam. The type had to hold across every skin tone in the set, and where a legible fix killed the tone, I moved the light instead of the type. There's a gap in my process screenshots — partway through I stopped documenting and just made the thing.",
+    "Porcelain. Smoke. Marble. Then I incorporated the bar. It smolders on the posters and files paperwork everywhere else. The campaign asks him for one shower. The hashtags alone are wearing four layer effects. Nobody here is asking too much of anybody.",
   ],
   pitch: {
     heading: "Want a campaign like this?",
-    body: "I'm Stacey M. Breckel. Everything you just read — the campaign, the fake nonprofit, the paperwork that out-writes most brands' hero copy — came from one hand: mine. A dating app made me mad, so I declared a national hygiene crisis. I file my grudges in triplicate.",
-    tagline: "Let's make clean design dirty fun.",
+    body: "I'm Stacey M. Breckel, and this is a protest in punchlines. Everything you just read came from one hand: mine. The apps kept showing me the same man: he wanted a woman who takes care of herself and wouldn't return the effort. I kept my standard. It's five posters now.",
+    tagline: "I'm for hire, preferably by brands that need a little bite.",
     // contact + behance come from config/site.ts (obfuscate email from scrapers at render)
   },
   /** The reveal is the page's voice; the disclaimer below is its fine print. */
