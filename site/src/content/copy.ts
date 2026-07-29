@@ -260,34 +260,38 @@ export const home = {
  * (register values there are 'porcelain' | 'smoke' | 'marble' per design.md.)
  */
 export const posterCopy = {
+  /* caseNotes: PSA quality-gap consensus (Vivian⇄Sol R1–R5, 0 deadlocks,
+   * owner-ratified 2026-07-29 — docs/copy/proposals-2026-07-29-psa-casenotes.md).
+   * Five distinct grammatical attacks; only thirst-announcement keeps the
+   * staccato telegraph. Pulls and alts untouched by that pass. */
   "confident-man": {
     pull: "Because your Axe body spray isn't fooling anyone, cowboy.",
     caseNote:
-      "A cologne ad selling nothing but soap. Our cowboy doesn't smell like masculinity; he defines it, rinses it off, and reapplies in the morning like a person with standards. The gaze says power. The tile says he owns more than one bar of soap and knows where both of them are. Confidence isn't the cologne. It's not needing it.",
+      "Every cologne ad you've ever seen is this exact man — the jaw, the gaze, the voiceover promising leather and midnight — minus the one step the genre never shows: he showered first, and the fantasy held. The tile says he owns more than one bar of soap and knows where both of them are.",
     alt: "A clean-cut, shirtless man meets the camera against bright white bathroom tile and rising steam, posed like soap finally hired a cologne model.",
   },
   "soap-smoldering": {
     pull: `Because "it's just my natural scent" has never once been good news.`,
     caseNote:
-      "He's fresh and he knows it: the rarest combination on the market. Steam, good posture, and the nerve to wear clean like cologne. Brunch remembers him. Be him by Saturday.",
+      "Reports are consistent: damp hair, ten a.m., no cologne walking in ahead of him like an opening act — just recent water and the nerve to wear it. The group chat has moved from sightings to screenshots. Brunch remembers him. Be him by Saturday.",
     alt: "A lightly stubbled man with damp hair leans against fogged white tile, wearing the deliberate smolder of a luxury fragrance ad after a shower.",
   },
   unholy: {
     pull: "He washes. Daily. With soap. The congregation is asked to remain calm.",
     caseNote:
-      "Some men leave a room speechless. Others leave a trail of Axe and a group chat full of screenshots. This one enters clean, and the congregation has one question: where has this man been? Chrome light, holy steam, testimony you can smell from the third pew — clean preaches. The water is right there. The sermon is optional.",
+      "Blessed — uncommonly, unreasonably blessed — is the man who arrives clean, trailing nothing but steam, because the third pew has spent years downwind of the alternative. One question moves down the row like a collection plate: where has this man been? The water is right there.",
     alt: "A brooding man in a towel emerges from black smoke under chrome light, lit like a fragrance ad shot in a cathedral.",
   },
   redemption: {
     pull: "He sinned. He sprayed. He saw the loofah. Anyone can change.",
     caseNote:
-      "He sinned. He sprayed. He treated a squirt of aerosol like holy water for a body that had wronged the people standing next to it. Then, grace: a shower. The steam took the confession. The towel handled absolution. He walked out the same man, and the people standing next to him stood a little closer. Some of you should start tonight.",
+      "For years the aerosol stood in for holy water — one squirt against a body that had wronged every room it entered — until the morning he stepped into actual water, let the steam take the confession and the towel handle the absolution, and walked out the same man into a room that had quietly moved closer. Some of you should start tonight.",
     alt: "A solemn man with slicked-back wet hair stands in dark smoke and low chrome light — a sinner freshly absolved by warm water.",
   },
   "thirst-announcement": {
     pull: "He's scrubbed, sudsed, and would survive meeting your mother. And you?",
     caseNote:
-      "The risk assessor has been dismissed. The dinner reservation stands. One shower put him in the amber light; the next one keeps him there. Consider this your notice. Wash accordingly.",
+      "The background check was your mother, and he passed. The dinner reservation stands. One shower put him in the amber light; the next one keeps him there. Consider this your notice. Wash accordingly.",
     alt: "A confident Black man stands against warm amber marble in golden light, meeting the camera with the composure of a man who showered on purpose.",
   },
 } as const;

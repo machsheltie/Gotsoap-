@@ -7,8 +7,11 @@ zero deadlocks). **Scope:** transcribe the agreed final strings into the deck. N
 
 ## 1. What lands
 
-- All **54 correction rows**, grouped by surface (chrome · home · /psas + posters · quiz + verdicts ·
+- All **55 correction rows**, grouped by surface (chrome · home · /psas + posters · quiz + verdicts ·
   /pledge · /crisis · /about) → `site/src/content/copy.ts`, the deck, and `style-lock.md` addenda.
+  *(55 = the original Phase-5 54 + one explicit `posterCopy.confident-man.caseNote` row added by the
+  owner-ratified PSA quality-gap pass, 2026-07-29 — `proposals-2026-07-29-psa-casenotes.md`; the same
+  pass re-ratified the other four caseNote rows in place.)*
 - The **two implementation contracts**: the lightbox a11y rule and the newsletter token semantics.
   These are build-lane and are the easiest thing to drop in a pass that feels like copy work — don't.
 

@@ -621,5 +621,15 @@ full record `proposals-2026-07-22-about-inframe.md`):**
   *("I'm for hire, preferably by brands that need a little bite." — R10–R12 micro-pass
   successor; both predecessor taglines killed, style-lock §7)*.
 
+**PSA caseNote re-index (owner-ratified 2026-07-29 — supersedes the "four `caseNote`
+rewrites" item in the /psas line above; finals in `copy-correction-plan.md` §4, full record
+`proposals-2026-07-29-psa-casenotes.md`, R1–R5, 0 deadlocks):**
+
+- All five `posterCopy.*.caseNote` slots re-written — five distinct grammatical attacks
+  (genre teardown / corroborated sighting / one beatitude / continuous witness sentence /
+  telegraph), only thirst-announcement staccato. `posterCopy.confident-man.caseNote` gains
+  its own explicit plan row (was baseline-inherited); the declared row total is now 55.
+  Pulls and alts untouched by that pass.
+
 **Out of this pass:** the four missing-content items (plan §8), F1 (`vector2-citation-path-spec.md`),
 and the posters (always).
