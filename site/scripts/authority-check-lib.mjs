@@ -679,6 +679,21 @@ export function validatePathAwareCanon(path, text) {
     }
   }
 
+  const isIvrOwnershipAuthority = lowerPath.endsWith('/1-800-got-soap-ivr-authority.md')
+    || lowerPath.endsWith('/artifact-continuity.md');
+  if (isIvrOwnershipAuthority) {
+    const resolvedIvrOwner = /\b(?:Got Soap\?|CWAAA|(?:The )?Office)\s+operates\s+the\s+complete\s+IVR\b/i;
+    if (matchingLines(text, resolvedIvrOwner)
+      .some((line) => !protectedUnresolvedContext(line))) {
+      errors.push(`${path}: IVR operational ownership must remain intentionally unresolved.`);
+    }
+    const resolvedIvrHandoff = /\bControl transfers from CWAAA to the Office when Voice B says Office of Lather Compliance\b/i;
+    if (matchingLines(text, resolvedIvrHandoff)
+      .some((line) => !protectedUnresolvedContext(line))) {
+      errors.push(`${path}: exact IVR handoff must remain intentionally unresolved.`);
+    }
+  }
+
   if (lowerPath.endsWith('/1-800-got-soap-ivr-authority.md')) {
     if (matchingLines(text, /(?:\b(?:There is|The call (?:has|uses|includes))\s+(?:a\s+)?third Office voice\b|\bA third Office voice\b|\bThe call has (?:three|3) presented voices\b|\bVoice C\s+is\s+(?:the\s+)?Office representative\b)/i)
       .some((line) => !protectedUnresolvedContext(line))) {
@@ -1172,7 +1187,10 @@ export function collectAuthorityErrors(repoRoot) {
     'FORBIDDEN EXPLANATION',
     'OFFICE PEN',
     '1-800-GOT-SOAP',
-    'FICTIONAL OWNER',
+    'NUMBER/PLACEMENT OWNER',
+    'PRESENTED AUTHORSHIP',
+    'OPERATIONAL OWNER',
+    'INTENTIONALLY UNRESOLVED',
     'DOCUMENTATION AUTHORITY',
     'SHARED PLEDGE CORE',
   ], 'docs/world/artifact-continuity.md'));
@@ -1195,6 +1213,13 @@ export function collectAuthorityErrors(repoRoot) {
     'OFFICE AFTER-HOURS VOICEMAIL',
     'EVERYTHING IS NOTED',
     'BINDING',
+    'GOTSOAP DOT NETLIFY DOT APP',
+    'SLASH SNIFF TEST',
+    'DEPLOYMENT-SPECIFIC SUBSTITUTION',
+    'NUMBER/PLACEMENT OWNER',
+    'PRESENTED AUTHORSHIP',
+    'OPERATIONAL OWNER',
+    'INTENTIONALLY UNRESOLVED',
   ], 'IVR authority'));
 
   errors.push(...validateIvrIntegrity(readBuffer(

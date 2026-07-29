@@ -539,6 +539,30 @@ const canonMutationCases = [
     expected: /IVR authority.*audible transfer/i,
   },
   {
+    name: 'Got Soap assigned complete IVR operation',
+    path: 'docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md',
+    statement: 'Got Soap? operates the complete IVR.',
+    expected: /IVR operational ownership must remain intentionally unresolved/i,
+  },
+  {
+    name: 'CWAAA assigned complete IVR operation',
+    path: 'docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md',
+    statement: 'CWAAA operates the complete IVR.',
+    expected: /IVR operational ownership must remain intentionally unresolved/i,
+  },
+  {
+    name: 'Office assigned complete IVR operation',
+    path: 'docs/world/artifact-continuity.md',
+    statement: 'The Office operates the complete IVR.',
+    expected: /IVR operational ownership must remain intentionally unresolved/i,
+  },
+  {
+    name: 'exact IVR handoff resolved',
+    path: 'docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md',
+    statement: 'Control transfers from CWAAA to the Office when Voice B says Office of Lather Compliance.',
+    expected: /exact IVR handoff must remain intentionally unresolved/i,
+  },
+  {
     name: 'CWAAA operating the Office',
     path: 'docs/strategy/cwaaa-divergence-roadmap.md',
     statement: 'CWAAA operates the Office.',
@@ -1493,10 +1517,17 @@ for (const marker of [
   'Office after-hours voicemail',
   '“Everything is noted”',
   '“binding”',
+  'gotsoap dot netlify dot app',
+  'slash sniff test',
+  'Deployment-specific substitution',
+  'Number/placement owner',
+  'Presented authorship',
+  'Operational owner',
+  'INTENTIONALLY UNRESOLVED',
 ]) {
   test(`IVR authority gates protected marker: ${marker}`, () => {
     withCleanAuthorityFixture((fixtureRoot) => {
-      removeFixtureText(
+      removeAllFixtureText(
         fixtureRoot,
         'docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md',
         marker,
@@ -1557,10 +1588,13 @@ test('portable packages declare the shared-canon synchronization contract and de
   }
 });
 
-test('artifact registry separates fictional ownership from documentation authority', () => {
+test('artifact registry separates IVR ownership dimensions from documentation authority', () => {
   const registry = readFileSync(join(repoRoot, 'docs/world/artifact-continuity.md'), 'utf8');
   assert.deepEqual(missingRequiredMarkers(registry, [
-    'Fictional owner',
+    'Number/placement owner',
+    'Presented authorship',
+    'Operational owner',
+    'INTENTIONALLY UNRESOLVED',
     'Documentation authority',
     'Shared pledge core',
     'Additional future films beyond the canonical campaign film',

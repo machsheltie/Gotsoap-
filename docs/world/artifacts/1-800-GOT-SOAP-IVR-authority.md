@@ -12,9 +12,25 @@ gate.
 The number lives on Got Soap?.
 It is a campaign call-in artifact, not a normal CWAAA or Office contact channel.
 
+For the current production target, spoken URLs are “gotsoap dot netlify dot app” and
+“gotsoap dot netlify dot app slash sniff test.”
+
+Deployment-specific substitution of the spoken domain and route is allowed. It must preserve every
+protected joke, branch, voice transition, pacing beat, ambiguity, substantive line, and
+institutional handoff.
+
+## Private production model
+
+| Concern | Canon |
+|---|---|
+| Number/placement owner | Got Soap? |
+| Presented authorship | Voice A is Got Soap?; Voice B appears CWAAA and later identifies Office |
+| Operational owner | INTENTIONALLY UNRESOLVED |
+| Exact handoff point | INTENTIONALLY UNRESOLVED |
+
 ## Two presented voices
 
-Voice A is the campaign. Voice B appears to be CWAAA.
+Voice A is Got Soap?. Voice B appears CWAAA and later identifies the Office.
 The call has TWO PRESENTED VOICES: Voice A and Voice B.
 
 ## The unresolved handoff
