@@ -1293,6 +1293,69 @@ for (const { name, path, statement, diagnostic } of allCandidateProtectionCases)
   });
 }
 
+const nounCoordinatorBypassCases = [
+  {
+    name: 'records-room noun assertion after and coordination',
+    path: 'CLAUDE.md',
+    statement: 'CWAAA is not paper-manila and records-room styling governs the site.',
+    expected: /obsolete CWAAA records-room guidance/i,
+  },
+  {
+    name: 'records-room noun assertion after or coordination',
+    path: 'CLAUDE.md',
+    statement: 'CWAAA is not paper-manila or records-room styling governs the site.',
+    expected: /obsolete CWAAA records-room guidance/i,
+  },
+  {
+    name: 'Case Files noun assertion after and coordination',
+    path: 'docs/strategy/participation-mechanics.md',
+    statement: 'The target is not Recovery Stories and Case Files remain the primary public destination.',
+    expected: /obsolete CWAAA public Case Files target/i,
+  },
+  {
+    name: 'Case Files noun assertion after or coordination',
+    path: 'docs/strategy/participation-mechanics.md',
+    statement: 'The target is not Recovery Stories or Case Files remain the primary public destination.',
+    expected: /obsolete CWAAA public Case Files target/i,
+  },
+];
+
+for (const { name, path, statement, expected } of nounCoordinatorBypassCases) {
+  test(`noun-coordinator rejection catches ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, statement);
+      assert.match(collectAuthorityErrors(fixtureRoot).join('\n'), expected);
+    });
+  });
+}
+
+const nounCoordinatorProtectionCases = [
+  {
+    name: 'paper-manila and records-room shared complement list',
+    path: 'CLAUDE.md',
+    statement: 'CWAAA is not a paper-manila or records-room website.',
+    diagnostic: /obsolete CWAAA (?:paper-universe|records-room) guidance/i,
+  },
+  {
+    name: 'documented records-room assertion list',
+    path: 'CLAUDE.md',
+    statement: 'Rejected examples: "CWAAA is paper-manila." and "Records-room styling governs the site."',
+    diagnostic: /obsolete CWAAA (?:paper-universe|records-room) guidance/i,
+  },
+];
+
+for (const { name, path, statement, diagnostic } of nounCoordinatorProtectionCases) {
+  test(`noun-coordinator protection preserves ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, statement);
+      assert.deepEqual(
+        collectAuthorityErrors(fixtureRoot).filter((error) => diagnostic.test(error)),
+        [],
+      );
+    });
+  });
+}
+
 const staleCreativeDirectionCases = [
   {
     name: 'paper-manila as the CWAAA primary stock',

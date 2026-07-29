@@ -71,8 +71,8 @@ const candidateProtectionPattern =
   /\b(?:whether|intentionally unresolved|unresolved possibility|open question|question remains unresolved|may wonder|allowed to wonder|does not|do not|never|must not|cannot|can't|not permitted|no artifact)\b/i;
 const candidateCopularNegationPattern =
   /\b(?:is|are|was|were)\s+not\b[^.;:!?]{0,40}$/i;
-const candidatePredicatePattern =
-  /\b(?:add|announce|arrange|assumes?|campaigns?|claims?|disclose|display|enforces?|founded|formed|has|include|is|operates?|owns?|pair|place|processes?|provides?|publish|put|receives?|regulates?|render|show|state|transfers?|use|was|were|works?)\b/i;
+const candidateFinitePredicatePattern =
+  /\b(?:adds?|announces?|arranges?|assumes?|becomes?|campaigns?|can|claims?|controls?|could|defines?|discloses?|displays?|drives?|enforces?|founded|formed|governs?|guides?|has|have|includes?|is|are|makes?|means?|must|operates?|owns?|pairs?|places?|processes?|provides?|publishes?|puts?|receives?|regulates?|remains?|renders?|requires?|serves?|shall|shapes?|should|shows?|states?|transfers?|uses?|was|were|will|works?|would)\b/i;
 
 function globalPattern(pattern) {
   return new RegExp(
@@ -89,6 +89,17 @@ function authorityCandidates(line, patterns) {
     ));
 }
 
+function candidateClaimSegment(line, candidate, boundaries) {
+  const afterCandidate = candidate.index + candidate[0].length;
+  const punctuationOffset = line.slice(afterCandidate).search(/[.;:!?]/);
+  const punctuationIndex = punctuationOffset === -1
+    ? line.length
+    : afterCandidate + punctuationOffset;
+  const nextBoundary = boundaries.find((match) => match.index >= afterCandidate);
+  const segmentEnd = Math.min(nextBoundary?.index ?? line.length, punctuationIndex);
+  return line.slice(candidate.index, segmentEnd);
+}
+
 function candidateSegmentStart(line, candidate) {
   const boundaries = authorityCandidates(line, [candidateBoundaryPattern]);
   const previousBoundary = boundaries.findLast((match) => (
@@ -97,7 +108,7 @@ function candidateSegmentStart(line, candidate) {
       /^(?:and|or)$/i.test(match[0])
       && line.slice(match.index + match[0].length, candidate.index).trim() === ''
       && candidateCopularNegationPattern.test(line.slice(0, match.index))
-      && !candidatePredicatePattern.test(candidate[0])
+      && !candidateFinitePredicatePattern.test(candidateClaimSegment(line, candidate, boundaries))
     )
   ));
   return previousBoundary
