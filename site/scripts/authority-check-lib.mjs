@@ -71,8 +71,6 @@ const candidateProtectionPattern =
   /\b(?:whether|intentionally unresolved|unresolved possibility|open question|question remains unresolved|may wonder|allowed to wonder|does not|do not|never|must not|cannot|can't|not permitted|no artifact)\b/i;
 const candidateCopularNegationPattern =
   /\b(?:is|are|was|were)\s+not\b[^.;:!?]{0,40}$/i;
-const candidateFinitePredicatePattern =
-  /\b(?:adds?|announces?|arranges?|assumes?|becomes?|campaigns?|can|claims?|controls?|could|defines?|discloses?|displays?|drives?|enforces?|founded|formed|governs?|guides?|has|have|includes?|is|are|makes?|means?|must|operates?|owns?|pairs?|places?|processes?|provides?|publishes?|puts?|receives?|regulates?|remains?|renders?|requires?|serves?|shall|shapes?|should|shows?|states?|transfers?|uses?|was|were|will|works?|would)\b/i;
 
 function globalPattern(pattern) {
   return new RegExp(
@@ -100,7 +98,7 @@ function candidateClaimSegment(line, candidate, boundaries) {
   return line.slice(candidate.index, segmentEnd);
 }
 
-function candidateSegmentStart(line, candidate) {
+function candidateSegmentStart(line, candidate, inheritedCopularComplementPattern) {
   const boundaries = authorityCandidates(line, [candidateBoundaryPattern]);
   const previousBoundary = boundaries.findLast((match) => (
     match.index + match[0].length <= candidate.index
@@ -108,7 +106,9 @@ function candidateSegmentStart(line, candidate) {
       /^(?:and|or)$/i.test(match[0])
       && line.slice(match.index + match[0].length, candidate.index).trim() === ''
       && candidateCopularNegationPattern.test(line.slice(0, match.index))
-      && !candidateFinitePredicatePattern.test(candidateClaimSegment(line, candidate, boundaries))
+      && inheritedCopularComplementPattern?.test(
+        candidateClaimSegment(line, candidate, boundaries).trim(),
+      )
     )
   ));
   return previousBoundary
@@ -116,9 +116,20 @@ function candidateSegmentStart(line, candidate) {
     : 0;
 }
 
-function protectedAuthorityCandidate(line, candidate, allowDocumentedPrefix = false) {
+function protectedAuthorityCandidate(
+  line,
+  candidate,
+  {
+    allowDocumentedPrefix = false,
+    inheritedCopularComplementPattern,
+  } = {},
+) {
   const fullPrefix = line.slice(0, candidate.index);
-  const segmentStart = candidateSegmentStart(line, candidate);
+  const segmentStart = candidateSegmentStart(
+    line,
+    candidate,
+    inheritedCopularComplementPattern,
+  );
   const localPrefix = line.slice(segmentStart, candidate.index);
   return candidateProtectionPattern.test(localPrefix)
     || candidateCopularNegationPattern.test(localPrefix)
@@ -127,19 +138,28 @@ function protectedAuthorityCandidate(line, candidate, allowDocumentedPrefix = fa
 
 function findUnprotectedAuthorityCandidate(
   line,
-  patterns,
+  matcher,
   {
     allowDocumentedPrefix = false,
     isRelevant = () => true,
   } = {},
 ) {
+  const matcherPatterns = matcher instanceof RegExp || Array.isArray(matcher)
+    ? matcher
+    : matcher.pattern;
+  const inheritedCopularComplementPattern = matcher instanceof RegExp || Array.isArray(matcher)
+    ? undefined
+    : matcher.inheritedCopularComplementPattern;
   const candidates = authorityCandidates(
     line,
-    Array.isArray(patterns) ? patterns : [patterns],
+    Array.isArray(matcherPatterns) ? matcherPatterns : [matcherPatterns],
   );
   return candidates.find((candidate, index) => (
     isRelevant(candidate, index, candidates)
-    && !protectedAuthorityCandidate(line, candidate, allowDocumentedPrefix)
+    && !protectedAuthorityCandidate(line, candidate, {
+      allowDocumentedPrefix,
+      inheritedCopularComplementPattern,
+    })
   ));
 }
 
@@ -553,6 +573,7 @@ export function validatePathAwareCanon(path, text) {
       },
       {
         pattern: /\brecords[- ]room\b/i,
+        inheritedCopularComplementPattern: /^records[- ]room\s+(?:display|website)$/i,
         diagnostic: 'obsolete CWAAA records-room guidance',
       },
       {
@@ -565,9 +586,10 @@ export function validatePathAwareCanon(path, text) {
       },
     ];
 
-    for (const { pattern, diagnostic } of staleDirectionRules) {
+    for (const matcher of staleDirectionRules) {
+      const { pattern, diagnostic } = matcher;
       const hasLiveDirective = matchingLines(text, pattern)
-        .some((clause) => findUnprotectedAuthorityCandidate(clause, pattern, { allowDocumentedPrefix: true }));
+        .some((clause) => findUnprotectedAuthorityCandidate(clause, matcher, { allowDocumentedPrefix: true }));
       if (hasLiveDirective) {
         errors.push(`${path}: ${diagnostic}.`);
       }
@@ -779,9 +801,15 @@ export function validatePathAwareCanon(path, text) {
   }
 
   if (lowerPath.endsWith('/strategy/participation-mechanics.md')) {
-    const obsoleteCaseFilesTarget = /(?:\bcase[- ]files?\b|\/case-files(?:\/\[id\])?)/i;
-    for (const clause of matchingLines(text, obsoleteCaseFilesTarget)) {
-      if (!findUnprotectedAuthorityCandidate(clause, obsoleteCaseFilesTarget, { allowDocumentedPrefix: true })) continue;
+    const obsoleteCaseFilesTarget = {
+      pattern: /(?:\bcase[- ]files?\b|\/case-files(?:\/\[id\])?)/i,
+      inheritedCopularComplementPattern:
+        /^(?:case[- ]files?|\/case-files(?:\/\[id\])?)$/i,
+    };
+    for (const clause of matchingLines(text, obsoleteCaseFilesTarget.pattern)) {
+      if (!findUnprotectedAuthorityCandidate(clause, obsoleteCaseFilesTarget, {
+        allowDocumentedPrefix: true,
+      })) continue;
       const explicitlyHistoricalRedirect = (
         /\b(?:current-state migration history|historical migration|combined runtime|legacy)\b/i.test(clause)
         && /(?:\bredirect(?:s|ed|ing)?\b|→)/i.test(clause)

@@ -1307,6 +1307,18 @@ const nounCoordinatorBypassCases = [
     expected: /obsolete CWAAA records-room guidance/i,
   },
   {
+    name: 'records-room noun assertion with an unlisted predicate after and coordination',
+    path: 'CLAUDE.md',
+    statement: 'CWAAA is not paper-manila and records-room styling dominates the site.',
+    expected: /obsolete CWAAA records-room guidance/i,
+  },
+  {
+    name: 'records-room noun assertion with an unlisted predicate after or coordination',
+    path: 'CLAUDE.md',
+    statement: 'CWAAA is not paper-manila or records-room styling dominates the site.',
+    expected: /obsolete CWAAA records-room guidance/i,
+  },
+  {
     name: 'Case Files noun assertion after and coordination',
     path: 'docs/strategy/participation-mechanics.md',
     statement: 'The target is not Recovery Stories and Case Files remain the primary public destination.',
@@ -1316,6 +1328,18 @@ const nounCoordinatorBypassCases = [
     name: 'Case Files noun assertion after or coordination',
     path: 'docs/strategy/participation-mechanics.md',
     statement: 'The target is not Recovery Stories or Case Files remain the primary public destination.',
+    expected: /obsolete CWAAA public Case Files target/i,
+  },
+  {
+    name: 'Case Files noun assertion with an unlisted predicate after and coordination',
+    path: 'docs/strategy/participation-mechanics.md',
+    statement: 'The target is not Recovery Stories and Case Files continue as the primary public destination.',
+    expected: /obsolete CWAAA public Case Files target/i,
+  },
+  {
+    name: 'Case Files noun assertion with an unlisted predicate after or coordination',
+    path: 'docs/strategy/participation-mechanics.md',
+    statement: 'The target is not Recovery Stories or Case Files continue as the primary public destination.',
     expected: /obsolete CWAAA public Case Files target/i,
   },
 ];
@@ -1335,6 +1359,18 @@ const nounCoordinatorProtectionCases = [
     path: 'CLAUDE.md',
     statement: 'CWAAA is not a paper-manila or records-room website.',
     diagnostic: /obsolete CWAAA (?:paper-universe|records-room) guidance/i,
+  },
+  {
+    name: 'paper-manila and records-room display shared complement list',
+    path: 'CLAUDE.md',
+    statement: 'The CWAAA site is not a paper-manila or records-room display.',
+    diagnostic: /obsolete CWAAA (?:paper-universe|records-room) guidance/i,
+  },
+  {
+    name: 'Recovery Stories and Case Files shared target complement list',
+    path: 'docs/strategy/participation-mechanics.md',
+    statement: 'The target is not Recovery Stories or Case Files.',
+    diagnostic: /obsolete CWAAA public Case Files target/i,
   },
   {
     name: 'documented records-room assertion list',
