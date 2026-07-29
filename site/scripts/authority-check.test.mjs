@@ -1089,6 +1089,111 @@ for (const { name, path, statement, expected } of unrelatedNegationBypassCases) 
   });
 }
 
+const candidateLocalNegationBypassCases = [
+  {
+    name: 'causal no-comma relationship assertion',
+    path: 'docs/cwaaa/world-bible.md',
+    statement: 'This does not affect the seal because CWAAA is the Office’s public-facing layer.',
+    expected: /relationship mystery.*public-facing layer/i,
+  },
+  {
+    name: 'Markdown-wrapped relationship assertion',
+    path: 'docs/cwaaa/world-bible.md',
+    statement: 'This does not affect the seal because\n**CWAAA is the Office’s public-facing layer.**',
+    expected: /relationship mystery.*public-facing layer/i,
+  },
+  {
+    name: 'causal records-room assertion',
+    path: 'CLAUDE.md',
+    statement: 'CWAAA does not use paper-manila because the site uses records-room styling.',
+    expected: /obsolete CWAAA records-room guidance/i,
+  },
+  {
+    name: 'causal Shop grid assertion',
+    path: 'docs/design.md',
+    statement: 'Shop does not use product cards because products are arranged in an equal responsive product grid.',
+    expected: /obsolete Shop grid guidance/i,
+  },
+  {
+    name: 'later public-disclosure directive',
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    statement: 'Do not render a privacy warning because render “This is satire” in the global footer.',
+    expected: /fiction disclosure belongs behind the creator\/About seam/i,
+  },
+  {
+    name: 'Markdown-wrapped public-disclosure directive',
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    statement: 'Do not render a privacy warning because\nrender “This is satire” in the global footer.',
+    expected: /fiction disclosure belongs behind the creator\/About seam/i,
+  },
+  {
+    name: 'comma-but later public-disclosure directive',
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    statement: 'Do not render a privacy warning, but render “This is satire” in the global footer.',
+    expected: /fiction disclosure belongs behind the creator\/About seam/i,
+  },
+];
+
+for (const { name, path, statement, expected } of candidateLocalNegationBypassCases) {
+  test(`candidate-local negation rejects ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, statement);
+      assert.match(collectAuthorityErrors(fixtureRoot).join('\n'), expected);
+    });
+  });
+}
+
+const candidateLocalProtectionCases = [
+  {
+    name: 'direct styling negation',
+    path: 'CLAUDE.md',
+    statement: 'CWAAA is not a records-room website.',
+    diagnostic: /obsolete CWAAA records-room guidance/i,
+  },
+  {
+    name: 'intentionally unresolved relationship',
+    path: 'docs/cwaaa/world-bible.md',
+    statement: 'It remains intentionally unresolved whether CWAAA is the Office’s public-facing layer.',
+    diagnostic: /relationship mystery.*public-facing layer/i,
+  },
+  {
+    name: 'explicit Shop prohibition',
+    path: 'docs/design.md',
+    statement: 'Do not arrange products in an equal responsive product grid.',
+    diagnostic: /obsolete Shop grid guidance/i,
+  },
+  {
+    name: 'explicit disclosure prohibition',
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    statement: 'Do not render “This is satire” in the global footer.',
+    diagnostic: /fiction disclosure belongs behind the creator\/About seam/i,
+  },
+  {
+    name: 'documented historical disclosure example',
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    statement: 'Historical/superseded wording: Render “This is satire” in the global footer.',
+    diagnostic: /fiction disclosure belongs behind the creator\/About seam/i,
+  },
+  {
+    name: 'documented rejected relationship example',
+    path: 'docs/cwaaa/world-bible.md',
+    statement: 'Rejected example: “CWAAA is the Office’s public-facing layer.”',
+    diagnostic: /relationship mystery.*public-facing layer/i,
+  },
+];
+
+for (const { name, path, statement, diagnostic } of candidateLocalProtectionCases) {
+  test(`candidate-local protection preserves ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, statement);
+      assert.deepEqual(
+        collectAuthorityErrors(fixtureRoot).filter((error) => diagnostic.test(error)),
+        [],
+      );
+    });
+  });
+}
+
 const staleCreativeDirectionCases = [
   {
     name: 'paper-manila as the CWAAA primary stock',

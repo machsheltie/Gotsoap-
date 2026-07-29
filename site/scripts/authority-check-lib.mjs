@@ -36,14 +36,18 @@ export function findPublicDisclosureDrift(text, path) {
   const disclosurePattern = /\b(?:satire|parody|fictional|spec(?:[- ]work)?|unaffiliated|non-affiliation)\b/i;
   const publicSurfacePattern = /\b(?:global\s+footer|footer\s+copy|legal\s*\/\s*footer\s+copy)\b/i;
   const directivePattern = /\b(?:add|announce|disclose|display|include|place|publish|put|render|show|state)\b/i;
-  const prohibitionPattern = /\b(?:do not|never|must not|cannot|can't|not permitted|prohibited|forbidden)\b/i;
 
   return semanticClauses(text).flatMap((clause) => {
-    const liveDirective = disclosurePattern.test(clause)
-      && publicSurfacePattern.test(clause)
-      && directivePattern.test(clause)
-      && !prohibitionPattern.test(clause)
-      && !protectedUnresolvedContext(clause, directivePattern, true);
+    const directiveCandidates = authorityCandidates(clause, [directivePattern]);
+    const liveDirective = directiveCandidates
+      .some((candidate, index) => {
+        const { start } = candidateSegmentBounds(clause, candidate.index);
+        const nextDirective = directiveCandidates[index + 1];
+        const candidateSpan = clause.slice(start, nextDirective?.index ?? clause.length);
+        return disclosurePattern.test(candidateSpan)
+          && publicSurfacePattern.test(candidateSpan)
+          && !protectedAuthorityCandidate(clause, candidate, true);
+      });
     return liveDirective
       ? [`${path}: fiction disclosure belongs behind the creator/About seam`]
       : [];
@@ -57,15 +61,60 @@ export function missingRequiredMarkers(text, markers, path = 'document') {
     .map((marker) => `${path}: missing required marker "${marker}"`);
 }
 
+const candidateBoundaryPattern =
+  /\b(?:although|because|but|even if|even though|however|nevertheless|nonetheless|since|though|unless|whereas|while|yet)\b/gi;
+const candidateProtectionPattern =
+  /\b(?:whether|intentionally unresolved|unresolved possibility|may wonder|allowed to wonder|does not|do not|never|must not|cannot|can't|not permitted|no artifact|question)\b/i;
+const candidateCopularNegationPattern =
+  /\b(?:is|are|was|were)\s+not\b[^.;:!?]{0,40}$/i;
+
+function globalPattern(pattern) {
+  return new RegExp(
+    pattern.source,
+    pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`,
+  );
+}
+
+function authorityCandidates(line, patterns) {
+  return patterns
+    .flatMap((pattern) => [...line.matchAll(globalPattern(pattern))])
+    .sort((left, right) => (
+      left.index - right.index || right[0].length - left[0].length
+    ));
+}
+
+function candidateSegmentBounds(line, candidateStart) {
+  const boundaries = authorityCandidates(line, [candidateBoundaryPattern]);
+  const previousBoundary = boundaries.findLast((match) => (
+    match.index + match[0].length <= candidateStart
+  ));
+  const nextBoundary = boundaries.find((match) => match.index > candidateStart);
+  return {
+    start: previousBoundary
+      ? previousBoundary.index + previousBoundary[0].length
+      : 0,
+    end: nextBoundary ? nextBoundary.index : line.length,
+  };
+}
+
+function protectedAuthorityCandidate(line, candidate, allowDocumentedPrefix = false) {
+  const fullPrefix = line.slice(0, candidate.index);
+  const { start } = candidateSegmentBounds(line, candidate.index);
+  const localPrefix = line.slice(start, candidate.index);
+  return candidateProtectionPattern.test(localPrefix)
+    || candidateCopularNegationPattern.test(localPrefix)
+    || (allowDocumentedPrefix && documentedSpanIntroPattern.test(fullPrefix));
+}
+
 function protectedUnresolvedContext(
   line,
-  assertionPattern = /\b(?:CWAAA|Office(?: of Lather Compliance)?)\b|Got Soap\?/i,
+  assertionPattern,
   allowDocumentedPrefix = false,
 ) {
-  const assertionStart = line.search(assertionPattern);
-  const context = assertionStart === -1 ? line : line.slice(0, assertionStart);
-  return /\b(?:whether|intentionally unresolved|unresolved possibility|may wonder|allowed to wonder|does not|do not|never|must not|cannot|can't|no artifact|question)\b/i.test(context)
-    || (allowDocumentedPrefix && documentedSpanIntroPattern.test(context));
+  const [candidate] = authorityCandidates(line, [assertionPattern]);
+  return candidate
+    ? protectedAuthorityCandidate(line, candidate, allowDocumentedPrefix)
+    : false;
 }
 
 const documentedSpanIntroPattern =
@@ -492,13 +541,7 @@ export function validatePathAwareCanon(path, text) {
 
     for (const { pattern, diagnostic } of staleDirectionRules) {
       const hasLiveDirective = matchingLines(text, pattern)
-        .some((clause) => {
-          if (protectedUnresolvedContext(clause, pattern, true)) return false;
-          const directiveStart = clause.search(pattern);
-          const context = directiveStart === -1 ? clause : clause.slice(0, directiveStart);
-          const copularNegation = /\b(?:is|are|was|were)\s+not\b[^.;:!?]{0,40}$/i;
-          return !copularNegation.test(context);
-        });
+        .some((clause) => !protectedUnresolvedContext(clause, pattern, true));
       if (hasLiveDirective) {
         errors.push(`${path}: ${diagnostic}.`);
       }
@@ -515,15 +558,17 @@ export function validatePathAwareCanon(path, text) {
     || lowerPath.includes('/office-of-lather-compliance/');
 
   if (isCwaaa) {
+    const cwaaaRolePattern =
+      /\bCWAAA\s+(?:campaigns?|regulates?|claims?\s+jurisdiction|assumes?\s+jurisdiction)\b/i;
     const cwaaa1961 = /(?:\bCWAAA\b[^.\n]{0,100}\b(?:was\s+)?(?:established|founded|formed|has existed since|dates? to)\b[^.\n]{0,30}\b1961\b|\b1961\b[^.\n]{0,80}\bCWAAA\b[^.\n]{0,50}\b(?:was\s+)?(?:established|founded|formed)\b)/i;
     const cwaaaMarkerAssigns1961 = lowerPath.includes('/cwaaa/')
       && /\*\*Established:\*\*\s*1961\b/i.test(text);
     if (cwaaaMarkerAssigns1961 || matchingChronologyClauses(text, cwaaa1961)
-      .some((line) => !protectedUnresolvedContext(line))) {
+      .some((line) => !protectedUnresolvedContext(line, cwaaa1961))) {
       errors.push(`${path}: CWAAA chronology must not assign 1961 to CWAAA.`);
     }
-    for (const line of matchingLines(text, /\bCWAAA\s+(?:campaigns?|regulates?|claims?\s+jurisdiction|assumes?\s+jurisdiction)\b/i)) {
-      if (protectedUnresolvedContext(line)) continue;
+    for (const line of matchingLines(text, cwaaaRolePattern)) {
+      if (protectedUnresolvedContext(line, cwaaaRolePattern)) continue;
       if (/\bCWAAA\s+campaigns?\b/i.test(line)) {
         errors.push(`${path}: CWAAA must not campaign; Got Soap? owns campaign authorship.`);
       }
@@ -537,8 +582,10 @@ export function validatePathAwareCanon(path, text) {
   }
 
   if (isGotSoap) {
-    for (const line of matchingLines(text, /\bGot Soap\?\s+(?:regulates?|files?\s+findings)\b/i)) {
-      if (protectedUnresolvedContext(line)) continue;
+    const gotSoapRolePattern =
+      /\bGot Soap\?\s+(?:regulates?|files?\s+findings)\b/i;
+    for (const line of matchingLines(text, gotSoapRolePattern)) {
+      if (protectedUnresolvedContext(line, gotSoapRolePattern)) continue;
       if (/\bGot Soap\?\s+regulates?\b/i.test(line)) {
         errors.push(`${path}: Got Soap? must not regulate.`);
       }
@@ -549,18 +596,20 @@ export function validatePathAwareCanon(path, text) {
   }
 
   if (isOffice) {
+    const officeRolePattern =
+      /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+(?:campaigns?|owns?|files?|receives?|records?|enforces?|processes?)\b/i;
     const office2024 = /(?:\b(?:The\s+)?Office(?: of Lather Compliance)?\b[^.\n]{0,100}\b(?:was\s+)?(?:established|founded|formed|has existed since|dates? to)\b[^.\n]{0,30}\b2024\b|\b2024\b[^.\n]{0,80}\b(?:the\s+)?Office(?: of Lather Compliance)?\b[^.\n]{0,50}\b(?:was\s+)?(?:established|founded|formed)\b)/i;
     const officeMarkerAssigns2024 = lowerPath.includes('/office-of-lather-compliance/')
       && /\*\*Established:\*\*\s*2024\b/i.test(text);
     if (officeMarkerAssigns2024 || matchingChronologyClauses(text, office2024)
-      .some((line) => !protectedUnresolvedContext(line))) {
+      .some((line) => !protectedUnresolvedContext(line, office2024))) {
       errors.push(`${path}: Office chronology must not assign 2024 to the Office.`);
     }
     for (const line of matchingLines(
       text,
-      /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+(?:campaigns?|owns?|files?|receives?|records?|enforces?|processes?)\b/i,
+      officeRolePattern,
     )) {
-      if (protectedUnresolvedContext(line)) continue;
+      if (protectedUnresolvedContext(line, officeRolePattern)) continue;
       if (/\bOffice(?: of Lather Compliance)?\s+campaigns?\b/i.test(line)) {
         errors.push(`${path}: Office must not campaign.`);
       }
@@ -578,8 +627,9 @@ export function validatePathAwareCanon(path, text) {
     /\bCWAAA\s+does not operate\s+(?:the\s+)?Office(?: of Lather Compliance)?\b/i,
   ];
   for (const line of semanticClauses(text)) {
-    if (protectedUnresolvedContext(line)) continue;
-    if (relationshipDenialPatterns.some((pattern) => pattern.test(line))) {
+    const match = authorityCandidates(line, relationshipDenialPatterns)
+      .find((candidate) => !protectedAuthorityCandidate(line, candidate));
+    if (match) {
       errors.push(`${path}: over-resolves protected CWAAA/Office ambiguity via "operational separation".`);
     }
   }
@@ -600,8 +650,8 @@ export function validatePathAwareCanon(path, text) {
     /\b(?:The\s+)?Office(?: of Lather Compliance)?\s+is\s+(?:an?\s+)?technical service operated by\s+CWAAA\b/i,
   ];
   for (const line of semanticClauses(text)) {
-    if (protectedUnresolvedContext(line)) continue;
-    const match = relationshipPatterns.map((pattern) => line.match(pattern)).find(Boolean);
+    const match = authorityCandidates(line, relationshipPatterns)
+      .find((candidate) => !protectedAuthorityCandidate(line, candidate));
     if (match) {
       const label = /public-facing layer/i.test(match[0])
         ? 'public-facing layer'
@@ -672,7 +722,7 @@ export function validatePathAwareCanon(path, text) {
 
   if (lowerPath.endsWith('/office-of-lather-compliance/design.md')) {
     const hasLiveOfficeStyleClaim = (pattern) => matchingLines(text, pattern)
-      .some((line) => !protectedUnresolvedContext(line));
+      .some((line) => !protectedUnresolvedContext(line, pattern, true));
     if (hasLiveOfficeStyleClaim(/\bUse a centered legacy terminal frame\b/i)) {
       errors.push(`${path}: obsolete Office terminal styling.`);
     }
@@ -718,7 +768,8 @@ export function validatePathAwareCanon(path, text) {
   }
 
   if (/(?:^|\/)docs\/design\.md$/.test(lowerPath)) {
-    const obsoleteGrid = /\bArrange products in an equal responsive product grid\b/i;
+    const obsoleteGrid =
+      /\b(?:Arrange products in|products are arranged in) an equal responsive product grid\b/i;
     const obsoleteCards = /\bUse standard ecommerce product cards\b/i;
     if (matchingLines(text, obsoleteGrid)
       .some((line) => !protectedUnresolvedContext(line, obsoleteGrid, true))) {
@@ -744,23 +795,26 @@ export function validatePathAwareCanon(path, text) {
   if (isIvrOwnershipAuthority) {
     const resolvedIvrOwner = /\b(?:Got Soap\?|CWAAA|(?:The )?Office)\s+operates\s+the\s+complete\s+IVR\b/i;
     if (matchingLines(text, resolvedIvrOwner)
-      .some((line) => !protectedUnresolvedContext(line))) {
+      .some((line) => !protectedUnresolvedContext(line, resolvedIvrOwner))) {
       errors.push(`${path}: IVR operational ownership must remain intentionally unresolved.`);
     }
     const resolvedIvrHandoff = /\bControl transfers from CWAAA to the Office when Voice B says Office of Lather Compliance\b/i;
     if (matchingLines(text, resolvedIvrHandoff)
-      .some((line) => !protectedUnresolvedContext(line))) {
+      .some((line) => !protectedUnresolvedContext(line, resolvedIvrHandoff))) {
       errors.push(`${path}: exact IVR handoff must remain intentionally unresolved.`);
     }
   }
 
   if (lowerPath.endsWith('/1-800-got-soap-ivr-authority.md')) {
-    if (matchingLines(text, /(?:\b(?:There is|The call (?:has|uses|includes))\s+(?:a\s+)?third Office voice\b|\bA third Office voice\b|\bThe call has (?:three|3) presented voices\b|\bVoice C\s+is\s+(?:the\s+)?Office representative\b)/i)
-      .some((line) => !protectedUnresolvedContext(line))) {
+    const thirdVoicePattern = /(?:\b(?:There is|The call (?:has|uses|includes))\s+(?:a\s+)?third Office voice\b|\bA third Office voice\b|\bThe call has (?:three|3) presented voices\b|\bVoice C\s+is\s+(?:the\s+)?Office representative\b)/i;
+    const audibleTransferPattern = /(?:\b(?:There is|The caller hears)\s+an audible (?:transfer|handoff)\b|\bVoice [AB]\s+audibly transfers?\b|\bAn audible handoff transfers the caller to (?:the\s+)?Office\b)/i;
+
+    if (matchingLines(text, thirdVoicePattern)
+      .some((line) => !protectedUnresolvedContext(line, thirdVoicePattern))) {
       errors.push(`${path}: IVR authority must not add a third Office voice; retain two presented voices and no Voice C Office representative.`);
     }
-    if (matchingLines(text, /(?:\b(?:There is|The caller hears)\s+an audible (?:transfer|handoff)\b|\bVoice [AB]\s+audibly transfers?\b|\bAn audible handoff transfers the caller to (?:the\s+)?Office\b)/i)
-      .some((line) => !protectedUnresolvedContext(line))) {
+    if (matchingLines(text, audibleTransferPattern)
+      .some((line) => !protectedUnresolvedContext(line, audibleTransferPattern))) {
       errors.push(`${path}: IVR authority must not add an audible transfer.`);
     }
   }
