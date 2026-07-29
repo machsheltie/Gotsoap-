@@ -1053,6 +1053,42 @@ for (const { name, path, statement, expected } of canonMutationCases) {
   });
 }
 
+const unrelatedNegationBypassCases = [
+  {
+    name: 'relationship assertion after a seal disclaimer',
+    path: 'docs/cwaaa/world-bible.md',
+    statement: 'Although this does not affect the seal, CWAAA is the Office’s public-facing layer.',
+    expected: /relationship mystery.*public-facing layer/i,
+  },
+  {
+    name: 'records-room assertion after a paper-manila negation',
+    path: 'CLAUDE.md',
+    statement: 'Although CWAAA does not use paper-manila, the site uses records-room styling.',
+    expected: /obsolete CWAAA records-room guidance/i,
+  },
+  {
+    name: 'Shop grid assertion after a product-card negation',
+    path: 'docs/design.md',
+    statement: 'Although Shop does not use product cards, arrange products in an equal responsive product grid.',
+    expected: /obsolete Shop grid guidance/i,
+  },
+  {
+    name: 'public disclosure assertion after a Privacy disclaimer',
+    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    statement: 'Although this does not affect Privacy, render “This is satire” in the global footer.',
+    expected: /fiction disclosure belongs behind the creator\/About seam/i,
+  },
+];
+
+for (const { name, path, statement, expected } of unrelatedNegationBypassCases) {
+  test(`unrelated negation does not protect ${name}`, () => {
+    withCleanAuthorityFixture((fixtureRoot) => {
+      appendFixtureText(fixtureRoot, path, statement);
+      assert.match(collectAuthorityErrors(fixtureRoot).join('\n'), expected);
+    });
+  });
+}
+
 const staleCreativeDirectionCases = [
   {
     name: 'paper-manila as the CWAAA primary stock',
@@ -1106,6 +1142,36 @@ for (const { name, path, text, expected } of staleCreativeDirectionCases) {
     });
   });
 }
+
+test('participation strategy rejects a live Case Files target directive', () => {
+  withCleanAuthorityFixture((fixtureRoot) => {
+    appendFixtureText(
+      fixtureRoot,
+      'docs/strategy/participation-mechanics.md',
+      'Target state: publish Case Files at `/case-files` as a primary CWAAA destination.',
+    );
+    assert.match(
+      collectAuthorityErrors(fixtureRoot).join('\n'),
+      /docs\/strategy\/participation-mechanics\.md:.*obsolete CWAAA public Case Files target/i,
+    );
+  });
+});
+
+test('participation strategy permits an explicit current-runtime Case Files redirect history', () => {
+  withCleanAuthorityFixture((fixtureRoot) => {
+    appendFixtureText(
+      fixtureRoot,
+      'docs/strategy/participation-mechanics.md',
+      'Current-state migration history records the combined runtime legacy `/case-files` → `/recovery-stories` redirect.',
+    );
+    assert.deepEqual(
+      collectAuthorityErrors(fixtureRoot).filter((error) => (
+        /obsolete CWAAA public Case Files target/i.test(error)
+      )),
+      [],
+    );
+  });
+});
 
 const topLevelStalePositiveCases = [
   {
@@ -1727,18 +1793,96 @@ test('portable packages declare the shared-canon synchronization contract and de
   }
 });
 
-test('artifact registry separates IVR ownership dimensions from documentation authority', () => {
+function parseArtifactRegistry(registry) {
+  const lines = registry.split(/\r?\n/).filter((line) => line.startsWith('| '));
+  const cells = (line) => line.split('|').slice(1, -1).map((cell) => cell.trim());
+  const header = cells(lines[0]);
+  const rows = new Map(lines.slice(2).map((line) => {
+    const row = cells(line);
+    return [row[0], Object.fromEntries(header.map((column, index) => [column, row[index]]))];
+  }));
+  return { header, rows };
+}
+
+test('artifact registry binds fictional ownership separately from IVR and documentation authority', () => {
   const registry = readFileSync(join(repoRoot, 'docs/world/artifact-continuity.md'), 'utf8');
-  assert.deepEqual(missingRequiredMarkers(registry, [
+  const { header, rows } = parseArtifactRegistry(registry);
+
+  assert.deepEqual(header, [
+    'Artifact',
+    'Form',
+    'Fictional owner',
     'Number/placement owner',
     'Presented authorship',
     'Operational owner',
-    'INTENTIONALLY UNRESOLVED',
+    'First meaning',
+    'Later meaning',
+    'Recurrence rule',
+    'Forbidden explanation',
     'Documentation authority',
-    'Shared pledge core',
-    'Additional future films beyond the canonical campaign film',
-  ], 'docs/world/artifact-continuity.md'), []);
+  ]);
+  const ownershipColumns = [
+    'Fictional owner',
+    'Number/placement owner',
+    'Presented authorship',
+    'Operational owner',
+    'Documentation authority',
+  ];
+  const ownershipValues = (artifact) => Object.fromEntries(
+    ownershipColumns.map((column) => [column, rows.get(artifact)?.[column]]),
+  );
+  assert.deepEqual(
+    ownershipValues('Printed IVR card'),
+    {
+      'Fictional owner': 'Got Soap?',
+      'Number/placement owner': '—',
+      'Presented authorship': '—',
+      'Operational owner': '—',
+      'Documentation authority': 'Shared world',
+    },
+  );
+  assert.deepEqual(
+    ownershipValues('Shared pledge core'),
+    {
+      'Fictional owner': 'CWAAA',
+      'Number/placement owner': '—',
+      'Presented authorship': '—',
+      'Operational owner': '—',
+      'Documentation authority': 'Shared world (portable pledge contract)',
+    },
+  );
+  assert.deepEqual(
+    ownershipValues('Office pen'),
+    {
+      'Fictional owner': 'Office',
+      'Number/placement owner': '—',
+      'Presented authorship': '—',
+      'Operational owner': '—',
+      'Documentation authority': 'Shared world plus Office package',
+    },
+  );
+  assert.deepEqual(
+    ownershipValues('1-800-GOT-SOAP'),
+    {
+      'Fictional owner': 'INTENTIONALLY UNRESOLVED — no resolved complete fictional owner',
+      'Number/placement owner': 'Got Soap?',
+      'Presented authorship': 'Voice A: Got Soap?; Voice B: appears CWAAA, later identifies Office',
+      'Operational owner': 'INTENTIONALLY UNRESOLVED — no resolved complete operational owner',
+      'Documentation authority': 'Shared world',
+    },
+  );
+  assert.deepEqual(
+    ownershipValues('Event swag table'),
+    {
+      'Fictional owner': 'No single fictional owner; individual artifacts retain theirs',
+      'Number/placement owner': '—',
+      'Presented authorship': '—',
+      'Operational owner': '—',
+      'Documentation authority': 'Shared world',
+    },
+  );
   assert.doesNotMatch(registry, /\| Actual owner \|/i);
+  assert.match(registry, /Additional future films beyond the canonical campaign film/i);
 });
 
 function officeContractSpecimen() {

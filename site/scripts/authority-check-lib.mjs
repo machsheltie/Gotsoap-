@@ -346,13 +346,19 @@ function splitSemanticTokens(text, tokens) {
     const commaConjunction = token.kind === 'text' && token.raw === ','
       ? text.slice(token.start).match(/^,\s+(?:and|but|yet|while)\s+/i)
       : null;
+    const leadingSubordinateComma = token.kind === 'text'
+      && token.raw === ','
+      && /^\s*(?:after|although|as|because|before|even if|even though|if|once|since|though|unless|until|when|whenever|where|whereas|wherever|while)\b/i.test(clauseRaw);
     const documentedListContinuation = (
-      (commaConjunction || (token.kind === 'text' && token.raw === ';'))
+      (commaConjunction || leadingSubordinateComma || (token.kind === 'text' && token.raw === ';'))
       && isDocumentedListContinuation(text, tokens, index, clauseTokens)
     );
-    if (commaConjunction && !documentedListContinuation) {
+    if ((commaConjunction || leadingSubordinateComma) && !documentedListContinuation) {
       emitClause();
-      index = skipTokensBefore(index, token.start + commaConjunction[0].length);
+      const nextPosition = commaConjunction
+        ? token.start + commaConjunction[0].length
+        : token.end;
+      index = skipTokensBefore(index, nextPosition);
       continue;
     }
 
@@ -696,6 +702,19 @@ export function validatePathAwareCanon(path, text) {
   if (lowerPath.endsWith('/cwaaa/prd-cwaaa-web-v1.md')
     && matchingLines(text, /\|\s*\/case-files\s*\|\s*Public case-file index\s*\|/i).length > 0) {
     errors.push(`${path}: obsolete CWAAA public route.`);
+  }
+
+  if (lowerPath.endsWith('/strategy/participation-mechanics.md')) {
+    const obsoleteCaseFilesTarget = /(?:\bcase[- ]files?\b|\/case-files(?:\/\[id\])?)/i;
+    for (const clause of matchingLines(text, obsoleteCaseFilesTarget)) {
+      if (protectedUnresolvedContext(clause, obsoleteCaseFilesTarget, true)) continue;
+      const explicitlyHistoricalRedirect = (
+        /\b(?:current-state migration history|historical migration|combined runtime|legacy)\b/i.test(clause)
+        && /(?:\bredirect(?:s|ed|ing)?\b|→)/i.test(clause)
+      );
+      if (explicitlyHistoricalRedirect) continue;
+      errors.push(`${path}: obsolete CWAAA public Case Files target.`);
+    }
   }
 
   if (/(?:^|\/)docs\/design\.md$/.test(lowerPath)) {

@@ -15,7 +15,7 @@ mechanic belongs where its fictional author can honestly own the action.
 | Poster downloads | **yes** | may cite campaign | never |
 | Scratch-and-sniff gag | **yes** | no | no |
 | Findings | compact campaign teaser only | **full record** | no |
-| Recovery case files | link/teaser | **yes** | no |
+| Recovery Stories | link/teaser | **yes; opened stories may use internal Recovery Records** | no |
 | Washcloth ribbon | seam or pledge badge | **yes** | no |
 | Repeat-access recognition | no | no | **yes, error states only** |
 
@@ -73,13 +73,14 @@ shop unless ecommerce is separately approved.
 The interaction gives a committed response and returns control. It must work by keyboard, provide a
 non-pointer alternative, and avoid indefinite cursor-following animation.
 
-## 5. Findings and case files
+## 5. Findings, Recovery Stories, and Recovery Records
 
 **Purpose:** deepen the movement fiction.
 **Owner:** CWAAA.
 
-Got Soap? may show one compact finding or case-file seam. Full findings, case generation, recovery
-stories, chapter context, and program exits belong on the CWAAA site after extraction.
+Got Soap? may show one compact finding or Recovery Story seam. Full findings, public Recovery
+Stories, internal Recovery Records, chapter context, and program exits belong on the CWAAA site
+after extraction. The internal record label appears only after a visitor opens an individual story.
 
 ## 6. Office repeat-access experience
 
@@ -96,7 +97,7 @@ record, or cross-device recognition.
 | Phase | Mechanics |
 |---|---|
 | Campaign release | Sniff Test, campaign pledge, poster downloads, scratch gag, one CWAAA seam |
-| CWAAA extraction | nonprofit pledge, full findings, case files, ribbon program, cross-site links |
+| CWAAA extraction | nonprofit pledge, full findings, Recovery Stories, Recovery Records, ribbon program, cross-site links |
 | Office release | first-access, same-session refresh, later-return, continued-interest states |
 | Canonical transmedia artifacts | IVR, Office pen, printed card, and event table; implementation may be phased. |
 
