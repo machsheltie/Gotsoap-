@@ -260,10 +260,14 @@ export const home = {
  * (register values there are 'porcelain' | 'smoke' | 'marble' per design.md.)
  */
 export const posterCopy = {
-  /* caseNotes: PSA quality-gap consensus (Vivian⇄Sol R1–R5, 0 deadlocks,
-   * owner-ratified 2026-07-29 — docs/copy/proposals-2026-07-29-psa-casenotes.md).
-   * Five distinct grammatical attacks; only thirst-announcement keeps the
-   * staccato telegraph. Pulls and alts untouched by that pass. */
+  /* caseNotes: PSA quality-gap consensus (proposals-2026-07-29-psa-casenotes.md,
+   * R1–R5) + the surgical pass (proposals-2026-07-29-psa-surgical.md, R1–R4,
+   * owner-ratified 2026-07-30): five distinct grammatical attacks AND five
+   * distinct closing moves — tile specific / Saturday stinger / cornered
+   * question / reported disbelief / validity condition. Redemption runs on a
+   * retail transaction (zero church vocabulary; the church lives in Unholy's
+   * note alone — Redemption's pull and poster keep their own world untouched).
+   * Pulls and alts untouched by both passes. */
   "confident-man": {
     pull: "Because your Axe body spray isn't fooling anyone, cowboy.",
     caseNote:
@@ -279,19 +283,19 @@ export const posterCopy = {
   unholy: {
     pull: "He washes. Daily. With soap. The congregation is asked to remain calm.",
     caseNote:
-      "Blessed — uncommonly, unreasonably blessed — is the man who arrives clean, trailing nothing but steam, because the third pew has spent years downwind of the alternative. One question moves down the row like a collection plate: where has this man been? The water is right there.",
+      "Blessed — uncommonly, unreasonably blessed — is the man who arrives clean, trailing nothing but steam, because the third pew has spent years downwind of the alternative. One question moves down the row like a collection plate: where has this man been?",
     alt: "A brooding man in a towel emerges from black smoke under chrome light, lit like a fragrance ad shot in a cathedral.",
   },
   redemption: {
     pull: "He sinned. He sprayed. He saw the loofah. Anyone can change.",
     caseNote:
-      "For years the aerosol stood in for holy water — one squirt against a body that had wronged every room it entered — until the morning he stepped into actual water, let the steam take the confession and the towel handle the absolution, and walked out the same man into a room that had quietly moved closer. Some of you should start tonight.",
+      "He traded the can in and took the refund in water. One shower — the cheapest exchange on record — and every room he'd ever emptied reopened for business. His friends keep asking what changed. They don't believe it was just soap.",
     alt: "A solemn man with slicked-back wet hair stands in dark smoke and low chrome light — a sinner freshly absolved by warm water.",
   },
   "thirst-announcement": {
     pull: "He's scrubbed, sudsed, and would survive meeting your mother. And you?",
     caseNote:
-      "The background check was your mother, and he passed. The dinner reservation stands. One shower put him in the amber light; the next one keeps him there. Consider this your notice. Wash accordingly.",
+      "The background check was your mother, and he passed. The dinner reservation stands. One shower put him in the amber light. This announcement remains in effect for exactly as long as he keeps showering.",
     alt: "A confident Black man stands against warm amber marble in golden light, meeting the camera with the composure of a man who showered on purpose.",
   },
 } as const;

@@ -630,6 +630,11 @@ rewrites" item in the /psas line above; finals in `copy-correction-plan.md` §4,
   telegraph), only thirst-announcement staccato. `posterCopy.confident-man.caseNote` gains
   its own explicit plan row (was baseline-inherited); the declared row total is now 55.
   Pulls and alts untouched by that pass.
+- **Surgical amendment (owner-ratified 2026-07-30, `proposals-2026-07-29-psa-surgical.md`,
+  R1–R4, 0 deadlocks):** three caseNotes amended in place — unholy ends on the
+  collection-plate question, redemption re-runs on a retail transaction (church vocabulary
+  now Unholy's note alone; redemption's pull/poster untouched), thirst-announcement ends on
+  a validity condition. Row count unchanged; slots 1–2, pulls, alts untouched.
 
 **Out of this pass:** the four missing-content items (plan §8), F1 (`vector2-citation-path-spec.md`),
 and the posters (always).
