@@ -183,6 +183,17 @@
  *    silent pass.
  *  - Extractor mirrors all three.
  *
+ * v3.12 (2026-07-29 — plan-specified render order, closing the source-order
+ * gap Sol proved against 65bcfbc):
+ *  - RENDER ORDER: rows whose plan cell numbers its strings (indexPinned)
+ *    now also assert that the rendered DOM presents those strings at
+ *    monotonically increasing source offsets on each route page carrying
+ *    two or more of them. A deck-correct page shipping the numbered lines
+ *    transposed in DOM order fails with RENDER ORDER. Static offset
+ *    comparison only — bounded to plan-ordered rows; not a CSS or
+ *    visual-order check. This completes the trio: {content presence,
+ *    slot/carrier binding, plan-specified order}.
+ *
  * 2026-07-29 — CSS CHASE FROZEN at v3.11 (owner decision, no logic change):
  *  - The visual-order tripwire (v3.9–v3.11, T33–T41) is reclassified as a
  *    BEST-EFFORT, NON-AUTHORITATIVE heuristic. The contract no longer
@@ -195,17 +206,23 @@
  * ─────────────────────────────────────────────────────────────────────────────
  * SCOPE CONTRACT — the checker's threat model (v3.11, pinned at 60812f7 + r5-r8)
  *
- * WHAT THIS CHECKER DEFENDS AGAINST (in scope): HONEST DRIFT.
- *   Copy changed in copy.ts but not propagated to a route; a correction row
- *   that didn't land or landed in the wrong slot; a route rendering a stale
- *   string from an old build; wrong slot binding (relocation, swap, padding,
- *   superstring, quote-wrapping); carrier transposition in rendered output
- *   (a value wired to the wrong data-error-for / data-share-* / button
- *   carrier — v3.8 binds value↔carrier, closing the swap class structurally);
- *   arity and leaf mismatches against the pinned baseline;
- *   truncated/padded/substituted plan artifacts; partial or stubbed dist.
- *   These are the failure shapes an honest edit of copy.ts, a .astro
- *   component, or a build can actually produce.
+ * WHAT THIS CHECKER STATICALLY VERIFIES — EXACTLY THREE THINGS (v3.12,
+ * terminating contract):
+ *   1. CONTENT PRESENCE — every agreed string exists, exactly, at its slot
+ *      in the deck and renders on its route(s) in dist (stale builds,
+ *      dropped copy, padding, superstrings, truncated/substituted plan
+ *      artifacts, partial/stubbed dist all fail).
+ *   2. SLOT/CARRIER BINDING — each value sits in ITS slot (exact leaf,
+ *      index-pinned, baseline-anchored) and renders in ITS carrier
+ *      (data-error-for / data-share-* / action buttons); relocation, swap,
+ *      transposition, quote-wrapping, arity stowaways all fail.
+ *   3. PLAN-SPECIFIED ORDER — where the plan numbers a row's strings, both
+ *      the deck array indices AND the rendered DOM source offsets must
+ *      present them in that order.
+ *   This trio is COMPLETE coverage of statically-checkable honest drift:
+ *   any honest edit of copy.ts, a .astro component, or a build that changes
+ *   what copy ships, where it binds, or the order the plan declared, fails
+ *   one of the three. What remains outside is declared below — not open.
  *
  * OUT OF SCOPE, BY DESIGN: DELIBERATE SOURCE SABOTAGE.
  *   Agreed copy hidden in inert or undeclared DOM, non-string members
@@ -242,8 +259,10 @@
  *      head, that row must be re-verified before the plan is accepted.
  *   3. CSS-COMPUTED VISUAL ORDER — FROZEN as a declared limit (owner
  *      decision, 2026-07-29, superseding the v3.9–v3.11 in-scope claim).
- *      The checker verifies COPY CONTENT and SLOT/CARRIER BINDING in
- *      DOM/source order. It does NOT model CSS-computed visual reordering
+ *      The checker verifies content presence, slot/carrier binding, and
+ *      plan-specified order — all in DOM/SOURCE order (plan-numbered rows
+ *      are offset-asserted in the rendered DOM, v3.12). It does NOT model
+ *      CSS-computed visual reordering
  *      of any kind — flex/grid direction and `order`, rtl/writing modes,
  *      nesting, var()/calc() indirection, selector resolution, positioning,
  *      transforms, floats, or any other layout-engine outcome. A layout
@@ -1223,11 +1242,33 @@ for (const row of rows) {
             r.notes.push(`NOT RENDERED on ${where}: "${s.slice(0, 45)}…" — dist is stale, the surface dropped the agreed copy, or it renders off its slug-exact route`);
           }
         }
-        // VISUAL-ORDER TRIPWIRE (v3.9, Sol round 6): the plan's declared
-        // intra-row order (numbered lines, quote sequences) must not be
-        // flippable by CSS. Two or more of this row's strings inside one
-        // order-altering container = the shipped visual order can contradict
-        // the plan while DOM source order still reads correct.
+        // PLAN-SPECIFIED RENDER ORDER (v3.12): a row whose plan cell NUMBERS
+        // its strings declares their order, and the rendered DOM must present
+        // them in that order — a static source-offset comparison on the
+        // page's extracted text, bounded to plan-ordered rows only. This is
+        // NOT a CSS or visual-order check; it completes the source-order
+        // guarantee the contract states.
+        if (indexPinned && numPairs.length >= 2) {
+          const ordered = [...numPairs].sort((a, b) => a.n - b.n);
+          for (const p of routePages) {
+            const present = ordered
+              .map((x) => ({ n: x.n, s: x.s, off: p.text.indexOf(x.s) }))
+              .filter((x) => x.off >= 0);
+            if (present.length < 2) continue;
+            for (let i = 1; i < present.length; i++) {
+              if (present[i].off < present[i - 1].off) {
+                r.ok = false;
+                r.notes.push(`RENDER ORDER: plan line ${present[i].n} ("${present[i].s.slice(0, 40)}…") renders BEFORE plan line ${present[i - 1].n} in the DOM on ${p.rel} — rendered order contradicts the plan's numbering`);
+              }
+            }
+          }
+        }
+        // VISUAL-ORDER TRIPWIRE (v3.9, Sol round 6; best-effort heuristic —
+        // see scope contract limit #3): the plan's declared intra-row order
+        // (numbered lines, quote sequences) must not be flippable by CSS.
+        // Two or more of this row's strings inside one order-altering
+        // container = the shipped visual order can contradict the plan while
+        // DOM source order still reads correct.
         if (strings.length >= 2) {
           for (const p of routePages) {
             for (const el of reversedContainersOf(p)) {
@@ -1257,7 +1298,7 @@ const landed = results.filter((r) => r.ok).length;
 // vocabulary. Test mode renders every count as "N of M".
 const frac = (a, b) => (TEST_MODE ? `${a} of ${b}` : `${a}/${b}`);
 out();
-out(`  fidelity check v3.11${banner} — extraction from ${PLAN}`);
+out(`  fidelity check v3.12${banner} — extraction from ${PLAN}`);
 out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${frac(rows.length, declaredRows)} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
 // VOCABULARY SPLIT (v3.4, Sol): test-mode output shares NO success vocabulary
@@ -1276,7 +1317,7 @@ for (const r of results) {
   if (!r.ok) for (const n of r.notes) out(`          ${n}`);
 }
 out();
-out(`  rows parsed: ${results.length} · ${TEST_MODE ? 'sim rows green' : 'landed'}: ${frac(landed, results.length)} · binding: exact leaf, index-ordered, consume-once (padding/superstring/swap fail); fragments end-anchored to the same baseline leaf · rendered-output asserted per route + carrier-bound (visual-order tripwire: best-effort heuristic, outside the guarantee)`);
+out(`  rows parsed: ${results.length} · ${TEST_MODE ? 'sim rows green' : 'landed'}: ${frac(landed, results.length)} · binding: exact leaf, index-ordered, consume-once (padding/superstring/swap fail); fragments end-anchored to the same baseline leaf · rendered-output asserted per route + carrier-bound + plan-order in DOM (visual-order tripwire: best-effort heuristic, outside the guarantee)`);
 out(`  authoritative: ${TEST_MODE ? 'NO — TEST MODE' : 'yes (proof mode, overrides rejected)'}`);
 out(`  exit contract: proof 0=landed · 1=failed/fatal/override — test mode 3=landed · 2=failed/fatal (never 0 or 1). Direct invocation only: a pipeline reports the LAST command's status — use pipefail (bash) or check $LASTEXITCODE (PowerShell).`);
 if (!TEST_MODE && landed === results.length)

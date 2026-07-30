@@ -564,6 +564,20 @@ scenario('T41 var() indirection: flex-direction:var(--sol-flow) resolving to col
     ':root{--sol-flow:column-reverse}.mv__inner{display:flex;flex-direction:var(--sol-flow)}'),
 }, { exit: 2, mustSee: ['VISUAL ORDER'], branded: true });
 
+// Sol HOLD upheld (2026-07-29, vs 65bcfbc): plan-specified render order. The
+// plan NUMBERS the movement lines; the deck can be correct while the
+// rendered DOM presents them transposed. This is a static source-offset
+// assertion on plan-ordered rows — not a CSS or visual-order check.
+{
+  const d = join(tmp, 'dist-dom-order-swap');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'index.html');
+  writeFileSync(hp, swapIn(readFileSync(hp, 'utf8'), movementBody[0], movementBody[1], 'T42'));
+  scenario('T42 DOM order swap: plan-numbered movement lines transposed in rendered source order', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['RENDER ORDER'], branded: true });
+}
+
 /* ---------- verdict -------------------------------------------------------- */
 
 const bad = results.filter((r) => !r.ok);
