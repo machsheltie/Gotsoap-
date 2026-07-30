@@ -42,16 +42,19 @@ export const PLACEMENT_HUB_WIDE_MEDIA = '(min-width: 768px)';
  *  never a crop of the wide master (§4.1) — hence two separate coordinate sets. */
 export const placementHub = {
   wide: [
+    /* Entry order = plaque listing order (PSA close-out reorder, 2026-07-30:
+       Unholy and Redemption separated). Coordinates are geometry in the
+       composite art and do NOT move with a reorder. */
     { slug: 'confident-man', title: "A Clean Man Is A Confident Man", x: 4, y: 18, w: 17 },
-    { slug: 'soap-smoldering', title: "Soap-Smoldering", x: 24, y: 30, w: 15 },
     { slug: 'unholy', title: "Unholy", x: 41.5, y: 12, w: 19 },
+    { slug: 'soap-smoldering', title: "Soap-Smoldering", x: 24, y: 30, w: 15 },
     { slug: 'redemption', title: "The Redemption Ad", x: 63, y: 28, w: 15.5 },
     { slug: 'thirst-announcement', title: "Public Thirst Announcement", x: 81, y: 16, w: 16 },
   ],
   portrait: [
     { slug: 'confident-man', title: "A Clean Man Is A Confident Man", x: 5, y: 5, w: 36 },
-    { slug: 'soap-smoldering', title: "Soap-Smoldering", x: 55, y: 10, w: 34 },
     { slug: 'unholy', title: "Unholy", x: 12, y: 36, w: 40 },
+    { slug: 'soap-smoldering', title: "Soap-Smoldering", x: 55, y: 10, w: 34 },
     { slug: 'redemption', title: "The Redemption Ad", x: 60, y: 42, w: 32 },
     { slug: 'thirst-announcement', title: "Public Thirst Announcement", x: 26, y: 70, w: 42 },
   ],

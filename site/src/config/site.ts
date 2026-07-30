@@ -84,6 +84,13 @@ export interface Poster {
  * Derivatives live at src/assets/posters/<slug>.jpg; full-quality
  * download targets at public/downloads/<slug>.jpg.
  */
+/* Running order (PSA close-out, owner order 2026-07-30): Unholy and The
+ * Redemption are both canonically religious posters (sacrosanct concept);
+ * 3/3 blind readers blurred them when ADJACENT. Soap-Smoldering now sits
+ * between them, so they are neither consecutive in the series nor each
+ * other's Prev/Next. Registers alternate porcelain→smoke→porcelain→smoke→
+ * marble. `order` drives Prev/Next and JSON-LD position; keep the array
+ * sequence and the order fields in agreement. */
 export const POSTERS: Poster[] = [
   {
     slug: 'confident-man',
@@ -93,18 +100,18 @@ export const POSTERS: Poster[] = [
     file: 'cleanmansatire.jpg',
   },
   {
-    slug: 'soap-smoldering',
-    order: 2,
-    register: 'porcelain',
-    title: 'Soap-Smoldering',
-    file: 'cleanmansatire2.jpg',
-  },
-  {
     slug: 'unholy',
-    order: 3,
+    order: 2,
     register: 'smoke',
     title: 'Unholy',
     file: 'cleanmansatire3.jpg',
+  },
+  {
+    slug: 'soap-smoldering',
+    order: 3,
+    register: 'porcelain',
+    title: 'Soap-Smoldering',
+    file: 'cleanmansatire2.jpg',
   },
   {
     slug: 'redemption',

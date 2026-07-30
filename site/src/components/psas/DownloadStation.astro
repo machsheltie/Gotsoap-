@@ -19,9 +19,12 @@ const notice = psas.downloadNotice;
 ---
 
 <section class="download-station">
-  <h2 class="download-heading">{notice.heading}</h2>
   <!-- Phase 4 consensus (F15): the full distribution notice renders ONCE on
-       the /psas index; detail stations carry the chrome-short line only. -->
+       the /psas index; detail stations carry the chrome-short line only.
+       PSA close-out (2026-07-30): the station HEADING is index-only too —
+       here it literally duplicated the button label ("Take one for the
+       wall"), and the ×5 display-type repeat smothered each page's body
+       closer. The button carries the phrase; the compact line stays. -->
   <p class="download-body">{notice.compact}</p>
   <Button
     label={notice.button}
@@ -31,12 +34,6 @@ const notice = psas.downloadNotice;
 </section>
 
 <style>
-  .download-heading {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: var(--step-2);
-    margin-block-end: var(--space-xs);
-  }
   .download-body {
     font-family: var(--font-fine);
     font-size: var(--step--1);

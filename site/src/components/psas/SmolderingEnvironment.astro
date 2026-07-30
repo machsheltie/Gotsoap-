@@ -65,7 +65,11 @@ const {
   <div class="hook-stand">
     <p class="hook">{pull}</p>
     <span class="chrome-baseline" aria-hidden="true"></span>
-    <p class="hook-mirror" aria-hidden="true">{pull}</p>
+    <!-- The counter reflection is PAINT, not text (QA fix 2026-07-30): the
+         pull previously rendered twice as document text and read as a
+         duplicated line in any text extraction. The pseudo-element sources
+         it from the attribute, so the sentence exists once. -->
+    <p class="hook-mirror" aria-hidden="true" data-text={pull}></p>
   </div>
 
   <div class="inspect">
@@ -180,6 +184,11 @@ const {
     background: linear-gradient(180deg, #f7f7f9 0%, #b9b9c1 34%, #6d6d76 60%, #e3e3ea 100%);
     border-radius: 1px;
     box-shadow: 0 2px 6px rgba(14, 14, 16, 0.18);
+  }
+  .hook-mirror::before {
+    /* The reflection's glyphs come from the data attribute — decorative
+       paint only; the pull exists once as document text (in .hook). */
+    content: attr(data-text);
   }
   .hook-mirror {
     max-inline-size: 13ch;
