@@ -2075,7 +2075,6 @@ export function renderMarkdownReport(report) {
     "",
     "The JSON report is the machine-readable audit record:",
     "`site/reports/font-audit.json`.",
-    "",
   ];
 
   return `${lines.join("\n")}\n`;
