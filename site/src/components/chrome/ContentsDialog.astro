@@ -195,7 +195,7 @@ const closeLabel = register === 'cwaaa' ? contents.closeCwaaa : contents.close;
   }
 
   .ct--campaign .ct__title {
-    font-family: var(--font-display);
+    font-family: var(--font-command);
     font-weight: 600;
     font-size: clamp(2.2rem, 9vw, 3rem);
     /* ≥1.05: sub-1.0 display leading is the clipping class (home pass 2026-07-16). */
@@ -205,8 +205,8 @@ const closeLabel = register === 'cwaaa' ? contents.closeCwaaa : contents.close;
     margin: 0;
   }
   .ct--campaign .ct__close {
-    font-family: var(--font-label);
-    font-weight: 800;
+    font-family: var(--font-interface);
+    font-weight: 500;
     font-size: clamp(0.6rem, 0.9vw, 0.72rem);
     letter-spacing: 0.26em;
     text-transform: uppercase;
@@ -225,7 +225,7 @@ const closeLabel = register === 'cwaaa' ? contents.closeCwaaa : contents.close;
     );
   }
   .ct--campaign .ct__group-label {
-    font-family: var(--font-fine);
+    font-family: var(--font-production);
     color: color-mix(in srgb, var(--grout-black) 55%, var(--steam-white));
   }
   .ct--campaign .ct__link {
@@ -233,7 +233,7 @@ const closeLabel = register === 'cwaaa' ? contents.closeCwaaa : contents.close;
   }
   /* Home anchors: the oversized editorial entries — the ToC's display voice. */
   .ct--campaign .ct__link--anchor {
-    font-family: var(--font-display);
+    font-family: var(--font-command);
     font-weight: 600;
     font-size: clamp(1.9rem, 7.5vw, 2.6rem);
     line-height: 1.12;
@@ -249,8 +249,8 @@ const closeLabel = register === 'cwaaa' ? contents.closeCwaaa : contents.close;
   }
   /* Route exits: the tracked institutional row. */
   .ct--campaign .ct__link--route {
-    font-family: var(--font-label);
-    font-weight: 800;
+    font-family: var(--font-interface);
+    font-weight: 500;
     font-size: clamp(0.72rem, 1.1vw, 0.85rem);
     letter-spacing: 0.24em;
     text-transform: uppercase;
@@ -330,6 +330,16 @@ const closeLabel = register === 'cwaaa' ? contents.closeCwaaa : contents.close;
   }
   .ct--cwaaa .ct__link--return {
     color: var(--cwaaa-stamp);
+  }
+
+  /* Locked mobile control floor from typography-spec.md §3. */
+  @media (max-width: 640px) {
+    .ct--campaign .ct__close,
+    .ct--campaign .ct__link--route,
+    .ct--cwaaa .ct__close,
+    .ct--cwaaa .ct__link--route {
+      font-size: 0.9375rem;
+    }
   }
 
   /* §6/§11: reduced motion resolves every state instantly. */

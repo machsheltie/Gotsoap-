@@ -1,7 +1,7 @@
 # Runtime typography remap design
 
-**Status:** approved for implementation  
-**Date:** 2026-07-30  
+**Status:** approved for implementation
+**Date:** 2026-07-30
 **Scope:** the transitional Astro runtime in `site/`
 
 ## Outcome

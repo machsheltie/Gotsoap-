@@ -60,6 +60,7 @@ const shareText = share;
   ogImage={ogImage}
   ogType="article"
   register={register}
+  fontSystems={['campaign', 'cwaaa']}
 >
   <div class="verdict">
     <VerdictCard verdict={{ slug, register, name, lead, body }} />
@@ -135,7 +136,7 @@ const shareText = share;
     gap: var(--space-md);
   }
   .verdict__cue {
-    font-family: var(--font-body);
+    font-family: var(--font-editorial);
     font-weight: 500;
     font-size: var(--step-1);
     color: var(--reg-heading);

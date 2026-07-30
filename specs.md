@@ -354,6 +354,7 @@ The production folio credit is approved verbatim and does not require copy-lane 
 - Home and `/psas` meet Lighthouse 90 or better on mobile under the PRD test profile.
 - The contents dialog passes keyboard, focus-trap, Escape, focus-return, zoom, and no-JavaScript tests.
 - `site/src` contains no `100vh` declarations.
+- `site/package.json`, `site/package-lock.json`, and runtime source contain no `@fontsource/*` dependency or import; all runtime font binaries resolve from an approved role in `site/config/font-manifest.json` through `site/public/fonts/` and `/fonts/…` URLs. Always-live G19 rejects missing, unassigned, external, ranged-static, and synthetic delivery, and only an explicit owner approval recorded in the font-delivery authority may change the dependency rule.
 - The production folio credit appears in the **footer** (not above the fold — struck by the 2026-07-15 owner amendment, §3.7) without replacing the `/about` reveal, and the masthead carries no real-world maker credit.
 
 ## Asset dependencies for Stacey

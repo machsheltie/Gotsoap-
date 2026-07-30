@@ -1,0 +1,103 @@
+/* Got Soap? campaign font authority — approved files only. */
+@font-face {
+  font-family: 'Got Soap Oswald';
+  src: url('/fonts/oswald-500.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Got Soap Oswald';
+  src: url('/fonts/oswald-600.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Got Soap Oswald';
+  src: url('/fonts/oswald-700.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'Got Soap Behind The Nineties Sans';
+  src: url('/fonts/Behind-The-Nineties-Sans-Rg.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+}
+@font-face {
+  font-family: 'Got Soap Behind The Nineties Sans';
+  src: url('/fonts/Behind-The-Nineties-Sans-It.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 400;
+  font-display: fallback;
+}
+@font-face {
+  font-family: 'Got Soap Behind The Nineties Sans';
+  src: url('/fonts/Behind-The-Nineties-Sans-Md.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Got Soap Behind The Nineties Sans';
+  src: url('/fonts/Behind-The-Nineties-Sans-Smbd.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Got Soap Behind The Nineties Sans';
+  src: url('/fonts/Behind-The-Nineties-Sans-Blk.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 900;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'Got Soap Moxie';
+  src: url('/fonts/Moxie Twist.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: 'Got Soap Marlin SQ';
+  src: url('/fonts/marlin-sans-sq-book.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Got Soap Marlin SQ';
+  src: url('/fonts/marlin-sans-sq-medium.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Got Soap Marlin SQ';
+  src: url('/fonts/marlin-sans-sq-bold.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Got Soap Moanslight';
+  src: url('/fonts/Moanslight-Medium.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: fallback;
+}
+@font-face {
+  font-family: 'Got Soap Moanslight';
+  src: url('/fonts/Moanslight-Semibold.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: fallback;
+}

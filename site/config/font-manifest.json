@@ -1,0 +1,920 @@
+{
+  "schemaVersion": 1,
+  "fontRoot": "public/fonts",
+  "outputs": {
+    "json": "reports/font-audit.json",
+    "markdown": "../docs/gotsoap/font-binary-audit.md"
+  },
+  "glyphSets": {
+    "campaignSpecimen": "got soap?\n\n“Clean is not a personality. It is the minimum.”\nDON’T MAKE HER ASK TWICE.\n\nCAMPAIGN SPOT 03 / UNHOLY\nEDITION 01 · 2400 × 3000 PX\nRUN TIME 00:00:30\nMASTER 4K UHD · 23.976 FPS\n\n$38.00\n1-800-GOT-SOAP\nForm CW-1\nPSA No. 04\n© 2026 Hope2 Studio\nStacey M. Breckel\n\n& ? ! % / \\ + – — … ' ’ “ ”\n0 1 2 3 4 5 6 7 8 9\n× · • # @ ™ ®",
+    "accentedLatin": "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒÙÚÛÜÝŸ\nàáâãäåæçèéêëìíîïñòóôõöøœùúûüýÿ"
+  },
+  "metricFallbackPolicy": {
+    "mode": "candidate-generation-only",
+    "calculationBasis": "x-height-ratio",
+    "approved": false,
+    "automaticallyApplied": false,
+    "browserProofRequired": [
+      "stable line counts",
+      "stable navigation width",
+      "stable button dimensions",
+      "no major paragraph reflow",
+      "no broken crop",
+      "no control movement during font swap"
+    ],
+    "referenceProfiles": {
+      "aptos-narrow-regular-2.01": {
+        "family": "Aptos Narrow",
+        "source": {
+          "type": "binary-reference",
+          "provider": "Microsoft",
+          "collection": "Microsoft Aptos Fonts",
+          "downloadVersion": "4.40",
+          "fontVersion": "Version 2.01;240513210638;O365",
+          "file": "Aptos-Narrow.ttf",
+          "binarySha256": "3366e06e61643449cadb19c6d2a617d341915471b3985dc4049c58d8d4153253",
+          "bundleSha256": "6528fd120e719a9f985e94214eca6887d1653b88456916a792a630b02e95b025",
+          "capturedWith": "fontkit 2.0.4",
+          "url": "https://www.microsoft.com/en-us/download/details.aspx?id=106087"
+        },
+        "metrics": {
+          "unitsPerEm": 2048,
+          "ascent": 1923,
+          "descent": -577,
+          "lineGap": 0,
+          "capHeight": 1346,
+          "xHeight": 1016
+        }
+      },
+      "aptos-regular-2.01": {
+        "family": "Aptos",
+        "source": {
+          "type": "binary-reference",
+          "provider": "Microsoft",
+          "collection": "Microsoft Aptos Fonts",
+          "downloadVersion": "4.40",
+          "fontVersion": "Version 2.01;240513210638;O365",
+          "file": "Aptos.ttf",
+          "binarySha256": "01bbd2d3bd483045e1dbf4f106935cb86478b937f8d334258ad12eea60554a05",
+          "bundleSha256": "6528fd120e719a9f985e94214eca6887d1653b88456916a792a630b02e95b025",
+          "capturedWith": "fontkit 2.0.4",
+          "url": "https://www.microsoft.com/en-us/download/details.aspx?id=106087"
+        },
+        "metrics": {
+          "unitsPerEm": 2048,
+          "ascent": 1923,
+          "descent": -577,
+          "lineGap": 0,
+          "capHeight": 1346,
+          "xHeight": 974
+        }
+      },
+      "arial-regular-7.06": {
+        "family": "Arial",
+        "source": {
+          "type": "binary-reference",
+          "provider": "Microsoft",
+          "platform": "Windows",
+          "fontVersion": "Version 7.06",
+          "file": "arial.ttf",
+          "binarySha256": "b3658eadae55e682b5f69eb64c439c1ecc8f196c0bb8d4756d145d13bc86476a",
+          "capturedWith": "fontkit 2.0.4"
+        },
+        "metrics": {
+          "unitsPerEm": 2048,
+          "ascent": 1854,
+          "descent": -434,
+          "lineGap": 67,
+          "capHeight": 1467,
+          "xHeight": 1062
+        }
+      },
+      "georgia-regular-5.59": {
+        "family": "Georgia",
+        "source": {
+          "type": "binary-reference",
+          "provider": "Microsoft",
+          "platform": "Windows",
+          "fontVersion": "Version 5.59",
+          "file": "georgia.ttf",
+          "binarySha256": "38dffcaf1fac89492f7c56c600a14daf36ae42f7c21985cd4134ae113124a58f",
+          "capturedWith": "fontkit 2.0.4"
+        },
+        "metrics": {
+          "unitsPerEm": 2048,
+          "ascent": 1878,
+          "descent": -449,
+          "lineGap": 0,
+          "capHeight": 1419,
+          "xHeight": 986
+        }
+      },
+      "helvetica-neue-regular-capsize-4.2.0": {
+        "family": "Helvetica Neue",
+        "source": {
+          "type": "reference-metrics-dataset",
+          "provider": "@capsizecss/metrics",
+          "version": "4.2.0",
+          "profile": "helveticaNeue/regular",
+          "url": "https://www.npmjs.com/package/@capsizecss/metrics"
+        },
+        "metrics": {
+          "unitsPerEm": 1000,
+          "ascent": 952,
+          "descent": -213,
+          "lineGap": 28,
+          "capHeight": 714,
+          "xHeight": 517
+        }
+      }
+    },
+    "principalMatches": [
+      {
+        "family": "Oswald",
+        "principalFile": "oswald-600.woff2",
+        "fallbackCandidates": [
+          {
+            "family": "Arial Narrow"
+          },
+          {
+            "family": "Aptos Narrow",
+            "profileId": "aptos-narrow-regular-2.01"
+          }
+        ]
+      },
+      {
+        "family": "Behind The Nineties Sans",
+        "principalFile": "Behind-The-Nineties-Sans-Md.woff2",
+        "fallbackCandidates": [
+          {
+            "family": "Aptos",
+            "profileId": "aptos-regular-2.01"
+          },
+          {
+            "family": "Arial",
+            "profileId": "arial-regular-7.06"
+          }
+        ]
+      },
+      {
+        "family": "Moxie Twist",
+        "principalFile": "Moxie Twist.woff2",
+        "fallbackCandidates": [
+          {
+            "family": "Didot"
+          },
+          {
+            "family": "Bodoni MT"
+          },
+          {
+            "family": "Georgia",
+            "profileId": "georgia-regular-5.59"
+          }
+        ]
+      },
+      {
+        "family": "Marlin Sans SQ",
+        "principalFile": "marlin-sans-sq-medium.woff2",
+        "fallbackCandidates": [
+          {
+            "family": "Helvetica Neue",
+            "profileId": "helvetica-neue-regular-capsize-4.2.0"
+          },
+          {
+            "family": "Arial",
+            "profileId": "arial-regular-7.06"
+          }
+        ]
+      },
+      {
+        "family": "Moanslight",
+        "principalFile": "Moanslight-Medium.woff2",
+        "fallbackCandidates": [
+          {
+            "family": "Helvetica Neue",
+            "profileId": "helvetica-neue-regular-capsize-4.2.0"
+          },
+          {
+            "family": "Arial",
+            "profileId": "arial-regular-7.06"
+          }
+        ]
+      }
+    ]
+  },
+  "inspection": {
+    "glyphs": [
+      "A",
+      "x",
+      "0",
+      "?",
+      "&",
+      "$",
+      "©",
+      "™",
+      "@",
+      "é",
+      "—",
+      "“"
+    ],
+    "layoutSamples": [
+      {
+        "id": "wordmark",
+        "text": "got soap?"
+      },
+      {
+        "id": "poster-callout",
+        "text": "DON’T MAKE HER ASK TWICE."
+      },
+      {
+        "id": "production-metadata",
+        "text": "MASTER 4K UHD · 23.976 FPS"
+      },
+      {
+        "id": "ligature-probe",
+        "text": "office affinity",
+        "features": [
+          "liga"
+        ]
+      },
+      {
+        "id": "numerals",
+        "text": "0123456789"
+      }
+    ],
+    "kerningPairs": [
+      "AV",
+      "To",
+      "WA",
+      "Yo"
+    ],
+    "numerals": "0123456789"
+  },
+  "families": [
+    {
+      "declaredFamily": "Oswald",
+      "system": "gotsoap",
+      "role": "commands and campaign headers",
+      "authority": "owner-approved-production-role",
+      "requiredGlyphSets": [
+        "campaignSpecimen",
+        "accentedLatin"
+      ],
+      "files": [
+        {
+          "file": "oswald-500.woff2",
+          "declaredWeight": 500,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "Oswald Medium",
+            "subfamilyName": "Regular",
+            "postscriptName": "Oswald-Medium",
+            "weightClass": 500,
+            "italic": false
+          },
+          "role": "internal campaign commands",
+          "delivery": {
+            "preload": "route-conditional",
+            "fontDisplay": "swap",
+            "scope": "route"
+          },
+          "copyLaneCharacters": "CAMPAIGN SPOT 03 / UNHOLY"
+        },
+        {
+          "file": "oswald-600.woff2",
+          "declaredWeight": 600,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "Oswald SemiBold",
+            "subfamilyName": "Regular",
+            "postscriptName": "Oswald-SemiBold",
+            "weightClass": 600,
+            "italic": false
+          },
+          "role": "hero, route, and identity commands",
+          "delivery": {
+            "preload": "global",
+            "fontDisplay": "swap",
+            "scope": "global"
+          },
+          "copyLaneCharacters": "got soap? DON’T MAKE HER ASK TWICE."
+        },
+        {
+          "file": "oswald-700.woff2",
+          "declaredWeight": 700,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "Oswald",
+            "subfamilyName": "Bold",
+            "postscriptName": "Oswald-Bold",
+            "weightClass": 700,
+            "italic": false
+          },
+          "role": "rare flagship emphasis",
+          "delivery": {
+            "preload": "route-conditional",
+            "fontDisplay": "fallback",
+            "scope": "route"
+          },
+          "copyLaneCharacters": "UNHOLY THIRST REDEMPTION"
+        }
+      ]
+    },
+    {
+      "declaredFamily": "Behind The Nineties Sans",
+      "system": "gotsoap",
+      "role": "campaign persuasion and editorial display",
+      "authority": "owner-approved-production-role",
+      "requiredGlyphSets": [
+        "campaignSpecimen",
+        "accentedLatin"
+      ],
+      "files": [
+        {
+          "file": "Behind-The-Nineties-Sans-Md.woff2",
+          "role": "body",
+          "declaredWeight": 500,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "Behind The Nineties Sans Medium",
+            "subfamilyName": "Regular",
+            "postscriptName": "Behind-The-Nineties-Sans-Md",
+            "weightClass": 500,
+            "italic": false
+          },
+          "delivery": {
+            "preload": "global",
+            "fontDisplay": "swap",
+            "scope": "global"
+          },
+          "copyLaneGlyphSets": [
+            "campaignSpecimen",
+            "accentedLatin"
+          ],
+          "expectedAlternateTags": [
+            "aalt"
+          ]
+        },
+        {
+          "file": "Behind-The-Nineties-Sans-Smbd.woff2",
+          "role": "editorial-major",
+          "declaredWeight": 600,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "Behind The Nineties Sans Smbold",
+            "subfamilyName": "Regular",
+            "postscriptName": "Behind-The-Nineties-Sans-Smbd",
+            "weightClass": 600,
+            "italic": false
+          },
+          "delivery": {
+            "preload": "route-conditional",
+            "fontDisplay": "swap",
+            "scope": "route"
+          },
+          "copyLaneCharacters": "Clean is not a personality. It is the minimum.",
+          "expectedAlternateTags": [
+            "aalt"
+          ]
+        },
+        {
+          "file": "Behind-The-Nineties-Sans-Rg.woff2",
+          "role": "confession",
+          "declaredWeight": 400,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "Behind The Nineties Sans",
+            "subfamilyName": "Regular",
+            "postscriptName": "Behind-The-Nineties-Sans-Rg",
+            "weightClass": 400,
+            "italic": false
+          },
+          "delivery": {
+            "preload": "route-conditional",
+            "fontDisplay": "fallback",
+            "scope": "route"
+          },
+          "copyLaneCharacters": "“Clean is not a personality. It is the minimum.”",
+          "expectedAlternateTags": [
+            "aalt"
+          ]
+        },
+        {
+          "file": "Behind-The-Nineties-Sans-It.woff2",
+          "role": "italic",
+          "declaredWeight": 400,
+          "declaredStyle": "italic",
+          "expected": {
+            "familyName": "Behind The Nineties Sans",
+            "subfamilyName": "Italic",
+            "postscriptName": "Behind-The-Nineties-Sans-It",
+            "weightClass": 400,
+            "italic": true
+          },
+          "delivery": {
+            "preload": "route-conditional",
+            "fontDisplay": "fallback",
+            "scope": "route"
+          },
+          "copyLaneCharacters": "“Clean is not a personality. It is the minimum.”",
+          "expectedAlternateTags": [
+            "aalt"
+          ]
+        },
+        {
+          "file": "Behind-The-Nineties-Sans-Blk.woff2",
+          "role": "rare display",
+          "declaredWeight": 900,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "Behind The Nineties Sans Black",
+            "subfamilyName": "Regular",
+            "postscriptName": "Behind-The-Nineties-Sans-Blk",
+            "weightClass": 900,
+            "italic": false
+          },
+          "delivery": {
+            "preload": "route-conditional",
+            "fontDisplay": "fallback",
+            "scope": "route"
+          },
+          "copyLaneCharacters": "DON’T MAKE HER ASK TWICE.",
+          "expectedAlternateTags": [
+            "aalt"
+          ]
+        }
+      ]
+    },
+    {
+      "declaredFamily": "Moxie Twist",
+      "system": "gotsoap",
+      "role": "sensual accent",
+      "authority": "owner-approved-production-role",
+      "requiredGlyphSets": [
+        "campaignSpecimen",
+        "accentedLatin"
+      ],
+      "files": [
+        {
+          "file": "Moxie Twist.woff2",
+          "declaredWeight": 400,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "Moxie Twist",
+            "subfamilyName": "Regular",
+            "postscriptName": "MoxieTwist",
+            "weightClass": 400,
+            "italic": false
+          },
+          "role": "sensual accent",
+          "delivery": {
+            "preload": "route-conditional",
+            "fontDisplay": "fallback",
+            "scope": "route"
+          },
+          "copyLaneCharacters": "got soap?"
+        }
+      ]
+    },
+    {
+      "declaredFamily": "Marlin Sans SQ",
+      "system": "gotsoap",
+      "role": "operational metadata",
+      "authority": "owner-approved-production-role",
+      "requiredGlyphSets": [
+        "campaignSpecimen",
+        "accentedLatin"
+      ],
+      "files": [
+        {
+          "file": "marlin-sans-sq-book.woff2",
+          "declaredWeight": 400,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "FSP DEMO - Marlin Sans SQ",
+            "subfamilyName": "Regular",
+            "postscriptName": "FONTSPRINGDEMO-MarlinSansSQRegular",
+            "weightClass": 350,
+            "italic": false
+          },
+          "role": "utility and longer functional copy",
+          "delivery": {
+            "preload": "none",
+            "fontDisplay": "swap",
+            "scope": "global"
+          },
+          "copyLaneCharacters": "FORM CW-1 PSA NO. 04 $38.00 0123456789"
+        },
+        {
+          "file": "marlin-sans-sq-medium.woff2",
+          "declaredWeight": 500,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "FSP DEMO - Marlin Sans SQ Med",
+            "subfamilyName": "Regular",
+            "postscriptName": "FONTSPRINGDEMO-MarlinSansSQMedRegular",
+            "weightClass": 500,
+            "italic": false
+          },
+          "role": "navigation, controls, labels, and answers",
+          "delivery": {
+            "preload": "global",
+            "fontDisplay": "swap",
+            "scope": "global"
+          },
+          "copyLaneCharacters": "NAVIGATION CONTROLS LABELS ANSWERS 0123456789"
+        },
+        {
+          "file": "marlin-sans-sq-bold.woff2",
+          "declaredWeight": 700,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "FSP DEMO - Marlin Sans SQ",
+            "subfamilyName": "Bold",
+            "postscriptName": "FONTSPRINGDEMO-MarlinSansSQBold",
+            "weightClass": 700,
+            "italic": false
+          },
+          "role": "selected active-state emphasis",
+          "delivery": {
+            "preload": "route-conditional",
+            "fontDisplay": "swap",
+            "scope": "route"
+          },
+          "copyLaneCharacters": "SELECTED ACTIVE 0123456789"
+        }
+      ]
+    },
+    {
+      "declaredFamily": "Moanslight",
+      "system": "gotsoap",
+      "role": "credits and release card",
+      "authority": "owner-approved-production-role",
+      "requiredGlyphSets": [
+        "campaignSpecimen",
+        "accentedLatin"
+      ],
+      "files": [
+        {
+          "file": "Moanslight-Medium.woff2",
+          "declaredWeight": 500,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "Moanslight Medium",
+            "subfamilyName": "Regular",
+            "postscriptName": "Moanslight-Medium",
+            "weightClass": 500,
+            "italic": false
+          },
+          "role": "production notation",
+          "delivery": {
+            "preload": "route-conditional",
+            "fontDisplay": "fallback",
+            "scope": "route"
+          },
+          "copyLaneCharacters": "MASTER 4K UHD · 23.976 FPS RUN TIME 00:00:30",
+          "expectedAlternateTags": [
+            "ss01",
+            "aalt",
+            "salt"
+          ]
+        },
+        {
+          "file": "Moanslight-Semibold.woff2",
+          "declaredWeight": 600,
+          "declaredStyle": "normal",
+          "expected": {
+            "familyName": "Moanslight Semibold",
+            "subfamilyName": "Regular",
+            "postscriptName": "Moanslight-Semibold",
+            "weightClass": 600,
+            "italic": false
+          },
+          "role": "campaign folio and production label",
+          "delivery": {
+            "preload": "route-conditional",
+            "fontDisplay": "fallback",
+            "scope": "route"
+          },
+          "copyLaneCharacters": "CAMPAIGN SPOT 03 · EDITION 01",
+          "expectedAlternateTags": [
+            "ss01",
+            "aalt",
+            "salt"
+          ]
+        }
+      ]
+    }
+  ],
+  "manualChecks": [
+    {
+      "id": "distribution-license",
+      "status": "unresolved",
+      "note": "Font metadata and OS/2 embedding bits do not establish permission to distribute approved binaries from a public repository or as webfonts."
+    },
+    {
+      "id": "marlin-production-binaries",
+      "status": "unresolved",
+      "note": "The assigned Marlin files identify themselves as FSP DEMO builds and carry preview/print-only embedding metadata; production replacements are required before release."
+    },
+    {
+      "id": "moanslight-weight-policy",
+      "status": "locked",
+      "note": "Only Medium 500 and Semibold 600 are assigned approved production roles; all other checked-in Moanslight weights are unassigned."
+    },
+    {
+      "id": "unassigned-font-policy",
+      "status": "locked",
+      "note": "Unassigned files are not defective; they are not authorized for CSS declaration or network delivery."
+    },
+    {
+      "id": "css-metric-overrides",
+      "status": "locked",
+      "note": "The audit generates candidate-only metric overrides. They are not canonical or applied until owner-approved browser proof satisfies every locked stability check."
+    }
+  ],
+  "glyphAudit": {
+    "sharedSpecimenSet": "campaignSpecimen"
+  },
+  "openTypePolicy": {
+    "mode": "inventory-only",
+    "inventoryTags": [
+      "kern",
+      "liga",
+      "clig",
+      "calt",
+      "dlig",
+      "tnum",
+      "pnum",
+      "onum",
+      "lnum",
+      "case"
+    ],
+    "tagPolicies": {
+      "kern": "natural-default",
+      "liga": "natural-default",
+      "clig": "natural-default",
+      "calt": "locked-off",
+      "dlig": "locked-off",
+      "tnum": "support-proven-only",
+      "pnum": "preserve-default",
+      "onum": "locked-off",
+      "lnum": "preserve-default",
+      "case": "locked-off"
+    },
+    "stylisticSets": "locked-off",
+    "swashes": "locked-off",
+    "alternates": "locked-off",
+    "swashFeatureTags": [
+      "swsh",
+      "cswh"
+    ],
+    "alternateFeatureTags": [
+      "aalt",
+      "salt",
+      "nalt"
+    ],
+    "familyLocks": {
+      "Marlin Sans SQ": {
+        "id": "marlin-canonical-punctuation",
+        "rule": "Marlin SQ punctuation remains canonical; alternate glyph systems stay off."
+      },
+      "Moanslight": {
+        "id": "moanslight-no-decorative-alternates",
+        "rule": "Moanslight does not gain decorative alternates."
+      }
+    }
+  },
+  "glyphCategories": {
+    "curlyQuotations": {
+      "label": "curly quotations",
+      "characters": "“”"
+    },
+    "apostrophes": {
+      "label": "apostrophes",
+      "characters": "'’"
+    },
+    "dashes": {
+      "label": "en and em dashes",
+      "characters": "–—"
+    },
+    "ellipsis": {
+      "label": "ellipsis",
+      "characters": "…"
+    },
+    "multiplicationSign": {
+      "label": "multiplication sign",
+      "characters": "×"
+    },
+    "middleDot": {
+      "label": "middle dot",
+      "characters": "·"
+    },
+    "currencySymbols": {
+      "label": "currency symbols",
+      "characters": "$"
+    },
+    "copyrightTrademark": {
+      "label": "copyright and trademark marks",
+      "characters": "©™®"
+    },
+    "accentedLatin": {
+      "label": "accented Latin characters",
+      "characters": "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØŒÙÚÛÜÝŸàáâãäåæçèéêëìíîïñòóôõöøœùúûüýÿ"
+    },
+    "wordmarkQuestionMark": {
+      "label": "wordmark question mark",
+      "characters": "?"
+    }
+  },
+  "transferBudget": {
+    "unit": "bytes",
+    "thresholds": {
+      "targetBytes": 200000,
+      "failureBytes": 250000
+    },
+    "preloadCeilings": {
+      "ordinary": 3,
+      "rareDocumentedException": 4
+    },
+    "criticalFiles": [
+      "oswald-600.woff2",
+      "Behind-The-Nineties-Sans-Md.woff2",
+      "marlin-sans-sq-medium.woff2"
+    ],
+    "routeProfiles": [
+      {
+        "id": "campaign-core",
+        "label": "Ordinary campaign route",
+        "files": [
+          "oswald-600.woff2",
+          "Behind-The-Nineties-Sans-Md.woff2",
+          "marlin-sans-sq-medium.woff2"
+        ]
+      },
+      {
+        "id": "internal-command",
+        "label": "Internal campaign command route",
+        "files": [
+          "oswald-600.woff2",
+          "Behind-The-Nineties-Sans-Md.woff2",
+          "marlin-sans-sq-medium.woff2",
+          "oswald-500.woff2"
+        ]
+      },
+      {
+        "id": "flagship-emphasis",
+        "label": "Rare flagship emphasis route",
+        "files": [
+          "oswald-600.woff2",
+          "Behind-The-Nineties-Sans-Md.woff2",
+          "marlin-sans-sq-medium.woff2",
+          "oswald-700.woff2"
+        ]
+      },
+      {
+        "id": "editorial-major",
+        "label": "Editorial-major route",
+        "files": [
+          "oswald-600.woff2",
+          "Behind-The-Nineties-Sans-Md.woff2",
+          "marlin-sans-sq-medium.woff2",
+          "Behind-The-Nineties-Sans-Smbd.woff2"
+        ]
+      },
+      {
+        "id": "confession",
+        "label": "Confession route",
+        "files": [
+          "oswald-600.woff2",
+          "Behind-The-Nineties-Sans-Md.woff2",
+          "marlin-sans-sq-medium.woff2",
+          "Behind-The-Nineties-Sans-Rg.woff2",
+          "Behind-The-Nineties-Sans-It.woff2"
+        ]
+      },
+      {
+        "id": "sensual-accent",
+        "label": "Sensual-accent route",
+        "files": [
+          "oswald-600.woff2",
+          "Behind-The-Nineties-Sans-Md.woff2",
+          "marlin-sans-sq-medium.woff2",
+          "Moxie Twist.woff2"
+        ]
+      },
+      {
+        "id": "selected-functional",
+        "label": "Selected functional-state route",
+        "files": [
+          "oswald-600.woff2",
+          "Behind-The-Nineties-Sans-Md.woff2",
+          "marlin-sans-sq-medium.woff2",
+          "marlin-sans-sq-bold.woff2"
+        ]
+      },
+      {
+        "id": "production-notation",
+        "label": "Production-notation route",
+        "files": [
+          "oswald-600.woff2",
+          "Behind-The-Nineties-Sans-Md.woff2",
+          "marlin-sans-sq-medium.woff2",
+          "Moanslight-Medium.woff2",
+          "Moanslight-Semibold.woff2"
+        ]
+      }
+    ],
+    "rarePreloadException": null,
+    "commercialFilePatterns": [
+      "^Behind-The-Nineties-Sans-",
+      "^Moxie Twist\\.woff2$",
+      "^marlin-sans-sq-",
+      "^Moanslight-"
+    ]
+  },
+  "system": "gotsoap",
+  "sourcePaths": [
+    "src/styles/fonts-gotsoap.css",
+    "src/layouts/BaseLayout.astro"
+  ],
+  "externalAuthorities": [
+    {
+      "system": "cwaaa",
+      "manifest": "config/cwaaa-font-manifest.json"
+    }
+  ],
+  "prohibitedRuntimeFamilies": [
+    "Oswald",
+    "Jost",
+    "Libre Franklin",
+    "Montserrat"
+  ],
+  "prohibitedRuntimeTokens": [
+    "--font-display",
+    "--font-body",
+    "--font-label",
+    "--font-fine"
+  ],
+  "fontRolePolicy": {
+    "--font-command": {
+      "weights": [
+        500,
+        600,
+        700
+      ],
+      "styles": [
+        "normal"
+      ]
+    },
+    "--font-editorial": {
+      "weights": [
+        400,
+        500,
+        600,
+        900
+      ],
+      "styles": [
+        "normal",
+        "italic"
+      ]
+    },
+    "--font-whisper": {
+      "weights": [
+        400
+      ],
+      "styles": [
+        "normal"
+      ]
+    },
+    "--font-interface": {
+      "weights": [
+        400,
+        500,
+        700
+      ],
+      "styles": [
+        "normal"
+      ]
+    },
+    "--font-production": {
+      "weights": [
+        500,
+        600
+      ],
+      "styles": [
+        "normal"
+      ]
+    },
+    "--font-cwaaa": {
+      "weights": [
+        400,
+        700
+      ],
+      "styles": [
+        "normal",
+        "italic"
+      ]
+    }
+  }
+}

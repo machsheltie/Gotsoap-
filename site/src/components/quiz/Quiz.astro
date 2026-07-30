@@ -144,7 +144,7 @@ const configJson = JSON.stringify(quizConfig);
     align-items: center;
   }
   .quiz__title {
-    font-family: var(--font-display);
+    font-family: var(--font-command);
     font-weight: 700;
     font-size: clamp(4rem, 15vw, 12rem);
     /* Display type never runs a sub-1.0 line box (the home clipping pass,
@@ -156,7 +156,7 @@ const configJson = JSON.stringify(quizConfig);
     letter-spacing: -0.04em;
   }
   .quiz__lead {
-    font-family: var(--font-body);
+    font-family: var(--font-editorial);
     font-size: clamp(1.2rem, 3vw, 2.5rem);
     line-height: 1.2;
     color: var(--reg-fg);
@@ -166,7 +166,7 @@ const configJson = JSON.stringify(quizConfig);
   }
   .quiz__credit {
     margin-top: var(--space-xl);
-    font-family: var(--font-fine);
+    font-family: var(--font-production);
     font-size: clamp(0.7rem, 1vw, 0.9rem);
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -174,7 +174,7 @@ const configJson = JSON.stringify(quizConfig);
   }
 
   .quiz__begin {
-    font-family: var(--font-display);
+    font-family: var(--font-command);
     font-weight: 700;
     font-size: clamp(2rem, 5vw, 4rem);
     text-transform: lowercase;
@@ -233,7 +233,7 @@ const configJson = JSON.stringify(quizConfig);
     padding-top: 3vh;
   }
   .quiz__btn {
-    font-family: var(--font-display);
+    font-family: var(--font-command);
     font-weight: 700;
     font-size: clamp(1.5rem, 3vw, 2.5rem);
     text-transform: lowercase;
@@ -258,7 +258,8 @@ const configJson = JSON.stringify(quizConfig);
   .quiz__persist {
     margin-block-start: 2vh;
     text-align: right;
-    font-family: var(--font-fine);
+    font-family: var(--font-editorial);
+    font-weight: 400;
     font-size: var(--step--1);
     font-style: italic;
     color: var(--reg-muted);
@@ -275,7 +276,7 @@ const configJson = JSON.stringify(quizConfig);
     display: none;
   }
   .quiz__beat-line {
-    font-family: var(--font-display);
+    font-family: var(--font-command);
     font-size: clamp(3rem, 8vw, 6rem);
     /* ≥1.05: sub-1.0 display leading is the clipping class (home pass 2026-07-16). */
     line-height: 1.05;
@@ -313,7 +314,7 @@ const configJson = JSON.stringify(quizConfig);
   }
 
   .quiz__noscript {
-    font-family: var(--font-body);
+    font-family: var(--font-editorial);
     font-size: var(--step-1);
     text-align: center;
     color: var(--reg-fg);

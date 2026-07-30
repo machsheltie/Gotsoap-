@@ -1,109 +1,8 @@
 /* ============================================================================
    tokens.css — Got Soap? design tokens (design.md §5)
-   9 color tokens · 5 self-hosted type faces · fluid type scale ·
-   register utility classes (the two-author system, enforced) · FX helpers.
-   No color or font is used raw anywhere else — everything routes through here.
+   Color, semantic typography, fluid scale, register classes, and FX helpers.
+   Font binaries are declared in system-scoped stylesheets selected by BaseLayout.
    ========================================================================== */
-
-/* ---- Self-hosted fonts (WOFF2, Latin subset, swap). NO font CDN. ---------- */
-/* Files vendored from @fontsource/* into /public/fonts (see repo). */
-
-@font-face {
-  font-family: 'Oswald';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/oswald-500.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Oswald';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('/fonts/oswald-600.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Oswald';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('/fonts/oswald-700.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Jost';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/jost-400.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Jost';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/jost-500.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Libre Franklin';
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url('/fonts/libre-franklin-800.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Libre Franklin';
-  font-style: normal;
-  font-weight: 900;
-  font-display: swap;
-  src: url('/fonts/libre-franklin-900.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/montserrat-400.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/montserrat-500.woff2') format('woff2');
-}
-
-/* PT Serif — QUARANTINED to CWAAA-authored surfaces only (design.md §5). */
-@font-face {
-  font-family: 'PT Serif';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/pt-serif-400.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'PT Serif';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('/fonts/pt-serif-700.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'PT Serif';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/pt-serif-400-italic.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'PT Serif';
-  font-style: italic;
-  font-weight: 700;
-  font-display: swap;
-  src: url('/fonts/pt-serif-700-italic.woff2') format('woff2');
-}
 
 :root {
   /* ---- Color tokens (design.md §5) — the ONLY hex in the system. -------- */
@@ -120,12 +19,15 @@
   --cwaaa-ink: #2f3e5c; /* ballpoint navy: text, seal line-work */
   --cwaaa-stamp: #a63d2f; /* rubber-stamp red: SWORN, ribbon, required marks */
 
-  /* ---- Type faces (roles per design.md §5 / PRD §7) -------------------- */
-  --font-display: 'Oswald', 'Arial Narrow', system-ui, sans-serif;
-  --font-body: 'Jost', system-ui, sans-serif;
-  --font-label: 'Libre Franklin', system-ui, sans-serif;
-  --font-fine: 'Montserrat', system-ui, sans-serif;
+  /* ---- Type voices (typography-spec.md / font-asset-resolution.md) ------ */
+  font-synthesis: none;
+  --font-command: 'Got Soap Oswald', 'Arial Narrow', 'Aptos Narrow', Arial, sans-serif;
+  --font-editorial: 'Got Soap Behind The Nineties Sans', Aptos, Arial, sans-serif;
+  --font-whisper: 'Got Soap Moxie', Didot, 'Bodoni MT', Georgia, serif;
+  --font-interface: 'Got Soap Marlin SQ', 'Helvetica Neue', Arial, sans-serif;
+  --font-production: 'Got Soap Moanslight', 'Helvetica Neue', Arial, sans-serif;
   --font-cwaaa: 'PT Serif', Georgia, 'Times New Roman', serif;
+
 
   /* ---- Fluid type scale (clamp: 360px → 1440px+) ----------------------- */
   --step--2: clamp(0.69rem, 0.66rem + 0.13vw, 0.75rem); /* fine print */
@@ -163,6 +65,70 @@
   --reg-accent: var(--marble-amber);
   --reg-muted: var(--chrome-mist);
   --reg-rule: color-mix(in srgb, var(--chrome-mist) 30%, transparent);
+}
+
+/* ---- Canonical type-role utilities -------------------------------------- */
+.type-command-hero,
+.type-command-route,
+.type-identity {
+  font-family: var(--font-command);
+  font-weight: 600;
+}
+.type-command-section {
+  font-family: var(--font-command);
+  font-weight: 500;
+}
+.type-command-flagship {
+  font-family: var(--font-command);
+  font-weight: 700;
+}
+.type-editorial-major {
+  font-family: var(--font-editorial);
+  font-weight: 600;
+}
+.type-confession {
+  font-family: var(--font-editorial);
+  font-weight: 400;
+}
+.type-confession-italic {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+}
+.type-body,
+.type-body-large {
+  font-family: var(--font-editorial);
+  font-weight: 500;
+}
+.type-editorial-display {
+  font-family: var(--font-editorial);
+  font-weight: 900;
+}
+.type-whisper {
+  font-family: var(--font-whisper);
+  font-style: normal;
+  font-weight: 400;
+}
+.type-control {
+  font-family: var(--font-interface);
+  font-weight: 500;
+}
+.type-utility,
+.type-micro {
+  font-family: var(--font-interface);
+  font-weight: 400;
+}
+.type-control-emphasis {
+  font-family: var(--font-interface);
+  font-weight: 700;
+}
+.type-production {
+  font-family: var(--font-production);
+  font-weight: 500;
+}
+.type-production-label {
+  font-family: var(--font-production);
+  font-weight: 600;
 }
 
 /* ============================================================================
