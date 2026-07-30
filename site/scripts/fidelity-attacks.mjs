@@ -661,6 +661,25 @@ scenario('T41 var() indirection: flex-direction:var(--sol-flow) resolving to col
   }, { exit: 2, mustSee: ['carrier'], branded: true });
 }
 
+// Sol HOLD upheld (2026-07-29, vs 0707650): cross-page masking. A correct
+// occurrence on one route hid a superstring occurrence on another behind the
+// own-count gate. Exact content is a PER-OCCURRENCE invariant: every
+// occurrence of a bound carrier, on every route, must equal its expected
+// value — independent of correct occurrences elsewhere.
+{
+  const d = join(tmp, 'dist-rotation-junk-one');
+  cpSync(distCopy, d, { recursive: true });
+  const member = deck.scratchGag.rotation[1];
+  const escaped = member.replace(/"/g, '&quot;');
+  const hp = join(d, 'about', 'index.html');
+  const raw = readFileSync(hp, 'utf8');
+  if (!raw.includes(escaped)) throw new Error('T47: rotation member not on about page');
+  writeFileSync(hp, raw.replaceAll(escaped, escaped + ' (revised)'));
+  scenario('T47 cross-page masking: rotation member junked on ONE route while every other route stays exact', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['SUPERSTRING'], branded: true });
+}
+
 /* ---------- verdict -------------------------------------------------------- */
 
 const bad = results.filter((r) => !r.ok);

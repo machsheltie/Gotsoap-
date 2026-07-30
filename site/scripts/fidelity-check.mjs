@@ -221,6 +221,13 @@
  *    contract: silent-drift guarantee; runtime-breaking shape errors out of
  *    scope; never coerce invalid input into a pass.
  *
+ * v3.15 (2026-07-29 — per-occurrence exact content, vs 0707650):
+ *  - NO CROSS-PAGE MASKING: exact content is a PER-OCCURRENCE invariant —
+ *    every occurrence of a bound carrier, on every route, must equal its
+ *    expected value; a superstring occurrence fails the row regardless of
+ *    how many exact occurrences exist elsewhere. One rule closes
+ *    scalar-superstring, list-superstring, and cross-page masking.
+ *
  * 2026-07-29 — CSS CHASE FROZEN at v3.11 (owner decision, no logic change):
  *  - The visual-order tripwire (v3.9–v3.11, T33–T41) is reclassified as a
  *    BEST-EFFORT, NON-AUTHORITATIVE heuristic. The contract no longer
@@ -1272,11 +1279,13 @@ for (const row of rows) {
           // title/text) now fails even though both strings stay on the page.
           const spec = carrierSpec(boundPathByString.get(s) || labeledPath || '');
           if (spec) {
-            // EXACT CONTENT (v3.13, Sol): carriers hold the exact deck value,
-            // so ownership is EQUALITY — value-plus-appendix is a different
-            // value and fails as "own carrier lacks the exact value". A
-            // superstring occurrence in the OWN carrier is reported
-            // distinctly so the appendix is visible in the note.
+            // EXACT CONTENT — PER-OCCURRENCE INVARIANT (v3.15, Sol): every
+            // occurrence of the bound carrier, on every route, must exactly
+            // equal its expected value. A violating occurrence fails the row
+            // INDEPENDENT of how many correct occurrences exist elsewhere —
+            // a correct pledge carrier can never vouch for a junked about
+            // carrier. own-count answers only "does it render at all";
+            // superstring/mis-carried occurrences fail unconditionally.
             let own = 0; const wrong = []; const superstrings = [];
             for (const p of pages) {
               const car = carriersOf(p);
@@ -1298,11 +1307,13 @@ for (const row of rows) {
                 }
               }
             }
+            if (superstrings.length) {
+              r.ok = false;
+              r.notes.push(`carrier SUPERSTRING: ${spec.label} carries the agreed text plus an appendix (exact content required, per occurrence) at: ${superstrings.join(', ')}`);
+            }
             if (own === 0) {
               r.ok = false;
-              r.notes.push(superstrings.length
-                ? `carrier SUPERSTRING: ${spec.label} carries the agreed text plus an appendix (exact content required) at: ${superstrings.join(', ')}`
-                : `NOT RENDERED in its own carrier ${spec.label} (exact content): "${s.slice(0, 45)}…" — dropped, stale, padded, or transposed away`);
+              r.notes.push(`NOT RENDERED in its own carrier ${spec.label} (exact content): "${s.slice(0, 45)}…" — dropped, stale, padded, or transposed away`);
             }
             if (wrong.length) { r.ok = false; r.notes.push(`MIS-CARRIED: "${s.slice(0, 45)}…" belongs in ${spec.label} but renders in: ${wrong.join(', ')}`); }
             continue;
@@ -1371,7 +1382,7 @@ const landed = results.filter((r) => r.ok).length;
 // vocabulary. Test mode renders every count as "N of M".
 const frac = (a, b) => (TEST_MODE ? `${a} of ${b}` : `${a}/${b}`);
 out();
-out(`  fidelity check v3.14${banner} — extraction from ${PLAN}`);
+out(`  fidelity check v3.15${banner} — extraction from ${PLAN}`);
 out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${frac(rows.length, declaredRows)} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
 // VOCABULARY SPLIT (v3.4, Sol): test-mode output shares NO success vocabulary
