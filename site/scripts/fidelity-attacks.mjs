@@ -634,6 +634,33 @@ scenario('T41 var() indirection: flex-direction:var(--sol-flow) resolving to col
   }, { exit: 2, mustSee: ['carrier'], branded: true });
 }
 
+// Sol HOLD upheld (2026-07-29, vs 9d2dab0): list-carrier coercion. The
+// checker wrapped a non-array into a synthetic one-member array, fabricating
+// a member match for a shape the runtime rejects. A list carrier must BE a
+// list; the checker must never coerce invalid input into a pass.
+{
+  const d = join(tmp, 'dist-rotation-scalar');
+  cpSync(distCopy, d, { recursive: true });
+  const member = deck.scratchGag.rotation[1];
+  const scalar = JSON.stringify(member).replace(/"/g, '&quot;'); // valid JSON scalar, NOT an array
+  let hitPages = 0;
+  (function walkHtml(dir) {
+    for (const n of readdirSync(dir)) {
+      const p = join(dir, n);
+      if (statSync(p).isDirectory()) walkHtml(p);
+      else if (n.endsWith('.html')) {
+        const raw = readFileSync(p, 'utf8');
+        const mutated = raw.replace(/data-rotation="[^"]*"/g, 'data-rotation="' + scalar + '"');
+        if (mutated !== raw) { writeFileSync(p, mutated); hitPages++; }
+      }
+    }
+  })(d);
+  if (hitPages === 0) throw new Error('T46: no data-rotation attributes found');
+  scenario('T46 list-carrier coercion: data-rotation ships a valid-JSON scalar, not an array (all pages)', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['carrier'], branded: true });
+}
+
 /* ---------- verdict -------------------------------------------------------- */
 
 const bad = results.filter((r) => !r.ok);

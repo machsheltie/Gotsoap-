@@ -212,6 +212,15 @@
  *    boundary), not an oversight. Named/bound content is exact; free prose
  *    is declared.
  *
+ * v3.14 (2026-07-29 — list-carrier coercion, vs 9d2dab0):
+ *  - NO COERCION: data-rotation must parse to an actual Array; a valid-JSON
+ *    scalar or malformed JSON contributes NO members (previously a
+ *    synthetic one-member array fabricated a match for a shape the runtime
+ *    rejects). Only string members count. Bound rows over a broken carrier
+ *    fail closed (own === 0). Terminating principle added to the scope
+ *    contract: silent-drift guarantee; runtime-breaking shape errors out of
+ *    scope; never coerce invalid input into a pass.
+ *
  * 2026-07-29 — CSS CHASE FROZEN at v3.11 (owner decision, no logic change):
  *  - The visual-order tripwire (v3.9–v3.11, T33–T41) is reclassified as a
  *    BEST-EFFORT, NON-AUTHORITATIVE heuristic. The contract no longer
@@ -242,6 +251,15 @@
  *   any honest edit of copy.ts, a .astro component, or a build that changes
  *   what copy ships, where it binds, or the order the plan declared, fails
  *   one of the three. What remains outside is declared below — not open.
+ *
+ * TERMINATING PRINCIPLE (v3.14): the checker guarantees against SILENT
+ *   copy drift — states a visitor could receive as the real site with the
+ *   wrong words. Runtime-breaking shape/type errors (a list carrier
+ *   shipping a scalar, malformed JSON, wrong-typed members) are OUT OF
+ *   SCOPE: the runtime rejects them and visual QA sees the breakage. But
+ *   the checker must NEVER COERCE invalid input into a pass — invalid
+ *   shape contributes nothing to any assertion, so a bound row over a
+ *   broken carrier fails closed, never open.
  *
  * OUT OF SCOPE, BY DESIGN: DELIBERATE SOURCE SABOTAGE.
  *   Agreed copy hidden in inert or undeclared DOM, non-string members
@@ -778,10 +796,15 @@ function carriersOf(p) {
   for (const m of clean.matchAll(/\s(data-share-title|data-share-text|alt|aria-label)="([^"]*)"/g))
     (attrs[m[1]] ??= []).push(nrm(m[2]));
   for (const m of clean.matchAll(/\sdata-rotation="([^"]*)"/g)) {
-    let members;
-    try { members = JSON.parse(unescapeHtml(m[1])); } catch { members = [m[1]]; }
-    if (!Array.isArray(members)) members = [members];
-    for (const v of members) (attrs['data-rotation'] ??= []).push(nrm(String(v)));
+    // v3.14 (Sol): a LIST carrier must BE a list. A valid-JSON scalar or
+    // malformed JSON is a runtime-breaking shape error — the checker never
+    // coerces invalid input into members; the carrier contributes nothing
+    // and the bound row fails on own === 0. Only string members count.
+    let members = null;
+    try { members = JSON.parse(unescapeHtml(m[1])); } catch { /* malformed — contributes nothing */ }
+    if (Array.isArray(members))
+      for (const v of members)
+        if (typeof v === 'string') (attrs['data-rotation'] ??= []).push(nrm(v));
   }
   const errors = [], actions = [];
   for (const m of clean.matchAll(/<(\w+)\b[^>]*\bdata-error-for="([^"]*)"[^>]*>([\s\S]*?)<\/\1\s*>/g))
@@ -1348,7 +1371,7 @@ const landed = results.filter((r) => r.ok).length;
 // vocabulary. Test mode renders every count as "N of M".
 const frac = (a, b) => (TEST_MODE ? `${a} of ${b}` : `${a}/${b}`);
 out();
-out(`  fidelity check v3.13${banner} — extraction from ${PLAN}`);
+out(`  fidelity check v3.14${banner} — extraction from ${PLAN}`);
 out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${frac(rows.length, declaredRows)} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
 // VOCABULARY SPLIT (v3.4, Sol): test-mode output shares NO success vocabulary
