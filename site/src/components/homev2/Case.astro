@@ -196,7 +196,7 @@ const rail = crisis.findings.rows.find((r) => r.tag.endsWith('26-02'))!;
   .case__manifesto {
     display: flex;
     flex-direction: column;
-    font-family: var(--font-display);
+    font-family: var(--font-command);
     font-weight: 700;
     font-size: clamp(2.75rem, 8.5vw, 7rem);
     /* ≥1.05: sub-1.0 display leading is the clipping class (home pass 2026-07-16);
@@ -214,7 +214,7 @@ const rail = crisis.findings.rows.find((r) => r.tag.endsWith('26-02'))!;
     color: var(--marble-amber-ink);
   }
   .case__creed {
-    font-family: var(--font-display);
+    font-family: var(--font-command);
     font-weight: 500;
     font-size: clamp(1.1rem, 2.2vw, 1.7rem);
     line-height: 1.2;
@@ -238,15 +238,15 @@ const rail = crisis.findings.rows.find((r) => r.tag.endsWith('26-02'))!;
       0 10px 26px -14px rgba(20, 16, 10, 0.4);
   }
   .case__plaque-title {
-    font-family: var(--font-label);
-    font-weight: 800;
+    font-family: var(--font-interface);
+    font-weight: 500;
     font-size: var(--step--1);
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--grout-black);
   }
   .case__plaque-note {
-    font-family: var(--font-fine);
+    font-family: var(--font-production);
     font-size: var(--step--2);
     line-height: 1.5;
     color: color-mix(in srgb, var(--grout-black) 62%, var(--steam-white));
@@ -260,7 +260,7 @@ const rail = crisis.findings.rows.find((r) => r.tag.endsWith('26-02'))!;
     position: relative;
     display: inline-block;
     overflow: hidden;
-    font-family: var(--font-display);
+    font-family: var(--font-command);
     font-weight: 700;
     /* background-clip:text paints only the padding box — and overflow:hidden
        (which contains the shine pass) clips to it — so the 0.82 line box
@@ -314,7 +314,7 @@ const rail = crisis.findings.rows.find((r) => r.tag.endsWith('26-02'))!;
   }
 
   .case__text {
-    font-family: var(--font-display);
+    font-family: var(--font-command);
     font-weight: 500;
     font-size: clamp(1.15rem, 2.3vw, 1.85rem);
     line-height: 1.2;
@@ -322,7 +322,7 @@ const rail = crisis.findings.rows.find((r) => r.tag.endsWith('26-02'))!;
     max-width: 30ch;
   }
   .case__tag {
-    font-family: var(--font-fine);
+    font-family: var(--font-production);
     font-size: var(--step--2);
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -397,8 +397,8 @@ const rail = crisis.findings.rows.find((r) => r.tag.endsWith('26-02'))!;
     margin-top: clamp(3rem, 7vh, 4.5rem);
   }
   .case__link {
-    font-family: var(--font-label);
-    font-weight: 800;
+    font-family: var(--font-interface);
+    font-weight: 500;
     font-size: clamp(0.85rem, 1.4vw, 1.05rem);
     letter-spacing: 0.16em;
     text-transform: uppercase;

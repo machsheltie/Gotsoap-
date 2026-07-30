@@ -23,6 +23,8 @@ import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative, extname } from 'node:path';
 import { gzipSync } from 'node:zlib';
 
+import { collectFontPolicyViolations } from './font-policy-check.mjs';
+
 const SRC = 'src';
 const DIST = 'dist';
 const CHECK_BUILD = process.argv.includes('--build');
@@ -46,6 +48,7 @@ const PHASE_OWNER = {
   G10: 4,
   G8: 5, G18: 5,
   G13: 6,
+  G19: 0, // always live: dependency and delivery loophole must never reopen
   G14: 0, // always live: passes in dev, fatal under --prod
 };
 
@@ -573,6 +576,112 @@ if (CHECK_BUILD) {
       : fail('G16', '§3.3', `HOME_FLAGSHIP = '${val ?? '?'}' — owner decision 2026-07-15 is 'unholy'`,
           m ? [{ file: 'src/config/site.ts', line: 0, text: m[0] }] : []);
   }
+}
+
+/* ── GATE 19 — fonts are self-hosted; Fontsource is dependency-prohibited ─── */
+/* Owner decision 2026-07-29: package convenience may not silently replace the
+ * curated typography package. Every font binary resolves through public/fonts,
+ * and Fontsource packages are forbidden in the manifest, lockfile, and source
+ * unless the owner explicitly approves a policy change. This gate is always live. */
+{
+  const packageJsonText = read('package.json');
+  const packageLockText = read('package-lock.json');
+  const fontManifestText = read(join('config', 'font-manifest.json'));
+  const parseProblems = [];
+  let packageJson;
+  let packageLock;
+  let fontManifest;
+
+  try {
+    packageJson = JSON.parse(packageJsonText ?? '');
+  } catch {
+    parseProblems.push('package.json is missing or invalid JSON');
+  }
+
+  try {
+    packageLock = JSON.parse(packageLockText ?? '');
+  } catch {
+    parseProblems.push('package-lock.json is missing or invalid JSON');
+  }
+
+  try {
+    fontManifest = JSON.parse(fontManifestText ?? '');
+  } catch {
+    parseProblems.push('config/font-manifest.json is missing or invalid JSON');
+  }
+
+  const campaignFontFiles = (fontManifest?.families ?? []).flatMap((family) =>
+    (family.files ?? []).map((font) => font.file),
+  );
+  const externalAuthorities = (fontManifest?.externalAuthorities ?? []).map((authority) => {
+    const manifestText = read(authority.manifest);
+    try {
+      const externalManifest = JSON.parse(manifestText ?? '');
+      return {
+        system: authority.system ?? externalManifest.system,
+        sourcePaths: externalManifest.sourcePaths ?? [],
+        files: (externalManifest.families ?? []).flatMap((family) =>
+          (family.files ?? []).map((font) => font.file),
+        ),
+      };
+    } catch {
+      parseProblems.push(`${authority.manifest} is missing or invalid JSON`);
+      return { system: authority.system, sourcePaths: [], files: [] };
+    }
+  });
+  const approvedFontFiles = [
+    ...campaignFontFiles,
+    ...externalAuthorities.flatMap((authority) => authority.files),
+  ];
+  const fontAuthorities = Object.fromEntries([
+    ...campaignFontFiles.map((file) => [
+      file,
+      { system: fontManifest?.system ?? 'gotsoap', sourcePaths: fontManifest?.sourcePaths ?? [] },
+    ]),
+    ...externalAuthorities.flatMap((authority) =>
+      authority.files.map((file) => [
+        file,
+        { system: authority.system, sourcePaths: authority.sourcePaths },
+      ]),
+    ),
+  ]);
+  const fontDir = join('public', 'fonts');
+  const publicFontFiles = existsSync(fontDir)
+    ? readdirSync(fontDir).filter((name) => statSync(join(fontDir, name)).isFile())
+    : [];
+  const policyProblems = parseProblems.length
+    ? parseProblems
+    : collectFontPolicyViolations({
+        packageJson,
+        packageLock,
+        sourceFiles: sources(),
+        publicFontFiles,
+        approvedFontFiles,
+        variableFontFiles: (fontManifest?.families ?? []).flatMap((family) =>
+          (family.files ?? [])
+            .filter((font) => font.declaredStructure === 'variable')
+            .map((font) => font.file),
+        ),
+        fontAuthorities,
+        requireSynthesisLock: true,
+        requiredPreloadFiles: fontManifest?.transferBudget?.criticalFiles ?? [],
+        prohibitedRuntimeFamilies: fontManifest?.prohibitedRuntimeFamilies ?? [],
+        prohibitedRuntimeTokens: fontManifest?.prohibitedRuntimeTokens ?? [],
+        fontRolePolicy: fontManifest?.fontRolePolicy ?? {},
+      });
+
+  policyProblems.length
+    ? fail(
+        'G19',
+        'font delivery',
+        `${policyProblems.length} font policy violation(s) — Got Soap? fonts must load only from site/public/fonts and @fontsource/* requires explicit owner approval`,
+        policyProblems.map((text) => ({ file: 'font-policy', line: 0, text })),
+      )
+    : pass(
+        'G19',
+        'font delivery',
+        'dependency graph is Fontsource-free and every source font resolves to an approved manifest role in public/fonts',
+      );
 }
 
 /* ── report ───────────────────────────────────────────────────────────────── */

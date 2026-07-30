@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "system": "cwaaa",
+  "fontRoot": "public/fonts",
+  "sourcePaths": [
+    "src/styles/fonts-cwaaa.css"
+  ],
+  "families": [
+    {
+      "declaredFamily": "PT Serif",
+      "system": "cwaaa",
+      "authority": "system-scoped-production-role",
+      "files": [
+        {
+          "file": "pt-serif-400.woff2",
+          "declaredWeight": 400,
+          "declaredStyle": "normal",
+          "role": "advocacy body"
+        },
+        {
+          "file": "pt-serif-700.woff2",
+          "declaredWeight": 700,
+          "declaredStyle": "normal",
+          "role": "advocacy emphasis"
+        },
+        {
+          "file": "pt-serif-400-italic.woff2",
+          "declaredWeight": 400,
+          "declaredStyle": "italic",
+          "role": "advocacy quotation"
+        },
+        {
+          "file": "pt-serif-700-italic.woff2",
+          "declaredWeight": 700,
+          "declaredStyle": "italic",
+          "role": "advocacy emphasized quotation"
+        }
+      ]
+    }
+  ]
+}

@@ -11,6 +11,11 @@
 import { footer } from '../content/copy';
 import { EXTERNAL_LINKS } from '../config/site';
 
+interface Props {
+  register?: 'campaign' | 'cwaaa';
+}
+const { register = 'campaign' } = Astro.props;
+
 // copy.ts holds the hashtag stack as an array; the footer renders it middot-joined.
 const hashtagLine = footer.hashtags.join(' · ');
 // The "Funded by …" seam links /crisis (copy.ts comments).
@@ -22,7 +27,7 @@ const socials = (
 ).filter(([, url]) => url.trim().length > 0);
 ---
 
-<footer class="footer">
+<footer class:list={['footer', register === 'cwaaa' && 'footer--cwaaa']}>
   <div class="container">
     <p class="footer__movement">{footer.movementLine}</p>
 
@@ -78,8 +83,8 @@ const socials = (
     text-align: center;
   }
   .footer__movement {
-    font-family: var(--font-label);
-    font-weight: 900;
+    font-family: var(--font-interface);
+    font-weight: 500;
     font-size: var(--step-1);
     letter-spacing: 0.02em;
     text-transform: uppercase;
@@ -88,15 +93,15 @@ const socials = (
     margin-inline: auto;
   }
   .footer__hashtags {
-    font-family: var(--font-label);
-    font-weight: 800;
+    font-family: var(--font-interface);
+    font-weight: 500;
     font-size: var(--step--1);
     letter-spacing: 0.1em;
     color: var(--chrome-mist);
   }
   .footer__funded,
   .footer__copyright {
-    font-family: var(--font-fine);
+    font-family: var(--font-production);
     font-size: var(--step--1);
     color: var(--chrome-mist);
   }
@@ -106,7 +111,7 @@ const socials = (
     text-underline-offset: 0.18em;
   }
   .footer__folio a {
-    font-family: var(--font-fine);
+    font-family: var(--font-production);
     /* the source string carries the caps (§3.7 "this exact credit"); the CSS
        only sizes and tracks it like a production card */
     font-size: var(--step--2);
@@ -126,8 +131,8 @@ const socials = (
     padding: 0;
   }
   .footer__socials a {
-    font-family: var(--font-label);
-    font-weight: 800;
+    font-family: var(--font-interface);
+    font-weight: 500;
     font-size: var(--step--2);
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -135,5 +140,18 @@ const socials = (
   }
   .footer__socials a:hover {
     text-decoration: underline;
+  }
+  .footer--cwaaa :is(
+      .footer__movement,
+      .footer__hashtags,
+      .footer__funded,
+      .footer__copyright,
+      .footer__folio a,
+      .footer__socials a
+    ) {
+    font-family: var(--font-cwaaa);
+  }
+  .footer--cwaaa :is(.footer__movement, .footer__hashtags, .footer__socials a) {
+    font-weight: 700;
   }
 </style>

@@ -216,7 +216,7 @@ const inlineEntries = monumental
     display: flex;
     flex-direction: column;
     line-height: 1.3;
-    font-family: var(--font-fine);
+    font-family: var(--font-production);
     font-size: clamp(0.53rem, 0.82vw, 0.66rem);
     letter-spacing: 0.24em;
     text-transform: uppercase;
@@ -240,7 +240,7 @@ const inlineEntries = monumental
   }
 
   .mh__nameplate {
-    font-family: var(--font-display);
+    font-family: var(--font-command);
     font-weight: 600;
     font-size: clamp(2.05rem, 4.7vw, 3.4rem);
     /* background-clip:text paints only the padding box: a sub-1.0 line box
@@ -294,8 +294,8 @@ const inlineEntries = monumental
     background: transparent;
     border: 0;
     cursor: pointer;
-    font-family: var(--font-label);
-    font-weight: 800;
+    font-family: var(--font-interface);
+    font-weight: 500;
     font-size: clamp(0.62rem, 0.95vw, 0.74rem);
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -333,8 +333,8 @@ const inlineEntries = monumental
   }
   .mh__inline-link {
     display: inline-block;
-    font-family: var(--font-label);
-    font-weight: 800;
+    font-family: var(--font-interface);
+    font-weight: 500;
     font-size: clamp(0.58rem, 0.9vw, 0.7rem);
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -413,7 +413,7 @@ const inlineEntries = monumental
   .cm__nameplate {
     grid-column: 1;
     justify-self: start;
-    font-family: var(--font-display);
+    font-family: var(--font-command);
     font-weight: 600;
     font-size: 1.4rem;
     line-height: 1.1;
@@ -448,7 +448,7 @@ const inlineEntries = monumental
     align-items: center;
     gap: 0.55em;
     margin: 0;
-    font-family: var(--font-fine);
+    font-family: var(--font-production);
     font-size: 0.6rem;
     letter-spacing: 0.24em;
     text-transform: uppercase;
@@ -471,8 +471,8 @@ const inlineEntries = monumental
     background: transparent;
     border: 0;
     cursor: pointer;
-    font-family: var(--font-label);
-    font-weight: 800;
+    font-family: var(--font-interface);
+    font-weight: 500;
     font-size: 0.64rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -513,8 +513,8 @@ const inlineEntries = monumental
   }
   .cm__inline-link {
     display: inline-block;
-    font-family: var(--font-label);
-    font-weight: 800;
+    font-family: var(--font-interface);
+    font-weight: 500;
     font-size: 0.6rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -532,6 +532,13 @@ const inlineEntries = monumental
   }
 
   @media (max-width: 640px) {
+    .mh__trigger,
+    .mh__inline-link,
+    .cm__trigger,
+    .cm__inline-link {
+      font-size: 0.9375rem;
+      letter-spacing: 0.18em;
+    }
     .cm__bar { grid-template-columns: auto 1fr; }
     .cm__trigger { grid-column: 2; }
     /* The decorative rule yields its width so nameplate + label fit 390px
