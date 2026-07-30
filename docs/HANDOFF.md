@@ -120,6 +120,16 @@ above. This approval changes target authority, not the current combined runtime 
 - The artifact registry separates **Fictional owner** from **Documentation authority**; this closed
   decision supersedes the older `Actual owner` table header in the approved design spec.
 
+### 2026-07-29 font-delivery dependency lock
+
+- All Got Soap? runtime fonts load only from `site/public/fonts/` through `/fonts/…` URLs.
+- `@fontsource/jost`, `@fontsource/libre-franklin`, `@fontsource/montserrat`,
+  `@fontsource/pt-serif`, and `@fontsource/oswald` are removed from the implementation manifest and
+  lockfile.
+- Always-live gate G19 rejects every `@fontsource/*` dependency, lockfile entry, or source import.
+  Reintroduction requires an explicit owner approval recorded here and in
+  `docs/gotsoap/font-delivery-spec.md`, plus an owner-approved gate change in the same implementation.
+
 ### Legal navigation and disclosure
 
 Privacy, Terms, and DMCA remain globally accessible wherever the site exposes legal navigation.
@@ -139,6 +149,7 @@ From `site/`, run:
 
 ```text
 npm run build
+npm run audit:fonts
 npm run authority:test
 npm run gates
 npm run copy-gates

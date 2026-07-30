@@ -23,10 +23,10 @@ html {
 
 body {
   min-height: 100dvh;
-  font-family: var(--font-body);
+  font-family: var(--font-editorial);
   font-size: var(--step-0);
   line-height: 1.6;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--lather-white);
   background-color: var(--grout-black);
   -webkit-font-smoothing: antialiased;
@@ -73,7 +73,7 @@ h4 {
 h1,
 h2,
 h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-command);
 }
 
 a {
@@ -121,8 +121,8 @@ ol[role='list'] {
   padding: 0.6em 1em;
   background: var(--marble-amber);
   color: var(--grout-black);
-  font-family: var(--font-label);
-  font-weight: 800;
+  font-family: var(--font-interface);
+  font-weight: 500;
   font-size: var(--step--1);
   letter-spacing: 0.08em;
   text-transform: uppercase;

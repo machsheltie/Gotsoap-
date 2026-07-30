@@ -2,7 +2,7 @@
 /**
  * Progress.astro — the Sniff Test progress indicator (Task B; design.md §7).
  *
- * "QUESTION n OF 7 — FIELD ASSESSMENT CW-7" in Montserrat (--font-fine) — the
+ * "QUESTION n OF 7 — FIELD ASSESSMENT CW-7" in Moanslight (--font-production) — the
  * CWAAA form number is the only sponsor fingerprint until the verdict. The text
  * carries progress (not color alone, WCAG 1.4.1); the segmented bar is a
  * supplementary visual. A separate .sr-only aria-live region (in Quiz.astro)
@@ -42,7 +42,7 @@ const segments = Array.from({ length: total }, (_, i) => i + 1);
     margin-block-end: var(--space-xl);
   }
   .progress__label {
-    font-family: var(--font-fine);
+    font-family: var(--font-production);
     font-weight: 500;
     font-size: var(--step--1);
     letter-spacing: 0.14em;

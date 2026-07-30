@@ -29,6 +29,8 @@
  */
 import '../styles/tokens.css';
 import '../styles/base.css';
+import gotSoapFontStylesheet from '../styles/fonts-gotsoap.css?url';
+import cwaaaFontStylesheet from '../styles/fonts-cwaaa.css?url';
 import Seo from '../components/Seo.astro';
 import Masthead from '../components/chrome/Masthead.astro';
 import Footer from '../components/Footer.astro';
@@ -45,6 +47,7 @@ interface Props {
   mastheadScale?: 'monumental' | 'compact';
   hideScratchSniff?: boolean;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  fontSystems?: ('campaign' | 'cwaaa')[];
 }
 const {
   title,
@@ -55,6 +58,7 @@ const {
   mastheadScale = 'compact',
   hideScratchSniff = false,
   jsonLd,
+  fontSystems: requestedFontSystems,
 } = Astro.props;
 
 // One header system, two registers (§1): CWAAA pages get the org letterhead,
@@ -63,12 +67,20 @@ const chromeRegister = register === 'cwaaa' ? 'cwaaa' : 'campaign';
 
 const goatCounterEndpoint = `https://${GOATCOUNTER_CODE}.goatcounter.com/count`;
 
-// Critical above-the-fold faces, preloaded (self-hosted; no font CDN).
-const preloadFonts = [
-  '/fonts/oswald-500.woff2',
-  '/fonts/libre-franklin-800.woff2',
-  '/fonts/jost-400.woff2',
+// System ownership controls both declaration delivery and the campaign preload budget.
+// Mixed routes opt into both; CWAAA-only routes never download campaign faces.
+const fontSystems = [...new Set(
+  requestedFontSystems ?? (chromeRegister === 'cwaaa' ? ['cwaaa'] : ['campaign']),
+)];
+const fontStylesheets = fontSystems.map((system) =>
+  system === 'cwaaa' ? cwaaaFontStylesheet : gotSoapFontStylesheet,
+);
+const campaignPreloadFonts = [
+  '/fonts/oswald-600.woff2',
+  '/fonts/Behind-The-Nineties-Sans-Md.woff2',
+  '/fonts/marlin-sans-sq-medium.woff2',
 ];
+const preloadFonts = fontSystems.includes('campaign') ? campaignPreloadFonts : [];
 ---
 
 <!doctype html>
@@ -124,6 +136,8 @@ const preloadFonts = [
       jsonLd={jsonLd}
     />
 
+    {fontStylesheets.map((href) => <link rel="stylesheet" href={href} />)}
+
     {
       preloadFonts.map((href) => (
         <link
@@ -150,8 +164,8 @@ const preloadFonts = [
     <main id="main" class:list={[register && `register-${register}`]}>
       <slot />
     </main>
-    <Footer />
-    {!hideScratchSniff && <ScratchSniff />}
+    <Footer register={chromeRegister} />
+    {fontSystems.includes('campaign') && !hideScratchSniff && <ScratchSniff />}
 
     <script>
       // Global scroll-reveal activator (progressive enhancement; styles in base.css).
