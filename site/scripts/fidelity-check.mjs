@@ -194,6 +194,24 @@
  *    visual-order check. This completes the trio: {content presence,
  *    slot/carrier binding, plan-specified order}.
  *
+ * v3.13 (2026-07-29 — exact-content carriers, closing the rendered
+ * superstring class Sol proved against be88f12):
+ *  - EXACT CARRIERS: every named-carrier comparison is normalized EQUALITY,
+ *    never containment. Verified ground truth first: each carrier holds the
+ *    exact deck value (the share URL is its own data-share-url carrier).
+ *    Single-value carriers (data-share-title/text, alt, aria-label) and
+ *    element-text carriers (data-error-for, data-share-action) compare ===;
+ *    data-rotation is a LIST carrier — its JSON members are compared
+ *    individually, so a padded member is a different member. Value-plus-
+ *    appendix in a carrier now fails as "carrier SUPERSTRING" with the
+ *    appendix shown. alt joins carrierSpec as a bound carrier.
+ *  - BOUNDARY KEPT HONEST: the free-prose text path (strings with no named
+ *    carrier, e.g. paragraphs, placeholder-segmented success copy) remains
+ *    CONTAINMENT — that is the declared carrier-less prose limit (a string
+ *    legitimately sitting inside surrounding prose has no static exact
+ *    boundary), not an oversight. Named/bound content is exact; free prose
+ *    is declared.
+ *
  * 2026-07-29 — CSS CHASE FROZEN at v3.11 (owner decision, no logic change):
  *  - The visual-order tripwire (v3.9–v3.11, T33–T41) is reclassified as a
  *    BEST-EFFORT, NON-AUTHORITATIVE heuristic. The contract no longer
@@ -213,6 +231,7 @@
  *      dropped copy, padding, superstrings, truncated/substituted plan
  *      artifacts, partial/stubbed dist all fail).
  *   2. SLOT/CARRIER BINDING — each value sits in ITS slot (exact leaf,
+ *      exact content — carrier comparisons are equality, never containment;
  *      index-pinned, baseline-anchored) and renders in ITS carrier
  *      (data-error-for / data-share-* / action buttons); relocation, swap,
  *      transposition, quote-wrapping, arity stowaways all fail.
@@ -751,8 +770,19 @@ function carriersOf(p) {
   const clean = p.raw.replace(/<!--[\s\S]*?-->/g, ' ').replace(/<(template|script|style)\b[\s\S]*?<\/\1\s*>/gi, ' ');
   const nrm = (v) => norm(unescapeHtml(v));
   const attrs = {};
-  for (const m of clean.matchAll(/\s(data-share-title|data-share-text|data-rotation)="([^"]*)"/g))
+  // v3.13 (Sol, exact-content): every named carrier holds the EXACT deck
+  // value (the share URL is its own carrier), so carriers store exact
+  // members and comparisons are equality, never containment. data-rotation
+  // is a LIST carrier — a JSON array — so it contributes its members
+  // individually; a member with an appendix is a different member.
+  for (const m of clean.matchAll(/\s(data-share-title|data-share-text|alt|aria-label)="([^"]*)"/g))
     (attrs[m[1]] ??= []).push(nrm(m[2]));
+  for (const m of clean.matchAll(/\sdata-rotation="([^"]*)"/g)) {
+    let members;
+    try { members = JSON.parse(unescapeHtml(m[1])); } catch { members = [m[1]]; }
+    if (!Array.isArray(members)) members = [members];
+    for (const v of members) (attrs['data-rotation'] ??= []).push(nrm(String(v)));
+  }
   const errors = [], actions = [];
   for (const m of clean.matchAll(/<(\w+)\b[^>]*\bdata-error-for="([^"]*)"[^>]*>([\s\S]*?)<\/\1\s*>/g))
     errors.push({ field: m[2], text: nrm(m[3].replace(/<[^>]*>/g, ' ')) });
@@ -814,6 +844,7 @@ const carrierSpec = (path) => {
     return f ? { kind: 'error', field: f, label: `data-error-for="${f}"` } : null;
   }
   if (path.startsWith('scratchGag.rotation')) return { kind: 'attr', name: 'data-rotation', label: 'data-rotation' };
+  if (key === 'alt') return { kind: 'attr', name: 'alt', label: 'alt' };
   if (/^labels\.cwaaa\./.test(path) && /share/i.test(key)) return { kind: 'action', action: 'share', label: 'data-share-action="share"' };
   if (/^labels\.cwaaa\./.test(path) && /copy/i.test(key)) return { kind: 'action', action: 'copy', label: 'data-share-action="copy"' };
   if (/share/i.test(key) && /title$/i.test(key)) return { kind: 'attr', name: 'data-share-title', label: 'data-share-title' };
@@ -1218,19 +1249,38 @@ for (const row of rows) {
           // title/text) now fails even though both strings stay on the page.
           const spec = carrierSpec(boundPathByString.get(s) || labeledPath || '');
           if (spec) {
-            let own = 0; const wrong = [];
+            // EXACT CONTENT (v3.13, Sol): carriers hold the exact deck value,
+            // so ownership is EQUALITY — value-plus-appendix is a different
+            // value and fails as "own carrier lacks the exact value". A
+            // superstring occurrence in the OWN carrier is reported
+            // distinctly so the appendix is visible in the note.
+            let own = 0; const wrong = []; const superstrings = [];
             for (const p of pages) {
               const car = carriersOf(p);
               if (spec.kind === 'attr') {
                 for (const [name, vals] of Object.entries(car.attrs))
-                  for (const v of vals) if (v.includes(s)) (name === spec.name ? own++ : wrong.push(`${p.rel} ${name}`));
+                  for (const v of vals) {
+                    if (v === s) { name === spec.name ? own++ : wrong.push(`${p.rel} ${name}`); continue; }
+                    if (name === spec.name && v.includes(s)) superstrings.push(`${p.rel} ${name} ("…${v.slice(Math.max(0, v.indexOf(s) + s.length - 10), v.indexOf(s) + s.length + 30)}…")`);
+                  }
               } else if (spec.kind === 'error') {
-                for (const e of car.errors) if (e.text.includes(s)) (e.field === spec.field ? own++ : wrong.push(`${p.rel} data-error-for="${e.field}"`));
+                for (const e of car.errors) {
+                  if (e.text === s) { e.field === spec.field ? own++ : wrong.push(`${p.rel} data-error-for="${e.field}"`); continue; }
+                  if (e.field === spec.field && e.text.includes(s)) superstrings.push(`${p.rel} data-error-for="${e.field}"`);
+                }
               } else {
-                for (const a of car.actions) if (a.text.includes(s)) (a.action === spec.action ? own++ : wrong.push(`${p.rel} data-share-action="${a.action}"`));
+                for (const a of car.actions) {
+                  if (a.text === s) { a.action === spec.action ? own++ : wrong.push(`${p.rel} data-share-action="${a.action}"`); continue; }
+                  if (a.action === spec.action && a.text.includes(s)) superstrings.push(`${p.rel} data-share-action="${a.action}"`);
+                }
               }
             }
-            if (own === 0) { r.ok = false; r.notes.push(`NOT RENDERED in its own carrier ${spec.label}: "${s.slice(0, 45)}…" — dropped, stale, or transposed away`); }
+            if (own === 0) {
+              r.ok = false;
+              r.notes.push(superstrings.length
+                ? `carrier SUPERSTRING: ${spec.label} carries the agreed text plus an appendix (exact content required) at: ${superstrings.join(', ')}`
+                : `NOT RENDERED in its own carrier ${spec.label} (exact content): "${s.slice(0, 45)}…" — dropped, stale, padded, or transposed away`);
+            }
             if (wrong.length) { r.ok = false; r.notes.push(`MIS-CARRIED: "${s.slice(0, 45)}…" belongs in ${spec.label} but renders in: ${wrong.join(', ')}`); }
             continue;
           }
@@ -1298,7 +1348,7 @@ const landed = results.filter((r) => r.ok).length;
 // vocabulary. Test mode renders every count as "N of M".
 const frac = (a, b) => (TEST_MODE ? `${a} of ${b}` : `${a}/${b}`);
 out();
-out(`  fidelity check v3.12${banner} — extraction from ${PLAN}`);
+out(`  fidelity check v3.13${banner} — extraction from ${PLAN}`);
 out(`  integrity: ${TEST_MODE ? 'tracked/clean checks SKIPPED (test mode)' : 'artifacts tracked+clean vs HEAD'} · ${frac(rows.length, declaredRows)} declared rows · manifest ${manifestRoutes.length} routes all present${extraPages.length ? ` · EXTRA pages: ${extraPages.join(', ')}` : ''} · §12 slots: ${slotIndex.length} · baseline ${baselineErr ? 'UNAVAILABLE' : BASELINE_REF}`);
 out();
 // VOCABULARY SPLIT (v3.4, Sol): test-mode output shares NO success vocabulary

@@ -21,7 +21,7 @@
  */
 
 import { spawnSync } from 'node:child_process';
-import { readFileSync, writeFileSync, mkdtempSync, cpSync, rmSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdtempSync, cpSync, rmSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { pathToFileURL } from 'node:url';
@@ -576,6 +576,62 @@ scenario('T41 var() indirection: flex-direction:var(--sol-flow) resolving to col
   scenario('T42 DOM order swap: plan-numbered movement lines transposed in rendered source order', {
     ...T, FIDELITY_DIST: d,
   }, { exit: 2, mustSee: ['RENDER ORDER'], branded: true });
+}
+
+// Sol HOLD upheld (2026-07-29, vs be88f12): superstring class in RENDERED
+// carriers. Carriers hold the exact deck value (URL is its own carrier), so
+// containment was too loose — value-plus-appendix passed every carrier path.
+{
+  const d = join(tmp, 'dist-carrier-junk');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'pledge', 'index.html');
+  const target = 'data-share-text="' + deck.pledge.badgeShare + '"';
+  const raw = readFileSync(hp, 'utf8');
+  if (!raw.includes(target)) throw new Error('T43: exact share-text carrier not found');
+  writeFileSync(hp, raw.replace(target, 'data-share-text="' + deck.pledge.badgeShare + ' Now with sponsors."'));
+  scenario('T43 carrier junk-append: data-share-text = exact deck value + appendix', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['carrier'], branded: true });
+}
+
+{
+  const d = join(tmp, 'dist-alert-junk');
+  cpSync(distCopy, d, { recursive: true });
+  const hp = join(d, 'pledge', 'index.html');
+  const raw = readFileSync(hp, 'utf8');
+  const noConsent = deck.pledge.errors.noConsent;
+  if (!raw.includes(noConsent)) throw new Error('T44: consent alert text not found');
+  writeFileSync(hp, raw.replace(noConsent, noConsent + ' Also legally.'));
+  scenario('T44 element-text junk-append: consent alert = exact deck value + appendix', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['carrier'], branded: true });
+}
+
+{
+  // The scratch gag renders on every page, so the honest-drift shape is a
+  // component edit junking the member EVERYWHERE — mutate all pages.
+  const d = join(tmp, 'dist-rotation-junk');
+  cpSync(distCopy, d, { recursive: true });
+  const member = deck.scratchGag.rotation[1];
+  const escaped = member.replace(/"/g, '&quot;');
+  let hitPages = 0;
+  (function walkHtml(dir) {
+    for (const n of readdirSync(dir)) {
+      const p = join(dir, n);
+      if (statSync(p).isDirectory()) walkHtml(p);
+      else if (n.endsWith('.html')) {
+        const raw = readFileSync(p, 'utf8');
+        if (raw.includes(escaped)) {
+          writeFileSync(p, raw.replaceAll(escaped, escaped + ' (revised)'));
+          hitPages++;
+        }
+      }
+    }
+  })(d);
+  if (hitPages === 0) throw new Error('T45: rotation member not found in any data-rotation');
+  scenario('T45 list-carrier junk-append: data-rotation member = exact value + appendix (all pages)', {
+    ...T, FIDELITY_DIST: d,
+  }, { exit: 2, mustSee: ['carrier'], branded: true });
 }
 
 /* ---------- verdict -------------------------------------------------------- */
