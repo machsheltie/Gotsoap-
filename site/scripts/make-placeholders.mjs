@@ -36,11 +36,11 @@ mkdirSync(OUT, { recursive: true });
 
 /* Straight from tokens.css — the only palette allowed here. */
 const T = {
-  groutBlack: '#0e0e10',
-  steamWhite: '#eceae4',
-  smokeSlate: '#201f22',
-  chromeMist: '#9a9aa2',
-  marbleAmber: '#b8862e',
+  groutBlack: '#050505',
+  steamWhite: '#f7f6f1',
+  smokeSlate: '#292a2f',
+  chromeMist: '#b9bbc2',
+  marbleAmber: '#c78b3b',
   latherWhite: '#ffffff',
 };
 

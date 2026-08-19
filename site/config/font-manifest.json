@@ -915,6 +915,52 @@
         "normal",
         "italic"
       ]
+    },
+    "--font-cwaaa-interface": {
+      "weights": [
+        400,
+        500,
+        700
+      ],
+      "styles": [
+        "normal"
+      ]
+    },
+    "--font-cwaaa-proposition": {
+      "weights": [
+        400
+      ],
+      "styles": [
+        "normal"
+      ]
+    },
+    "--font-cwaaa-figure": {
+      "weights": [
+        900
+      ],
+      "styles": [
+        "normal"
+      ]
+    },
+    "--font-cwaaa-testimony": {
+      "weights": [
+        400,
+        700
+      ],
+      "styles": [
+        "normal",
+        "italic"
+      ]
+    },
+    "--font-cwaaa-seal": {
+      "weights": [
+        400,
+        700
+      ],
+      "styles": [
+        "normal",
+        "italic"
+      ]
     }
   }
 }

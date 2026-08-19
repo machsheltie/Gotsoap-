@@ -119,3 +119,56 @@ The eight-round dialectic and the correction pass **worked, and it's provable on
 punch-down line the campaign's ethics depended on is cleared by the reader who raised it; the man it's
 designed to convert converted and looked at his hoodie differently; the woman it's designed for laughed,
 screenshotted, and would send it — and told us precisely which feature to build next.
+
+---
+
+# Blind re-read #2 — 2026-07-29 (post /about REDO + Crisis IA lift)
+
+Maya + Priya, cold, on the built site after the `/about` REDO (commit `e2e4036`) and the Crisis IA
+lift A+B (commit `2c63967`). Firewall intact; neither told anything changed, or told what to look at.
+
+## `/about` REDO — VALIDATED on a second cold read (near-fact)
+
+Both read the pitch as REAL, not performed — the exact axis the nine-round redo + creative-writing-craft
+recast was built to fix:
+- **Maya:** "Real. Decisively." — quoted **"It's five posters now"** as "a real person's dry, slightly
+  petty, completely earned flex. A performance would've written something aspirational."
+- **Priya:** "Hire." — "'It's five posters now' is the flex done right — dry, no adjectives."
+- Both cited **"I stopped documenting and just made the thing"** as the line proving a person, not a brand.
+
+**CLOSED.** Proven on strangers, twice.
+
+## Tagline micro-pass — WORKED
+
+New tagline **"I'm for hire, preferably by brands that need a little bite."** drew **zero** reader flags
+(the prior "dirty fights / Bring me yours" was 2/2 flagged as reaching). The residual soft-spot
+convergence MOVED to **"a protest in punchlines"** — but that is Stacey's own `promo.txt` phrase
+(sourced/true); both forgave it instantly. NOTED, not urgent — owner's real words.
+
+## Crisis IA lift (A+B) — did NOT move its finding; burial ACCEPTED by owner
+
+Both readers, cold, reproduced the prior complaint verbatim: the best writing (CWAAA case files /
+press releases) is buried two-to-three clicks deep. Diagnosis: **Part A** reordered *within* `/crisis`
+— a sub-problem readers never had (the burial was about *reaching* `/crisis`); **Part B**'s seam teaser
+was too quiet to register (neither reader cited it; Priya was pulled by the pre-existing case-file
+teaser). A+B are firewall-clean and mildly positive → **KEPT, not reverted.**
+
+**OWNER DECISION (2026-07-29): ACCEPT THE BURIAL.** Register purity > reach. Both readers found the
+material anyway and would send it; the homepage earns the click; the burial is the reward for curiosity.
+This is an **evidence-backed accepted trade — do NOT re-litigate on future blind reads.** Revisit only
+at CWAAA divergence (which makes the stranding worse, not better — see `cwaaa-divergence-roadmap.md`).
+
+## NEW convergent forward-work (2/2 — near-fact)
+
+1. **Two-author QUALITY GAP.** The campaign "smoldering" PSA copy is the *weakest* tier; the CWAAA
+   paperwork is the strongest. Priya: "a visible quality gap between the two authors, and it's the
+   'sincere' one that's coasting." Maya: "the smoldering PSA paragraphs are the weakest, most
+   repetitive." → the PSA blurbs need a pass to rise to the CWAAA voice's level.
+2. **Homepage COLD-OPEN.** Chrome/taxonomy ("Contents · Case · Campaign · Confrontation · Oath ·
+   Movement") loads before the first joke; Priya "almost bailed at line 15." → get a joke above/into
+   the masthead furniture; tighten the funnel.
+
+## Held / unchanged
+
+Punch-down discipline holds (everyone reforms; "nobody is left as the punchline"). Client-bridge gap
+persists (Priya: prove the voice travels off her own concept). Kaelthas/Gary watch-items land warm.

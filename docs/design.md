@@ -156,14 +156,19 @@ Rules:
 
 ## 8. Typography
 
-| Role | Family | Direction |
-|---|---|---|
-| Display / logo | Oswald | compressed, lowercase logo; large commands; tightly controlled leading |
-| Body / CTA | Jost | direct, contemporary, unprecious |
-| Movement / share | Libre Franklin | blunt institutional energy without becoming CWAAA |
-| Fine print | Montserrat | credits, legal, metadata |
+Campaign type is a five-voice cast, and each voice has a job. The cast is locked in
+`gotsoap/font-delivery-spec.md`; no family may be substituted because another is easier to load.
 
-- Self-host fonts and declare resilient fallbacks.
+| Voice | Family | Runtime role | Direction |
+|---|---|---|---|
+| Commands | Oswald | `--font-command` | compressed, lowercase logo; large commands; tightly controlled leading |
+| Persuades | Behind The Nineties Sans | `--font-editorial` | the campaign's reading voice — body, editorial majors, confession |
+| Seduces | Moxie Twist | `--font-whisper` | rare, intimate display; the line that leans in |
+| Operates | Marlin Sans SQ | `--font-interface` | controls, labels, utility — direct, contemporary, unprecious |
+| Records / releases | Moanslight | `--font-production` | credits, production marks, campaign metadata |
+
+- Fonts self-host from `site/public/fonts/` via `/fonts/…` URLs, with resilient fallbacks declared.
+  Always-live gate G19 rejects any `@fontsource/*` dependency, lockfile entry, or source import.
 - Use display effects only when they belong to a poster register: black shadow on steam, restrained
   chrome treatment in smoke, gold depth in amber.
 - Do not reproduce Photoshop bevels on every heading.

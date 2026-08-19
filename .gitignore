@@ -31,6 +31,8 @@ site/.astro/
 .netlify/
 *.log
 npm-debug.log*
+.prisma/
+dist/
 
 # Design binaries — never commit (Photoshop / Illustrator / brushes / vectors)
 *.abr

@@ -7,12 +7,15 @@
 :root {
   /* ---- Color tokens (design.md §5) — the ONLY hex in the system. -------- */
   /* Campaign set (6) */
-  --grout-black: #0e0e10; /* structural bg / ink; nav bar; the grout */
-  --steam-white: #eceae4; /* porcelain register (posters 1–2) */
-  --smoke-slate: #201f22; /* smoke register (posters 3–4) */
-  --chrome-mist: #9a9aa2; /* dividers, secondary text, chrome type */
-  --marble-amber: #b8862e; /* THE one campaign accent — CTAs/links/active */
-  --marble-amber-ink: color-mix(in srgb, var(--marble-amber) 68%, var(--grout-black)); /* AA-safe amber for text/links/focus on the light porcelain ground (~4.8:1); bright --marble-amber stays for fills on dark */
+  /* Values are design.md §7 — the specification is normative. Restored 2026-08-13
+     after the shipped set had drifted darker/duller; every text pair re-measured
+     below and at or above its prior ratio. */
+  --grout-black: #050505; /* structural bg / ink; nav bar; the grout */
+  --steam-white: #f7f6f1; /* porcelain register (posters 1–2) */
+  --smoke-slate: #292a2f; /* smoke register (posters 3–4) */
+  --chrome-mist: #b9bbc2; /* dividers, secondary text, chrome type */
+  --marble-amber: #c78b3b; /* THE one campaign accent — CTAs/links/active */
+  --marble-amber-ink: color-mix(in srgb, var(--marble-amber) 68%, var(--grout-black)); /* AA-safe amber for text/links/focus on the light porcelain ground (5.15:1); bright --marble-amber stays for fills on dark */
   --lather-white: #ffffff; /* max-contrast type on dark; foam accents */
   /* CWAAA set (3) — only on CWAAA surfaces */
   --cwaaa-manila: #efe6cf; /* paper stock */
@@ -26,7 +29,21 @@
   --font-whisper: 'Got Soap Moxie', Didot, 'Bodoni MT', Georgia, serif;
   --font-interface: 'Got Soap Marlin SQ', 'Helvetica Neue', Arial, sans-serif;
   --font-production: 'Got Soap Moanslight', 'Helvetica Neue', Arial, sans-serif;
-  --font-cwaaa: 'PT Serif', Georgia, 'Times New Roman', serif;
+  /* CWAAA voices — locked by owner decision 2026-08-13, revised 2026-08-14
+     (cwaaa/ui-system.md §3). One family per role; none carries two.
+     --font-cwaaa is the register's base voice and holds reading matter.
+     --font-cwaaa-interface holds everything the reader operates or scans —
+     navigation, controls, and all notation — which is design.md §9's "plain,
+     highly readable sans serif for navigation, explanation, and form
+     controls" split along the line between reading and using.
+     PT Serif survives as the identity serif for the seal and certificate
+     artifacts, not as the universal family. */
+  --font-cwaaa: 'CWAAA Proda Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-cwaaa-interface: 'CWAAA Catesque', 'Helvetica Neue', Arial, sans-serif;
+  --font-cwaaa-proposition: 'CWAAA Morvi', 'Arial Black', Impact, sans-serif;
+  --font-cwaaa-figure: 'CWAAA Mirk Slab', 'Rockwell', Georgia, serif;
+  --font-cwaaa-testimony: 'CWAAA Modest', Georgia, 'Times New Roman', serif;
+  --font-cwaaa-seal: 'PT Serif', Georgia, 'Times New Roman', serif;
 
 
   /* ---- Fluid type scale (clamp: 360px → 1440px+) ----------------------- */
@@ -131,6 +148,48 @@
   font-weight: 600;
 }
 
+/* ---- CWAAA type-role utilities (cwaaa/ui-system.md §3) -------------------
+   Only valid inside .register-cwaaa. Scale, leading, tracking, and measure
+   remain owner decisions; these bind family and weight only. */
+.type-cwaaa-proposition {
+  font-family: var(--font-cwaaa-proposition);
+  font-weight: 400; /* MORVI ships one weight; never synthesise a bolder one */
+}
+/* The single oversized figure that owns a Findings viewport. Mirk Slab's
+   digits are proportional by measurement and it declares no figure feature,
+   so this class is for ONE figure standing alone. Two or more that must align
+   belong to .type-cwaaa-table. */
+.type-cwaaa-figure {
+  font-family: var(--font-cwaaa-figure);
+  font-weight: 900;
+}
+.type-cwaaa-testimony {
+  font-family: var(--font-cwaaa-testimony);
+  font-weight: 400;
+}
+/* Navigation, controls, and anything the reader operates rather than reads. */
+.type-cwaaa-interface {
+  font-family: var(--font-cwaaa-interface);
+  font-weight: 500;
+}
+/* Metadata, dates, RC-NNN identifiers. `zero` slashes the nought so RC-007
+   cannot be misread as RC-OO7; `case` lifts the hyphen to cap-centre between
+   all-caps letterforms. Both are Catesque features Proda does not carry. */
+.type-cwaaa-notation {
+  font-family: var(--font-cwaaa-interface);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+  font-feature-settings: 'case' 1;
+}
+/* Findings tables and any stacked figures must align. Catesque's tnum is
+   verified to collapse all ten digits to a single 0.620em advance — MORVI and
+   Mirk Slab have no such feature, which is why every aligned figure lands
+   here rather than in the display faces. */
+.type-cwaaa-table {
+  font-family: var(--font-cwaaa-interface);
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+}
+
 /* ============================================================================
    Register utility classes — the two-author system as CSS.
    Each class exposes ONLY its register's 2–3 tokens through the --reg-* slots.
@@ -206,13 +265,20 @@
     0 2px 34px color-mix(in srgb, var(--steam-white) 55%, transparent);
 }
 
-/* Chrome — brushed-metal gradient clipped to the glyphs (smoke titles). */
+/* Chrome — brushed-metal gradient clipped to the glyphs (smoke titles).
+   Same AA floor as .fx-gold: every stop holds ≥ 3:1 (large text) on the
+   darkest ground it ships over — smoke-slate. The 52% specular band is the
+   binding stop; #767680 measures 3.19:1 on smoke-slate and 4.54:1 on
+   grout-black. The retired #55555c never met the floor (2.22:1 against the
+   old smoke-slate, 1.94:1 once §7's specified smoke-slate was restored) —
+   corrected in the same palette pass, 2026-08-13. Re-measure this stop
+   whenever smoke-slate moves. */
 .fx-chrome {
   background-image: linear-gradient(
     177deg,
     #f4f4f6 0%,
     var(--chrome-mist) 28%,
-    #55555c 52%,
+    #767680 52%,
     var(--chrome-mist) 74%,
     #e9e9ee 100%
   );
@@ -224,15 +290,18 @@
 
 /* Gold — poured-amber treatment for the marble register's display type.
    The dark bevel stop is the AA floor: every stop must hold ≥ 3:1 (large
-   text) on the darkest ground it ships over — smoke-slate. #916a22 measures
-   3.35:1 on smoke-slate and 3.9:1 on grout-black; the retired #7c5716 was
-   2.5:1 (defect pass, 2026-07-16). Top and mid stops carry the pour. */
+   text) on the darkest ground it ships over — smoke-slate. #9c7325 measures
+   3.34:1 on smoke-slate and 4.75:1 on grout-black. The retired #7c5716 was
+   2.5:1 (defect pass, 2026-07-16); the retired #916a22 held 3.35:1 against
+   the old darker smoke-slate but fell to 2.92:1 when §7's specified
+   smoke-slate was restored (palette pass, 2026-08-13). This stop must be
+   re-measured whenever smoke-slate moves. Top and mid stops carry the pour. */
 .fx-gold {
   background-image: linear-gradient(
     180deg,
     #f0cf8a 0%,
     var(--marble-amber) 46%,
-    #916a22 100%
+    #9c7325 100%
   );
   -webkit-background-clip: text;
   background-clip: text;

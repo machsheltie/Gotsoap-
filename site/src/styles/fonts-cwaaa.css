@@ -1,4 +1,133 @@
-/* CWAAA font authority — isolated from the Got Soap? campaign audit. */
+/* CWAAA font authority — isolated from the Got Soap? campaign audit.
+   Locked by owner decision 2026-08-13, revised 2026-08-14 (ui-system.md §3).
+   Five voices, one family each — no family carries two roles:
+
+     proposition  MORVI       — THE BAR IS SOAP., route-opening statements
+     figure       Mirk Slab   — the single monumental Findings numeral
+     text         Proda Sans  — reading matter: explanation and body copy
+     interface    Catesque    — operating the site: navigation, forms, controls,
+                                and all notation — metadata, RC-NNN, tables
+     testimony    Modest      — Recovery Stories long-form only
+
+   Family names are namespaced so a CWAAA face can never be reached from a
+   campaign surface by accident. Only weights with an assigned production role
+   are declared; presence in public/fonts is not permission to load.
+
+   PT Serif is retained below as the coalition's incumbent identity serif for
+   the seal and existing certificate artifacts until those are re-cut. */
+
+/* ---- Proposition (R1) — single weight; this face has no other. ---------- */
+@font-face {
+  font-family: 'CWAAA Morvi';
+  src: url('/fonts/morvi-400.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* ---- Monumental Findings figure ----------------------------------------
+   One weight, one job: the single oversized figure that owns a Findings
+   viewport. Mirk Slab's digits are proportional by measurement (420–628 units
+   at 1000 upm) and it declares no figure feature, so anything that must align
+   in a column — tables, stacked figures, RC-NNN — belongs to CWAAA Catesque.
+   Its OS/2 embedding flag is `viewOnly`; the owner confirmed web distribution
+   rights on 2026-08-13. */
+@font-face {
+  font-family: 'CWAAA Mirk Slab';
+  src: url('/fonts/mirk-slab-900.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+
+/* ---- Text (R2) — reading matter only ------------------------------------
+   Proda held both text and notation until 2026-08-14; notation moved to
+   Catesque, so Proda now carries one role. Weight 500 left with that role and
+   is no longer declared or delivered. */
+@font-face {
+  font-family: 'CWAAA Proda Sans';
+  src: url('/fonts/proda-sans-400.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CWAAA Proda Sans';
+  src: url('/fonts/proda-sans-400i.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CWAAA Proda Sans';
+  src: url('/fonts/proda-sans-700.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* ---- Interface & notation (R4) — the operating voice --------------------
+   Catesque is the only CWAAA family besides Proda that declares figure
+   features, and the ones it carries are notation features specifically:
+   tnum (verified to collapse all ten digits to one 0.620em advance), zero
+   for a slashed nought so RC-007 cannot read as RC-OO7, case so the hyphen
+   in an all-caps identifier sits at cap-centre, plus subs/sups/frac.
+
+   Its tabular advance matches Proda's 0.618–0.621em, so figures swapped into
+   an existing table do not reflow the column. Lining figures run 6% taller
+   than Proda's (0.708em vs 0.668em); size-match at ~94% where the two meet
+   on one line.
+
+   Note for anyone reaching for the display weight: Catesque Black measures a
+   0.164em stem, LIGHTER than Proda Bold's 0.175em and far off Mirk Slab
+   Black's 0.280em. It is not a display face. The monumental figure stays on
+   Mirk Slab. Only 400/500/700 hold assigned roles. */
+@font-face {
+  font-family: 'CWAAA Catesque';
+  src: url('/fonts/catesque-400.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CWAAA Catesque';
+  src: url('/fonts/catesque-500.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CWAAA Catesque';
+  src: url('/fonts/catesque-700.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* ---- Testimony (R3) — Recovery Stories long-form only ------------------- */
+@font-face {
+  font-family: 'CWAAA Modest';
+  src: url('/fonts/modest-400.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CWAAA Modest';
+  src: url('/fonts/modest-400i.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'CWAAA Modest';
+  src: url('/fonts/modest-700.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* ---- Incumbent identity serif — seal and certificate artifacts ---------- */
 @font-face {
   font-family: 'PT Serif';
   src: url('/fonts/pt-serif-400.woff2') format('woff2');

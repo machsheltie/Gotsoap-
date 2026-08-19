@@ -4,19 +4,19 @@
 > This records binary facts and declared repository policy; it does not grant
 > font licenses or resolve owner approvals.
 
-Audit timestamp: 2026-07-30T15:12:57.525Z
-Source commit SHA: 50c0cf2f221a9bc4de9b681f58c7993e0e3aa855
+Audit timestamp: 2026-08-14T14:45:01.873Z
+Source commit SHA: 67d4ca3837f2b12ede30310b4d217a315c657b0c
 Working tree at audit: dirty
 
 ## Result
 
 | Status | Approved | Unassigned | Directory total | Inspected bytes | Errors | Restricted faces | Restrictions | Duplicate binaries | Manual checks unresolved |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| WARNING | 14 | 19 | 37 | 256228 | 0 | 7 | 7 | 0 | 2 |
+| WARNING | 14 | 19 | 48 | 256228 | 0 | 7 | 7 | 0 | 2 |
 
 Fontkit 2.0.4 inspected the 14 approved production binaries.
 The directory scan found 19 unassigned WOFF2 binaries under `public/fonts`.
-The manifest fingerprint is `e692f455f1cb27d5228df199bbc4528af7023268c3410a506aee85c92faca65d`.
+The manifest fingerprint is `1b644db0a1c5537c1815d6b5f899a3222bf0fc22372fbcff57e12504ba144f7b`.
 
 ## Transfer budget
 

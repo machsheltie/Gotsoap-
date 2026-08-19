@@ -76,8 +76,15 @@ Historical plans are evidence, not live authority, when `docs/HANDOFF.md` marks 
 - Do not read, parse, move, or stage `.abr` files. Avoid moving PSDs and other large OneDrive assets.
 - Ship optimized AVIF/WebP derivatives, not original poster JPGs.
 - Preserve Freepik attribution and license constraints.
-- Campaign web fonts: Oswald, Jost, Libre Franklin, Montserrat.
+- Campaign type is a five-voice cast, not a font list: **Oswald commands**, **Behind The Nineties
+  persuades**, **Moxie Twist seduces**, **Marlin Sans SQ operates**, **Moanslight records and
+  releases**. Runtime roles are `--font-command`, `--font-editorial`, `--font-whisper`,
+  `--font-interface`, `--font-production` in `site/src/styles/tokens.css`. Never substitute a family
+  because it is easier to load. See `docs/gotsoap/font-delivery-spec.md`.
 - CWAAA web font: PT Serif with the nonprofit package's supporting roles.
+- All fonts self-host from `site/public/fonts/` via `/fonts/…` URLs. Always-live gate G19 rejects any
+  `@fontsource/*` dependency, lockfile entry, or source import; reintroduction requires owner
+  approval recorded in `docs/HANDOFF.md` and the font-delivery spec. Run `npm run audit:fonts`.
 - Office type and visual rules are isolated in its own design package.
 
 ## Implementation and verification

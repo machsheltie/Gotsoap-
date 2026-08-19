@@ -147,29 +147,64 @@ Wrongness may not come from:
 
 ---
 
-# 3. Pending typography system
+# 3. Typography system
 
-**Status:** UNLOCKED. Claude may not select fonts or create a generic nonprofit pairing.
+**Status:** FAMILIES AND WEIGHTS LOCKED by owner decision 2026-08-13, revised 2026-08-14. Scale,
+leading, tracking, measures, case discipline, and responsive behavior remain UNLOCKED and may not be
+filled by an agent.
 
-The detailed interview must establish:
+## 3.1 Locked cast
 
-- exact families;
-- psychological and functional role for each family;
-- display voice;
-- body and explanatory voice;
-- testimony voice;
-- utility and form voice;
-- metadata and chapter-notation voice, if separate;
-- exact weights;
-- type scale;
-- leading;
-- tracking;
-- text measures;
-- case discipline;
-- responsive behavior;
-- loading and licensing rules.
+One family per role. No family carries two.
 
-The current high-level direction remains:
+| Voice | Family | Weights | Job |
+|---|---|---|---|
+| Proposition | **MORVI** | 400 only | `THE BAR IS SOAP.`, route-opening statements |
+| Monumental figure | **Mirk Slab** | 900 only | the single oversized Findings figure |
+| Text | **Proda Sans** | 400, 400i, 700 | reading matter: explanation and body copy |
+| Interface and notation | **Catesque** | 400, 500, 700 | navigation, controls, forms, metadata, `RC-NNN`, tables, dates |
+| Testimony | **Modest** | 400, 400i, 700 | Recovery Stories long-form only |
+| Identity serif | **PT Serif** | 400, 400i, 700, 700i | coalition seal and existing certificate artifacts |
+
+Runtime tokens: `--font-cwaaa` (text, the register base), `--font-cwaaa-interface`,
+`--font-cwaaa-proposition`, `--font-cwaaa-figure`, `--font-cwaaa-testimony`, `--font-cwaaa-seal`.
+
+The 2026-08-14 revision split what Proda Sans had been doing. The dividing line is **reading versus
+operating**: prose the visitor reads is Proda; anything they scan, align, or act on is Catesque.
+
+## 3.2 Binding constraints on this cast
+
+- **MORVI ships one weight.** `font-synthesis` is `none`; never synthesise a bolder MORVI.
+- **Figures that must align are Catesque.** MORVI and Mirk Slab carry proportional figures by
+  measurement — 32.6% and 20.8% em spread across the ten digits at 1000 upm — and declare no figure
+  feature. Catesque carries `tnum` (verified to collapse all ten digits to a single 0.620em
+  advance), `zero`, `case`, `pnum`, `subs`, `sups`, and `frac`, and therefore owns every Findings
+  table, stacked figure column, identifier, and date. `.type-cwaaa-figure` is for one figure
+  standing alone; two or more use `.type-cwaaa-table`.
+- **Notation uses `zero` and `case`, not just `tnum`.** A slashed nought keeps `RC-007` from reading
+  as `RC-OO7`, and `case` lifts the hyphen to cap-centre between all-caps letterforms. Both are
+  bound in `.type-cwaaa-notation`; neither is available in Proda Sans.
+- **Catesque Black is not a display weight.** Its stem measures 0.164em against Proda Bold's 0.175em
+  and Mirk Slab Black's 0.280em — lighter than the Bold of the text face. It may not be used to set
+  a proposition or a monumental figure, whatever the foundry's own recommendation says.
+- **Catesque and Proda must be optically size-matched where they meet.** Catesque's lining figures
+  are 6% taller (0.708em vs 0.668em). Their tabular advances match to within 0.003em, so a figure
+  swapped into an existing column does not reflow it.
+- **Mirk Slab is delivery-restricted.** Its OS/2 `fsType` is `viewOnly` (preview/print). The owner
+  confirmed web distribution rights on 2026-08-13, recorded in
+  `site/config/cwaaa-font-manifest.json`. Adding further Mirk Slab weights requires re-confirmation.
+  The family ships 82 styles across a width axis; only the assigned weight is authorised.
+- **PT Serif is no longer the universal CWAAA family.** It is the identity serif for the seal and
+  existing certificate artifacts until those are re-cut.
+- Only weights with an assigned production role may be declared or delivered. Presence in
+  `public/fonts` is not permission to load.
+
+## 3.3 Still open
+
+Type scale, leading, tracking, text measures, case discipline, and responsive behavior. Record them
+here when decided; do not infer them from a framework default or a nonprofit template.
+
+The high-level direction that governed the selection, and still governs its use:
 
 - contemporary civic editorial;
 - forceful display scale for propositions and Findings;
@@ -426,3 +461,45 @@ Recorded:
 - the locked navigation, homepage, photography, artifact, material, and wrongness rules;
 - explicit pending sections for typography, color, composition, surfaces, motion, states, responsive behavior, accessibility, and acceptance testing;
 - prohibition against filling pending decisions with generic nonprofit defaults.
+
+## 2026-08-13 — Typography families locked
+
+Recorded:
+
+- the owner's selection of MORVI (proposition), Mirk Slab (monumental figure), Proda Sans (text,
+  interface, notation), and Modest (testimony), with PT Serif demoted to identity serif — superseded
+  in part on 2026-08-14, when interface and notation moved to Catesque;
+- the assigned weights, and the rule that only assigned weights may be declared or delivered;
+- the figure-alignment rule — MORVI and Mirk Slab are proportional with no `tnum`, so the family
+  carrying `tnum` owns every figure that must align;
+- the owner's confirmation of Mirk Slab web distribution rights against its `viewOnly` OS/2 flag;
+- runtime implementation in `site/src/styles/fonts-cwaaa.css`, `site/src/styles/tokens.css`, and
+  `site/config/cwaaa-font-manifest.json`, with the campaign runtime left on its own cast;
+- scale, leading, tracking, measures, case discipline, and responsive behavior remaining UNLOCKED.
+
+Selection criteria and the binary screening that informed it are in `font-brief.md`.
+
+## 2026-08-14 — Notation and interface split off to Catesque
+
+The owner declined to leave Proda Sans carrying two roles. Recorded:
+
+- **Catesque** added at 400/500/700 for interface and notation; **Proda Sans** reduced to text alone
+  and its weight 500 withdrawn from declaration and delivery with the role that used it. Every role
+  now has exactly one family.
+- The evidence behind the assignment: Catesque is the only CWAAA family besides Proda declaring
+  figure features, and carries the notation-specific ones — `zero` and `case` alongside `tnum` —
+  which is why it took notation rather than text. Its tabular advance (0.620em) matches Proda's
+  (0.618–0.621em), so the swap does not reflow existing columns.
+- **Catesque Black rejected for display use.** Measured stem 0.164em, lighter than Proda Bold. The
+  monumental figure stays on Mirk Slab. Recorded so the foundry's own recommendation does not
+  re-open the question.
+- **Bagh Display screened and held**, not rejected: sound face, 100% coverage across every probe
+  set, `fsType` installable — but CWAAA has no open display role once MORVI holds proposition and
+  Mirk Slab holds the figure. Retained as the fallback if a proposition ever needs `§`, `¶`, `†`,
+  a fraction, or a math operator, all of which MORVI lacks.
+- **Article Round rejected** — belongs to a different project. It was screened anyway and would have
+  failed: 302 glyphs, no figure features, missing `£ ¥ © ® ™ ° § ¶` and all fractions and math
+  operators, 31% em digit spread, and an unset `capHeight` reporting the ascender.
+
+Runtime implementation in the same three files as the 2026-08-13 entry, plus `--font-cwaaa-interface`
+in `site/config/font-manifest.json`'s `fontRolePolicy`.

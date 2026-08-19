@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "manifestSha256": "e692f455f1cb27d5228df199bbc4528af7023268c3410a506aee85c92faca65d",
+  "manifestSha256": "1b644db0a1c5537c1815d6b5f899a3222bf0fc22372fbcff57e12504ba144f7b",
   "fontkitVersion": "2.0.4",
   "provenance": {
-    "auditTimestamp": "2026-07-30T15:12:57.525Z",
-    "sourceCommitSha": "50c0cf2f221a9bc4de9b681f58c7993e0e3aa855",
+    "auditTimestamp": "2026-08-14T14:45:01.873Z",
+    "sourceCommitSha": "67d4ca3837f2b12ede30310b4d217a315c657b0c",
     "workingTreeDirty": true
   },
   "source": {
@@ -15,8 +15,8 @@
     "totalFonts": 14,
     "approvedProductionFonts": 14,
     "unassignedFonts": 19,
-    "externalSystemFonts": 4,
-    "directoryFonts": 37,
+    "externalSystemFonts": 15,
+    "directoryFonts": 48,
     "totalBytes": 256228,
     "errorCount": 0,
     "warningCount": 48,
@@ -47434,6 +47434,17 @@
         "src/styles/fonts-cwaaa.css"
       ],
       "files": [
+        "catesque-400.woff2",
+        "catesque-500.woff2",
+        "catesque-700.woff2",
+        "mirk-slab-900.woff2",
+        "modest-400.woff2",
+        "modest-400i.woff2",
+        "modest-700.woff2",
+        "morvi-400.woff2",
+        "proda-sans-400.woff2",
+        "proda-sans-400i.woff2",
+        "proda-sans-700.woff2",
         "pt-serif-400-italic.woff2",
         "pt-serif-400.woff2",
         "pt-serif-700-italic.woff2",
