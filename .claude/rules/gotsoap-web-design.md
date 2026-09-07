@@ -2,10 +2,10 @@
 paths:
   - "site/src/**"
   - "site/public/**"
-  - "docs/design.md"
-  - "docs/cwaaa/**"
+  - "gotsoap/docs/design.md"
+  - "cwaaa/docs/**"
   - "docs/world/**"
-  - "docs/office-of-lather-compliance/**"
+  - "office-of-lather-compliance/docs/**"
 ---
 
 # Three authors, three visual systems
@@ -26,7 +26,7 @@ add a clean handoff, or average their rendered authorship.
 
 Privacy, Terms, and DMCA stay accessible; fiction disclosure waits behind the creator/About seam.
 
-Read `docs/design.md`, `docs/cwaaa/`, and `docs/office-of-lather-compliance/` for governing detail;
+Read `gotsoap/docs/design.md`, `cwaaa/docs/`, and `office-of-lather-compliance/docs/` for governing detail;
 do not duplicate route-by-route specifications in this rule.
 
 Required anti-template check:

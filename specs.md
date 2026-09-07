@@ -4,8 +4,8 @@
 flagship. This file does not define the approved extraction target.
 **Date:** 2026-07-14
 **Scope:** Home, `/psas`, `/psas/[slug]`, mechanic ownership, navigation, motion, performance, accessibility, and the Hope2 Studio reveal
-**Target-state authority:** `docs/HANDOFF.md` · `docs/design.md` ·
-`docs/prd/PRD-gotsoap-web-v1.md` · `docs/cwaaa/` · `docs/office-of-lather-compliance/`
+**Target-state authority:** `docs/HANDOFF.md` · `gotsoap/docs/design.md` ·
+`gotsoap/docs/prd/PRD-gotsoap-web-v1.md` · `cwaaa/docs/` · `office-of-lather-compliance/docs/`
 
 > **Transition boundary:** sections below truthfully specify the currently implemented
 > site-within-a-site runtime. They do not authorize rebuilding CWAAA inside Got Soap? after
@@ -135,7 +135,7 @@ This is the home’s only CWAAA-authored surface.
 > - **One visible `/about` path on the home:** the footer folio credit. This is about the *visible,
 >   unsolicited* page experience — a deliberate contents-dialog entry ("Production Notes", §9.1) is
 >   navigation the visitor opens on intent, reads as a neutral editorial term, and does not count as
->   a tell; it stays. Rationale in `docs/build/reports/footer-consolidation-spec.md`.
+>   a tell; it stays. Rationale in `gotsoap/docs/build/reports/footer-consolidation-spec.md`.
 >   *(SUPERSEDED 2026-07-21, faux-shop owner order: the "Production Notes" contents entry is
 >   retired; the footer folio credit is now the ONLY `/about` path site-wide. See §9.1 amendment.)*
 - The folio credit literal stays hardcoded in `Footer.astro` (it is approved-verbatim and gate G11
@@ -146,7 +146,7 @@ This is the home’s only CWAAA-authored surface.
 
 ## 4. `/psas`: the placement hub
 
-`/psas` becomes one elite locker-room installation, not an archive layout. Bright wet ceramic, polished chrome, controlled steam, and studio lighting create the physical world named in `promo.txt`.
+`/psas` becomes one elite locker-room installation, not an archive layout. Bright wet ceramic, polished chrome, controlled steam, and studio lighting create the physical world named in `gotsoap/sources/promo.txt`.
 
 ### 4.1 Art direction
 
@@ -261,7 +261,7 @@ The production folio credit is approved verbatim and does not require copy-lane 
 - Use a styled native `<dialog>` for the home contents sheet.
 - List home anchors first: Case, Campaign, Confrontation, Oath, and Movement.
 - List route exits second: PSAs, Sniff Test, Pledge, Crisis, and Shop.
-  > **OWNER AMENDMENT 2026-07-21 (faux shop; `docs/build/reports/faux-shop-legal-order.md`).**
+  > **OWNER AMENDMENT 2026-07-21 (faux shop; `gotsoap/docs/build/reports/faux-shop-legal-order.md`).**
   > The "Production Notes" → `/about` exit is retired from all navigation. Its slot is the faux
   > Shop (`/shop` — campaign register, played straight, "Coming Soon!" cart dead-end). `/about`
   > stays at its route, reachable ONLY via the footer folio credit — the footer is the airlock;
@@ -327,7 +327,7 @@ The production folio credit is approved verbatim and does not require copy-lane 
 
 ## 13. Implementation sequence
 
-1. Replace the conflicting execution notes in `docs/design.md` and retire the superseded open questions in the 2026-07-09 proposal.
+1. Replace the conflicting execution notes in `gotsoap/docs/design.md` and retire the superseded open questions in the 2026-07-09 proposal.
 2. Promote the movement-pitch architecture from `/movement-preview` to `/` after the text-free hero assets are ready. Delete the preview page, add a true Netlify 301 from `/movement-preview` to `/`, and verify that the stale route is absent from the generated sitemap.
 3. Build the responsive placement hub with source-specific hotspots and a visible route plaque.
 4. Replace the shared poster split with five explicit environment components; complete mobile signatures first.

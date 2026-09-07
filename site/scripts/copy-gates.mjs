@@ -12,7 +12,7 @@
  * "the copy is good" — a machine cannot judge funny. Green means "the copy has not
  * drifted off the non-negotiable rails." Good is the dialectic's job.
  *
- * Source of law: docs/copy/voice-bible.md · docs/copy/copy-contract-for-build.md
+ * Source of law: gotsoap/docs/copy/voice-bible.md · gotsoap/docs/copy/copy-contract-for-build.md
  * (its "Non-negotiable copy rules (acceptance-blocking)" list) · specs.md §7.2.
  *
  *   node scripts/copy-gates.mjs

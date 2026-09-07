@@ -81,20 +81,20 @@ docs/world/
 Create or expand:
 
 ```text
-docs/gotsoap/world-bible.md
-docs/cwaaa/world-bible.md
-docs/office-of-lather-compliance/world-bible.md
+gotsoap/docs/world-bible.md
+cwaaa/docs/world-bible.md
+office-of-lather-compliance/docs/world-bible.md
 ```
 
 Each per-system bible owns only that institution's psychology, behavior, language, knowledge, and experience rules.
 
 Existing authorities remain in their current portable locations:
 
-- Got Soap?: `docs/design.md` and `docs/prd/PRD-gotsoap-web-v1.md`
-- CWAAA: `docs/cwaaa/design.md` and `docs/cwaaa/PRD-cwaaa-web-v1.md`
-- Office: `docs/office-of-lather-compliance/design.md` and `docs/office-of-lather-compliance/PRD-office-v1.md`
+- Got Soap?: `gotsoap/docs/design.md` and `gotsoap/docs/prd/PRD-gotsoap-web-v1.md`
+- CWAAA: `cwaaa/docs/design.md` and `cwaaa/docs/PRD-cwaaa-web-v1.md`
+- Office: `office-of-lather-compliance/docs/design.md` and `office-of-lather-compliance/docs/PRD-office-v1.md`
 
-CWAAA-specific material must remain under `docs/cwaaa/` so that folder can later be transferred into its own site repository. Office-specific material must remain under `docs/office-of-lather-compliance/`. Cross-system material belongs under `docs/world/`; it must not be duplicated into both portable packages.
+CWAAA-specific material must remain under `cwaaa/docs/` so that folder can later be transferred into its own site repository. Office-specific material must remain under `office-of-lather-compliance/docs/`. Cross-system material belongs under `docs/world/`; it must not be duplicated into both portable packages.
 
 ### 3.3 Authority order
 
@@ -275,7 +275,7 @@ This contract supplements, rather than replaces, the existing prohibitions again
 
 ## 8. CWAAA behavioral bible
 
-Expand `docs/cwaaa/world-bible.md` into a complete institutional psychology.
+Expand `cwaaa/docs/world-bible.md` into a complete institutional psychology.
 
 ### 8.1 Required subjects
 

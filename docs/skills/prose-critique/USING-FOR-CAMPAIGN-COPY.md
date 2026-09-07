@@ -34,6 +34,6 @@ Where SKILL.md says "reader experience," read **"the dual-address reader"**: eve
 who it's winking at is a first-class severity finding — that's this campaign's version of "confused POV."
 
 ## Your bar is still the voice bible
-This skill sharpens *how you critique*; `docs/copy/voice-bible.md` is *what you critique against*.
+This skill sharpens *how you critique*; `gotsoap/docs/copy/voice-bible.md` is *what you critique against*.
 Run the Stepford test (voice-bible) using this skill's finding discipline. Consensus is a line you
 and Claude would both defend to Stacey — not one you're tired of arguing over.

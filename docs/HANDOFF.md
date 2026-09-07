@@ -2,6 +2,24 @@
 
 **Status:** current runtime documented; three-system target approved; extraction not yet performed.
 
+## Workspace organization (2026-09-07)
+
+The owner requested separate working folders for the three entities. Their documentation now lives in `gotsoap/`, `cwaaa/`, and `office-of-lather-compliance/`, each with its own Claude instructions and plan index. Shared canon, coordinated plans, and locked combined-runtime proof files remain under `docs/`. This is file organization; the working Astro runtime remains in `site/` and standalone extraction is still pending. See `docs/FILE-OWNERSHIP.md` and `docs/organization-manifest.json`.
+
+## Launch handoff scope (2026-09-07)
+
+The owner requested a completion PRD and graphics checklist for each entity, defining completion as launch-ready sites with explicit notes for later work. The owner also directed Claude to grill them thoroughly about unfinished design/production sections instead of inventing answers. The six handoff files are:
+
+| Entity | Launch execution | Owner graphics |
+|---|---|---|
+| Got Soap? | [PRD](../gotsoap/PRD-TO-LAUNCH.md) | [Graphics](../gotsoap/GRAPHICS-TO-MAKE.md) |
+| CWAAA | [PRD](../cwaaa/PRD-TO-LAUNCH.md) | [Graphics](../cwaaa/GRAPHICS-TO-MAKE.md) |
+| Office of Lather Compliance | [PRD](../office-of-lather-compliance/PRD-TO-LAUNCH.md) | [Graphics](../office-of-lather-compliance/GRAPHICS-TO-MAKE.md) |
+
+These are execution handoffs under existing authority. They do not approve unanswered visual decisions or claim that runtime extraction, final artwork, provider configuration, or deployment has occurred. Film and live phone production remain tracked activation work; their unproduced state must not be disguised as a functioning launch feature. No Office on-page graphics are required.
+
+The CWAAA handoff identifies a conflict requiring owner clarification: local August 13/14 UI decisions and the runtime font manifest record six role-specific families, while older root guidance summarizes PT Serif as the CWAAA web font. Preserve the evidence and resolve the wording explicitly; this handoff pass does not silently amend that decision. Got Soap?'s detailed typography/color supplements also resolve some items still labeled pending in its older UI scaffold.
+
 ## The one-minute orientation
 
 The Astro build in `site/` currently contains campaign, CWAAA, and pledge material in one deployable
@@ -25,17 +43,17 @@ exclusively of custom error states. The IVR is the controlled ambiguity exceptio
 | What cross-system facts, ambiguity, and artifact continuity govern the world? | `docs/world/WORLD-BIBLE.md` + `docs/world/artifact-continuity.md` |
 | What does the current combined build render? | `specs.md` |
 | What governs the approved 2026-07-28 creative-direction revision? | `docs/superpowers/specs/2026-07-28-creative-direction-revision-design.md` + `docs/superpowers/plans/2026-07-28-creative-direction-revision.md` |
-| What should Got Soap? become? | `docs/design.md` + `docs/prd/PRD-gotsoap-web-v1.md` |
-| What facts, psychology, and voice belong to Got Soap?? | `docs/gotsoap/world-bible.md` |
-| What should the CWAAA site become? | `docs/cwaaa/design.md` + `docs/cwaaa/PRD-cwaaa-web-v1.md` |
-| What facts and voice belong to CWAAA? | `docs/cwaaa/world-bible.md` |
-| What moves when CWAAA is extracted? | `docs/cwaaa/migration-manifest.md` |
-| What should the Office become? | `docs/office-of-lather-compliance/design.md` + its PRD |
-| What facts, psychology, and voice belong to the Office? | `docs/office-of-lather-compliance/world-bible.md` |
-| How does Office return recognition work? | `docs/office-of-lather-compliance/contracts/visit-state.v1.json` |
+| What should Got Soap? become? | `gotsoap/docs/design.md` + `gotsoap/docs/prd/PRD-gotsoap-web-v1.md` |
+| What facts, psychology, and voice belong to Got Soap?? | `gotsoap/docs/world-bible.md` |
+| What should the CWAAA site become? | `cwaaa/docs/design.md` + `cwaaa/docs/PRD-cwaaa-web-v1.md` |
+| What facts and voice belong to CWAAA? | `cwaaa/docs/world-bible.md` |
+| What moves when CWAAA is extracted? | `cwaaa/docs/migration-manifest.md` |
+| What should the Office become? | `office-of-lather-compliance/docs/design.md` + its PRD |
+| What facts, psychology, and voice belong to the Office? | `office-of-lather-compliance/docs/world-bible.md` |
+| How does Office return recognition work? | `office-of-lather-compliance/docs/contracts/visit-state.v1.json` |
 | What must both pledge forms submit? | `docs/contracts/pledge.v1.json` |
 | What copy is implemented today? | `site/src/content/copy.ts` |
-| What copy process is binding? | `COPY-PROTOCOL.md`, `CAMPAIGN-INTENT.md`, `docs/copy/` |
+| What copy process is binding? | `gotsoap/docs/copy/COPY-PROTOCOL.md`, `gotsoap/docs/copy/CAMPAIGN-INTENT.md`, and the applicable entity copy folder |
 
 ## Canon statuses
 
@@ -128,7 +146,7 @@ above. This approval changes target authority, not the current combined runtime 
   lockfile.
 - Always-live gate G19 rejects every `@fontsource/*` dependency, lockfile entry, or source import.
   Reintroduction requires an explicit owner approval recorded here and in
-  `docs/gotsoap/font-delivery-spec.md`, plus an owner-approved gate change in the same implementation.
+  `gotsoap/docs/font-delivery-spec.md`, plus an owner-approved gate change in the same implementation.
 
 ### Legal navigation and disclosure
 
@@ -139,7 +157,7 @@ through the creator/About seam. No public global satire disclosure is permitted.
 
 ## Historical material
 
-`docs/design-v1-sonnet.md`, `docs/design-north-star.md`, and earlier superpowers specs remain useful
+`gotsoap/docs/design-v1-sonnet.md`, `gotsoap/docs/design-north-star.md`, and earlier superpowers specs remain useful
 decision history. They do not override the target packages above. The archived July 14 architecture
 spec predates the three-system split and must not be used to recreate CWAAA as a site-within-a-site.
 

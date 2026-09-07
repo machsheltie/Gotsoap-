@@ -28,7 +28,7 @@
  *
  * Layer 2 needs the screenshots. Produce them with Playwright at 390 × 844 with the
  * canonical posters neutralised, and save to:
- *     docs/build/reports/evidence/phase2-neutral-<slug>.png
+ *     gotsoap/docs/build/reports/evidence/phase2-neutral-<slug>.png
  *
  *   await page.addStyleTag({ content:
  *     'img.poster-canonical{filter:grayscale(1)brightness(0)opacity(.28)!important}' });
@@ -51,7 +51,7 @@ const ENVS = [
   { slug: 'thirst-announcement', comp: 'ThirstEnvironment' },
 ];
 
-const EVIDENCE = '../docs/build/reports/evidence';
+const EVIDENCE = '../gotsoap/docs/build/reports/evidence';
 
 /* Two environments more similar than this ARE the same component. */
 const MAX_SOURCE_SIMILARITY = 0.7;

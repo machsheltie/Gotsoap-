@@ -7,14 +7,14 @@
 
 ## Per-system authority
 
-- Got Soap?: `../gotsoap/world-bible.md`, `../design.md`, and the campaign PRD.
-- CWAAA: `../cwaaa/`.
-- Office: `../office-of-lather-compliance/`.
+- Got Soap?: `../../gotsoap/docs/world-bible.md`, `../../gotsoap/docs/design.md`, and the campaign PRD.
+- CWAAA: `../../cwaaa/docs/`.
+- Office: `../../office-of-lather-compliance/docs/`.
 
 ## Extraction
 
-CWAAA-specific material remains under `docs/cwaaa/`; Office-specific material remains under
-`docs/office-of-lather-compliance/`. Shared facts remain here and travel through this synchronization
+CWAAA-specific material remains under `cwaaa/docs/`; Office-specific material remains under
+`office-of-lather-compliance/docs/`. Shared facts remain here and travel through this synchronization
 contract rather than being restated inside either package.
 
 - **Shared contract identity:** `gotsoap-world-canon.v1`

@@ -71,7 +71,7 @@ if (fontAudit) {
       fontRoot: "public/fonts",
       outputs: {
         json: "reports/font-audit.json",
-        markdown: "docs/gotsoap/font-binary-audit.md",
+        markdown: "gotsoap/docs/font-binary-audit.md",
       },
       glyphSets: {
         coreLatin: "got soap?\nAV 0123456789 $38.00",

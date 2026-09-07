@@ -481,7 +481,7 @@ if (CHECK_BUILD) {
 {
   const built = ['Confident', 'Smoldering', 'Unholy', 'Redemption', 'Thirst']
     .every((n) => existsSync(join(SRC, `components/psas/${n}Environment.astro`)));
-  const EV = '../docs/build/reports/evidence';
+  const EV = '../gotsoap/docs/build/reports/evidence';
   const shots = ['confident-man', 'soap-smoldering', 'unholy', 'redemption', 'thirst-announcement']
     .map((s) => join(EV, `phase2-neutral-${s}.png`));
   const haveShots = shots.every((p) => existsSync(p));

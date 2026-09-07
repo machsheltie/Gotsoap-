@@ -156,28 +156,28 @@ const authorityFixturePaths = [
   'CLAUDE.md',
   '.claude/rules/gotsoap-web-design.md',
   'docs/HANDOFF.md',
-  'docs/design.md',
-  'docs/prd/PRD-gotsoap-web-v1.md',
-  'docs/strategy/participation-mechanics.md',
-  'docs/strategy/cwaaa-divergence-roadmap.md',
+  'gotsoap/docs/design.md',
+  'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
+  'gotsoap/docs/strategy/participation-mechanics.md',
+  'cwaaa/docs/plans/cwaaa-divergence-roadmap.md',
   'docs/world/README.md',
   'docs/world/WORLD-BIBLE.md',
   'docs/world/artifact-continuity.md',
   'docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md',
   'docs/world/artifacts/1-800-GOT-SOAP-IVR-script.pdf',
-  'docs/gotsoap/world-bible.md',
-  'docs/cwaaa/README.md',
-  'docs/cwaaa/world-bible.md',
-  'docs/cwaaa/design.md',
-  'docs/cwaaa/PRD-cwaaa-web-v1.md',
-  'docs/cwaaa/migration-manifest.md',
-  'docs/office-of-lather-compliance/README.md',
-  'docs/office-of-lather-compliance/world-bible.md',
-  'docs/office-of-lather-compliance/design.md',
-  'docs/office-of-lather-compliance/PRD-office-v1.md',
+  'gotsoap/docs/world-bible.md',
+  'cwaaa/docs/README.md',
+  'cwaaa/docs/world-bible.md',
+  'cwaaa/docs/design.md',
+  'cwaaa/docs/PRD-cwaaa-web-v1.md',
+  'cwaaa/docs/migration-manifest.md',
+  'office-of-lather-compliance/docs/README.md',
+  'office-of-lather-compliance/docs/world-bible.md',
+  'office-of-lather-compliance/docs/design.md',
+  'office-of-lather-compliance/docs/PRD-office-v1.md',
   'docs/contracts/pledge.v1.json',
-  'docs/cwaaa/contracts/pledge.v1.json',
-  'docs/office-of-lather-compliance/contracts/visit-state.v1.json',
+  'cwaaa/docs/contracts/pledge.v1.json',
+  'office-of-lather-compliance/docs/contracts/visit-state.v1.json',
 ];
 
 function withCleanAuthorityFixture(callback) {
@@ -234,21 +234,21 @@ test('portable pledge parity rejects whitespace-only JSON drift', () => {
     'AGENTS.md',
     'CLAUDE.md',
     'docs/HANDOFF.md',
-    'docs/design.md',
-    'docs/prd/PRD-gotsoap-web-v1.md',
-    'docs/strategy/participation-mechanics.md',
-    'docs/strategy/cwaaa-divergence-roadmap.md',
+    'gotsoap/docs/design.md',
+    'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
+    'gotsoap/docs/strategy/participation-mechanics.md',
+    'cwaaa/docs/plans/cwaaa-divergence-roadmap.md',
     'docs/world/README.md',
     'docs/world/WORLD-BIBLE.md',
     'docs/world/artifact-continuity.md',
-    'docs/cwaaa/README.md',
-    'docs/cwaaa/world-bible.md',
-    'docs/office-of-lather-compliance/README.md',
-    'docs/office-of-lather-compliance/design.md',
-    'docs/office-of-lather-compliance/PRD-office-v1.md',
+    'cwaaa/docs/README.md',
+    'cwaaa/docs/world-bible.md',
+    'office-of-lather-compliance/docs/README.md',
+    'office-of-lather-compliance/docs/design.md',
+    'office-of-lather-compliance/docs/PRD-office-v1.md',
     'docs/contracts/pledge.v1.json',
-    'docs/cwaaa/contracts/pledge.v1.json',
-    'docs/office-of-lather-compliance/contracts/visit-state.v1.json',
+    'cwaaa/docs/contracts/pledge.v1.json',
+    'office-of-lather-compliance/docs/contracts/visit-state.v1.json',
   ];
 
   try {
@@ -258,7 +258,7 @@ test('portable pledge parity rejects whitespace-only JSON drift', () => {
       cpSync(join(repoRoot, relativePath), destination);
     }
 
-    const cwaaaPledgePath = join(fixtureRoot, 'docs/cwaaa/contracts/pledge.v1.json');
+    const cwaaaPledgePath = join(fixtureRoot, 'cwaaa/docs/contracts/pledge.v1.json');
     writeFileSync(cwaaaPledgePath, `\n${readFileSync(cwaaaPledgePath, 'utf8')}`);
 
     assert.match(
@@ -309,7 +309,7 @@ test('the Office contract is error-state-only and jurisdiction-neutral', () => {
 
 test('Office escalation advances by distinct sessions, never reload count', () => {
   const corrected = JSON.parse(readFileSync(
-    join(repoRoot, 'docs/office-of-lather-compliance/contracts/visit-state.v1.json'),
+    join(repoRoot, 'office-of-lather-compliance/docs/contracts/visit-state.v1.json'),
     'utf8',
   ));
 
@@ -326,7 +326,7 @@ test('Office escalation advances by distinct sessions, never reload count', () =
 
 test('Office state selection preserves the session progression', () => {
   const contract = JSON.parse(readFileSync(
-    join(repoRoot, 'docs/office-of-lather-compliance/contracts/visit-state.v1.json'),
+    join(repoRoot, 'office-of-lather-compliance/docs/contracts/visit-state.v1.json'),
     'utf8',
   ));
 
@@ -341,7 +341,7 @@ test('Office state selection preserves the session progression', () => {
 
 test('Office contract rejects binding privacy, rendering, and transition drift', () => {
   const drifted = JSON.parse(readFileSync(
-    join(repoRoot, 'docs/office-of-lather-compliance/contracts/visit-state.v1.json'),
+    join(repoRoot, 'office-of-lather-compliance/docs/contracts/visit-state.v1.json'),
     'utf8',
   ));
 
@@ -384,121 +384,121 @@ test('master canon markers distinguish truth from protected uncertainty', () => 
 const canonMutationCases = [
   {
     name: 'CWAAA established in 1961',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'CWAAA was established in 1961.',
     expected: /CWAAA chronology.*1961/i,
   },
   {
     name: 'Office established in 2024',
-    path: 'docs/office-of-lather-compliance/world-bible.md',
+    path: 'office-of-lather-compliance/docs/world-bible.md',
     statement: 'The Office of Lather Compliance was established in 2024.',
     expected: /Office chronology.*2024/i,
   },
   {
     name: 'Got Soap? regulating',
-    path: 'docs/gotsoap/world-bible.md',
+    path: 'gotsoap/docs/world-bible.md',
     statement: 'Got Soap? regulates hygiene.',
     expected: /Got Soap\?.*must not regulate/i,
   },
   {
     name: 'Got Soap? filing findings',
-    path: 'docs/gotsoap/world-bible.md',
+    path: 'gotsoap/docs/world-bible.md',
     statement: 'Got Soap? files findings.',
     expected: /Got Soap\?.*must not file findings/i,
   },
   {
     name: 'Got Soap? regulating in the root design authority',
-    path: 'docs/design.md',
+    path: 'gotsoap/docs/design.md',
     statement: 'Got Soap? regulates hygiene.',
     expected: /Got Soap\?.*must not regulate/i,
   },
   {
     name: 'CWAAA campaigning',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'CWAAA campaigns for hygiene.',
     expected: /CWAAA.*must not campaign/i,
   },
   {
     name: 'CWAAA regulating',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'CWAAA regulates hygiene.',
     expected: /CWAAA.*must not regulate/i,
   },
   {
     name: 'CWAAA regulation followed by an unrelated negative sentence',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'CWAAA regulates hygiene. It never campaigns.',
     expected: /CWAAA.*must not regulate/i,
   },
   {
     name: 'CWAAA claiming jurisdiction',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'CWAAA claims jurisdiction over hygiene.',
     expected: /CWAAA.*must not claim jurisdiction/i,
   },
   {
     name: 'Office campaigning',
-    path: 'docs/office-of-lather-compliance/world-bible.md',
+    path: 'office-of-lather-compliance/docs/world-bible.md',
     statement: 'The Office campaigns for hygiene.',
     expected: /Office.*must not campaign/i,
   },
   {
     name: 'Office owning the pledge',
-    path: 'docs/office-of-lather-compliance/world-bible.md',
+    path: 'office-of-lather-compliance/docs/world-bible.md',
     statement: 'The Office owns the Lather Pledge.',
     expected: /Office.*must not own the pledge/i,
   },
   {
     name: 'Office filing the pledge',
-    path: 'docs/office-of-lather-compliance/world-bible.md',
+    path: 'office-of-lather-compliance/docs/world-bible.md',
     statement: 'The Office files the Lather Pledge.',
     expected: /Office.*must not file the pledge/i,
   },
   {
     name: 'CWAAA declared as the Office public-facing layer',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: "CWAAA is the Office's public-facing layer.",
     expected: /relationship mystery.*public-facing layer/i,
   },
   {
     name: 'CWAAA declared as the Office front',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: "CWAAA is the Office's front.",
     expected: /relationship mystery.*front/i,
   },
   {
     name: 'CWAAA declared as an Office division',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'CWAAA is a division of the Office.',
     expected: /relationship mystery.*division/i,
   },
   {
     name: 'CWAAA declared as the Office parent',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: "CWAAA is the Office's parent organization.",
     expected: /relationship mystery.*parent/i,
   },
   {
     name: 'resolved relationship followed by an unrelated nonprofit disclaimer',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: "CWAAA is the Office's public-facing layer. This does not change its nonprofit voice.",
     expected: /relationship mystery.*public-facing layer/i,
   },
   {
     name: 'objective no-government-front claim',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'CWAAA is never a government front.',
     expected: /over-resolves.*government front/i,
   },
   {
     name: 'objective Office-knowledge denial',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'CWAAA does not know Office internal systems.',
     expected: /over-resolves.*Office internal systems/i,
   },
   {
     name: 'objective CWAAA operation and staffing denial',
-    path: 'docs/cwaaa/README.md',
+    path: 'cwaaa/docs/README.md',
     statement: 'CWAAA does not contain or operate it, staff it, or speak on its behalf.',
     expected: /over-resolves.*contain or operate/i,
   },
@@ -510,7 +510,7 @@ const canonMutationCases = [
   },
   {
     name: 'objective Office assessor-dispatch denial',
-    path: 'docs/office-of-lather-compliance/world-bible.md',
+    path: 'office-of-lather-compliance/docs/world-bible.md',
     statement: 'The Office never dispatches an assessor.',
     expected: /over-resolves.*dispatches an assessor/i,
   },
@@ -564,7 +564,7 @@ const canonMutationCases = [
   },
   {
     name: 'CWAAA operating the Office',
-    path: 'docs/strategy/cwaaa-divergence-roadmap.md',
+    path: 'cwaaa/docs/plans/cwaaa-divergence-roadmap.md',
     statement: 'CWAAA operates the Office.',
     expected: /relationship mystery.*operates/i,
   },
@@ -576,13 +576,13 @@ const canonMutationCases = [
   },
   {
     name: 'Office declared as a technical service operated by CWAAA',
-    path: 'docs/strategy/cwaaa-divergence-roadmap.md',
+    path: 'cwaaa/docs/plans/cwaaa-divergence-roadmap.md',
     statement: 'The Office is a technical service operated by CWAAA.',
     expected: /relationship mystery.*technical service/i,
   },
   {
     name: 'CWAAA declared as a technical-services provider to the Office',
-    path: 'docs/strategy/cwaaa-divergence-roadmap.md',
+    path: 'cwaaa/docs/plans/cwaaa-divergence-roadmap.md',
     statement: 'CWAAA provides technical services to the Office.',
     expected: /relationship mystery.*technical services/i,
   },
@@ -612,7 +612,7 @@ const canonMutationCases = [
   },
   {
     name: 'same-sentence unrelated-negation relationship bypass',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: "This does not affect the seal, and CWAAA is the Office's public-facing layer.",
     expected: /relationship mystery.*public-facing layer/i,
   },
@@ -636,13 +636,13 @@ const canonMutationCases = [
   },
   {
     name: 'objective denial that Office is technically operated by CWAAA',
-    path: 'docs/strategy/cwaaa-divergence-roadmap.md',
+    path: 'cwaaa/docs/plans/cwaaa-divergence-roadmap.md',
     statement: 'The Office is not a technical service operated by CWAAA.',
     expected: /over-resolves.*operational separation/i,
   },
   {
     name: 'objective denial that CWAAA operates the Office',
-    path: 'docs/strategy/cwaaa-divergence-roadmap.md',
+    path: 'cwaaa/docs/plans/cwaaa-divergence-roadmap.md',
     statement: 'CWAAA does not operate the Office.',
     expected: /over-resolves.*operational separation/i,
   },
@@ -1056,7 +1056,7 @@ for (const { name, path, statement, expected } of canonMutationCases) {
 const unrelatedNegationBypassCases = [
   {
     name: 'relationship assertion after a seal disclaimer',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'Although this does not affect the seal, CWAAA is the Office’s public-facing layer.',
     expected: /relationship mystery.*public-facing layer/i,
   },
@@ -1068,13 +1068,13 @@ const unrelatedNegationBypassCases = [
   },
   {
     name: 'Shop grid assertion after a product-card negation',
-    path: 'docs/design.md',
+    path: 'gotsoap/docs/design.md',
     statement: 'Although Shop does not use product cards, arrange products in an equal responsive product grid.',
     expected: /obsolete Shop grid guidance/i,
   },
   {
     name: 'public disclosure assertion after a Privacy disclaimer',
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     statement: 'Although this does not affect Privacy, render “This is satire” in the global footer.',
     expected: /fiction disclosure belongs behind the creator\/About seam/i,
   },
@@ -1092,13 +1092,13 @@ for (const { name, path, statement, expected } of unrelatedNegationBypassCases) 
 const candidateLocalNegationBypassCases = [
   {
     name: 'causal no-comma relationship assertion',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'This does not affect the seal because CWAAA is the Office’s public-facing layer.',
     expected: /relationship mystery.*public-facing layer/i,
   },
   {
     name: 'Markdown-wrapped relationship assertion',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'This does not affect the seal because\n**CWAAA is the Office’s public-facing layer.**',
     expected: /relationship mystery.*public-facing layer/i,
   },
@@ -1110,25 +1110,25 @@ const candidateLocalNegationBypassCases = [
   },
   {
     name: 'causal Shop grid assertion',
-    path: 'docs/design.md',
+    path: 'gotsoap/docs/design.md',
     statement: 'Shop does not use product cards because products are arranged in an equal responsive product grid.',
     expected: /obsolete Shop grid guidance/i,
   },
   {
     name: 'later public-disclosure directive',
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     statement: 'Do not render a privacy warning because render “This is satire” in the global footer.',
     expected: /fiction disclosure belongs behind the creator\/About seam/i,
   },
   {
     name: 'Markdown-wrapped public-disclosure directive',
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     statement: 'Do not render a privacy warning because\nrender “This is satire” in the global footer.',
     expected: /fiction disclosure belongs behind the creator\/About seam/i,
   },
   {
     name: 'comma-but later public-disclosure directive',
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     statement: 'Do not render a privacy warning, but render “This is satire” in the global footer.',
     expected: /fiction disclosure belongs behind the creator\/About seam/i,
   },
@@ -1152,31 +1152,31 @@ const candidateLocalProtectionCases = [
   },
   {
     name: 'intentionally unresolved relationship',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'It remains intentionally unresolved whether CWAAA is the Office’s public-facing layer.',
     diagnostic: /relationship mystery.*public-facing layer/i,
   },
   {
     name: 'explicit Shop prohibition',
-    path: 'docs/design.md',
+    path: 'gotsoap/docs/design.md',
     statement: 'Do not arrange products in an equal responsive product grid.',
     diagnostic: /obsolete Shop grid guidance/i,
   },
   {
     name: 'explicit disclosure prohibition',
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     statement: 'Do not render “This is satire” in the global footer.',
     diagnostic: /fiction disclosure belongs behind the creator\/About seam/i,
   },
   {
     name: 'documented historical disclosure example',
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     statement: 'Historical/superseded wording: Render “This is satire” in the global footer.',
     diagnostic: /fiction disclosure belongs behind the creator\/About seam/i,
   },
   {
     name: 'documented rejected relationship example',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'Rejected example: “CWAAA is the Office’s public-facing layer.”',
     diagnostic: /relationship mystery.*public-facing layer/i,
   },
@@ -1197,7 +1197,7 @@ for (const { name, path, statement, diagnostic } of candidateLocalProtectionCase
 const allCandidateBypassCases = [
   {
     name: 'repeated Shop assertion after its direct prohibition',
-    path: 'docs/design.md',
+    path: 'gotsoap/docs/design.md',
     statement: 'Do not arrange products in an equal responsive product grid but arrange products in an equal responsive product grid.',
     expected: /obsolete Shop grid guidance/i,
   },
@@ -1209,31 +1209,31 @@ const allCandidateBypassCases = [
   },
   {
     name: 'relationship assertion after and coordination',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'This does not affect the seal and CWAAA is the Office’s public-facing layer.',
     expected: /relationship mystery.*public-facing layer/i,
   },
   {
     name: 'relationship assertion after or coordination',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'This does not affect the seal or CWAAA is the Office’s public-facing layer.',
     expected: /relationship mystery.*public-facing layer/i,
   },
   {
     name: 'disclosure directive after and coordination',
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     statement: 'Do not render a privacy warning and render “This is satire” in the global footer.',
     expected: /fiction disclosure belongs behind the creator\/About seam/i,
   },
   {
     name: 'disclosure directive after or coordination',
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     statement: 'Do not render a privacy warning or render “This is satire” in the global footer.',
     expected: /fiction disclosure belongs behind the creator\/About seam/i,
   },
   {
     name: 'relationship assertion after no-question certainty',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'There is no question that CWAAA is the Office’s public-facing layer.',
     expected: /relationship mystery.*public-facing layer/i,
   },
@@ -1251,31 +1251,31 @@ for (const { name, path, statement, expected } of allCandidateBypassCases) {
 const allCandidateProtectionCases = [
   {
     name: 'a single direct Shop prohibition',
-    path: 'docs/design.md',
+    path: 'gotsoap/docs/design.md',
     statement: 'Do not arrange products in an equal responsive product grid.',
     diagnostic: /obsolete Shop grid guidance/i,
   },
   {
     name: 'an open question whether the relationship exists',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'It remains an open question whether CWAAA is the Office’s public-facing layer.',
     diagnostic: /relationship mystery.*public-facing layer/i,
   },
   {
     name: 'a question that remains unresolved whether the relationship exists',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'The question remains unresolved whether CWAAA is the Office’s public-facing layer.',
     diagnostic: /relationship mystery.*public-facing layer/i,
   },
   {
     name: 'a documented relationship example list',
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     statement: 'Forbidden examples: `CWAAA is the Office’s partner.` and `The Office operates CWAAA.`',
     diagnostic: /relationship mystery|operational separation/i,
   },
   {
     name: 'a documented disclosure example list',
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     statement: 'Rejected examples: "Render \'This is satire\' in the global footer." and "State \'This is fictional\' in the global footer."',
     diagnostic: /fiction disclosure belongs behind the creator\/About seam/i,
   },
@@ -1320,25 +1320,25 @@ const nounCoordinatorBypassCases = [
   },
   {
     name: 'Case Files noun assertion after and coordination',
-    path: 'docs/strategy/participation-mechanics.md',
+    path: 'gotsoap/docs/strategy/participation-mechanics.md',
     statement: 'The target is not Recovery Stories and Case Files remain the primary public destination.',
     expected: /obsolete CWAAA public Case Files target/i,
   },
   {
     name: 'Case Files noun assertion after or coordination',
-    path: 'docs/strategy/participation-mechanics.md',
+    path: 'gotsoap/docs/strategy/participation-mechanics.md',
     statement: 'The target is not Recovery Stories or Case Files remain the primary public destination.',
     expected: /obsolete CWAAA public Case Files target/i,
   },
   {
     name: 'Case Files noun assertion with an unlisted predicate after and coordination',
-    path: 'docs/strategy/participation-mechanics.md',
+    path: 'gotsoap/docs/strategy/participation-mechanics.md',
     statement: 'The target is not Recovery Stories and Case Files continue as the primary public destination.',
     expected: /obsolete CWAAA public Case Files target/i,
   },
   {
     name: 'Case Files noun assertion with an unlisted predicate after or coordination',
-    path: 'docs/strategy/participation-mechanics.md',
+    path: 'gotsoap/docs/strategy/participation-mechanics.md',
     statement: 'The target is not Recovery Stories or Case Files continue as the primary public destination.',
     expected: /obsolete CWAAA public Case Files target/i,
   },
@@ -1368,7 +1368,7 @@ const nounCoordinatorProtectionCases = [
   },
   {
     name: 'Recovery Stories and Case Files shared target complement list',
-    path: 'docs/strategy/participation-mechanics.md',
+    path: 'gotsoap/docs/strategy/participation-mechanics.md',
     statement: 'The target is not Recovery Stories or Case Files.',
     diagnostic: /obsolete CWAAA public Case Files target/i,
   },
@@ -1395,43 +1395,43 @@ for (const { name, path, statement, diagnostic } of nounCoordinatorProtectionCas
 const staleCreativeDirectionCases = [
   {
     name: 'paper-manila as the CWAAA primary stock',
-    path: 'docs/cwaaa/design.md',
+    path: 'cwaaa/docs/design.md',
     text: 'Primary stock: paper-manila.',
     expected: /obsolete CWAAA paper-universe guidance/i,
   },
   {
     name: 'CWAAA records room as the governing composition',
-    path: 'docs/cwaaa/design.md',
+    path: 'cwaaa/docs/design.md',
     text: 'The site behaves like a records room with index logic.',
     expected: /obsolete CWAAA records-room guidance/i,
   },
   {
     name: 'photo-led CWAAA hero prohibition',
-    path: 'docs/cwaaa/design.md',
+    path: 'cwaaa/docs/design.md',
     text: 'Avoid a photo-led hero.',
     expected: /obsolete CWAAA hero guidance/i,
   },
   {
     name: 'case files retained as the public route',
-    path: 'docs/cwaaa/PRD-cwaaa-web-v1.md',
+    path: 'cwaaa/docs/PRD-cwaaa-web-v1.md',
     text: '| `/case-files` | Public case-file index |',
     expected: /obsolete CWAAA public route/i,
   },
   {
     name: 'equal responsive Shop product grid',
-    path: 'docs/design.md',
+    path: 'gotsoap/docs/design.md',
     text: 'Arrange products in an equal responsive product grid.',
     expected: /obsolete Shop grid guidance/i,
   },
   {
     name: 'standard ecommerce Shop product cards',
-    path: 'docs/design.md',
+    path: 'gotsoap/docs/design.md',
     text: 'Use standard ecommerce product cards.',
     expected: /obsolete Shop card guidance/i,
   },
   {
     name: 'Shop ratings and recommendations',
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     text: 'Include ratings and customers-also-bought recommendations.',
     expected: /obsolete Shop ecommerce guidance/i,
   },
@@ -1450,7 +1450,7 @@ test('participation strategy rejects a live Case Files target directive', () => 
   withCleanAuthorityFixture((fixtureRoot) => {
     appendFixtureText(
       fixtureRoot,
-      'docs/strategy/participation-mechanics.md',
+      'gotsoap/docs/strategy/participation-mechanics.md',
       'Target state: publish Case Files at `/case-files` as a primary CWAAA destination.',
     );
     assert.match(
@@ -1464,7 +1464,7 @@ test('participation strategy permits an explicit current-runtime Case Files redi
   withCleanAuthorityFixture((fixtureRoot) => {
     appendFixtureText(
       fixtureRoot,
-      'docs/strategy/participation-mechanics.md',
+      'gotsoap/docs/strategy/participation-mechanics.md',
       'Current-state migration history records the combined runtime legacy `/case-files` → `/recovery-stories` redirect.',
     );
     assert.deepEqual(
@@ -1580,15 +1580,15 @@ test('top-level stale-positive scan permits documented historical wording', () =
 
 const publicDisclosureDriftCases = [
   {
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     text: 'Render “This is satire and unaffiliated spec work” in the global footer.',
   },
   {
-    path: 'docs/cwaaa/PRD-cwaaa-web-v1.md',
+    path: 'cwaaa/docs/PRD-cwaaa-web-v1.md',
     text: 'State that CWAAA is fictional satire in global footer copy.',
   },
   {
-    path: 'docs/cwaaa/world-bible.md',
+    path: 'cwaaa/docs/world-bible.md',
     text: 'State clearly in accessible legal/footer copy that CWAAA is fictional satire.',
   },
 ];
@@ -1609,7 +1609,7 @@ test('public fiction disclosure rejects a Markdown-wrapped directive', () => {
   withCleanAuthorityFixture((fixtureRoot) => {
     appendFixtureText(
       fixtureRoot,
-      'docs/prd/PRD-gotsoap-web-v1.md',
+      'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
       'Render “This is satire and unaffiliated spec work” in the\nglobal footer.',
     );
     assert.match(
@@ -1622,22 +1622,22 @@ test('public fiction disclosure rejects a Markdown-wrapped directive', () => {
 for (const [name, path, text] of [
   [
     'private production canon',
-    'docs/cwaaa/world-bible.md',
+    'cwaaa/docs/world-bible.md',
     'Private production canon identifies CWAAA as a fictional advocacy nonprofit.',
   ],
   [
     'explicit global-footer prohibition',
-    'docs/cwaaa/PRD-cwaaa-web-v1.md',
+    'cwaaa/docs/PRD-cwaaa-web-v1.md',
     'Do not state that CWAAA is fictional satire in global footer copy.',
   ],
   [
     'rejected global-footer example',
-    'docs/prd/PRD-gotsoap-web-v1.md',
+    'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     'Rejected example: Render “This is satire” in the global footer.',
   ],
   [
     'historical superseded CWAAA footer direction',
-    'docs/cwaaa/PRD-cwaaa-web-v1.md',
+    'cwaaa/docs/PRD-cwaaa-web-v1.md',
     'Historical/superseded wording: State that CWAAA is fictional satire in global footer copy.',
   ],
 ]) {
@@ -1669,25 +1669,25 @@ for (const marker of ['Privacy', 'Terms', 'DMCA']) {
 const protectedShopGuidanceCases = [
   {
     name: 'explicit grid prohibition',
-    path: 'docs/design.md',
+    path: 'gotsoap/docs/design.md',
     text: 'Do not arrange products in an equal responsive product grid.',
     diagnostic: /obsolete Shop grid guidance/i,
   },
   {
     name: 'explicit ecommerce-card prohibition',
-    path: 'docs/design.md',
+    path: 'gotsoap/docs/design.md',
     text: 'Never use standard ecommerce product cards.',
     diagnostic: /obsolete Shop card guidance/i,
   },
   {
     name: 'historical ratings and recommendations example',
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     text: 'Historical example: Include ratings and customers-also-bought recommendations.',
     diagnostic: /obsolete Shop ecommerce guidance/i,
   },
   {
     name: 'rejected ratings and recommendations example',
-    path: 'docs/prd/PRD-gotsoap-web-v1.md',
+    path: 'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     text: 'Rejected example: Include ratings and customers-also-bought recommendations.',
     diagnostic: /obsolete Shop ecommerce guidance/i,
   },
@@ -1715,11 +1715,11 @@ const obsoleteOfficeDesignCases = [
 for (const [name, text, expected] of obsoleteOfficeDesignCases) {
   test(`Office styling drift is rejected with a path-aware diagnostic: ${name}`, () => {
     withCleanAuthorityFixture((fixtureRoot) => {
-      appendFixtureText(fixtureRoot, 'docs/office-of-lather-compliance/design.md', text);
+      appendFixtureText(fixtureRoot, 'office-of-lather-compliance/docs/design.md', text);
       assert.match(
         collectAuthorityErrors(fixtureRoot).join('\n'),
         new RegExp(
-          `docs/office-of-lather-compliance/design\\.md:.*${expected.source}`,
+          `office-of-lather-compliance/docs/design\\.md:.*${expected.source}`,
           expected.flags,
         ),
       );
@@ -1732,7 +1732,7 @@ test('Office styling permits explicitly rejected styled-terminal examples', () =
     for (const [, text] of obsoleteOfficeDesignCases) {
       appendFixtureText(
         fixtureRoot,
-        'docs/office-of-lather-compliance/design.md',
+        'office-of-lather-compliance/docs/design.md',
         `Rejected example: \`${text}\``,
       );
     }
@@ -1744,7 +1744,7 @@ test('Office styling permits an explicit prohibition of the terminal-frame claim
   withCleanAuthorityFixture((fixtureRoot) => {
     appendFixtureText(
       fixtureRoot,
-      'docs/office-of-lather-compliance/design.md',
+      'office-of-lather-compliance/docs/design.md',
       'Do not use a centered legacy terminal frame.',
     );
     assert.deepEqual(
@@ -1760,7 +1760,7 @@ test('Office styling permits historical superseded accent guidance', () => {
   withCleanAuthorityFixture((fixtureRoot) => {
     appendFixtureText(
       fixtureRoot,
-      'docs/office-of-lather-compliance/design.md',
+      'office-of-lather-compliance/docs/design.md',
       'Historical/superseded wording: "Use muted red as the Office accent color."',
     );
     assert.deepEqual(
@@ -1777,24 +1777,24 @@ const currentLiveAuthorityPaths = [
   'CLAUDE.md',
   '.claude/rules/gotsoap-web-design.md',
   'docs/HANDOFF.md',
-  'docs/design.md',
-  'docs/prd/PRD-gotsoap-web-v1.md',
-  'docs/strategy/participation-mechanics.md',
-  'docs/strategy/cwaaa-divergence-roadmap.md',
+  'gotsoap/docs/design.md',
+  'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
+  'gotsoap/docs/strategy/participation-mechanics.md',
+  'cwaaa/docs/plans/cwaaa-divergence-roadmap.md',
   'docs/world/README.md',
   'docs/world/WORLD-BIBLE.md',
   'docs/world/artifact-continuity.md',
   'docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md',
-  'docs/gotsoap/world-bible.md',
-  'docs/cwaaa/README.md',
-  'docs/cwaaa/world-bible.md',
-  'docs/cwaaa/design.md',
-  'docs/cwaaa/PRD-cwaaa-web-v1.md',
-  'docs/cwaaa/migration-manifest.md',
-  'docs/office-of-lather-compliance/README.md',
-  'docs/office-of-lather-compliance/world-bible.md',
-  'docs/office-of-lather-compliance/design.md',
-  'docs/office-of-lather-compliance/PRD-office-v1.md',
+  'gotsoap/docs/world-bible.md',
+  'cwaaa/docs/README.md',
+  'cwaaa/docs/world-bible.md',
+  'cwaaa/docs/design.md',
+  'cwaaa/docs/PRD-cwaaa-web-v1.md',
+  'cwaaa/docs/migration-manifest.md',
+  'office-of-lather-compliance/docs/README.md',
+  'office-of-lather-compliance/docs/world-bible.md',
+  'office-of-lather-compliance/docs/design.md',
+  'office-of-lather-compliance/docs/PRD-office-v1.md',
 ];
 
 for (const path of currentLiveAuthorityPaths) {
@@ -1838,7 +1838,7 @@ test('path-aware canon permits a relationship possibility that remains intention
   withCleanAuthorityFixture((fixtureRoot) => {
     appendFixtureText(
       fixtureRoot,
-      'docs/cwaaa/world-bible.md',
+      'cwaaa/docs/world-bible.md',
       "It remains intentionally unresolved whether CWAAA is the Office's public-facing layer.",
     );
     assert.deepEqual(collectAuthorityErrors(fixtureRoot), []);
@@ -2021,8 +2021,8 @@ test('HANDOFF contains the full precedence, target decisions, and runtime distin
     '5. Shared and per-system machine-readable contracts',
     '6. Artifact briefs and copy decks',
     '7. Historical documents',
-    '`docs/gotsoap/world-bible.md`',
-    '`docs/office-of-lather-compliance/world-bible.md`',
+    '`gotsoap/docs/world-bible.md`',
+    '`office-of-lather-compliance/docs/world-bible.md`',
     'Shop remains canonical',
     '`/broadcast`',
     'full-bleed homepage premiere seam',
@@ -2076,9 +2076,9 @@ test('top-level agent entry points synchronize the revised creative authority', 
 
 test('portable packages declare the shared-canon synchronization contract and dependency closure', () => {
   for (const relativePath of [
-    'docs/cwaaa/README.md',
-    'docs/cwaaa/migration-manifest.md',
-    'docs/office-of-lather-compliance/README.md',
+    'cwaaa/docs/README.md',
+    'cwaaa/docs/migration-manifest.md',
+    'office-of-lather-compliance/docs/README.md',
   ]) {
     const content = readFileSync(join(repoRoot, relativePath), 'utf8');
     assert.deepEqual(missingRequiredMarkers(content, [
@@ -2190,7 +2190,7 @@ test('artifact registry binds fictional ownership separately from IVR and docume
 
 function officeContractSpecimen() {
   const contract = JSON.parse(readFileSync(
-    join(repoRoot, 'docs/office-of-lather-compliance/contracts/visit-state.v1.json'),
+    join(repoRoot, 'office-of-lather-compliance/docs/contracts/visit-state.v1.json'),
     'utf8',
   ));
   contract.firstAccessTransition = {
@@ -2904,14 +2904,14 @@ test('byte-identical pledge contracts still fail when their fulfillment structur
     delete drifted.fulfillment;
     const bytes = `${JSON.stringify(drifted, null, 2)}\n`;
     writeFileSync(join(fixtureRoot, 'docs/contracts/pledge.v1.json'), bytes);
-    writeFileSync(join(fixtureRoot, 'docs/cwaaa/contracts/pledge.v1.json'), bytes);
+    writeFileSync(join(fixtureRoot, 'cwaaa/docs/contracts/pledge.v1.json'), bytes);
     assert.match(collectAuthorityErrors(fixtureRoot).join('\n'), /fulfillment/i);
   });
 });
 
 test('pledge PRDs and migration manifest state the complete email consent and privacy contract', () => {
   const expectedByPath = {
-    'docs/cwaaa/PRD-cwaaa-web-v1.md': [
+    'cwaaa/docs/PRD-cwaaa-web-v1.md': [
       'CWAAA authors fulfillment for both public pledge presentations',
       'exactly two messages',
       'immediate pledge receipt',
@@ -2922,7 +2922,7 @@ test('pledge PRDs and migration manifest state the complete email consent and pr
       'do not send pledge or email values to analytics',
       'minimum Buttondown data',
     ],
-    'docs/prd/PRD-gotsoap-web-v1.md': [
+    'gotsoap/docs/prd/PRD-gotsoap-web-v1.md': [
       'CWAAA authors fulfillment for both public pledge presentations',
       'exactly two messages',
       'immediate pledge receipt',
@@ -2933,7 +2933,7 @@ test('pledge PRDs and migration manifest state the complete email consent and pr
       'do not send pledge or email values to analytics',
       'minimum Buttondown data',
     ],
-    'docs/cwaaa/migration-manifest.md': [
+    'cwaaa/docs/migration-manifest.md': [
       'Movement Updates',
       'required migration/copy-lane correction',
       'CWAAA authors fulfillment for both public pledge presentations',

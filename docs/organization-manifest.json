@@ -1,0 +1,991 @@
+{
+  "date": "2026-09-07",
+  "scope": "Entity documentation and supporting files; combined runtime and protected source library preserved",
+  "moves": [
+    {
+      "from": "codexwork.txt",
+      "to": "docs/history/codexwork.txt",
+      "originalSha256": "6eac58de45c7248176ee4b159c1760d85b96f981f2836371194f4dc3ea6c1064"
+    },
+    {
+      "from": "docs/1.jpg",
+      "to": "gotsoap/docs/1.jpg",
+      "originalSha256": "96812c488e8c11a3e00583ede0fd3bb06c70cd65dc456a234af1e18418d72b5c"
+    },
+    {
+      "from": "docs/2.jpg",
+      "to": "gotsoap/docs/2.jpg",
+      "originalSha256": "cf51c11bf4fcc555cafc072562bb108157530a1f34b5ddecf2d7234fe4d897cd"
+    },
+    {
+      "from": "docs/3.jpg",
+      "to": "gotsoap/docs/3.jpg",
+      "originalSha256": "530a82395c07972bec16f78ea82dfc40347152edd12c077e386c2c131a346732"
+    },
+    {
+      "from": "docs/4.jpg",
+      "to": "gotsoap/docs/4.jpg",
+      "originalSha256": "1259eddcfd20d5dd24c002a0c9cec1fdee9b072466dd7ef142fb4792a6c02114"
+    },
+    {
+      "from": "docs/ASSETS-NEEDED.md",
+      "to": "gotsoap/docs/ASSETS-NEEDED.md",
+      "originalSha256": "68fd9a56f681c76da2b6379b79116c565c1f36613900885b1fe0472e33f01986"
+    },
+    {
+      "from": "docs/asset-brief.md",
+      "to": "gotsoap/docs/asset-brief.md",
+      "originalSha256": "8cd5264e33083c9df8fa8b570c1bf4a8405ca382ca2eaf934124263172a95b2c"
+    },
+    {
+      "from": "docs/build/PROMPT-COPY.md",
+      "to": "gotsoap/docs/build/PROMPT-COPY.md",
+      "originalSha256": "14fd931531b7f30a3f75a42f89ded70bb80f77e0ab15e4963217020e3e4a69fd"
+    },
+    {
+      "from": "docs/build/PROMPT-FABLE.md",
+      "to": "gotsoap/docs/build/PROMPT-FABLE.md",
+      "originalSha256": "82182818839f161de4426a732fac3177e9f55d0b87dc6382080a63a9524b06fa"
+    },
+    {
+      "from": "docs/build/PROMPT-SOL.md",
+      "to": "gotsoap/docs/build/PROMPT-SOL.md",
+      "originalSha256": "339c6eefc4ed47063c7e475113d27dfe9b1b7236bf558460031b9435932809b8"
+    },
+    {
+      "from": "docs/build/PROTOCOL.md",
+      "to": "gotsoap/docs/build/PROTOCOL.md",
+      "originalSha256": "293a73467354e4238d70ccf13ed0f03ef9635d6345d9f45e56089f75dc68845c"
+    },
+    {
+      "from": "docs/build/reports/README.md",
+      "to": "gotsoap/docs/build/reports/README.md",
+      "originalSha256": "06609b95e3b5382d822a633132d9fc62ff3c7b8d502e8ee70e14ab0c08763ba0"
+    },
+    {
+      "from": "docs/build/reports/assets/footer-consolidation/about-1440-credit.jpeg",
+      "to": "gotsoap/docs/build/reports/assets/footer-consolidation/about-1440-credit.jpeg",
+      "originalSha256": "c90c3bfaee83bdf7a4119298707ade9eff5f2c81e49c2116b4099b3396288ecb"
+    },
+    {
+      "from": "docs/build/reports/assets/footer-consolidation/home-1440-footer2.jpeg",
+      "to": "gotsoap/docs/build/reports/assets/footer-consolidation/home-1440-footer2.jpeg",
+      "originalSha256": "e39188f9eea4845df80b7b711983acb8f3722787ba64dcf6254127936cb6451f"
+    },
+    {
+      "from": "docs/build/reports/assets/footer-consolidation/home-1440-top2.jpeg",
+      "to": "gotsoap/docs/build/reports/assets/footer-consolidation/home-1440-top2.jpeg",
+      "originalSha256": "373e2c6137c4af34804d93a7f998d68dedd9af573e36138762f999c2d7439063"
+    },
+    {
+      "from": "docs/build/reports/assets/footer-consolidation/home-390-footer2.jpeg",
+      "to": "gotsoap/docs/build/reports/assets/footer-consolidation/home-390-footer2.jpeg",
+      "originalSha256": "861ab286016c7a105c6ee12bcd0979ff5db7960160ac2a04947327731bff9983"
+    },
+    {
+      "from": "docs/build/reports/assets/footer-consolidation/home-390-full.jpeg",
+      "to": "gotsoap/docs/build/reports/assets/footer-consolidation/home-390-full.jpeg",
+      "originalSha256": "2769932f319fc1f9e5420ff8027991482037b2eb38d5d2edba55abf5ff88d38e"
+    },
+    {
+      "from": "docs/build/reports/cg7-promotion-order.md",
+      "to": "gotsoap/docs/build/reports/cg7-promotion-order.md",
+      "originalSha256": "f8785d1062e24f28923778dc98cf6ce81dca67e84d92748179fee1e3f0fd7b72"
+    },
+    {
+      "from": "docs/build/reports/chrome-unification-build.md",
+      "to": "gotsoap/docs/build/reports/chrome-unification-build.md",
+      "originalSha256": "d4b1d2e24675152141aecc971a6495454604cdc2db2d8fdac7705a2e90f15fb5"
+    },
+    {
+      "from": "docs/build/reports/chrome-unification-remediation.md",
+      "to": "gotsoap/docs/build/reports/chrome-unification-remediation.md",
+      "originalSha256": "ba8c6c66ed2ca84af34a68fd7a40981c83dd021e2fd5d17fbb94f51da8446c4e"
+    },
+    {
+      "from": "docs/build/reports/chrome-unification-review.md",
+      "to": "gotsoap/docs/build/reports/chrome-unification-review.md",
+      "originalSha256": "4587ec8c70572cf15a3c64dcf58d64b5a485a75a817f176ac0952619683ec7f6"
+    },
+    {
+      "from": "docs/build/reports/chrome-unification-spec.md",
+      "to": "gotsoap/docs/build/reports/chrome-unification-spec.md",
+      "originalSha256": "1a36b80ae5221e87a0190d59227b0d4ace7bbd5f42b3fa02f37d48174e07b5f9"
+    },
+    {
+      "from": "docs/build/reports/copy-review-order.md",
+      "to": "gotsoap/docs/build/reports/copy-review-order.md",
+      "originalSha256": "eea58237a7783b498ba89d42eb65541da7a116759e56b2e63dd965a65a834e98"
+    },
+    {
+      "from": "docs/build/reports/defect-4-crisis-build.md",
+      "to": "cwaaa/docs/history/defect-4-crisis-build.md",
+      "originalSha256": "d6a653d8d641d7d7e52dbec7b01da4f2ba7cba9dd6f68954171e8b029fecc837"
+    },
+    {
+      "from": "docs/build/reports/defect-4-crisis-remediation.md",
+      "to": "cwaaa/docs/history/defect-4-crisis-remediation.md",
+      "originalSha256": "f2130b86f4d731e13ca1f1a1f15bfa5e549d560e93e6b04db96f4a2783fa7a3d"
+    },
+    {
+      "from": "docs/build/reports/defect-4-crisis-review.md",
+      "to": "cwaaa/docs/history/defect-4-crisis-review.md",
+      "originalSha256": "27c404c937b8d92d273d4e5a22c40f36965a85c464efa8b88803d9e22141d200"
+    },
+    {
+      "from": "docs/build/reports/defects-1-3-home-build.md",
+      "to": "gotsoap/docs/build/reports/defects-1-3-home-build.md",
+      "originalSha256": "99199f2fc8ddd37d9d5bd862ea7731839a2c05a77d400cf3d594cb864ee77d85"
+    },
+    {
+      "from": "docs/build/reports/defects-1-3-home-review.md",
+      "to": "gotsoap/docs/build/reports/defects-1-3-home-review.md",
+      "originalSha256": "a3b129196e06774b29f480c60c777ce645cf8b5daad42a7c50596e46ae5a0fc2"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/404-390.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/404-390.jpeg",
+      "originalSha256": "154af3654f072b57a51ef87cf414f0baef29e74950f86c08f763501c2cf5481a"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/about-390.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/about-390.jpeg",
+      "originalSha256": "a2d582a603af5a72fa7ce08d30b3da584fcceb968d4e4fc063b3990af3623995"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/crisis-1920.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/crisis-1920.jpeg",
+      "originalSha256": "e0774f399ab8aee12e310d63171174ccdfe1d22934b233c1adff53e3870d5f2c"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/crisis-390.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/crisis-390.jpeg",
+      "originalSha256": "17f9bdfc6419d7f0be15207e6b277983119418546ac8065ae66e85795c451109"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/home-1440.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/home-1440.jpeg",
+      "originalSha256": "c42cdf5f380cd1cfa30cde8915764d043f7e35411d6d7727f10f4ed94b1bbd73"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/home-390.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/home-390.jpeg",
+      "originalSha256": "780539a85d5abf41d0875ac3013f1cbfd759ac3f2241304321d699665bec6a88"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/pledge-390.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/pledge-390.jpeg",
+      "originalSha256": "f8f862a677ebdb4b0b21553355eed9a3d1de8ae73acaf39dbdbba23e1298bdd7"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/pledge-dialog-390.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/pledge-dialog-390.jpeg",
+      "originalSha256": "1202fc469224c0ef596fe82c1fb76e15f47c0ab9f96a478715140d452947a29d"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/psas-390.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/psas-390.jpeg",
+      "originalSha256": "194f05858b6149e58fc2e3877b54b3a3dc6c95d1992d93c25eac3f794d35b25c"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/psas-dialog-1920.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/psas-dialog-1920.jpeg",
+      "originalSha256": "eaf4f5fe4c682c1be8b94acf6f8bf3833a00e5ab3c1b2f9a78d8499debbd8952"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/snifftest-390.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/snifftest-390.jpeg",
+      "originalSha256": "3c44fe015d6fd60d6240229359f15f4d70c8e6082a167fe7b43c6a2aeaa9855b"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/thirst-1440.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/thirst-1440.jpeg",
+      "originalSha256": "ab3bbe2b093c20fcf21963b1d1f451be2b0ec5abc48aadee9a80e8ea64c295d4"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/unholy-390-200pct.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/unholy-390-200pct.jpeg",
+      "originalSha256": "02e01a7a4ceae04abc0454bc3e9dd7b453e893a227b16c340793f4e4f168312d"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/unholy-390.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/unholy-390.jpeg",
+      "originalSha256": "e6b60613a3c116c5212fe831f88f88d2c829fd08b8d07a5b58a62b01f76e0332"
+    },
+    {
+      "from": "docs/build/reports/evidence/chrome-unification/unholy-dialog-390.jpeg",
+      "to": "gotsoap/docs/build/reports/evidence/chrome-unification/unholy-dialog-390.jpeg",
+      "originalSha256": "be723080154c463c104bdc09ce8b226032f0fd0302118751ceb6f79db80fc990"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-1440-campaign.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-1440-campaign.png",
+      "originalSha256": "08d907a817c1b663bdccbf944c7168b424210aa8076c74629d5b5d16ca791715"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-1440-case.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-1440-case.png",
+      "originalSha256": "1942bb7402ef23a6578cad7d11949e6c816a72ad2ed8277792ee362579c6b87b"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-1440-confrontation.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-1440-confrontation.png",
+      "originalSha256": "b5830d4c8d99e88193daf612d79e7fc5ec9419c6ecba692a6f508a28e92a8c00"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-1440-hero.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-1440-hero.png",
+      "originalSha256": "48020d8c2e82810e759f3cf7f4aabb1b4b061642164bd3149b6399f3ee988388"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-1920-campaign.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-1920-campaign.png",
+      "originalSha256": "55b336085435ea27b1545319f48df9b19fd4626f09ee0a38888f36b6fcf8fd93"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-1920-case.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-1920-case.png",
+      "originalSha256": "12ead63e63acdfa06bb3e44c4c5e0960d37fc11fb6279531776d68b3e1055d78"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-1920-confrontation.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-1920-confrontation.png",
+      "originalSha256": "528db8ecac1557141d3af97d223ece635c2eb47ac7efff9cc16997e542cebca0"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-1920-crisis.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-1920-crisis.png",
+      "originalSha256": "5ca214621e18630616589181fba173e3767bf85b3272d1a828e394d38cee2204"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-1920-hero.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-1920-hero.png",
+      "originalSha256": "162894ba083d28f20ea05a8dbf57aac6d69eef6c7973c07d84dfc86ec345c1ca"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-1920-masthead.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-1920-masthead.png",
+      "originalSha256": "f102b841b181d3c3245d518979851f7d2d7410b8b798dc8871e6270ef56ab29a"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-1920-rail.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-1920-rail.png",
+      "originalSha256": "60a03b449163828228836639a10f9fef6795b07e6eaf4b4abed128f51888c2d1"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-390-campaign.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-390-campaign.png",
+      "originalSha256": "9d150f1f017087a1654d8990b8a8a2360ce131c37f5d0c3a32a404737ca91c19"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-390-case.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-390-case.png",
+      "originalSha256": "2ab859cf79b3f024629212d027690c8dc3fe07d777a2748536c1478fed37f057"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-390-confrontation.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-390-confrontation.png",
+      "originalSha256": "4c13f7d5f5d8c4648d40e8dbd8080581fc527ed30658dea454127c2761b425c6"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-390-quiz.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-390-quiz.png",
+      "originalSha256": "7b490d78fa6b0870c6af239a6264858115148adc05149ea863cff192535951f2"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-390-rail.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-390-rail.png",
+      "originalSha256": "c2e814b6a354362ab634ee2d12158f4ccd3c79cefdc27a3f783513666bee11b7"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-390-top.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-390-top.png",
+      "originalSha256": "d3798bc8840203dada18abcf2a18d9dc783cb1cf640fdf17cffdcdd65d0ca3d9"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-390-verdict-smoldering.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-390-verdict-smoldering.png",
+      "originalSha256": "297d71bc52b45930a33e282865d9251a2094133fc3ccfc2721912fc97c6320c0"
+    },
+    {
+      "from": "docs/build/reports/evidence/defects-390-verdict-suds.png",
+      "to": "gotsoap/docs/build/reports/evidence/defects-390-verdict-suds.png",
+      "originalSha256": "0cfe66c520e205803f03d8ddda0f41843eb84bf6d87fe6e527419a3bc1830920"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase1-detail-1440.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase1-detail-1440.png",
+      "originalSha256": "a55957d22269a686eb32d816103b379185e9382054423f52cd579d4b3358143d"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase1-detail-390.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase1-detail-390.png",
+      "originalSha256": "65cc77df2afde00657063a035922f7cffc595a388a243f0e8257affa72d71a94"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase1-home-390.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase1-home-390.png",
+      "originalSha256": "b1dbf2bfbe26bada89e80c793f9c52ca1712b9813ca7ee3ecac79ea0715b450f"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase2-neutral-confident-man.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase2-neutral-confident-man.png",
+      "originalSha256": "ebbfc6334c0770bc8c2cfad56a0785040912eb4308c3641c67de71f571a38d0d"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase2-neutral-redemption.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase2-neutral-redemption.png",
+      "originalSha256": "cb5c6676ab9a292252eb69e70b99c19efd263b96be278802a2a25e98598274dc"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase2-neutral-soap-smoldering.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase2-neutral-soap-smoldering.png",
+      "originalSha256": "4a57bf4994fad8278481ee05fb21c492c6aa79674aad18239d5fbd364e526de5"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase2-neutral-thirst-announcement.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase2-neutral-thirst-announcement.png",
+      "originalSha256": "6bd5196ca448cad68218dfca5c24458aa2a7f1cceabcfba2717ea07e27c6840d"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase2-neutral-unholy.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase2-neutral-unholy.png",
+      "originalSha256": "333181cc0f566b30162cb179a11df6571ed74f67f86f14783f0c7e2d2e9409c3"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3-1440-case.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3-1440-case.png",
+      "originalSha256": "e354978f0bc9205dccf1b3f214d3f30582d680101ac3bb9b61b127cb24300cd1"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3-1440-hero.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3-1440-hero.png",
+      "originalSha256": "58adf48d6ac847fbd9e9037b51850a8afae212f5cf689919c6ba3066e6b20c3e"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3-1440-oath-fold.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3-1440-oath-fold.png",
+      "originalSha256": "7e5c3cd38ce61d3d8da220e65a720afefaf1dd6e494d8e059a03264f1b6702e8"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3-390-campaign-fixed.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3-390-campaign-fixed.png",
+      "originalSha256": "97cba9c3080d8ce430b7f67f150f3da62d4c22ec850510459efc8b55fb9bd30a"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3-390-case-broadside.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3-390-case-broadside.png",
+      "originalSha256": "ca251982f12321e63d3aca8a482d336c2aea400323c136bc5f63f2b5250bf81d"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3-390-case-rail.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3-390-case-rail.png",
+      "originalSha256": "b5ccc2f0084deb7818afd4a4e79b6cb74749e5380f63832a662ee7c7b6cef498"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3-390-confrontation.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3-390-confrontation.png",
+      "originalSha256": "a9d97aabb952024ccc76e5b3d2742a28488ac117c6165b1bbbac28cdebd8b0e9"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3-390-hero-top.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3-390-hero-top.png",
+      "originalSha256": "a8adbcca40b0b9a7f8b3ef63744757f9d3cdf43db9a1fa172f92e102823729f8"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3-390-movement.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3-390-movement.png",
+      "originalSha256": "6b4be0eeba8197cccbe79890f24978d5207d486217e3a95f0604df420bc04309"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3-390-oath.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3-390-oath.png",
+      "originalSha256": "11f8349b4a28fc405b80c17b91941279168c98fc275a1e1ca065979e09e2a962"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3r-1920-case-rail.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3r-1920-case-rail.png",
+      "originalSha256": "e85ce59140b7b8f3674d2892c32a6500d548c042cc4c45a71213ea771efef29d"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3r-390-campaign-caption.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3r-390-campaign-caption.png",
+      "originalSha256": "ed274e1ee108d9bb8b09c05527468e2ab76516ebb85e300bcd0cc83b10ad9a82"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase3r-390-campaign-unholy.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase3r-390-campaign-unholy.png",
+      "originalSha256": "fcc8f89ce9f6bf909643e873fdf5952ba2dc151ff0cb4aeceadcc2b0d9072957"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase4-contents-dialog-1440x900.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase4-contents-dialog-1440x900.png",
+      "originalSha256": "c986e30fdc935e4da4018a47412d63571c033e173592ce38b9ae3618e893446c"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase4-contents-dialog-390x844.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase4-contents-dialog-390x844.png",
+      "originalSha256": "829715dadcc1211d60fc71561e0d18f9b23e99deff2aec12dc3dfedd60dbd174"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase4-quiz-390x844.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase4-quiz-390x844.png",
+      "originalSha256": "20555abc4164c3e2e8c03751f34a8c3c46f5538cf26f14197f959e0495253b7b"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase5-hub-1440-floor.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase5-hub-1440-floor.png",
+      "originalSha256": "92fc8f5471cc54feb486f89477a1214a542969144da062fa62eb2a5e7de41129"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase5-hub-1440x900-fold.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase5-hub-1440x900-fold.png",
+      "originalSha256": "51059f7336f14611ece25ed4e657524375cb368092edf210b0827a23714d0d59"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase5-hub-390-focus-ring.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase5-hub-390-focus-ring.png",
+      "originalSha256": "552c7de7ad11cddc1f182289bb63739eea5c53ac9273c3b5855fc717a979b673"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase5-hub-390-plaque.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase5-hub-390-plaque.png",
+      "originalSha256": "525131d1ec8903e03ddf01da89713c94e39f55718d65e65a643d38917c4b01a4"
+    },
+    {
+      "from": "docs/build/reports/evidence/phase5-hub-390x844-fold.png",
+      "to": "gotsoap/docs/build/reports/evidence/phase5-hub-390x844-fold.png",
+      "originalSha256": "4bbf5842ff438894b5bd1d354033ee7be599eb07932c00e0bb9a4d76c852156d"
+    },
+    {
+      "from": "docs/build/reports/faux-shop-legal-order.md",
+      "to": "gotsoap/docs/build/reports/faux-shop-legal-order.md",
+      "originalSha256": "24d5146a79ee06604aa5dfdd0b69cb15994d70d1027d18508e6f4898fc4ea29e"
+    },
+    {
+      "from": "docs/build/reports/footer-consolidation-build.md",
+      "to": "gotsoap/docs/build/reports/footer-consolidation-build.md",
+      "originalSha256": "3b5a3f793bc8c430e9525b8ae85891f594eb787a77faf027453388d77920202c"
+    },
+    {
+      "from": "docs/build/reports/footer-consolidation-remediation.md",
+      "to": "gotsoap/docs/build/reports/footer-consolidation-remediation.md",
+      "originalSha256": "15e95e0be122c9c7d11833d237cc92f0ff911e9c265610dd99a6fce5512c0a6b"
+    },
+    {
+      "from": "docs/build/reports/footer-consolidation-review.md",
+      "to": "gotsoap/docs/build/reports/footer-consolidation-review.md",
+      "originalSha256": "64efc12bf25316ce417e7d0ddddb4d720a3c33a24912e1f2bb409a0a0b69a4be"
+    },
+    {
+      "from": "docs/build/reports/footer-consolidation-spec.md",
+      "to": "gotsoap/docs/build/reports/footer-consolidation-spec.md",
+      "originalSha256": "6bb06e75903164c2f2cab9d24fdea1ab3c9bbcc62fd68abcc2bacff840956e3c"
+    },
+    {
+      "from": "docs/build/reports/home-copy-consolidation-order.md",
+      "to": "gotsoap/docs/build/reports/home-copy-consolidation-order.md",
+      "originalSha256": "5d7559d247294cdab4f5275b5f16fc0769dfecc1de723c198eaa9adda686f5f4"
+    },
+    {
+      "from": "docs/build/reports/phase-1-AUDIT-ORDER.md",
+      "to": "gotsoap/docs/build/reports/phase-1-AUDIT-ORDER.md",
+      "originalSha256": "4987c2524cc24d2917878bf167047160510b43252ef5c846dac8d1d686e65f96"
+    },
+    {
+      "from": "docs/build/reports/phase-1-build.md",
+      "to": "gotsoap/docs/build/reports/phase-1-build.md",
+      "originalSha256": "3c605a56c2f5b997feb7322b8fb0adb54e87b351dc6b9fe26a3d605647dea8c1"
+    },
+    {
+      "from": "docs/build/reports/phase-1-remediation.md",
+      "to": "gotsoap/docs/build/reports/phase-1-remediation.md",
+      "originalSha256": "9a9a46f97b74e073a0331a56cd0987e82f04f636ea9966424e9d10415575e91d"
+    },
+    {
+      "from": "docs/build/reports/phase-1-review.md",
+      "to": "gotsoap/docs/build/reports/phase-1-review.md",
+      "originalSha256": "69983e46faa9fab87bff5955934ca8819bb409bcaaacf8e7c5bc14f9cd12efd1"
+    },
+    {
+      "from": "docs/build/reports/phase-2a-build.md",
+      "to": "gotsoap/docs/build/reports/phase-2a-build.md",
+      "originalSha256": "ca5c7dc69311b22ded8619375afb59575aa583edca229b113d9277dedc33a0ea"
+    },
+    {
+      "from": "docs/build/reports/phase-2a-remediation.md",
+      "to": "gotsoap/docs/build/reports/phase-2a-remediation.md",
+      "originalSha256": "740dabe0c56943a3a4bce281f4cf8faf648b55f9d6998d7debc8282a56aa55fc"
+    },
+    {
+      "from": "docs/build/reports/phase-2a-review.md",
+      "to": "gotsoap/docs/build/reports/phase-2a-review.md",
+      "originalSha256": "b10cd9447724d7a2542e8b946360b0a4b753ab8429260f32d169516177174652"
+    },
+    {
+      "from": "docs/build/reports/phase-2b-build.md",
+      "to": "gotsoap/docs/build/reports/phase-2b-build.md",
+      "originalSha256": "c91c7fa171b92d8b41db2524ebbbae7b9994e4043d81cdddb6bab1826c885c2a"
+    },
+    {
+      "from": "docs/build/reports/phase-2b-remediation.md",
+      "to": "gotsoap/docs/build/reports/phase-2b-remediation.md",
+      "originalSha256": "37d76e93e30a88caf4c1158b00998de8422f3c147d3db0f233aea565531277f4"
+    },
+    {
+      "from": "docs/build/reports/phase-2b-review.md",
+      "to": "gotsoap/docs/build/reports/phase-2b-review.md",
+      "originalSha256": "00e0b520950130683b548673476ae4c9104d4d76c24b18213c76f775b26f1353"
+    },
+    {
+      "from": "docs/build/reports/phase-3-build.md",
+      "to": "gotsoap/docs/build/reports/phase-3-build.md",
+      "originalSha256": "b6d242e595fec09d3eb6a7f88a9397c9fd061197e972ee3f585a7daabebe1a9e"
+    },
+    {
+      "from": "docs/build/reports/phase-3-remediation-order.md",
+      "to": "gotsoap/docs/build/reports/phase-3-remediation-order.md",
+      "originalSha256": "a3c43a101a6dc9caf6db63b0d05999e78dc6371f1b5031f5832791c25eeb85ee"
+    },
+    {
+      "from": "docs/build/reports/phase-3-remediation.md",
+      "to": "gotsoap/docs/build/reports/phase-3-remediation.md",
+      "originalSha256": "234d742c6f38da939e0e84ef4ec4f6f41cbb708ab736d660b83369a36a699ec7"
+    },
+    {
+      "from": "docs/build/reports/phase-3-review.md",
+      "to": "gotsoap/docs/build/reports/phase-3-review.md",
+      "originalSha256": "5c6605e33060f72c9c16fbaccf76217b5d61a75f402da62251f25d9d340c2d6e"
+    },
+    {
+      "from": "docs/build/reports/phase-4-build.md",
+      "to": "gotsoap/docs/build/reports/phase-4-build.md",
+      "originalSha256": "c4d51565de7c12872a69ad50da8b957809b5ae035be24b200dd05d2eab9dbd13"
+    },
+    {
+      "from": "docs/build/reports/phase-4-review.md",
+      "to": "gotsoap/docs/build/reports/phase-4-review.md",
+      "originalSha256": "7b407966df8f54a6da4aac8e5fa89727f12b18b27b54097bd6fcbb65a343a2e6"
+    },
+    {
+      "from": "docs/build/reports/phase-5-build.md",
+      "to": "gotsoap/docs/build/reports/phase-5-build.md",
+      "originalSha256": "0984ae777a7eced1e272866c498cedf88fc61be80073ed688ba205ee00b0526b"
+    },
+    {
+      "from": "docs/build/reports/phase-5-remediation.md",
+      "to": "gotsoap/docs/build/reports/phase-5-remediation.md",
+      "originalSha256": "53bf892b9af3e9d9fc55fab8984855c2d1345b3ac0ddd37fbe6660fb2dd199cd"
+    },
+    {
+      "from": "docs/build/reports/phase-5-review.md",
+      "to": "gotsoap/docs/build/reports/phase-5-review.md",
+      "originalSha256": "626087d17d65c8748bf20ca8cf386a9f3bf5f680f4e10985a7088ab22153ec60"
+    },
+    {
+      "from": "docs/build/reports/small-fixes-build.md",
+      "to": "gotsoap/docs/build/reports/small-fixes-build.md",
+      "originalSha256": "4a9b1c96ade55a3efb377336753208e088f30307bc2be59957248cecb878aeb0"
+    },
+    {
+      "from": "docs/build/reports/small-fixes-order.md",
+      "to": "gotsoap/docs/build/reports/small-fixes-order.md",
+      "originalSha256": "4a61df8bd8117fa14b1809f3124e9a978cbb4c3ac017618a32e3b7c28d1c7acf"
+    },
+    {
+      "from": "docs/build/reports/small-fixes-review.md",
+      "to": "gotsoap/docs/build/reports/small-fixes-review.md",
+      "originalSha256": "01637d0e3b1135c435be08b945d08a8951501519651973f5d9a41787f87078ed"
+    },
+    {
+      "from": "docs/build/reports/visual-redo-brief.md",
+      "to": "gotsoap/docs/build/reports/visual-redo-brief.md",
+      "originalSha256": "5556140ba2edb37d7e61d60d8f2d69d22a7d7c0b227f9078d9c9553e25b42f51"
+    },
+    {
+      "from": "docs/copy/CAMPAIGN-INTENT.md",
+      "to": "gotsoap/docs/copy/CAMPAIGN-INTENT.md",
+      "originalSha256": "b2866d81b9c5f6bf527906313c99f6123d695d8c3c1652872121a366f1c05fc7"
+    },
+    {
+      "from": "docs/copy/COPY-PROTOCOL.md",
+      "to": "gotsoap/docs/copy/COPY-PROTOCOL.md",
+      "originalSha256": "fa14a6596fcf5cb9e330281f064477f41fbd503c7c72d5ee9c0edc0823908d54"
+    },
+    {
+      "from": "docs/copy/ORCHESTRATOR-HANDOFF.md",
+      "to": "gotsoap/docs/copy/ORCHESTRATOR-HANDOFF.md",
+      "originalSha256": "54bdc78fa5a52a2fc356c1c767413416d74e7a6a09a5db0aaf2bbdc83b0cfcb9"
+    },
+    {
+      "from": "docs/copy/about-followup-and-vector2-order.md",
+      "to": "gotsoap/docs/copy/about-followup-and-vector2-order.md",
+      "originalSha256": "f930d4c549a9e74d320ca241b92c373fbf4734e84ffacc67f96e619cb1ace145"
+    },
+    {
+      "from": "docs/copy/copy-contract-for-build.md",
+      "to": "gotsoap/docs/copy/copy-contract-for-build.md",
+      "originalSha256": "2863da9150a66db0e14acc2ea2a0d245e30855291a6843e6cb855f3e461c7705"
+    },
+    {
+      "from": "docs/copy/copy-deck-v1.md",
+      "to": "gotsoap/docs/copy/copy-deck-v1.md",
+      "originalSha256": "9bdf54ca990167b598c78218b7b393f9981d8575d3f953fa5fdfc9f690ad7cbf"
+    },
+    {
+      "from": "docs/copy/copy-review-findings.md",
+      "to": "gotsoap/docs/copy/copy-review-findings.md",
+      "originalSha256": "b44aec789d94aba55870438580b940e9e1e5f91f60d75b43fe2f2e7a1343de40"
+    },
+    {
+      "from": "docs/copy/copy-session-draft.md",
+      "to": "gotsoap/docs/copy/copy-session-draft.md",
+      "originalSha256": "a557e85c2114d8b20e84a51a31d723eead01a97253c4d766a8cd4fcdf760d469"
+    },
+    {
+      "from": "docs/copy/launch-campaign-v1.md",
+      "to": "gotsoap/docs/copy/launch-campaign-v1.md",
+      "originalSha256": "b789c200e5bac48af4ccca6b0ea040f4dd4a42de54e872f4b702d9c6490dbe27"
+    },
+    {
+      "from": "docs/copy/phase4-dialectic.md",
+      "to": "gotsoap/docs/copy/phase4-dialectic.md",
+      "originalSha256": "e41294599108b8bc52649e3e9045ddab2da837cd15fc4830415d6e27e13e2f78"
+    },
+    {
+      "from": "docs/copy/phase4-redo-order.md",
+      "to": "gotsoap/docs/copy/phase4-redo-order.md",
+      "originalSha256": "5f7e35055a54c38a65d6378f44c6cec41b7fab2282bd1122e3daf097886279c6"
+    },
+    {
+      "from": "docs/copy/phase4-redo-r1-vivian.md",
+      "to": "gotsoap/docs/copy/phase4-redo-r1-vivian.md",
+      "originalSha256": "ab8f70d05e620fb496c791fd11ea8294c47d6db7778bc79a33a1986d095ef95c"
+    },
+    {
+      "from": "docs/copy/phase4-redo-r2-sol.md",
+      "to": "gotsoap/docs/copy/phase4-redo-r2-sol.md",
+      "originalSha256": "da23c506aaad0593a2e40c78cf5f97fdcc93abed8678ea5ce888578576d58620"
+    },
+    {
+      "from": "docs/copy/phase4-redo-r3-vivian.md",
+      "to": "gotsoap/docs/copy/phase4-redo-r3-vivian.md",
+      "originalSha256": "d649590f31b67885cf96943bb18977807565b524a54002986c7be2a014bce0b9"
+    },
+    {
+      "from": "docs/copy/phase4-redo-r4-sol.md",
+      "to": "gotsoap/docs/copy/phase4-redo-r4-sol.md",
+      "originalSha256": "c28320c8ccc7e8158647715778c60f0d43d57beec3f87b003f428c354bb9e685"
+    },
+    {
+      "from": "docs/copy/phase6-blind-reread-order.md",
+      "to": "gotsoap/docs/copy/phase6-blind-reread-order.md",
+      "originalSha256": "ec4b3361c8d3fa63f4d18514d2915eda34a305c6b995cd5d089c22d8b61ef0a9"
+    },
+    {
+      "from": "docs/copy/proposals-2026-07-21-about-pitch.md",
+      "to": "gotsoap/docs/copy/proposals-2026-07-21-about-pitch.md",
+      "originalSha256": "e7f95ffeae800790f10f1c1616457436a3457d48effc44d37174c25966b0146e"
+    },
+    {
+      "from": "docs/copy/proposals-2026-07-21-shop-products.md",
+      "to": "gotsoap/docs/copy/proposals-2026-07-21-shop-products.md",
+      "originalSha256": "44f1420c7b50d00b68f30f2c50f1d02221ee7b9d18ad2ee95c4a0d4eeb913909"
+    },
+    {
+      "from": "docs/copy/proposals-2026-07-22-about-inframe.md",
+      "to": "gotsoap/docs/copy/proposals-2026-07-22-about-inframe.md",
+      "originalSha256": "fc68edfbb2044d36bfc2ff03e508625a3cb4bd7aa5e334129069b0d3642cc5c5"
+    },
+    {
+      "from": "docs/copy/proposals-2026-07-28-crisis-ia-lift.md",
+      "to": "cwaaa/docs/copy/proposals-2026-07-28-crisis-ia-lift.md",
+      "originalSha256": "dbf714cb07594594b455b6da6fc9d340ddf9cfca14ac5ce757dd6d0cbe0331a9"
+    },
+    {
+      "from": "docs/copy/proposals-2026-07-29-psa-casenotes.md",
+      "to": "gotsoap/docs/copy/proposals-2026-07-29-psa-casenotes.md",
+      "originalSha256": "713637f010e89d65681adc6ed0b85baa6f344609f35eff7c6a1a4dda94f391de"
+    },
+    {
+      "from": "docs/copy/proposals-2026-07-29-psa-surgical.md",
+      "to": "gotsoap/docs/copy/proposals-2026-07-29-psa-surgical.md",
+      "originalSha256": "bcbb5fb675245f44ab57c2e759187e581a62e90d1aea06f2429feac61b8b59e3"
+    },
+    {
+      "from": "docs/copy/proposals-2026-07-30-vector2-copy.md",
+      "to": "cwaaa/docs/copy/proposals-2026-07-30-vector2-copy.md",
+      "originalSha256": "bf5b8127640dd1fd0c5b4f1226e6df5e6a39f159787386a97b93b651dc925d0f"
+    },
+    {
+      "from": "docs/copy/reader-sim-delta.md",
+      "to": "gotsoap/docs/copy/reader-sim-delta.md",
+      "originalSha256": "78e70b1f17f8e7ff99e3de0ee862ef1b645d1e75cfdd97a237ffeb633046b7d3"
+    },
+    {
+      "from": "docs/copy/reader-sim-evidence.md",
+      "to": "gotsoap/docs/copy/reader-sim-evidence.md",
+      "originalSha256": "2cde1f34cfd9f6ca446b46176d0692d8dae7f7666d6f5902780b007936ca1090"
+    },
+    {
+      "from": "docs/copy/research-satirical-campaigns.md",
+      "to": "gotsoap/docs/copy/research-satirical-campaigns.md",
+      "originalSha256": "513da1674cc1f65155961fdefdbe7ec827d5a02a69cec9f63f4928f82b217290"
+    },
+    {
+      "from": "docs/copy/style-lock.md",
+      "to": "gotsoap/docs/copy/style-lock.md",
+      "originalSha256": "0fce1e5494651f75889d26674fe4174171e8a6416c72f8de575f2cc350e76a8e"
+    },
+    {
+      "from": "docs/copy/vector2-citation-path-spec.md",
+      "to": "cwaaa/docs/copy/vector2-citation-path-spec.md",
+      "originalSha256": "5046b55a04728cf86776a8ad864fbf01b4577a36f9687705a7899863a0f0e90c"
+    },
+    {
+      "from": "docs/copy/voice-bible.md",
+      "to": "gotsoap/docs/copy/voice-bible.md",
+      "originalSha256": "a63157fa6f806bcdb81bec317e42364e4c3a4a5ab6ab77260b887fa2b1253f75"
+    },
+    {
+      "from": "docs/cwaaa/DESIGN-SYSTEM.md",
+      "to": "cwaaa/docs/DESIGN-SYSTEM.md",
+      "originalSha256": "6cea2b17375bedf62dae0588a45d06e0ada361a5d996018ff8d819c400323005"
+    },
+    {
+      "from": "docs/cwaaa/PRD-cwaaa-web-v1.md",
+      "to": "cwaaa/docs/PRD-cwaaa-web-v1.md",
+      "originalSha256": "921e3eb7a2f874e5f4b930e1a25b5b6516e46d4fc1a2d8897251bb5a5b253fc7"
+    },
+    {
+      "from": "docs/cwaaa/README.md",
+      "to": "cwaaa/docs/README.md",
+      "originalSha256": "d0f79d90046897eaf5701ebcaf890cadf91b240f139c95f5785b47ae9559bd0c"
+    },
+    {
+      "from": "docs/cwaaa/contracts/pledge.v1.json",
+      "to": "cwaaa/docs/contracts/pledge.v1.json",
+      "originalSha256": "61b8361829646344928f277b375064af6dcca4ba00e4dd2aa2db5e83b82b4b8a"
+    },
+    {
+      "from": "docs/cwaaa/design.md",
+      "to": "cwaaa/docs/design.md",
+      "originalSha256": "370d6d05b24151b1efd5582deac671131ae030460ba39830574fd42d0369fafa"
+    },
+    {
+      "from": "docs/cwaaa/font-brief.md",
+      "to": "cwaaa/docs/font-brief.md",
+      "originalSha256": "693624a2029a3fde74f439ea18e40458bf79ddd5510a086bfce5fdc6289f9be4"
+    },
+    {
+      "from": "docs/cwaaa/migration-manifest.md",
+      "to": "cwaaa/docs/migration-manifest.md",
+      "originalSha256": "0ba73fae56423ba8580066f76bf99b60a17bbaaed98dac5989e4c8d8220ff8c1"
+    },
+    {
+      "from": "docs/cwaaa/ui-system.md",
+      "to": "cwaaa/docs/ui-system.md",
+      "originalSha256": "73b522dfc433cb6eb61747f907d6e4327d1bffc339bf0d77940da1bf97946e47"
+    },
+    {
+      "from": "docs/cwaaa/world-bible.md",
+      "to": "cwaaa/docs/world-bible.md",
+      "originalSha256": "16d4cddfef2f0664c38366e50109e6bdddc286fbf04bfcc8ba2956aab2d8c9b4"
+    },
+    {
+      "from": "docs/design-north-star.md",
+      "to": "gotsoap/docs/design-north-star.md",
+      "originalSha256": "a418c11d63f62b16ec8858319236d279661f18b86061c128d1201dd514960e51"
+    },
+    {
+      "from": "docs/design-v1-sonnet.md",
+      "to": "gotsoap/docs/design-v1-sonnet.md",
+      "originalSha256": "a86980c3a29ced4a1b4b3ae831ad495ab59a41ba2d678e6f4e8219c44b26242d"
+    },
+    {
+      "from": "docs/design.md",
+      "to": "gotsoap/docs/design.md",
+      "originalSha256": "18ff7aa2a19037af73ef361a58e13a3d2fafb30501ec603bd20ca25f9d99b7e9"
+    },
+    {
+      "from": "docs/gotsoap/DESIGN-SYSTEM.md",
+      "to": "gotsoap/docs/DESIGN-SYSTEM.md",
+      "originalSha256": "f1a00b7dfc522458d29217b09cd8f87a36729b5bfaab8c1fbe2a520a62ff42ad"
+    },
+    {
+      "from": "docs/gotsoap/color-spec.md",
+      "to": "gotsoap/docs/color-spec.md",
+      "originalSha256": "5de49ccfa3e4f8793d7c380d50e1899d767a142242f89a4c38ecc1e7b80666f9"
+    },
+    {
+      "from": "docs/gotsoap/font-asset-resolution.md",
+      "to": "gotsoap/docs/font-asset-resolution.md",
+      "originalSha256": "f65648536aef81db3823183e6190eaf74124bf3181ff3d569ab3a6b836cf2e76"
+    },
+    {
+      "from": "docs/gotsoap/font-binary-audit.md",
+      "to": "gotsoap/docs/font-binary-audit.md",
+      "originalSha256": "8a6589cdea598d60c3f653054345f74b20a36628f4273edfade10664e60b6655"
+    },
+    {
+      "from": "docs/gotsoap/font-delivery-spec.md",
+      "to": "gotsoap/docs/font-delivery-spec.md",
+      "originalSha256": "8ea0040b591b92b153d065e856468dedec182958d7402c33ab5a88144b2f7153"
+    },
+    {
+      "from": "docs/gotsoap/letter-spacing-spec.md",
+      "to": "gotsoap/docs/letter-spacing-spec.md",
+      "originalSha256": "f19c99466fcdafd1c21968532218162632b010f3744e980b3e157a95637e1e6d"
+    },
+    {
+      "from": "docs/gotsoap/responsive-typography-spec.md",
+      "to": "gotsoap/docs/responsive-typography-spec.md",
+      "originalSha256": "8ba48ad78e968036ab41e9a12e4885bd5af1b3a508fcbe65279115f79d514049"
+    },
+    {
+      "from": "docs/gotsoap/typography-spec.md",
+      "to": "gotsoap/docs/typography-spec.md",
+      "originalSha256": "1a27df25729043f70b5b7e759f60ff1a3471e073a2ec9c870e2c9d5a052bb144"
+    },
+    {
+      "from": "docs/gotsoap/ui-system.md",
+      "to": "gotsoap/docs/ui-system.md",
+      "originalSha256": "d127a0f7382ec879332004729e59f55db29f49267689619cb21a50828ad34545"
+    },
+    {
+      "from": "docs/gotsoap/world-bible.md",
+      "to": "gotsoap/docs/world-bible.md",
+      "originalSha256": "64d5da642cad631fb56f997e460ee9a413a00916c93d5d5952ab58cb588f468e"
+    },
+    {
+      "from": "docs/hero-image-brief.md",
+      "to": "gotsoap/docs/hero-image-brief.md",
+      "originalSha256": "6e1b784b3c47c6103d877b86d4808a5e2e850ef0053da7b183c0d8505e3efc6f"
+    },
+    {
+      "from": "docs/office-of-lather-compliance/DESIGN-SYSTEM.md",
+      "to": "office-of-lather-compliance/docs/DESIGN-SYSTEM.md",
+      "originalSha256": "d90405411df9d2a280183be1952b596122981bd95aa3241af83e5078243f1404"
+    },
+    {
+      "from": "docs/office-of-lather-compliance/PRD-office-v1.md",
+      "to": "office-of-lather-compliance/docs/PRD-office-v1.md",
+      "originalSha256": "ed713060e6aeb73336579326f2a010cccf6c65d77234a1494bf18da3c4bbed81"
+    },
+    {
+      "from": "docs/office-of-lather-compliance/README.md",
+      "to": "office-of-lather-compliance/docs/README.md",
+      "originalSha256": "396a2dc1d974dcf24d13c8d101eb3d58af169575894c9f834929e15a37bd9cd8"
+    },
+    {
+      "from": "docs/office-of-lather-compliance/contracts/visit-state.v1.json",
+      "to": "office-of-lather-compliance/docs/contracts/visit-state.v1.json",
+      "originalSha256": "91b18d31c4d66c0e71b5133c29ec2f068547c933b1fa146f59fad980f21e5197"
+    },
+    {
+      "from": "docs/office-of-lather-compliance/design.md",
+      "to": "office-of-lather-compliance/docs/design.md",
+      "originalSha256": "de2006a68c560e45ac6e026f453be1cb7e2b883a50dc58d924c3ac68b2c353d9"
+    },
+    {
+      "from": "docs/office-of-lather-compliance/ui-system.md",
+      "to": "office-of-lather-compliance/docs/ui-system.md",
+      "originalSha256": "10e5ee9606138e666a623ee94bfeac5ff112690a904c8ce6cc4d5c7d46723d37"
+    },
+    {
+      "from": "docs/office-of-lather-compliance/world-bible.md",
+      "to": "office-of-lather-compliance/docs/world-bible.md",
+      "originalSha256": "618ddb7e4ac3db063c2e1a6908e1f082bb3c38774f0b2acf6790ffd7dfbc7b84"
+    },
+    {
+      "from": "docs/prd/.gitkeep",
+      "to": "gotsoap/docs/prd/.gitkeep",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "from": "docs/prd/PRD-gotsoap-web-v1.md",
+      "to": "gotsoap/docs/prd/PRD-gotsoap-web-v1.md",
+      "originalSha256": "f8f1e92a65adddb123e7c8695a186d1423e108d14af631b6cbb960afff21eda6"
+    },
+    {
+      "from": "docs/redesign-brief.md",
+      "to": "gotsoap/docs/redesign-brief.md",
+      "originalSha256": "2a58598ee3cfbdb875a43436d800b6b8a75b59e191f99c515e7605fd699ea9de"
+    },
+    {
+      "from": "docs/research/got-milk-campaign-analysis.md",
+      "to": "gotsoap/docs/research/got-milk-campaign-analysis.md",
+      "originalSha256": "0b0486cde659605de1c21bb2a97d86f34ae818eb1d9d512ff84a6ff1aa6c4976"
+    },
+    {
+      "from": "docs/strategy/.gitkeep",
+      "to": "gotsoap/docs/strategy/.gitkeep",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "from": "docs/strategy/cwaaa-divergence-roadmap.md",
+      "to": "cwaaa/docs/plans/cwaaa-divergence-roadmap.md",
+      "originalSha256": "6a2c410c01d464b68d9bb6832498b15ec2406c336ae4c758fe858c826c083244"
+    },
+    {
+      "from": "docs/strategy/participation-mechanics.md",
+      "to": "gotsoap/docs/strategy/participation-mechanics.md",
+      "originalSha256": "05e44b6ddea7fbe4e8f987a9a78bce9dafa54a68cafd73fa89cf82e5ff0a6efd"
+    },
+    {
+      "from": "docs/superpowers/plans/2026-07-08-gotsoap-web-v1.md",
+      "to": "gotsoap/docs/superpowers/plans/2026-07-08-gotsoap-web-v1.md",
+      "originalSha256": "2ad502b57e6de1924a9dc7752c68ba987572e17aab836d168d848eb7ce8613e8"
+    },
+    {
+      "from": "docs/superpowers/plans/2026-07-30-font-audit-transfer-gates.md",
+      "to": "gotsoap/docs/superpowers/plans/2026-07-30-font-audit-transfer-gates.md",
+      "originalSha256": "bbf71a4f8c789ff326a99e2873a3bdbc6a84d5a309b36028fb108bd087012fe2"
+    },
+    {
+      "from": "docs/superpowers/plans/2026-07-30-runtime-typography-remap.md",
+      "to": "gotsoap/docs/superpowers/plans/2026-07-30-runtime-typography-remap.md",
+      "originalSha256": "8726d19e46148b608adb0306a9ea035018119e5ee175582094a888989489048a"
+    },
+    {
+      "from": "docs/superpowers/specs/2026-07-09-home-movement-pitch-design.md",
+      "to": "gotsoap/docs/superpowers/specs/2026-07-09-home-movement-pitch-design.md",
+      "originalSha256": "a1905b64b961d01b32f1017c9b5c7a42fe2a022e7f732ca2a6a2314a380770b2"
+    },
+    {
+      "from": "docs/superpowers/specs/2026-07-14-gotsoap-campaign-architecture-build-spec.md",
+      "to": "gotsoap/docs/superpowers/specs/2026-07-14-gotsoap-campaign-architecture-build-spec.md",
+      "originalSha256": "ce89c4be17bd8d6c5a7d25a0b5f146d15c66a49822d2dfc8b1b233c3054d4e81"
+    },
+    {
+      "from": "docs/superpowers/specs/2026-07-30-runtime-typography-remap-design.md",
+      "to": "gotsoap/docs/superpowers/specs/2026-07-30-runtime-typography-remap-design.md",
+      "originalSha256": "18cbe912534ef2b210c6b38f349b767870c3b23fbcb501ac7b7503fdee50800c"
+    },
+    {
+      "from": "geminiconvo.txt",
+      "to": "docs/history/geminiconvo.txt",
+      "originalSha256": "3166023d3b60050c31ffddb58e2f9a5f66e01f21695a5c7f10635e0797e78a54"
+    },
+    {
+      "from": "geminiconvo2.txt",
+      "to": "docs/history/geminiconvo2.txt",
+      "originalSha256": "237d493c9618767927f09011a86040f6940a62242cd3dc0b8b33a1992b04693b"
+    },
+    {
+      "from": "gotsoapdescription.txt",
+      "to": "gotsoap/sources/gotsoapdescription.txt",
+      "originalSha256": "b55a689eeddeac5edffe9b1b89f8bd721bb63a7f151231ad075f50b756412933"
+    },
+    {
+      "from": "promo.txt",
+      "to": "gotsoap/sources/promo.txt",
+      "originalSha256": "212a3d595898dfb722241afc71eccf83383af87a859c2065d2e64c935d1085e8"
+    }
+  ],
+  "preservedProofFiles": [
+    "docs/copy/copy-correction-plan.md",
+    "docs/copy/copy-deck-v2.md",
+    "docs/copy/copy-implementation-order.md"
+  ]
+}

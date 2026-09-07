@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "manifestSha256": "1b644db0a1c5537c1815d6b5f899a3222bf0fc22372fbcff57e12504ba144f7b",
+  "manifestSha256": "cc7250e792551dbfd3b371aa6419ae731e448c4b2ddda9571bb8fbb32dc77427",
   "fontkitVersion": "2.0.4",
   "provenance": {
-    "auditTimestamp": "2026-08-14T14:45:01.873Z",
-    "sourceCommitSha": "67d4ca3837f2b12ede30310b4d217a315c657b0c",
+    "auditTimestamp": "2026-09-07T16:21:48.706Z",
+    "sourceCommitSha": "abdd359b5f0745fc41053beb7cf41077df993e18",
     "workingTreeDirty": true
   },
   "source": {

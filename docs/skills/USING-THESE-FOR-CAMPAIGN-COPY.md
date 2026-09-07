@@ -40,7 +40,7 @@ Translate the four **reader reward channels** for a campaign site:
 Skip its fiction-plot material (arcs, scenes, POV mechanics). There is no plot.
 
 ## What these do NOT decide
-Neither skill knows what this campaign is *for*. That's **`docs/copy/CAMPAIGN-INTENT.md`** — the
+Neither skill knows what this campaign is *for*. That's **`gotsoap/docs/copy/CAMPAIGN-INTENT.md`** — the
 thesis (the double standard), the two audiences, the aspiration mechanic (clean = hot), the CTA,
 and the Onion bar. These skills sharpen *how you critique*; CAMPAIGN-INTENT is *what you critique
 against*.

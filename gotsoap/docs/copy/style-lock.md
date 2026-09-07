@@ -1,0 +1,153 @@
+# Got Soap? — Style Lock
+
+**What this is:** voice decisions made during copy sessions that the law (voice-bible, copy-contract, specs §7) doesn't spell out. Each was argued to consensus in the Claude↔Sol dialectic (2026-07-16, see `copy-session-draft.md`). A future copy session inherits these; overturning one requires a new argued round, not a drive-by edit.
+
+## 1. "Concerned women" is the membership's proper noun
+
+CWAAA never says "two million women" — it says **"two million concerned women."** The adjective is the org's name doing deadpan work, and it's what keeps membership statements clear of the §7.2 signer confusion (the male declarant joins the *roll*, never the women). Established at crisis §8.4, the milestone email, and now the home letterhead.
+
+## 2. The send-him imperative is the her-side CTA pattern
+
+Where a surface addresses **her** and the action is **his** declaration, the copy sends him: *"send him to put his intent in writing," "send it to the man who should."* She is witness, recruiter, distributor (specs §7.1) — never the signer. The dual-address gold standard is one line carrying both commands: **"Sign it — or send it to the man who should."**
+
+## 3. Meta descriptions are exempt from the "Because…" opener
+
+The "Because…" invariant governs **subheads**. SERP snippets render with no subject line above them, so a "Because…" opener reads as a fragment mid-sentence. Metas open standalone. Poster numbering ("Spot No. n") stays retired everywhere (specs §9.2).
+
+## 4. Structural chrome may be plain — under three conditions only
+
+"Contents," "On this page," and landmark aria-labels stay function-first. This is **not** a general "chrome may be generic" exemption. Plain language wins only when **all three** hold:
+1. the control is structural (wayfinding, not expression);
+2. the borrowed format supplies the context (a magazine's contents page says *Contents* — format verisimilitude is the joke);
+3. revoicing would misdescribe the destination ("The receipts" promises evidence and opens a menu — rejected on that ground).
+
+Where a chrome string can be voiced *without* misdescribing, voice it: `close: "Back to the campaign"`, `routesLabel: "The rest of the movement"`.
+
+## 5. Nav hierarchy is one voice, not two authors
+
+The masthead shouts voiced destinations (`THE PSAS`); the contents sheet uses specs §9.1's plain taxonomy (`PSAs`). That contrast is hierarchy within the campaign voice — it is not an author blend and needs no fixing.
+
+## 6. Accessibility labels: noun phrases, no title collisions
+
+Landmark `aria-label`s name the region as a noun phrase and must never share a name with an item they contain. The /psas plaque is **"The five announcements"** — "Choose a public thirst announcement" was rejected because the list contains a poster literally titled *Public Thirst Announcement*.
+
+## 7. Killed lines (do not resurrect)
+
+- **"Hang him in the locker room"** — violent/racial misreadings; unacceptable with any poster, doubly so with Poster 5's Black model as default flagship. The approved form is *"Pin him up in the locker room."*
+- **"Are you the fog?"** — borrowed CWAAA's fog metaphor on a campaign surface before the letterhead defines it.
+- **"The receipts"** (as nav framing) — false functional promise.
+- **"A public hygiene initiative"** — NGO-brochure phrasing; the institutional credit must be a format-perfect PSA credit (*"A public service announcement · Funded by …"*).
+- **"A satirical spec campaign by Hope2 Studio"** *(on campaign surfaces)* — the tell that spends the joke early (owner, 2026-07-16, footer consolidation). The sentence lives at `/about` only, where the reveal IS the payload.
+- **"Got Soap? is a satirical campaign by Hope2 Studio."** (the home reveal-beat tail) — an explicit satire reveal on the home; killed with the consolidation. The thesis line stays; the confession goes.
+- **"See who's behind it →"** — hints at a hidden hand from a campaign surface; the home's one `/about` path is the footer folio credit.
+- *(/about REDO, owner-ratified 2026-07-28 — full record `proposals-2026-07-22-about-inframe.md`:)*
+- **"visually seductive, thematically ridiculous"** — blind-named portfolio boilerplate (Priya, retest).
+- **"engineered to provoke, amuse, and push"** — blind-named service-list rhythm (Priya, retest).
+- **"the paperwork that out-writes most brands' hero copy"** — the self-flinch that grades its own proof.
+- **"Let's make clean design dirty fun."** and **"I do clean design for dirty fights. Bring me yours."** — the original closer and its first successor, both dead. The first was superseded at owner's order (sharpened, not deleted); the second was retired by 2/2 blind convergence as a slogan template — the `I do X for Y. Bring me yours.` construction is the performed tell (R10–R12). The ratified successor is *"I'm for hire, preferably by brands that need a little bite."* — her verbatim gotsoap/sources/promo.txt offer language. The clean/dirty axis retired with the taglines; neither wording may return on any rendered surface.
+- **"A dating app made me mad, so I declared a national hygiene crisis."** — owner-struck at ratification: read childish (the tantrum, not the standard).
+- **"I file my grudges in triplicate."** — owner-struck: read unhinged/vengeful, grudge-as-personality. Blind-proven with Priya, and struck anyway — **the owner overrules the readers on her own biography; do not relitigate with reader quotes.**
+- **"Then I incorporated the grudge. It smolders on the posters and files paperwork everywhere else."** — grudge-as-personality; the encapsulation survives only in its ratified detached form ("Then I incorporated the bar. It smolders…").
+- **The fabricated-funk arc** — *"my own shower sat there like a gym membership"* · *"By day four I smelled like the case files"* · the eleven-minute-shower beat · *"I'm still on the apps, still holding out for a 10."* · *"I show up as advertised."* — invented, self-refuting biography (Stacey as the unwashed) rejected by the owner on the one page that must be true.
+
+## 8. Page-internal echoes are legal; cross-surface recycling is not
+
+A meta description may echo its own page's pull line ("Anyone can change."). Marquee lines still have ONE home across *different* surfaces (deck §11 anti-tic sweep unchanged).
+
+## 9. The hero sub is choreography — treat it as art-locked
+
+"Because he thinks the steam is hiding it. It never was." is ratified precisely because the steam wipes itself away while the line is read: the site performs the sentence. Any future hero-copy proposal must beat that interplay, not just the sentence.
+
+## 10. The home commits to the bit — one neutral path to /about (owner, 2026-07-16)
+
+The Onion model: straight-faced satire commits on the front page; the reveal is a click away, never on the masthead or in the home footer. Executed in the footer-consolidation round (spec: `gotsoap/docs/build/reports/footer-consolidation-spec.md`):
+
+- **One `/about` path from the campaign chrome:** the footer folio credit `PRODUCED BY HOPE2 STUDIO · DIRECTED BY STACEY BRECKEL` (also the §10 proof-lift trigger). The © line is plain unlinked text. *(The contents sheet's "Production Notes" route exit remains per specs §9.1 — structural taxonomy, not a tell.)*
+- **The reveal beat is a thesis beat.** "None of these men are real. The problem is very, very real." stays — it names neither the joke nor the maker. Its tail and cta are killed (§7).
+- **The masthead credit is the format-perfect PSA credit** — *"A public service announcement · Funded by Concerned Women Against Axe Abuse"* — the same line as the hero's institutional signature. Page-internal echo, legal per §8. `Est. MMXXIV` / `Series One` / `No. 26` stay: straight-faced masthead fiction.
+- **The disclaimer is legal fine print at `/about`, not a footer confession:** *"Parody. Not affiliated with any brand, product, publication, or public-health organization. Models generated with openart.ai; art direction, compositing, and typography by hand."* Non-affiliation ≠ "surprise, it's satire."
+- **Root-cause fix:** the masthead and home section chrome now route through `copy.ts` (`masthead` group + `home.*` additions; deck §1c/§1d). Hardcoded markup is how a killed line survived a closed session — the copy lane owns every home string now.
+
+## 11a. Phase 4 REDO consensus locks (2026-07-20)
+
+Argued to consensus in the four-round Vivian ⇄ Sol redo (`phase4-redo-r1..r4`, zero deadlocks);
+implemented as Phase 5 (`../../../docs/copy/copy-correction-plan.md`). Overturning any of these requires a new argued
+round:
+
+1. **Share units are per-verdict.** Each verdict carries its own portable `share` payload written to
+   travel cold; a one-size share receipt may not return. Pledge cues are verdict-keyed — no shared
+   exit line across verdicts.
+2. **CWAAA surfaces carry no fiction confessions.** The crisis fine print is fully in-world;
+   "true in spirit"-class disclaimers are dead. The real-world disclosure lives at /about +
+   structured metadata only (extends §10/§11).
+3. **Alt text never transcribes baked poster copy.** One composed visual description per poster;
+   the lightbox renders at most one description per dialog (a11y contract, plan §3).
+4. **The case-file roster is five.** RC-014, RC-052, RC-063, RC-071 are cut and stay cut — the
+   killed-roster analog of §7. RC-058 is owner-locked verbatim. At most one aphorism ending on the
+   roster (Chad's).
+5. **Additional killed lines:** "The men are not the problem. The men are, in most cases, lovely." ·
+   "Nobody's beyond redemption." · "Redemption starts in the shower." · "Shame optional." ·
+   "In this economy, that's basically a miracle." · "We are concerned, not clingy." ·
+   "I'm not here to be nice about it…" (the /about permission paragraph) · "This has genuinely
+   never happened, and we both know why."
+6. **CG2's source anchor is `masthead.credit`** (literal, not template) — moved when the
+   confident-man alt transcription died. Do not re-templatize without re-anchoring the gate.
+
+## 11. Structured metadata is the real-world layer (owner ruling, 2026-07-16)
+
+JSON-LD / structured data is **exempt from the fiction-first rule**. It already speaks
+as the real world — poster pages name the real creator (`Stacey M. Breckel / Hope2
+Studio`) and carry the real © notice — so the truthful `"satirical"` disclosure in
+`/psas/[slug]`'s `about` field **stays**: crawlers, search surfaces, and AI systems get
+honest parody disclosure while the visible fiction is untouched. The commit-to-the-bit
+rule (§10) and the §7 kill list govern **rendered** surfaces only. (Ruled by Stacey in
+the footer-consolidation close-out, answering Sol's CONCERN 3.)
+
+## 12. Shop Part-2 consensus locks (2026-07-21)
+
+Argued to consensus in the two-round Vivian ⇄ Sol shop-product dialectic
+(`proposals-2026-07-21-shop-products.md`, 6/6 CONSENT, zero deadlocks):
+
+1. **Sell around the print — paraphrase is not rhyme.** A shop blurb never re-prints
+   the hook printed on its product AND never restates the hook's metaphor in store
+   voice ("Effort is the only fragrance we carry" died as a paraphrase of SMELL LIKE
+   EFFORT.). Quiet thematic rhyme is legal; the same equation in new words is not.
+2. **The 1993 simile technicality.** In the Wordmark Tee blurb, "distressed *like*
+   it's been asking since 1993" — the "like" is load-bearing. The simile keeps the
+   Got Milk? deep cut a vintage-wash claim; sanding it to a plain "since 1993" would
+   contradict the `Est. MMXXIV` masthead fiction. Do not "tighten" it away.
+3. **The tie-break principle.** Between two law-clean candidate lines, the one
+   carrying an additional working beat wins. "Ends on the strongest word" is a taste
+   argument and does not decide.
+
+## 13. /about REDO consensus locks (owner-ratified 2026-07-28)
+
+Argued through the REDO dialectic (`proposals-2026-07-22-about-inframe.md`, REDO R1–R9: two
+Vivian⇄Sol rounds + owner ratification edits, zero deadlocks) after the owner rejected the
+prior consensus for fabricated biography. Overturning any of these requires a new argued round
+**plus the owner** — several are owner rulings, not writer consensus.
+
+1. **The /about reality-sourcing law.** `/about` is sourced from reality (see the note atop
+   `gotsoap/sources/promo.txt`). No invented biography, funk, persona, dramatic arc, or character for Stacey;
+   she is never the unwashed and never the punchline — same enforcement class as
+   never-punch-down. Lacking true material for a beat: STOP and ask the owner (interviewing her
+   is available and preferred); never fill the gap with invention.
+2. **The voice-lock, three axes.** On `/about` Stacey is clever, witty, articulate — never
+   childish, never a "hateful crazy bitch," never a character or an arc. Her motivation renders
+   as a **standard she holds** (exasperation with low-effort men, a bar she set), never a
+   grudge she nurses or a temper she lost. And **never performed**: the wit lives in the truth
+   and the economy — never in a pun, a spec-flex, a callback, or a constructed escalation. A
+   line should read like she said it once, plainly, and it happened to land.
+3. **Casting (permanent).** The `/about` first-person register is a **creative-writing-craft
+   lane, not a Vivian lane**. Vivian authors all campaign surfaces; she does not write the
+   plain-Stacey beats. (Root cause of the R5/R6 rejections: lines conceived as devices —
+   humanizing a bit leaves the bit.)
+4. **Format kill.** On `/about`: the "Case study" eyebrow and the labeled
+   Concept / Execution / The system tri-fold. The making block is one plain structural eyebrow
+   ("How it's made") over unlabeled continuous prose; **capability bins may not return in
+   content or schema** (the deck key is `about.making`, a plain `string[]`).
+5. **Ratified strings.** `about.making` ¶1–¶2, `about.pitch.body` (spine-first: "…this is a
+   protest in punchlines"), and `about.pitch.tagline` ("I'm for hire, preferably by brands
+   that need a little bite." — the R10–R12 micro-pass successor after the blind read retired
+   the first tagline as a slogan template) are the consensus package — per-string kills listed
+   in §7.

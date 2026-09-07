@@ -1,5 +1,9 @@
 # Got Soap? repository instructions
 
+## Entity workspaces
+
+Open `gotsoap/`, `cwaaa/`, or `office-of-lather-compliance/` for a focused Claude Code session. Each has local AGENTS.md, CLAUDE.md, and a plan index. Load only the selected entity's design authority. Shared canon and locked verification evidence remain in `docs/`; current runtime remains in `site/`. See [the file ownership guide](docs/FILE-OWNERSHIP.md).
+
 ## What is true now
 
 This repository contains a working Astro site in `site/`, not an empty pre-build project.
@@ -9,9 +13,9 @@ architecture separates three fictional institutions:
 
 | System | Job | Public character | Target documentation |
 |---|---|---|---|
-| **Got Soap?** | campaigns | glossy, thirsty, confrontational | `docs/design.md`, `docs/prd/PRD-gotsoap-web-v1.md` |
-| **CWAAA** | public advocacy | a coalition making its case in public | `docs/cwaaa/` |
-| **Office of Lather Compliance** | regulates | unreadable authority expressed only through custom error states | `docs/office-of-lather-compliance/` |
+| **Got Soap?** | campaigns | glossy, thirsty, confrontational | `gotsoap/docs/design.md`, `gotsoap/docs/prd/PRD-gotsoap-web-v1.md` |
+| **CWAAA** | public advocacy | a coalition making its case in public | `cwaaa/docs/` |
+| **Office of Lather Compliance** | regulates | unreadable authority expressed only through custom error states | `office-of-lather-compliance/docs/` |
 
 Private production canon identifies CWAAA and the Office as legally separate fictional entities, but
 ordinary public artifacts never prove that separation is operationally meaningful. On ordinary web
@@ -50,7 +54,7 @@ Historical plans are evidence, not live authority, when `docs/HANDOFF.md` marks 
 - Keep the Sniff Test in Got Soap?.
 - Keep the Lather Pledge in both Got Soap? and CWAAA. Both implementations use the exact portable
   contract in `docs/contracts/pledge.v1.json`; the CWAAA copy is byte-for-byte equivalent at
-  `docs/cwaaa/contracts/pledge.v1.json`.
+  `cwaaa/docs/contracts/pledge.v1.json`.
 - Got Soap?'s pledge success path ends with a “Want to Learn More?” seam to CWAAA.
 - One Buttondown audience serves both pledge forms. Do not reintroduce Netlify Forms.
 
@@ -59,10 +63,10 @@ Historical plans are evidence, not live authority, when `docs/HANDOFF.md` marks 
 - Got Soap? may tease CWAAA at designed seams. It does not become an annual report.
 - CWAAA is **A Coalition Making Its Case in Public**: a credible advocacy nonprofit with dramatic,
   legible public surfaces. Its navigation uses **Recovery Stories** and **Chapters**; paper appears
-  only when the content is an actual paper artifact. See `docs/cwaaa/` for route and material law.
+  only when the content is an actual paper artifact. See `cwaaa/docs/` for route and material law.
 - **The Office page must appear under-designed.** It has no normal homepage, navigation, about page,
   agency explainer, searchable records, or usable public service. Every public route resolves to one
-  of the specified custom error states; see `docs/office-of-lather-compliance/`.
+  of the specified custom error states; see `office-of-lather-compliance/docs/`.
 - Office repeat recognition is browser-local only. Never use IP addresses, fingerprinting,
   authentication, or a server-side identity record for the gag.
 - Cross-domain URLs live in configuration and remain empty until the owner assigns real domains.
@@ -72,7 +76,7 @@ Historical plans are evidence, not live authority, when `docs/HANDOFF.md` marks 
 ## Source and asset rules
 
 - Poster truth wins over prose when they conflict.
-- `promo.txt` is campaign/process source material. Do not rewrite it as a web spec.
+- `gotsoap/sources/promo.txt` is campaign/process source material. Do not rewrite it as a web spec.
 - Do not read, parse, move, or stage `.abr` files. Avoid moving PSDs and other large OneDrive assets.
 - Ship optimized AVIF/WebP derivatives, not original poster JPGs.
 - Preserve Freepik attribution and license constraints.
@@ -80,7 +84,7 @@ Historical plans are evidence, not live authority, when `docs/HANDOFF.md` marks 
   persuades**, **Moxie Twist seduces**, **Marlin Sans SQ operates**, **Moanslight records and
   releases**. Runtime roles are `--font-command`, `--font-editorial`, `--font-whisper`,
   `--font-interface`, `--font-production` in `site/src/styles/tokens.css`. Never substitute a family
-  because it is easier to load. See `docs/gotsoap/font-delivery-spec.md`.
+  because it is easier to load. See `gotsoap/docs/font-delivery-spec.md`.
 - CWAAA web font: PT Serif with the nonprofit package's supporting roles.
 - All fonts self-host from `site/public/fonts/` via `/fonts/…` URLs. Always-live gate G19 rejects any
   `@fontsource/*` dependency, lockfile entry, or source import; reintroduction requires owner
