@@ -15,7 +15,7 @@ Use [PRD-TO-LAUNCH.md](PRD-TO-LAUNCH.md) to bridge current source to launch and 
 1. [Shared owner decisions](../docs/HANDOFF.md).
 2. [Shared canon](../docs/world/WORLD-BIBLE.md).
 3. [Local world bible](docs/world-bible.md).
-4. [Local design](docs/design.md) and [PRD](docs/PRD-office-v1.md).
+4. [Local design](design.md) and [PRD](docs/PRD-office-v1.md).
 5. [Plan index](plans/README.md).
 
 ## Boundaries

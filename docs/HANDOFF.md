@@ -6,6 +6,8 @@
 
 The owner requested separate working folders for the three entities. Their documentation now lives in `gotsoap/`, `cwaaa/`, and `office-of-lather-compliance/`, each with its own Claude instructions and plan index. Shared canon, coordinated plans, and locked combined-runtime proof files remain under `docs/`. This is file organization; the working Astro runtime remains in `site/` and standalone extraction is still pending. See `docs/FILE-OWNERSHIP.md` and `docs/organization-manifest.json`.
 
+Each full design authority now sits directly in its entity workspace: [Got Soap?](../gotsoap/design.md), [CWAAA](../cwaaa/design.md), and [Office](../office-of-lather-compliance/design.md). Supporting UI specifications and structured design records remain in each entity's `docs/`. The root `DESIGN.md` routes to these separate authorities. This relocation preserves the existing design decisions.
+
 ## Launch handoff scope (2026-09-07)
 
 The owner requested a completion PRD and graphics checklist for each entity, defining completion as launch-ready sites with explicit notes for later work. The owner also directed Claude to grill them thoroughly about unfinished design/production sections instead of inventing answers. The six handoff files are:
@@ -43,12 +45,12 @@ exclusively of custom error states. The IVR is the controlled ambiguity exceptio
 | What cross-system facts, ambiguity, and artifact continuity govern the world? | `docs/world/WORLD-BIBLE.md` + `docs/world/artifact-continuity.md` |
 | What does the current combined build render? | `specs.md` |
 | What governs the approved 2026-07-28 creative-direction revision? | `docs/superpowers/specs/2026-07-28-creative-direction-revision-design.md` + `docs/superpowers/plans/2026-07-28-creative-direction-revision.md` |
-| What should Got Soap? become? | `gotsoap/docs/design.md` + `gotsoap/docs/prd/PRD-gotsoap-web-v1.md` |
+| What should Got Soap? become? | `gotsoap/design.md` + `gotsoap/docs/prd/PRD-gotsoap-web-v1.md` |
 | What facts, psychology, and voice belong to Got Soap?? | `gotsoap/docs/world-bible.md` |
-| What should the CWAAA site become? | `cwaaa/docs/design.md` + `cwaaa/docs/PRD-cwaaa-web-v1.md` |
+| What should the CWAAA site become? | `cwaaa/design.md` + `cwaaa/docs/PRD-cwaaa-web-v1.md` |
 | What facts and voice belong to CWAAA? | `cwaaa/docs/world-bible.md` |
 | What moves when CWAAA is extracted? | `cwaaa/docs/migration-manifest.md` |
-| What should the Office become? | `office-of-lather-compliance/docs/design.md` + its PRD |
+| What should the Office become? | `office-of-lather-compliance/design.md` + its PRD |
 | What facts, psychology, and voice belong to the Office? | `office-of-lather-compliance/docs/world-bible.md` |
 | How does Office return recognition work? | `office-of-lather-compliance/docs/contracts/visit-state.v1.json` |
 | What must both pledge forms submit? | `docs/contracts/pledge.v1.json` |

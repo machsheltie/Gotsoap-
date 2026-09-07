@@ -2,7 +2,7 @@
 paths:
   - "site/src/**"
   - "site/public/**"
-  - "gotsoap/docs/design.md"
+  - "gotsoap/design.md"
   - "cwaaa/docs/**"
   - "docs/world/**"
   - "office-of-lather-compliance/docs/**"
@@ -26,7 +26,7 @@ add a clean handoff, or average their rendered authorship.
 
 Privacy, Terms, and DMCA stay accessible; fiction disclosure waits behind the creator/About seam.
 
-Read `gotsoap/docs/design.md`, `cwaaa/docs/`, and `office-of-lather-compliance/docs/` for governing detail;
+Read `gotsoap/design.md`, `cwaaa/docs/`, and `office-of-lather-compliance/docs/` for governing detail;
 do not duplicate route-by-route specifications in this rule.
 
 Required anti-template check:

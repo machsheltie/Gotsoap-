@@ -48,15 +48,15 @@
 - `AGENTS.md`
 - `CLAUDE.md`
 - `.claude/rules/gotsoap-web-design.md`
-- `gotsoap/docs/design.md`
+- `gotsoap/design.md`
 - `gotsoap/docs/prd/PRD-gotsoap-web-v1.md`
 - `cwaaa/docs/README.md`
-- `cwaaa/docs/design.md`
+- `cwaaa/design.md`
 - `cwaaa/docs/PRD-cwaaa-web-v1.md`
 - `cwaaa/docs/world-bible.md`
 - `cwaaa/docs/migration-manifest.md`
 - `office-of-lather-compliance/docs/README.md`
-- `office-of-lather-compliance/docs/design.md`
+- `office-of-lather-compliance/design.md`
 - `office-of-lather-compliance/docs/PRD-office-v1.md`
 - `office-of-lather-compliance/docs/contracts/visit-state.v1.json`
 - `gotsoap/docs/strategy/participation-mechanics.md`
@@ -296,8 +296,8 @@ git commit -m "docs: establish shared transmedia canon"
 **Files:**
 
 - Create: `gotsoap/docs/world-bible.md`
-- Modify: `gotsoap/docs/design.md:11-79`
-- Modify: `gotsoap/docs/design.md:188-265`
+- Modify: `gotsoap/design.md:11-79`
+- Modify: `gotsoap/design.md:188-265`
 - Modify: `gotsoap/docs/prd/PRD-gotsoap-web-v1.md:28-74`
 - Modify: `gotsoap/docs/prd/PRD-gotsoap-web-v1.md:74-218`
 - Modify: `site/scripts/authority-check-lib.mjs:55-70`
@@ -395,7 +395,7 @@ Add requirements that:
 - `1-800-GOT-SOAP` appears as campaign material on Got Soap?.
 - Neither CWAAA nor the Office advertises the number as a normal contact channel.
 
-- [ ] **Step 5: Strengthen `gotsoap/docs/design.md`**
+- [ ] **Step 5: Strengthen `gotsoap/design.md`**
 
 Add the campaign behavioral thesis and require every major route to name:
 
@@ -417,7 +417,7 @@ Run:
 
 ```powershell
 npm --prefix site run authority
-rg -n "Shop|/broadcast|1-800-GOT-SOAP|erotic aspiration" gotsoap/docs/world-bible.md gotsoap/docs/design.md gotsoap/docs/prd/PRD-gotsoap-web-v1.md
+rg -n "Shop|/broadcast|1-800-GOT-SOAP|erotic aspiration" gotsoap/docs/world-bible.md gotsoap/design.md gotsoap/docs/prd/PRD-gotsoap-web-v1.md
 git diff --check
 ```
 
@@ -427,7 +427,7 @@ check has no output.
 - [ ] **Step 7: Commit the campaign authority**
 
 ```powershell
-git add -- gotsoap/docs/world-bible.md gotsoap/docs/design.md gotsoap/docs/prd/PRD-gotsoap-web-v1.md site/scripts/authority-check-lib.mjs
+git add -- gotsoap/docs/world-bible.md gotsoap/design.md gotsoap/docs/prd/PRD-gotsoap-web-v1.md site/scripts/authority-check-lib.mjs
 git commit -m "docs: complete Got Soap behavioral authority"
 ```
 
@@ -438,7 +438,7 @@ git commit -m "docs: complete Got Soap behavioral authority"
 **Files:**
 
 - Modify: `cwaaa/docs/world-bible.md:1-98`
-- Modify: `cwaaa/docs/design.md:7-130`
+- Modify: `cwaaa/design.md:7-130`
 - Modify: `cwaaa/docs/PRD-cwaaa-web-v1.md:7-88`
 - Modify: `cwaaa/docs/README.md:1-25`
 - Modify: `cwaaa/docs/migration-manifest.md:20-64`
@@ -467,12 +467,12 @@ Require these world-bible markers:
 Require these design and PRD markers:
 
 ```js
-const cwaaaDesign = requireFile(repoRoot, 'cwaaa/docs/design.md', errors);
+const cwaaaDesign = requireFile(repoRoot, 'cwaaa/design.md', errors);
 errors.push(...missingRequiredMarkers(cwaaaDesign, [
   'PARTICIPANT ADVOCACY FILES',
   'NOT POLICE EVIDENCE',
   'NEUTRAL CITATION',
-], 'cwaaa/docs/design.md'));
+], 'cwaaa/design.md'));
 
 const cwaaaPrd = requireFile(repoRoot, 'cwaaa/docs/PRD-cwaaa-web-v1.md', errors);
 errors.push(...missingRequiredMarkers(cwaaaPrd, [
@@ -592,7 +592,7 @@ Expected: authority passes, the two hashes match, and diff check has no output.
 - [ ] **Step 8: Commit the CWAAA authority**
 
 ```powershell
-git add -- cwaaa/docs/world-bible.md cwaaa/docs/design.md cwaaa/docs/PRD-cwaaa-web-v1.md cwaaa/docs/README.md cwaaa/docs/migration-manifest.md site/scripts/authority-check-lib.mjs
+git add -- cwaaa/docs/world-bible.md cwaaa/design.md cwaaa/docs/PRD-cwaaa-web-v1.md cwaaa/docs/README.md cwaaa/docs/migration-manifest.md site/scripts/authority-check-lib.mjs
 git commit -m "docs: complete CWAAA behavioral authority"
 ```
 
@@ -603,7 +603,7 @@ git commit -m "docs: complete CWAAA behavioral authority"
 **Files:**
 
 - Create: `office-of-lather-compliance/docs/world-bible.md`
-- Modify: `office-of-lather-compliance/docs/design.md:6-136`
+- Modify: `office-of-lather-compliance/design.md:6-136`
 - Modify: `office-of-lather-compliance/docs/PRD-office-v1.md:8-113`
 - Modify: `office-of-lather-compliance/docs/README.md:1-18`
 - Modify: `office-of-lather-compliance/docs/contracts/visit-state.v1.json:1-61`
@@ -857,7 +857,7 @@ check has no output.
 - [ ] **Step 8: Commit the Office correction**
 
 ```powershell
-git add -- office-of-lather-compliance/docs/world-bible.md office-of-lather-compliance/docs/design.md office-of-lather-compliance/docs/PRD-office-v1.md office-of-lather-compliance/docs/README.md office-of-lather-compliance/docs/contracts/visit-state.v1.json site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
+git add -- office-of-lather-compliance/docs/world-bible.md office-of-lather-compliance/design.md office-of-lather-compliance/docs/PRD-office-v1.md office-of-lather-compliance/docs/README.md office-of-lather-compliance/docs/contracts/visit-state.v1.json site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
 git commit -m "docs: correct Office return-state authority"
 ```
 
@@ -1060,7 +1060,7 @@ Expected:
 
 ```powershell
 git diff --check
-rg -n "third/fourth-return|\"visitCount\"|CWAAA does not frighten|site is currently empty|there is no application code yet" AGENTS.md CLAUDE.md docs/HANDOFF.md gotsoap/docs/design.md gotsoap/docs cwaaa/docs office-of-lather-compliance/docs docs/strategy site/scripts
+rg -n "third/fourth-return|\"visitCount\"|CWAAA does not frighten|site is currently empty|there is no application code yet" AGENTS.md CLAUDE.md docs/HANDOFF.md gotsoap/design.md gotsoap/docs cwaaa/docs office-of-lather-compliance/docs docs/strategy site/scripts
 $campaign=(Get-FileHash -Algorithm SHA256 docs/contracts/pledge.v1.json).Hash
 $portable=(Get-FileHash -Algorithm SHA256 cwaaa/docs/contracts/pledge.v1.json).Hash
 if($campaign -ne $portable){ throw 'Pledge contracts drifted' }

@@ -5,7 +5,7 @@
 **Applies to:** the Got Soap? campaign site after CWAAA extraction
 **Does not apply to:** the CWAAA or Office of Lather Compliance sites
 
-The current combined Astro runtime remains documented in `../../specs.md`. This document defines what
+The current combined Astro runtime remains documented in `../specs.md`. This document defines what
 the campaign becomes; it does not pretend the extraction has already happened.
 
 ## 1. The creative thesis
@@ -56,7 +56,7 @@ Got Soap? owns:
 Got Soap? may link to CWAAA at a designed seam. It does not host CWAAA's findings, case-file archive,
 nonprofit history, annual-report material, or Office content.
 
-The campaign pledge uses the shared contract in `../../docs/contracts/pledge.v1.json`. Its success composition
+The campaign pledge uses the shared contract in `../docs/contracts/pledge.v1.json`. Its success composition
 includes a final **“Want to Learn More?”** route to CWAAA. Until the CWAAA URL is configured, that
 cross-site control is not rendered.
 
@@ -157,7 +157,7 @@ Rules:
 ## 8. Typography
 
 Campaign type is a five-voice cast, and each voice has a job. The cast is locked in
-`font-delivery-spec.md`; no family may be substituted because another is easier to load.
+`docs/font-delivery-spec.md`; no family may be substituted because another is easier to load.
 
 | Voice | Family | Runtime role | Direction |
 |---|---|---|---|

@@ -56,6 +56,6 @@ hard-fails `npm run gates:prod` until the three ship-blockers are real.
 - Any placeholder — the build already has token stand-ins; you only make the masters above.
 
 ## Where the detail lives
-- **Design/registers/colors:** `gotsoap/docs/design.md`. **Exact card text:** `docs/copy/copy-deck-v2.md`.
+- **Design/registers/colors:** `gotsoap/design.md`. **Exact card text:** `docs/copy/copy-deck-v2.md`.
 - **Hero Photoshop brief:** `gotsoap/docs/hero-image-brief.md`. **How each asset is used:** `gotsoap/docs/copy/launch-campaign-v1.md`.
 - This file is the current **inventory**; those are the **briefs**. If a dimension here and elsewhere disagree, **this file wins** (it's the reconciliation).

@@ -8,7 +8,7 @@ Finish the campaign as a standalone, production-ready site while preserving its 
 
 > Use this PRD to take Got Soap? to launch. First verify the current source and read the governing documents below. Show me what is already locked, then grill me thoroughly about the first unresolved design or production decision. Ask focused follow-ups, explain the consequences, and record my answers before building the affected section. Do not ask me to choose again where a documented decision already exists. Continue independent work while an answer or graphic is pending. Keep the later-work list visible. Do not turn this into a generic campaign template or build the other institutions inside this site.
 
-Read [owner decisions](../docs/HANDOFF.md), [shared canon](../docs/world/WORLD-BIBLE.md), [campaign world](docs/world-bible.md), [design](docs/design.md), [target PRD](docs/prd/PRD-gotsoap-web-v1.md), and [graphics brief](GRAPHICS-TO-MAKE.md). The [current runtime specification](../specs.md) describes what exists, not permission to retain obsolete combined-site ownership. This handoff is subordinate to those authorities; it adds execution order and completion criteria.
+Read [owner decisions](../docs/HANDOFF.md), [shared canon](../docs/world/WORLD-BIBLE.md), [campaign world](docs/world-bible.md), [design](design.md), [target PRD](docs/prd/PRD-gotsoap-web-v1.md), and [graphics brief](GRAPHICS-TO-MAKE.md). The [current runtime specification](../specs.md) describes what exists, not permission to retain obsolete combined-site ownership. This handoff is subordinate to those authorities; it adds execution order and completion criteria.
 
 ## 1. Verified starting point
 

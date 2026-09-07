@@ -3,7 +3,7 @@
 **Version:** 2.0 target split
 **Status:** implementation-ready product authority for the campaign site
 **Current runtime reference:** `../../../specs.md`
-**Design authority:** `../design.md`
+**Design authority:** `../../design.md`
 
 ## 1. Product definition
 

@@ -20,7 +20,7 @@ components:
 **Authorship:** Office error surfaces only. Nothing from Got Soap? or CWAAA may appear here, and
 nothing here may travel to them. See `../../DESIGN.md` for the routing law.
 
-**Authority.** This is the tokenized companion to `design.md` and `ui-system.md`, which win on
+**Authority.** This is the tokenized companion to `../design.md` and `ui-system.md`, which win on
 conflict.
 
 ## Overview

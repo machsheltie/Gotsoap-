@@ -6,7 +6,7 @@
 
 ## OLC-G00 — required website graphics: none
 
-**Status:** locked by [design](docs/design.md) and [UI authority](docs/ui-system.md). **Owner production count:** 0. **Routes:** root and every public path.
+**Status:** locked by [design](design.md) and [UI authority](docs/ui-system.md). **Owner production count:** 0. **Routes:** root and every public path.
 
 | Element | Who makes it | Required form |
 |---|---|---|

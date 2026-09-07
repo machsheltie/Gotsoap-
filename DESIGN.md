@@ -18,15 +18,15 @@ beneath them to fall back on, and this file will not supply one.
 Before touching layout, type, color, or copy on any surface, identify its author. Then read that
 author's record and only that one.
 
-| Author | Job | Public character | Record |
+| Author | Job | Public character | Full design authority |
 |---|---|---|---|
-| **Got Soap?** | campaigns | glossy, thirsty, confrontational | [`gotsoap/docs/DESIGN-SYSTEM.md`](gotsoap/docs/DESIGN-SYSTEM.md) |
-| **CWAAA** | public advocacy | a coalition making its case in public | [`cwaaa/docs/DESIGN-SYSTEM.md`](cwaaa/docs/DESIGN-SYSTEM.md) |
-| **Office of Lather Compliance** | regulates | unreadable authority, error states only | [`office-of-lather-compliance/docs/DESIGN-SYSTEM.md`](office-of-lather-compliance/docs/DESIGN-SYSTEM.md) |
+| **Got Soap?** | campaigns | glossy, thirsty, confrontational | [`gotsoap/design.md`](gotsoap/design.md) |
+| **CWAAA** | public advocacy | a coalition making its case in public | [`cwaaa/design.md`](cwaaa/design.md) |
+| **Office of Lather Compliance** | regulates | unreadable authority, error states only | [`office-of-lather-compliance/design.md`](office-of-lather-compliance/design.md) |
 
-Each record is the tokenized, tool-readable companion to its package's prose authority
-(`gotsoap/docs/design.md`, `cwaaa/docs/design.md`, `office-of-lather-compliance/docs/design.md`) and the
-matching `ui-system.md`. **Those prose documents win on conflict.** The records exist so a design
+Each linked `design.md` contains that site's full prose design authority. Its supporting
+`docs/ui-system.md` records detailed decisions. Each site's `docs/DESIGN-SYSTEM.md` is the
+tokenized, tool-readable companion. **The prose authority wins on conflict.** The records exist so a design
 tool has something structured to read without inventing a merged system; they do not supersede
 owner-approved specification, and on a case-insensitive filesystem they must never be renamed to
 `DESIGN.md` inside a directory that already holds a `design.md`.

@@ -2,7 +2,7 @@
 
 For current launch execution, start with [the launch PRD](../PRD-TO-LAUNCH.md) and [graphics checklist](../GRAPHICS-TO-MAKE.md). Dated plans below provide context; the launch handoff identifies what remains.
 
-Build from [the current PRD](../docs/prd/PRD-gotsoap-web-v1.md) and [design](../docs/design.md). Those files incorporate the approved direction; dated plans explain implementation and provenance, not fresh authorization.
+Build from [the current PRD](../docs/prd/PRD-gotsoap-web-v1.md) and [design](../design.md). Those files incorporate the approved direction; dated plans explain implementation and provenance, not fresh authorization.
 
 ## Applicable work from shared plans
 

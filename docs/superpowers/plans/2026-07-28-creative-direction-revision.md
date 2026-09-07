@@ -37,17 +37,17 @@
 
 ### Governing CWAAA package
 
-- `cwaaa/docs/design.md` — public-advocacy visual system, route choreography, photography, material law, and anti-default constitution.
+- `cwaaa/design.md` — public-advocacy visual system, route choreography, photography, material law, and anti-default constitution.
 - `cwaaa/docs/PRD-cwaaa-web-v1.md` — target routes, redirects, progression, Office referral depth, pledge behavior, and legal-disclosure placement.
 - `cwaaa/docs/world-bible.md` — institutional psychology, dignity, wrongness discipline, physical behavior, and public-disclosure boundary.
 
 ### Governing Office package
 
-- `office-of-lather-compliance/docs/design.md` — deliberately under-designed error-only visual law.
+- `office-of-lather-compliance/design.md` — deliberately under-designed error-only visual law.
 
 ### Governing campaign package
 
-- `gotsoap/docs/design.md` — fashion/fragrance catalogue direction for Shop.
+- `gotsoap/design.md` — fashion/fragrance catalogue direction for Shop.
 - `gotsoap/docs/prd/PRD-gotsoap-web-v1.md` — Shop product performance, unavailable checkout, and legal-seam requirements.
 
 ### Shared artifact and coordination authority
@@ -71,7 +71,7 @@
 
 **Files:**
 
-- Modify: `cwaaa/docs/design.md:1-129`
+- Modify: `cwaaa/design.md:1-129`
 - Modify: `cwaaa/docs/PRD-cwaaa-web-v1.md:7-116`
 - Modify: `cwaaa/docs/world-bible.md:11-208`
 - Modify: `site/scripts/authority-check-lib.mjs:428-615`
@@ -103,7 +103,7 @@ errors.push(...missingRequiredMarkers(cwaaaDesign, [
   'PARTICIPANT ADVOCACY FILES',
   'NOT POLICE EVIDENCE',
   'NEUTRAL CITATION',
-], 'cwaaa/docs/design.md'));
+], 'cwaaa/design.md'));
 ```
 
 Expand the CWAAA PRD marker list with:
@@ -135,19 +135,19 @@ Add these cases to the path-aware mutation table in `site/scripts/authority-chec
 const staleCreativeDirectionCases = [
   {
     name: 'paper-manila as the CWAAA primary stock',
-    path: 'cwaaa/docs/design.md',
+    path: 'cwaaa/design.md',
     text: 'Primary stock: paper-manila.',
     expected: /obsolete CWAAA paper-universe guidance/i,
   },
   {
     name: 'CWAAA records room as the governing composition',
-    path: 'cwaaa/docs/design.md',
+    path: 'cwaaa/design.md',
     text: 'The site behaves like a records room with index logic.',
     expected: /obsolete CWAAA records-room guidance/i,
   },
   {
     name: 'photo-led CWAAA hero prohibition',
-    path: 'cwaaa/docs/design.md',
+    path: 'cwaaa/design.md',
     text: 'Avoid a photo-led hero.',
     expected: /obsolete CWAAA hero guidance/i,
   },
@@ -169,7 +169,7 @@ for (const { name, path, text, expected } of staleCreativeDirectionCases) {
 }
 ```
 
-In `validatePathAwareCanon()`, add exact positive-claim checks that emit those four error messages only for `cwaaa/docs/design.md` and `cwaaa/docs/PRD-cwaaa-web-v1.md`. Use `matchingLines()` so quoted historical or explicitly rejected examples remain ignored by the existing documented-span logic.
+In `validatePathAwareCanon()`, add exact positive-claim checks that emit those four error messages only for `cwaaa/design.md` and `cwaaa/docs/PRD-cwaaa-web-v1.md`. Use `matchingLines()` so quoted historical or explicitly rejected examples remain ignored by the existing documented-span logic.
 
 - [ ] **Step 3: Run the authority suite and confirm the CWAAA requirements fail**
 
@@ -182,7 +182,7 @@ npm --prefix site run authority
 
 Expected: FAIL because the live CWAAA documents do not yet contain the new markers; each synthetic stale claim is rejected by its intended rule.
 
-- [ ] **Step 4: Replace `cwaaa/docs/design.md`**
+- [ ] **Step 4: Replace `cwaaa/design.md`**
 
 Use these exact top-level sections:
 
@@ -297,7 +297,7 @@ Expected: all authority tests pass; the authority gate passes; the stale search 
 - [ ] **Step 8: Commit the CWAAA revision**
 
 ```powershell
-git add -- cwaaa/docs/design.md cwaaa/docs/PRD-cwaaa-web-v1.md cwaaa/docs/world-bible.md site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
+git add -- cwaaa/design.md cwaaa/docs/PRD-cwaaa-web-v1.md cwaaa/docs/world-bible.md site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
 git commit -m "docs: rebuild CWAAA public advocacy authority"
 ```
 
@@ -307,7 +307,7 @@ git commit -m "docs: rebuild CWAAA public advocacy authority"
 
 **Files:**
 
-- Modify: `office-of-lather-compliance/docs/design.md:1-151`
+- Modify: `office-of-lather-compliance/design.md:1-151`
 - Modify: `site/scripts/authority-check-lib.mjs:428-615`
 - Modify: `site/scripts/authority-check-lib.mjs:1270-1319`
 - Modify: `site/scripts/authority-check.test.mjs:1036-1060`
@@ -337,7 +337,7 @@ errors.push(...missingRequiredMarkers(officeDesign, [
   'NO TEXTURE',
   'NO SCANLINES',
   'NO ANIMATION',
-], 'office-of-lather-compliance/docs/design.md'));
+], 'office-of-lather-compliance/design.md'));
 ```
 
 Add adversarial cases:
@@ -351,7 +351,7 @@ Add adversarial cases:
 ]
 ```
 
-Each case appends to `office-of-lather-compliance/docs/design.md` and expects a path-aware error. Exempt explicitly rejected examples through the existing semantic-clause normalization.
+Each case appends to `office-of-lather-compliance/design.md` and expects a path-aware error. Exempt explicitly rejected examples through the existing semantic-clause normalization.
 
 - [ ] **Step 2: Run the authority suite and confirm the Office requirements fail**
 
@@ -364,7 +364,7 @@ npm --prefix site run authority
 
 Expected: FAIL for missing under-design markers; synthetic positive styled-terminal claims are rejected.
 
-- [ ] **Step 3: Rewrite `office-of-lather-compliance/docs/design.md`**
+- [ ] **Step 3: Rewrite `office-of-lather-compliance/design.md`**
 
 Use:
 
@@ -408,7 +408,7 @@ Run:
 ```powershell
 npm --prefix site run authority:test
 npm --prefix site run authority
-rg -n -i "legacy terminal|muted red|scanline|paired typeface|status chip|decorative frame" office-of-lather-compliance/docs/design.md
+rg -n -i "legacy terminal|muted red|scanline|paired typeface|status chip|decorative frame" office-of-lather-compliance/design.md
 git diff --check
 ```
 
@@ -417,7 +417,7 @@ Expected: the first two commands pass; remaining matches occur only inside expli
 - [ ] **Step 5: Commit the Office revision**
 
 ```powershell
-git add -- office-of-lather-compliance/docs/design.md site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
+git add -- office-of-lather-compliance/design.md site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
 git commit -m "docs: enforce Office under-design"
 ```
 
@@ -427,7 +427,7 @@ git commit -m "docs: enforce Office under-design"
 
 **Files:**
 
-- Modify: `gotsoap/docs/design.md:228-256`
+- Modify: `gotsoap/design.md:228-256`
 - Modify: `gotsoap/docs/prd/PRD-gotsoap-web-v1.md:111-128`
 - Modify: `site/scripts/authority-check-lib.mjs:1160-1209`
 - Modify: `site/scripts/authority-check.test.mjs:1036-1060`
@@ -439,7 +439,7 @@ git commit -m "docs: enforce Office under-design"
 
 - [ ] **Step 1: Add failing Shop authority markers and stale-grid tests**
 
-Expand the `gotsoap/docs/design.md` markers:
+Expand the `gotsoap/design.md` markers:
 
 ```js
 'OFFICIAL CAMPAIGN SUPPLY',
@@ -466,8 +466,8 @@ Add adversarial mutations for:
 
 ```js
 [
-  ['gotsoap/docs/design.md', 'Arrange products in an equal responsive product grid.', /obsolete Shop grid guidance/i],
-  ['gotsoap/docs/design.md', 'Use standard ecommerce product cards.', /obsolete Shop card guidance/i],
+  ['gotsoap/design.md', 'Arrange products in an equal responsive product grid.', /obsolete Shop grid guidance/i],
+  ['gotsoap/design.md', 'Use standard ecommerce product cards.', /obsolete Shop card guidance/i],
   ['gotsoap/docs/prd/PRD-gotsoap-web-v1.md', 'Include ratings and customers-also-bought recommendations.', /obsolete Shop ecommerce guidance/i],
 ]
 ```
@@ -483,7 +483,7 @@ npm --prefix site run authority
 
 Expected: FAIL for missing editorial-catalogue markers while the new mutation cases reject ordinary ecommerce guidance.
 
-- [ ] **Step 3: Expand the Shop section in `gotsoap/docs/design.md`**
+- [ ] **Step 3: Expand the Shop section in `gotsoap/design.md`**
 
 Use:
 
@@ -529,7 +529,7 @@ Run:
 ```powershell
 npm --prefix site run authority:test
 npm --prefix site run authority
-rg -n "Embossed Bar|Wordmark Tee|Statement Tee|Dad Hat|Effort Bottle|Supply Index|Coming Soon" gotsoap/docs/design.md gotsoap/docs/prd/PRD-gotsoap-web-v1.md
+rg -n "Embossed Bar|Wordmark Tee|Statement Tee|Dad Hat|Effort Bottle|Supply Index|Coming Soon" gotsoap/design.md gotsoap/docs/prd/PRD-gotsoap-web-v1.md
 git diff --check
 ```
 
@@ -538,7 +538,7 @@ Expected: authority tests and gate pass; every product and interaction marker ap
 - [ ] **Step 6: Commit the Shop revision**
 
 ```powershell
-git add -- gotsoap/docs/design.md gotsoap/docs/prd/PRD-gotsoap-web-v1.md site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
+git add -- gotsoap/design.md gotsoap/docs/prd/PRD-gotsoap-web-v1.md site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
 git commit -m "docs: direct Shop as campaign catalogue"
 ```
 

@@ -7,7 +7,7 @@
 
 ## Per-system authority
 
-- Got Soap?: `../../gotsoap/docs/world-bible.md`, `../../gotsoap/docs/design.md`, and the campaign PRD.
+- Got Soap?: `../../gotsoap/docs/world-bible.md`, `../../gotsoap/design.md`, and the campaign PRD.
 - CWAAA: `../../cwaaa/docs/`.
 - Office: `../../office-of-lather-compliance/docs/`.
 

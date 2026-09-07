@@ -2,7 +2,7 @@
 
 # Claude Code: Got Soap?
 
-This working directory is for **Got Soap?**. Start with [PRD-TO-LAUNCH.md](PRD-TO-LAUNCH.md) and [GRAPHICS-TO-MAKE.md](GRAPHICS-TO-MAKE.md). Use [plans/README.md](plans/README.md) for supporting provenance, then load only the authority required by the current task.
+This working directory is for **Got Soap?**. Read [design.md](design.md) for this site's full design authority. Start launch work with [PRD-TO-LAUNCH.md](PRD-TO-LAUNCH.md) and [GRAPHICS-TO-MAKE.md](GRAPHICS-TO-MAKE.md). Use [plans/README.md](plans/README.md) for supporting provenance, then load only the authority required by the current task.
 
 Preserve all five canonical posters and the five campaign type roles. The site is the campaign; the Hope2 Studio reveal comes late. Sniff Test stays here. Shop is a fashion catalogue pretending to be a store, with unavailable checkout. Use the shared pledge contract and a conditional success seam to CWAAA.
 

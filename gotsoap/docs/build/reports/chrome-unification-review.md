@@ -16,7 +16,7 @@
 ## Rulings on Fable's submitted choices
 
 - **One `ContentsDialog` with two skins is accepted.** §5.2's “one component wearing five hats” prohibition governs the five poster environments, while the owner direction expressly mandates one site-wide dialog mechanism. The campaign and CWAAA mastheads own separate DOM; the shared dialog owns one semantic contract and applies register-specific type, color, rules, focus color, and backdrop.
-- **The CWAAA 404 is accepted.** The owner mapping allows either register, `gotsoap/docs/design.md:57` assigns 404 to CWAAA, and the rendered page contains the PT Serif/manila letterhead with no campaign wordmark.
+- **The CWAAA 404 is accepted.** The owner mapping allows either register, `gotsoap/design.md:57` assigns 404 to CWAAA, and the rendered page contains the PT Serif/manila letterhead with no campaign wordmark.
 - **`contents.returnHome` and the CWAAA landmark label are accepted.** The former is spec-verbatim §9.2 taxonomy; the latter composes an existing organization name into a structural noun phrase. Neither license the new close-control sentence in finding #1.
 - **The orphaned `nav.links` / `nav.quiet` data is not a rendered violation.** `Nav.astro` is deleted, no imports remain, and the generated site contains the new masthead system only.
 

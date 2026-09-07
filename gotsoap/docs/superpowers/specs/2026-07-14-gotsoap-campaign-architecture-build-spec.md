@@ -15,7 +15,7 @@
 **Status:** SUPERSEDED 2026-07-15 — see `/specs.md`. (Historical: approved; Unholy locked.)
 **Date:** 2026-07-14
 **Scope:** Home, `/psas`, `/psas/[slug]`, mechanic ownership, navigation, motion, performance, accessibility, and the Hope2 Studio reveal
-**Governing documents:** `AGENTS.md` creative rules · `gotsoap/docs/design-north-star.md` Round 3 · `gotsoap/docs/prd/PRD-gotsoap-web-v1.md` · `gotsoap/docs/design.md` · `docs/copy/copy-deck-v2.md`
+**Governing documents:** `AGENTS.md` creative rules · `gotsoap/docs/design-north-star.md` Round 3 · `gotsoap/docs/prd/PRD-gotsoap-web-v1.md` · `gotsoap/design.md` · `docs/copy/copy-deck-v2.md`
 
 This specification ratifies the 2026-07-09 movement-pitch skeleton and replaces its open execution questions. It also supersedes any visual-execution note that would flatten the campaign into a gallery, a repeated desktop split, a mobile image-above-copy stack, or a restrained editorial archive.
 
@@ -294,7 +294,7 @@ The production folio credit is approved verbatim and does not require copy-lane 
 
 ## 13. Implementation sequence
 
-1. Replace the conflicting execution notes in `gotsoap/docs/design.md` and retire the superseded open questions in the 2026-07-09 proposal.
+1. Replace the conflicting execution notes in `gotsoap/design.md` and retire the superseded open questions in the 2026-07-09 proposal.
 2. Promote the movement-pitch architecture from `/movement-preview` to `/` after the text-free hero assets are ready. Delete the preview page, add a true Netlify 301 from `/movement-preview` to `/`, and verify that the stale route is absent from the generated sitemap.
 3. Build the responsive placement hub with source-specific hotspots and a visible route plaque.
 4. Replace the shared poster split with five explicit environment components; complete mobile signatures first.

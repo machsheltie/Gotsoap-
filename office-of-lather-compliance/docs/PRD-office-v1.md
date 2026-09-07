@@ -3,7 +3,7 @@
 **JURISDICTION: DELIBERATELY UNSPECIFIED**
 **PUBLIC SURFACE MODEL: ERROR STATES ONLY**
 **State contract:** `contracts/visit-state.v1.json`
-**Design authority:** `design.md`
+**Design authority:** `../design.md`
 
 ## Product
 
@@ -82,7 +82,7 @@ matches the post-transition count. Session 3 and all later sessions remain in Co
 stasis, including reloads; there is no fourth-return escalation. Reloads may increment refresh and
 lifetime-access bookkeeping but never replace Continued Interest with Refresh Denied.
 
-Exact copy and ordering are in `design.md`.
+Exact copy and ordering are in `../design.md`.
 
 ## Recognition and privacy
 

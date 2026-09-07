@@ -6,7 +6,7 @@ Start by approving the existing identity, then make the documentary home hero an
 
 ## What is established and what needs an interview
 
-[Design](docs/design.md) establishes the roughly 50% documentary traces / 30% coherent physical artifacts / 20% live civic graphics hierarchy. [UI decisions](docs/ui-system.md) record the August font cast, while many sizes, color states, spacing, motion, and responsive rules remain open. The [world bible](docs/world-bible.md) governs artifact authorship and continuity.
+[Design](design.md) establishes the roughly 50% documentary traces / 30% coherent physical artifacts / 20% live civic graphics hierarchy. [UI decisions](docs/ui-system.md) record the August font cast, while many sizes, color states, spacing, motion, and responsive rules remain open. The [world bible](docs/world-bible.md) governs artifact authorship and continuity.
 
 Every image below needs a CW-D03/04/05 decision on its page slot, quantity, size, approved content, and reuse status. Dimensions marked **proposed** are production suggestions for that interview, not owner-approved design law. Do not begin a final layout just because a suggestion has a number.
 

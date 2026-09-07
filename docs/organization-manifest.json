@@ -987,5 +987,28 @@
     "docs/copy/copy-correction-plan.md",
     "docs/copy/copy-deck-v2.md",
     "docs/copy/copy-implementation-order.md"
+  ],
+  "followupRelocations": [
+    {
+      "date": "2026-09-07",
+      "scope": "Place each full design authority directly in its entity workspace",
+      "moves": [
+        {
+          "from": "gotsoap/docs/design.md",
+          "to": "gotsoap/design.md",
+          "originalSha256": "ebe518418c4ae203f68e61b813aae3193f3b91a43b9e3190aa98151ab544bbf6"
+        },
+        {
+          "from": "cwaaa/docs/design.md",
+          "to": "cwaaa/design.md",
+          "originalSha256": "370d6d05b24151b1efd5582deac671131ae030460ba39830574fd42d0369fafa"
+        },
+        {
+          "from": "office-of-lather-compliance/docs/design.md",
+          "to": "office-of-lather-compliance/design.md",
+          "originalSha256": "de2006a68c560e45ac6e026f453be1cb7e2b883a50dc58d924c3ac68b2c353d9"
+        }
+      ]
+    }
   ]
 }

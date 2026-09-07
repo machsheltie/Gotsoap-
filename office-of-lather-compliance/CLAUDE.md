@@ -2,7 +2,7 @@
 
 # Claude Code: Office of Lather Compliance
 
-This working directory is for **Office of Lather Compliance**. Start with [PRD-TO-LAUNCH.md](PRD-TO-LAUNCH.md) and [GRAPHICS-TO-MAKE.md](GRAPHICS-TO-MAKE.md). Use [plans/README.md](plans/README.md) for supporting provenance, then load only the authority required by the current task.
+This working directory is for **Office of Lather Compliance**. Read [design.md](design.md) for this site's full design authority. Start launch work with [PRD-TO-LAUNCH.md](PRD-TO-LAUNCH.md) and [GRAPHICS-TO-MAKE.md](GRAPHICS-TO-MAKE.md). Use [plans/README.md](plans/README.md) for supporting provenance, then load only the authority required by the current task.
 
 The Office page must appear under-designed. Every public route is an error state. White, black, Courier New; no logo, navigation, conventional homepage, service, or agency explanation. Follow docs/contracts/visit-state.v1.json exactly. Return recognition is browser-local; never use IP, fingerprinting, authentication, or server identity.
 

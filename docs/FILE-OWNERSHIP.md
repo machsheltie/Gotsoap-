@@ -6,11 +6,12 @@ The three entities have separate working folders. Their plans agree on the main 
 
 | Material | Location and owner |
 |---|---|
-| Campaign design, PRD, typography, assets briefs, research, build reports, campaign copy and dated implementation plans | `gotsoap/docs/` |
+| Full site design authorities | `gotsoap/design.md`, `cwaaa/design.md`, and `office-of-lather-compliance/design.md` |
+| Campaign PRD, typography, assets briefs, research, build reports, campaign copy and dated implementation plans | `gotsoap/docs/` |
 | Campaign source descriptions | `gotsoap/sources/` |
-| CWAAA world, design, PRD, UI, font brief, contract, extraction roadmap, crisis reviews, and CWAAA-authored citation proposals | `cwaaa/docs/` |
+| CWAAA world, PRD, UI, font brief, contract, extraction roadmap, crisis reviews, and CWAAA-authored citation proposals | `cwaaa/docs/` |
 | Existing CWAAA font assets | `cwaaa/public/`, preserved in place |
-| Office world, design, PRD, UI, design record, and state contract | `office-of-lather-compliance/docs/` |
+| Office world, PRD, UI, design record, and state contract | `office-of-lather-compliance/docs/` |
 | Entity tasks extracted from coordinated plans | Each entity's `plans/`; reading aids with links to the shared originals |
 | Canon, IVR, shared pledge, coordinated revisions | `docs/world/`, `docs/contracts/`, `docs/superpowers/` |
 | Three immutable combined-copy proof artifacts | `docs/copy/`; linked from the entity plan indexes |

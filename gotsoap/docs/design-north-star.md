@@ -1,6 +1,6 @@
 # Design north star — archived decision record
 
-**Status:** superseded as live authority by `design.md` version 3.0.
+**Status:** superseded as live authority by `../design.md` version 3.0.
 **Why retained:** this file records the owner correction that stopped the early build from drifting
 into safe corporate-SaaS design.
 
@@ -16,7 +16,7 @@ Auto-reject:
 - corporate SaaS polish;
 - restrained archive styling that turns the campaign into a portfolio wrapper.
 
-The live `design.md` now carries this test forward with positive direction, surface-level refusals,
+The live `../design.md` now carries this test forward with positive direction, surface-level refusals,
 responsive rules, and acceptance criteria. It also supersedes this file's former two-author,
 site-within-a-site model with the approved three-system split:
 

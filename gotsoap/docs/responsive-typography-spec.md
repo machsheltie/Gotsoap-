@@ -2,7 +2,7 @@
 
 **Status:** active working authority; responsive interpolation, measure, wrapping, cropping, and zoom behavior locked  
 **Applies to:** Got Soap? campaign website only  
-**Reads with:** `typography-spec.md`, `letter-spacing-spec.md`, `ui-system.md`, `design.md`, and `../../docs/HANDOFF.md`
+**Reads with:** `typography-spec.md`, `letter-spacing-spec.md`, `ui-system.md`, `../design.md`, and `../../docs/HANDOFF.md`
 **Does not apply to:** CWAAA or the Office of Lather Compliance
 
 This file completes the responsive behavior layer of the Got Soap? typography package. It converts the approved type scale into implementation rules so the site cannot be reduced to ordinary breakpoint-based web typography.

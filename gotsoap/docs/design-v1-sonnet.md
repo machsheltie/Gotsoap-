@@ -1,7 +1,7 @@
-# [ARCHIVED — superseded by gotsoap/docs/design.md v2]
+# [ARCHIVED — superseded by gotsoap/design.md v2]
 
 > This is the original design plan drafted by Sonnet (medium effort), archived 2026-07-08.
-> It was superseded by a research-grounded remake (see `gotsoap/docs/design.md`). Ideas that survived
+> It was superseded by a research-grounded remake (see `gotsoap/design.md`). Ideas that survived
 > into v2 on merit: the fogged-mirror hero concept (from gotsoap/sources/promo.txt line 74), the
 > register-switching palette principle, and the "SPOT NO." framing. Known errors: Phenix
 > American is not on Adobe Fonts; the layout conflated the home page with the whole site.

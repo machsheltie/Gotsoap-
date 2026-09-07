@@ -6,7 +6,7 @@ Start with the hero pair, installation pair, and Unholy atmosphere. Review the e
 
 ## Production rules and delivery
 
-The [design](docs/design.md), [current runtime specification](../specs.md), [consolidated asset inventory](docs/ASSETS-NEEDED.md), and [hero brief](docs/hero-image-brief.md) establish the existing requirements. Current owner decisions and target authorship outrank stale instructions in older briefs. GS-D01–06 in the PRD identify questions Claude must resolve with you before dependent artwork.
+The [design](design.md), [current runtime specification](../specs.md), [consolidated asset inventory](docs/ASSETS-NEEDED.md), and [hero brief](docs/hero-image-brief.md) establish the existing requirements. Current owner decisions and target authorship outrank stale instructions in older briefs. GS-D01–06 in the PRD identify questions Claude must resolve with you before dependent artwork.
 
 - **Master handoff:** proposed organizational convention `gotsoap/sources/graphics/<asset-id>/`; create it when delivering new exports, not by moving old PSDs or OneDrive sources. Keep editable masters in your established design workspace and record their locations.
 - **Naming:** use the basenames specified below; add `-wide`, `-portrait`, `-detail`, or `-social` where required. Maintain an asset record with ID, source, owner, version, approval date, license/attribution, and destination.

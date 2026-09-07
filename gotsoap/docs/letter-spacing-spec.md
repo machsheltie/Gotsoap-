@@ -2,7 +2,7 @@
 
 **Status:** active working authority; tracking and kerning system locked  
 **Applies to:** Got Soap? campaign website only  
-**Reads with:** `typography-spec.md`, `ui-system.md`, `design.md`, and `../../docs/HANDOFF.md`
+**Reads with:** `typography-spec.md`, `ui-system.md`, `../design.md`, and `../../docs/HANDOFF.md`
 **Does not apply to:** CWAAA or the Office of Lather Compliance
 
 This file is part of the canonical Got Soap? typography package. It records the owner-approved tracking, kerning, and font-synthesis rules that were previously listed as pending in `typography-spec.md`.

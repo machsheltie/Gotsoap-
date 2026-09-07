@@ -7,7 +7,7 @@ Source: [the shared coordinated plan](../../docs/superpowers/plans/2026-07-23-tr
 **Files:**
 
 - Create: `office-of-lather-compliance/docs/world-bible.md`
-- Modify: `office-of-lather-compliance/docs/design.md:6-136`
+- Modify: `office-of-lather-compliance/design.md:6-136`
 - Modify: `office-of-lather-compliance/docs/PRD-office-v1.md:8-113`
 - Modify: `office-of-lather-compliance/docs/README.md:1-18`
 - Modify: `office-of-lather-compliance/docs/contracts/visit-state.v1.json:1-61`
@@ -261,7 +261,7 @@ check has no output.
 - [ ] **Step 8: Commit the Office correction**
 
 ```powershell
-git add -- office-of-lather-compliance/docs/world-bible.md office-of-lather-compliance/docs/design.md office-of-lather-compliance/docs/PRD-office-v1.md office-of-lather-compliance/docs/README.md office-of-lather-compliance/docs/contracts/visit-state.v1.json site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
+git add -- office-of-lather-compliance/docs/world-bible.md office-of-lather-compliance/design.md office-of-lather-compliance/docs/PRD-office-v1.md office-of-lather-compliance/docs/README.md office-of-lather-compliance/docs/contracts/visit-state.v1.json site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
 git commit -m "docs: correct Office return-state authority"
 ```
 

@@ -601,7 +601,7 @@ export function validatePathAwareCanon(path, text) {
   const isGotSoap = /Got Soap\?/i.test(text)
     || ('/' + lowerPath).includes('/gotsoap/')
     || lowerPath.endsWith('/prd/prd-gotsoap-web-v1.md')
-    || lowerPath === 'gotsoap/docs/design.md';
+    || lowerPath === 'gotsoap/design.md';
   const isOffice = /\b(?:The\s+)?Office(?: of Lather Compliance)?\b/i.test(text)
     || ('/' + lowerPath).includes('/office-of-lather-compliance/');
 
@@ -766,7 +766,7 @@ export function validatePathAwareCanon(path, text) {
     }
   }
 
-  if (lowerPath.endsWith('office-of-lather-compliance/docs/design.md')) {
+  if (lowerPath.endsWith('office-of-lather-compliance/design.md')) {
     const hasLiveOfficeStyleClaim = (pattern) => matchingLines(text, pattern)
       .some((line) => findUnprotectedAuthorityCandidate(line, pattern, { allowDocumentedPrefix: true }));
     if (hasLiveOfficeStyleClaim(/\bUse a centered legacy terminal frame\b/i)) {
@@ -783,7 +783,7 @@ export function validatePathAwareCanon(path, text) {
     }
   }
 
-  if (lowerPath.endsWith('cwaaa/docs/design.md')) {
+  if (lowerPath.endsWith('cwaaa/design.md')) {
     if (matchingLines(text, /\bPrimary stock:\s*paper-manila\b/i).length > 0) {
       errors.push(`${path}: obsolete CWAAA paper-universe guidance.`);
     }
@@ -819,7 +819,7 @@ export function validatePathAwareCanon(path, text) {
     }
   }
 
-  if (/(?:^|\/)docs\/design\.md$/.test(lowerPath)) {
+  if (lowerPath.endsWith('gotsoap/design.md') || /(?:^|\/)docs\/design\.md$/.test(lowerPath)) {
     const obsoleteGrid =
       /\b(?:Arrange products in|products are arranged in) an equal responsive product grid\b/i;
     const obsoleteCards = /\bUse standard ecommerce product cards\b/i;
@@ -1397,7 +1397,7 @@ export function collectAuthorityErrors(repoRoot) {
     'CLAUDE.md',
     '.claude/rules/gotsoap-web-design.md',
     'docs/HANDOFF.md',
-    'gotsoap/docs/design.md',
+    'gotsoap/design.md',
     'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     'gotsoap/docs/strategy/participation-mechanics.md',
     'cwaaa/docs/plans/cwaaa-divergence-roadmap.md',
@@ -1470,7 +1470,7 @@ export function collectAuthorityErrors(repoRoot) {
     'THIRD DISTINCT BROWSER SESSION',
   ], 'docs/HANDOFF.md'));
 
-  const gotSoapDesign = requireFile(repoRoot, 'gotsoap/docs/design.md', errors);
+  const gotSoapDesign = requireFile(repoRoot, 'gotsoap/design.md', errors);
   errors.push(...missingRequiredMarkers(gotSoapDesign, [
     'THE WEBSITE IS THE CAMPAIGN',
     'EDITORIAL BRUTALISM',
@@ -1486,7 +1486,7 @@ export function collectAuthorityErrors(repoRoot) {
     'THE EFFORT BOTTLE',
     'SUPPLY INDEX',
     'NO PRODUCT GRID',
-  ], 'gotsoap/docs/design.md'));
+  ], 'gotsoap/design.md'));
 
   const gotSoapBible = requireFile(repoRoot, 'gotsoap/docs/world-bible.md', errors);
   errors.push(...missingRequiredMarkers(gotSoapBible, [
@@ -1555,7 +1555,7 @@ export function collectAuthorityErrors(repoRoot) {
     'CREATOR/ABOUT SEAM',
   ], 'cwaaa/docs/world-bible.md'));
 
-  const cwaaaDesign = requireFile(repoRoot, 'cwaaa/docs/design.md', errors);
+  const cwaaaDesign = requireFile(repoRoot, 'cwaaa/design.md', errors);
   errors.push(...missingRequiredMarkers(cwaaaDesign, [
     'A COALITION MAKING ITS CASE IN PUBLIC',
     'THE BAR IS SOAP',
@@ -1570,7 +1570,7 @@ export function collectAuthorityErrors(repoRoot) {
     'PARTICIPANT ADVOCACY FILES',
     'NOT POLICE EVIDENCE',
     'NEUTRAL CITATION',
-  ], 'cwaaa/docs/design.md'));
+  ], 'cwaaa/design.md'));
 
   const cwaaaPrd = requireFile(repoRoot, 'cwaaa/docs/PRD-cwaaa-web-v1.md', errors);
   errors.push(...missingRequiredMarkers(cwaaaPrd, [
@@ -1638,7 +1638,7 @@ export function collectAuthorityErrors(repoRoot) {
   ], 'Office world bible'));
   const officeDesign = requireFile(
     repoRoot,
-    'office-of-lather-compliance/docs/design.md',
+    'office-of-lather-compliance/design.md',
     errors,
   );
   errors.push(...missingRequiredMarkers(officeDesign, [
@@ -1656,7 +1656,7 @@ export function collectAuthorityErrors(repoRoot) {
     'NO TEXTURE',
     'NO SCANLINES',
     'NO ANIMATION',
-  ], 'office-of-lather-compliance/docs/design.md'));
+  ], 'office-of-lather-compliance/design.md'));
   const officePrd = requireFile(
     repoRoot,
     'office-of-lather-compliance/docs/PRD-office-v1.md',
@@ -1726,12 +1726,12 @@ export function collectAuthorityErrors(repoRoot) {
     ['gotsoap/docs/prd/PRD-gotsoap-web-v1.md', gotSoapPrd],
     ['cwaaa/docs/README.md', cwaaaReadme],
     ['cwaaa/docs/world-bible.md', cwaaaBible],
-    ['cwaaa/docs/design.md', cwaaaDesign],
+    ['cwaaa/design.md', cwaaaDesign],
     ['cwaaa/docs/PRD-cwaaa-web-v1.md', cwaaaPrd],
     ['cwaaa/docs/migration-manifest.md', cwaaaMigration],
     ['office-of-lather-compliance/docs/README.md', officeReadme],
     ['office-of-lather-compliance/docs/world-bible.md', officeBible],
-    ['office-of-lather-compliance/docs/design.md', officeDesign],
+    ['office-of-lather-compliance/design.md', officeDesign],
     ['office-of-lather-compliance/docs/PRD-office-v1.md', officePrd],
   ]);
   for (const [path, content] of pathAwareDocuments) {

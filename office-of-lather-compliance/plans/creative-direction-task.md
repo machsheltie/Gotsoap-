@@ -6,7 +6,7 @@ Source: [the shared coordinated plan](../../docs/superpowers/plans/2026-07-28-cr
 
 **Files:**
 
-- Modify: `office-of-lather-compliance/docs/design.md:1-151`
+- Modify: `office-of-lather-compliance/design.md:1-151`
 - Modify: `site/scripts/authority-check-lib.mjs:428-615`
 - Modify: `site/scripts/authority-check-lib.mjs:1270-1319`
 - Modify: `site/scripts/authority-check.test.mjs:1036-1060`
@@ -36,7 +36,7 @@ errors.push(...missingRequiredMarkers(officeDesign, [
   'NO TEXTURE',
   'NO SCANLINES',
   'NO ANIMATION',
-], 'office-of-lather-compliance/docs/design.md'));
+], 'office-of-lather-compliance/design.md'));
 ```
 
 Add adversarial cases:
@@ -50,7 +50,7 @@ Add adversarial cases:
 ]
 ```
 
-Each case appends to `office-of-lather-compliance/docs/design.md` and expects a path-aware error. Exempt explicitly rejected examples through the existing semantic-clause normalization.
+Each case appends to `office-of-lather-compliance/design.md` and expects a path-aware error. Exempt explicitly rejected examples through the existing semantic-clause normalization.
 
 - [ ] **Step 2: Run the authority suite and confirm the Office requirements fail**
 
@@ -63,7 +63,7 @@ npm --prefix site run authority
 
 Expected: FAIL for missing under-design markers; synthetic positive styled-terminal claims are rejected.
 
-- [ ] **Step 3: Rewrite `office-of-lather-compliance/docs/design.md`**
+- [ ] **Step 3: Rewrite `office-of-lather-compliance/design.md`**
 
 Use:
 
@@ -107,7 +107,7 @@ Run:
 ```powershell
 npm --prefix site run authority:test
 npm --prefix site run authority
-rg -n -i "legacy terminal|muted red|scanline|paired typeface|status chip|decorative frame" office-of-lather-compliance/docs/design.md
+rg -n -i "legacy terminal|muted red|scanline|paired typeface|status chip|decorative frame" office-of-lather-compliance/design.md
 git diff --check
 ```
 
@@ -116,7 +116,7 @@ Expected: the first two commands pass; remaining matches occur only inside expli
 - [ ] **Step 5: Commit the Office revision**
 
 ```powershell
-git add -- office-of-lather-compliance/docs/design.md site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
+git add -- office-of-lather-compliance/design.md site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
 git commit -m "docs: enforce Office under-design"
 ```
 

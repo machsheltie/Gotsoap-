@@ -14,12 +14,12 @@ Claude must interview Stacey thoroughly about genuinely unfinished sections, rec
 
 1. [Shared owner decisions](../docs/HANDOFF.md) and [shared world canon](../docs/world/WORLD-BIBLE.md).
 2. [This entity's world bible](docs/world-bible.md).
-3. [Design](docs/design.md), [product requirements](docs/PRD-office-v1.md), and [UI system](docs/ui-system.md).
+3. [Design](design.md), [product requirements](docs/PRD-office-v1.md), and [UI system](docs/ui-system.md).
 4. [Structured design record](docs/DESIGN-SYSTEM.md); the prose authority wins conflicts.
 
 ## Files and implementation status
 
-Entity-specific documentation is in `docs/`. `plans/` identifies the applicable work from mixed plans without importing another entity's design rules.
+The full design authority is [design.md](design.md) in this folder. Supporting specifications and design decisions are in `docs/`. `plans/` identifies the applicable work from mixed plans without importing another entity's design rules.
 
 The existing deployable website remains in [../site/](../site/). It still combines campaign and CWAAA material. Folder organization does not mean the standalone sites have been implemented. Follow the [CWAAA migration manifest](../cwaaa/docs/migration-manifest.md) for runtime extraction.
 

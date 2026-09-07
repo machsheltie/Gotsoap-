@@ -2,11 +2,11 @@
 
 Open the folder for the entity you want Claude Code to work on:
 
-| Folder | Project | Start here |
-|---|---|---|
-| `gotsoap/` | Got Soap? campaign | [Claude instructions](gotsoap/CLAUDE.md) |
-| `cwaaa/` | CWAAA advocacy coalition | [Claude instructions](cwaaa/CLAUDE.md) |
-| `office-of-lather-compliance/` | Office error-state site | [Claude instructions](office-of-lather-compliance/CLAUDE.md) |
+| Folder | Project | Start here | Design |
+|---|---|---|---|
+| `gotsoap/` | Got Soap? campaign | [Claude instructions](gotsoap/CLAUDE.md) | [design.md](gotsoap/design.md) |
+| `cwaaa/` | CWAAA advocacy coalition | [Claude instructions](cwaaa/CLAUDE.md) | [design.md](cwaaa/design.md) |
+| `office-of-lather-compliance/` | Office error-state site | [Claude instructions](office-of-lather-compliance/CLAUDE.md) | [design.md](office-of-lather-compliance/design.md) |
 
 Each folder has its own launch PRD (`PRD-TO-LAUNCH.md`), owner graphics checklist (`GRAPHICS-TO-MAKE.md`), world bible, design authority, and agent instructions. The launch handoffs include thorough owner interviews for unresolved sections and later-work registers. Use one folder as the working directory for a focused session.
 

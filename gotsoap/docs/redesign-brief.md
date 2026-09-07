@@ -5,7 +5,7 @@
 
 ## The verdict
 **The writing is a 10. The presentation is a 3–4.** All four critics independently reached the same
-place: the build *complied with `design.md`'s letter and violated its spirit* — five differently-*named*
+place: the build *complied with `../design.md`'s letter and violated its spirit* — five differently-*named*
 spot layouts that render as one alternating two-column magazine row, posters boxed as drop-shadowed
 thumbnails (and the dark ones vanishing on dark grounds), everything jailed in one 72rem centered column,
 CTAs as five stacked centered cards, the hero an empty gray gradient, the gag a cookie-banner toast.
@@ -26,11 +26,11 @@ in (CWAAA document) → the demand (pledge band) → the oath (Form CW-1)**. The
 punchline. Reference energy: Emergency-Broadcast takeover × fragrance film × a nonprofit deadly serious about your smell.
 
 ## ROOT-CAUSE FIX — rewrite the spec first (or it re-flattens)
-The build didn't disobey the docs; it **faithfully executed their restraint.** `design.md` §6/§7/§8/§10 and
+The build didn't disobey the docs; it **faithfully executed their restraint.** `../design.md` §6/§7/§8/§10 and
 the CWAAA component doc-comments literally say *"zero fx-\*,"* *"no texture,"* *"competent never ugly,"*
 *"the form-number does the work with zero pixels,"* *"three motions site-wide, nothing else."* **Until those
 sections are rewritten to authorize the maximalist direction, the next implementer will "correctly" rebuild the
-tax form.** Task 0 of the redesign = amend `design.md` §6/§7/§8/§10 + the CWAAA component headers to match the
+tax form.** Task 0 of the redesign = amend `../design.md` §6/§7/§8/§10 + the CWAAA component headers to match the
 North Star. (The North Star already outranks them; this removes the ambiguity that caused the drift.)
 
 ---
@@ -114,7 +114,7 @@ the "artifacts" on `/psas`.
 a11y wiring · Astro build · Buttondown · the token/register-slot architecture (spend its budget; don't rebuild it).
 
 ## Execution plan
-0. **Rewrite the spec** (`design.md` §6/§7/§8/§10 + CWAAA component headers) to authorize the direction.
+0. **Rewrite the spec** (`../design.md` §6/§7/§8/§10 + CWAAA component headers) to authorize the direction.
 1. **Vertical-slice proof:** rebuild the **hero + Spot 1** and the **pledge certificate** first; render + owner review before fanning out.
 2. **Campaign surfaces:** the remaining spots (2–5) as their armatures + register materials + type/motion/texture.
 3. **CWAAA:** crisis dossier + gag stamp + controls.

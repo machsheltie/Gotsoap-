@@ -7,7 +7,7 @@ Source: [the shared coordinated plan](../../docs/superpowers/plans/2026-07-23-tr
 **Files:**
 
 - Modify: `cwaaa/docs/world-bible.md:1-98`
-- Modify: `cwaaa/docs/design.md:7-130`
+- Modify: `cwaaa/design.md:7-130`
 - Modify: `cwaaa/docs/PRD-cwaaa-web-v1.md:7-88`
 - Modify: `cwaaa/docs/README.md:1-25`
 - Modify: `cwaaa/docs/migration-manifest.md:20-64`
@@ -36,12 +36,12 @@ Require these world-bible markers:
 Require these design and PRD markers:
 
 ```js
-const cwaaaDesign = requireFile(repoRoot, 'cwaaa/docs/design.md', errors);
+const cwaaaDesign = requireFile(repoRoot, 'cwaaa/design.md', errors);
 errors.push(...missingRequiredMarkers(cwaaaDesign, [
   'PARTICIPANT ADVOCACY FILES',
   'NOT POLICE EVIDENCE',
   'NEUTRAL CITATION',
-], 'cwaaa/docs/design.md'));
+], 'cwaaa/design.md'));
 
 const cwaaaPrd = requireFile(repoRoot, 'cwaaa/docs/PRD-cwaaa-web-v1.md', errors);
 errors.push(...missingRequiredMarkers(cwaaaPrd, [
@@ -161,7 +161,7 @@ Expected: authority passes, the two hashes match, and diff check has no output.
 - [ ] **Step 8: Commit the CWAAA authority**
 
 ```powershell
-git add -- cwaaa/docs/world-bible.md cwaaa/docs/design.md cwaaa/docs/PRD-cwaaa-web-v1.md cwaaa/docs/README.md cwaaa/docs/migration-manifest.md site/scripts/authority-check-lib.mjs
+git add -- cwaaa/docs/world-bible.md cwaaa/design.md cwaaa/docs/PRD-cwaaa-web-v1.md cwaaa/docs/README.md cwaaa/docs/migration-manifest.md site/scripts/authority-check-lib.mjs
 git commit -m "docs: complete CWAAA behavioral authority"
 ```
 

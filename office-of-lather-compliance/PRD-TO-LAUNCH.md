@@ -8,7 +8,7 @@ Build a separate error-only site. Every public URL returns the Office's unavaila
 
 > Implement the Office from its existing design and state contract. First verify the source and distinguish locked behavior from the few remaining decisions. Grill me thoroughly on the exact storage-failure wording and displayed count, then on the necessary deployment/disclosure details. Show concrete scenarios and follow up until each answer is implementable. Record the decision before building its dependent branch. Do not reopen the site's under-designed appearance, create graphics, or turn protected uncertainty into an explanation. Keep physical artifacts and any future expansion in a later-work list.
 
-Read [owner decisions](../docs/HANDOFF.md), [shared canon](../docs/world/WORLD-BIBLE.md), [Office world](docs/world-bible.md), [design and exact state copy](docs/design.md), [target PRD](docs/PRD-office-v1.md), [UI decisions](docs/ui-system.md), [state contract](docs/contracts/visit-state.v1.json), and [graphics brief](GRAPHICS-TO-MAKE.md). This handoff orders execution under those authorities; it does not introduce new canonical copy or a second state contract.
+Read [owner decisions](../docs/HANDOFF.md), [shared canon](../docs/world/WORLD-BIBLE.md), [Office world](docs/world-bible.md), [design and exact state copy](design.md), [target PRD](docs/PRD-office-v1.md), [UI decisions](docs/ui-system.md), [state contract](docs/contracts/visit-state.v1.json), and [graphics brief](GRAPHICS-TO-MAKE.md). This handoff orders execution under those authorities; it does not introduce new canonical copy or a second state contract.
 
 ## 1. Current state and locked direction
 

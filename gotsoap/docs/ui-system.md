@@ -2,7 +2,7 @@
 
 **Status:** active working authority; typography cast locked, remaining sections pending owner interview  
 **Applies to:** Got Soap? campaign website only  
-**Reads with:** `design.md`, `prd/PRD-gotsoap-web-v1.md`, `world-bible.md`, and `../../docs/HANDOFF.md`
+**Reads with:** `../design.md`, `prd/PRD-gotsoap-web-v1.md`, `world-bible.md`, and `../../docs/HANDOFF.md`
 **Does not apply to:** CWAAA or the Office of Lather Compliance
 
 This file converts the approved creative direction into implementation rules. It sits below the Got Soap? design authority and PRD and above component-level implementation. It exists to prevent an implementation agent from using correct content inside generic web typography, generic states, or template UI.

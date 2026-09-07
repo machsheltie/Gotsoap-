@@ -6,7 +6,7 @@ Source: [the shared coordinated plan](../../docs/superpowers/plans/2026-07-28-cr
 
 **Files:**
 
-- Modify: `cwaaa/docs/design.md:1-129`
+- Modify: `cwaaa/design.md:1-129`
 - Modify: `cwaaa/docs/PRD-cwaaa-web-v1.md:7-116`
 - Modify: `cwaaa/docs/world-bible.md:11-208`
 - Modify: `site/scripts/authority-check-lib.mjs:428-615`
@@ -38,7 +38,7 @@ errors.push(...missingRequiredMarkers(cwaaaDesign, [
   'PARTICIPANT ADVOCACY FILES',
   'NOT POLICE EVIDENCE',
   'NEUTRAL CITATION',
-], 'cwaaa/docs/design.md'));
+], 'cwaaa/design.md'));
 ```
 
 Expand the CWAAA PRD marker list with:
@@ -70,19 +70,19 @@ Add these cases to the path-aware mutation table in `site/scripts/authority-chec
 const staleCreativeDirectionCases = [
   {
     name: 'paper-manila as the CWAAA primary stock',
-    path: 'cwaaa/docs/design.md',
+    path: 'cwaaa/design.md',
     text: 'Primary stock: paper-manila.',
     expected: /obsolete CWAAA paper-universe guidance/i,
   },
   {
     name: 'CWAAA records room as the governing composition',
-    path: 'cwaaa/docs/design.md',
+    path: 'cwaaa/design.md',
     text: 'The site behaves like a records room with index logic.',
     expected: /obsolete CWAAA records-room guidance/i,
   },
   {
     name: 'photo-led CWAAA hero prohibition',
-    path: 'cwaaa/docs/design.md',
+    path: 'cwaaa/design.md',
     text: 'Avoid a photo-led hero.',
     expected: /obsolete CWAAA hero guidance/i,
   },
@@ -104,7 +104,7 @@ for (const { name, path, text, expected } of staleCreativeDirectionCases) {
 }
 ```
 
-In `validatePathAwareCanon()`, add exact positive-claim checks that emit those four error messages only for `cwaaa/docs/design.md` and `cwaaa/docs/PRD-cwaaa-web-v1.md`. Use `matchingLines()` so quoted historical or explicitly rejected examples remain ignored by the existing documented-span logic.
+In `validatePathAwareCanon()`, add exact positive-claim checks that emit those four error messages only for `cwaaa/design.md` and `cwaaa/docs/PRD-cwaaa-web-v1.md`. Use `matchingLines()` so quoted historical or explicitly rejected examples remain ignored by the existing documented-span logic.
 
 - [ ] **Step 3: Run the authority suite and confirm the CWAAA requirements fail**
 
@@ -117,7 +117,7 @@ npm --prefix site run authority
 
 Expected: FAIL because the live CWAAA documents do not yet contain the new markers; each synthetic stale claim is rejected by its intended rule.
 
-- [ ] **Step 4: Replace `cwaaa/docs/design.md`**
+- [ ] **Step 4: Replace `cwaaa/design.md`**
 
 Use these exact top-level sections:
 
@@ -232,7 +232,7 @@ Expected: all authority tests pass; the authority gate passes; the stale search 
 - [ ] **Step 8: Commit the CWAAA revision**
 
 ```powershell
-git add -- cwaaa/docs/design.md cwaaa/docs/PRD-cwaaa-web-v1.md cwaaa/docs/world-bible.md site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
+git add -- cwaaa/design.md cwaaa/docs/PRD-cwaaa-web-v1.md cwaaa/docs/world-bible.md site/scripts/authority-check-lib.mjs site/scripts/authority-check.test.mjs
 git commit -m "docs: rebuild CWAAA public advocacy authority"
 ```
 

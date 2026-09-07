@@ -2,12 +2,12 @@
 
 **Status:** active working authority; structure established, detailed visual tokens pending owner interview  
 **Applies to:** CWAAA standalone advocacy website only  
-**Reads with:** `design.md`, `PRD-cwaaa-web-v1.md`, `world-bible.md`, and `../../docs/HANDOFF.md`
+**Reads with:** `../design.md`, `PRD-cwaaa-web-v1.md`, `world-bible.md`, and `../../docs/HANDOFF.md`
 **Does not apply to:** Got Soap? or the Office of Lather Compliance
 
 This file converts CWAAA’s approved creative platform into implementation-level visual rules. It exists to stop an implementation agent from placing CWAAA content into a generic nonprofit, SaaS, civic portal, document simulation, or WordPress template.
 
-A lower-level implementation may add detail. It may not contradict this file, `design.md`, the PRD, the world bible, or owner decisions recorded in `docs/HANDOFF.md`.
+A lower-level implementation may add detail. It may not contradict this file, `../design.md`, the PRD, the world bible, or owner decisions recorded in `docs/HANDOFF.md`.
 
 ---
 

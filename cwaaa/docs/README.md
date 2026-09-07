@@ -15,7 +15,7 @@ voices, no audible transfer, and intentionally unresolved authorship.
 
 ## Package contents
 
-- `design.md` — CWAAA visual and interaction system, including participant-advocacy record treatment
+- `../design.md` — CWAAA visual and interaction system, including participant-advocacy record treatment
   and neutral Office citations.
 - `PRD-cwaaa-web-v1.md` — standalone product requirements, including the finite email contract:
   immediate pledge receipt plus one current-issue newsletter.

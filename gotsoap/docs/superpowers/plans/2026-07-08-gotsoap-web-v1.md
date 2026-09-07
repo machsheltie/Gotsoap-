@@ -5,7 +5,7 @@
 > tasks. Steps use checkbox (`- [ ]`) syntax for tracking.
 >
 > **Altitude note:** the executors are Opus/Sonnet agents with full read access to the very
-> detailed source docs (`gotsoap/docs/prd`, `gotsoap/docs/design.md`, `docs/copy/*`, `gotsoap/docs/hero-image-brief.md`).
+> detailed source docs (`gotsoap/docs/prd`, `gotsoap/design.md`, `docs/copy/*`, `gotsoap/docs/hero-image-brief.md`).
 > This plan therefore specifies **file ownership, interfaces, acceptance criteria, and exact
 > doc/copy references** rather than re-transcribing every CSS line the agents will read from
 > `design.md`. Every task links the sections it must obey. Copy strings are transcribed from

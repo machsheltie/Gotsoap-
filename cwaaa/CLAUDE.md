@@ -2,7 +2,7 @@
 
 # Claude Code: CWAAA
 
-This working directory is for **CWAAA**. Start with [PRD-TO-LAUNCH.md](PRD-TO-LAUNCH.md) and [GRAPHICS-TO-MAKE.md](GRAPHICS-TO-MAKE.md). Use [plans/README.md](plans/README.md) for supporting provenance, then load only the authority required by the current task.
+This working directory is for **CWAAA**. Read [design.md](design.md) for this site's full design authority. Start launch work with [PRD-TO-LAUNCH.md](PRD-TO-LAUNCH.md) and [GRAPHICS-TO-MAKE.md](GRAPHICS-TO-MAKE.md). Use [plans/README.md](plans/README.md) for supporting provenance, then load only the authority required by the current task.
 
 CWAAA is A Coalition Making Its Case in Public. Use Recovery Stories and Chapters in navigation. The coalition validates, documents, and organizes; ordinary pages have no regulatory voice. CWAAA owns both pledge email fulfillments: immediate receipt and one current issue, with one shared Buttondown audience. Typography proposals are not owner approvals; follow the current local UI authority.
 

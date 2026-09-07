@@ -156,7 +156,7 @@ const authorityFixturePaths = [
   'CLAUDE.md',
   '.claude/rules/gotsoap-web-design.md',
   'docs/HANDOFF.md',
-  'gotsoap/docs/design.md',
+  'gotsoap/design.md',
   'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
   'gotsoap/docs/strategy/participation-mechanics.md',
   'cwaaa/docs/plans/cwaaa-divergence-roadmap.md',
@@ -168,12 +168,12 @@ const authorityFixturePaths = [
   'gotsoap/docs/world-bible.md',
   'cwaaa/docs/README.md',
   'cwaaa/docs/world-bible.md',
-  'cwaaa/docs/design.md',
+  'cwaaa/design.md',
   'cwaaa/docs/PRD-cwaaa-web-v1.md',
   'cwaaa/docs/migration-manifest.md',
   'office-of-lather-compliance/docs/README.md',
   'office-of-lather-compliance/docs/world-bible.md',
-  'office-of-lather-compliance/docs/design.md',
+  'office-of-lather-compliance/design.md',
   'office-of-lather-compliance/docs/PRD-office-v1.md',
   'docs/contracts/pledge.v1.json',
   'cwaaa/docs/contracts/pledge.v1.json',
@@ -234,7 +234,7 @@ test('portable pledge parity rejects whitespace-only JSON drift', () => {
     'AGENTS.md',
     'CLAUDE.md',
     'docs/HANDOFF.md',
-    'gotsoap/docs/design.md',
+    'gotsoap/design.md',
     'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
     'gotsoap/docs/strategy/participation-mechanics.md',
     'cwaaa/docs/plans/cwaaa-divergence-roadmap.md',
@@ -244,7 +244,7 @@ test('portable pledge parity rejects whitespace-only JSON drift', () => {
     'cwaaa/docs/README.md',
     'cwaaa/docs/world-bible.md',
     'office-of-lather-compliance/docs/README.md',
-    'office-of-lather-compliance/docs/design.md',
+    'office-of-lather-compliance/design.md',
     'office-of-lather-compliance/docs/PRD-office-v1.md',
     'docs/contracts/pledge.v1.json',
     'cwaaa/docs/contracts/pledge.v1.json',
@@ -408,7 +408,7 @@ const canonMutationCases = [
   },
   {
     name: 'Got Soap? regulating in the root design authority',
-    path: 'gotsoap/docs/design.md',
+    path: 'gotsoap/design.md',
     statement: 'Got Soap? regulates hygiene.',
     expected: /Got Soap\?.*must not regulate/i,
   },
@@ -1068,7 +1068,7 @@ const unrelatedNegationBypassCases = [
   },
   {
     name: 'Shop grid assertion after a product-card negation',
-    path: 'gotsoap/docs/design.md',
+    path: 'gotsoap/design.md',
     statement: 'Although Shop does not use product cards, arrange products in an equal responsive product grid.',
     expected: /obsolete Shop grid guidance/i,
   },
@@ -1110,7 +1110,7 @@ const candidateLocalNegationBypassCases = [
   },
   {
     name: 'causal Shop grid assertion',
-    path: 'gotsoap/docs/design.md',
+    path: 'gotsoap/design.md',
     statement: 'Shop does not use product cards because products are arranged in an equal responsive product grid.',
     expected: /obsolete Shop grid guidance/i,
   },
@@ -1158,7 +1158,7 @@ const candidateLocalProtectionCases = [
   },
   {
     name: 'explicit Shop prohibition',
-    path: 'gotsoap/docs/design.md',
+    path: 'gotsoap/design.md',
     statement: 'Do not arrange products in an equal responsive product grid.',
     diagnostic: /obsolete Shop grid guidance/i,
   },
@@ -1197,7 +1197,7 @@ for (const { name, path, statement, diagnostic } of candidateLocalProtectionCase
 const allCandidateBypassCases = [
   {
     name: 'repeated Shop assertion after its direct prohibition',
-    path: 'gotsoap/docs/design.md',
+    path: 'gotsoap/design.md',
     statement: 'Do not arrange products in an equal responsive product grid but arrange products in an equal responsive product grid.',
     expected: /obsolete Shop grid guidance/i,
   },
@@ -1251,7 +1251,7 @@ for (const { name, path, statement, expected } of allCandidateBypassCases) {
 const allCandidateProtectionCases = [
   {
     name: 'a single direct Shop prohibition',
-    path: 'gotsoap/docs/design.md',
+    path: 'gotsoap/design.md',
     statement: 'Do not arrange products in an equal responsive product grid.',
     diagnostic: /obsolete Shop grid guidance/i,
   },
@@ -1395,19 +1395,19 @@ for (const { name, path, statement, diagnostic } of nounCoordinatorProtectionCas
 const staleCreativeDirectionCases = [
   {
     name: 'paper-manila as the CWAAA primary stock',
-    path: 'cwaaa/docs/design.md',
+    path: 'cwaaa/design.md',
     text: 'Primary stock: paper-manila.',
     expected: /obsolete CWAAA paper-universe guidance/i,
   },
   {
     name: 'CWAAA records room as the governing composition',
-    path: 'cwaaa/docs/design.md',
+    path: 'cwaaa/design.md',
     text: 'The site behaves like a records room with index logic.',
     expected: /obsolete CWAAA records-room guidance/i,
   },
   {
     name: 'photo-led CWAAA hero prohibition',
-    path: 'cwaaa/docs/design.md',
+    path: 'cwaaa/design.md',
     text: 'Avoid a photo-led hero.',
     expected: /obsolete CWAAA hero guidance/i,
   },
@@ -1419,13 +1419,13 @@ const staleCreativeDirectionCases = [
   },
   {
     name: 'equal responsive Shop product grid',
-    path: 'gotsoap/docs/design.md',
+    path: 'gotsoap/design.md',
     text: 'Arrange products in an equal responsive product grid.',
     expected: /obsolete Shop grid guidance/i,
   },
   {
     name: 'standard ecommerce Shop product cards',
-    path: 'gotsoap/docs/design.md',
+    path: 'gotsoap/design.md',
     text: 'Use standard ecommerce product cards.',
     expected: /obsolete Shop card guidance/i,
   },
@@ -1669,13 +1669,13 @@ for (const marker of ['Privacy', 'Terms', 'DMCA']) {
 const protectedShopGuidanceCases = [
   {
     name: 'explicit grid prohibition',
-    path: 'gotsoap/docs/design.md',
+    path: 'gotsoap/design.md',
     text: 'Do not arrange products in an equal responsive product grid.',
     diagnostic: /obsolete Shop grid guidance/i,
   },
   {
     name: 'explicit ecommerce-card prohibition',
-    path: 'gotsoap/docs/design.md',
+    path: 'gotsoap/design.md',
     text: 'Never use standard ecommerce product cards.',
     diagnostic: /obsolete Shop card guidance/i,
   },
@@ -1715,11 +1715,11 @@ const obsoleteOfficeDesignCases = [
 for (const [name, text, expected] of obsoleteOfficeDesignCases) {
   test(`Office styling drift is rejected with a path-aware diagnostic: ${name}`, () => {
     withCleanAuthorityFixture((fixtureRoot) => {
-      appendFixtureText(fixtureRoot, 'office-of-lather-compliance/docs/design.md', text);
+      appendFixtureText(fixtureRoot, 'office-of-lather-compliance/design.md', text);
       assert.match(
         collectAuthorityErrors(fixtureRoot).join('\n'),
         new RegExp(
-          `office-of-lather-compliance/docs/design\\.md:.*${expected.source}`,
+          `office-of-lather-compliance/design\\.md:.*${expected.source}`,
           expected.flags,
         ),
       );
@@ -1732,7 +1732,7 @@ test('Office styling permits explicitly rejected styled-terminal examples', () =
     for (const [, text] of obsoleteOfficeDesignCases) {
       appendFixtureText(
         fixtureRoot,
-        'office-of-lather-compliance/docs/design.md',
+        'office-of-lather-compliance/design.md',
         `Rejected example: \`${text}\``,
       );
     }
@@ -1744,7 +1744,7 @@ test('Office styling permits an explicit prohibition of the terminal-frame claim
   withCleanAuthorityFixture((fixtureRoot) => {
     appendFixtureText(
       fixtureRoot,
-      'office-of-lather-compliance/docs/design.md',
+      'office-of-lather-compliance/design.md',
       'Do not use a centered legacy terminal frame.',
     );
     assert.deepEqual(
@@ -1760,7 +1760,7 @@ test('Office styling permits historical superseded accent guidance', () => {
   withCleanAuthorityFixture((fixtureRoot) => {
     appendFixtureText(
       fixtureRoot,
-      'office-of-lather-compliance/docs/design.md',
+      'office-of-lather-compliance/design.md',
       'Historical/superseded wording: "Use muted red as the Office accent color."',
     );
     assert.deepEqual(
@@ -1777,7 +1777,7 @@ const currentLiveAuthorityPaths = [
   'CLAUDE.md',
   '.claude/rules/gotsoap-web-design.md',
   'docs/HANDOFF.md',
-  'gotsoap/docs/design.md',
+  'gotsoap/design.md',
   'gotsoap/docs/prd/PRD-gotsoap-web-v1.md',
   'gotsoap/docs/strategy/participation-mechanics.md',
   'cwaaa/docs/plans/cwaaa-divergence-roadmap.md',
@@ -1788,12 +1788,12 @@ const currentLiveAuthorityPaths = [
   'gotsoap/docs/world-bible.md',
   'cwaaa/docs/README.md',
   'cwaaa/docs/world-bible.md',
-  'cwaaa/docs/design.md',
+  'cwaaa/design.md',
   'cwaaa/docs/PRD-cwaaa-web-v1.md',
   'cwaaa/docs/migration-manifest.md',
   'office-of-lather-compliance/docs/README.md',
   'office-of-lather-compliance/docs/world-bible.md',
-  'office-of-lather-compliance/docs/design.md',
+  'office-of-lather-compliance/design.md',
   'office-of-lather-compliance/docs/PRD-office-v1.md',
 ];
 

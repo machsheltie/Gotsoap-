@@ -12,7 +12,7 @@ The former “future possibility” is now the target:
 The target packages are:
 
 - `../../../docs/world/` for shared cross-system canon and artifact continuity;
-- `../../../gotsoap/docs/design.md` and `../../../gotsoap/docs/prd/PRD-gotsoap-web-v1.md` for Got Soap?;
+- `../../../gotsoap/design.md` and `../../../gotsoap/docs/prd/PRD-gotsoap-web-v1.md` for Got Soap?;
 - `../` for CWAAA;
 - `../../../office-of-lather-compliance/docs/` for the Office.
 

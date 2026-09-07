@@ -2,7 +2,7 @@
 
 **Status:** active working authority; primitive palette, semantic roles, register maps, token-count law, and primary-action behavior locked; state, overlay, and high-contrast colors pending focused interview  
 **Applies to:** Got Soap? campaign website only  
-**Reads with:** `ui-system.md`, `typography-spec.md`, `responsive-typography-spec.md`, `font-delivery-spec.md`, `design.md`, `prd/PRD-gotsoap-web-v1.md`, and `../../docs/HANDOFF.md`
+**Reads with:** `ui-system.md`, `typography-spec.md`, `responsive-typography-spec.md`, `font-delivery-spec.md`, `../design.md`, `prd/PRD-gotsoap-web-v1.md`, and `../../docs/HANDOFF.md`
 **Does not apply to:** CWAAA or the Office of Lather Compliance
 
 This file converts the approved Got Soap? material palette into implementation law. It exists to prevent the campaign from collapsing into generic black-and-gold luxury, flat charcoal UI, pale wellness branding, or a single universal color theme.

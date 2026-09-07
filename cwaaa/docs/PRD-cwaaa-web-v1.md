@@ -2,7 +2,7 @@
 
 **Status:** extraction-ready target specification
 **World authority:** `world-bible.md`
-**Design authority:** `design.md`
+**Design authority:** `../design.md`
 
 ## Product
 

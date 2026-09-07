@@ -4,7 +4,7 @@
 flagship. This file does not define the approved extraction target.
 **Date:** 2026-07-14
 **Scope:** Home, `/psas`, `/psas/[slug]`, mechanic ownership, navigation, motion, performance, accessibility, and the Hope2 Studio reveal
-**Target-state authority:** `docs/HANDOFF.md` · `gotsoap/docs/design.md` ·
+**Target-state authority:** `docs/HANDOFF.md` · `gotsoap/design.md` ·
 `gotsoap/docs/prd/PRD-gotsoap-web-v1.md` · `cwaaa/docs/` · `office-of-lather-compliance/docs/`
 
 > **Transition boundary:** sections below truthfully specify the currently implemented
@@ -327,7 +327,7 @@ The production folio credit is approved verbatim and does not require copy-lane 
 
 ## 13. Implementation sequence
 
-1. Replace the conflicting execution notes in `gotsoap/docs/design.md` and retire the superseded open questions in the 2026-07-09 proposal.
+1. Replace the conflicting execution notes in `gotsoap/design.md` and retire the superseded open questions in the 2026-07-09 proposal.
 2. Promote the movement-pitch architecture from `/movement-preview` to `/` after the text-free hero assets are ready. Delete the preview page, add a true Netlify 301 from `/movement-preview` to `/`, and verify that the stale route is absent from the generated sitemap.
 3. Build the responsive placement hub with source-specific hotspots and a visible route plaque.
 4. Replace the shared poster split with five explicit environment components; complete mobile signatures first.

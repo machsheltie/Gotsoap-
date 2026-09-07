@@ -73,7 +73,7 @@ Explicitly undecided / pending product facts:
 - Names and fictional authors: **Got Soap?**, **CWAAA**, **Office of Lather Compliance**; real authorship is **Stacey M. Breckel / Hope2 Studio**, revealed late.
 - Two distinct copy registers, never blended: campaign smolder (Got Soap?) and CWAAA paperwork; the Office writes only in error-state officialese. Each page uses only its named system's authorship.
 - Type is role-named, not family-named. Campaign roles in `site/src/styles/tokens.css`: command (Got Soap Oswald), editorial (Got Soap Behind The Nineties Sans), whisper (Got Soap Moxie), interface (Got Soap Marlin SQ), production (Got Soap Moanslight). CWAAA: PT Serif with its nonprofit package's supporting roles. Office type rules are isolated in its own design package.
-- "Editorial brutalism" is compositional pressure (scale jumps, cuts, collisions, hard rules, asymmetric pacing), not a concrete-grey skin — binding as a compositional commitment, with visual execution governed by `gotsoap/docs/design.md`.
+- "Editorial brutalism" is compositional pressure (scale jumps, cuts, collisions, hard rules, asymmetric pacing), not a concrete-grey skin — binding as a compositional commitment, with visual execution governed by `gotsoap/design.md`.
 - Closed creative decisions in `docs/HANDOFF.md` (steam auto-clears ~2s, no drag-to-wipe; no numeric verdict scores; Office est. 1961, CWAAA est. 2024; etc.) are owner decisions and bind future work.
 
 ## Evidence on Hand
@@ -81,7 +81,7 @@ Explicitly undecided / pending product facts:
 - Five canonical poster JPGs with baked-in typography (immutable), plus AVIF/WebP derivatives in `site/`.
 - Implemented copy deck: `site/src/content/copy.ts` (typed, gate-validated).
 - Machine-readable contracts: `docs/contracts/pledge.v1.json`, `office-of-lather-compliance/docs/contracts/visit-state.v1.json`.
-- Full documentation packages: `gotsoap/docs/design.md`, `gotsoap/docs/prd/PRD-gotsoap-web-v1.md`, `cwaaa/docs/`, `office-of-lather-compliance/docs/`, `docs/world/WORLD-BIBLE.md`, `specs.md`.
+- Full documentation packages: `gotsoap/design.md`, `gotsoap/docs/prd/PRD-gotsoap-web-v1.md`, `cwaaa/docs/`, `office-of-lather-compliance/docs/`, `docs/world/WORLD-BIBLE.md`, `specs.md`.
 - `gotsoap/sources/promo.txt` campaign/process source material.
 - Deployed at gotsoap.netlify.app.
 - **Absences not to fabricate:** no real testimonials, customers, press, or benchmark data exist — the campaign's "Recovery Case Files" and similar artifacts are fiction and must stay clearly inside the fiction's authorship; no real regulatory affiliation exists.

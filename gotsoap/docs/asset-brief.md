@@ -7,7 +7,7 @@
 # Got Soap? — Owner Asset Brief (Photoshop task list)
 
 **For:** Stacey · **Prepared by:** copy + marketing/content lens · **Date:** 2026-07-08
-**Companions:** `gotsoap/docs/design.md` (tokens/registers), `docs/copy/copy-deck-v2.md` (the exact text on each card), `gotsoap/docs/copy/launch-campaign-v1.md` (how each asset is used)
+**Companions:** `gotsoap/design.md` (tokens/registers), `docs/copy/copy-deck-v2.md` (the exact text on each card), `gotsoap/docs/copy/launch-campaign-v1.md` (how each asset is used)
 
 ## TL;DR — what to make tonight, in ROI order
 Build the site never blocks on these — the implementers ship **token-based placeholders** for everything below and swap when your masters land. So make them in the order that earns the most, not the order they appear on the site:

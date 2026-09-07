@@ -2,7 +2,7 @@
 
 **Status:** active working authority; font cast, responsive scale, weight allocation, and line-height locked; tracking and detailed responsive behavior pending owner interview  
 **Applies to:** Got Soap? campaign website only  
-**Reads with:** `ui-system.md`, `design.md`, `prd/PRD-gotsoap-web-v1.md`, `world-bible.md`, and `../../docs/HANDOFF.md`
+**Reads with:** `ui-system.md`, `../design.md`, `prd/PRD-gotsoap-web-v1.md`, `world-bible.md`, and `../../docs/HANDOFF.md`
 **Does not apply to:** CWAAA or the Office of Lather Compliance
 
 This file defines the exact responsive typography behavior for the curated Got Soap? type system. It is subordinate to the approved font roles in `ui-system.md` and exists so an implementation agent cannot flatten the selected typefaces into a generic web hierarchy.

@@ -90,9 +90,9 @@ Each per-system bible owns only that institution's psychology, behavior, languag
 
 Existing authorities remain in their current portable locations:
 
-- Got Soap?: `gotsoap/docs/design.md` and `gotsoap/docs/prd/PRD-gotsoap-web-v1.md`
-- CWAAA: `cwaaa/docs/design.md` and `cwaaa/docs/PRD-cwaaa-web-v1.md`
-- Office: `office-of-lather-compliance/docs/design.md` and `office-of-lather-compliance/docs/PRD-office-v1.md`
+- Got Soap?: `gotsoap/design.md` and `gotsoap/docs/prd/PRD-gotsoap-web-v1.md`
+- CWAAA: `cwaaa/design.md` and `cwaaa/docs/PRD-cwaaa-web-v1.md`
+- Office: `office-of-lather-compliance/design.md` and `office-of-lather-compliance/docs/PRD-office-v1.md`
 
 CWAAA-specific material must remain under `cwaaa/docs/` so that folder can later be transferred into its own site repository. Office-specific material must remain under `office-of-lather-compliance/docs/`. Cross-system material belongs under `docs/world/`; it must not be duplicated into both portable packages.
 

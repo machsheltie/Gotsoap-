@@ -2,7 +2,7 @@
 
 **Status:** active working authority; delivery policy and canonical 14-file production manifest locked; binary and licensing gates recorded
 **Applies to:** Got Soap? campaign website only  
-**Reads with:** `typography-spec.md`, `letter-spacing-spec.md`, `responsive-typography-spec.md`, `ui-system.md`, `design.md`, and `../../docs/HANDOFF.md`
+**Reads with:** `typography-spec.md`, `letter-spacing-spec.md`, `responsive-typography-spec.md`, `ui-system.md`, `../design.md`, and `../../docs/HANDOFF.md`
 **Does not apply to:** CWAAA or the Office of Lather Compliance
 
 This file governs how the curated Got Soap? typography package is licensed, named, declared, loaded, substituted, tested, and released.

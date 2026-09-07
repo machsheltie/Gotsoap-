@@ -26,7 +26,7 @@ to the audience. The IVR remains a controlled, intentionally unresolved exceptio
 Package:
 
 - `world-bible.md` — canonical behavior, knowledge boundaries, and protected unknowns.
-- `design.md` — visual, verbal, and emotional system.
+- `../design.md` — visual, verbal, and emotional system.
 - `PRD-office-v1.md` — implementation requirements and state machine.
 - `contracts/visit-state.v1.json` — browser-local recognition contract.
 

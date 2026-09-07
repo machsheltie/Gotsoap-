@@ -1,7 +1,7 @@
 # Got Soap? — Launch Campaign & Social Playbook v1
 
 **Status:** Go-to-market plan for the site launch · **Companion:** `gotsoap/docs/copy/copy-deck-v1.md` (site copy)
-**Binding:** `CLAUDE.md` creative rules · PRD §1 goals · `gotsoap/docs/design.md` §1 (the decisive audience is **women**)
+**Binding:** `CLAUDE.md` creative rules · PRD §1 goals · `gotsoap/design.md` §1 (the decisive audience is **women**)
 
 ---
 

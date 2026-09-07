@@ -1,7 +1,7 @@
 # Got Soap? — Website Copy Deck v1
 
 **Status:** Launch-ready drafts for Stacey's punch-up · **Author of this doc:** copy pass, July 2026
-**Binding:** `CLAUDE.md` §Non-negotiable rules · `gotsoap/docs/prd/PRD-gotsoap-web-v1.md` §3, §5 · `gotsoap/docs/design.md` §4 (two-author system)
+**Binding:** `CLAUDE.md` §Non-negotiable rules · `gotsoap/docs/prd/PRD-gotsoap-web-v1.md` §3, §5 · `gotsoap/design.md` §4 (two-author system)
 
 ## How to use this file
 - Every string here is drop-in for the build. Keep them in **one content module** (PRD §13) so they're easy to sweep.

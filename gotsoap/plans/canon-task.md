@@ -7,8 +7,8 @@ Source: [the shared coordinated plan](../../docs/superpowers/plans/2026-07-23-tr
 **Files:**
 
 - Create: `gotsoap/docs/world-bible.md`
-- Modify: `gotsoap/docs/design.md:11-79`
-- Modify: `gotsoap/docs/design.md:188-265`
+- Modify: `gotsoap/design.md:11-79`
+- Modify: `gotsoap/design.md:188-265`
 - Modify: `gotsoap/docs/prd/PRD-gotsoap-web-v1.md:28-74`
 - Modify: `gotsoap/docs/prd/PRD-gotsoap-web-v1.md:74-218`
 - Modify: `site/scripts/authority-check-lib.mjs:55-70`
@@ -106,7 +106,7 @@ Add requirements that:
 - `1-800-GOT-SOAP` appears as campaign material on Got Soap?.
 - Neither CWAAA nor the Office advertises the number as a normal contact channel.
 
-- [ ] **Step 5: Strengthen `gotsoap/docs/design.md`**
+- [ ] **Step 5: Strengthen `gotsoap/design.md`**
 
 Add the campaign behavioral thesis and require every major route to name:
 
@@ -128,7 +128,7 @@ Run:
 
 ```powershell
 npm --prefix site run authority
-rg -n "Shop|/broadcast|1-800-GOT-SOAP|erotic aspiration" gotsoap/docs/world-bible.md gotsoap/docs/design.md gotsoap/docs/prd/PRD-gotsoap-web-v1.md
+rg -n "Shop|/broadcast|1-800-GOT-SOAP|erotic aspiration" gotsoap/docs/world-bible.md gotsoap/design.md gotsoap/docs/prd/PRD-gotsoap-web-v1.md
 git diff --check
 ```
 
@@ -138,7 +138,7 @@ check has no output.
 - [ ] **Step 7: Commit the campaign authority**
 
 ```powershell
-git add -- gotsoap/docs/world-bible.md gotsoap/docs/design.md gotsoap/docs/prd/PRD-gotsoap-web-v1.md site/scripts/authority-check-lib.mjs
+git add -- gotsoap/docs/world-bible.md gotsoap/design.md gotsoap/docs/prd/PRD-gotsoap-web-v1.md site/scripts/authority-check-lib.mjs
 git commit -m "docs: complete Got Soap behavioral authority"
 ```
 

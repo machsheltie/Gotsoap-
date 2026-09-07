@@ -8,7 +8,7 @@ Build the standalone public expression of Concerned Women Against Axe Abuse: **A
 
 > Take CWAAA from its current source material to a launch-ready standalone site. Read the authority and verify the runtime before proposing work. Grill me thoroughly on every genuinely unfinished design, content, and graphics section, one dependent branch at a time. Show concrete options and their consequences; ask follow-ups until my answer can guide implementation. Preserve the recorded typography choices and the protected institutional mystery. Record my decisions before building dependent work. Continue independent preparation while answers or graphics are pending. Keep later work visible.
 
-Read [owner decisions](../docs/HANDOFF.md), [shared canon](../docs/world/WORLD-BIBLE.md), [CWAAA world](docs/world-bible.md), [design](docs/design.md), [target PRD](docs/PRD-cwaaa-web-v1.md), [UI decisions](docs/ui-system.md), [migration manifest](docs/migration-manifest.md), and [graphics brief](GRAPHICS-TO-MAKE.md). This is an execution bridge under those authorities, not a replacement design system. Load Got Soap? only where shared submission or extraction requires it; never import its visual treatment.
+Read [owner decisions](../docs/HANDOFF.md), [shared canon](../docs/world/WORLD-BIBLE.md), [CWAAA world](docs/world-bible.md), [design](design.md), [target PRD](docs/PRD-cwaaa-web-v1.md), [UI decisions](docs/ui-system.md), [migration manifest](docs/migration-manifest.md), and [graphics brief](GRAPHICS-TO-MAKE.md). This is an execution bridge under those authorities, not a replacement design system. Load Got Soap? only where shared submission or extraction requires it; never import its visual treatment.
 
 ## 1. Verified current state
 

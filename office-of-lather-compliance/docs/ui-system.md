@@ -2,7 +2,7 @@
 
 **Status:** active working authority; core visual system locked, two state details pending owner decision  
 **Applies to:** Office of Lather Compliance public error-state site only  
-**Reads with:** `design.md`, the Office PRD, `world-bible.md`, `contracts/visit-state.v1.json`, and `../../docs/HANDOFF.md`
+**Reads with:** `../design.md`, the Office PRD, `world-bible.md`, `contracts/visit-state.v1.json`, and `../../docs/HANDOFF.md`
 **Does not apply to:** Got Soap? or CWAAA
 
 This file converts the approved Office design law into implementation-level visual and state rules. It exists primarily to stop an implementation agent from "improving" the Office into a branded agency site, designed terminal, horror interface, civic portal, or polished error-state concept.
@@ -220,7 +220,7 @@ Every public path resolves to the same error-state system. No route reveals ordi
 
 ## 8.1 First Access
 
-Use the exact approved copy from `design.md` and the visit-state contract.
+Use the exact approved copy from `../design.md` and the visit-state contract.
 
 The state must not visually dramatize creation of the log entry.
 
@@ -250,7 +250,7 @@ After this point, the state becomes stubbornly static. It does not escalate fore
 - Session 3 and later: Continued Interest.
 - Continued Interest remains visible on reload.
 
-The implementation must follow the exact transition and counter rules in `contracts/visit-state.v1.json` and `design.md`.
+The implementation must follow the exact transition and counter rules in `contracts/visit-state.v1.json` and `../design.md`.
 
 ---
 

@@ -497,11 +497,11 @@ Operational ownership is **INTENTIONALLY UNRESOLVED**.
 
 At minimum:
 
-- replace the paper-led thesis and route compositions in `cwaaa/docs/design.md`;
+- replace the paper-led thesis and route compositions in `cwaaa/design.md`;
 - update `cwaaa/docs/PRD-cwaaa-web-v1.md` for `/recovery-stories`, `/chapters`, redirects, route progression, and the deep non-global Office seam;
 - update `cwaaa/docs/world-bible.md` for creator-link-only fiction disclosure while preserving legal links, canon, dignity, and wrongness limits;
-- replace the styled legacy-terminal direction in `office-of-lather-compliance/docs/design.md` with deliberate under-design;
-- expand Shop art direction in `gotsoap/docs/design.md` and `gotsoap/docs/prd/PRD-gotsoap-web-v1.md`;
+- replace the styled legacy-terminal direction in `office-of-lather-compliance/design.md` with deliberate under-design;
+- expand Shop art direction in `gotsoap/design.md` and `gotsoap/docs/prd/PRD-gotsoap-web-v1.md`;
 - split IVR number/placement, presented authorship, and operational ownership in `docs/world/artifact-continuity.md`;
 - add the spoken deployment address and substitution rule to `docs/world/artifacts/1-800-GOT-SOAP-IVR-authority.md`;
 - record all closed decisions and supersessions in `docs/HANDOFF.md`, `AGENTS.md`, `CLAUDE.md`, and `.claude/rules/gotsoap-web-design.md` where applicable;

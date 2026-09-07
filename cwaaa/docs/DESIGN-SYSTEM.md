@@ -13,7 +13,7 @@ description: A coalition making its case in public — contemporary civic editor
 of Lather Compliance may appear here, and nothing here may travel to them. See `../../DESIGN.md` for
 the routing law.
 
-**Authority.** This is the tokenized companion to `design.md` and `ui-system.md`, which win on
+**Authority.** This is the tokenized companion to `../design.md` and `ui-system.md`, which win on
 conflict.
 
 **Authority note.** `ui-system.md §12` carries a standing prohibition: until a section is locked

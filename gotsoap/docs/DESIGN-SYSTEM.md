@@ -81,7 +81,7 @@ components:
 **Authorship:** Got Soap? campaign surfaces only. This record does not govern CWAAA or the Office of
 Lather Compliance, and no token here may travel to either. See `../../DESIGN.md` for the routing law.
 
-**Authority.** This is the tokenized companion to `design.md` and `ui-system.md`, which win on
+**Authority.** This is the tokenized companion to `../design.md` and `ui-system.md`, which win on
 conflict. Type law is governed by `font-delivery-spec.md`.
 
 ## Overview

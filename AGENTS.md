@@ -13,7 +13,7 @@ architecture separates three fictional institutions:
 
 | System | Job | Public character | Target documentation |
 |---|---|---|---|
-| **Got Soap?** | campaigns | glossy, thirsty, confrontational | `gotsoap/docs/design.md`, `gotsoap/docs/prd/PRD-gotsoap-web-v1.md` |
+| **Got Soap?** | campaigns | glossy, thirsty, confrontational | `gotsoap/design.md`, `gotsoap/docs/prd/PRD-gotsoap-web-v1.md` |
 | **CWAAA** | public advocacy | a coalition making its case in public | `cwaaa/docs/` |
 | **Office of Lather Compliance** | regulates | unreadable authority expressed only through custom error states | `office-of-lather-compliance/docs/` |
 
