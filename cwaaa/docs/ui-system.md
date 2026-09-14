@@ -503,3 +503,67 @@ The owner declined to leave Proda Sans carrying two roles. Recorded:
 
 Runtime implementation in the same three files as the 2026-08-13 entry, plus `--font-cwaaa-interface`
 in `site/config/font-manifest.json`'s `fontRolePolicy`.
+
+## 2026-09-14 — Home composition approved; build location; ground
+
+Owner interview conducted through the Impeccable `shape` flow. Recorded:
+
+- **CW-D07 (build location):** a new static-output Astro app inside this repository at `cwaaa/`, a
+  sibling to `../site/`. Origins, legal/creator destinations, the `/crisis` migration destination,
+  and old-story redirects remain open.
+- **CW-D03 (home composition):** the owner reviewed four first-viewport comps
+  (`.impeccable/mocks/cwaaa-home-{a,b,c,d}.*`) and approved **Comp D, "The Field Report"**. Its
+  layout skeleton follows the owner's reference, blueforest.org, for **layout and elements only**,
+  not color or feel: a slim utility bar carrying the scale line and the pledge action; ordinary
+  navigation over a full-bleed documentary hero; the proposition set sentence-case in MORVI and
+  crossing the photo's bottom edge so the image interrupts the sentence; a two-column statement
+  block with the two actions; then alternating whole-color fields (ink navy, photograph, ivory,
+  white) with an inset text panel on the photograph. The locked sequence (§2.3) is kept in order.
+  The proposition remains **THE BAR IS SOAP.**; on the home it is set as "The bar is soap." Only
+  the period of the final word may be hidden by an interrupting image where the two overlap.
+- **Ground (part of CW-D02):** white and ivory digital fields; manila is retired to actual paper
+  artifacts. Ink `#2f3e5c` and stamp `#a63d2f` carry over from the runtime. The following values
+  are **PROPOSED**, used in the home build, and await the CW-D02 token interview before they are
+  law: ivory `#f5f0e6`, white `#ffffff`, civic black `#15181f`, metadata grey `#5f5d57`
+  (6.4:1 on white), and a light tint `#e0857a` for the ADVOCATE accent on navy (4.6:1).
+- **CW-G02 hero frame:** 16:9 wide, subject upper-right, lower-left kept quiet for the proposition,
+  export 3200×1800 minimum plus a 4:5 phone recrop. Full bleed.
+- **Home Finding:** the statement "Fragrance is not a cleansing event." is used with no
+  `FINDING YY-NN` number until the findings register is reconciled (CW-D04). The runtime line
+  "This figure has not improved since 1983" is not used; its date is unsupported.
+- **Disclosure:** unchanged. No global satire disclosure; the footer carries Privacy, Terms,
+  DMCA, Accessibility, and a truthful legal line. Fiction disclosure stays behind the About seam.
+- **Type scale (CW-D01) remains open.** The home build uses a proposal recorded in its tokens file
+  and marked as such.
+
+The Sol/Codex synthesis `CWAAA-FABLE-HANDOFF.md` was built from outdated copies of these documents
+and is provenance only; where it disagrees with this file, this file wins.
+
+## 2026-09-14 — Homepage graphics production decisions
+
+The approved Home composition was reconciled with `../GRAPHICS-TO-MAKE.md`. Recorded:
+
+- **CW-G01:** the standalone inline `Seal.astro` and simplified `public/favicon.svg` are the working
+  web identity. Use the full seal at 44px only beside the written organization name; use 72px or
+  larger when it appears alone. A replacement mark is not a default production task.
+- **CW-G02:** the hero requires a 3200×1800 desktop master and a true 4:5, 2400×3000 mobile
+  composition. The hands, active knot, and gym-bag handle sit upper-right; the lower-left and bottom
+  remain quiet for the live proposition. Only its final period may be obscured.
+- **CW-G03, Home:** use a real red washcloth ribbon tied around a brushed-metal apartment doorknob
+  in an ordinary lived-in interior. Supply 3200×1800 desktop and 2400×3000 mobile masters, with the
+  knot upper-right and the lower-left clear for the inset panel. No instruction artifact is needed on
+  Home; the Tie One On route may add one only after its own composition and complete copy exist.
+- **CW-G04, Home:** Brayden's recovery voice uses one 4:3, 2400×1800 object image: a visibly used bar
+  of soap and damp washcloth on an ordinary shower shelf, with an optional plain trigger bottle soft
+  at the edge. No face, body, branding, legible paperwork, or before/after construction.
+- **CW-G05 and CW-G08:** neither is required by the current Home composition. Chapter/origin images
+  and Findings source artifacts remain conditional on their route layouts and content rosters.
+- **CW-G06:** the 1080×1080 pledge share master uses ivory, ink navy, the current seal, one controlled
+  stamp-red `SWORN`, and a thin civic rule. It contains no personal data. Final baked wording still
+  passes the copy lane; no bespoke email photography is required.
+- **CW-G07:** make one 1200×630 default preview from the CW-G02 hero and a solid ink-navy identity
+  field. The existing SVG favicon is the approved small-size symbol for this build; raster platform
+  variants are derived from it as needed.
+- **Responsive integration:** CW-G02 and the Home CW-G03 scene require art-directed desktop/mobile
+  sources. The production component must select the 4:5 assets on narrow screens rather than center-
+  cropping a single source.

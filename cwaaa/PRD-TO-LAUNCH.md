@@ -146,6 +146,20 @@ The Got Soap? release depends on verified CWAAA replacement and shared pledge fu
 
 Close the launch handoff with a checklist of deferred IDs, next actions, and responsible owner. Do not present fictional chapter participation as a staffed real-world service without an explicit operating decision.
 
+## Decision record — 2026-09-14
+
+| ID | Status | Decision | Recorded in |
+|---|---|---|---|
+| CW-D07 (build location only) | resolved | New Astro static app at `cwaaa/`, sibling to `../site/` | `docs/ui-system.md` §13 |
+| CW-D03 (home only) | resolved | Comp D "The Field Report" approved; other routes open | `docs/ui-system.md` §13, `.impeccable/mocks/cwaaa-home-d.json` |
+| CW-D02 (ground only) | partly resolved | White/ivory fields; manila retired to artifacts; other tokens proposed, not law | `docs/ui-system.md` §13 |
+| CW-G02 (frame) | resolved | 16:9 wide, subject upper-right, lower-left quiet, 3200×1800 + 4:5 recrop | `docs/ui-system.md` §13 |
+| CW-G03 (home) | resolved | Doorknob ribbon scene, 3200×1800 desktop + 2400×3000 mobile; lower-left reserved for the inset panel | `GRAPHICS-TO-MAKE.md`, `docs/ui-system.md` §13 |
+| CW-G04 (home) | resolved | Brayden object image, 4:3 at 2400×1800; broader story roster remains open | `GRAPHICS-TO-MAKE.md`, `docs/ui-system.md` §13 |
+| CW-G05 / CW-G08 (home) | resolved | No Home assets required; both remain conditional on their dedicated route layouts | `GRAPHICS-TO-MAKE.md` |
+| CW-G06 / CW-G07 | partly resolved | Share-master and default-preview visual formats locked; final pledge wording and final-size identity review remain | `GRAPHICS-TO-MAKE.md`, `docs/ui-system.md` §13 |
+| CW-D04 (home Finding) | interim | "Fragrance is not a cleansing event." unnumbered until the register is reconciled | `docs/ui-system.md` §13 |
+
 ## Handoff verification — 2026-09-07
 
 The six launch/graphics documents were checked for valid local links and defined graphics IDs. The existing combined application passed fresh `build` (22 pages), `gates`, `copy-gates`, authoritative `fidelity` (55/55), `distinguish`, and `authority` checks. `audit:fonts` passed with 0 errors and reported 7 restricted fonts and 19 unassigned files. Those warnings do not approve additional font delivery.
