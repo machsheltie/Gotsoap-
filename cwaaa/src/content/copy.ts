@@ -274,106 +274,261 @@ export const notFound = {
   ],
 } as const;
 
+
 /**
- * /recovery-stories and /recovery-stories/[id].
+ * /recovery-stories and /recovery-stories/[id]. Brief: .impeccable/surfaces/
+ * cwaaa-src-pages-recovery-stories-astro.md (confirmed 2026-09-15).
+ * Copy authority: docs/copy/proposals-2026-09-15-recovery-record-fields.md and
+ * docs/copy/proposals-2026-09-15-billy-bob.md. Boundary canon:
+ * docs/canon-billy-bob-and-the-archive-boundary.md.
  *
- * Surface job: Convert + Character (design.md §5 "Recovery Stories"). Each man has a specific
- * before-state, consequence and desirable change, "told through his own character rather than an
- * institutional verdict." So:
- *   - `testimony` is APPROVED copy, carried byte-for-byte from the combined runtime's
- *     crisis.caseFiles.files (site/src/content/copy.ts). It is the man speaking. Never edit it here.
- *   - The Got Soap? `status` verdict lines ("CERTIFIED SOAP-SMOLDERING…") deliberately do NOT
- *     transfer. They are campaign-voice verdicts on the man, which this route's law forbids as the
- *     telling device. `believed`/`cost`/`changed` replace them and stay his, not the Coalition's.
- *   - `disposition` is the one CWAAA-authored line per record: sincere, procedural, small, and
- *     about the Coalition's own handling — never a judgement of the participant.
- * RC-NNN appears only inside an opened story (design.md §4). Roster is the five approved files;
- * RC-014/052/063/071 stay dead.
+ * ONE ordered sequence with `public` per record. getStaticPaths emits every
+ * record; the index maps only the public ones; pagination walks the whole
+ * sequence. That divergence IS the mechanic (canon 1) — do not "fix" it.
+ *
+ * First-person testimony from the five approved men is untouched. Brayden's
+ * testimony is owner-authored and ratified 2026-09-15, preserved verbatim;
+ * "nothing follows the last line" is enforced by the template. RC-031/039/047/058
+ * have approved quotes but no authored referral block, chronology or outcome yet
+ * — those are Vivian rounds and a builder must not invent them (brief 8), so
+ * those sections are simply absent on their records.
  */
 export const recoveryStories = {
   meta: {
     title: 'Recovery Stories — CWAAA',
     description:
-      'Five men who changed their minds about soap, in their own words. Documented by Concerned Women Against Axe Abuse.',
+      'Men who changed their minds, in their own words. Documented by Concerned Women Against Axe Abuse.',
   },
   marker: 'Recovery Stories',
-  heading: 'Five men, in their own words.',
-  intro:
-    'The Coalition documents recoveries. We do not improve the quotes.',
-  note:
-    'Published with each participant’s consent. Names changed where he asked; two men declined the offer.',
-  readLabel: 'Read his story',
+  heading: 'In their own words.',
+  intro: 'The Coalition documents recoveries. We do not improve the quotes.',
+  note: 'Published with each participant’s consent. Names changed where he asked.',
+  readLabel: 'Read the record',
   recordLabel: 'Recovery Record',
-  backLabel: 'All Recovery Stories',
+  referralLabel: 'Referral as received',
+  chronologyLabel: 'Case chronology',
+  pager: { prev: 'Previous record', all: 'All Recovery Stories', next: 'Next record' },
   action: { label: 'Take the Pledge', note: 'Form CW-1', href: '/pledge' },
-  stories: [
+  records: [
     {
       id: 'RC-022',
       slug: 'brayden',
+      public: true,
       name: 'Brayden, 27',
-      pull: 'There was a printout.',
-      /** APPROVED — carried verbatim from crisis.caseFiles.files RC-022. */
-      testimony:
+      /** APPROVED — byte-identical to home.voice.quote. The index must not contradict the homepage. */
+      indexQuote:
         '“By Sunday I’d mist the sheets, mist myself, and let Febreze carry the week. I thought I was being efficient. My roommate staged what he called ‘a conversation.’ There was a printout.”',
-      believed: 'That Febreze was efficient.',
-      cost: 'His roommate staged a conversation. There was a printout.',
-      changed: 'He bought soap the same afternoon. The sheets are just sheets.',
-      disposition: 'Recovery documented. The roommate was thanked in writing.',
-      image: { alt: 'Brayden, 27, in a boat on open water, sunglasses on, holding a bluegill up toward the camera with both hands. Submitted by the participant as his most recent photograph of himself.' },
+      image: {
+        alt: 'Brayden, 27, in a boat on open water, sunglasses on, holding a bluegill up toward the camera with both hands. Submitted by the participant as his most recent photograph of himself.',
+      },
+      /** Vivian 2026-09-15 section 1, with the ratified `inquiry` correction: CWAAA inquires, it does not audit. */
+      referral: [
+        { label: 'Participant', value: 'Brayden, 27' },
+        { label: 'Reporting party', value: 'Prospective match' },
+        { label: 'Referral occasioned by', value: 'First date hygiene inquiry' },
+        { label: 'Participant’s stated position', value: '“King looking for his Queen to spoil.”' },
+        { label: 'Stated expectations of others', value: '“Must be fit, fun, 10/10, no drama.”' },
+        { label: 'Primary self-representation', value: 'Fish' },
+        { label: 'Reported shower substitute', value: 'Febreze' },
+        { label: 'Water engagement', value: 'Reported infrequent' },
+        { label: 'Supporting materials', value: 'Printout, submitted separately by a member of the household' },
+        { label: 'Prior contact with CWAAA', value: 'None' },
+      ],
+      /** Corroboration is what actually justifies a file. */
+      corroboration: [
+        {
+          heading: 'Referral 1',
+          rows: [
+            { label: 'Source relationship', value: 'Cohabitating roommate' },
+            { label: 'Concern', value: 'Repeated fragrance substitution' },
+          ],
+        },
+        {
+          heading: 'Referral 2 — received 36 hours later',
+          rows: [
+            { label: 'Source relationship', value: 'Prospective romantic partner' },
+            { label: 'Prior contact with participant', value: 'Digital only' },
+            { label: 'Concern', value: 'Repeated fragrance substitution' },
+            { label: 'Cross-referral corroboration', value: 'Confirmed' },
+          ],
+        },
+      ],
+      statements: [
+        {
+          heading: 'Reporting party — statement on file',
+          body: '“His profile said he was looking for a queen to spoil. Every photo was him holding a fish, and in one of them I could see his sheets. I wasn’t going to cancel. I was going to go, and then handle it myself. Then I found out there was somewhere to send it. I didn’t cancel. I filed.”',
+        },
+        {
+          heading: 'Member of household — statement on file',
+          body: '“I’d said it out loud twice and nothing happened. So I printed the page and put it on his door. I didn’t want a confrontation. I wanted a document.”',
+        },
+      ],
+      /** OWNER-AUTHORED, ratified 2026-09-15. Verbatim. Nothing follows the last line. */
+      testimony: [
+        'I really did think I had a system. Febreze the sheets on Sunday, hit the jacket during the week, spray myself if I was going somewhere. My roommate kept telling me that wasn’t the same thing as washing anything. I thought he was being dramatic.',
+        'Then I had a first date coming up and somehow she filed a referral too. We hadn’t even gone out yet. Two people who didn’t know each other had independently decided I needed help before Friday. That’s hard to argue with.',
+        'So I showered. Washed the sheets. Used actual laundry detergent. Clean shirt. The whole thing.',
+        'The date went really well.',
+        'That’s the embarrassing part. Not the referral. Finding out everybody was right.',
+        'I used to think all that stuff didn’t really matter if you looked good and smelled decent enough. It matters. Women notice. They notice your clothes. They notice your hair. They notice if your sheets smell clean. They definitely notice when you smell good because you’re actually clean instead of because you sprayed something over yourself.',
+        'I shower every day now. I wash my sheets every week. I still wear cologne. Apparently you’re allowed to do both.',
+        'My dating life is better. My roommate complains about me less. And for the record, the fish picture still works.',
+        'There was one other thing I didn’t expect. When I go see my mom now and give her a hug, she tells me how good I smell. And she holds on a little longer. That’s pretty nice.',
+      ],
+      close: [
+        { label: 'Intervention provided', value: 'Baseline materials' },
+        { label: 'Follow-up interval', value: '90 days' },
+        { label: 'Current status', value: 'Maintaining baseline' },
+        { label: 'Outcome', value: 'Lathers unprompted' },
+        { label: 'Case status', value: 'Closed' },
+      ],
     },
     {
       id: 'RC-031',
       slug: 'chad',
+      public: true,
       name: 'Chad (yes, really), 29',
-      pull: 'I did not ace it.',
-      testimony:
+      indexQuote:
         '“Honestly? I’m hot. I never thought hygiene mattered — I could pull regardless. What I couldn’t figure out was why nobody came back for round two. Then every girl on my feed started posting this Got Soap? thing like scripture, so I clicked to see what the fuss was. Took the quiz to prove I’d ace it. I did not ace it. I’d been coasting on face alone. Vanity got me in the door. Soap kept me there.”',
-      believed: 'That his face was doing all the work.',
-      cost: 'Nobody came back for a second date.',
-      changed: 'Same swagger. Second dates now.',
-      disposition:
-        'Recovery documented. He asked whether the Coalition needed a spokesman. The committee is considering it.',
-      image: { spec: 'Gym mirror selfie, shirt lifted, phone covering half his face. Submitted by the participant. He sent four; this was the one he wanted used.' },
+      image: {
+        spec: 'Gym mirror selfie, shirt lifted, phone covering half his face. Submitted by the participant. He sent four; this was the one he wanted used.',
+      },
     },
     {
       id: 'RC-039',
       slug: 'marcus',
+      public: true,
       name: 'Marcus, 34',
-      pull: 'You do not garnish a dumpster.',
-      testimony:
+      indexQuote:
         '“I owned a ninety-dollar bottle of cologne and zero bars of soap. In my mind that math worked. I was applying luxury directly to the problem. A coworker forwarded me the Crisis page — anonymously, which I respect. Body spray contains 0% soap. Cologne is a garnish. You do not garnish a dumpster. I own soap now.”',
-      believed: 'That ninety-dollar cologne was the same as being clean.',
-      cost: 'A coworker forwarded him the Crisis page. Anonymously.',
-      changed: 'He still doesn’t know who sent it. He has stopped needing to.',
-      disposition: 'Recovery documented. Referral source remains unidentified at her request.',
-      image: { spec: 'Cropped from a wedding photo — suit, half a stranger’s shoulder still in frame. Submitted by the participant as the most recent picture of himself he had.' },
+      image: {
+        spec: 'Cropped from a wedding photo — suit, half a stranger’s shoulder still in frame. Submitted by the participant as the most recent picture of himself he had.',
+      },
     },
     {
       id: 'RC-047',
       slug: 'gary',
+      public: true,
       name: 'Gary, 46',
-      pull: '“Dad, you smell like the garage.”',
-      testimony:
+      indexQuote:
         '“Back on the apps at forty-six after the divorce. My daughter looked me dead in the eye and said, ‘Dad, you smell like the garage.’ She sent me the link herself. I took the assessment at the kitchen table. Suds-Curious. I was in the shower before she’d backed out of the driveway. Three dates this month. She screens them now.”',
-      believed: 'That the garage smell came with the house.',
-      cost: 'His daughter said it to his face, in the driveway.',
-      changed: 'Three dates this month. She screens them.',
-      disposition: 'Recovery documented. His daughter was sent a ribbon.',
-      image: { spec: 'Standing in his own driveway beside the truck, arms crossed, squinting into afternoon sun. Taken by his daughter, who submitted it.' },
+      image: {
+        spec: 'Standing in his own driveway beside the truck, arms crossed, squinting into afternoon sun. Taken by his daughter, who submitted it.',
+      },
     },
     {
       id: 'RC-058',
       slug: 'kaelthas',
+      public: true,
       name: '“Kaelthas,” 22',
-      pull: 'Best raid of my life.',
-      testimony:
+      indexQuote:
         '“She said she’d drive four hours to meet me. Top of the server, miles out of my league. My first thought wasn’t joy — it was ‘what does my room actually smell like,’ and the answer scared me sober. I stream; my whole life happens in this chair; I’d quietly decided hygiene was an IRL problem and I don’t do IRL. Shower for who, the webcam? It’s shoulders-up. But she was real now, and driving. Axe-Dependent. So I showered. I opened a window. I washed the hoodie. She stayed the whole weekend. Best raid of my life.”',
-      believed: 'That hygiene was an IRL problem, and he did not do IRL.',
-      cost: 'She said she would drive four hours.',
-      changed: 'He opened a window. She stayed the whole weekend.',
-      disposition: 'Recovery documented. He has asked the Coalition not to use the word “raid.”',
-      image: { spec: 'In the gaming chair, headset around his neck, RGB behind him, shoulders-up exactly as he describes. Submitted by the participant from his stream.' },
+      image: {
+        spec: 'In the gaming chair, headset around his neck, RGB behind him, shoulders-up exactly as he describes. Submitted by the participant from his stream.',
+      },
+    },
+    {
+      /**
+       * NOT PUBLIC. Absent from the index, from search and from the sitemap;
+       * reachable only by following the last public record's Next (canon 1).
+       * No secret-area treatment of any kind: the site's mistake is
+       * bureaucratic, not theatrical.
+       */
+      id: 'RC-090',
+      slug: 'billy-bob',
+      public: false,
+      name: 'Billy Bob, 51',
+      indexQuote: '',
+      image: {
+        spec: 'At his own kitchen table, still in work clothes, hands folded. Taken by the case worker with permission.',
+      },
+      referral: [
+        { label: 'Source relationship', value: 'Spouse, cohabitating' },
+        { label: 'Primary concern', value: 'Persistent post-shift non-cleansing' },
+        { label: 'Fragrance substitution', value: 'Not primary' },
+        { label: 'Household impact', value: 'Reported' },
+        { label: 'Shared-surface impact', value: 'Reported' },
+        { label: 'Prior household intervention', value: 'Multiple conversations' },
+        { label: 'Prior contact with CWAAA', value: 'None' },
+      ],
+      statements: [
+        {
+          heading: 'Reporting party — statement on file',
+          body: '“I’ve never once minded the way he smells coming in the door. That’s work. That’s the job.\n\nWhat I mind is that I started sleeping on my side facing the wall so I wouldn’t be laying in it. I’ve asked him nice and I’ve asked him not nice, and he’s got an answer every time that sounds right. I can’t argue with him.\n\nI’m hoping you can.”',
+        },
+      ],
+      testimony: [
+        'Everybody wants to talk about this like I don’t wash. I wash. Saturday I wash, Sunday I wash, any day I’m not going down I wash.',
+        'What I don’t do is scrub off Monday night to be filthy again Tuesday at six.',
+        'You don’t run a pump dry on purpose. You don’t put a new belt on one that’s coming off again at the end of the shift. You do the work when the work holds. Washing don’t hold. That’s all I ever said.',
+        'She tells me it’s different. I’ve asked her how and she gets mad instead of telling me. I’m not trying to win it. I just never got an answer that was an answer.',
+      ],
+      fieldNote: {
+        heading: 'Field note — case worker, statement on file',
+        body: '“Participant met me at his kitchen table and answered everything I asked him. He is not defensive and he is not ashamed. He explained his reasoning to me twice, patiently, and I would like the file to reflect that it is not stupid reasoning.\n\nI told him the part he was leaving out. He listened to me and said he would think on it.\n\nSecond visit, nothing had changed. He asked me the same question he asks his wife. I gave him the same answer she gives him, and I watched it not land again.\n\nHe is able to do this and he does not believe he should have to. I have nothing left to offer him that he has not already declined.”',
+      },
+      chronology: [
+        { label: 'Initial outreach', value: 'CWAAA contacts participant following partner referral' },
+        { label: 'Baseline materials provided', value: 'Standard cleansing guidance' },
+        { label: 'Participant response', value: 'Materials acknowledged; practical necessity disputed' },
+        { label: 'Follow-up', value: 'Partner reports behavior unchanged' },
+        { label: 'Second intervention', value: 'Household consequences discussed' },
+        {
+          label: 'Participant response',
+          value: 'Maintains post-shift bathing is inefficient given occupational conditions',
+        },
+        { label: 'Household impact update', value: 'Continued transfer of mine residue to shared bedding' },
+        { label: 'External review requested', value: '17 October' },
+      ],
+      /**
+       * Rendered as a foreign object per design.md: stark white, Courier, black
+       * institutional type, its own reference numbering, small, unlinked,
+       * uncaptioned, unexplained. The withheld disposition is a solid redaction
+       * bar, not [WITHHELD] — a redaction reads as an act done to a document.
+       */
+      fragment: {
+        lines: [
+          'OFFICE OF LATHER COMPLIANCE',
+          'EXTERNAL FINDING',
+          'REFERENCE: 8804-X',
+          '',
+          'PRIOR VOLUNTARY INTERVENTION: DOCUMENTED',
+          'BASELINE REFUSAL: SUSTAINED',
+          'OCCUPATIONAL RESIDUE: CONFIRMED',
+          'SHARED-SURFACE TRANSFER: CONFIRMED',
+          'HOUSEHOLD IMPACT: DOCUMENTED',
+          '',
+          'FINDING: BASELINE DEFICIENCY',
+        ],
+        dispositionLabel: 'DISPOSITION:',
+      },
+      returned: { label: 'Case returned', value: '24 October' },
+      followUp: {
+        heading: '21-day follow-up',
+        lines: [
+          'Participant reports showering immediately following each completed mine shift.',
+          'Partner confirms cessation of occupational-residue transfer to shared bedding.',
+          'Laundry and bedding conditions reported returned to baseline.',
+          'Participant reports no difficulty maintaining revised routine.',
+        ],
+        askedLead: 'Asked what changed his position regarding post-shift bathing, participant stated:',
+        quote: '“Makes sense to wash up.”',
+      },
+      partnerFollowUp: {
+        heading: 'Reporting party — follow-up statement on file',
+        body: '“He comes in and goes straight to the shower now. Doesn’t announce it. Just does it.\n\nI sleep facing him again. That’s all I was ever asking for.\n\nHe wants me to notice. I notice.”',
+      },
+      close: [
+        { label: 'Case status', value: 'Recovered / Maintaining baseline' },
+        { label: 'Current cleansing routine', value: 'Post-shift' },
+        { label: 'Household impact', value: 'Resolved' },
+        { label: 'Shared-surface transfer', value: 'No recurrence reported' },
+        { label: 'Additional CWAAA intervention', value: 'Not required' },
+        { label: 'External review', value: 'Completed' },
+        { label: 'OLC reference', value: '8804-X' },
+      ],
+      closeNote:
+        'Partner reports that shared bedding has remained within baseline since the participant’s return.',
     },
   ],
-  labels: { believed: 'What he believed', cost: 'What it cost him', changed: 'What changed' },
 } as const;

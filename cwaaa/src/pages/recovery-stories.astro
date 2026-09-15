@@ -1,0 +1,132 @@
+---
+/**
+ * /recovery-stories — the index. Brief: .impeccable/surfaces/
+ * cwaaa-src-pages-recovery-stories-astro.md (confirmed 2026-09-15), mode Read.
+ *
+ * Findings is a monument; this is the opposite surface. There the number was
+ * the biggest thing on the page — here the voice is. Each man's own sentence
+ * is set in Modest at the largest scale on the route and is NEVER truncated;
+ * quote length runs 1 to 6 sentences and the column simply takes it.
+ *
+ * A reading column, not a roster: entries stack full width, alternating ivory
+ * and white, separated by full-bleed hairlines. Photographs are modest-scale
+ * and deliberately un-uniform in crop and offset, because they were submitted,
+ * not commissioned. Never a card grid, rank, or carousel.
+ *
+ * Only `public` records are listed. Billy Bob is absent by design (canon
+ * docs/canon-billy-bob-and-the-archive-boundary.md) — he is reachable only by
+ * following the last public record's Next. Do not "fix" this by mapping the
+ * full sequence. RC-NNN never appears here (design.md 4).
+ */
+import type { ImageMetadata } from 'astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import { recoveryStories as r } from '../content/copy';
+import braydenPhoto from '../assets/brayden.png';
+
+const photos: Record<string, ImageMetadata> = { brayden: braydenPhoto };
+const listed = r.records.filter((rec) => rec.public);
+
+/* Un-uniform crops: these are pictures men sent in, not a commissioned set. */
+const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
+---
+<BaseLayout title={r.meta.title} description={r.meta.description} current="/recovery-stories">
+  <section class="lead" aria-labelledby="lead-h">
+    <p class="marker" data-reveal>{r.marker}</p>
+    <h1 id="lead-h" class="heading" data-reveal style="--i: 1">{r.heading}</h1>
+    <div class="rule" data-reveal="rule" style="--i: 2"></div>
+    <p class="intro t-lead" data-reveal style="--i: 2">{r.intro}</p>
+    <p class="note t-ui" data-reveal style="--i: 3">{r.note}</p>
+  </section>
+
+  <ol class="records">
+    {listed.map((rec, i) => (
+      <li class:list={['record', i % 2 === 1 ? 'alt' : null]}>
+        <a class="entry" href={`/recovery-stories/${rec.slug}`} aria-labelledby={`n-${rec.slug}`}>
+          <div class="shot-wrap" data-reveal="photo">
+            {photos[rec.slug] ? (
+              <ImageSlot
+                class="shot" tone="field" id="Participant photograph" title={rec.name} spec=""
+                image={photos[rec.slug]} alt={'alt' in rec.image ? rec.image.alt : ''}
+                position={offsets[i % offsets.length]}
+                sizes="(max-width: 860px) 100vw, 30vw"
+              />
+            ) : (
+              <ImageSlot
+                class="shot" tone="field" id="Photograph pending" title={rec.name}
+                spec={'spec' in rec.image ? rec.image.spec : ''} safe="10% 8%"
+              />
+            )}
+          </div>
+          <div class="said">
+            <p class="quote" data-reveal style="--i: 1">{rec.indexQuote}</p>
+            <p id={`n-${rec.slug}`} class="who t-ui-caps" data-reveal style="--i: 2">{rec.name}</p>
+            <span class="go t-ui-caps" data-reveal style="--i: 2">{r.readLabel}</span>
+          </div>
+        </a>
+      </li>
+    ))}
+  </ol>
+
+  <section class="close">
+    <div class="rule ink" data-reveal="rule"></div>
+    <a class="act" href={r.action.href} data-reveal style="--i: 1">
+      <b>{r.action.label}</b><span class="t-ui-caps">{r.action.note}</span>
+    </a>
+  </section>
+</BaseLayout>
+
+<style>
+  .lead { background: var(--cw-ivory); padding: var(--section) var(--gutter) var(--gap-l); }
+  .heading {
+    font-family: var(--font-cwaaa-testimony); font-style: italic; font-weight: 400;
+    font-size: var(--cw-statement); line-height: 1.12; color: var(--cw-ink);
+    max-width: 18ch; margin: var(--gap-s) 0 0;
+  }
+  .rule { height: 1px; background: var(--cw-hairline); margin: var(--gap-m) 0; }
+  .rule.ink { background: var(--cw-ink); height: 1.5px; }
+  .intro { color: var(--cw-black); margin: 0; }
+  .note { color: var(--cw-grey); margin: var(--gap-s) 0 0; max-width: 52ch; }
+
+  .records { list-style: none; margin: 0; padding: 0; }
+  /* Full-bleed hairlines between entries; alternating grounds. */
+  .record { background: var(--cw-white); border-top: 1px solid var(--cw-hairline); }
+  .record.alt { background: var(--cw-ivory); }
+  .entry {
+    display: grid; grid-template-columns: 30% 1fr; gap: var(--gap-l);
+    align-items: start; padding: var(--section) var(--gutter);
+    text-decoration: none; color: inherit;
+  }
+  .entry:hover { text-decoration: none; }
+  .shot-wrap :global(.shot) { aspect-ratio: 4 / 3; }
+
+  /* The voice is the biggest thing on this page. Never truncated. */
+  .quote {
+    font-family: var(--font-cwaaa-testimony); font-style: italic;
+    font-size: var(--cw-testimony); line-height: 1.36; color: var(--cw-ink);
+    margin: 0; max-width: 38ch;
+  }
+  .who { color: var(--cw-grey); margin: var(--gap-m) 0 0; }
+  .go {
+    display: inline-block; margin-top: 0.9rem; color: var(--cw-ink);
+    border-bottom: 1.5px solid var(--cw-ink); padding-bottom: 2px;
+  }
+  .entry:hover .go { color: var(--cw-black); border-color: var(--cw-black); }
+
+  .close { background: var(--cw-white); border-top: 1px solid var(--cw-hairline); padding: var(--gap-l) var(--gutter) var(--section); }
+  .act {
+    display: inline-flex; align-items: baseline; gap: 0.9rem; margin-top: var(--gap-m);
+    border: 1.5px solid var(--cw-stamp); color: var(--cw-stamp);
+    padding: 1rem 1.4rem; min-height: 44px; text-decoration: none;
+    font-family: var(--font-cwaaa-interface);
+  }
+  .act b { font-weight: 600; font-size: var(--cw-text); }
+  .act span { color: var(--cw-grey); }
+  .act:hover { background: var(--cw-stamp); color: var(--cw-ivory); text-decoration: none; }
+  .act:hover span { color: rgba(245, 240, 230, 0.8); }
+
+  @media (max-width: 860px) {
+    .entry { grid-template-columns: 1fr; gap: var(--gap-m); padding: var(--gap-l) var(--gutter); }
+    .quote { max-width: none; }
+  }
+</style>

@@ -8,3 +8,15 @@
 
 [build.environment]
   NODE_VERSION = "22.12.0"
+
+# `Case Files` is a retired label (surface brief 8). The old paths keep working
+# so anything already published at them lands on the record, not on a 404.
+[[redirects]]
+  from = "/case-files"
+  to = "/recovery-stories"
+  status = 301
+
+[[redirects]]
+  from = "/case-files/*"
+  to = "/recovery-stories/:splat"
+  status = 301
