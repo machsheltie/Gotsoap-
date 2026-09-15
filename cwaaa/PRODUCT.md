@@ -22,7 +22,7 @@ Owner decision, 2026-09-14: **two primary users with distinct jobs, neither seco
 
 ## Product Purpose
 
-CWAAA (Concerned Women Against Axe Abuse, est. 2024) is a fictional national advocacy coalition that makes its case in public: **THE BAR IS SOAP.** The standalone site turns the campaign's joke into organized participation. It validates a reasonable collective expectation, documents the social cost of substituting fragrance for washing, tells humane Recovery Stories, shows chapter life, runs the Tie One On For Suds ribbon program, and hosts the canonical nonprofit edition of the Lather Pledge with a finite, real email relationship.
+CWAAA (Concerned Women Against Axe Abuse, est. 2024) is a fictional national advocacy coalition that makes its case in public: **THE BAR IS SOAP.** The standalone site turns the campaign's joke into organized participation. It validates a reasonable collective expectation, documents the social cost of substituting fragrance for washing, tells specific, persuasive Recovery Stories, shows chapter life, runs the Tie One On For Suds ribbon program, and hosts the canonical nonprofit edition of the Lather Pledge with a finite, real email relationship.
 
 **Success, as decided 2026-09-14 (all four, jointly):**
 
@@ -35,7 +35,7 @@ CWAAA (Concerned Women Against Axe Abuse, est. 2024) is a fictional national adv
 
 CWAAA is **satire**, and the owner has said so directly (2026-09-14): it is not a normal "handle with dignity" nonprofit site. Its target is the low-effort man who believes Febreze and Axe body spray cover for not showering. The inspiration is the average man on Tinder who wants a woman who is a 10 while being a 2 himself, last shaved when Duck Dynasty was on, and showers only when the people around him are crinkling their noses and commenting on his BO.
 
-The comedic mechanism is competent civic procedure applied to that absurdly low bar. CWAAA's earnestness, filing conventions, numbered Findings, and sworn declarations are the delivery vehicle for the joke, never a softener of it. The "participant dignity" language in the design and world documents governs *how the fiction frames the men inside it* (no mugshots, no suspect boards, no allegations against real people) and *who the humor targets* (low-effort masculinity and fragrance substitution, never protected classes or people with medical barriers to hygiene). It does not authorize polite nonprofit minimalism or a toned-down bit. Future work that reads "humane" as "gentle" has misread the product.
+The comedic mechanism is competent civic procedure applied to that absurdly low bar. CWAAA's earnestness, filing conventions, numbered Findings, and sworn declarations are the delivery vehicle for the joke, never a softener of it. **Participant representation and fiction boundary** govern the record's *form* (no mugshots, suspect boards, enforcement styling, or allegations against real people) and the joke's *target* (chosen low-effort behavior and fragrance substitution, never protected classes or medical barriers to hygiene). They do not require a caseworker to be neutral, a spouse to be charitable, or a participant's before-state to be made mild. Recovery Stories must show a believable consequence and an earned, desirable change. Billy Bob's sustained refusal can carry much harsher comic pressure than Brayden's vanity because their canon and conversion mechanisms differ.
 
 What a neighboring nonprofit parody could not copy: CWAAA is one institution inside a three-author world with a protected, unresolved relationship to a regulator whose site exposes only error states. CWAAA links outward to the Office as an unexplained external authority and never explains it.
 
@@ -104,7 +104,7 @@ Explicitly undecided (tracked in `PRD-TO-LAUNCH.md`):
 ## Product Principles
 
 1. **The bar is soap, and the joke is that someone filed it.** Competent procedure aimed at a ridiculous baseline is the entire comedic engine. Play it straight; never wink, never soften.
-2. **Aim the satire at the low-effort man, frame the participant humanely.** The target is fragrance-for-washing masculinity. Men inside the fiction are participants who changed, not suspects; real people are never named or accused.
+2. **Aim the satire at the chosen behavior; present recovery as a real change within the fiction.** The men are distinct characters, not suspects or a single severity dial. Their before-states may be ridiculous to different degrees, while the after-state must make change worth wanting. Real people are never named or accused.
 3. **Trust before rupture.** Earn credibility across the whole progression; spend the single Office seam late, neutral, and unexplained.
 4. **Two messages, then silence.** The pledge is a finite civic act with a real email relationship, not a list-building funnel.
 5. **A different author, not a different skin.** CWAAA's separation from Got Soap? and the Office is behavioral and verbal as much as visual, and it is a launch deliverable.

@@ -7,7 +7,7 @@
 ## Product
 
 CWAAA is a credible fictional advocacy nonprofit and national coalition that makes its case in public.
-It turns the campaign's joke into organized participation, monumental findings, humane Recovery
+It turns the campaign's joke into organized participation, monumental findings, persuasive Recovery
 Stories, chapter life, tactile programs, and a finite real email relationship. Its locked public
 proposition is **THE BAR IS SOAP.**
 
@@ -16,10 +16,10 @@ Office of Lather Compliance. Public CWAAA pages build trust and never perform ho
 
 ## Goals
 
-- Present CWAAA as competent, contemporary, humane, expressive, and operational.
+- Present CWAAA as competent, contemporary, human, expressive, and operational.
 - Preserve and deepen approved CWAAA material without importing Got Soap? or Office authorship.
 - Host the canonical nonprofit edition of Form CW-1.
-- Make Findings and Recovery Stories useful, dignified, shareable advocacy artifacts.
+- Make Findings and Recovery Stories useful, character-specific, shareable advocacy artifacts.
 - Establish real chapter life and Tie One On For Suds participation.
 - Create a subtle creator/About seam for real-world disclosure and a separate deep Office referral.
 - Maintain one coherent visitor progression:
@@ -31,7 +31,7 @@ Office of Lather Compliance. Public CWAAA pages build trust and never perform ho
 |---|---|
 | `/` | Public advocacy home |
 | `/findings` | Monumental collective findings |
-| `/recovery-stories` | Humane participant-story index |
+| `/recovery-stories` | Individual behavior-change story index |
 | `/recovery-stories/[id]` | Individual Recovery Record |
 | `/tie-one-on` | Tie One On For Suds program |
 | `/chapters` | National chapter life and participation |
@@ -58,7 +58,7 @@ expectation,” the coalition group-portrait documentary hero (three members in 
 **DOCUMENT. ADVOCATE. ORGANIZE.** composition. It then introduces one Finding, one recovery voice,
 Tie One On, coalition scale, one pledge action, and a controlled Got Soap? artifact seam.
 
-Findings are monumental public claims, not dashboards. Recovery Stories are humane participant
+Findings are monumental public claims, not dashboards. Recovery Stories are participant
 advocacy files, not police evidence, intelligence archives, criminal dossiers, mugshots, or suspect
 boards. Tie One On uses real cloth and plausible program artifacts. Chapters show human dispatches
 and participation rather than a card grid or animated map. About establishes the 2024 book-club
@@ -145,7 +145,8 @@ audience-facing disclosure.
 - Present Recovery Stories as conversion and character surfaces. Show belief → behavior →
   consequence → challenge → experiment → benefit → revised belief; keep the participant
   recognizably himself and make the benefit tangible rather than merely avoiding shame or paperwork.
-  An earned warm ending is allowed.
+  An earned warm ending is allowed. The before-state remains as foolish or severe as that person's
+  canon requires; CWAAA may state a controlled judgment without winking or claiming Office authority.
 - Protect participant names within the fiction and never imply government custody, surveillance,
   prosecution, or a real allegation.
 

@@ -1,5 +1,11 @@
 # Research: How the Best Satirical / Irreverent Campaigns Actually Work
 
+> **Historical Phase-1 research, not a current universal routing rule (2026-09-15).**
+> The question below about routing every surface to the quiz was a research diagnostic,
+> not an owner-ratified requirement. Current attack, conversion, proof, institutional,
+> mystery, reveal, and character surfaces close according to their jobs; many need no CTA.
+> Preserve the original research and its sources as evidence.
+
 **Author:** Fable (Phase 1 of the site-wide adversarial copy review). **Date:** 2026-07-17.
 **Purpose:** the shared argument base. This is what Sol and Fable both reason from when judging the
 site against `CAMPAIGN-INTENT.md`. Not a listicle — a working theory of why these convert, and the

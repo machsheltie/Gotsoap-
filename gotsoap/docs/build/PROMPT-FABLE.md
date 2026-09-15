@@ -1,5 +1,10 @@
 # Prompt — Claude Fable 5 (Lead Developer)
 
+> **Historical 2026-07 build-session prompt.** For new copy or case work, its two-author
+> shorthand and standing read order yield to current owner-ratified canon and the
+> five-register, surface-specific writing architecture. Preserve the original phase record;
+> do not use it to kill restored RC-014 or terminate hidden archive pagination.
+
 Paste the **Standing Brief** once at the start of a Fable session. Then paste the
 **Phase Order** for whichever phase you're running. Re-paste the Standing Brief on
 any fresh session.

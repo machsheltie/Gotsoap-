@@ -22,7 +22,8 @@ Home → Findings → Recovery Stories → Tie One On → Pledge → Chapters / 
 ```
 
 CWAAA earns trust before introducing any unease. Its comedy comes from treating an absurdly low bar
-with competent civic seriousness while protecting every participant's dignity.
+with competent civic seriousness. Participant records are presented as advocacy files, never enforcement files;
+their fictional subjects can still be foolish, selfish, disgusted, funny, or changed as canon requires.
 
 ## 2. Institutional and expressive layers
 
@@ -45,8 +46,8 @@ a simulated archive.
 1. **Home:** credible, sharp, funny, and operational, with no horror or performed mystery.
 2. **Findings:** CWAAA has studied the problem far more seriously than expected; one sparse neutral
    citation may appear.
-3. **Recovery Stories:** continuity is deeper than expected, while every story remains humane and
-   participant-centered.
+3. **Recovery Stories:** continuity is deeper than expected; each person has a specific before-state,
+   consequence, and desirable change, told through his own character rather than an institutional verdict.
 4. **Tie One On For Suds:** warmth, solidarity, and tactile relief.
 5. **Pledge:** a safe, formal, meaningful civic commitment with no Office presence.
 6. **Chapters and About:** legitimacy, scale, contemporary origin, and then a chronology crack.
@@ -125,7 +126,7 @@ Establishment Directive 1961-A. It never glows, repeats, or explains itself.
 
 ### Recovery Stories
 
-Recovery Stories are intimate, individual, quiet, reflective, humane, and reading-oriented. A
+Recovery Stories are intimate, individual, quiet, reflective, and reading-oriented. A
 restrained portrait or environment, personal object, testimony fragment, recovery identifier, and
 next action create one participant-owned field.
 
@@ -201,10 +202,11 @@ coalition portrait is now the home hero (§6), and the posed group is a feature,
 material detail is a supporting crop inside a scene with a body in it, never the image a section is
 built on. An object delivered where a person belongs is a rejected asset.
 
-What remains rejected is the **generic and the institutional**, not the human: stock-photography
+What remains rejected is the **generic and the enforcement aesthetic**, not the human: stock-photography
 testimonial carousels, clipboard enthusiasm, matching-shirt volunteer filler, mugshot grids,
-surveillance framing, humiliation, punishment, and before/after construction. The objection to each
-is that it is lazy or cruel-by-formula — never that a face is visible.
+surveillance framing, punishment imagery, and before/after spectacle. These treatments make a recovery
+participant look like a suspect or a visual exhibit. They do not bar a story from showing embarrassing
+conduct or a witness's candid disgust when those facts make the change meaningful.
 
 Every artifact has one fictional owner, a real function, complete copy, plausible size and
 construction, consistent typography, a date or version when appropriate, and a reason to exist

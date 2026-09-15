@@ -24,7 +24,8 @@ part of its job, and hedging is what makes it fall flat.
 
 What stays rejected is the **generic and institutional**, never the human: stock testimonial
 carousels, charity-hero framing, matching-shirt volunteer filler, clipboard enthusiasm, mugshot
-grids, surveillance framing, humiliation, and before/after construction.
+grids, surveillance framing, public-shaming compositions, and before/after spectacle. This governs
+image form; it does not require mild fictional conduct or an affectless caseworker.
 
 An object delivered where a person belongs is a rejected asset. Full text: `GRAPHICS-TO-MAKE.md`
 § Standing image law and `design.md` §7. **Earlier documents that refuse posed faces or prefer

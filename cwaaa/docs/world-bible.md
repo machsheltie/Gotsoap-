@@ -37,7 +37,7 @@ or front, never claims regulatory power, and never explains whether the Office a
 Private production canon keeps the entities legally separate without proving that separation is
 operationally meaningful to the audience.
 
-CWAAA is competent, contemporary, humane, and expressive. It makes its case in public through clear
+CWAAA is competent, contemporary, human, and expressive. It makes its case in public through clear
 advocacy, understandable actions, participant stories, chapters, findings, and credible programs.
 It can have an unusually strong creative department without behaving like a campaign or regulator.
 
@@ -75,8 +75,9 @@ threatens, diagnoses, prosecutes, or claims to investigate a visitor.
 
 CWAAA finds the mismatch between meticulous civic procedure and the ordinary act of using soap funny.
 A perfectly maintained finding table, a formal declaration, or a carefully tied washcloth ribbon can
-make the point without humiliating a participant. The joke is the seriousness of the baseline, not a
-person's dignity.
+make the point. A participant's specific foolish choice may also be ridiculous; the institution does
+not turn his identity, body, or recovery into an exhibit. The joke attacks the choice and the absurdly
+low baseline that required an organized response.
 
 ## What it would never do
 
@@ -88,7 +89,9 @@ or use the campaign's thirst-trap voice to decorate nonprofit prose.
 
 CWAAA writes like a capable nonprofit whose staff have done this before: procedural but readable,
 earnest without sentimentality, firm without menace, dry because the procedure is specific, and
-helpful without behaving like customer-support SaaS.
+helpful without behaving like customer-support SaaS. It sincerely believes its mission. A caseworker
+may have a position and controlled human frustration after repeated failure; credibility does not
+require emotional neutrality. The writer's knowing wink stays out of CWAAA's voice.
 
 CWAAA never manufactures fear. Its overdeveloped certainty, institutional continuity, and
 unexplained references may accidentally reveal that something larger exists behind it.
@@ -130,7 +133,7 @@ Recovery Stories share reform as nonprofit and program advocacy. The public inde
 and its `RC-NNN` identifier. Every story documents change and next action rather than adjudicating
 fault.
 
-## Recovery records and participant dignity
+## Recovery record presentation and fiction boundary
 
 Recovery records behave like participant advocacy files, recovery histories, chapter correspondence,
 reform documentation, program findings, and physically maintained nonprofit records. They are not
@@ -140,6 +143,12 @@ boards.
 Use `RC-NNN` identifiers to organize materials, protect names, and present testimony, reform status,
 and the next useful action. Never imply legal standing, government custody, surveillance, or a
 criminal finding.
+
+These rules govern authorship, visual form, names, and the boundary against real-person allegations.
+They do not require mitigating a fictional man's behavior, erasing a reporting party's disgust, or
+removing CWAAA's own judgment. A Recovery Story shows the participant's actual before-state and
+consequence so the later change is credible and desirable. Billy Bob's sustained refusal and Brayden's
+recoverable vanity therefore demand different before-states and different comic pressure.
 
 ### What CWAAA may write, and what it may not
 
@@ -190,7 +199,8 @@ is unremarkable. CWAAA records the follow-up and closes the case.
 
 - **Home:** relief that a reasonable expectation has been named.
 - **Findings:** confidence that the coalition can explain its case plainly.
-- **Recovery Stories:** respect for the participant and belief that change is possible.
+- **Recovery Stories:** belief that a specific person's change is possible and worth wanting, because
+  the before-state, consequence, and benefit are all visible.
 - **Pledge:** agency, clarity, and a low-friction next step.
 - **Tie One On For Suds:** welcome into visible, affectionate solidarity.
 - **About and chapters:** trust that the coalition has real human continuity.

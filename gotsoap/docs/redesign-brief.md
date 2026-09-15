@@ -1,5 +1,10 @@
 # Got Soap? — Redesign Brief (adversarial audit → ranked build spec)
 
+> **Historical 2026-07 presentation brief.** Its frozen-copy and two-author references
+> describe the then-current combined site. For new writing use current owner-ratified canon,
+> five audible registers, and the surface-specific copy authority. Preserve the presentation
+> critique as evidence; do not use this brief to flatten participant or Office voices.
+
 **Date:** 2026-07-08 · **Governs:** `gotsoap/docs/design-north-star.md` (the law) + this brief (the plan).
 **Source:** 4-critic adversarial audit (concept/positioning · layout/anti-template · art-direction/craft · CWAAA-world/interaction), grounded in the real renders of `/` and `/pledge`.
 

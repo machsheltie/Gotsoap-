@@ -34,7 +34,7 @@ filing-cabinet simulation, a government portal, a museum exhibit, or a generic n
 
 The locked proposition is **THE BAR IS SOAP**: routine washing is a reasonable collective
 expectation. The comedy comes from treating an absurdly low bar with competent civic seriousness
-while protecting every participant's dignity. CWAAA earns trust before introducing any unease.
+while presenting recovery records as advocacy rather than enforcement. CWAAA earns trust before introducing any unease.
 
 Two layers share one continuous public composition. The **institutional layer** builds trust through
 ordinary navigation, mission clarity, explicit program ownership, accessible forms, participant
@@ -50,7 +50,8 @@ website" and "a simulated archive."
 - Route-specific spatial law — Findings, Recovery Stories, and Tie One On do not share one layout.
 - Paper is content, not the universe.
 - Trust is earned before unease; wrongness arrives through continuity, never horror.
-- Dignity is non-negotiable — every participant stays a person, not an exhibit.
+- Participant presentation is specific: show the person, preserve the fictional name boundary, and
+  avoid mugshot, suspect-board, and punishment framing. This visual rule does not soften what he did.
 
 ## Colors
 
@@ -164,7 +165,7 @@ Locked route expression, which any spatial system must express distinctly:
   earlier gym-bag/washcloth hero spec is struck; people are shown, and no still life appears
   anywhere on the site (`../GRAPHICS-TO-MAKE.md` § Standing image law).
 - **Findings** are monumental, public, collective, vertical, and declarative.
-- **Recovery Stories** are intimate, humane, individual, and reading-oriented.
+- **Recovery Stories** are intimate, character-specific, persuasive, and reading-oriented.
 - **Tie One On** is tactile and cloth-led.
 - **Pledge** is a safe ceremonial civic act.
 - **Chapters** are a distributed human network — not a map, not a card grid.
@@ -211,7 +212,8 @@ findings kept live, legible, and zoom-safe.
 - **Do** earn trust first. Wrongness may come only from sparse chronology, a neutral citation, a
   repeated code, unusually complete continuity, an institution treated as routine, or an artifact
   returning with new meaning.
-- **Do** keep every recovery story humane and participant-centered.
+- **Do** make each recovery story's before-state, consequence, changed behavior, and desired benefit
+  legible. Keep the participant's own voice distinct from CWAAA's position.
 - **Do** give each route its own spatial law rather than one layout with swapped content.
 - **Do** preserve the current implementation or request the owner decision when a section here is
   marked UNLOCKED.

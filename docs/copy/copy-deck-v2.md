@@ -1,5 +1,14 @@
 # Got Soap? — Website Copy Deck v2 (voice-forward)
 
+> **Supersession / interpretation (2026-09-15):** This deck preserves the frozen 2026-07
+> combined-site copy and its decisions; it is not the current universal writing architecture.
+> For current copy, read Vivian Vane, `CAMPAIGN-INTENT.md`, `voice-bible.md`, `style-lock.md`,
+> and the applicable entity authority. `site/src/content/copy.ts` records implemented strings.
+> The old "RC-014 cut — stay dead" roster note below is superseded: the owner restored
+> Brayden / RC-014 as canonical. RC-052, RC-063, and RC-071 remain cut absent owner direction.
+> The former two-author shorthand now means five audible registers; old rendered strings are
+> historical evidence until current canon approves or replaces them.
+
 **Supersedes `copy-deck-v1.md`** (v1 was written from the docs; v2 is written in Stacey's voice per `voice-bible.md`).
 **Status:** ✅ **FROZEN for implementation (2026-07-08; re-versioned v2.1, 2026-07-16).** Reviewed through humanizer + prose-critique + marketing passes; owner-approved voice. Build against this verbatim. Any further change is a copy-lane edit, re-versioned — implementers do not edit strings in place.
 **Binding:** `voice-bible.md` (the north star) · `CLAUDE.md` creative rules · PRD §3, §5 · `docs/design.md` §4 (two authors) · specs.md §7 (signer model).

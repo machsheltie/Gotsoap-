@@ -4,8 +4,8 @@
 > This records binary facts and declared repository policy; it does not grant
 > font licenses or resolve owner approvals.
 
-Audit timestamp: 2026-09-14T19:08:46.716Z
-Source commit SHA: 8609bb88ec4c55cc989575b006a4e28cd418bd85
+Audit timestamp: 2026-09-15T16:27:58.219Z
+Source commit SHA: ec4979fee6f65eca1b472beeb866740595edef03
 Working tree at audit: dirty
 
 ## Result

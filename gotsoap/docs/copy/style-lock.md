@@ -1,6 +1,6 @@
 # Got Soap? — Style Lock
 
-**What this is:** voice decisions made during copy sessions that the law (voice-bible, copy-contract, specs §7) doesn't spell out. Each was argued to consensus in the Claude↔Sol dialectic (2026-07-16, see `copy-session-draft.md`). A future copy session inherits these; overturning one requires a new argued round, not a drive-by edit.
+**What this is:** voice decisions made during copy sessions that the other authorities do not spell out. The historical Claude↔Sol dialectic (2026-07-16, see `copy-session-draft.md`) records how many were reached. Current explicit owner direction outranks an earlier lock; where two genuinely live instructions conflict without an owner ruling, state the consequences, recommend, and let the owner decide. Do not silently overturn a lock in routine copy editing.
 
 ## 1. "Concerned women" is the membership's proper noun
 
@@ -82,9 +82,14 @@ round:
    structured metadata only (extends §10/§11).
 3. **Alt text never transcribes baked poster copy.** One composed visual description per poster;
    the lightbox renders at most one description per dialog (a11y contract, plan §3).
-4. **The case-file roster is five.** RC-014, RC-052, RC-063, RC-071 are cut and stay cut — the
-   killed-roster analog of §7. RC-058 is owner-locked verbatim. At most one aphorism ending on the
-   roster (Chad's).
+4. **The ordinary public case-file index is intentionally limited.** The Phase-4 reader finding
+   that nine uniform cases were too many still stands, but it governs the **publicly indexed ordinary
+   roster**, not the total number of records that may exist in-world. RC-052, RC-063, and RC-071
+   remain cut unless the owner explicitly restores them. **Owner ruling 2026-09-15: Brayden / RC-014
+   is restored as a canonical CWAAA Recovery Story and participant case; the earlier RC-014 kill is
+   superseded.** RC-058 remains owner-locked verbatim. Hidden/unindexed escalation records do not
+   count against the public-index limit. At most one aphorism ending on the ordinary public roster
+   unless the owner explicitly changes that rule.
 5. **Additional killed lines:** "The men are not the problem. The men are, in most cases, lovely." ·
    "Nobody's beyond redemption." · "Redemption starts in the shower." · "Shame optional." ·
    "In this economy, that's basically a miracle." · "We are concerned, not clingy." ·
@@ -116,9 +121,11 @@ Argued to consensus in the two-round Vivian ⇄ Sol shop-product dialectic
    it's been asking since 1993" — the "like" is load-bearing. The simile keeps the
    Got Milk? deep cut a vintage-wash claim; sanding it to a plain "since 1993" would
    contradict the `Est. MMXXIV` masthead fiction. Do not "tighten" it away.
-3. **The tie-break principle.** Between two law-clean candidate lines, the one
-   carrying an additional working beat wins. "Ends on the strongest word" is a taste
-   argument and does not decide.
+3. **Historical shop-copy comparison, not an agent tie-breaker.** The shop round favored a
+   candidate carrying an additional working beat over the taste claim that a line must
+   "end on the strongest word." This records that decision's reasoning; it grants no agent
+   authority to decide an unresolved live creative choice. Present the candidates and
+   recommendation to the owner when both remain genuinely live.
 
 ## 13. /about REDO consensus locks (owner-ratified 2026-07-28)
 
@@ -151,3 +158,74 @@ prior consensus for fabricated biography. Overturning any of these requires a ne
    that need a little bite." — the R10–R12 micro-pass successor after the blind read retired
    the first tagline as a slogan template) are the consensus package — per-string kills listed
    in §7.
+
+## 14. Surface-function lock (owner, 2026-09-15)
+
+The project does **not** use one universal satire rubric across every surface.
+
+- **Attack surfaces** may end on a blade.
+- **Conversion surfaces** (including Recovery Stories) must make the improved state desirable and
+  may end on earned warmth or reward.
+- **Proof surfaces** may end on the strongest fact or status.
+- **CWAAA institutional surfaces** end in procedural certainty, not campaign swagger.
+- **Mystery / Office surfaces** may end on unresolved implication or missing information.
+- **Character surfaces** end where that person naturally lands.
+
+"End on the blade" is therefore **not** a project-wide invariant. The ending completes the job of
+the surface.
+
+Earned warmth is not the same as defensive reassurance. A line that proves a benefit — better dates,
+more comfort, affection, confidence, cleaner relationships — is legal and may be load-bearing on a
+conversion surface.
+
+## 15. CWAAA / Office jurisdiction lock (owner, 2026-09-15)
+
+**CWAAA documents; the Office finds.**
+
+CWAAA may:
+- receive referrals;
+- open participant records;
+- document reported behavior;
+- conduct voluntary outreach/intervention;
+- follow up;
+- record recovery status;
+- publish selected fictional case/recovery material.
+
+CWAAA does **not** claim coercive or regulatory authority.
+
+Formal **audit / finding / compliance / deficiency / disposition** language belongs to the Office of
+Lather Compliance.
+
+Certain escalated CWAAA case files may contain **embedded Office-derived material** after external
+review. The CWAAA page remains the host record; the Office fragment should feel like foreign
+documentation. The public site does not need to explain the institutional relationship.
+
+## 16. Hidden archive / pagination lock (owner, 2026-09-15)
+
+The public Case Files index and sequential case pagination are intentionally **not identical**.
+
+After the final publicly indexed ordinary case, `NEXT CASE →` may remain active and expose an
+unindexed record (Billy Bob is the first planned example). Such records:
+- do not appear in the ordinary index;
+- do not need to appear in search/filter results or normal navigation;
+- may contain increasingly significant Office-derived material;
+- may preserve `ALL CASES` back to the ordinary public index, which does not list them.
+
+This is a narrative discovery mechanic — effectively an archive-boundary mistake — **not a routing,
+accessibility, or data-integrity bug to "fix."**
+
+Do not add "secret files," "classified," glitch, hacker, horror, or wink-to-camera treatment unless
+the owner explicitly changes the concept. The discovery should feel bureaucratically accidental.
+
+## 17. Register ownership expansion (owner, 2026-09-15)
+
+The earlier shorthand "two authors never blend" is now expanded into five distinct audible registers:
+
+1. **Campaign** — smolders / attacks / seduces.
+2. **CWAAA** — files / advocates / documents sincerely.
+3. **Participant and witness voices** — sound like the actual fictional person, not like Vivian.
+4. **Office** — processes / finds / records with sparse administrative certainty.
+5. **Plain Stacey on `/about`** — sourced from reality and governed by §13.
+
+Vivian may author across these registers where assigned, but her personal cadence does not become
+every speaker's cadence. Register boundaries are part of the joke and must remain legible.

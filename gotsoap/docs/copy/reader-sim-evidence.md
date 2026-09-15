@@ -8,6 +8,30 @@ reports the feeling they were told to have. Read-only. This is evidence, not jud
 **Status:** this is the copy-side equivalent of the machine gates. Sol and Fable may *argue with a
 reading*, with reasons. Neither may wave one away.
 
+
+## Interpretation note for future copy sessions (2026-09-15)
+
+This file is **historical reader evidence**, not a universal writing rubric. Preserve what the
+readers actually said; do not generalize a finding beyond the surface they read.
+
+Three distinctions are now canonical:
+
+1. **Defensive reassurance ≠ earned reward.** The readers correctly rejected lines that apologized
+   for the campaign or withdrew its judgment (*"the men are lovely," "Nobody's beyond redemption"*).
+   That finding does **not** prohibit sincere positive consequences on conversion surfaces. A line
+   such as a participant reporting better dates, cleaner relationships, or a mother hugging him
+   longer is evidence that the behavior change worked, not a flinch.
+2. **"Cut the case files to five" refers to the publicly indexed ordinary roster reviewed in this
+   study.** It does not prohibit hidden/unindexed records, Office-escalation artifacts, or archive
+   discovery reached through sequential pagination.
+3. **Reader findings are surface-specific evidence.** An attack headline, Recovery Story, CWAAA
+   status block, participant quote, and Office fragment do not share one ending rule or one joke
+   density. Apply the finding to the mechanism it actually diagnosed.
+
+Where later owner-ratified canon conflicts with an old roster, case ID, or surface assumption in
+this evidence file, the later canon governs implementation. Do not rewrite the historical quotes;
+interpret them in context.
+
 ---
 
 ## The three readers

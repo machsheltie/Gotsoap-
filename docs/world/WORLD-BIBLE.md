@@ -25,6 +25,16 @@ missing documentation.
 - CWAAA links to the Office but does not publicly define the relationship.
 - Audience-facing artifacts never prove how their relationship operates.
 - The Office pen is a real artifact within the world and carries the unsettling 1961 continuity.
+- CWAAA has no coercive or regulatory authority. It receives reports, opens participant records,
+  documents behavior, provides materials, conducts voluntary baseline assessment, follows up, and
+  publishes selected de-identified Recovery Stories.
+- The Office assesses compliance. Only the Office audits, makes findings, states a compliance status,
+  and issues a disposition.
+- Most cases begin and end with CWAAA. Escalation is rare.
+- The escalation threshold is resistance, not severity. Ordinary filth stays with CWAAA; sustained
+  refusal after documented intervention, or rejection of the premise of cleansing, is what leaves it.
+- A participant who returns from external review never describes it. His position on bathing is
+  revised and his account of why is unremarkable.
 
 ## Public claims
 
@@ -35,6 +45,27 @@ missing documentation.
 - The Office appears administratively complete, but its error domain never supplies a jurisdiction
   statement or ordinary public service.
 
+## Record classes
+
+Four classes exist. The class determines the letterhead, the verbs, and who is permitted to conclude
+anything.
+
+| Class | Author | May say | Never says |
+| --- | --- | --- | --- |
+| Referral / intake | the person who reported him, recorded by CWAAA | reported concern, relationship to reporting party, supporting materials | any finding; intake alleges, it does not conclude |
+| CWAAA case / Recovery Record | CWAAA | participant acknowledgment, intervention provided, follow-up interval, current status, case status | audit, finding, compliance status, disposition |
+| Embedded external finding | the Office, quoted inside a severe CWAAA record | its own finding and disposition, in its own voice and materials | nothing about CWAAA; it does not address the coalition |
+| Office compliance record | the Office | the full audit | it is never published on CWAAA surfaces |
+
+Records exist that CWAAA does not publish. They are reachable only by paging past the end of the
+public index, which the archive fails to terminate. This is one of several independent paths toward
+the Office; none of them is a menu item, and some visitors never find any of them. That is intended.
+See `cwaaa/docs/canon-billy-bob-and-the-archive-boundary.md`.
+
+An embedded external finding is the Office speaking for itself inside a CWAAA file. It is permitted
+because it does not authorize CWAAA to speak for the Office. CWAAA's own record resumes afterward
+with no account of the interval.
+
 ## Intentionally unresolved
 
 - What happened in 1961.
@@ -44,6 +75,8 @@ missing documentation.
 - Whether the Office acts through CWAAA or CWAAA provides a friendly public face for it.
 - Whether a caller is transferred from CWAAA to the Office and how much CWAAA leadership knows.
 - What legal jurisdiction the Office claims or what lies behind an unavailable Office resource.
+- What the escalation criteria are, who applies them, and what happens during an external review.
+- What a withheld disposition withheld.
 
 ## Timeline
 

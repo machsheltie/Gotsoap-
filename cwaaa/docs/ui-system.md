@@ -23,7 +23,7 @@ It demonstrates legitimacy through:
 - credible programs;
 - useful navigation;
 - real chapter life;
-- humane participant stories;
+- character-specific participant stories that make change worth wanting;
 - findings;
 - accessible participation;
 - coherent institutional behavior.
@@ -72,7 +72,8 @@ Rules:
 
 - Home is a major public advocacy campaign.
 - Findings are monumental, public, collective, vertical, and declarative.
-- Recovery Stories are intimate, humane, individual, and reading-oriented.
+- Recovery Stories are intimate, individual, persuasive, and reading-oriented; their visual form does
+  not turn the participant into a suspect or exhibit.
 - Tie One On is tactile and cloth-led.
 - Pledge is a safe ceremonial civic act.
 - Chapters are a distributed human network, not a map or card grid.

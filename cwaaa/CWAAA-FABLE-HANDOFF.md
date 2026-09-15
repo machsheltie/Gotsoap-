@@ -108,7 +108,7 @@ The Got Soap? campaign creates attention and desire. CWAAA gives that attention 
 
 ### Humor rules
 
-The humor comes from the mismatch between meticulous civic procedure and the ordinary act of washing with soap. A perfectly maintained finding table, a formal declaration, or a carefully tied washcloth ribbon can deliver the joke without humiliating anyone.
+The humor comes from the mismatch between meticulous civic procedure and the ordinary act of washing with soap. A perfectly maintained finding table, a formal declaration, or a carefully tied washcloth ribbon can deliver the joke. A participant's chosen behavior may also be ridiculous; CWAAA documents that behavior without making his identity or recovery a public-shaming exhibit.
 
 The target is low-effort masculinity and fragrance substitution—not protected classes, medical barriers, disability, poverty, or a person's worth.
 
@@ -525,7 +525,7 @@ Action: **Open record**
 
 ### Index note
 
-CWAAA records the useful part: the adjustment, the support, and the next action. The participant is never the punchline.
+CWAAA records the useful part: the before-state, its consequence, the adjustment, and the next action. A participant's foolish choice may earn a laugh; the Recovery Story earns its place by making the changed state desirable.
 
 ## 15. Recovery record detail templates `/case-files/[id]`
 
@@ -777,7 +777,7 @@ Today, CWAAA is a fictional national coalition with two million concerned women 
 
 CWAAA does not investigate, diagnose, prosecute, monitor, or shame people. It does not publish real allegations. It is not a regulator or government body.
 
-The standard is firm. The route to it should remain humane.
+The standard is firm. The route to it gives a specific person a practical way to change without prosecution or public-shaming treatment.
 
 ### Chapters
 
@@ -1029,7 +1029,8 @@ The result passes only if:
 - No visitor could mistake CWAAA for a regulator or government agency.
 - No page looks like a generic nonprofit template.
 - Findings feel maintained, not data-visualized for show.
-- Recovery records preserve dignity and document change.
+- Recovery records present people as participants rather than suspects, preserve the fiction/name
+  boundary, and document a specific, persuasive change.
 - The seal looks nonprofit-specific, not governmental.
 - The washcloth ribbon looks like cloth, not a generic awareness icon.
 - The primary action is obvious without turning the page into a conversion funnel.

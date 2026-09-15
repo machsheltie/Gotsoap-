@@ -56,7 +56,10 @@ The Home decisions recorded above are locked for production by the approved Comp
 - Keep editable artifact/type layers and original unretouched photographs. An image that includes a real fictional letter or packet must have complete approved copy, a plausible physical size and construction, one author, and any necessary date/version.
 - Main headings, numerical Findings, navigation, captions, form labels, dates and identifiers on ordinary pages stay live HTML/CSS. Do not supply a full screenshot of a finished webpage as a graphic.
 - Record license/source, required attribution, version, approval date, meaningful-image text alternative, and every output filename per ID. Avoid baked final-domain text until the domain is assigned.
-- Use humane participant imagery. No mugshots, humiliation, punishment, before/after spectacle, smiling stock volunteer groups, fake government badges, ominous lighting or surveillance aesthetics.
+- Show the specific participant as a person in his own setting. Reject mugshots, public-shaming or
+  punishment compositions, before/after spectacle, smiling stock volunteer groups, fake government
+  badges, ominous lighting, and surveillance aesthetics. This photographic rule does not reduce the
+  before-state or consequence his Recovery Story must show in words.
 
 ## CW-G01 — coalition identity: review and prepare existing assets
 

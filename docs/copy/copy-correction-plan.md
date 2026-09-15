@@ -1,5 +1,12 @@
 # Copy Correction Plan — Phase 5 roll-up of the Phase 4 REDO consensus
 
+> **Historical implementation record (2026-07; interpretation updated 2026-09-15).**
+> Preserve the Phase-5 choices and reader rationale below as evidence of that round.
+> The old `RC-014` cut applied to the then-public ordinary roster; the owner has since
+> restored Brayden / RC-014 as canonical. The five-case reader finding governs the publicly
+> indexed ordinary roster, not the records reachable through accidental archive pagination.
+> Do not turn this plan into a universal Recovery Story, CTA, or Office rule.
+
 **Source of authority:** `phase4-redo-r1-vivian.md` → `phase4-redo-r2-sol.md` →
 `phase4-redo-r3-vivian.md` → `phase4-redo-r4-sol.md`. **66/66 units resolved, zero deadlocks —
 Stacey has nothing to break.** Provenance per item: `(R1)` = Vivian's proposal CLEARed by Sol;

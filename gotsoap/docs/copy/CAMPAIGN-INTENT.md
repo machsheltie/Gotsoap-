@@ -34,18 +34,27 @@ be **"lucky to have him."**
 That gap — between what he demands and what he offers — is the joke, the commentary, and the
 entire campaign. Every line should be traceable to it.
 
-**The one real line (from the voice bible, restated because it's load-bearing):** punch at
-**behavior, ad tropes, and the double standard** — never at a person's body, race, class, or
-identity. The reformed-hero exit stays open: the joke is always *"you could be the poster,"* never
-*"you're disgusting and that's the end of it."* That's what keeps it clever instead of cruel, and
-clever is the flex.
+**The one real line (from the voice bible, restated because it's load-bearing):** target
+**behavior, rationalization, ad tropes, entitlement, and the double standard** — not a person's
+body, race, class, disability, region, age, or identity merely for existing. The human subject and
+the satirical target are not automatically the same thing: a likable, sympathetic, attractive, or
+working-class character may carry the joke while the joke itself attacks his chosen behavior or
+bad reasoning.
+
+The reformed-hero exit stays open: the joke is always *"you could be the poster,"* never
+*"you're disgusting and that's the end of it."* The man may be sincerely wrong, sincerely corrected,
+and still recognizably himself afterward. That's what keeps it clever instead of cruel — and clever
+is the flex.
 
 ---
 
 ## 3. Two audiences, two entirely different jobs
 
-The campaign must land for **both**, for **different reasons**. A line that serves only one is
-half a line. The best lines serve both at once.
+The campaign as a whole must land for **both**, for **different reasons**. The best marquee lines
+often serve both at once, but **not every line or surface has to perform both jobs simultaneously**.
+A participant quote may primarily convert him; a CWAAA record may primarily establish proof; an
+Office fragment may primarily create mystery. Judge each piece by the job of its surface, then judge
+the campaign by whether the full system serves both audiences.
 
 ### To her — recognition, and the mic
 She has lived this. Every dating app. Every "you smell nice?" panic. **We have ALL been there.**
@@ -58,6 +67,23 @@ admire drink. **Ours must make him want to take the damn shower** — not out of
 wanting what the clean man has.
 
 He is not the villain of the piece; he is the **convert**. The exit is always open.
+
+
+### Surface jobs — do not grade every piece by the same rubric
+The campaign contains different kinds of satirical surfaces:
+
+- **Attack surfaces** (headlines, PSAs, social): expose the contradiction and may end on a blade.
+- **Conversion surfaces** (Recovery Stories, testimonials, quiz results): make the target want the
+  improved state and may — sometimes must — end on earned reward or warmth.
+- **Proof surfaces** (case chronology, findings, evidence): establish credibility through specifics;
+  facts may carry the joke without a punchline.
+- **Institutional surfaces** (CWAAA forms/letters): make the fictional organization feel real.
+- **Mystery surfaces** (Office fragments, hidden archive records): create questions; do not explain.
+- **Character surfaces** (participant/partner/roommate voice): sound like that person, not like the
+  campaign writer.
+
+**The ending must complete the job of the surface.** "End on the blade" is a valid attack-surface
+tool, not a universal law.
 
 ### The three share vectors (design copy for these)
 1. **Woman → her friends:** the laugh. "This is every man on Hinge."
@@ -89,23 +115,37 @@ fragrance-ad register, exactly what a real luxury cologne campaign does. **It is
 content and must never become it.** The heat is in the *implication and the confidence*, never the
 anatomy. Smolder, don't leer.
 
+**Conversion does not require humiliation.** The target man can keep his hobbies, swagger, profile
+photo, cologne, sense of humor, and self-respect while learning that a basic behavior was hurting
+him. Successful conversion makes his confidence **better founded**, not smaller. On Recovery
+Stories and other conversion surfaces, the proof is the benefit: better dates, easier physical
+closeness, fewer household conflicts, more confidence, cleaner clothes/bedding, and warmer reactions
+from people he values.
+
 ---
 
 ## 5. The call to action
 
-Got Milk? made kids drink milk. **Got Soap? makes him shower.** Every campaign surface should be
-walkable back to: **take the damn shower** — and, on-site, **take the Sniff Test.**
+Got Milk? made kids drink milk. **Got Soap? makes him shower.** Campaign and conversion surfaces
+should be walkable back to: **take the damn shower** — and, on-site, **take the Sniff Test.**
 
-The quiz is the conversion instrument and the share unit. A funny site that doesn't move him to
-the quiz has failed the brief.
+Proof, institutional, character, and mystery surfaces do **not** need to carry an explicit CTA if
+their job is credibility, character, or world-building. They still serve the larger campaign system.
+
+The quiz is the primary conversion instrument and share unit. A funny site that never moves him
+toward behavior change has failed the brief.
 
 ---
 
 ## 6. The voice bar (non-negotiable)
 
-Sharp · witty · **punching up** · subversive · unapologetic · unafraid to go there. Heavy satire.
-**Not polite.** If a line could run in a wellness brochure, it's dead. If Stacey wouldn't say it
-out loud without apologizing, sharpen it until she would.
+Sharp · witty · **precisely targeted** · subversive · unapologetic · unafraid to go there. Heavy
+satire. **Not polite.** Aim at the behavior, rationalization, trope, contradiction, or institution —
+not at a demographic merely for existing.
+
+If a line could run in a wellness brochure, it's dead. If Stacey wouldn't say it out loud without
+apologizing, sharpen it until she would — **unless the surface's job is proof, character, conversion,
+or mystery, in which case truth and function outrank performative sharpness.**
 
 ---
 
@@ -125,16 +165,23 @@ out loud without apologizing, sharpen it until she would.
 
 ## 8. How to judge a line (the review criteria)
 
-1. **Thesis** — does it trace to the double standard, or is it just "ew, smelly"?
-2. **Audience** — does it know if it winks at *him*, *her*, or both? (Best: both.)
-3. **Aspiration** — where he's the reader, does it sell *clean = hot*, or does it shame him shut?
-4. **CTA** — does it move toward the shower / the quiz?
-5. **Shareable** — does it survive one of the three vectors? Would she *send* it? Would he *forward* it?
-6. **Onion-grade** — straight-faced and committed, or hedged and polite?
-7. **Explains itself?** — a joke explained is a joke killed. Trust the reader to land it.
-8. **AI tells** — does it read machine-written? (See `llm-writing`: filling structure without
+1. **Surface job** — is this attack, conversion, proof, institutional, mystery, reveal, or
+   character copy, and is it being judged by the right rubric?
+2. **Thesis** — does it trace to the double standard / low-effort logic, or is it just "ew, smelly"?
+3. **Audience** — does it know who this surface primarily serves? Where useful, does it work for both?
+4. **Aspiration / reward** — where he's the reader, does it make the better state desirable, or
+   merely shame him into submission?
+5. **CTA** — where a CTA belongs, does it move toward the shower / quiz / appropriate action?
+   (Proof and mystery surfaces may legitimately have none.)
+6. **Shareable** — where portability is the job, does it survive one of the three vectors?
+7. **Onion-grade** — straight-faced and committed, or hedged and polite?
+8. **Explains itself?** — a joke explained is a joke killed. Trust the reader to land it.
+9. **AI tells** — does it read machine-written? (See `llm-writing`: filling structure without
    purpose, conclusions without evidence, defining by negation, conversational bleed.)
-9. **The line** — punches at behavior/trope/double standard, never at body/race/class/identity;
-   reformed-hero exit open.
-10. **Cohesion** — does it sound like the same hand that made the posters, and like every other
-    surface on the site?
+10. **Target** — does it attack behavior/rationalization/trope/double standard rather than a
+    person's body, race, class, region, age, disability, or identity merely for existing?
+11. **Subject vs. target** — did the writing make the behavior ridiculous, or merely make the human
+    subject worthless?
+12. **Ending** — does the ending complete this surface's job? Blade, reward, fact, procedural
+    certainty, unanswered implication, and natural character resolution are all valid when earned.
+13. **Cohesion** — does it belong to the correct register and the same campaign world?

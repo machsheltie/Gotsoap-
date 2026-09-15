@@ -1,5 +1,11 @@
 # The Copy Lane — Claude ⇄ Sol consensus session
 
+> **Historical 2026-07 session prompt, superseded for new writing (2026-09-15).** Its
+> "every line" Stepford rule, two-author shorthand, frozen-deck authority, and peer-consensus
+> close-out below record that round; they are not current universal law. Use the owner's
+> current instruction, owner-ratified canon, surface/register rules, then writing doctrine
+> and reader evidence. Genuine live conflicts go to the owner with a recommendation.
+
 This session resolves the owed campaign copy through a **peer dialectic**: Claude writes,
 Sol critiques *and proposes* with arguments, Claude reviews and answers, and they iterate
 until they genuinely agree — grounded in the voice bible, not in mutual flattery.

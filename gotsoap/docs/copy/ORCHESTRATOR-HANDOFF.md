@@ -1,5 +1,11 @@
 # Copy Handoff → Orchestrator / Build Swarm
 
+> **Historical 2026-07 build handoff (superseded for new copy work 2026-09-15).** The
+> frozen-deck, nine-case, two-author, and globally applied invariant claims below describe
+> that implementation round. For current writing, use owner-ratified canon, the current
+> copy protocol, and the surface/register rules. Brayden / RC-014 is restored; other cut
+> records need explicit owner authority. Preserve human specificity and the hidden archive.
+
 **Status: copy is FROZEN and ready to implement (2026-07-08).** This brief tells you what changed since the PRD/design.md were written and what the swarm must consume. Route it to every implementer alongside the PRD and design.md.
 
 ## Read order for anyone touching user-facing text

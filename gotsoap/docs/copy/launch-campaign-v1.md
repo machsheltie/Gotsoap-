@@ -1,5 +1,11 @@
 # Got Soap? — Launch Campaign & Social Playbook v1
 
+> **Historical v1 launch plan, not current copy authority (interpretation 2026-09-15).**
+> Its funnel, old companion deck, and two-author sales language describe a prior launch
+> proposal. Current copy follows owner-ratified surface/register rules, the finite pledge
+> email contract, and reality-sourced `/about`. Do not convert an old attack-copy preference
+> into a Recovery Story or participant-voice rule.
+
 **Status:** Go-to-market plan for the site launch · **Companion:** `gotsoap/docs/copy/copy-deck-v1.md` (site copy)
 **Binding:** `CLAUDE.md` creative rules · PRD §1 goals · `gotsoap/design.md` §1 (the decisive audience is **women**)
 

@@ -1,5 +1,11 @@
 # Copy Protocol — the satirical-copy review loop
 
+**Current interpretation (2026-09-15):** The phase table below records the 2026-07 copy round.
+For new work, follow the owner's current instruction, owner-ratified canon, surface/register rules,
+writing doctrine, then reader evidence. Classify attack, conversion, proof, institutional,
+mystery, reveal, or character work before using any line test. Reader simulations inform a decision;
+they do not decide it. A live creative conflict goes to the owner after a stated recommendation.
+
 The build had a two-model loop (Fable executes, Sol audits, machine gates keep score). The copy
 review is its sibling, tuned for a craft where "is it good?" collapses into taste. Same spine:
 **a writer with nerve, an adversarial critic, an objective standard, and an arbiter.** The
@@ -9,21 +15,21 @@ difference is what plays the objective standard — here it's not a grep, it's *
 
 | Who | Role | Authority | Never does |
 |---|---|---|---|
-| **Vivian Vane** (via Claude/Fable) | The Writer | Authors, rewrites, and **defends** every campaign string, in both registers (campaign smolder / CWAAA paperwork), never blended. Gets the full brief. | Never sits on the blind reader panel. Never judges finished copy blind. Never blends the two authors on one surface. |
-| **Sol** (GPT-5.6) | Adversarial Critic | Audits every string; **may propose alternatives** (unlike the build loop) — but every proposal carries an argument. Writes findings under `gotsoap/docs/copy/`. | Never has the final word — **consensus does**. Never wins a line on taste alone. |
-| **The blind readers** (`gotsoap-readers`: Maya / Dylan / Priya) | The Evidence | Report *felt experience* — does it land, convert, share, get her hired. This is the copy-side "gate." | **Never see the brief.** Never analyze; they react. |
+| **Vivian Vane** (via Claude/Fable) | The Writer | Authors across assigned surfaces while keeping campaign, CWAAA, participant/witness, Office, and plain reality-sourced Stacey registers distinct. Gets the full brief. | Never sits on the blind reader panel. Never puts her own cadence into every speaker. Never invents Stacey biography for `/about`. |
+| **Sol** (GPT-5.6) | Adversarial Critic | Audits copy by surface job and target mechanism; **may propose alternatives**, each with an argument. Writes findings under `gotsoap/docs/copy/`. | Never has the final word on an unresolved live choice. Never wins a line on taste alone. |
+| **The blind readers** (`gotsoap-readers`: Maya / Dylan / Priya) | The Evidence | Report *felt experience* — does it land, convert, share, get her hired. | **Never see the brief.** Never analyze; they react. Their reactions are evidence, not law. |
 | **Stacey** (you) | Owner / Arbiter | Breaks ties. Sets the three dials (Spice/Darkness/Wrongness). Owns the punch-down line and the sex-sells-means-aspiration call. | — |
 | **Opus** (me) | Organizer | Dispatches the blind readers, guards the firewall, keeps the standard current. | **Does not author or critique the copy** — that's Vivian and Sol. Stays out of the ring so the loop stays clean. |
 
 ## Why there's a blind reader panel (the "machine gate" of copy)
 
 A copy argument between two capable models collapses into taste — "this is punchier," "no it isn't"
-— and taste has no adjudicator. The blind readers are the adjudicator. Three strangers, each given a
+— and taste needs evidence. Blind readers provide that evidence. Three strangers, each given a
 **persona and the copy and nothing else**, report what they actually felt, in order, quoting lines.
 
-That report is **evidence, not opinion.** Neither model may assert a reaction the evidence
+That report is **evidence, not an instruction or private adjudicator.** Neither model may assert a reaction the evidence
 contradicts ("men will love this" dies when Dylan bailed at that exact line). Where readers
-**converge**, treat it as near-fact (three strangers hitting the same wall is not chance). Where they
+**converge**, treat the shared reaction as strong evidence for the surfaces they read. Where they
 **diverge**, you've found a real strategic fork, not a defect — surface it, don't average it.
 
 This frees the dialectic to spend its whole budget on the thing models *are* good at — craft — instead
@@ -87,12 +93,11 @@ line the models agreed was funnier is a hypothesis until a blind reader laughs a
 ## The standard — three stacked, all pre-written
 
 When anyone asks "is this line working?", it is asking against all three:
-1. **`CAMPAIGN-INTENT.md §8`** — the ten criteria (thesis, dual-address, aspiration, CTA, shareable,
-   Onion-grade, doesn't-explain-itself, AI-tells, the-line, cohesion).
-2. **Vivian's Self-Audit** (end of `vivian-vane/references/persona.md`) — her 10-point rubric,
-   *designed to be handed to her critics.* It gives the shared vocabulary: a flag names the **law or
-   banned move** it breaks ("that's a warmth tax," "that's a permission cough"), not "feels soft."
-3. **The reader evidence** — `reader-sim-evidence.md`. The felt-experience floor.
+1. **`CAMPAIGN-INTENT.md §8`** — current surface-specific criteria. Dual address, aspiration,
+   CTA, shareability, and sharpness apply where the surface's job calls for them.
+2. **Vivian's Self-Audit** (end of `vivian-vane/references/persona.md`) — diagnose objective,
+   target, register, structural apology, reward, and ending by function.
+3. **The reader evidence** — `reader-sim-evidence.md`, interpreted only for the surface tested.
 
 ## Guardrails (non-negotiable, all parties)
 
@@ -143,16 +148,19 @@ When anyone asks "is this line working?", it is asking against all three:
   controls for visual order, by design: the owner's Chrome pass at the locked breakpoints
   (390/1440/1920) and the rendered blind read. This clause is what makes the review loop
   **terminable** for every future checker, not just this one.
-- **Never punch down.** Any line aimed at a person's body, race, class, age, or identity is rejected
-  on sight — however funny. Behavior, ad tropes, and the double standard only. The reformed-hero exit
-  stays open: he's the convert, not the villain. *(The 2026-07-17 readers flagged a class/age pattern
-  in the case-file roster — this guardrail is live, not theoretical.)*
+- **Target the mechanism.** Attack chosen behavior, rationalization, hypocrisy, entitlement,
+  double standards, vanity, advertising language, cultural scripts, bureaucracy, consumer habits,
+  and self-delusion. Do not target body, race, disability, class, region, age, or identity merely for
+  existing. A fictional human subject is not automatically the satirical target; a flawed person
+  need not be replaced with a symbolic object. The reformed-hero exit stays open. The 2026-07-17
+  roster reading is evidence of a possible pattern, not a ban on specific human characters.
 - **"Sex sells" means aspiration, not explicitness.** Smolder, don't leer. The heat is in implication
   and confidence — clean = hot = the man who gets the woman — never anatomy. This is a spec/portfolio
   campaign in a fragrance-ad register, not explicit content.
-- **Locked is locked.** `style-lock.md` decisions and the kill list are not reopened. Critique the
+- **Owner-ratified locks govern until the owner changes them.** `style-lock.md` decisions and the kill list are not reopened by routine critique. Critique the
   *execution*, never the settled premise (the commit-to-the-bit rulings, the footer consolidation,
-  the reveal-at-/about). A killed line does not come back.
+  the reveal-at-/about). A killed line does not come back without owner authority; Brayden / RC-014
+  was explicitly restored on 2026-09-15. Other cut records remain cut.
 - **The posters are untouchable.** Their baked copy is the artwork. This loop reviews the *site*.
 - **Green `copy-gates` ≠ good copy.** `copy-gates` proves the invariants held (hashtags, funded-by
   gag, dual-address signer). It cannot judge funny. Never call the review done on a green gate.

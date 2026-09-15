@@ -1,5 +1,13 @@
 # Got Soap? — Copy Contract (for the design + build agent)
 
+> **Historical build contract (2026-07; superseded for new copy work 2026-09-15):** The
+> change log, frozen-deck claims, two-author division, nine-case roster, and universal
+> dual-address language below describe the original combined-site handoff. Follow current
+> owner-ratified canon and the applicable surface/register rules for future writing.
+> Brayden / RC-014 is restored; CWAAA documents voluntary recovery, while the Office alone
+> audits and finds. Do not use this snapshot to revive other cut records or erase the
+> accidental hidden-archive pagination mechanic.
+
 > ## ⚡ CHANGE LOG — read this first (2026-07-08, apprises parallel agents)
 > Since the initial handoff, the following landed. If you started building against earlier copy, reconcile to these:
 > 1. **Copy is voice-forward now.** Build from `../../../docs/copy/copy-deck-v2.md` (v1 superseded). New north-star doc: `voice-bible.md` — read before touching any string.

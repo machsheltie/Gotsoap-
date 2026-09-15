@@ -66,7 +66,13 @@ exclusively of custom error states. The IVR is the controlled ambiguity exceptio
 
 ## Authority precedence
 
-The full seven-level authority order is:
+For current writing decisions, authority runs: **the owner's current explicit instruction →
+current owner-ratified canon → surface/register rules → general writing doctrine →
+reader/reviewer evidence**. If two genuinely live instructions conflict, identify the conflict and
+consequences, recommend a path, and let the owner decide. No agent or review consensus has a private
+casting vote. An already settled owner decision is executed.
+
+For repository-wide design and implementation references, the standing seven-level document order is:
 
 1. Owner decisions recorded in `docs/HANDOFF.md`.
 2. `docs/world/WORLD-BIBLE.md` for cross-system canon.
@@ -113,6 +119,31 @@ functions). This supersedes the interim `/cwaaa` co-hosting decision taken earli
 
 The remaining CW-D07 work is a real custom domain in place of the Netlify subdomain. The migration
 manifest still governs actual runtime extraction; separate deployment is not extraction.
+
+## Owner decision, 2026-09-15 — jurisdictional split and record classes
+
+CWAAA has no regulatory authority. It receives reports, opens participant records, documents
+behavior, intervenes, follows up, and publishes de-identified Recovery Stories. The Office audits,
+finds, states compliance, and disposes. Most cases begin and end with CWAAA; the escalation threshold
+is **resistance, not severity**. Four record classes and their permitted vocabulary are recorded in
+`docs/world/WORLD-BIBLE.md`; CWAAA's side, including escalation and return behavior, is in
+`cwaaa/docs/world-bible.md`. The rendering law for an embedded external finding is in
+`cwaaa/design.md`.
+
+Three consequences that amend previously locked material:
+
+1. **Office surface on ordinary CWAAA routes changes.** The prior rule reserved one sparse citation
+   for Findings and the single deep referral for About. A severe Recovery Record may now carry one
+   **embedded external finding** — the Office quoted verbatim in its own materials, unexplained and
+   unlinked. `cwaaa/PRODUCT.md` is amended accordingly. `/findings` still carries no Office
+   reference; About still holds the deep referral. At most two such fragments exist site-wide.
+2. **The prohibition on explanation is unchanged and now load-bearing.** The relationship is
+   *shown* and never described. No CWAAA surface names the Office as partner, parent, operator,
+   division, or coordinator; no page accounts for what happens during an external review.
+3. **The IVR escalation mechanic is not canon.** A hotline that quietly routes a caller onward is an
+   attractive sketch, but Got Soap? owns the number and placement, and whether a caller is
+   transferred — and how much CWAAA leadership knows — remains on the intentionally-unresolved list.
+   Recorded as a proposal, not law; the IVR keeps two presented voices and no audible transfer.
 
 ## Creative decisions that are closed
 
