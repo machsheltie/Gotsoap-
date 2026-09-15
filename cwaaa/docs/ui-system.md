@@ -85,7 +85,7 @@ The locked proposition is:
 
 > **THE BAR IS SOAP.**
 
-The hero uses a documentary-editorial image of a woman’s hands tying a red washcloth ribbon around a genuinely used black gym bag on a locker-room bench.
+The hero uses a documentary-editorial photograph of the coalition's own group portrait — three members in a plain meeting room, facing the camera, one holding a bar of soap. Shipped and closed 2026-09-15; the earlier gym-bag/washcloth spec is struck (see §13, Standing image law).
 
 The image interrupts the typography rather than forming a 50/50 split.
 
@@ -104,7 +104,7 @@ The homepage sequence remains:
 
 Target hierarchy:
 
-- approximately 50% documentary human traces;
+- approximately 50% documentary photographs of people (people are shown; “traces” struck 2026-09-15);
 - approximately 30% coherent physical artifacts;
 - approximately 20% live civic graphics and typography.
 
@@ -527,7 +527,8 @@ Owner interview conducted through the Impeccable `shape` flow. Recorded:
   are **PROPOSED**, used in the home build, and await the CW-D02 token interview before they are
   law: ivory `#f5f0e6`, white `#ffffff`, civic black `#15181f`, metadata grey `#5f5d57`
   (6.4:1 on white), and a light tint `#e0857a` for the ADVOCATE accent on navy (4.6:1).
-- **CW-G02 hero frame:** 16:9 wide, subject upper-right, lower-left kept quiet for the proposition,
+- **CW-G02 hero frame** (shipped: the coalition group portrait; see the 2026-09-15 entries below):
+  16:9 wide, subject upper-right, lower-left kept quiet for the proposition,
   export 3200×1800 minimum plus a 4:5 phone recrop. Full bleed.
 - **Home Finding:** the statement "Fragrance is not a cleansing event." is used with no
   `FINDING YY-NN` number until the findings register is reconciled (CW-D04). The runtime line
@@ -544,19 +545,29 @@ and is provenance only; where it disagrees with this file, this file wins.
 
 The approved Home composition was reconciled with `../GRAPHICS-TO-MAKE.md`. Recorded:
 
+**Standing image law (owner direction, 2026-09-15): no still life anywhere.** A person is in every
+frame. Participants are shown — faces and bodies — and are never replaced by an object, texture,
+empty room, hand-only crop, or silhouette. Everyone in this fiction is synthetic: there is no
+likeness to protect and no one to offend, and likeness or dignity arguments must not be used to walk
+this back. What stays rejected is generic stock and institutional framing, not people.
+
 - **CW-G01:** the standalone inline `Seal.astro` and simplified `public/favicon.svg` are the working
   web identity. Use the full seal at 44px only beside the written organization name; use 72px or
   larger when it appears alone. A replacement mark is not a default production task.
-- **CW-G02:** the hero requires a 3200×1800 desktop master and a true 4:5, 2400×3000 mobile
-  composition. The hands, active knot, and gym-bag handle sit upper-right; the lower-left and bottom
-  remain quiet for the live proposition. Only its final period may be obscured.
-- **CW-G03, Home:** use a real red washcloth ribbon tied around a brushed-metal apartment doorknob
-  in an ordinary lived-in interior. Supply 3200×1800 desktop and 2400×3000 mobile masters, with the
+- **CW-G02 (SUPERSEDED — see the 2026-09-15 entries below):** this bullet's hands-and-gym-bag scene
+  was struck by the owner. The shipped hero is the coalition group portrait. The zone rules survive:
+  subject upper-right, lower-left and bottom quiet for the live proposition, only the final period
+  may be obscured; masters at 3200×1800 desktop and a true 4:5 phone composition.
+- **CW-G03, Home:** use **a man in an ordinary lived-in interior with the red washcloth ribbon on
+  him** — wrist, belt loop, or a bag strap he is carrying — legible in frame. No object-alone
+  doorknob still life; see the standing image law in `../GRAPHICS-TO-MAKE.md`. Supply 3200×1800 desktop and 2400×3000 mobile masters, with the
   knot upper-right and the lower-left clear for the inset panel. No instruction artifact is needed on
   Home; the Tie One On route may add one only after its own composition and complete copy exist.
-- **CW-G04, Home:** Brayden's recovery voice uses one 4:3, 2400×1800 object image: a visibly used bar
-  of soap and damp washcloth on an ordinary shower shelf, with an optional plain trigger bottle soft
-  at the edge. No face, body, branding, legible paperwork, or before/after construction.
+- **CW-G04, Home:** Brayden's recovery voice uses one 4:3 **participant photograph** — shipped
+  2026-09-15 as `src/assets/brayden.png`: Brayden, 27, in a boat, sunglasses on, holding up a
+  bluegill. It reads as submitted by him and retained as received, not art-directed by CWAAA.
+  Participants are shown. An object, texture, or empty room in a participant's slot is a rejected
+  asset; every person in this fiction is synthetic and there is no likeness to protect.
 - **CW-G05 and CW-G08:** neither is required by the current Home composition. Chapter/origin images
   and Findings source artifacts remain conditional on their route layouts and content rosters.
 - **CW-G06:** the 1080×1080 pledge share master uses ivory, ink navy, the current seal, one controlled
@@ -598,13 +609,16 @@ Owner interview conducted through the Impeccable `shape` flow; brief confirmed a
 The owner supplied the home hero photograph (`src/assets/hero-coalition.jpg`, 2576×1438) and
 directed that it ship. Recorded:
 
-- **CW-G02 (superseded by the supplied asset):** three coalition members standing in a plain
+- **CW-G02 (owner-supplied, ratified, closed):** three coalition members standing in a plain
   meeting room, facing the camera, one holding a bar of soap. Subject sits right of centre; the
   lower-left wall stays quiet for the proposition. This replaces the earlier hands-tying-a-ribbon
-  shot spec for the home; the placeholder spec remains in the copy module as provenance.
-- **Departure noted, not resolved:** the 2026-09-14 spec and `design.md` §7 refused posed faces as
-  proof of legitimacy. The supplied photograph is a posed group. The owner's supply is the
-  decision; `design.md` §7 has not been reworded.
+  shot spec for the home.
+- **Departure RESOLVED 2026-09-15 (superseding the note previously recorded here).** The 2026-09-14
+  spec and the old `design.md` §7 refused posed faces as proof of legitimacy. That rule was wrong
+  and is **struck**, not merely departed from: `design.md` §6 and §7 are reworded, and the posed
+  group portrait is the approved hero. The owner's direction is that people are shown, faces
+  included, and that no still life appears anywhere on the site. Nothing here is outstanding, and
+  this is not an open question for a later agent to reconcile.
 - **Still owed:** a 3200×1800 master and a true 4:5 phone composition. Until then the single
   source is cover-cropped with an authored focal point on both viewports.
 - **Delivery:** AVIF and WebP derivatives via `astro:assets`, eager and high-priority on the home;

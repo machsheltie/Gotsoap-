@@ -51,8 +51,8 @@ museum exhibit. Its governing public progression is Home → Findings → Recove
 → Pledge → Chapters / About → Office referral.
 
 The public proposition is **THE BAR IS SOAP.** Routine washing is a reasonable collective
-expectation. CWAAA can present that case with monumental civic graphics, documentary human traces,
-tactile program materials, and intimate testimony while remaining readable and operational.
+expectation. CWAAA can present that case with monumental civic graphics, documentary photographs **of its
+people**, tactile program materials, and intimate testimony while remaining readable and operational.
 
 ## What CWAAA believes
 
@@ -141,6 +141,51 @@ Use `RC-NNN` identifiers to organize materials, protect names, and present testi
 and the next useful action. Never imply legal standing, government custody, surveillance, or a
 criminal finding.
 
+### What CWAAA may write, and what it may not
+
+CWAAA is not a passive mailbox. It has case workers, field documentation, intervention protocols,
+follow-up intervals, recovery classifications, and institutional forms. None of that requires
+regulatory authority, and all of it is CWAAA's to use:
+
+> Reported behavior: Fragrance substitution
+> Participant acknowledgment: Confirmed
+> Intervention provided: Baseline materials
+> Follow-up interval: 90 days
+> Current status: Maintaining baseline
+> Case status: Active recovery
+
+What CWAAA may never write in its own voice is language that presumes authority to inspect,
+adjudicate, or order correction:
+
+> AUDIT FAIL
+> NON-CLEANSING EVENT VERIFIED
+> Compliance status: Deficient
+> Disposition: Lather required
+
+That vocabulary is not retired. It belongs to the Office, and it appears on CWAAA surfaces only as
+the Office's own quoted material inside a severe case. The joke was never wrong; it was on the wrong
+letterhead.
+
+### Escalation
+
+Most cases begin and end with CWAAA. The threshold is **resistance, not grossness** — otherwise the
+Office becomes the place especially smelly men go, which is mundane. Ordinary territory is laziness,
+fragrance substitution, dubious frequency, sheets and towels, gym hygiene, dating complaints, and
+household or roommate intervention, where the participant is responsive to embarrassment, reason, or
+education. An elevated case adds repetition, a failed intervention, recurring household impact, and
+increasingly elaborate rationalization; it stays with CWAAA. Referral follows only sustained refusal
+after documented intervention, severe household consequence, extraordinary duration, or a participant
+who rejects the premise of cleansing outright.
+
+A public CWAAA record marks this without explaining it: **External referral initiated**, or
+**Referred for additional review**. CWAAA's website does not say what that means.
+
+### Return
+
+A participant who comes back from external review is not frightened and not robotic; overt horror
+breaks the register. His position on bathing is simply revised, and his own account of why it changed
+is unremarkable. CWAAA records the follow-up and closes the case.
+
 ## What each page should make visitors feel
 
 - **Home:** relief that a reasonable expectation has been named.
@@ -185,13 +230,19 @@ surveillance room.
 ## Material practice
 
 Paper is content, not the universe. CWAAA uses clean digital fields, live civic typography,
-documentary human traces, real woven red cloth, and coherent physical artifacts. Paper appears when a
+documentary photographs **of people**, real woven red cloth, and coherent physical artifacts. Paper appears when a
 form, report, letter, packet, correspondence item, or citation actually requires it; clips, stamps,
 folds, pins, and registration marks never become decorative office-supply scenery.
 
-The target balance is approximately 50% documentary human traces, 30% coherent physical artifacts,
-and 20% live civic graphics and typography. Every artifact has a fictional owner, real function,
-complete copy, plausible construction, and reason to exist beyond the crop.
+The target balance is approximately 50% **documentary photographs of people**, 30% coherent physical
+artifacts, and 20% live civic graphics and typography. Every artifact has a fictional owner, real
+function, complete copy, plausible construction, and reason to exist beyond the crop.
+
+**No still life, and no “human traces” standing in for humans (owner direction, 2026-09-15).** The
+people in the largest share are *shown* — faces and bodies, posed or candid. An object, texture, or
+empty room never substitutes for the person a section is about. Everyone depicted is AI-generated:
+there is no likeness to protect and no one to offend, so those grounds may not be used to soften an
+image. Artifacts are the 30%; they never annex the 50%.
 
 ## Email
 
@@ -231,6 +282,15 @@ Office references are neutral citations, ordinary unexplained external links, or
 They never say “partner,” “parent agency,” “overseen by,” “operated by,” “division of,” or “in
 coordination with.” A reference can leave a small unexplained seam; it cannot authorize CWAAA to
 speak for the Office.
+
+An **embedded external finding** is the one place the Office's own language reaches a CWAAA surface,
+and it is permitted precisely because CWAAA is not speaking: the Office is quoted verbatim inside a
+severe case file, addressed to no one, and CWAAA's record resumes afterward without accounting for
+the interval. It appears rarely, is never introduced, never linked, and never explained. A disposition
+inside it may be withheld. **At most one appears on any publicly indexed record.** Amended 2026-09-15: the unindexed records
+past the archive boundary are not bound by that limit, and Office material deliberately increases as
+the visitor pages further. Different fragments carry different reference numbers, which lets the
+audience connect them without a single sentence of exposition — the point.
 
 ## Legal and ethical frame
 

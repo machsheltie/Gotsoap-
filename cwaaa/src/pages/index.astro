@@ -13,6 +13,7 @@ import { home } from '../content/copy';
 import { GOT_SOAP_SITE_URL, isConfigured } from '../config/site';
 import heroWide from '../assets/hero-coalition-wide.png';
 import heroTall from '../assets/hero-coalition-tall.png';
+import braydenObject from '../assets/brayden.png';
 const h = home;
 ---
 <BaseLayout title={h.meta.title} description={h.meta.description} current="/" heroNav>
@@ -80,7 +81,18 @@ const h = home;
 
   <!-- 4 · One intimate recovery voice -->
   <section class="voice" aria-labelledby="voice-h">
-    <ImageSlot class="object" tone="field" id="CW-G04" title="Participant object · placeholder" spec="Object and image direction pending CW-D04." safe="10% 8%" />
+    <ImageSlot
+      class="object"
+      tone="field"
+      id="CW-G04"
+      title={h.voice.image.title}
+      spec={h.voice.image.spec}
+      image={braydenObject}
+      alt={h.voice.image.alt}
+      position="50% 40%"
+      sizes="(max-width: 860px) 100vw, 40vw"
+      safe="10% 8%"
+    />
     <figure>
       <h2 id="voice-h" class="marker" data-reveal>{h.voice.marker}</h2>
       <blockquote data-reveal style="--i: 1"><p>{h.voice.quote}</p></blockquote>

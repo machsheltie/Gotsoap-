@@ -4,14 +4,37 @@
 
 The approved homepage now fixes three production slots: the documentary hero, one full-bleed Tie One On scene, and one 4:3 Recovery Story object. Review the current standalone identity, then make those images and the default social preview. Broader story, chapter, and artifact sets remain tied to their route layouts and approved content rosters.
 
+## Standing image law — no still life
+
+**Owner direction, 2026-09-15. This governs every ID below and overrides any earlier spec that
+conflicts with it.**
+
+1. **No still life anywhere on the site.** Objects do not carry images alone. A person is in the
+   frame. Macro material detail is permitted only as a supporting crop inside a scene that has a
+   body in it, never as the image a section is built on.
+2. **Participants are shown.** Faces, bodies, the actual men. Do not substitute an object, a
+   texture, an empty room, a hand-only crop, a back-of-head, or a silhouette for the person a
+   section is about. Do not blur, obscure, or crop out a face to soften it.
+3. **There is no one to protect.** Every person in this fiction is synthetic. There is no real
+   likeness, no consent question, no subject who can be hurt or embarrassed. Arguments from
+   likeness, dignity, or offense do not apply here and must not be used to walk any of this back.
+4. **This is satire and it is allowed to be uncomfortable.** The site's job is to be subversive.
+   Softening an image to avoid offense is a defect, not caution — it is the specific move that makes
+   the work fall flat.
+5. What stays rejected is **generic**, not human: stock testimonial carousels, smiling-volunteer
+   charity heroes, staged boardroom diversity, mugshot grids, surveillance framing. These are banned
+   for being lazy and institutional, never for showing people.
+
+An object shipped where a person belongs is a rejected asset. Return it.
+
 ## Production status after the approved homepage layout
 
 | ID | Current status | Production decision |
 |---|---|---|
 | CW-G01 | Review current work | Use the standalone inline seal and simplified favicon as the working web identity. Review them at final size; do not commission a replacement by default. |
-| CW-G02 | Ready to produce | One gym-bag hero scene: 3200×1800 desktop and a true 4:5, 2400×3000 mobile composition. |
-| CW-G03 | Home slot ready; route extension pending | One doorknob ribbon scene for Home, delivered in the same desktop/mobile sizes. Additional program artifacts wait for the Tie One On route layout. |
-| CW-G04 | Home slot ready; full roster pending | One 4:3 object image for Brayden's homepage recovery voice. Other portraits, environments, and objects wait for CW-D04. |
+| CW-G02 | **Shipped and closed** | The coalition group portrait, owner-supplied and ratified 2026-09-15. Desktop and 4:5 phone masters both delivered and wired. Do not respec. |
+| CW-G03 | Home slot ready; route extension pending | One Tie One On scene for Home with **a man in frame** wearing or tying the ribbon, delivered in the same desktop/mobile sizes. No object-alone doorknob still life. Additional program artifacts wait for the Tie One On route layout. |
+| CW-G04 | Home shipped; full roster pending | Brayden's participant photograph, 4:3, in the homepage recovery voice. Participants are shown — never an object in a person's slot. Remaining portraits wait for CW-D04. |
 | CW-G05 | Not required on the current Home layout | Hold chapter and 2024-origin production until Chapters and About have approved compositions and rosters. |
 | CW-G06 | Share master specified; route integration pending | Produce the non-personalized 1080×1080 pledge share master after its final words pass copy review. No bespoke email photography. |
 | CW-G07 | Preview required; favicon exists | Produce one 1200×630 default preview. Review the existing SVG favicon and derive raster variants only when platform coverage requires them. |
@@ -45,15 +68,33 @@ Use the standalone inline seal as the primary web mark and the simplified `publi
 
 **Claude:** prepare derivatives from the approved source, supply text equivalents, test small-size legibility and contrast. **Acceptance:** no fuzzy edges, wrong lettering, invented Office ownership, or redundant decorative seals.
 
-## CW-G02 — documentary home hero: new scene
+## CW-G02 — documentary home hero: SHIPPED AND CLOSED
 
-**Priority:** launch-critical. **Use:** home proposition interruption; optional approved crop reused in CW-G07.
+**Priority:** none remaining; this asset is delivered. **Use:** home proposition interruption; approved crop reused in CW-G07.
 
-Show a woman's hands tying a real red washcloth ribbon around the handle of a genuinely used black gym bag on a locker-room bench. Capture cloth weave, hem, imperfect ends, knot tension and the hand still completing the act. No posed face, branded bag, pristine stock setting, matching shirts or luxury-product sweep.
+**Delivered and ratified by the owner, 2026-09-15.** The hero is the coalition's own group portrait:
+three members standing in a plain meeting room, facing the camera, one holding a bar of soap. Posed,
+frontal, and completely unembarrassed — the picture an organization takes because it believes it is
+an organization. Shipped as `src/assets/hero-coalition-wide.png` (3200×1800) and
+`src/assets/hero-coalition-tall.png` (4:5 phone composition), served art-directed by `ImageSlot`.
 
-The photograph is full bleed behind navigation. The live proposition crosses the photograph's bottom edge. Place the hands, active knot and gym-bag handle within the upper-right production zone: approximately x 56–88% and y 20–64% in the desktop master. Keep the left 55% and the bottom 28% low-detail and free of faces, logos, hands and essential objects. On mobile, keep the action in approximately x 35–88% and y 18–58%, leaving the lower 35% quiet for the wrapping proposition. Only the final period may be obscured where image and type overlap.
+**The previous spec — a woman's hands tying a washcloth to a black gym bag on a locker-room bench —
+is struck.** The owner rejected it: a duffle bag with a wash rag tied on it is not a coalition, and
+reaching for it instead of the members was the site refusing to show its own cast. Its "no posed
+face" clause is void; see the standing image law above and `design.md` §7.
 
-**Required masters:** `cwaaa-hero-wide.jpg` at 3200×1800 and `cwaaa-hero-mobile.jpg` at 2400×3000. The mobile deliverable is a genuine 4:5 composition, not a 9:16 export or an automatic center crop. Preserve an uncropped high-resolution source for later derivatives.
+**This entry is closed. Do not respec it, do not propose an object or hands-only alternative, and do
+not reintroduce a no-posed-faces rule.** If the hero is ever reshot, it is still a picture of people
+looking into the camera.
+
+The photograph is full bleed behind navigation and the live proposition crosses its bottom edge. The
+members sit right of centre; the lower-left wall stays quiet for the proposition. Faces stay clear of
+the navigation band and of the type. Only the proposition's final period may be obscured where image
+and type overlap. Any future recomposition holds the same zones — with the people still in them.
+
+**Masters (delivered):** `src/assets/hero-coalition-wide.png` at 3200×1800 and
+`src/assets/hero-coalition-tall.png` as a genuine 4:5 phone composition — not a 9:16 export or an
+automatic center crop. An uncropped high-resolution source is preserved for later derivatives.
 
 Do not create a hand/cloth mask for the current layout; the approved composition does not use one. No baked headline. **Acceptance:** believable action and material, correct safe zones in both masters, complete navigation contrast, live proposition legibility, and no counterfeit stock-volunteer atmosphere.
 
@@ -61,7 +102,12 @@ Do not create a hand/cloth mask for the current layout; the approved composition
 
 **Priority:** launch-critical for the Home program moment. **Status:** Home scene locked; full program-route set pending.
 
-For Home, show a real red washcloth ribbon tied around a brushed-metal apartment doorknob in an ordinary, lived-in interior. The cloth is the subject: show terry weave, stitched hem, imperfect ends, fold and knot tension. This doorknob context prevents the homepage from repeating CW-G02's gym-bag scene.
+For Home, show **a man in an ordinary lived-in interior with the red washcloth ribbon on him** — tied
+around a wrist, a belt loop, a bag strap he is carrying, or being knotted on by someone else. He is
+in the frame and legible; the cloth is the subject *on a body*, not alone. Show terry weave, stitched
+hem, imperfect ends, fold and knot tension at that proximity. Per the standing image law above, an
+object-alone doorknob still life is a rejected asset. The domestic interior is what keeps this from
+repeating CW-G02's scene.
 
 The image fills a 72vh desktop field and a 78vh mobile field behind an ivory panel. Keep the ribbon and knot in the upper-right half; keep the lower-left free of essential detail. The desktop production zone is approximately x 52–90% and y 12–60%. On mobile, keep the knot above the lower 42% reserved for the inset panel.
 
@@ -69,21 +115,42 @@ The image fills a 72vh desktop field and a 78vh mobile field behind an ivory pan
 
 No printed instruction artifact is required for the current Home layout. If the future Tie One On route adds a sewn label, hang tag, instruction slip, packaging band or distribution card, finish the entire object and its approved copy before photography. Keep editable print artwork and an uncropped source alongside the web crop.
 
-**Acceptance:** actual red cloth carries the program; instructions have an accessible text equivalent; no animated ribbon, office-supply confetti, incomplete pseudo-document, or global paper texture.
+**Acceptance:** a person is in frame; actual red cloth carries the program; instructions have an accessible text equivalent; no animated ribbon, office-supply confetti, incomplete pseudo-document, or global paper texture.
 
 ## CW-G04 — Recovery Stories image and object set
 
 **Priority:** one Home image is launch-critical; the route set follows the approved story roster. **Quantity:** one locked Home object plus the later CW-D04 roster. Do not assume the historical nine-record deck is the launch roster.
 
-The Home image belongs to Brayden's recovery voice. Show an ordinary shower shelf with a visibly used bar of soap and a damp washcloth in the foreground; a plain, unlabeled trigger bottle may sit soft and partially cropped at the far edge as a trace of the old habit. Use normal domestic light. Do not show a face, body, product branding, legible paperwork, staged before/after pair, or immaculate product-advertising bathroom.
+**Participants are shown.** CWAAA recovery accounts are carried by pictures of the men, not by still
+life standing in for them. Every person in this campaign is synthetic; there is no likeness to
+protect and no one to embarrass. Substituting an object for a participant is a failure of nerve, and
+it is the specific failure that flattens the satire: the picture is the evidence, and a bar of soap
+on a shelf is not evidence of anything. Do not replace a participant photograph with an object,
+a texture, a hand, a back-of-head crop, or an empty room. Do not obscure, blur, crop out, or
+silhouette a face to soften it.
 
-The approved Home slot is 4:3 and remains 4:3 when the section stacks on mobile. Keep the soap and washcloth within the central 80% × 84% safe area. The image should describe changed routine without turning Brayden into evidence.
+The Home image belongs to Brayden's recovery voice, and it is **his own photograph, retained as
+received** — the picture a man like this actually has of himself. Approved and shipped: Brayden, 27,
+in a boat on open water, sunglasses on, holding a bluegill up toward the camera with both hands,
+grinning, flat overcast light. Nothing about the frame is styled by CWAAA. That is the joke and the
+finding at once: the committee files it without comment.
 
-**Required Home master:** `recovery-brayden-soap-shelf.jpg` at 2400×1800. Preserve an uncropped source. For later approved stories, use `recovery-<id>-environment.jpg`, `recovery-<id>-portrait.jpg`, or `recovery-<id>-object.jpg`, supplying only the slots approved by CW-D04; their sizes and crops remain route decisions.
+The approved Home slot is 4:3 and remains 4:3 when the section stacks on mobile. Keep the face and
+the fish inside the central 80% × 84% safe area. The image should look submitted, not art-directed —
+phone-camera light, ordinary composition, no retouching, no editorial grade.
+
+**Home master:** `cwaaa/src/assets/brayden.png`, 4:3. Preserve an uncropped source. For later
+approved stories, use `recovery-<id>-portrait.jpg` as the default slot; `recovery-<id>-environment.jpg`
+and `recovery-<id>-object.jpg` are supporting images only and never substitute for the portrait.
+Supply only the slots approved by CW-D04; their sizes and crops remain route decisions.
 
 Testimony, `RC-NNN`, institutional labels and next actions remain HTML. If a handwritten or printed artifact is featured, approve its full text separately and provide the transcript. Use the local testimony type role for live long-form copy; do not bake a “case file” UI into the picture.
 
-**Acceptance:** each image is grounded in the specific approved account, identities stay consistent, no real allegation is implied, and the mobile crop remains humane and comprehensible. No mugshot grid, police evidence, surveillance marks or generic smiling headshot carousel.
+**Acceptance:** a participant is visible in the frame; each image is grounded in its specific approved
+account; identities stay consistent across appearances; the mobile crop keeps the face legible. No
+mugshot grid, police evidence, surveillance marks, or stock-photography testimonial carousel — the
+objection to those is that they are generic and institutional, not that they show people. An object
+shipped in a participant's slot is a rejected asset.
 
 ## CW-G05 — chapter life and 2024 founding artifacts
 
@@ -95,7 +162,7 @@ Make a composed set from approved local environments, event/table details, ribbo
 
 For each object, record who made it, why it exists, its full text, physical construction and where it appears. A complete packet photographed selectively is acceptable; disconnected scraps with invented seals are not. Keep plain transcripts for meaningful text and rights notes for every source.
 
-**Acceptance:** local human continuity and contemporary origin are visible; no unapproved real contact details, fake usable chapter service, decorative pin/tape/stamp clutter, or explanation of CWAAA/Office operations.
+**Acceptance:** people are visible in the chapter set — the packets and correspondence are photographed with the members who made them, never as an object arrangement alone; local human continuity and contemporary origin read clearly; no unapproved real contact details, fake usable chapter service, decorative pin/tape/stamp clutter, or explanation of CWAAA/Office operations.
 
 ## CW-G06 — nonprofit pledge share artifact and email identity
 

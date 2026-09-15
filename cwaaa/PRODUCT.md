@@ -64,7 +64,11 @@ Confirmed functionality:
 
 Hard constraints:
 
-- CWAAA never claims regulatory power, never calls the Office its partner, parent, supervisor, operator, division, or coordinator, and never uses Office containment, terminal, repeat-access, or "Please remain available" language on ordinary pages.
+- CWAAA holds no regulatory power and never claims any. It documents, intervenes, supports, follows
+  up, and publishes; only the Office audits, finds, states compliance, and disposes. Amended
+  2026-09-15: a severe Recovery Record may carry one embedded external finding in the Office's own
+  quoted voice and materials. This is the Office speaking, not CWAAA, and it does not relax the rule
+  below. CWAAA never claims regulatory power, never calls the Office its partner, parent, supervisor, operator, division, or coordinator, and never uses Office containment, terminal, repeat-access, or "Please remain available" language on ordinary pages.
 - No accounts, backend profiles, IP identity, fingerprinting, Office-style recognition, or cross-device state.
 - No ongoing newsletter, drip, donations, real chapter operations, or CMS without separate approval (CW-L04). Form CW-1 is never silently extended.
 - The 1-800-GOT-SOAP number is a shared-world artifact owned by Got Soap?; CWAAA's telephone is an ordinary chapter contact path, not a hotline or compliance line.
@@ -86,7 +90,7 @@ Explicitly undecided (tracked in `PRD-TO-LAUNCH.md`):
 - Voice: a capable nonprofit whose staff have done this before. Procedural but readable, earnest without sentimentality, firm without menace, dry because the procedure is specific. Never the campaign's smolder, never Office officialese, never customer-support SaaS.
 - Emotional temperature is collective relief, and CWAAA never performs horror. Its unease is an accidental byproduct of consistency (sparse chronology, a neutral citation, unusually complete continuity), never the page's objective.
 - Typography is a six-role cast recorded in `docs/ui-system.md` and `../site/config/cwaaa-font-manifest.json`: MORVI (proposition), Mirk Slab 900 (monumental figure), Proda Sans (reading), Catesque (interface and notation), Modest (testimony), PT Serif (identity serif on seal and certificate artifacts only). These are owner decisions; the font brief is provenance, not a reopened interview.
-- Binding visual constraints the owner has already locked (recorded here without expansion; `design.md` governs execution): the home hero is a woman's hands tying a red washcloth ribbon around a used black gym bag; paper appears only as a real artifact; no all-manila world, dossier styling, dashboards, card grids, animated maps, or generic nonprofit theme.
+- Binding visual constraints the owner has already locked (recorded here without expansion; `design.md` governs execution): **people are shown in every image and no still life appears anywhere** — everyone depicted is AI-generated, so likeness, dignity, and offense are not grounds to soften or object-ify a picture, and this ruling is not open to re-argument; the home hero is the coalition's own group portrait — three members in a plain meeting room, facing the camera, one holding a bar of soap (shipped; the earlier gym-bag spec is struck); paper appears only as a real artifact; no all-manila world, dossier styling, dashboards, card grids, animated maps, or generic nonprofit theme.
 
 ## Evidence on Hand
 

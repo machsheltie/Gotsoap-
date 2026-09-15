@@ -141,7 +141,15 @@ export const home = {
     /** DRAFT — the referring visitor's action: a link to Form CW-1 that copies the pledge URL
      *  when JavaScript is available (design.md §10: a copied link confirms). */
     refer: { label: 'Copy the pledge link for him', href: '/pledge', done: 'Pledge link copied. Send it without commentary.' },
-    objectSpec: 'CW-G04 · participant object · placeholder. Object and image direction pending CW-D04.',
+    /** APPROVED 2026-09-15 — CW-G04 Home. The participant is shown. The photograph is the one he
+     *  had on hand, which is the finding. Alt text carries the committee's caption voice; it
+     *  describes what is in the frame and does not comment on it. */
+    image: {
+      title: 'Participant photograph · Brayden, 27',
+      spec: 'Submitted by the participant. Retained as received.',
+      alt:
+        'Brayden, 27, in a boat on open water, sunglasses on, holding a bluegill up toward the camera with both hands. Submitted by the participant as his most recent photograph of himself.',
+    },
   },
 
   /** Sequence items 6 and 7 (design.md §5): coalition scale, a few human chapter traces, one pledge action. */
@@ -170,15 +178,20 @@ export const home = {
       id: 'CW-G02',
       /** Owner-supplied photographs, 2026-09-15 (src/assets/hero-coalition-{wide,tall}.png). */
       alt: 'Three members of the coalition standing in a plain meeting room, facing the camera. One holds a bar of soap.',
-      title: 'Documentary hero · full bleed · placeholder',
+      title: 'Documentary hero · full bleed · shipped',
+      /** CW-G02 is shipped and closed (GRAPHICS-TO-MAKE.md, design.md §6). The earlier gym-bag
+       *  shot spec was struck by the owner and is deliberately not preserved here — leaving it
+       *  in the module invited agents to treat it as live direction. */
       spec:
-        '16:9 wide frame. A woman’s hands tying a red washcloth ribbon to the handle of a used black gym bag on a locker-room bench. Hands and knot inside the dashed safe zone: upper right, below the navigation band (no closer than 24% from the top); lower left kept quiet for the proposition. Export 3200×1800 minimum plus a 4:5 phone recrop.',
+        '16:9 wide frame. The coalition group portrait: three members in a plain meeting room, facing the camera, one holding a bar of soap. Subject upper-right below the navigation band; lower left kept quiet for the proposition. Masters: 3200×1800 desktop plus a true 4:5 phone composition.',
     },
     cloth: {
       id: 'CW-G03',
-      title: 'Cloth macro · full bleed · placeholder',
+      /** No still life (GRAPHICS-TO-MAKE.md § Standing image law, 2026-09-15): a man is in frame
+       *  wearing the ribbon. Object-alone doorknob scenes are rejected. */
+      title: 'Tie One On scene · full bleed · placeholder',
       spec:
-        'Real red washcloth: weave, hem, knot tension, tied to a gym-bag handle or doorknob. Lower-left third kept quiet for the panel.',
+        'A man in an ordinary interior with the red washcloth ribbon on him — wrist, belt loop, or bag strap he is carrying. He is legible in frame; weave, hem and knot tension read at that proximity. No object-alone still life. Lower-left third kept quiet for the panel.',
     },
   },
 } as const;

@@ -31,7 +31,7 @@ ownership, accessible forms, participant stories, chapter information, findings,
 restrained institutional language.
 
 The expressive layer prevents generic design through monumental public statements, exhibition-scale
-findings, intimate testimony, documentary human traces, tactile program artifacts, authored
+findings, intimate testimony, documentary photographs of people, tactile program artifacts, authored
 composition, route-specific spatial laws, narrative material transitions, and sparse cumulative
 wrongness.
 
@@ -78,10 +78,17 @@ mission explains that Concerned Women Against Axe Abuse is a national coalition 
 hygiene the expected baseline and giving people a practical way to act. The two opening actions are
 **Take the Pledge** and **Read the Findings**.
 
-The documentary-editorial hero shows a woman's hands tying a red washcloth ribbon around the handle
-of a genuinely used black gym bag on a locker-room bench. No posed face, smiling group, matching
-shirts, pristine stock setting, brand logo, or luxury-product sweep appears. The cloth shows real
-weave, hem, knot tension, wear, imperfect ends, and a hand still completing the act.
+The documentary-editorial hero is a **photograph of the coalition itself**: three members standing in
+a plain meeting room, facing the camera, one holding a bar of soap. It is posed, frontal, and
+unsmiling-adjacent — the group portrait an organization takes of itself because it believes it is an
+organization. That conviction is the hero's entire argument, and it only exists because the women are
+looking straight out of the frame.
+
+**Shipped and owner-ratified 2026-09-15** (`src/assets/hero-coalition-{wide,tall}.png`). This
+supersedes the earlier hands-tying-a-ribbon-on-a-gym-bag spec, which was rejected by the owner: a
+duffle bag with a wash rag on it is not a coalition, and it read as the site being embarrassed to
+show its own people. **Do not reopen this.** The prohibition on "posed faces" that governed the
+earlier spec is struck — see §7.
 
 The image interrupts the typography rather than forming a 50/50 split. `SOAP` may pass partly behind
 the image only if it remains immediately legible. One cloth tail may leave the photograph as a
@@ -126,6 +133,20 @@ They are **PARTICIPANT ADVOCACY FILES**, **NOT POLICE EVIDENCE**. They are never
 archives, criminal dossiers, mugshots, classified folders, suspect profiles, evidence boards, or
 red-string walls. Findings prove the issue; Recovery Stories show change.
 
+A severe record may carry one **embedded external finding**: the Office's own document quoted inside
+the file. It is rendered as a foreign object, not as a CWAAA component — stark white, Courier, black
+institutional type, its own reference numbering — visually incompatible with the warm civic system
+around it, and small. No Office logo, no link, no caption, no lead-in, and no explanation. The
+scrolling reader should think *wait, what is this* and get no answer. CWAAA's record resumes on the
+next line as if nothing happened. This is the only Office language permitted on an ordinary CWAAA
+route, and it is permitted because CWAAA is not the one speaking.
+
+Records past the archive boundary receive **no secret-area treatment**: no glitch, warning, stamp,
+vignette, hacker aesthetic, or change of pace. They render in CWAAA's ordinary record template until
+the template itself stops being what renders them. The boundary is a bureaucratic failure to stop
+paginating, not an effect. It also sits outside this route's one-fracture budget, because the
+records past it are not CWAAA-authored surfaces.
+
 ### Tie One On For Suds
 
 Actual red cloth owns the route at human or macro scale: fibers, hem, stitch, fold, wear, tension,
@@ -162,13 +183,28 @@ fiction disclosure. It is not duplicated in CWAAA's public footer voice.
 
 The target hierarchy is approximately:
 
-- **50% DOCUMENTARY HUMAN TRACES**;
+- **50% DOCUMENTARY PHOTOGRAPHS OF PEOPLE** — people are *shown*, not implied by traces;
 - **30% COHERENT PHYSICAL ARTIFACTS**;
 - **20% LIVE CIVIC GRAPHICS** and typography.
 
-Show people doing the work, never posed volunteers offered as proof of legitimacy. Avoid smiling
-groups, matching shirts, clipboard enthusiasm, ashamed participants, humiliation, punishment, and
-before/after imagery.
+**People are shown. Faces, bodies, the actual members and the actual men** — posed or candid, both
+are available. Every person in this fiction is synthetic: there is no real likeness, no consent
+question, and no subject who can be hurt or embarrassed by appearing here. Arguments from likeness,
+dignity, or possible offense have no purchase on this project and must not be used to soften an
+image, and this is satire whose job includes being uncomfortable.
+
+**Struck 2026-09-15 by owner direction:** the former rule "show people doing the work, never posed
+volunteers offered as proof of legitimacy." It produced a site that hid its own cast. The posed
+coalition portrait is now the home hero (§6), and the posed group is a feature, not a departure.
+
+**No still life.** Objects never carry an image alone and never stand in a person's slot. Macro
+material detail is a supporting crop inside a scene with a body in it, never the image a section is
+built on. An object delivered where a person belongs is a rejected asset.
+
+What remains rejected is the **generic and the institutional**, not the human: stock-photography
+testimonial carousels, clipboard enthusiasm, matching-shirt volunteer filler, mugshot grids,
+surveillance framing, humiliation, punishment, and before/after construction. The objection to each
+is that it is lazy or cruel-by-formula — never that a face is visible.
 
 Every artifact has one fictional owner, a real function, complete copy, plausible size and
 construction, consistent typography, a date or version when appropriate, and a reason to exist

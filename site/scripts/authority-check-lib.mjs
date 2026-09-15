@@ -1564,7 +1564,11 @@ export function collectAuthorityErrors(repoRoot) {
     'TIE ONE ON',
     'CHAPTERS',
     'PAPER IS CONTENT, NOT THE UNIVERSE',
-    '50% DOCUMENTARY HUMAN TRACES',
+    // Owner direction 2026-09-15: people are SHOWN, not implied by "traces". The former required
+    // marker '50% DOCUMENTARY HUMAN TRACES' is struck; this gate previously forced the struck
+    // wording back into design.md on every run. Do not restore it.
+    '50% DOCUMENTARY PHOTOGRAPHS OF PEOPLE',
+    'NO STILL LIFE',
     '30% COHERENT PHYSICAL ARTIFACTS',
     '20% LIVE CIVIC GRAPHICS',
     'PARTICIPANT ADVOCACY FILES',

@@ -19,7 +19,7 @@ related_targets: []
 
 **Motion (owner request 2026-09-14).** Scroll-driven reveals like the reference: text rises and settles, rules draw in, photographs settle from a slight scale, utility bar pinned. No parallax, cursor tracking, or animated ribbon (design.md §10). Reduced motion removes movement, keeps state.
 
-**Placeholders, never stock.** CW-G02 hero (16:9, subject upper-right, lower-left quiet, 3200×1800 + 4:5 recrop), CW-G03 cloth macro (full bleed, lower-left quiet), CW-G04 participant object (direction pending CW-D04). Each renders as a labeled slot with safe zone until the approved asset exists.
+**Owner photography, never stock. People in every frame; no still life anywhere** (see `../../GRAPHICS-TO-MAKE.md` § Standing image law). CW-G02 hero — **shipped**, the coalition group portrait (16:9, subject upper-right, lower-left quiet, 3200×1800 + true 4:5); CW-G04 recovery voice — **shipped**, Brayden's participant photograph (4:3); CW-G03 Tie One On — pending, a man in frame wearing the ribbon, full bleed, lower-left quiet. Remaining slots render as a labeled placeholder with safe zone until the approved asset exists. Do not substitute an object for a person in any slot.
 
 **Comp inventory and media.** Nav/utility/footer: HTML. Proposition and all headings: live HTML in the locked cast. Hero, cloth, object: raster, owner-supplied. Seal: existing SVG component prepared from the approved source. Rules, panels: CSS. Section eyebrow dot labels: HTML, kept because the owner approved the reference's elements.
 

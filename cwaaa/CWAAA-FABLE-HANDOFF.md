@@ -169,16 +169,25 @@ Use document hierarchy, not landing-page hierarchy: issue number, title, short f
 
 ### Photography and imagery
 
-Avoid a generic charity hero, smiling volunteer stock photos, staged boardroom diversity, faux evidence photography, or ominous filing cabinets.
+**SUPERSEDED 2026-09-15 by owner direction.** The still-life instruction below was wrong and is
+struck. See `GRAPHICS-TO-MAKE.md` § CW-G04 and `docs/ui-system.md` §13 for live authority.
 
-If photography is used, prefer close, materially specific still lifes:
+**No still life.** CWAAA does not use object-only photography anywhere on the site. Every image has a
+person in it. The men in this campaign are synthetic — there is no likeness to protect, no one to
+embarrass, and no consent to obtain. Substituting a folded washcloth or a stamped form for the man
+being described is the single failure that flattens this satire: it makes the Coalition look like it
+is apologizing for its own findings. It is not. It files them.
 
-- a neatly folded washcloth ribbon on a chapter packet;
-- a stamped Form CW-1 on a warm desk surface;
-- organized envelopes, paper tabs, string, soap, and modest office tools;
-- chapter-table details with real hands, never faceless “suspects” or staged shame.
+Participant photographs read as **submitted and retained as received** — the picture a man like this
+already has of himself. Phone-camera light, ordinary composition, no retouching, no editorial grade,
+no styling by CWAAA. The gap between what he chose to send and what the committee writes underneath
+it is the entire joke.
 
-The preferred first build can be largely typographic and material, using the seal, ribbon, rules, stamps, and paper composition instead of stock photography.
+Still avoid: smiling volunteer stock, staged boardroom diversity, and generic charity-hero framing.
+The objection to those is that they are **generic and institutional**, never that they show people.
+
+Paper, seal, ribbon, rules and stamps remain the typographic system. They are chrome around the
+people; they never replace them.
 
 ## 7. Anti-template constitution
 
@@ -197,7 +206,11 @@ Do not build:
 - randomized case-file generation;
 - decorative stamps with no semantic purpose.
 
-Every page needs one dominant documentary event and one useful next action.
+Each ordinary advocacy page needs a clear documentary purpose and an appropriate way to continue.
+A Recovery Story may close on a concrete earned benefit; a proof record may close on its strongest
+fact; an unindexed Office-derived fragment may close on unresolved implication. Do not attach a
+CTA or direct quiz path merely to satisfy a page-wide formula. Preserve the ordinary index's
+accidental pagination path into unindexed records.
 
 ## 8. Information architecture
 
@@ -1064,4 +1077,3 @@ Do not decorate the joke. Institutionalize it.
 Every rule, stamp, tab, label, and line of copy must help CWAAA do one of four things: state the baseline, document the finding, protect the participant, or make the next action easier.
 
 If an element does none of those things, remove it.
-

@@ -28,8 +28,8 @@ File presence is not visual approval. Neither local source nor a green build pro
 
 - The public proposition is **THE BAR IS SOAP.** The experience is credible, humane advocacy with exceptional art direction. It earns trust before a sparse unexplained Office referral.
 - Navigation uses **Findings**, **Recovery Stories**, **Tie One On**, **Chapters**, **About**, and **Take the Pledge**. An individual opened story may use **Recovery Record** and `RC-NNN`; the navigation must not revert to Case Files.
-- The visual hierarchy is roughly 50% documentary human traces, 30% coherent physical artifacts, 20% live civic graphics. Paper appears only as a real form, report, letter, packet, or citation. No all-manila world, dossier styling, decorative stamps, dashboard, or generic nonprofit card grid.
-- A woman's hands tying a red washcloth ribbon to a used black gym bag is the specified home image. CWAAA photography shows activity, material, and continuity rather than staged volunteer enthusiasm or shame.
+- The visual hierarchy is roughly 50% documentary **photographs of people**, 30% coherent physical artifacts, 20% live civic graphics. People are shown — faces and bodies; no still life, and artifacts never annex the 50%. Paper appears only as a real form, report, letter, packet, or citation. No all-manila world, dossier styling, decorative stamps, dashboard, or generic nonprofit card grid.
+- The home image is the coalition's own group portrait — three members in a plain meeting room, facing the camera, one holding a bar of soap — shipped and closed 2026-09-15; the earlier gym-bag spec is struck. CWAAA photography **shows people** — faces and bodies, posed or candid — with activity, material, and continuity. No still life anywhere; an object never stands in a person's slot. What stays rejected is generic stock and institutional framing, never the human.
 - CWAAA was established in 2024 from a book club. The Office's 1961 continuity may be referenced sparsely without resolving its relationship or jurisdiction. No ordinary CWAAA page uses Office denial or surveillance language.
 - The pledge belongs to CWAAA; its campaign edition remains on Got Soap?. Both delivered messages are CWAAA-authored. There is no automatic ongoing newsletter or marketing enrollment.
 
@@ -70,7 +70,7 @@ Record each resolution as **decision, rationale, source authority, affected rout
 |---|---|---|
 | `/` | Proposition owns most of opening; documentary hero interrupts type; continuous DOCUMENT. ADVOCATE. ORGANIZE.; one finding, recovery voice, ribbon moment, coalition scale, pledge action, and campaign seam | CW-G01/02/03/04/05. Clear navigation, no equal three-card program row or repetitive pledge CTA after every section |
 | `/findings` | Monumental live figure, hard rule, conclusion, support, disposition; one human annotation or methodology interruption | CW-G08 only if a real source artifact is approved. Figures/tables stay HTML; aligned values use Catesque; at most one sparse neutral Office citation |
-| `/recovery-stories` | Intimate reading-oriented index of approved participant accounts | CW-G04. No mugshots, profiles under surveillance, carousel, police evidence, or generic testimonial cards |
+| `/recovery-stories` | Intimate reading-oriented index of approved participant accounts | CW-G04. Participants are shown. No mugshots, surveillance framing, carousel, police evidence, or stock testimonial cards |
 | `/recovery-stories/[id]` | Individual testimony, object/environment, recovery identifier, humane change and next action | CW-G04. Approved source roster and stable IDs; distinguish first-person testimony from institutional captions |
 | `/tie-one-on` | Actual cloth in human/macro scale; instructions on plausible complete artifacts or accessible live content | CW-G03. Real weave, hem, knot and tension; no cursor ribbon or simulated craft table |
 | `/pledge` | One ceremonial civic signing surface; explicit consent and clear validation; confirmed `SWORN`, share/copy, fulfillment explanation and ordinary CWAAA continuation | CW-G06. No Office text, threat, regulatory seal theater, or campaign-smolder styling |
@@ -153,9 +153,9 @@ Close the launch handoff with a checklist of deferred IDs, next actions, and res
 | CW-D07 (build location only) | resolved | New Astro static app at `cwaaa/`, sibling to `../site/` | `docs/ui-system.md` §13 |
 | CW-D03 (home only) | resolved | Comp D "The Field Report" approved; other routes open | `docs/ui-system.md` §13, `.impeccable/mocks/cwaaa-home-d.json` |
 | CW-D02 (ground only) | partly resolved | White/ivory fields; manila retired to artifacts; other tokens proposed, not law | `docs/ui-system.md` §13 |
-| CW-G02 (frame) | resolved | 16:9 wide, subject upper-right, lower-left quiet, 3200×1800 + 4:5 recrop | `docs/ui-system.md` §13 |
+| CW-G02 (frame) | shipped, closed | Coalition group portrait; 16:9 wide, subject upper-right, lower-left quiet, 3200×1800 + true 4:5. Posed faces approved; do not respec | `docs/ui-system.md` §13 |
 | CW-G03 (home) | resolved | Doorknob ribbon scene, 3200×1800 desktop + 2400×3000 mobile; lower-left reserved for the inset panel | `GRAPHICS-TO-MAKE.md`, `docs/ui-system.md` §13 |
-| CW-G04 (home) | resolved | Brayden object image, 4:3 at 2400×1800; broader story roster remains open | `GRAPHICS-TO-MAKE.md`, `docs/ui-system.md` §13 |
+| CW-G04 (home) | shipped | Brayden participant photograph, 4:3, wired 2026-09-15; broader story roster remains open | `GRAPHICS-TO-MAKE.md`, `docs/ui-system.md` §13 |
 | CW-G05 / CW-G08 (home) | resolved | No Home assets required; both remain conditional on their dedicated route layouts | `GRAPHICS-TO-MAKE.md` |
 | CW-G06 / CW-G07 | partly resolved | Share-master and default-preview visual formats locked; final pledge wording and final-size identity review remain | `GRAPHICS-TO-MAKE.md`, `docs/ui-system.md` §13 |
 | CW-D04 (Findings register) | resolved | Four entries, year 26: 26-01 = figure 73% with conclusion "Fragrance is not a cleansing event." (home statement merged with runtime 26-04); 26-02/03/04 carry runtime 26-01/02/05; runtime 26-03 dropped (unsupported 1983 date). Home Finding takes label 26-01. No Office citation on `/findings`. Recovery Stories roster still open | `docs/ui-system.md` §13, `.impeccable/surfaces/cwaaa-src-pages-findings-astro.md` |

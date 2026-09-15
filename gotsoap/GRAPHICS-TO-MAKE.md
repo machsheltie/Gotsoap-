@@ -99,11 +99,16 @@ The coalition has its own default preview and identity. A single combined-site O
 
 | Product / runtime slug | Required scene | New work only if existing art cannot provide it |
 |---|---|---|
-| Embossed Bar / `soap` | Cream soap, wet stone, lather, embossed mark; macro porcelain still life | Image-owned scene + severe material detail |
+| Embossed Bar / `soap` | Cream soap, wet stone, lather, embossed mark — **in a body's hands, in use**, not an object alone | Image-owned scene + severe material detail |
 | Wordmark Tee / `got-soap-tee` | Male torso, dressing-room or locker-room editorial | Scene with legible shirt mark and convincing fabric |
 | Statement Tee / `clean-sexy-tee` | Chrome or amber; statement reads before price | Editorial scene and print/material detail |
 | Dad Hat / `hat` | Controlled candid or casting moment; attitude leads | Authored scene and fabric/embroidery detail |
 | Effort Bottle / `effort-bottle` | Gym-to-shower transition; earned sweat, clean resolution | Contextual scene and material detail |
+
+**No still life.** Every Shop scene has a body in it — hands, torso, skin, wear. Product-alone
+object photography is a rejected performance; the detail crop is the only place material may carry a
+frame without a person, and it is a supporting image, never a hero. People in these images are
+synthetic; there is no likeness to protect.
 
 **Canvas sizes, shot count, and portrait needs: interview required in GS-D02/03.** The requirement is five distinct performances, not automatically fifteen new photographs. For each approved product, lock a wide hero, a portrait treatment (recompose if needed), and one severe detail; a usable existing source may supply the detail crop.
 

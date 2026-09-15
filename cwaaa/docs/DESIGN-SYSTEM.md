@@ -40,7 +40,7 @@ Two layers share one continuous public composition. The **institutional layer** 
 ordinary navigation, mission clarity, explicit program ownership, accessible forms, participant
 stories, chapter information, findings, and restrained institutional language. The **expressive
 layer** prevents generic design through monumental public statements, exhibition-scale findings,
-intimate testimony, documentary human traces, tactile program artifacts, authored composition,
+intimate testimony, documentary photographs of people, tactile program artifacts, authored composition,
 route-specific spatial laws, and sparse cumulative wrongness. The site never alternates between "a
 website" and "a simulated archive."
 
@@ -158,9 +158,11 @@ borders, corners, and shadows (`§6`).
 
 Locked route expression, which any spatial system must express distinctly:
 
-- **Home** is a major public advocacy campaign. The hero is a documentary-editorial image — a woman's
-  hands tying a red washcloth ribbon around a genuinely used black gym bag on a locker-room bench —
-  and the image **interrupts the typography rather than forming a 50/50 split**.
+- **Home** is a major public advocacy campaign. The hero is a documentary-editorial photograph of
+  the coalition's own group portrait — three members in a plain meeting room, facing the camera, one holding a bar of soap — shipped and closed
+  2026-09-15 — and the image **interrupts the typography rather than forming a 50/50 split**. The
+  earlier gym-bag/washcloth hero spec is struck; people are shown, and no still life appears
+  anywhere on the site (`../GRAPHICS-TO-MAKE.md` § Standing image law).
 - **Findings** are monumental, public, collective, vertical, and declarative.
 - **Recovery Stories** are intimate, humane, individual, and reading-oriented.
 - **Tie One On** is tactile and cloth-led.

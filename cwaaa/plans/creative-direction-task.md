@@ -1,5 +1,19 @@
 # CWAAA: task 1 reading extract
 
+
+> **⚠ IMAGE DIRECTION IN THIS DOCUMENT IS STRUCK (owner direction, 2026-09-15).**
+>
+> This file predates the owner's standing image law and contains photography direction that was
+> **rejected**: the hands/red-washcloth/used-black-gym-bag hero, the "50% documentary human traces"
+> hierarchy, "show people doing the work, never posed volunteers offered as proof of legitimacy,"
+> and any "macro still life" product scene. **None of it is live. Do not restore, re-derive, cite,
+> or re-argue it.**
+>
+> Current law: **no still life anywhere; people are shown — faces and bodies, posed or candid.**
+> Everyone depicted is AI-generated, so likeness, dignity, and offense are not grounds to soften or
+> object-ify any image. See `cwaaa/GRAPHICS-TO-MAKE.md` § Standing image law, `cwaaa/design.md` §§6-7,
+> and the root `AGENTS.md`. Everything else in this file remains historical evidence, not authority.
+
 Source: [the shared coordinated plan](../../docs/superpowers/plans/2026-07-28-creative-direction-revision.md). This is a preserved task excerpt, not independent authority or a new instruction to execute historical commands. Current local PRD and design win conflicts. Paths within the excerpt are repository-relative unless explicitly relative.
 
 ### Task 1: Rebuild CWAAA as a public advocacy platform
@@ -32,7 +46,7 @@ errors.push(...missingRequiredMarkers(cwaaaDesign, [
   'TIE ONE ON',
   'CHAPTERS',
   'PAPER IS CONTENT, NOT THE UNIVERSE',
-  '50% DOCUMENTARY HUMAN TRACES',
+  '50% DOCUMENTARY PHOTOGRAPHS OF PEOPLE',  // was '50% DOCUMENTARY HUMAN TRACES' — struck 2026-09-15
   '30% COHERENT PHYSICAL ARTIFACTS',
   '20% LIVE CIVIC GRAPHICS',
   'PARTICIPANT ADVOCACY FILES',
@@ -161,7 +175,7 @@ Routine washing is a reasonable collective expectation.
 Home → Findings → Recovery Stories → Tie One On → Pledge → Chapters / About → Office referral
 ```
 
-Specify the hands/red-washcloth/used-black-gym-bag hero from the governing specification, the single continuous `DOCUMENT. ADVOCATE. ORGANIZE.` composition, route-specific choreography, the 50/30/20 photography hierarchy, and:
+Specify the ~~hands/red-washcloth/used-black-gym-bag~~ **STRUCK 2026-09-15 — now the coalition group portrait** hero from the governing specification, the single continuous `DOCUMENT. ADVOCATE. ORGANIZE.` composition, route-specific choreography, the 50/30/20 photography hierarchy, and:
 
 ```markdown
 Paper is content, not the universe.

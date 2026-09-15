@@ -51,6 +51,14 @@ Historical plans are evidence, not live authority, when `docs/HANDOFF.md` marks 
   chrome, tile, smoke, amber, and unapologetic display type.
 - Shop is a fashion catalogue pretending to be a store. Products receive distinct editorial
   performances, and checkout remains intentionally unavailable.
+- **No still life anywhere, on any entity's surfaces. People are shown — faces and bodies.** Never
+  substitute an object, texture, empty room, or hand-only crop for the person a section is about.
+  Everyone depicted is AI-generated: there is no real likeness, no consent question, and no one who
+  can be hurt or embarrassed, so likeness, dignity, privacy, and offense are not valid grounds for
+  softening an image. This is satire and is allowed to be uncomfortable; hedging flattens it. Only
+  the generic and institutional stay rejected (stock testimonial carousels, charity-hero framing,
+  mugshot grids, surveillance framing), never the human. Owner direction, 2026-09-15 — settled.
+  Earlier specs refusing posed faces or preferring still life are struck; do not re-argue them.
 - Keep the Sniff Test in Got Soap?.
 - Keep the Lather Pledge in both Got Soap? and CWAAA. Both implementations use the exact portable
   contract in `docs/contracts/pledge.v1.json`; the CWAAA copy is byte-for-byte equivalent at

@@ -54,7 +54,7 @@ The redirect preserves deep links without retaining the obsolete public label or
 ## Homepage and route responsibilities
 
 The Home route presents **THE BAR IS SOAP.**, “Routine washing is a reasonable collective
-expectation,” the hands/red-washcloth/used-black-gym-bag documentary hero, and one continuous
+expectation,” the coalition group-portrait documentary hero (three members in a plain meeting room facing the camera, one holding a bar of soap; shipped 2026-09-15 — the earlier hands/red-washcloth/gym-bag spec is **struck**), and one continuous
 **DOCUMENT. ADVOCATE. ORGANIZE.** composition. It then introduces one Finding, one recovery voice,
 Tie One On, coalition scale, one pledge action, and a controlled Got Soap? artifact seam.
 
@@ -139,8 +139,13 @@ audience-facing disclosure.
 - Migrate approved CWAAA copy from `site/src/content/copy.ts` using `migration-manifest.md`.
 - Apply the existing copy protocol before edits.
 - Move Office-authored lines out of CWAAA copy; the Office never files Form CW-1.
-- Preserve the two-author seam between CWAAA and Got Soap? materials.
-- Present Recovery Stories as participant advocacy files that document change and next action.
+- Preserve distinct campaign, CWAAA, participant/witness, Office, and reality-sourced Stacey
+  registers. CWAAA may host a participant's own testimony or a selected Office-derived fragment
+  without adopting that speaker's authority or cadence.
+- Present Recovery Stories as conversion and character surfaces. Show belief → behavior →
+  consequence → challenge → experiment → benefit → revised belief; keep the participant
+  recognizably himself and make the benefit tangible rather than merely avoiding shame or paperwork.
+  An earned warm ending is allowed.
 - Protect participant names within the fiction and never imply government custody, surveillance,
   prosecution, or a real allegation.
 

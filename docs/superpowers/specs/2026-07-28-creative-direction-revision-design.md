@@ -1,5 +1,19 @@
 # Got Soap? / CWAAA / Office Creative-Direction Revision
 
+
+> **⚠ IMAGE DIRECTION IN THIS DOCUMENT IS STRUCK (owner direction, 2026-09-15).**
+>
+> This file predates the owner's standing image law and contains photography direction that was
+> **rejected**: the hands/red-washcloth/used-black-gym-bag hero, the "50% documentary human traces"
+> hierarchy, "show people doing the work, never posed volunteers offered as proof of legitimacy,"
+> and any "macro still life" product scene. **None of it is live. Do not restore, re-derive, cite,
+> or re-argue it.**
+>
+> Current law: **no still life anywhere; people are shown — faces and bodies, posed or candid.**
+> Everyone depicted is AI-generated, so likeness, dignity, and offense are not grounds to soften or
+> object-ify any image. See `cwaaa/GRAPHICS-TO-MAKE.md` § Standing image law, `cwaaa/design.md` §§6-7,
+> and the root `AGENTS.md`. Everything else in this file remains historical evidence, not authority.
+
 **Status:** owner-approved governing design
 **Date:** 2026-07-28
 **Supersedes:** conflicting visual, route, disclosure, Shop, and IVR-ownership guidance in lower-precedence authority
@@ -78,7 +92,7 @@ The **expressive layer** prevents generic design:
 - monumental public statements;
 - exhibition-scale findings;
 - intimate testimony;
-- documentary human traces;
+- ~~documentary human traces~~ **documentary photographs of people** (struck 2026-09-15);
 - tactile program artifacts;
 - highly authored composition;
 - route-specific spatial laws;
@@ -164,7 +178,7 @@ Actions:
 
 Reserve **FRAGRANCE IS NOT A SUBSTITUTE FOR WASHING** for Findings.
 
-The hero image is documentary-editorial: a woman’s hands tying a red washcloth ribbon around the handle of a genuinely used black gym bag on a locker-room bench. No posed face, smiling group, matching shirts, pristine stock environment, brand logo, or luxury-product sweep. The cloth shows real weave, hem, knot tension, wear, and imperfect ends. The hand is still completing the act.
+~~The hero image is documentary-editorial: a woman’s hands tying a red washcloth ribbon around the handle of a genuinely used black gym bag on a locker-room bench. No posed face, smiling group, matching shirts, pristine stock environment, brand logo, or luxury-product sweep.~~ **STRUCK 2026-09-15.** The hero is the coalition's posed group portrait; the “no posed face” clause is void. See the banner at the top of this file.
 
 The proposition owns roughly two-thirds of the field. The image interrupts the typography rather than forming a 50/50 split. `SOAP` may pass partly behind the image only if immediately legible. One cloth tail may leave the photograph as a controlled material interruption. The ribbon does not animate around the page.
 
@@ -257,11 +271,11 @@ No ominous framing or explanation.
 
 Target hierarchy:
 
-- approximately **50% documentary human traces**;
+- approximately **50% documentary photographs of people** (~~human traces~~ — struck 2026-09-15; traces are not humans);
 - approximately **30% coherent physical artifacts**;
 - approximately **20% live civic graphics and typography**.
 
-Show people doing the work, never posed volunteers offered as proof of legitimacy. Avoid smiling groups, matching shirts, clipboard enthusiasm, ashamed participants, humiliation, punishment, and before/after imagery.
+~~Show people doing the work, never posed volunteers offered as proof of legitimacy.~~ **STRUCK 2026-09-15 — this rule produced a site that hid its own cast. People are shown, posed or candid.** Still avoided: smiling-group stock filler, matching shirts, clipboard enthusiasm, ashamed participants, humiliation, punishment, and before/after imagery — rejected for being generic or cruel-by-formula, never for showing a face.
 
 Every artifact has:
 
@@ -389,7 +403,7 @@ Shop behaves like a 1990s–2000s fashion campaign, luxury men’s grooming laun
 
 The Shop index refuses an equal product grid. Each product gets an oversized editorial performance:
 
-- **The Embossed Bar:** cream soap, wet stone, lather, embossed mark, macro porcelain still life.
+- **The Embossed Bar:** cream soap, wet stone, lather, embossed mark — ~~macro porcelain still life~~ **STRUCK 2026-09-15: no still life; the bar is in a body's hands, in use.**
 - **The Wordmark Tee:** male torso, dressing room, or locker-room editorial; identity rather than inventory.
 - **The Statement Tee:** chrome or amber register; the statement reads at first-date distance.
 - **The Dad Hat:** controlled candid or casting moment; attitude rather than SKU.
