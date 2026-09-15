@@ -467,6 +467,15 @@ export const recoveryStories = {
        * reachable only by following the last public record's Next (canon 1).
        * No secret-area treatment of any kind: the site's mistake is
        * bureaucratic, not theatrical.
+       *
+       * UNFINISHED EDGE — canon 1 says Billy Bob RETAINS an active Next, and he
+       * does not have one yet. This is not a decision that the archive ends
+       * here; it is record 7 not being written. See `nextPending` below. Do not
+       * resolve this by concluding the sequence is complete, and do not resolve
+       * it by pointing Next at a record that does not exist: a 404 reads as a
+       * broken site, and a broken site is an innocent explanation for the
+       * boundary the visitor just crossed. It defuses the mechanic instead of
+       * deepening it. The fix is to write record 7.
        */
       id: 'RC-090',
       slug: 'billy-bob',
@@ -564,6 +573,19 @@ export const recoveryStories = {
       ],
       closeNote:
         'Partner reports that shared bedding has remained within baseline since the participant’s return.',
+      /**
+       * PENDING RECORD 7. Billy Bob is the last written record, so the pager
+       * renders no Next on him. Canon 1 requires that he keep one: past this
+       * point the records get progressively less CWAAA and more Office, and
+       * eventually the CWAAA template stops being the thing rendering the page.
+       * That record is authored work (Vivian + the Office package), deliberately
+       * not invented here (surface brief 8: records past the boundary are
+       * staged, not built in this pass).
+       *
+       * When record 7 lands, append it to this sequence with `open: true` and
+       * `public: false` and the pager restores his Next with no code change.
+       */
+      nextPending: 'Record 7 unwritten. Billy Bob’s Next is missing, not disabled.',
     },
   ],
 } as const;

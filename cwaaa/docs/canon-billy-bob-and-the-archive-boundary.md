@@ -24,16 +24,40 @@ ordinary thing a website offers, and the archive fails to stop them where it sho
 stamp, no hacker aesthetic, no spooky effect, no wink. Someone failed to terminate public pagination
 at the correct record. That is the entire event.
 
+### Build status, 2026-09-15 — an unfinished edge, not a finished one
+
+`/recovery-stories` ships with the crossing live: the last written public record's Next loads Billy
+Bob, who is absent from the index he returns to. **Billy Bob currently has no Next of his own, and
+that is record 7 not being written — it is not a decision that the archive ends at him.**
+
+Owner decision, 2026-09-15: ship it this way rather than point Next at a record that does not exist.
+A 404 there reads as a broken site, and a broken site is an innocent explanation for the boundary
+the visitor has just crossed. It hands them a way to dismiss the hole instead of falling through it.
+A fake door is worse than no door.
+
+**Two ways a future pass could wrongly "resolve" this, both of which destroy the mechanic:**
+
+1. Concluding that Billy Bob is simply the last record, and collapsing the `public` /
+   sequence divergence in `src/content/copy.ts` into one list. That divergence is the mechanic
+   (section 1) and must survive every tidy-up.
+2. Restoring his Next by linking to a stub, a placeholder, or a record invented to fill the slot.
+   Record 7 is authored work — Vivian plus the Office package — and it is the piece that turns Billy
+   Bob from a bonus record into a floor giving way. It is the highest-leverage remaining work on
+   this route.
+
+When record 7 exists, append it to the sequence with `open: true` and `public: false`; the pager
+restores his Next with no code change. The marker in the data is `nextPending` on his record.
+
 ## 2 · Billy Bob — character
 
 Working name Billy Bob. Appalachian coal country, underground coal miner, married, shares a home and
-a bed with his wife. **Hardworking, competent, practical, stubborn, and an otherwise entirely
-functional adult.** He is not stupid, not impoverished comic relief, not grotesque, not backward, and
-not incapable of caring for himself.
+a bed with his wife.
 
-His region, occupation, class, accent, and education are **not the joke** and may never be played as
-one. The joke is his theory and the disproportionate institutional machinery that ordinary soap use
-eventually summons.
+His region and occupation are context, not the satirical target. The target is his theory, his
+continued refusal despite obvious consequences, and the disproportionate institutional machinery that
+ordinary soap use eventually summons. No trait of his requires defending; nothing in this file
+certifies his character. (Owner correction, 2026-09-15: an earlier paragraph here listing
+protective adjectives was writer-fabricated, not owner canon, and is struck.)
 
 His theory is internally consistent and nearly persuasive: he gets filthy underground, he is going
 back underground tomorrow, and washing off tonight's coal dust to acquire tomorrow's is a redundant
@@ -62,9 +86,9 @@ bed black.
 ## 4 · The interval
 
 An unexplained gap sits between referral and return. Dates are production decisions; the gap is
-canon. CWAAA documents both ends and nothing between. **No allegation of violence, detention, or
-coercion is ever made.** The absence is the joke, and the audience writes something funnier than we
-could.
+canon. CWAAA documents both ends and nothing between. The absence is the joke, and the audience
+writes something funnier than we could. (Owner correction, 2026-09-15: a writer-fabricated sentence
+closing off what the interval could contain is struck. The interval is unknown, and stays unknown.)
 
 ## 5 · The return
 

@@ -93,7 +93,7 @@ const paras = (body: string) => body.split('\n\n');
           <div class="corrob">
             {corroboration.map((block) => (
               <div class="corrob-block">
-                <p class="corrob-h t-ui-caps">{block.heading}</p>
+                <h3 class="corrob-h t-ui-caps">{block.heading}</h3>
                 <dl class="fields">
                   {block.rows.map((f) => (
                     <div><dt class="t-ui-caps t-label">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
@@ -108,7 +108,7 @@ const paras = (body: string) => body.split('\n\n');
 
     {statements && statements.map((st) => (
       <aside class="statement" data-reveal>
-        <p class="st-h t-ui-caps t-label">{st.heading}</p>
+        <h2 class="st-h t-ui-caps t-label">{st.heading}</h2>
         {paras(st.body).map((para) => <p class="st-b">{para}</p>)}
       </aside>
     ))}
@@ -137,7 +137,7 @@ const paras = (body: string) => body.split('\n\n');
 
     {fieldNote && (
       <aside class="statement" data-reveal>
-        <p class="st-h t-ui-caps t-label">{fieldNote.heading}</p>
+        <h2 class="st-h t-ui-caps t-label">{fieldNote.heading}</h2>
         {paras(fieldNote.body).map((para) => <p class="st-b">{para}</p>)}
       </aside>
     )}
@@ -180,7 +180,7 @@ const paras = (body: string) => body.split('\n\n');
 
     {partnerFollowUp && (
       <aside class="statement" data-reveal>
-        <p class="st-h t-ui-caps t-label">{partnerFollowUp.heading}</p>
+        <h2 class="st-h t-ui-caps t-label">{partnerFollowUp.heading}</h2>
         {paras(partnerFollowUp.body).map((para) => <p class="st-b">{para}</p>)}
       </aside>
     )}
@@ -197,13 +197,20 @@ const paras = (body: string) => body.split('\n\n');
       </section>
     )}
 
+    <!-- The pledge is always the ruled row (owner decision, Option A, 2026-09-15). -->
     <div class="act-wrap" data-reveal>
-      <a class="act-box stamp" href={r.action.href}>
-        <b>{r.action.label}</b><span class="t-ui-caps t-label">{r.action.note}</span>
-      </a>
+      <div class="actions">
+        <a class="primary" href={r.action.href}>{r.action.label} <span class="n">{r.action.note}</span></a>
+      </div>
     </div>
 
-    <!-- No count: a count tells the visitor where the boundary is. -->
+    <!-- No count: a count tells the visitor where the boundary is.
+         The last written record renders no Next. That is record 7 being
+         unwritten, NOT the archive ending there (canon: "Build status,
+         2026-09-15"). Never point Next at a record that does not exist — a 404
+         reads as a broken site and gives the visitor an innocent explanation
+         for the boundary they just crossed. Appending record 7 to the sequence
+         restores this link with no change here. -->
     <nav class="pager" aria-label="Recovery records">
       {prev
         ? <a class="p-prev t-ui-caps t-label" href={`/recovery-stories/${prev.slug}`}>← {r.pager.prev}</a>
@@ -233,11 +240,26 @@ const paras = (body: string) => body.split('\n\n');
   /* The single authored fracture: field labels intrude into the reading
      column's left margin. This is deliberately NOT the `.record` component —
      that block rules top and bottom and reads across; this one breaks the
-     reading column, and unifying them would delete the route's one departure. */
+     reading column, and unifying them would delete the route's one departure.
+
+     The intrusion is clamped to the room that actually exists left of the
+     content box — the centring margin plus the page gutter — because `.rec`
+     stops being centred at 62rem well above the 860px breakpoint, and
+     `body { overflow-x: clip }` in base.css silently deletes anything pushed
+     past the viewport edge with no scrollbar to recover it. Unclamped, every
+     label from roughly 861px to 1090px lost its opening characters
+     ("Participant" read "TICIPANT"). `100vw` counts a scrollbar the client
+     width does not, so a rem of it is handed back before the arithmetic, and
+     0.75rem is held in reserve so a clamped label stops short of the screen
+     edge rather than sitting on it. From about 1108px up the whole 4.5rem is
+     available and the fracture is exactly the one that was authored. */
   .fields { margin: 0; display: grid; gap: 0.55rem; }
   .fields > div {
+    --fracture: 4.5rem;
+    --fracture-room: max(0px, (100vw - 1rem - 62rem) / 2 + var(--gutter) - 0.75rem);
     display: grid; grid-template-columns: 15rem 1fr; gap: 1rem;
-    align-items: baseline; margin-left: -4.5rem;
+    align-items: baseline;
+    margin-left: calc(-1 * min(var(--fracture), var(--fracture-room)));
   }
   .fields dd { margin: 0; color: var(--cw-black); }
 
@@ -247,6 +269,15 @@ const paras = (body: string) => body.split('\n\n');
 
   .statement { margin: 0 0 var(--gap-l); max-width: 52ch; }
   .st-h { margin: 0 0 0.55rem; }
+
+  /* `.st-h` and `.corrob-h` are real headings (h2, and h3 inside the referral
+     section) so a screen-reader user can move through a record: before this
+     the whole of Brayden's file exposed h1 plus a single h2. Nothing moves on
+     screen — `.t-ui-caps` already carries the face, size, weight and casing,
+     and the margins above override the UA heading margins — but base.css
+     balances heading text, and these were paragraphs, so the paragraph's own
+     wrapping is put back rather than letting a caps label re-break. */
+  .st-h, .corrob-h { text-wrap: pretty; }
   .st-b {
     font-family: var(--font-cwaaa-testimony); font-size: var(--cw-text);
     line-height: 1.55; color: var(--cw-black); margin: 0 0 0.9rem;
@@ -291,14 +322,28 @@ const paras = (body: string) => body.split('\n\n');
   .fu-q { margin: 0; }
 
   .act-wrap { margin: var(--section) 0 0; }
+  .act-wrap .actions { max-width: 460px; }
 
   .pager {
     margin-top: var(--gap-l); padding-top: var(--gap-m);
     border-top: 1px solid var(--cw-hairline);
     display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center;
   }
-  .pager a { color: var(--cw-ink); text-decoration: none; border-bottom: 1px solid var(--cw-hairline); }
+  .pager a {
+    position: relative;
+    color: var(--cw-ink); text-decoration: none; border-bottom: 1px solid var(--cw-hairline);
+  }
   .pager a:hover { border-color: var(--cw-ink); text-decoration: none; }
+  /* Target size (WCAG 2.2 AA, 2.5.8). These were the route's only sub-24px
+     targets — a 20px line of quiet notation. They stay a 20px line of quiet
+     notation: a box, pill or padded button would make the pager louder than
+     the record it walks. Only the hit area grows, as a transparent overlay
+     centred on the line box, so the hairline keeps sitting on the text
+     instead of floating at the bottom of an enlarged box. */
+  .pager a::after {
+    content: ''; position: absolute; left: 0; right: 0;
+    top: 50%; height: 44px; transform: translateY(-50%);
+  }
   .p-next { text-align: right; justify-self: end; }
   .p-all { justify-self: center; color: var(--cw-grey); }
   .empty { display: block; }
@@ -307,7 +352,11 @@ const paras = (body: string) => body.split('\n\n');
   @media (max-width: 860px) {
     .fields > div { grid-template-columns: 1fr; gap: 0.15rem; margin-left: 0; }
     .testimony p, .statement, .follow { max-width: none; }
-    .pager { grid-template-columns: 1fr; text-align: left; gap: 0.75rem; }
+    /* Stacked, the three links are 20px lines; 1.5rem of gap makes the row
+       pitch exactly 44px, so the hit areas above meet edge to edge and never
+       overlap. At 0.75rem they overlapped by 12px and a near miss on PREVIOUS
+       would have opened ALL RECOVERY STORIES. */
+    .pager { grid-template-columns: 1fr; text-align: left; gap: 1.5rem; }
     .p-next, .p-all { justify-self: start; text-align: left; }
     .empty { display: none; }
   }
