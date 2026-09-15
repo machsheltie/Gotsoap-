@@ -278,3 +278,117 @@ the register standing line, the "As entered" column head, both `done` confirmati
 referral label, and the Findings meta description. Returned to R2 on reader evidence:
 `findings.next.statement` (all three readers stalled) and `home.voice.refer.label` (two readers
 unsure what they were copying). Interim lines stand until R2 is ratified.
+
+---
+
+## R2 — 2026-09-15
+
+**Scope:** two lines, per the blind read (`reader-evidence-2026-09-15-findings.md`). Everything else
+in R1 is ratified and untouched. `copy.ts` is not edited by this file.
+
+**What the readers taught, in one sentence each.** Priya: what works on this site is specific, dumb,
+and physical (the elevator); what dies is a balanced aphorism that narrates its own moral. Maya: the
+register "is the site," and she wanted to follow the Recovery Stories link and could not, because the
+line above it made her read it three times. Dylan: he is "he," and the line that got him was the one
+that described what he does without grading it.
+
+**R2 rule for both slots:** the line does something before it means something. No parallelism, no
+definition of what a Finding or a Story is, no announced turn.
+
+### 6R. `findings.next.statement`
+
+**Current (R1 pick, failed 3/3):** "A figure is a man the committee could count. A Recovery Story is
+one it no longer needs to."
+
+**Diagnosis, accepted:** announced parallelism; the second clause is a riddle whose answer is the nav.
+Priya's "brand-voice deck justifying a section name" is exact. The job is not to define the next
+route. The job is to put the visitor at the door of it.
+
+**Ten written, seven culled.** Culled, with the reason: *"The figures above do not change. The men in
+them sometimes do, and the committee writes that down too"* (parallel, defines); *"When a man in the
+register starts showering, the committee sends someone to check. What they found is filed under
+Recovery Stories"* (explains the nav); *"Nothing in this register has been revised. Individual men
+have. Their statements follow"* (parallel); *"The register does not record improvement. A member has
+to go and look"* (defines by negation); *"Some of the men counted above have since been
+re-interviewed. Their towels were also checked"* (re-spends 26-02); *"One of the load-bearing loofahs
+has been retired. The committee spoke to its owner"* (re-spends 26-04's punchline one screen after
+it landed; Priya's componentized-joke evidence); *"Several men counted above have since washed. They
+were asked to explain themselves"* ("explain themselves" grades him; Dylan closes the tab).
+
+- **A — PICK:** "Members follow up in person. Some of the men answered the door clean."
+  *Mechanism:* a procedure, then a physical fact. The visit is the story; "answered the door clean"
+  is the improved state, shown at the threshold, ungraded. "Members" puts a woman on a porch, which
+  is the face Priya said the site lacks. "Some" is a count, not a hedge: it is the honest size of the
+  next route. No committee credit (R1 4A already cut the third one on this page).
+- **B:** "A man may leave the register. It requires a shower and a witness."
+  *Mechanism:* an exit procedure with two requirements; the witness is the Recovery Story and the
+  shower is the pledge, so the sentence covers both ruled actions without naming either. Culled
+  second because it is a rule, and a rule is the shape that read as a riddle last time.
+- **C:** "Several of the men counted above have since been visited at home. The sheets were checked."
+  *Mechanism:* dumb and physical; the committee's evidence is bedding. Culled third because "counted
+  above" gestures at the figure/man distinction R1 was told to drop, and "the sheets" is a Billy Bob
+  beat this page should not spend.
+
+**Fit under the ruled actions.** Read Recovery Stories: the visits. Take the Pledge: how a man
+answers the door clean. The line does not say either. Maya can follow the link on the first read.
+
+### 8R. `home.voice.refer.label`
+
+**Current (R1 pick, confused 2/3):** "Copy his link to Form CW-1"
+
+**Diagnosis, accepted:** "his" has two candidates on that screen, Brayden (whose quote is directly
+above) and the reader's own man, and the possessive made the link sound personalized. A control
+label cannot ask the reader to resolve a pronoun. Keep the mechanism (she copies, she sends him),
+keep the ratified confirmation ("Pledge link copied. He will know why."), do not echo the Findings
+label (§8).
+
+**Ten written, seven culled.** Culled: *"Copy the pledge link for him"* (the R1 runner-up; "him" has
+the same two-candidate problem as "his," it just hides it better); *"Copy the form. Send it to him"*
+(two verbs on one button; the site does not send); *"Copy Form CW-1 for him"* (reads as "duplicate a
+form"); *"Send him the pledge"* (claims the site sends; the mechanism is copy); *"Copy the pledge link.
+He knows who"* (wink); *"Copy the pledge link. Then his number"* (the joke is in the second sentence
+and a button has one); *"Copy the pledge link for someone specific"* (reverses R1's culled "someone"
+too knowingly; a small riddle on a control, the exact R1 failure at smaller scale); *"Copy the pledge
+link for his phone"* (destination is a guess).
+
+- **A — PICK:** "Copy the pledge link for one man"
+  *Mechanism:* verb-object first, so it reads as a button before it reads as anything; "one man"
+  separates her man from Brayden without a pronoun, and it is a count, which is how the committee
+  sees him. The confirmation then supplies the pronoun ("He will know why") and it can only mean
+  hers. Six words.
+- **B:** "Copy the pledge link he needs"
+  *Mechanism:* the same verb-object opening; "he needs" is a sincere CWAAA judgment, not a wink.
+  Culled second because the pronoun problem is reduced, not gone, and "needs" plus "will know why"
+  grades him twice in one gesture.
+- **C:** "Copy the pledge link for your Brayden"
+  *Mechanism:* the participant becomes a category; she has one. Culled third because it is the one
+  label of the ten that is in my cadence rather than the committee's, and register ownership (§17)
+  is not a taste rule.
+
+### Self-audit — both picks, ten checks plus Stepford
+
+| # | Pick | 1 One true thing | 2 Punch up | 3 Apology | 4 First read | 5 Cut test | 6 Last line | 7 Specificity | 8 AI tells | 9 Dials | 10 Reference | Stepford 1–5 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 6R-A | Members follow up in person. Some of the men answered the door clean. | the change is visible at the door | behavior; the clean state is shown, not the dirty one | none; "some" is a count | one read; no turn to resolve | 12 words; "in person" earns its place (the visit is the story) | "clean" | door, in person, members | no parallel, no antithesis, no rimshot | 5/3/1 | none needed | not any-brand (members, follow-up); does not explain; no hedge; at her, with him in frame; Stacey would say it |
+| 8R-A | Copy the pledge link for one man | she has a specific one | behavior; he is a count, not a verdict | none | instant on a control | 6 words; "one" is load-bearing | "man" | one man | none | 5/3/1 | none | not any-brand (pledge); no explanation; no hedge; at her; yes |
+
+**Runners-up, same checks:** 6R-B passes all ten and Stepford; flagged on check 4 (a rule reads as a
+riddle to a tired reader). 6R-C passes; flagged on check 7 (the sheets belong to another record).
+8R-B passes; flagged on check 3 ("needs" doubles the confirmation's judgment). 8R-C passes; flagged
+on register (§17), which outranks the audit.
+
+**Kill-list sweep (style-lock §7, §11a.5):** no resurrected line; no "lovely," "redemption," "shame
+optional"; no fiction confession; no Office phrase; no invented statistic, date, place, or person.
+"Some of the men" and "one man" are counts without numbers. **§8 sweep:** neither pick repeats
+"Send the findings to the man they describe"; 6R-A and the ratified elevator note share a register
+(a member physically present) but not a line.
+
+### R2 picks, in one table
+
+| Line id | R1 pick (failed) | R2 pick |
+|---|---|---|
+| `findings.next.statement` | A figure is a man the committee could count. A Recovery Story is one it no longer needs to. | Members follow up in person. Some of the men answered the door clean. |
+| `home.voice.refer.label` | Copy his link to Form CW-1 | Copy the pledge link for one man |
+
+*Next in the loop: blind re-read of the two R2 picks in place, then Sol if the owner wants a second
+adversarial pass. Round cap 3 holds; this is round 2.*
