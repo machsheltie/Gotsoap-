@@ -109,12 +109,13 @@ export const home = {
      *  2026-09-14); the full entry with its figure lives in `findings.lead`. */
     statement: 'Fragrance is not a cleansing event.',
     /** Owner decision 2026-09-15: both lines belong here. First is the APPROVED register support
-     *  for FINDING 26-01 (findings.lead.support); second is DRAFT, awaiting the copy lane. */
+     *  for FINDING 26-01 (findings.lead.support); second RATIFIED 2026-09-15 — copy lane R1 (proposals-2026-09-15-findings-drafts.md; reader-evidence-2026-09-15-findings.md). */
     support: [
       '73% of body-spray applications occur in lieu of, not in addition to, a shower.',
-      'Body spray may alter the immediate air. It does not remove sweat, oil, dirt, or the consequences of avoiding soap and water.',
+      'Body spray treats the air. Sweat, oil, and the week stay on the person.',
     ],
-    disposition: 'Disposition · entered into the public record',
+    /** RATIFIED 2026-09-15 — copy lane R1 (proposals-2026-09-15-findings-drafts.md; reader-evidence-2026-09-15-findings.md). */
+    disposition: 'Entered without objection',
     /** The filed record under the rule: label / value pairs. "Field Data Committee" is APPROVED
      *  (crisis.findings.subnote). */
     record: [
@@ -124,9 +125,9 @@ export const home = {
     ],
     method: {
       label: 'Methodology note',
-      /** DRAFT */
+      /** RATIFIED 2026-09-15 — copy lane R1 (proposals-2026-09-15-findings-drafts.md; reader-evidence-2026-09-15-findings.md). */
       body:
-        'Observations were collected at chapter tables, gym benches, and one very long elevator ride. The committee declines to name the elevator.',
+        'Observations were collected at chapter tables, on gym benches, and in one elevator. No member was required to stay for the full ride.',
     },
   },
 
@@ -138,9 +139,11 @@ export const home = {
       '“By Sunday I’d mist the sheets, mist myself, and let Febreze carry the week. I thought I was being efficient. My roommate staged what he called ‘a conversation.’ There was a printout.”',
     name: 'Brayden, 27',
     action: { label: 'Read Recovery Stories', href: '/recovery-stories' },
-    /** DRAFT — the referring visitor's action: a link to Form CW-1 that copies the pledge URL
-     *  when JavaScript is available (design.md §10: a copied link confirms). */
-    refer: { label: 'Copy the pledge link for him', href: '/pledge', done: 'Pledge link copied. Send it without commentary.' },
+    /** The referring visitor's action: a link to Form CW-1 that copies the pledge URL when
+     *  JavaScript is available (design.md §10: a copied link confirms).
+     *  `done` RATIFIED 2026-09-15 — copy lane R1 (proposals-2026-09-15-findings-drafts.md; reader-evidence-2026-09-15-findings.md).
+     *  `label` DRAFT — the R1 label confused two blind readers; in copy lane R2. */
+    refer: { label: 'Copy the pledge link for him', href: '/pledge', done: 'Pledge link copied. He will know why.' },
     /** APPROVED 2026-09-15 — CW-G04 Home. The participant is shown. The photograph is the one he
      *  had on hand, which is the finding. Alt text carries the committee's caption voice; it
      *  describes what is in the frame and does not comment on it. */
@@ -207,7 +210,7 @@ export const findings = {
   meta: {
     title: 'Findings — CWAAA',
     description:
-      'The public register of Concerned Women Against Axe Abuse findings on the state of male hygiene. Compiled by the Field Data Committee.',
+      'Numbered findings on the state of male hygiene, entered by the Field Data Committee of Concerned Women Against Axe Abuse. Fragrance is not a cleansing event.',
   },
   /** FINDING 26-01: the monumental figure and the conclusion that owns the route. */
   lead: {
@@ -218,10 +221,10 @@ export const findings = {
     conclusion: 'Fragrance is not a cleansing event.',
     /** APPROVED — runtime FINDING 26-04. */
     support: '73% of body-spray applications occur in lieu of, not in addition to, a shower.',
-    /** Row dispositions and dates are DRAFT for the copy lane. */
+    /** Disposition RATIFIED 2026-09-15 — copy lane R1 (proposals-2026-09-15-findings-drafts.md; reader-evidence-2026-09-15-findings.md). */
     record: [
       { label: 'Entered by', value: 'Field Data Committee' },
-      { label: 'Disposition', value: 'Entered into the public record' },
+      { label: 'Disposition', value: 'Entered without objection' },
       { label: 'Status', value: 'Current' },
     ],
   },
@@ -234,7 +237,7 @@ export const findings = {
     marker: 'The register',
     heading: 'Entered findings',
     caption: 'Findings 26-02 through 26-04, in register order. Finding 26-01 appears above.',
-    columns: { label: 'Finding', figure: 'Figure', text: 'Entered as' },
+    columns: { label: 'Finding', figure: 'Figure', text: 'As entered' },
     rows: [
       /** APPROVED — runtime 26-01. */
       { label: '26-02', figure: '87%', text: '87% of surveyed men require a partner who ‘takes care of herself.’ 14% remembered when they last washed their towel.' },
@@ -243,19 +246,19 @@ export const findings = {
       /** APPROVED — runtime 26-05. */
       { label: '26-04', figure: '4.7 years', text: 'The average loofah in male ownership is 4.7 years old. Some are load-bearing.' },
     ],
-    /** DRAFT — the register's standing line, Catesque notation. */
-    note: 'Findings are entered by the Field Data Committee and remain current until superseded.',
+    /** The register's standing line, Catesque notation. RATIFIED 2026-09-15 — copy lane R1 (proposals-2026-09-15-findings-drafts.md; reader-evidence-2026-09-15-findings.md). */
+    note: 'A finding stays current until a later finding replaces it. None has.',
   },
   next: {
     marker: 'Next',
-    /** DRAFT */
+    /** DRAFT — the R1 proposal stalled all three blind readers; in copy lane R2. Interim line stands. */
     statement: 'The record shows the problem. The stories show it can change.',
     actions: {
       primary: { label: 'Read Recovery Stories', href: '/recovery-stories' },
       secondary: { label: 'Take the Pledge', note: 'Form CW-1', href: '/pledge' },
     },
-    /** DRAFT — copies this route's link when JavaScript is available (design.md §10). */
-    refer: { label: 'Send the findings to someone', href: '/findings', done: 'Link copied. Send it without commentary.' },
+    /** Copies this route's link when JavaScript is available (design.md §10). RATIFIED 2026-09-15 — copy lane R1 (proposals-2026-09-15-findings-drafts.md; reader-evidence-2026-09-15-findings.md). */
+    refer: { label: 'Send the findings to the man they describe', href: '/findings', done: 'Link copied. No cover note is required.' },
   },
 } as const;
 

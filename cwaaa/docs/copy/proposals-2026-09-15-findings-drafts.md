@@ -266,3 +266,15 @@ voicing it would be the wink.
 *Next in the loop (COPY-PROTOCOL Phase 4): Sol's adversarial pass on this file. Round cap 3;
 deadlocks to the owner. The two `done` strings and item 1's home/findings duplication are the two
 findings Sol should test first.*
+
+
+---
+
+## Ratification — 2026-09-15
+
+Owner: "Ratify as recommended." Shipped to `src/content/copy.ts` and marked RATIFIED: the home
+support sentence, both dispositions ("Entered without objection"), the elevator methodology note,
+the register standing line, the "As entered" column head, both `done` confirmations, the Findings
+referral label, and the Findings meta description. Returned to R2 on reader evidence:
+`findings.next.statement` (all three readers stalled) and `home.voice.refer.label` (two readers
+unsure what they were copying). Interim lines stand until R2 is ratified.
