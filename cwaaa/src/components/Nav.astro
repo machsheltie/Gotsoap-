@@ -40,7 +40,21 @@ const { tone = 'on-field', current = '/' } = Astro.props;
     border-bottom: 1px solid var(--cw-hairline);
     color: var(--cw-ink);
   }
-  .nav.on-ink { color: var(--cw-ivory); border-bottom-color: var(--cw-hairline-on-ink); }
+  .nav.on-ink { color: var(--cw-white); border-bottom-color: var(--cw-hairline-on-ink); }
+  /* On the hero photograph the room is light in places and ivory type sank into
+     it. The masthead now carries its own ink ground instead of trusting the
+     picture: solid enough to read at the top edge, released just below the
+     hairline so the photograph resumes without a visible band. */
+  .nav.on-ink::before {
+    content: ''; position: absolute; inset: 0 0 -4.5rem 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(to bottom,
+      rgba(21, 24, 31, 0.86) 0%,
+      rgba(25, 32, 48, 0.76) 40%,
+      rgba(37, 48, 72, 0.52) 62%,
+      rgba(47, 62, 92, 0.18) 82%,
+      rgba(47, 62, 92, 0) 100%);
+  }
+  .nav.on-ink .menu a, .nav.on-ink .menu-m summary { text-shadow: 0 1px 2px rgba(15, 18, 24, 0.35); }
 
   .menu ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 1.9rem; align-items: baseline; }
   .menu a {
