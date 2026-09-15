@@ -273,3 +273,107 @@ export const notFound = {
     { label: 'Take the Pledge', href: '/pledge' },
   ],
 } as const;
+
+/**
+ * /recovery-stories and /recovery-stories/[id].
+ *
+ * Surface job: Convert + Character (design.md §5 "Recovery Stories"). Each man has a specific
+ * before-state, consequence and desirable change, "told through his own character rather than an
+ * institutional verdict." So:
+ *   - `testimony` is APPROVED copy, carried byte-for-byte from the combined runtime's
+ *     crisis.caseFiles.files (site/src/content/copy.ts). It is the man speaking. Never edit it here.
+ *   - The Got Soap? `status` verdict lines ("CERTIFIED SOAP-SMOLDERING…") deliberately do NOT
+ *     transfer. They are campaign-voice verdicts on the man, which this route's law forbids as the
+ *     telling device. `believed`/`cost`/`changed` replace them and stay his, not the Coalition's.
+ *   - `disposition` is the one CWAAA-authored line per record: sincere, procedural, small, and
+ *     about the Coalition's own handling — never a judgement of the participant.
+ * RC-NNN appears only inside an opened story (design.md §4). Roster is the five approved files;
+ * RC-014/052/063/071 stay dead.
+ */
+export const recoveryStories = {
+  meta: {
+    title: 'Recovery Stories — CWAAA',
+    description:
+      'Five men who changed their minds about soap, in their own words. Documented by Concerned Women Against Axe Abuse.',
+  },
+  marker: 'Recovery Stories',
+  heading: 'Five men, in their own words.',
+  intro:
+    'The Coalition documents recoveries. We do not improve the quotes.',
+  note:
+    'Published with each participant’s consent. Names changed where he asked; two men declined the offer.',
+  readLabel: 'Read his story',
+  recordLabel: 'Recovery Record',
+  backLabel: 'All Recovery Stories',
+  action: { label: 'Take the Pledge', note: 'Form CW-1', href: '/pledge' },
+  stories: [
+    {
+      id: 'RC-022',
+      slug: 'brayden',
+      name: 'Brayden, 27',
+      pull: 'There was a printout.',
+      /** APPROVED — carried verbatim from crisis.caseFiles.files RC-022. */
+      testimony:
+        '“By Sunday I’d mist the sheets, mist myself, and let Febreze carry the week. I thought I was being efficient. My roommate staged what he called ‘a conversation.’ There was a printout.”',
+      believed: 'That Febreze was efficient.',
+      cost: 'His roommate staged a conversation. There was a printout.',
+      changed: 'He bought soap the same afternoon. The sheets are just sheets.',
+      disposition: 'Recovery documented. The roommate was thanked in writing.',
+      image: { alt: 'Brayden, 27, in a boat on open water, sunglasses on, holding a bluegill up toward the camera with both hands. Submitted by the participant as his most recent photograph of himself.' },
+    },
+    {
+      id: 'RC-031',
+      slug: 'chad',
+      name: 'Chad (yes, really), 29',
+      pull: 'I did not ace it.',
+      testimony:
+        '“Honestly? I’m hot. I never thought hygiene mattered — I could pull regardless. What I couldn’t figure out was why nobody came back for round two. Then every girl on my feed started posting this Got Soap? thing like scripture, so I clicked to see what the fuss was. Took the quiz to prove I’d ace it. I did not ace it. I’d been coasting on face alone. Vanity got me in the door. Soap kept me there.”',
+      believed: 'That his face was doing all the work.',
+      cost: 'Nobody came back for a second date.',
+      changed: 'Same swagger. Second dates now.',
+      disposition:
+        'Recovery documented. He asked whether the Coalition needed a spokesman. The committee is considering it.',
+      image: { spec: 'Gym mirror selfie, shirt lifted, phone covering half his face. Submitted by the participant. He sent four; this was the one he wanted used.' },
+    },
+    {
+      id: 'RC-039',
+      slug: 'marcus',
+      name: 'Marcus, 34',
+      pull: 'You do not garnish a dumpster.',
+      testimony:
+        '“I owned a ninety-dollar bottle of cologne and zero bars of soap. In my mind that math worked. I was applying luxury directly to the problem. A coworker forwarded me the Crisis page — anonymously, which I respect. Body spray contains 0% soap. Cologne is a garnish. You do not garnish a dumpster. I own soap now.”',
+      believed: 'That ninety-dollar cologne was the same as being clean.',
+      cost: 'A coworker forwarded him the Crisis page. Anonymously.',
+      changed: 'He still doesn’t know who sent it. He has stopped needing to.',
+      disposition: 'Recovery documented. Referral source remains unidentified at her request.',
+      image: { spec: 'Cropped from a wedding photo — suit, half a stranger’s shoulder still in frame. Submitted by the participant as the most recent picture of himself he had.' },
+    },
+    {
+      id: 'RC-047',
+      slug: 'gary',
+      name: 'Gary, 46',
+      pull: '“Dad, you smell like the garage.”',
+      testimony:
+        '“Back on the apps at forty-six after the divorce. My daughter looked me dead in the eye and said, ‘Dad, you smell like the garage.’ She sent me the link herself. I took the assessment at the kitchen table. Suds-Curious. I was in the shower before she’d backed out of the driveway. Three dates this month. She screens them now.”',
+      believed: 'That the garage smell came with the house.',
+      cost: 'His daughter said it to his face, in the driveway.',
+      changed: 'Three dates this month. She screens them.',
+      disposition: 'Recovery documented. His daughter was sent a ribbon.',
+      image: { spec: 'Standing in his own driveway beside the truck, arms crossed, squinting into afternoon sun. Taken by his daughter, who submitted it.' },
+    },
+    {
+      id: 'RC-058',
+      slug: 'kaelthas',
+      name: '“Kaelthas,” 22',
+      pull: 'Best raid of my life.',
+      testimony:
+        '“She said she’d drive four hours to meet me. Top of the server, miles out of my league. My first thought wasn’t joy — it was ‘what does my room actually smell like,’ and the answer scared me sober. I stream; my whole life happens in this chair; I’d quietly decided hygiene was an IRL problem and I don’t do IRL. Shower for who, the webcam? It’s shoulders-up. But she was real now, and driving. Axe-Dependent. So I showered. I opened a window. I washed the hoodie. She stayed the whole weekend. Best raid of my life.”',
+      believed: 'That hygiene was an IRL problem, and he did not do IRL.',
+      cost: 'She said she would drive four hours.',
+      changed: 'He opened a window. She stayed the whole weekend.',
+      disposition: 'Recovery documented. He has asked the Coalition not to use the word “raid.”',
+      image: { spec: 'In the gaming chair, headset around his neck, RGB behind him, shoulders-up exactly as he describes. Submitted by the participant from his stream.' },
+    },
+  ],
+  labels: { believed: 'What he believed', cost: 'What it cost him', changed: 'What changed' },
+} as const;

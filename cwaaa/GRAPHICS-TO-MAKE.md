@@ -34,7 +34,7 @@ An object shipped where a person belongs is a rejected asset. Return it.
 | CW-G01 | Review current work | Use the standalone inline seal and simplified favicon as the working web identity. Review them at final size; do not commission a replacement by default. |
 | CW-G02 | **Shipped and closed** | The coalition group portrait, owner-supplied and ratified 2026-09-15. Desktop and 4:5 phone masters both delivered and wired. Do not respec. |
 | CW-G03 | Home slot ready; route extension pending | One Tie One On scene for Home with **a man in frame** wearing or tying the ribbon, delivered in the same desktop/mobile sizes. No object-alone doorknob still life. Additional program artifacts wait for the Tie One On route layout. |
-| CW-G04 | Home shipped; full roster pending | Brayden's participant photograph, 4:3, in the homepage recovery voice. Participants are shown — never an object in a person's slot. Remaining portraits wait for CW-D04. |
+| CW-G04 | Home shipped; 4 participant photographs outstanding | Brayden's participant photograph, 4:3, in the homepage recovery voice. Participants are shown — never an object in a person's slot. Remaining portraits wait for CW-D04. |
 | CW-G05 | Not required on the current Home layout | Hold chapter and 2024-origin production until Chapters and About have approved compositions and rosters. |
 | CW-G06 | Share master specified; route integration pending | Produce the non-personalized 1080×1080 pledge share master after its final words pass copy review. No bespoke email photography. |
 | CW-G07 | Preview required; favicon exists | Produce one 1200×630 default preview. Review the existing SVG favicon and derive raster variants only when platform coverage requires them. |
@@ -148,6 +148,20 @@ and `recovery-<id>-object.jpg` are supporting images only and never substitute f
 Supply only the slots approved by CW-D04; their sizes and crops remain route decisions.
 
 Testimony, `RC-NNN`, institutional labels and next actions remain HTML. If a handwritten or printed artifact is featured, approve its full text separately and provide the transcript. Use the local testimony type role for live long-form copy; do not bake a “case file” UI into the picture.
+
+**Outstanding participant photographs (4).** `/recovery-stories` is live with labeled slots for these;
+each is the picture that man would actually have of himself, submitted and retained as received:
+
+| Record | Man | The photograph he has |
+|---|---|---|
+| RC-031 | Chad, 29 | Gym mirror selfie, shirt lifted, phone covering half his face. He sent four; this was the one he wanted used. |
+| RC-039 | Marcus, 34 | Cropped from a wedding photo — suit, half a stranger's shoulder still in frame. The most recent picture of himself he had. |
+| RC-047 | Gary, 46 | Standing in his own driveway beside the truck, arms crossed, squinting into afternoon sun. Taken by his daughter, who submitted it. |
+| RC-058 | "Kaelthas," 22 | In the gaming chair, headset around his neck, RGB behind him, shoulders-up exactly as he describes. From his stream. |
+
+Each is 4:3, face and subject inside the central 80% × 84%. Phone-camera light, no retouching, no
+editorial grade. Deliver as `cwaaa/src/assets/<slug>.png` (`chad`, `marcus`, `gary`, `kaelthas`) and
+the route picks them up; until then the slot renders its brief.
 
 **Acceptance:** a participant is visible in the frame; each image is grounded in its specific approved
 account; identities stay consistent across appearances; the mobile crop keeps the face legible. No
