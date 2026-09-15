@@ -711,9 +711,27 @@ six in commit `dce7234`, which is the outcome the register was written for.
 | 10 | Breakpoints | both routes now carry a `--bp-phone` pass alongside `--bp-reading` |
 | 11 | Label tiers | `.sec-label` adopted at 10 sites; the three private classes are gone, `.corrob-h` surviving only as a one-line ink colour modifier, which is the documented composition |
 
-**The register is empty.** Home and the Recovery Stories routes agree on every shared element, and
-the departures that remain — the intruding `.fields`, the centered record shell, the index's own
-`--cw-voice` rank — are each named in this document as deliberate.
+**The register is empty.** Home and the Recovery Stories routes agree on every shared element.
+
+### The three protected exceptions
+
+Three things are *supposed* to differ, and they are listed here so nobody reads them as leftovers.
+They were mis-described once in this file as "the departures that remain," which reads as three loose
+ends rather than three rulings. **Each one is load bearing, and removing it is drift in the opposite
+direction — toward the single repeated layout that
+`design.md §13` names as failure.**
+
+| Exception | Where | Authority |
+|---|---|---|
+| The opened record's field labels intrude into the reading column's left margin, instead of using the `.record` component | `[id].astro` `.fields` | `system.css` — the route's one authored fracture; `design.md §6` route-specific spatial law |
+| The opened record is a centered 62rem reading column, not a run of full-bleed fields | `[id].astro` `.rec` | the one page-shell exception, above — a record is a document, not a campaign page |
+| On the Recovery Stories index the participant's own sentence is the largest element, at `--cw-voice` | `recovery-stories.astro` `.quote` | surface brief §3, **confirmed by the owner 2026-09-15**; Findings gives that rank to the number, this route gives it to the man |
+
+**The Protected-Exception Rule.** An exception recorded here with its authority is not a defect and
+is not a to-do. Before "aligning" one of these to the home page, note that the home page is the
+reference for **elements** — a rule weight, a label tier, a measure, a face, a stagger — and never
+for **composition**. A route is required to have its own spatial law. If a future audit lists one of
+these three as a finding, the audit is wrong.
 
 ---
 
