@@ -1,5 +1,12 @@
 # CWAAA target design system
 
+**This file is prose authority; it carries no token values by design.** Colors, the type scale,
+measures, spacing, the breakpoint ladder, and the component set live in the tokenized companion,
+[`docs/DESIGN-SYSTEM.md`](docs/DESIGN-SYSTEM.md), which also records the home page as the reference
+implementation and keeps the drift register. This file wins on conflict (`AGENTS.md` authority
+order). Do not move token values here to satisfy a tooling report that this file has no Colors or
+Components section — the split is deliberate.
+
 ## 1. Creative thesis
 
 **CWAAA: A Coalition Making Its Case in Public.**
