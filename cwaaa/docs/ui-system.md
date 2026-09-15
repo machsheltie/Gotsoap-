@@ -592,3 +592,20 @@ Owner interview conducted through the Impeccable `shape` flow; brief confirmed a
 - **Register table:** one real HTML table for 26-02 through 26-04, figures in Catesque with `tnum`,
   `zero`, `case`; recomposes into labeled records on narrow screens. No dashboard, cards, chart,
   paper texture, or stamp decoration. CW-G08 is not required.
+
+## 2026-09-15 — Home hero photograph supplied
+
+The owner supplied the home hero photograph (`src/assets/hero-coalition.jpg`, 2576×1438) and
+directed that it ship. Recorded:
+
+- **CW-G02 (superseded by the supplied asset):** three coalition members standing in a plain
+  meeting room, facing the camera, one holding a bar of soap. Subject sits right of centre; the
+  lower-left wall stays quiet for the proposition. This replaces the earlier hands-tying-a-ribbon
+  shot spec for the home; the placeholder spec remains in the copy module as provenance.
+- **Departure noted, not resolved:** the 2026-09-14 spec and `design.md` §7 refused posed faces as
+  proof of legitimacy. The supplied photograph is a posed group. The owner's supply is the
+  decision; `design.md` §7 has not been reworded.
+- **Still owed:** a 3200×1800 master and a true 4:5 phone composition. Until then the single
+  source is cover-cropped with an authored focal point on both viewports.
+- **Delivery:** AVIF and WebP derivatives via `astro:assets`, eager and high-priority on the home;
+  the original JPG is not shipped.

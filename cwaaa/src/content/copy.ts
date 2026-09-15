@@ -165,6 +165,8 @@ export const home = {
   placeholders: {
     hero: {
       id: 'CW-G02',
+      /** Owner-supplied photograph, 2026-09-15 (src/assets/hero-coalition.jpg). */
+      alt: 'Three members of the coalition standing in a plain meeting room, facing the camera. One holds a bar of soap.',
       title: 'Documentary hero · full bleed · placeholder',
       spec:
         '16:9 wide frame. A woman’s hands tying a red washcloth ribbon to the handle of a used black gym bag on a locker-room bench. Hands and knot inside the dashed safe zone: upper right, below the navigation band (no closer than 24% from the top); lower left kept quiet for the proposition. Export 3200×1800 minimum plus a 4:5 phone recrop.',

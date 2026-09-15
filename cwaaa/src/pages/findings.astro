@@ -90,18 +90,18 @@ const f = findings;
   .figure {
     grid-area: figure;
     font-family: var(--font-cwaaa-figure); font-weight: 900;
-    font-size: var(--cw-figure); line-height: 0.8; letter-spacing: -0.035em;
+    font-size: var(--cw-figure); line-height: 0.72; letter-spacing: -0.035em;
     color: var(--cw-ink); margin: 0 0 0 -0.04em; /* optical: pull the 7's stem to the gutter */
     padding-top: 0.06em;
   }
   html.has-js.motion-ok .figure[data-reveal='figure'] { opacity: 1; transform: translateY(0.12em); transition-duration: var(--dur-photo); }
   html.has-js.motion-ok .figure[data-reveal='figure'].is-in { transform: none; }
-  .rule { grid-area: rule; height: 3px; background: var(--cw-ink); margin-top: 0.75rem; }
+  .rule { grid-area: rule; height: 3px; background: var(--cw-ink); margin-top: 1.25rem; }
   .entry { grid-area: entry; padding-top: 1.5rem; }
   .label { color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; font-feature-settings: 'tnum' 1, 'zero' 1, 'case' 1; }
   .conclusion {
     font-family: var(--font-cwaaa-proposition); font-weight: 400; font-size: var(--cw-finding);
-    line-height: 0.92; letter-spacing: -0.01em; color: var(--cw-ink); margin: 0.6rem 0 1.5rem; max-width: 12ch;
+    line-height: 0.92; letter-spacing: -0.01em; color: var(--cw-ink); margin: 0.6rem 0 1.5rem; max-width: 17ch;
   }
   .support { margin-bottom: 1.5rem; }
   .record { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0 2.5rem; margin: 0; border-top: 1px solid var(--cw-ink); border-bottom: 1px solid var(--cw-ink); padding: 0.85rem 0; }
@@ -112,7 +112,7 @@ const f = findings;
      field, on its own ivory, cut off from the rule by a short ink stem. */
   .method {
     grid-area: method; align-self: start; justify-self: end;
-    margin-top: -3.4rem; max-width: 30ch;
+    margin-top: -6.5rem; max-width: 30ch;
     background: var(--cw-ivory); border-left: 1px solid var(--cw-ink);
     padding: 0.5rem 0 0 1.5rem; margin-left: 1rem;
     color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-size: var(--cw-text-m); line-height: 1.6;
@@ -131,12 +131,11 @@ const f = findings;
   thead th { text-align: left; color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; padding: 0.9rem 0 0.7rem; border-bottom: 1px solid var(--cw-ink); }
   tbody th, tbody td { vertical-align: baseline; padding: 1.4rem 0; border-bottom: 1px solid var(--cw-hairline); text-align: left; font-weight: 400; }
   tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
-  .c-label { width: 11rem; white-space: nowrap; }
+  th.c-label { width: 11rem; white-space: nowrap; }
   tbody .c-label .t-ui-caps { color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; margin-right: 0.4rem; }
   tbody .c-label .id { color: var(--cw-ink); }
   /* Figures that must align are Catesque with tnum, zero, case (ui-system §3.2). */
-  .c-figure { width: 9rem; text-align: right; padding-right: var(--gap-l); }
-  thead .c-figure { text-align: right; }
+  thead th.c-figure, tbody td.c-figure { width: 9rem; text-align: left; padding-right: var(--gap-l); }
   .fig { font-family: var(--font-cwaaa-interface); font-weight: 700; font-size: var(--cw-panel-h); letter-spacing: -0.01em; color: var(--cw-ink); font-feature-settings: 'tnum' 1, 'zero' 1, 'case' 1; white-space: nowrap; }
   .c-text { color: var(--cw-black); max-width: var(--cw-measure); line-height: 1.5; }
   .reg-note { margin-top: 1.25rem; color: var(--cw-grey); }
@@ -169,7 +168,7 @@ const f = findings;
     tbody tr:last-child { border-bottom: 0; }
     tbody th, tbody td { display: block; padding: 0; border: 0; width: auto; }
     tbody .c-label { grid-column: 1; }
-    tbody .c-figure { grid-column: 2; grid-row: 1; text-align: right; padding: 0; }
+    tbody td.c-figure { grid-column: 2; grid-row: 1; text-align: right; padding: 0; width: auto; }
     tbody .c-text { grid-column: 1 / -1; max-width: none; }
     .next { grid-template-columns: 1fr; gap: 2rem; }
   }

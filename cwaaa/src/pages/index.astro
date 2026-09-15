@@ -11,12 +11,16 @@ import Nav from '../components/Nav.astro';
 import ImageSlot from '../components/ImageSlot.astro';
 import { home } from '../content/copy';
 import { GOT_SOAP_SITE_URL, isConfigured } from '../config/site';
+import heroImage from '../assets/hero-coalition.jpg';
 const h = home;
 ---
 <BaseLayout title={h.meta.title} description={h.meta.description} current="/" heroNav>
-  <!-- 1 · Proposition over the documentary hero -->
+  <!-- 1 · Proposition over the hero. Owner-supplied photograph, 2026-09-15
+       (ui-system.md §13): three coalition members in a plain meeting room, subject
+       right of centre, lower-left quiet for the proposition. -->
   <section class="hero" aria-labelledby="prop">
-    <ImageSlot class="hero-photo" tone="photo" id={h.placeholders.hero.id} title={h.placeholders.hero.title} spec={h.placeholders.hero.spec} safe="24% 8% 22% 34%" />
+    <ImageSlot class="hero-photo" tone="photo" id={h.placeholders.hero.id} title={h.placeholders.hero.title} spec={h.placeholders.hero.spec} safe="24% 8% 22% 34%"
+      image={heroImage} alt={h.placeholders.hero.alt} position="66% 45%" priority />
     <Nav tone="on-ink" current="/" />
     <h1 id="prop" class="prop" data-reveal style="--i: 1">{h.proposition}</h1>
   </section>
@@ -126,7 +130,15 @@ const h = home;
   /* ---- 1 · Hero ---------------------------------------------------------- */
   .hero { position: relative; height: 66vh; height: 66dvh; min-height: 520px; color: var(--cw-ivory); }
   .hero :global(.hero-photo) { position: absolute; inset: 0; }
-  .hero :global(.nav) { position: relative; }
+  /* Ink scrim: the supplied photograph is a light room, so the ivory nav and
+     proposition need a quiet ground. Bottom-weighted, never a full tint. */
+  .hero::after {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      linear-gradient(to bottom, rgba(21, 24, 31, 0.45), rgba(21, 24, 31, 0) 26%),
+      linear-gradient(to top, rgba(47, 62, 92, 0.72), rgba(47, 62, 92, 0.28) 34%, rgba(47, 62, 92, 0) 58%);
+  }
+  .hero :global(.nav) { position: relative; z-index: 2; }
   .hero :global(.hero-photo .lbl) { top: 7.25rem; }
   /* The proposition sits on the photograph in one solid color (owner decision
      2026-09-14: the earlier two-color split was not intentional). */
