@@ -533,7 +533,8 @@ strip that back to a modifier.
   `.sec-label` (no dot) opens a **block** inside one continuous reading surface — the opened
   record's referral, chronology and follow-up — where a row of dots would shatter a single document
   into a stack of sections. Both compose with `.t-ui-caps` for the face, plus `.t-label` for the
-  ordinary grey or nothing for ink. Only `.marker` was ever written down, which is why the record
+  ordinary grey; a block that needs ink sets the colour itself, because `.t-ui-caps` declares none
+  and omitting `.t-label` inherits rather than going ink. Only `.marker` was ever written down, which is why the record
   grew three private classes (`.sec-h`, `.st-h`, `.corrob-h`) that were the same component three
   times. A third tier is drift.
 - `.rule` / `.rule.ink` / `.rule.ink.heavy` — the civic rule, and **the weight
@@ -695,21 +696,24 @@ split working as intended: `design.md` is prose authority and *this* file is the
 (`AGENTS.md` authority order). **Do not "fix" it by moving token values into `design.md`.** The one
 real gap is that `design.md` carries no pointer back here; that is an owner edit, not an agent one.
 
-### Open
+### Closed 2026-09-15, third pass — by the concurrent session, acting on this document
 
-| # | Element | Home / Findings | Recovery Stories | Owner |
-|---|---|---|---|---|
-| 6 | Route-opening rule | the statement closes on `.rule.ink` or heavier | the index lead closes on a bare hairline | pending |
-| 7 | Prose face | `.t-lead` / body Proda | `.note`, `.fu-l`, `.fu-lead`, `.close-note` still `.t-ui`; Findings' `.reg-note` too | pending — apply `.t-note` |
-| 8 | Measure tokens | now tokenized | `38ch` and `52ch` still literal in both Recovery routes | pending |
-| 9 | Reveal stagger | explicit `--i` on every element | `[id].astro` has **no `--i` anywhere**; its masthead and pager never reveal | pending |
-| 10 | Breakpoints | both run a `--bp-phone` pass | both Recovery routes have only `--bp-reading` | pending |
-| 11 | Label tiers in markup | n/a | `.sec-h` / `.st-h` / `.corrob-h` still in `[id].astro`; swap to `.sec-label` | pending |
+Entries 6–11 were filed as open because a second Impeccable session was editing the two Recovery
+Stories routes while this document was being written. That session read the register and closed all
+six in commit `dce7234`, which is the outcome the register was written for.
 
-Entries 6–11 were **not applied**: a second Impeccable session was editing
-`recovery-stories.astro` and `recovery-stories/[id].astro` concurrently (15:54–15:57, 2026-09-15),
-and two agents writing one file is how drift is made, not fixed. The shared layer they depend on is
-already in place, so each remaining fix is a small local edit.
+| # | Element | Resolution, verified at `dce7234` |
+|---|---|---|
+| 6 | Route-opening rule | the index lead now closes on `.rule.ink` |
+| 7 | Prose face | `.t-note` adopted — 2 uses on the index, 4 on the record; no `.t-ui` remains on a prose element |
+| 8 | Measure tokens | `--cw-measure-voice`, `--cw-measure-note` and `--cw-measure` adopted on both routes; the only surviving `38ch` / `52ch` strings are inside explanatory comments |
+| 9 | Reveal stagger | 14 explicit `--i` values on the opened record, where there had been none |
+| 10 | Breakpoints | both routes now carry a `--bp-phone` pass alongside `--bp-reading` |
+| 11 | Label tiers | `.sec-label` adopted at 10 sites; the three private classes are gone, `.corrob-h` surviving only as a one-line ink colour modifier, which is the documented composition |
+
+**The register is empty.** Home and the Recovery Stories routes agree on every shared element, and
+the departures that remain — the intruding `.fields`, the centered record shell, the index's own
+`--cw-voice` rank — are each named in this document as deliberate.
 
 ---
 
