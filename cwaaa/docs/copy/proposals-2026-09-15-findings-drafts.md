@@ -392,3 +392,9 @@ optional"; no fiction confession; no Office phrase; no invented statistic, date,
 
 *Next in the loop: blind re-read of the two R2 picks in place, then Sol if the owner wants a second
 adversarial pass. Round cap 3 holds; this is round 2.*
+
+## Ratification — R2 — 2026-09-15
+
+Owner: "ratify." Shipped to `src/content/copy.ts`: `findings.next.statement` = "Members follow up
+in person. Some of the men answered the door clean." and `home.voice.refer.label` = "Copy the
+pledge link for one man". No DRAFT lines remain on /findings or in the home Finding and referral.

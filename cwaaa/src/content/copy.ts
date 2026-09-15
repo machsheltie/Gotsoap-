@@ -142,8 +142,8 @@ export const home = {
     /** The referring visitor's action: a link to Form CW-1 that copies the pledge URL when
      *  JavaScript is available (design.md §10: a copied link confirms).
      *  `done` RATIFIED 2026-09-15 — copy lane R1 (proposals-2026-09-15-findings-drafts.md; reader-evidence-2026-09-15-findings.md).
-     *  `label` DRAFT — the R1 label confused two blind readers; in copy lane R2. */
-    refer: { label: 'Copy the pledge link for him', href: '/pledge', done: 'Pledge link copied. He will know why.' },
+     *  `label` RATIFIED 2026-09-15 — copy lane R2 (proposals-2026-09-15-findings-drafts.md; reader-evidence-2026-09-15-findings.md). */
+    refer: { label: 'Copy the pledge link for one man', href: '/pledge', done: 'Pledge link copied. He will know why.' },
     /** APPROVED 2026-09-15 — CW-G04 Home. The participant is shown. The photograph is the one he
      *  had on hand, which is the finding. Alt text carries the committee's caption voice; it
      *  describes what is in the frame and does not comment on it. */
@@ -251,8 +251,8 @@ export const findings = {
   },
   next: {
     marker: 'Next',
-    /** DRAFT — the R1 proposal stalled all three blind readers; in copy lane R2. Interim line stands. */
-    statement: 'The record shows the problem. The stories show it can change.',
+    /** RATIFIED 2026-09-15 — copy lane R2 (proposals-2026-09-15-findings-drafts.md; reader-evidence-2026-09-15-findings.md). */
+    statement: 'Members follow up in person. Some of the men answered the door clean.',
     actions: {
       primary: { label: 'Read Recovery Stories', href: '/recovery-stories' },
       secondary: { label: 'Take the Pledge', note: 'Form CW-1', href: '/pledge' },
