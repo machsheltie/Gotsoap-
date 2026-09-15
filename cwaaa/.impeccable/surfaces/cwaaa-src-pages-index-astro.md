@@ -1,8 +1,8 @@
 ---
 version: 1
 slug: "cwaaa-src-pages-index-astro"
-primary_target: "cwaaa/src/pages/index.astro"
-related_targets: []
+primary_target: "src/pages/index.astro"
+related_targets: ["src/content/copy.ts", "cwaaa/src/pages/index.astro"]
 ---
 
 # Surface brief: CWAAA home (`/`)

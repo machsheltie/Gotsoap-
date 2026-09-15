@@ -9,7 +9,7 @@ import { notFound } from '../content/copy';
 ---
 <BaseLayout title={notFound.meta.title} description={notFound.meta.description} current="">
   <section class="nf">
-    <h1 class="statement">{notFound.heading}</h1>
+    <h1 class="t-statement">{notFound.heading}</h1>
     <p class="t-lead">{notFound.body}</p>
     <div class="actions">
       {notFound.actions.map((a, i) => <a class:list={[i === 0 && 'primary']} href={a.href}>{a.label} <span class="n" aria-hidden="true">→</span></a>)}
@@ -19,6 +19,5 @@ import { notFound } from '../content/copy';
 
 <style>
   .nf { padding: var(--section) var(--gutter) calc(var(--section) * 1.5); display: grid; gap: var(--gap-m); max-width: 60ch; }
-  .statement { font-family: var(--font-cwaaa); font-weight: 400; font-size: var(--cw-statement); line-height: 1.12; color: var(--cw-ink); }
   .actions { max-width: 420px; }
 </style>

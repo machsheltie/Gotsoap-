@@ -10,7 +10,10 @@ import { org, legal, home } from '../content/copy';
 import { GOT_SOAP_SITE_URL, isConfigured } from '../config/site';
 ---
 <footer class="foot on-ink">
-  <Brand asLink={false} />
+  {/* lazySeal: the colophon seal is below the fold on every route (home 4682px,
+      Recovery Stories 4131px). Eager here duplicated the masthead's eager fetch
+      and competed with the above-the-fold hero photograph that holds priority. */}
+  <Brand asLink={false} lazySeal />
   <nav class="legal t-ui-caps" aria-label="Legal">
     <ul>
       {legal.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}

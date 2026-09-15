@@ -16,14 +16,14 @@ const f = findings;
   <!-- 1 · The monument: figure, rule, label, conclusion, support, record; the note interrupts -->
   <section class="lead" aria-labelledby="lead-h">
     <p class="figure" data-reveal="figure"><span class="visually-hidden">{f.lead.label}: </span>{f.lead.figure}</p>
-    <div class="rule" data-reveal="rule" style="--i: 1"></div>
+    <div class="rule ink heavy" data-reveal="rule" style="--i: 1"></div>
     <div class="entry">
-      <p class="t-ui-caps label" data-reveal style="--i: 2" aria-hidden="true">{f.lead.label}</p>
+      <p class="t-ui-caps t-label label" data-reveal style="--i: 2" aria-hidden="true">{f.lead.label}</p>
       <h1 id="lead-h" class="conclusion" data-reveal style="--i: 3">{f.lead.conclusion}</h1>
       <p class="support t-lead" data-reveal style="--i: 4">{f.lead.support}</p>
       <dl class="record" data-reveal style="--i: 5">
         {f.lead.record.map((r) => (
-          <div><dt class="t-ui-caps">{r.label}</dt><dd class="t-ui">{r.value}</dd></div>
+          <div><dt class="t-ui-caps t-label">{r.label}</dt><dd class="t-ui">{r.value}</dd></div>
         ))}
       </dl>
     </div>
@@ -36,21 +36,21 @@ const f = findings;
   <!-- 2 · The register: one real table, never cards -->
   <section class="register" aria-labelledby="reg-h">
     <p class="marker" data-reveal>{f.register.marker}</p>
-    <h2 id="reg-h" class="statement" data-reveal style="--i: 1">{f.register.heading}</h2>
+    <h2 id="reg-h" class="statement t-statement" data-reveal style="--i: 1">{f.register.heading}</h2>
     <div class="table-wrap" data-reveal style="--i: 2">
       <table>
         <caption class="visually-hidden">{f.register.caption}</caption>
         <thead>
           <tr>
-            <th scope="col" class="t-ui-caps c-label">{f.register.columns.label}</th>
-            <th scope="col" class="t-ui-caps c-figure">{f.register.columns.figure}</th>
-            <th scope="col" class="t-ui-caps c-text">{f.register.columns.text}</th>
+            <th scope="col" class="t-ui-caps t-label c-label">{f.register.columns.label}</th>
+            <th scope="col" class="t-ui-caps t-label c-figure">{f.register.columns.figure}</th>
+            <th scope="col" class="t-ui-caps t-label c-text">{f.register.columns.text}</th>
           </tr>
         </thead>
         <tbody>
           {f.register.rows.map((r) => (
             <tr>
-              <th scope="row" class="c-label"><span class="t-ui-caps">Finding</span> <span class="t-ui id">{r.label}</span></th>
+              <th scope="row" class="c-label"><span class="t-ui-caps t-label">Finding</span> <span class="t-ui id">{r.label}</span></th>
               <td class="c-figure"><span class="fig">{r.figure}</span></td>
               <td class="c-text">{r.text}</td>
             </tr>
@@ -65,9 +65,9 @@ const f = findings;
   <section class="next" aria-labelledby="next-h">
     <div>
       <p class="marker" data-reveal>{f.next.marker}</p>
-      <h2 id="next-h" class="statement" data-reveal style="--i: 1">{f.next.statement}</h2>
+      <h2 id="next-h" class="statement t-statement" data-reveal style="--i: 1">{f.next.statement}</h2>
       <div class="refer-row" data-reveal style="--i: 2">
-        <a class="refer t-ui-caps" href={f.next.refer.href} data-copy-link data-done={f.next.refer.done}>{f.next.refer.label}</a>
+        <a class="act-box t-ui-caps" href={f.next.refer.href} data-copy-link data-done={f.next.refer.done}>{f.next.refer.label}</a>
         <span class="refer-done t-ui" role="status" aria-live="polite"></span>
       </div>
     </div>
@@ -96,43 +96,33 @@ const f = findings;
   }
   html.has-js.motion-ok .figure[data-reveal='figure'] { opacity: 1; transform: translateY(0.12em); transition-duration: var(--dur-photo); }
   html.has-js.motion-ok .figure[data-reveal='figure'].is-in { transform: none; }
-  .rule { grid-area: rule; height: 3px; background: var(--cw-ink); margin-top: 1.25rem; }
+  .rule { grid-area: rule; margin-top: 1.25rem; }
   .entry { grid-area: entry; padding-top: 1.5rem; }
-  .label { color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; font-feature-settings: 'tnum' 1, 'zero' 1, 'case' 1; }
   .conclusion {
     font-family: var(--font-cwaaa-proposition); font-weight: 400; font-size: var(--cw-finding);
     line-height: 0.92; letter-spacing: -0.01em; color: var(--cw-ink); margin: 0.6rem 0 1.5rem; max-width: 17ch;
   }
   .support { margin-bottom: 1.5rem; }
-  .record { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0 2.5rem; margin: 0; border-top: 1px solid var(--cw-ink); border-bottom: 1px solid var(--cw-ink); padding: 0.85rem 0; }
-  .record div { display: grid; gap: 0.25rem; }
-  .record dt { margin: 0; color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; }
-  .record dd { margin: 0; color: var(--cw-ink); }
-  /* The interruption: the note pushes up through the rule into the figure's
-     field, on its own ivory, cut off from the rule by a short ink stem. */
+  /* The interruption: Findings' own placement of the shared methodology note —
+     it pushes up through the rule into the figure's field, on its own ivory,
+     cut off from the rule by a short ink stem. */
   .method {
     grid-area: method; align-self: start; justify-self: end;
     margin-top: -6.5rem; max-width: 30ch;
-    background: var(--cw-ivory); border-left: 1px solid var(--cw-ink);
+    background: var(--cw-ivory);
     padding: 0.5rem 0 0 1.5rem; margin-left: 1rem;
-    color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-size: var(--cw-text-m); line-height: 1.6;
   }
-  .method b { display: block; color: var(--cw-ink); margin-bottom: 0.5rem; font-weight: 700; }
-  .method p { margin: 0; }
 
   /* ---- 2 · The register ---------------------------------------------------- */
   .register { background: var(--cw-white); padding: var(--section) var(--gutter); }
-  .statement {
-    font-family: var(--font-cwaaa); font-weight: 400; font-size: var(--cw-statement);
-    line-height: 1.12; letter-spacing: -0.01em; color: var(--cw-ink); margin: var(--gap-s) 0 var(--gap-l); max-width: 22ch;
-  }
+  .statement { margin: var(--gap-s) 0 var(--gap-l); max-width: 22ch; }
   .table-wrap { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; border-top: 3px solid var(--cw-ink); border-bottom: 1px solid var(--cw-ink); }
-  thead th { text-align: left; color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; padding: 0.9rem 0 0.7rem; border-bottom: 1px solid var(--cw-ink); }
+  thead th { text-align: left; padding: 0.9rem 0 0.7rem; border-bottom: 1px solid var(--cw-ink); }
   tbody th, tbody td { vertical-align: baseline; padding: 1.4rem 0; border-bottom: 1px solid var(--cw-hairline); text-align: left; font-weight: 400; }
   tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
   th.c-label { width: 11rem; white-space: nowrap; }
-  tbody .c-label .t-ui-caps { color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; margin-right: 0.4rem; }
+  tbody .c-label .t-ui-caps { margin-right: 0.4rem; }
   tbody .c-label .id { color: var(--cw-ink); }
   /* Figures that must align are Catesque with tnum, zero, case (ui-system §3.2). */
   thead th.c-figure, tbody td.c-figure { width: 9rem; text-align: left; padding-right: var(--gap-l); }
@@ -144,22 +134,15 @@ const f = findings;
   .next { background: var(--cw-ivory); padding: var(--section) var(--gutter); display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--gap-l); align-items: end; }
   .next .statement { margin-bottom: 1.5rem; }
   .next .actions { max-width: 460px; }
-  .refer-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-  .refer {
-    display: inline-flex; align-items: center; border: 1.5px solid var(--cw-ink); color: var(--cw-ink);
-    padding: 0.8rem 1.1rem; min-height: 44px; font-family: var(--font-cwaaa-interface); font-weight: 500;
-    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
-  }
-  .refer:hover { background: var(--cw-ink); color: var(--cw-ivory); text-decoration: none; }
-  .refer-done { color: var(--cw-grey); font-size: var(--cw-text-s); letter-spacing: 0.04em; }
 
-  /* ---- Phone: labeled records, not a horizontal dashboard ------------------ */
+  /* ---- --bp-phone: labeled records, not a horizontal dashboard ------------- */
   @media (max-width: 700px) {
     .lead { grid-template-columns: 1fr; grid-template-areas: 'figure' 'rule' 'entry' 'method'; }
     .figure { font-size: var(--cw-figure-m); }
     .conclusion { font-size: 12vw; max-width: none; }
-    .record { grid-template-columns: 1fr 1fr; gap: 0.9rem 1.5rem; }
-    .method { margin: 2rem 0 0; max-width: none; justify-self: stretch; border-left: 0; border-top: 1px solid var(--cw-ink); padding: 1rem 0 0; }
+    /* The intrusion is a desktop composition; on phones the note takes the
+       system's ruled-block form, so its left padding has to go with it. */
+    .method { margin: 2rem 0 0; max-width: none; justify-self: stretch; padding: 1rem 0 0; }
     .statement { max-width: none; }
     .table-wrap { overflow: visible; }
     table, tbody, tr { display: block; width: 100%; }

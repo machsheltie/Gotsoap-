@@ -1,3 +1,10 @@
+---
+version: 1
+slug: "cwaaa-src-pages-recovery-stories-astro"
+primary_target: "src/pages/recovery-stories.astro"
+related_targets: ["src/pages/recovery-stories/[id].astro", "src/content/copy.ts", "cwaaa/src/pages/recovery-stories.astro", "cwaaa/src/pages/recovery-stories/[id].astro"]
+---
+
 # Surface brief — /recovery-stories and /recovery-stories/[id]
 
 **Confirmed 2026-09-15. Mode: Read.** Findings is a monument; this is the opposite surface and must

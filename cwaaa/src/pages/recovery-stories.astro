@@ -34,12 +34,16 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
   <section class="lead" aria-labelledby="lead-h">
     <p class="marker" data-reveal>{r.marker}</p>
     <h1 id="lead-h" class="heading t-voice-h" data-reveal style="--i: 1">{r.heading}</h1>
-    <div class="rule" data-reveal="rule" style="--i: 2"></div>
+    <div class="rule ink" data-reveal="rule" style="--i: 2"></div>
     <p class="intro t-lead" data-reveal style="--i: 2">{r.intro}</p>
-    <p class="note t-ui" data-reveal style="--i: 3">{r.note}</p>
+    <p class="note t-note" data-reveal style="--i: 3">{r.note}</p>
   </section>
 
-  <ol class="records">
+  <!-- The list is the page's substance and needs a name of its own: a screen
+       reader landing in it out of order otherwise hears "list, 5 items" with
+       nothing said about what they are. The name is the section marker already
+       printed above — no new string enters the route. -->
+  <ol class="records" aria-label={r.marker}>
     {listed.map((rec, i) => {
       /* An entry whose record is not open yet is not a link. His testimony is
          already complete here — the index quote runs to six sentences — so the
@@ -48,21 +52,27 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
          clicks and out" (Dylan), "a 60% chance of nothing" (Maya), "retroactively
          makes the good pages feel like a demo" (Priya). */
       const Entry = rec.open ? 'a' : 'div';
+      /* The open entry's accessible name was the participant's name alone —
+         "Brayden, 27" — which dropped the visible "Read the record" affordance
+         sitting right beside it. Naming the link from the name AND that label
+         gives "Brayden, 27 Read the record". It deliberately stops short of the
+         quote: the longest index quote runs ten sentences and would be unusable
+         as a link name. */
       return (
         <li class:list={['rec-row', i % 2 === 1 ? 'alt' : null]}>
           <Entry
             class:list={['entry', rec.open ? null : 'closed']}
             href={rec.open ? `/recovery-stories/${rec.slug}` : undefined}
-            aria-labelledby={rec.open ? `n-${rec.slug}` : undefined}
+            aria-labelledby={rec.open ? `n-${rec.slug} go-${rec.slug}` : undefined}
           >
-            <div class="shot-wrap" data-reveal="photo">
+            <div class:list={['shot-wrap', photos[rec.slug] ? null : 'absent']} data-reveal="photo">
               {photos[rec.slug] ? (
                 <ImageSlot
                   class="shot" tone="field" id="Participant photograph" title={rec.name} spec=""
                   image={photos[rec.slug]} alt={'alt' in rec.image ? rec.image.alt : ''}
                   ratio="4 / 3"
                   position={offsets[i % offsets.length]}
-                  sizes="(max-width: 860px) 100vw, 30vw"
+                  sizes="(max-width: 860px) 100vw, 25vw"
                 />
               ) : (
                 <ImageSlot
@@ -74,9 +84,16 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
             </div>
             <div class="said">
               <p class="quote t-testimony" data-reveal style="--i: 1">{rec.indexQuote}</p>
-              <p id={`n-${rec.slug}`} class="attrib t-ui-caps t-label" data-reveal style="--i: 2">{rec.name}</p>
+              {/* The name is an h2, not a paragraph. The index carried exactly
+                  one heading for five records, so there was no way to move
+                  between men by heading at all — the ol/li gave list semantics
+                  and nothing else. Visually it is unchanged: .t-ui-caps already
+                  sets the face, size and weight, and .attrib re-states them so
+                  a UA heading style can never leak in. It keeps the id the open
+                  entry's aria-labelledby points at. */}
+              <h2 id={`n-${rec.slug}`} class="attrib t-ui-caps t-label" data-reveal style="--i: 2">{rec.name}</h2>
               {rec.open && (
-                <span class="go t-ui-caps link-rule" data-reveal style="--i: 2">{r.readLabel}</span>
+                <span id={`go-${rec.slug}`} class="go t-ui-caps link-rule" data-reveal style="--i: 2">{r.readLabel}</span>
               )}
             </div>
           </Entry>
@@ -85,20 +102,43 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
     })}
   </ol>
 
-  <section class="close">
-    <div class="rule ink" data-reveal="rule"></div>
-    <a class="act-box stamp" href={r.action.href} data-reveal style="--i: 1">
-      <b>{r.action.label}</b><span class="t-ui-caps t-label">{r.action.note}</span>
-    </a>
+  <!-- The pledge is always the ruled row (owner decision, Option A, 2026-09-15).
+       The section's own hairline is the divider; the action's red rule is the
+       only other rule here, so the two never stack.
+
+       The band is composed, not centred or floated: it repeats the entry grid,
+       and the action lands in column 2 — the same column every voice occupied
+       on the way down. The empty photo column to its left is the indent the
+       reader has been reading past five times, so the close reads as the last
+       row of the record column rather than a 460px control alone in white.
+       The section takes its accessible name from the action itself; no string
+       is authored for this route (all copy is owner-ratified in copy.ts). -->
+  <section class="close" aria-labelledby="close-a">
+    <div class="actions" data-reveal>
+      <a id="close-a" class="primary" href={r.action.href}>{r.action.label} <span class="n">{r.action.note}</span></a>
+    </div>
   </section>
 </BaseLayout>
 
 <style>
   .lead { background: var(--cw-ivory); padding: var(--section) var(--gutter) var(--gap-l); }
-  .heading { max-width: 18ch; margin: var(--gap-s) 0 0; }
+  /* The lead is demoted here, and only here. Brief §3: the participant's own
+     sentence is the largest element on the page — on Findings the number was
+     biggest, here the voice is. It was not: the h1 sat at --cw-statement (44px
+     desktop) while every voice sat at --cw-testimony (30px), so the coalition's
+     own caption out-scaled all five men, and a reader arriving from the home
+     page's recovery voice met the same photograph and the same quote at the
+     same 30px with no escalation for having arrived.
+     .t-voice-h is NOT edited: it also sets the opened record's h1, the
+     participant's name, which stays at 44px. The override is local.
+     28px desktop / 22px phone, against the voice's 36/28 below — a clear step
+     down that still reads as the page's title against the 15px note and the
+     18–21px intro beneath it. */
+  .heading { font-size: clamp(1.375rem, 1.1rem + 0.95vw, 1.75rem); max-width: 26ch; margin: var(--gap-s) 0 0; }
   .rule { margin: var(--gap-m) 0; }
   .intro { color: var(--cw-black); margin: 0; }
-  .note { color: var(--cw-grey); margin: var(--gap-s) 0 0; max-width: 52ch; }
+  /* Colour and measure come from `.t-note`. */
+  .note { margin: var(--gap-s) 0 0; }
 
   .records { list-style: none; margin: 0; padding: 0; }
   /* Full-bleed hairlines between entries; alternating grounds. These rows are
@@ -106,8 +146,19 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
      block in system.css, and an entry here is a reading row. */
   .rec-row { background: var(--cw-white); border-top: 1px solid var(--cw-hairline); }
   .rec-row.alt { background: var(--cw-ivory); }
+  /* The ground stays full-bleed (brief §3: "stacked full width, alternating
+     ivory and white, separated by full-bleed hairlines") — the content inside
+     it does not. The old 30%/1fr pair handed the second column every remaining
+     pixel while .quote capped at 38ch, so at 1440 roughly 600px on the right of
+     every row carried nothing, five rows running. Both tracks are now bounded:
+     the photograph takes a quarter of the field and the voice's column is sized
+     to the reading measure it actually uses, with justify-content packing them
+     left against the alternating ground. The larger voice does the rest — 38ch
+     of 36px Modest is ~600px where 38ch of 30px was ~500. The measure itself is
+     NOT widened: this is a reading column, not a roster. */
   .entry {
-    display: grid; grid-template-columns: 30% 1fr; gap: var(--gap-l);
+    display: grid; grid-template-columns: minmax(0, 26%) minmax(0, 46%);
+    justify-content: start; gap: var(--gap-l);
     align-items: start; padding: var(--section) var(--gutter);
     text-decoration: none; color: inherit;
   }
@@ -115,19 +166,60 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
   /* A closed record is a reading block, not a target: no pointer, no hover. */
   .entry.closed { cursor: default; }
 
-  /* The voice is the biggest thing on this page. Never truncated. */
-  .quote { margin: 0; max-width: 38ch; }
-  .attrib { margin: var(--gap-m) 0 0; }
+  /* An absence is honest, not equal. Four of five men have no photograph yet
+     (CW-G04), and the voided field is content — the coalition writing off a box
+     nothing came back for. At an identical footprint and a 1.5px ink border it
+     out-argued the voice next to it, which inverts brief §3 a second way. It is
+     not deleted, not substituted, and nothing decorative replaces it: the hatch
+     and the notation stay exactly as ImageSlot sets them. It simply carries
+     less weight than a photograph that exists — a smaller field, drawn in the
+     hairline the rest of the page separates with rather than in full ink. */
+  .shot-wrap.absent { width: 82%; }
+  .shot-wrap.absent :global(.slot-field .media) { border-width: 1px; border-color: var(--cw-hairline); }
+
+  /* The voice is the biggest thing on this page. Never truncated. --cw-voice
+     exists for this one line; --cw-testimony stays where it is because it also
+     sets the home page's pull-quote and the opened record's follow-up quote,
+     and those ranks are correct. Face, style and colour still come from
+     .t-testimony in base.css — only the scale is the route's. */
+  .quote { font-size: var(--cw-voice); margin: 0; max-width: var(--cw-measure-voice); }
+  /* Promoted to h2 in the markup. These re-state what .t-ui-caps already sets
+     so no user-agent heading size, weight or line-height can reach it: the name
+     must look exactly as it did as a paragraph. */
+  .attrib { font-size: var(--cw-text-s); font-weight: 500; line-height: 1.5; margin: var(--gap-m) 0 0; }
   .go { display: inline-block; margin-top: 0.9rem; }
   /* The whole entry is the link, so the inline action answers the row's hover. */
   .entry:hover .go { color: var(--cw-black); border-color: var(--cw-black); }
 
-  .close { background: var(--cw-white); border-top: 1px solid var(--cw-hairline); padding: var(--gap-l) var(--gutter) var(--section); }
-  .act-box { margin-top: var(--gap-m); }
+  /* The close repeats the entry grid so the pledge lands in the column the
+     voices occupied, under the same left edge, at the width of the reading
+     column instead of an unrelated 460px. Symmetric --section padding replaces
+     the short top inset; the band is a composed last row, not an orphan.
+     No second rule is introduced: the section hairline divides, the action's
+     red rule is the only other rule, and they still never stack. */
+  .close {
+    background: var(--cw-white); border-top: 1px solid var(--cw-hairline);
+    display: grid; grid-template-columns: minmax(0, 26%) minmax(0, 46%);
+    justify-content: start; gap: var(--gap-l);
+    padding: var(--section) var(--gutter);
+  }
+  .close .actions { grid-column: 2; }
 
   /* ---- --bp-reading: the photo column starves the quote before --bp-phone -- */
+  /* ---- --bp-phone: the reading column gets the whole screen ----------------
+     The entries already stack at --bp-reading; what is still desktop-sized here
+     is the vertical pacing. A six-sentence quote plus a photograph at --section
+     top and bottom is a great deal of scroll on a 390px screen, so the row
+     pitch tightens while the voice keeps its scale. */
+  @media (max-width: 700px) {
+    .lead { padding: var(--gap-l) var(--gutter); }
+    .entry { padding: var(--gap-m) var(--gutter) var(--gap-l); }
+  }
+
   @media (max-width: 860px) {
-    .entry { grid-template-columns: 1fr; gap: var(--gap-m); padding: var(--gap-l) var(--gutter); }
+    .entry, .close { grid-template-columns: 1fr; gap: var(--gap-m); }
+    .entry { padding: var(--gap-l) var(--gutter); }
+    .close .actions { grid-column: 1; }
     .quote { max-width: none; }
   }
 </style>

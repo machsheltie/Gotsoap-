@@ -2,12 +2,14 @@
 /** Brand.astro — seal + full organization name. Returns Home (design.md §4). */
 import Seal from './Seal.astro';
 import { org } from '../content/copy';
-interface Props { class?: string; asLink?: boolean }
-const { class: className, asLink = true } = Astro.props;
+interface Props { class?: string; asLink?: boolean; lazySeal?: boolean }
+/* `lazySeal` passes through to Seal. Defaults false so the masthead Brand in
+ * Nav.astro is unaffected by omission; the footer Brand opts in. */
+const { class: className, asLink = true, lazySeal = false } = Astro.props;
 const Tag = asLink ? 'a' : 'div';
 ---
 <Tag class:list={['brand', className]} href={asLink ? '/' : undefined} aria-label={asLink ? `${org.name} — home` : undefined}>
-  <Seal size={58} decorative />
+  <Seal size={58} decorative lazy={lazySeal} />
   <span class="name">
     {org.nameLines[0]}<br />{org.nameLines[1]}
     <small>{org.est} · {org.tag}</small>

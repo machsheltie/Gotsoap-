@@ -10,8 +10,12 @@
 import { getImage } from 'astro:assets';
 import seal from '../assets/cwaaalogo-tight.png';
 import { org } from '../content/copy';
-interface Props { size?: number; decorative?: boolean; class?: string }
-const { size = 44, decorative = false, class: className } = Astro.props;
+interface Props { size?: number; decorative?: boolean; class?: string; lazy?: boolean }
+/* `lazy` defaults false: the masthead strike is above the fold on every route
+ * and must stay eager. Only a caller that knows it renders below the fold —
+ * the footer colophon — opts in, so the seal stops competing for bandwidth
+ * with the above-the-fold hero photograph. */
+const { size = 44, decorative = false, class: className, lazy = false } = Astro.props;
 
 /* Rendered at 40–50px in chrome; derivatives cover 2x and 3x displays. */
 const widths = [44, 50, 88, 100, 132, 150, 200, 300];
@@ -30,7 +34,7 @@ const fallback = await getImage({ src: seal, width: 150, format: 'png' });
     height={size}
     alt={decorative ? '' : org.sealAlt}
     aria-hidden={decorative ? 'true' : undefined}
-    loading="eager"
+    loading={lazy ? 'lazy' : 'eager'}
     decoding="async"
   />
 </picture>

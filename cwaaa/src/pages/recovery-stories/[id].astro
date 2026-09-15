@@ -77,23 +77,23 @@ const paras = (body: string) => body.split('\n\n');
 >
   <article class="rec">
     <header class="masthead">
-      <p class="rid t-ui-caps">{r.recordLabel} <span class="num">{rec.id}</span></p>
-      <h1 class="who t-voice-h">{rec.name}</h1>
+      <p class="rid t-ui-caps" data-reveal>{r.recordLabel} <span class="num">{rec.id}</span></p>
+      <h1 class="who t-voice-h" data-reveal style="--i: 1">{rec.name}</h1>
     </header>
 
     {referral && (
-      <section class="referral" aria-labelledby="ref-h" data-reveal>
-        <h2 id="ref-h" class="sec-h t-ui-caps t-label">{r.referralLabel}</h2>
-        <dl class="fields">
+      <section class="referral" aria-labelledby="ref-h">
+        <h2 id="ref-h" class="sec-label t-ui-caps t-label" data-reveal>{r.referralLabel}</h2>
+        <dl class="fields" data-reveal style="--i: 1">
           {referral.map((f) => (
             <div><dt class="t-ui-caps t-label">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
           ))}
         </dl>
         {corroboration && (
-          <div class="corrob">
+          <div class="corrob" data-reveal style="--i: 2">
             {corroboration.map((block) => (
               <div class="corrob-block">
-                <h3 class="corrob-h t-ui-caps">{block.heading}</h3>
+                <h3 class="corrob-h sec-label t-ui-caps">{block.heading}</h3>
                 <dl class="fields">
                   {block.rows.map((f) => (
                     <div><dt class="t-ui-caps t-label">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
@@ -107,9 +107,9 @@ const paras = (body: string) => body.split('\n\n');
     )}
 
     {statements && statements.map((st) => (
-      <aside class="statement" data-reveal>
-        <h2 class="st-h t-ui-caps t-label">{st.heading}</h2>
-        {paras(st.body).map((para) => <p class="st-b">{para}</p>)}
+      <aside class="statement">
+        <h2 class="sec-label t-ui-caps t-label" data-reveal>{st.heading}</h2>
+        {paras(st.body).map((para, n) => <p class="st-b" data-reveal style={`--i: ${n + 1}`}>{para}</p>)}
       </aside>
     ))}
 
@@ -130,23 +130,23 @@ const paras = (body: string) => body.split('\n\n');
     </div>
 
     {testimony && testimony.length > 0 && (
-      <blockquote class="testimony" data-reveal>
-        {testimony.map((para) => <p>{para}</p>)}
+      <blockquote class="testimony">
+        {testimony.map((para, n) => <p data-reveal style={`--i: ${Math.min(n, 3)}`}>{para}</p>)}
       </blockquote>
     )}
 
     {fieldNote && (
-      <aside class="statement" data-reveal>
-        <h2 class="st-h t-ui-caps t-label">{fieldNote.heading}</h2>
-        {paras(fieldNote.body).map((para) => <p class="st-b">{para}</p>)}
+      <aside class="statement">
+        <h2 class="sec-label t-ui-caps t-label" data-reveal>{fieldNote.heading}</h2>
+        {paras(fieldNote.body).map((para, n) => <p class="st-b" data-reveal style={`--i: ${n + 1}`}>{para}</p>)}
       </aside>
     )}
 
     {chronology && (
-      <section class="chronology" aria-labelledby="chr-h" data-reveal>
-        <div class="rule ink"></div>
-        <h2 id="chr-h" class="sec-h t-ui-caps t-label">{r.chronologyLabel}</h2>
-        <dl class="fields">
+      <section class="chronology" aria-labelledby="chr-h">
+        <div class="rule ink" data-reveal="rule"></div>
+        <h2 id="chr-h" class="sec-label t-ui-caps t-label" data-reveal style="--i: 1">{r.chronologyLabel}</h2>
+        <dl class="fields" data-reveal style="--i: 2">
           {chronology.map((f) => (
             <div><dt class="t-ui-caps t-label">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
           ))}
@@ -170,30 +170,30 @@ const paras = (body: string) => body.split('\n\n');
     )}
 
     {followUp && (
-      <section class="follow" aria-labelledby="fu-h" data-reveal>
-        <h2 id="fu-h" class="sec-h t-ui-caps t-label">{followUp.heading}</h2>
-        {followUp.lines.map((line) => <p class="fu-l t-ui">{line}</p>)}
-        <p class="fu-lead t-ui">{followUp.askedLead}</p>
-        <p class="fu-q t-testimony">{followUp.quote}</p>
+      <section class="follow" aria-labelledby="fu-h">
+        <h2 id="fu-h" class="sec-label t-ui-caps t-label" data-reveal>{followUp.heading}</h2>
+        {followUp.lines.map((line) => <p class="fu-l t-note" data-reveal style="--i: 1">{line}</p>)}
+        <p class="fu-lead t-note" data-reveal style="--i: 2">{followUp.askedLead}</p>
+        <p class="fu-q t-testimony" data-reveal style="--i: 3">{followUp.quote}</p>
       </section>
     )}
 
     {partnerFollowUp && (
-      <aside class="statement" data-reveal>
-        <h2 class="st-h t-ui-caps t-label">{partnerFollowUp.heading}</h2>
-        {paras(partnerFollowUp.body).map((para) => <p class="st-b">{para}</p>)}
+      <aside class="statement">
+        <h2 class="sec-label t-ui-caps t-label" data-reveal>{partnerFollowUp.heading}</h2>
+        {paras(partnerFollowUp.body).map((para, n) => <p class="st-b" data-reveal style={`--i: ${n + 1}`}>{para}</p>)}
       </aside>
     )}
 
     {close && (
-      <section class="close-fields" data-reveal aria-label="Case record">
-        <div class="rule ink"></div>
-        <dl class="fields">
+      <section class="close-fields" aria-label="Case record">
+        <div class="rule ink" data-reveal="rule"></div>
+        <dl class="fields" data-reveal style="--i: 1">
           {close.map((f) => (
             <div><dt class="t-ui-caps t-label">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
           ))}
         </dl>
-        {closeNote && <p class="close-note t-ui">{closeNote}</p>}
+        {closeNote && <p class="close-note t-note" data-reveal style="--i: 2">{closeNote}</p>}
       </section>
     )}
 
@@ -211,7 +211,7 @@ const paras = (body: string) => body.split('\n\n');
          reads as a broken site and gives the visitor an innocent explanation
          for the boundary they just crossed. Appending record 7 to the sequence
          restores this link with no change here. -->
-    <nav class="pager" aria-label="Recovery records">
+    <nav class="pager" aria-label="Recovery records" data-reveal>
       {prev
         ? <a class="p-prev t-ui-caps t-label" href={`/recovery-stories/${prev.slug}`}>← {r.pager.prev}</a>
         : <span class="p-prev empty"></span>}
@@ -234,7 +234,6 @@ const paras = (body: string) => body.split('\n\n');
   .rid { color: var(--cw-ink); margin: 0; }
   .rid .num { font-family: var(--font-cwaaa-interface); letter-spacing: 0.06em; }
   .who { margin: var(--gap-s) 0 0; }
-  .sec-h { margin: 0 0 var(--gap-s); }
   .rule.ink { margin: 0 0 var(--gap-m); }
 
   /* The single authored fracture: field labels intrude into the reading
@@ -265,19 +264,21 @@ const paras = (body: string) => body.split('\n\n');
 
   .referral { margin-bottom: var(--gap-l); }
   .corrob { margin-top: var(--gap-m); display: grid; gap: var(--gap-m); }
-  .corrob-h { color: var(--cw-ink); margin: 0 0 0.5rem; }
+  /* The second label tier is `.sec-label` (system.css). Only the colour differs
+     here: a corroboration heading is the record's own voice, so it takes ink by
+     omitting `.t-label` rather than becoming a third class. */
+  .corrob-h { color: var(--cw-ink); }
 
-  .statement { margin: 0 0 var(--gap-l); max-width: 52ch; }
-  .st-h { margin: 0 0 0.55rem; }
+  .statement { margin: 0 0 var(--gap-l); max-width: var(--cw-measure-note); }
 
-  /* `.st-h` and `.corrob-h` are real headings (h2, and h3 inside the referral
+  /* These section labels are real headings (h2, and h3 inside the referral
      section) so a screen-reader user can move through a record: before this
      the whole of Brayden's file exposed h1 plus a single h2. Nothing moves on
-     screen — `.t-ui-caps` already carries the face, size, weight and casing,
-     and the margins above override the UA heading margins — but base.css
-     balances heading text, and these were paragraphs, so the paragraph's own
-     wrapping is put back rather than letting a caps label re-break. */
-  .st-h, .corrob-h { text-wrap: pretty; }
+     screen — `.t-ui-caps` carries the face, size, weight and casing and
+     `.sec-label` the margin — but base.css balances heading text, and these
+     were paragraphs, so the paragraph's own wrapping is put back rather than
+     letting a caps label re-break. */
+  .rec .sec-label { text-wrap: pretty; }
   .st-b {
     font-family: var(--font-cwaaa-testimony); font-size: var(--cw-text);
     line-height: 1.55; color: var(--cw-black); margin: 0 0 0.9rem;
@@ -295,9 +296,8 @@ const paras = (body: string) => body.split('\n\n');
   .testimony p:last-child { margin-bottom: 0; }
 
   .chronology, .close-fields { margin: 0 0 var(--gap-l); }
-  .close-note {
-    margin: var(--gap-m) 0 0; color: var(--cw-grey); max-width: 52ch; line-height: 1.55;
-  }
+  /* Face, size, colour and measure all come from `.t-note`. */
+  .close-note { margin: var(--gap-m) 0 0; }
 
   .fragment {
     background: #ffffff; border: 1px solid #15181f; color: #000000;
@@ -316,13 +316,16 @@ const paras = (body: string) => body.split('\n\n');
 
   .returned { color: var(--cw-ink); margin: 0 0 var(--gap-l); }
 
-  .follow { margin: 0 0 var(--gap-l); max-width: 52ch; }
-  .fu-l { color: var(--cw-black); margin: 0 0 0.4rem; line-height: 1.55; }
-  .fu-lead { color: var(--cw-grey); margin: var(--gap-m) 0 0.6rem; line-height: 1.55; }
+  .follow { margin: 0 0 var(--gap-l); max-width: var(--cw-measure-note); }
+  .fu-l { margin: 0 0 0.4rem; }
+  .fu-lead { margin: var(--gap-m) 0 0.6rem; }
   .fu-q { margin: 0; }
 
   .act-wrap { margin: var(--section) 0 0; }
-  .act-wrap .actions { max-width: 460px; }
+  /* The pledge sits at the width of the reading column, not an unrelated 460px
+     — the same correction the index made when its close was rebuilt onto the
+     entry grid. */
+  .act-wrap .actions { max-width: var(--cw-measure); }
 
   .pager {
     margin-top: var(--gap-l); padding-top: var(--gap-m);
@@ -359,5 +362,17 @@ const paras = (body: string) => body.split('\n\n');
     .pager { grid-template-columns: 1fr; text-align: left; gap: 1.5rem; }
     .p-next, .p-all { justify-self: start; text-align: left; }
     .empty { display: none; }
+  }
+
+  /* ---- --bp-phone: fixed-width blocks give up their widths ------------------
+     The record reads in one column well before this, but three things are still
+     sized for a desktop: the quoted Office fragment (30rem), the pledge row
+     (460px) and the label column inside it. On a 390px screen the fragment was
+     the only element that could not fit, and `overflow-x: clip` would have
+     taken the overflow silently. */
+  @media (max-width: 700px) {
+    .fragment { max-width: none; }
+    .act-wrap .actions { max-width: none; }
+    .rec { padding: var(--gap-l) var(--gutter); }
   }
 </style>

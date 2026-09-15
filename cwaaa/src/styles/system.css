@@ -1,0 +1,135 @@
+/* ============================================================================
+   system.css — the CWAAA component layer.
+
+   Everything here is a civic element the coalition uses on more than one
+   surface: the rule it draws under a statement, the filed record it sets its
+   label/value pairs in, the methodology note it interrupts itself with, the
+   three action tiers, and the section marker. A route styles position, measure,
+   and rhythm in its own scoped block; it does not restate these.
+
+   Scoped route styles outrank these selectors, so a route can still override
+   any of it — but a route that finds itself re-declaring a whole component has
+   found a gap in this file, not a reason to fork.
+   ========================================================================== */
+
+/* ---- Section marker -------------------------------------------------------
+   A dot and a short label. Kept because the owner approved the reference's
+   elements (ui-system.md §13, 2026-09-14). Stamp red is reserved for the
+   pledge action (owner decision 2026-09-14); the dot is grey, the label ink. */
+.marker {
+  display: flex; align-items: center; gap: 0.55em;
+  font-family: var(--font-cwaaa-interface); font-weight: 500;
+  font-size: var(--cw-text-s); letter-spacing: 0.08em; color: var(--cw-ink);
+}
+.marker::before { content: ''; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--cw-grey); flex: none; }
+.on-ink .marker { color: var(--cw-on-ink-muted); }
+.on-ink .marker::before { background: var(--cw-on-ink-muted); }
+
+/* ---- The block label -----------------------------------------------------
+   The second label tier, and there are only two.
+
+   `.marker` opens a FIELD: a whole-ground section, and its dot is the coalition
+   saying "a new thing starts here." `.sec-label` opens a BLOCK inside one
+   continuous reading surface — the opened record's referral, chronology, and
+   follow-up — where a row of dots would shatter a single document into a stack
+   of sections. Composes with `.t-ui-caps` for the face; add `.t-label` for the
+   ordinary grey, omit it for ink when the block is the record's own voice.
+
+   Both tiers existed already; only `.marker` was written down, so the record
+   grew three private classes (`.sec-h`, `.st-h`, `.corrob-h`) that were this
+   component three times. A third tier is drift. */
+.sec-label { margin: 0 0 var(--gap-s); }
+
+/* ---- The civic rule -------------------------------------------------------
+   Three weights, and the weight carries meaning. The hairline separates; the
+   ink rule closes a reading surface; the heavy rule belongs to the monumental
+   surfaces only — the Findings lead and the home page's Finding and close.
+   Never pick one by which page you copied from. */
+.rule { height: 1px; background: var(--cw-hairline); }
+.on-ink .rule { background: var(--cw-hairline-on-ink); }
+.rule.ink { height: 1.5px; background: var(--cw-ink); }
+.rule.ink.heavy { height: 3px; }
+
+/* ---- The filed record -----------------------------------------------------
+   Label/value pairs ruled top and bottom, read across. Set --record-cols for
+   the column count; on phones it always becomes two. Labels take .t-ui-caps,
+   values .t-ui, so the notation face comes from the type role, not from here.
+
+   The opened Recovery Record's `.fields` is deliberately NOT this component:
+   its labels intrude into the reading column's left margin, and that fracture
+   is the route's one authored departure. Do not unify them. */
+.record {
+  display: grid; grid-template-columns: repeat(var(--record-cols, 3), auto);
+  justify-content: start; gap: 0 2.5rem; margin: 0;
+  border-top: 1px solid var(--cw-ink); border-bottom: 1px solid var(--cw-ink);
+  padding: 0.85rem 0;
+}
+.record > div { display: grid; gap: 0.25rem; }
+.record dt { margin: 0; color: var(--cw-grey); }
+.record dd { margin: 0; color: var(--cw-ink); }
+
+/* ---- The methodology note -------------------------------------------------
+   The single permitted interruption beside a Finding (design.md §6). The note
+   is always a ruled aside in the operating face; where it sits, and whether it
+   pushes up into the figure's field, belongs to the route. */
+.method {
+  border-left: 1px solid var(--cw-ink); padding-left: 1.5rem;
+  color: var(--cw-grey); font-family: var(--font-cwaaa-interface);
+  font-size: var(--cw-text-m); line-height: 1.6;
+}
+.method b { display: block; color: var(--cw-ink); margin-bottom: 0.5rem; font-weight: 700; }
+.method p { margin: 0; }
+
+/* ---- Actions: three tiers, and only three ---------------------------------
+   1. `.actions`  — the ruled list. A surface's committed actions, stacked and
+                    ruled like a form's. `.primary` is the pledge, in stamp red.
+   2. `.act-box`  — a single bordered action standing on its own, in ink. It is
+                    the referral and utility control, never the pledge.
+   3. `.link-rule`— an inline action inside running text or a caption.
+   A fourth treatment is drift, not a new idea.
+
+   OWNER DECISION 2026-09-15 (Option A, across the board): the pledge is ALWAYS
+   tier 1, on every surface. Stamp red stays a rule and never becomes a filled
+   field. The former `.act-box.stamp` variant is deleted, not deprecated — do
+   not reintroduce a bordered or filled pledge button. */
+
+.actions { display: grid; font-family: var(--font-cwaaa-interface); font-weight: 500; font-size: var(--cw-text-m); letter-spacing: 0.06em; text-transform: uppercase; }
+.actions a {
+  display: flex; justify-content: space-between; align-items: center; gap: 1.5rem;
+  padding: 0.85rem 0; border-top: 1.5px solid var(--cw-ink); color: var(--cw-ink);
+  transition: color var(--dur) var(--ease-out);
+}
+.actions a:last-child { border-bottom: 1.5px solid var(--cw-ink); }
+.actions a.primary { color: var(--cw-stamp); border-top: 3px solid var(--cw-stamp); }
+.actions a:hover { text-decoration: none; color: var(--cw-black); }
+.actions a:hover .n { transform: translateX(-0.35rem); color: var(--cw-ink); }
+.actions .n { font-weight: 400; color: var(--cw-grey); letter-spacing: 0.1em; transition: transform var(--dur) var(--ease-out), color var(--dur) var(--ease-out); }
+.actions a.primary .n { color: var(--cw-stamp); }
+
+.act-box {
+  display: inline-flex; align-items: center; gap: 0.9rem;
+  border: 1.5px solid var(--cw-ink); color: var(--cw-ink);
+  padding: 0.8rem 1.1rem; min-height: 44px; text-decoration: none;
+  font-family: var(--font-cwaaa-interface); font-weight: 500;
+  transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+.act-box:hover { background: var(--cw-ink); color: var(--cw-ivory); text-decoration: none; }
+
+.link-rule { color: var(--cw-ink); border-bottom: 1.5px solid var(--cw-ink); padding-bottom: 2px; }
+.link-rule:hover { text-decoration: none; color: var(--cw-black); border-color: var(--cw-black); }
+
+/* ---- The copy-link referral -----------------------------------------------
+   An `.act-box` wired to scripts/reveal.ts. The contract is structural: the
+   anchor carries data-copy-link and data-done, and its confirmation lives in a
+   sibling [role="status"] inside the same .refer-row. Moving one without the
+   other silently breaks the confirmation. */
+.refer-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.refer-done { color: var(--cw-grey); font-size: var(--cw-text-s); letter-spacing: 0.04em; }
+
+/* ---- Phone recomposition (--bp-phone) -------------------------------------
+   Labeled records, never a horizontal dashboard; the note stops being a margin
+   aside and becomes a ruled block. */
+@media (max-width: 700px) {
+  .record { grid-template-columns: 1fr 1fr; gap: 0.9rem 1.5rem; }
+  .method { border-left: 0; border-top: 1px solid var(--cw-ink); padding: 1rem 0 0; }
+}

@@ -1,8 +1,8 @@
 ---
 version: 1
 slug: "cwaaa-src-pages-findings-astro"
-primary_target: "cwaaa/src/pages/findings.astro"
-related_targets: ["cwaaa/src/content/copy.ts"]
+primary_target: "src/pages/findings.astro"
+related_targets: ["src/content/copy.ts", "cwaaa/src/pages/findings.astro"]
 ---
 
 # Surface brief: CWAAA Findings (`/findings`)

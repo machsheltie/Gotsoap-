@@ -25,8 +25,10 @@
   --cw-hairline: rgba(47, 62, 92, 0.28);
   --cw-hairline-on-ink: rgba(245, 240, 230, 0.32);
 
-  /* Placeholder grounds for owner-supplied photography (never shipped as final) */
-  --cw-photo-ground: #3b3e44;   /* used black gym bag, locker room */
+  /* Placeholder grounds for owner-supplied photography (never shipped as final).
+     Neutral room tone and cloth tone only — the earlier gym-bag/locker-room
+     reading of these is struck with that spec (design.md §7, 2026-09-15). */
+  --cw-photo-ground: #3b3e44;   /* documentary room in shadow */
   --cw-cloth-ground: #6a4a45;   /* red washcloth in shadow */
 
   /* ---- Type roles: LOCKED families, one per role ----------------------- */
@@ -45,13 +47,42 @@
   --cw-statement: clamp(1.875rem, 1.25rem + 1.75vw, 2.75rem);  /* 30–44 statement */
   --cw-panel-h: clamp(1.375rem, 1.1rem + 0.8vw, 1.625rem);     /* 22–26 panel heading */
   --cw-testimony: clamp(1.5rem, 1.2rem + 0.9vw, 1.875rem);     /* 24–30 testimony */
+  /* [PROPOSED] CW-D01. The Recovery Stories INDEX voice, and only that surface.
+     Brief §3 (confirmed 2026-09-15) makes the participant's own sentence the
+     largest element on that page — Findings gave the rank to the number, the
+     index gives it to the voice. --cw-testimony could not be raised to do this:
+     it also sets the home page's recovery pull-quote and the opened record's
+     follow-up quote, whose ranks are correct. This sits one step above it and
+     stays below --cw-statement's ceiling so no monumental face is implied;
+     MORVI and Mirk Slab stay off this route (brief §5). */
+  --cw-voice: clamp(1.75rem, 1.35rem + 1.2vw, 2.25rem);        /* 28–36 index voice */
   --cw-finding: clamp(2.75rem, 1rem + 5.8vw, 5.6rem);          /* Finding statement */
   --cw-figure: min(clamp(9rem, 2rem + 30vw, 30rem), 60vh);     /* LOCKED 2026-09-15 (CW-D01, Findings figure): the one monumental Mirk Slab figure */
   --cw-figure-m: 44vw;                                         /* phone */
   --cw-line: clamp(2.25rem, 0.6rem + 4.9vw, 4.75rem);          /* DOCUMENT. ADVOCATE. ORGANIZE. */
   --cw-proposition: clamp(4.5rem, 2rem + 8vw, 9rem);           /* The bar is soap. */
   --cw-proposition-m: 19vw;                                    /* phone */
+
+  /* ---- Measure: four named columns, picked by JOB, never by page ---------
+     One face can legitimately take three widths because it is doing three
+     different jobs. What is NOT legitimate is a route inventing a fourth
+     number because it could not see what the other routes used. Pick the job;
+     the width follows.
+
+       --cw-measure-quote  one pulled sentence at testimony scale, beside
+                           something else (the home recovery voice)
+       --cw-measure-voice  a man's whole testimony as the subject of a reading
+                           row, 1 to 6 sentences, never truncated (the
+                           Recovery Stories index)
+       --cw-measure        the reading column: long-form testimony and table
+                           prose (the opened record, the Findings register)
+       --cw-measure-note   supporting prose that runs wider because nothing
+                           competes with it (chapter traces, methodology and
+                           case notes, the index note)                        */
+  --cw-measure-quote: 30ch;
+  --cw-measure-voice: 38ch;
   --cw-measure: 46ch;
+  --cw-measure-note: 52ch;
 
   /* ---- Space: [PROPOSED] ----------------------------------------------- */
   --gutter: clamp(1.25rem, 0.5rem + 2.4vw, 3rem);      /* 20–48 */
@@ -59,6 +90,22 @@
   --gap-l: clamp(2rem, 1rem + 2.8vw, 4rem);
   --gap-m: 1.75rem;
   --gap-s: 0.875rem;
+
+  /* ---- Breakpoints: recorded here, applied in media queries ------------
+     CSS cannot read a custom property inside a media query, so these four are
+     the site's whole ladder and every @media must name one of them and say
+     which. Adding a fifth is drift.
+
+       --bp-phone   700px  phone recomposition: multi-column fields collapse,
+                           records become two-up, notes stop being margin asides
+       --bp-reading 860px  two-column reading surfaces collapse early because a
+                           30% photo column starves the text before 700px
+       --bp-util    900px  the utility bar sheds the scale line
+       --bp-nav    1000px  the six-item row gives way to the disclosure menu  */
+  --bp-phone: 700px;
+  --bp-reading: 860px;
+  --bp-util: 900px;
+  --bp-nav: 1000px;
 
   /* ---- Motion: restrained and material (design.md §10) ----------------- */
   --dur: 720ms;

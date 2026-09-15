@@ -1,103 +1,115 @@
 # Proposal — Billy Bob, RC-064 (the boundary record)
 
-**Vivian v7, 2026-09-15. The v4.0 draft formerly in this file is deleted at the owner's instruction.**
+**Vivian v7, revision 3, 2026-09-15.** Editorial pass over revision 2 under the owner's most recent
+decisions. Revision 2 is recoverable from git history and the session scratchpad.
 **Dials: Spice 6 / Darkness 5 / Wrongness 6 / Commitment 10.**
 
-Canon: `../canon-billy-bob-and-the-archive-boundary.md`. Protocol: `RECOVERY-STORY-PROTOCOL.md`
-including the overcorrection rule. Rendering law for the embedded finding: `../../design.md` §7 and
-`../world-bible.md` (embedded external finding). Owner decisions taken in interview, 2026-09-15:
+Canon: `../canon-billy-bob-and-the-archive-boundary.md`. Protocol: `RECOVERY-STORY-PROTOCOL.md`.
+Rendering law for the embedded finding: `../../design.md` §Recovery Stories and `../world-bible.md`
+§Office references.
 
-1. Testimony slot holds his complete theory in his own voice, short. "Makes sense to wash up." sits
-   under *What changed* at ordinary scale. Before: a theory. After: four words.
-2. The wife's referral is the whole lived problem, not one motif. She says what made her say enough.
-3. Reward is restored intimacy, culminating unmistakably in restored desire. Bedding is evidence.
-4. CWAAA speaks through chronology fields plus one controlled human line, because that gives the
-   strongest CWAAA storytelling and preserves the tonal drop into the Office.
-5. Ordinary RC number above 058. The Office reference enters only with Office material.
+**Take.** He never changed his argument. His wife stopped rolling over. Then the man changed, and he
+will not say why.
 
-**Take.** He never changed his argument. The bed changed. Then the man changed, and he will not say
-why.
-
-**Engine — the static sentence.** His canon position is the only thing he says before the return.
-The chronology re-quotes it, one clause per intervention beat, while the shared-surface field
-degrades under it. The reader assembles the whole sentence he says every time. The four words are
-the first new thing his mouth produces.
+**Engine — the static sentence under rising pressure.** CWAAA explains. He gives his argument. CWAAA
+explains the consequences. Same argument. His wife says it with the case worker sitting there. Same
+argument. The case worker runs out of things to offer him. External review requested. Nothing in the
+record escalates except the cost; his reasoning is the one fixed object on the page.
 
 **Page shape.** Same template as the five: photograph, name, testimony, believed / cost / changed,
-one Coalition line. His story adds optional record blocks below the arc, in this order: reporting
-party statement, chronology, embedded external finding, return, follow-up, reporting party
-follow-up, fielded close. No other story uses them. The extra paperwork is the only tell.
+one Coalition line. His record adds blocks below the arc, in this order: reporting party statement,
+chronology (with the field note lodged inside it), embedded external finding, return, follow-up,
+reporting party follow-up, fielded close. No other record uses them.
 
 ---
 
-## Proposals, not canon (owner to ratify or replace)
+## 1 · Testimony
 
-| Item | Proposed | Why |
-|---|---|---|
-| Record number | RC-064 | Ordinary, six past the last public one. The gap implies other unlisted records without saying so. |
-| Name line | **Billy Bob, 38** | The template carries an age for every man. Absence would read as a treatment. 38 is old enough for "years" of the same argument. |
-| Follow-up intervals | 14 and 28 days | Standard CWAAA rhythm, shorter than Brayden's 90 because the partner keeps calling. |
-| External review requested | 9 October | Calendar date so the return can be dated too. |
-| Case returned | 20 October | Eleven days. Longer than a weekend, shorter than anything that would require a story. Nothing describes them. |
-| Withheld disposition | `DISPOSITION: WITHHELD` in plain Courier | The Office design law forbids faux-redaction effects and says words carry it. The Office does not hide that it withholds; it states it. |
+> "Everybody wants to talk about this like I don't wash. I wash. Saturday I wash, Sunday I wash, any
+> day I'm not going down I wash.
+>
+> What I don't do is scrub off Monday night to be filthy again Tuesday at six. I'm going right back
+> underground in the morning. I shower tonight, I'm covered again tomorrow. Never saw much point in
+> washing just to get dirty again.
+>
+> You don't put a new belt on one that's coming off at the end of the shift. You don't run a pump dry
+> on purpose. You do the work when the work holds. Washing don't hold.
+>
+> She tells me it's different. I've asked her how and she gets mad instead of telling me. I'm not
+> trying to win it. I just never got an answer that was an answer."
 
----
+Page description / pull: **"Washing don't hold."**
 
-## 1 · Testimony — his theory, complete
-
-> "I go down at six in the morning and I come up black. That's the job. She's heard my answer and
-> I've heard hers, and mine hasn't changed: I'm going right back underground in the morning. I
-> shower tonight, I'm covered again tomorrow. Never saw much point in washing just to get dirty
-> again. You don't hose down a truck the night before you drive it through the mud. It's not
-> laziness. It's arithmetic."
-
-Index pull (unused on the index, feeds the page description): **"It's arithmetic."**
+The canon sentence sits whole in the second paragraph so the reader hears it once as a person saying
+it. CWAAA then files it back in thirds (§4). The block ends on his unanswered question rather than a
+punchline, because her statement is the answer he was never given.
 
 ## 2 · The arc
 
 > **What he believed** — That tonight's shower was wasted on tomorrow's shift.
-> **What it cost him** — His side of the bed, then his wife's.
-> **What changed** — "Makes sense to wash up."
+> **What it cost him** — His wife stopped wanting him near her.
+> **What changed** — He started showering after every shift.
+
+*What changed* is the plain behavioral fact. It states what he does and withholds why. His four words
+appear once, in §6.
 
 ## 3 · Reporting party — statement on file
 
 > **REPORTING PARTY — STATEMENT ON FILE**
 >
-> "He comes in the door at four-thirty and you smell him before you see him. Coal dust, sweat, the
-> whole day. It's in his hair, in the creases of his neck, under his nails, in his ears. He eats
-> supper like that. He sits on my couch like that. Then he gets in our bed like that.
+> "He comes in the door at four-thirty and I smell him before I see him. It isn't just the coal. It's
+> the coal and the sweat under it and eight hours of him gone sour in it. It's in his hair, in the
+> creases of his neck, under his nails, in his ears. He eats supper like that. He sits on my furniture
+> like that. Then he gets in our bed like that.
 >
-> I've asked him for years. I've bought the good soap. I've run the shower for him and stood there.
-> He has the same answer every time and he says it like he's the reasonable one.
+> I've asked him for years. I bought the good soap and set it where he'd see it. He's got the same
+> answer every time and he says it so reasonable that I come out of it being the unreasonable one.
 >
-> I wash the sheets twice a week and his side is gray by the second night. I moved to the edge.
-> Then I started sleeping with my back to him. Then one night I realized I could not remember the
-> last time I'd wanted to touch my own husband, and that's when I said enough. I'm not asking him to
-> quit the mine. I'm asking him to come to bed like a man and not a shift."
+> He asks me what the difference is. I can't say it to his face. The difference is I stopped rolling
+> over. I sleep on the edge with my back to him and a towel down on his side, and one night I laid
+> there working out how long it had been since I wanted my husband to touch me.
+>
+> That's the night I called you."
+
+Her paragraph order is the whole lived problem, then the years of asking, then the cost. She answers
+his question and tells us why he never heard the answer: it is not a thing she can say to him.
 
 ## 4 · Chronology
+
+The engine, made structural. His position is quoted three times and does not move; the impact lines
+move underneath it.
 
 > Referral received — Spouse, cohabitating. Multiple household conversations reported prior to contact.
 > Initial outreach — Participant contacted. Baseline materials accepted.
 > Participant's stated position — "I'm going right back underground in the morning."
 > Shared-surface impact — Reported.
 >
-> Follow-up, 14 days — Partner reports behavior unchanged.
+> Follow-up — Partner reports behavior unchanged.
 > Participant's stated position — "I shower tonight, I'm covered again tomorrow."
-> Shared-surface impact — Continuing. Partner now laundering shared bedding three times weekly.
+> Shared-surface impact — Continuing.
 >
-> Second intervention — Household consequences discussed with participant, partner present.
+> Second intervention — Household and partner consequences discussed with participant, partner present.
 > Participant's stated position — "Never saw much point in washing just to get dirty again."
-> Shared-surface impact — Continuing. Partner reports sleeping at the edge of the shared bed.
+> Shared-surface impact — Continuing.
+> Partner-reported impact — Withdrawal of physical contact.
 >
-> Follow-up, 28 days — Behavior unchanged. This remained his position after the shared-bedding
-> concern was explained to him a third time.
-> Shared-surface impact — Continuing. Partner has moved to a separate blanket.
->
-> **External review requested — 9 October**
+> Follow-up — Behavior unchanged. This remained his position after the shared-bedding concern was
+> explained to him a third time.
 
-The controlled human line is *explained to him a third time*. It is a fact. It is also a woman at a
-desk counting.
+> **FIELD NOTE — CASE WORKER, STATEMENT ON FILE**
+>
+> "Second visit. He met me at his kitchen table, answered everything I asked him, and explained his
+> reasoning again without raising his voice. He is able to do this. He does not believe he should
+> have to.
+>
+> I gave him the same answer his wife gives him and I watched it not land again. I have nothing left
+> to offer him that he has not already declined."
+
+> **External review requested — [date TK]**
+
+The field note is the last human voice on the page. It makes the escalation read as a person running
+out, not a system triggering, and it hands the reader the reason for external review without CWAAA
+ever explaining what external review is.
 
 ## 5 · Embedded external finding
 
@@ -119,66 +131,84 @@ DISPOSITION: WITHHELD
 
 Unintroduced, uncaptioned, unlinked. Stark white, Courier, small. CWAAA resumes on the next line.
 
-> **Case returned — 20 October**
+> **Case returned — [date TK]**
 
 ## 6 · Follow-up
 
-> **FOLLOW-UP — 21 DAYS**
+> **FOLLOW-UP — [interval TK]**
 > Participant reports showering immediately following each completed mine shift.
 > Partner confirms cessation of occupational-residue transfer to shared bedding.
 > Bedding conditions reported returned to baseline.
 > Participant reports no difficulty maintaining revised routine.
-> Asked what changed his position regarding post-shift bathing, participant stated: "Makes sense to
-> wash up."
+> Asked what changed his position regarding post-shift bathing, participant stated:
+>
+> "Makes sense to wash up."
 
-The four words appear twice on the page, once in the arc and once here. Deliberate: the arc and the
-record agree because that is all he has said. Strike one if it reads as padding.
+Ordinary scale. Once. Nothing is built around it.
 
 ## 7 · Reporting party — follow-up statement on file
 
 > **REPORTING PARTY — FOLLOW-UP STATEMENT ON FILE**
 >
-> "He comes in and goes straight to the shower now. Doesn't announce it. Comes out with his hair
-> wet and sits down to supper like a person.
+> "He comes in and goes straight to the shower now. Doesn't announce it. Comes out with his hair wet
+> and sits down to supper like a person.
 >
-> I sleep in the middle of the bed again. So does he. He knows I noticed, and he's been walking
-> around this house like he invented soap.
+> I sleep in the middle of the bed. So does he.
 >
-> I reach for him now. I don't wait till he's asleep to get comfortable. I wanted my husband in my
-> bed for years, and now that he comes to it clean I want him in it, and not for sleeping."
-
-Nothing follows it except the close.
+> He knows I noticed. He's been walking around this house like he invented soap, and I'm letting him.
+> I spent years wanting my husband in that bed. He's in it now, and not for sleeping."
 
 ## 8 · Fielded close and Coalition line
 
 > Current status — Maintaining baseline
 > Shared-surface transfer — No recurrence reported
 > Additional CWAAA intervention — Not required
-> External review — Requested 9 October. Case returned 20 October.
+> External review — Requested. Case returned.
 >
 > Partner reports that shared bedding has remained within baseline since the participant's return.
 
-The Coalition line (template `disposition` field) is the canon sentence, unchanged.
+The Coalition line (template `disposition` field) is the canon sentence, unchanged. The close follows
+her statement because canon fixes the record's last line as the institution's; the coldness after her
+heat is contrast, not an undercut, and nothing in it comments on what she said.
 
 ---
 
-## Self-audit
+## Fact-authority pass — run against the finished prose above
 
-Surface — Convert + Character, with a Mystify block lodged inside. Objective — the target reader
-wants what she describes in §7. Truth — a competent man ran the numbers on his own body and left
-the other person out of the inputs. Target — the rationalization, never the job or the region; the
-mine appears only as where he goes and what he brings home. Engine — one sentence, repeated in
-pieces, while the bed field worsens. Escalation — reported, continuing, three times weekly, the
-edge, a separate blanket, external review. Character — wrong throughout, never stupid, never
-defended by anyone; cocky again at the end because it worked. Reward — she reaches for him and
-wants him not for sleeping; bedding is evidence. Reward test — he wants to be the man who comes to
-supper with his hair wet. Register — he sounds like him, she sounds like her, CWAAA files, the Office
-finds. Overcorrection rule — no preface, no vouching, argument static. Genre — no horror; the
-wrongness is eleven undescribed days and one withheld word. Joke density — low; the fragment breaks
-three straight passages. Canon — position near-verbatim, four words unchanged, closing line
-verbatim, no allegation of anything, nothing fixed that canon leaves open except as labeled
-proposals. Ending — the record's last line is the institution's.
+### OWNER CANON
+His theory and its three phrasings; refusal not severity as the threshold; the documented progression
+through external review; `SHARED-SURFACE IMPACT`; the unexplained interval; the unchanged returning
+man; "Makes sense to wash up." at ordinary scale; the closing Coalition sentence; his region,
+occupation, marriage and shared bed; embedded-finding rendering law.
 
-**Next.** Owner ratifies proposals table and copy. Then blind readers in reading order, Brayden
-first. Then production: optional record blocks in `[slug].astro`, PREVIOUS / ALL / NEXT navigation
-with the last public Next left live, and his exclusion from index, search, and sitemap.
+### OWNER DECISION (this pass)
+Static future-dirtiness engine; enough first-person testimony to meet the reasoning directly; the
+wife's whole lived problem rather than one symbolic motif; cost progressing into lost intimacy;
+restored desire as the conversion reward; CWAAA permitted a position and a controlled human crack;
+the Office fragment unexplained and understated; "He started showering after every shift." as *What
+changed*; RC-064.
+
+### PROPOSAL (needs ratification — see list below)
+Record number as shipped, the towel, the withdrawal-of-contact chronology row, the field note's
+existence and placement, shift times, 8804-X, all dates and intervals, disposition rendering.
+
+### DRAFT TEXTURE (expendable, no authority claimed)
+"bought the good soap and set it where he'd see it"; the belt and the pump; "gone sour"; "like he
+invented soap"; "sits down to supper like a person"; her paragraph about coming out of it the
+unreasonable one. Written for voice, not for the record. Strike any of it without consequence.
+
+---
+
+## Self-audit — the prose, not the plan
+
+Surface is Convert + Character with one Mystify block lodged inside it. The take is legible in §1 and
+§3 without either speaker naming it. The engine is operating: the same reasoning appears in his
+testimony whole and in the chronology in thirds, while *Continuing* repeats and the cost moves from
+surfaces to his wife's body. Escalation is pressure, not invention — the same argument explained
+three times, then with his wife present, then by a case worker who quits. Character: he is patient
+and unembarrassed throughout, never crude, never defending laziness; she is direct about disgust and
+direct about wanting him; CWAAA files with one visible crack; the Office finds. The interval remains
+unaccounted for and no draft sentence reaches into it. Conversion: the reader wants §7, and the
+bedding is evidence for it rather than the point of it. Joke density is low by design — three
+straight passages, one cold fragment, four words. The ending performs the institutional function
+canon requires.

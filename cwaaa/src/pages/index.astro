@@ -32,7 +32,7 @@ const h = home;
   <section class="about">
     <div>
       <p class="marker" data-reveal>{h.about.marker}</p>
-      <h2 class="statement" data-reveal style="--i: 1">{h.about.statement}</h2>
+      <h2 class="statement t-statement" data-reveal style="--i: 1">{h.about.statement}</h2>
     </div>
     <div class="about-right">
       {h.about.body.map((p, i) => <p class="t-lead" data-reveal style={`--i: ${i + 1}`}>{p}</p>)}
@@ -52,7 +52,7 @@ const h = home;
     <div class="rule" data-reveal="rule" style="--i: 2"></div>
     <div class="run">
       {h.dao.run.map((c, i) => (
-        <p data-reveal style={`--i: ${i + 1}`}><span class="t-ui-caps lbl">{c.label}</span>{c.body}</p>
+        <p data-reveal style={`--i: ${i + 1}`}><span class="t-ui-caps t-label lbl">{c.label}</span>{c.body}</p>
       ))}
     </div>
   </section>
@@ -62,15 +62,15 @@ const h = home;
     <div>
       <p class="marker" data-reveal>{h.finding.marker}</p>
       <h2 id="finding-h" class="finding-h" data-reveal style="--i: 1">{h.finding.statement}</h2>
-      <div class="rule ink" data-reveal="rule" style="--i: 2"></div>
+      <div class="rule ink heavy" data-reveal="rule" style="--i: 2"></div>
       <div class="support" data-reveal style="--i: 2">
         {h.finding.support.map((line) => <p class="t-lead">{line}</p>)}
       </div>
-      <dl class="record" data-reveal style="--i: 3">
+      <dl class="record" data-reveal style="--i: 3; --record-cols: 4">
         {h.finding.record.map((r) => (
-          <div><dt class="t-ui-caps">{r.label}</dt><dd class="t-ui">{r.value}</dd></div>
+          <div><dt class="t-ui-caps t-label">{r.label}</dt><dd class="t-ui">{r.value}</dd></div>
         ))}
-        <div><dt class="t-ui-caps">Disposition</dt><dd class="t-ui">{h.finding.disposition}</dd></div>
+        <div><dt class="t-ui-caps t-label">Disposition</dt><dd class="t-ui">{h.finding.disposition}</dd></div>
       </dl>
     </div>
     <aside class="method" data-reveal style="--i: 3">
@@ -81,24 +81,27 @@ const h = home;
 
   <!-- 4 · One intimate recovery voice -->
   <section class="voice" aria-labelledby="voice-h">
-    <ImageSlot
-      class="object"
-      tone="field"
-      id="CW-G04"
-      title={h.voice.image.title}
-      spec={h.voice.image.spec}
-      image={braydenObject}
-      alt={h.voice.image.alt}
-      position="50% 40%"
-      sizes="(max-width: 860px) 100vw, 40vw"
-      safe="10% 8%"
-    />
+    <div class="shot-wrap" data-reveal="photo">
+      <ImageSlot
+        class="object"
+        tone="field"
+        id="CW-G04"
+        title={h.voice.image.title}
+        spec={h.voice.image.spec}
+        image={braydenObject}
+        ratio="4 / 3"
+        alt={h.voice.image.alt}
+        position="50% 40%"
+        sizes="(max-width: 860px) 100vw, 40vw"
+        safe="10% 8%"
+      />
+    </div>
     <figure>
       <h2 id="voice-h" class="marker" data-reveal>{h.voice.marker}</h2>
-      <blockquote data-reveal style="--i: 1"><p>{h.voice.quote}</p></blockquote>
-      <figcaption class="t-ui-caps" data-reveal style="--i: 2">{h.voice.name} <a href={h.voice.action.href}>{h.voice.action.label}</a></figcaption>
+      <blockquote data-reveal style="--i: 1"><p class="t-testimony">{h.voice.quote}</p></blockquote>
+      <figcaption class="t-ui-caps" data-reveal style="--i: 2">{h.voice.name} <a class="link-rule" href={h.voice.action.href}>{h.voice.action.label}</a></figcaption>
       <div class="refer-row" data-reveal style="--i: 3">
-        <a class="refer t-ui-caps" href={h.voice.refer.href} data-copy-link data-done={h.voice.refer.done}>{h.voice.refer.label}</a>
+        <a class="act-box t-ui-caps" href={h.voice.refer.href} data-copy-link data-done={h.voice.refer.done}>{h.voice.refer.label}</a>
         <span class="refer-done t-ui" role="status" aria-live="polite"></span>
       </div>
     </figure>
@@ -112,7 +115,7 @@ const h = home;
     <div class="panel" data-reveal style="--i: 1">
       <h2 id="ribbon-h">{h.ribbon.heading}</h2>
       <p>{h.ribbon.body}</p>
-      <a class="panel-a t-ui-caps" href={h.ribbon.action.href}>{h.ribbon.action.label}</a>
+      <a class="link-rule t-ui-caps" href={h.ribbon.action.href}>{h.ribbon.action.label}</a>
     </div>
   </section>
 
@@ -122,7 +125,7 @@ const h = home;
   <section class="close" aria-labelledby="close-h">
     <p class="marker" data-reveal>{h.close.marker}</p>
     <h2 id="close-h" class="scale-line" data-reveal style="--i: 1">{h.close.scale}</h2>
-    <div class="rule ink" data-reveal="rule" style="--i: 2"></div>
+    <div class="rule ink heavy" data-reveal="rule" style="--i: 2"></div>
     <div class="close-row">
       <div class="traces">
         {h.close.traces.map((t, i) => <p data-reveal style={`--i: ${i + 2}`}>{t}</p>)}
@@ -137,7 +140,7 @@ const h = home;
   {isConfigured(GOT_SOAP_SITE_URL) && (
     <aside class="seam" aria-label={h.seam.marker}>
       <p class="marker">{h.seam.marker}</p>
-      <p>{h.seam.body} <a href={GOT_SOAP_SITE_URL} rel="external noopener">{h.seam.action} <span class="visually-hidden">({h.seam.external})</span></a></p>
+      <p>{h.seam.body} <a class="link-rule" href={GOT_SOAP_SITE_URL} rel="external noopener">{h.seam.action} <span class="visually-hidden">({h.seam.external})</span></a></p>
     </aside>
   )}
 </BaseLayout>
@@ -178,10 +181,7 @@ const h = home;
     display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--gap-l);
     background: var(--cw-ivory);
   }
-  .statement {
-    font-family: var(--font-cwaaa); font-weight: 400; font-size: var(--cw-statement);
-    line-height: 1.12; letter-spacing: -0.01em; color: var(--cw-ink); margin-top: var(--gap-s); max-width: 20ch;
-  }
+  .statement { margin-top: var(--gap-s); max-width: 20ch; }
   .about-right { padding-top: 2.4rem; display: grid; gap: var(--gap-m); align-content: start; }
   .about .actions { max-width: 420px; margin-top: 0.25rem; }
 
@@ -192,12 +192,10 @@ const h = home;
     font-size: min(var(--cw-line), 5vw); line-height: 0.95; letter-spacing: -0.012em; margin: var(--gap-s) 0 var(--gap-l); white-space: nowrap;
   }
   .line em { font-style: normal; color: var(--cw-tint); }
-  .rule { height: 1px; background: var(--cw-hairline-on-ink); }
-  .rule.ink { height: 3px; background: var(--cw-ink); }
   .run { display: grid; grid-template-columns: repeat(3, 1fr); }
   .run p { margin: 0; padding: 1.75rem 2rem 0 0; line-height: 1.5; }
   .run p + p { border-left: 1px solid var(--cw-hairline-on-ink); padding-left: 2rem; }
-  .run .lbl { display: block; margin-bottom: 0.6rem; color: var(--cw-on-ink-muted); font-family: var(--font-cwaaa-interface); font-weight: 500; }
+  .run .lbl { display: block; margin-bottom: 0.6rem; }
 
   /* ---- 3 · Finding ------------------------------------------------------- */
   .finding {
@@ -210,35 +208,18 @@ const h = home;
   }
   .finding .rule.ink { margin-bottom: 1.5rem; }
   .support { margin-bottom: 1.5rem; display: grid; gap: 0.75rem; }
-  /* The filed record: one ruled row of label/value cells in the notation face. */
-  .record { display: grid; grid-template-columns: repeat(4, auto); justify-content: start; gap: 0 2.5rem; margin: 0; border-top: 1px solid var(--cw-ink); border-bottom: 1px solid var(--cw-ink); padding: 0.85rem 0; }
-  .record div { display: grid; gap: 0.25rem; }
-  .record dt { margin: 0; color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; }
-  .record dd { margin: 0; color: var(--cw-ink); font-family: var(--font-cwaaa-interface); font-weight: 500; font-feature-settings: 'tnum' 1, 'zero' 1, 'case' 1; }
-  .method { border-left: 1px solid var(--cw-ink); padding-left: 1.5rem; color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-size: var(--cw-text-m); line-height: 1.6; }
-  .method b { display: block; color: var(--cw-ink); margin-bottom: 0.5rem; font-weight: 700; }
-  .method p { margin: 0; }
 
   /* ---- 4 · Recovery voice ------------------------------------------------ */
   .voice {
     background: var(--cw-white); padding: var(--section) var(--gutter);
     display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--gap-l); align-items: center;
   }
-  .voice :global(.object) { aspect-ratio: 4 / 3; }
   .voice figure { margin: 0; }
   .voice blockquote { margin: var(--gap-s) 0 0; }
-  .voice blockquote p { font-family: var(--font-cwaaa-testimony); font-style: italic; font-size: var(--cw-testimony); line-height: 1.35; max-width: 30ch; margin: 0; }
-  .voice figcaption { margin-top: 1.25rem; color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; }
-  .voice figcaption a { color: var(--cw-ink); border-bottom: 1.5px solid var(--cw-ink); margin-left: 0.9rem; }
-  .voice figcaption a:hover { text-decoration: none; color: var(--cw-black); border-color: var(--cw-black); }
-  .refer-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
-  .refer {
-    display: inline-flex; align-items: center; border: 1.5px solid var(--cw-ink); color: var(--cw-ink);
-    padding: 0.8rem 1.1rem; min-height: 44px; font-family: var(--font-cwaaa-interface); font-weight: 500;
-    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
-  }
-  .refer:hover { background: var(--cw-ink); color: var(--cw-ivory); text-decoration: none; }
-  .refer-done { color: var(--cw-grey); font-size: var(--cw-text-s); letter-spacing: 0.04em; }
+  .voice blockquote p { max-width: var(--cw-measure-quote); margin: 0; }
+  .voice figcaption { margin-top: 1.25rem; color: var(--cw-grey); }
+  .voice figcaption a { margin-left: 0.9rem; }
+  .refer-row { margin-top: 1.5rem; }
 
   /* ---- 6 + 7 · Close: scale, traces, the one pledge action ---------------- */
   .close { background: var(--cw-ivory); padding: var(--section) var(--gutter); }
@@ -248,7 +229,7 @@ const h = home;
   }
   .close .rule.ink { margin-bottom: 0; }
   .close-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--gap-l); align-items: end; padding-top: 2rem; }
-  .traces { display: grid; gap: 1rem; max-width: 52ch; }
+  .traces { display: grid; gap: 1rem; max-width: var(--cw-measure-note); }
   .traces p { margin: 0; color: var(--cw-black); }
   .close .actions { max-width: 460px; }
 
@@ -261,17 +242,13 @@ const h = home;
   }
   .panel h2 { font-family: var(--font-cwaaa); font-weight: 700; font-size: var(--cw-panel-h); color: var(--cw-ink); margin: 0 0 0.75rem; }
   .panel p { margin: 0 0 1.1rem; font-size: 1.0625rem; line-height: 1.5; }
-  .panel-a { color: var(--cw-ink); border-bottom: 1.5px solid var(--cw-ink); padding-bottom: 2px; font-family: var(--font-cwaaa-interface); font-weight: 500; }
-  .panel-a:hover { text-decoration: none; color: var(--cw-black); border-color: var(--cw-black); }
 
   /* ---- 8 · Seam ---------------------------------------------------------- */
   .seam { background: var(--cw-white); padding: 2rem var(--gutter); border-top: 1px solid var(--cw-hairline); font-size: var(--cw-text-m); }
-  .seam a { color: var(--cw-ink); border-bottom: 1.5px solid var(--cw-ink); }
 
-  /* ---- Phone: designed recomposition, not stacked cards ------------------- */
+  /* ---- --bp-phone: designed recomposition, not stacked cards --------------- */
   @media (max-width: 700px) {
     .hero { height: 64vh; height: 64dvh; min-height: 440px; }
-    .record { grid-template-columns: 1fr 1fr; gap: 0.9rem 1.5rem; }
     .prop { font-size: var(--cw-proposition-m); white-space: normal; line-height: 0.88; }
     .about { grid-template-columns: 1fr; gap: 1.75rem; }
     .statement { max-width: none; }
@@ -283,7 +260,6 @@ const h = home;
     .finding, .voice, .close-row { grid-template-columns: 1fr; gap: 2rem; }
     .scale-line { font-size: 11vw; max-width: none; }
     .finding-h { font-size: 12vw; }
-    .method { border-left: 0; border-top: 1px solid var(--cw-ink); padding: 1rem 0 0; }
     .ribbon { height: 78vh; height: 78dvh; min-height: 480px; }
     .panel { left: var(--gutter); right: var(--gutter); bottom: var(--gutter); padding: 1.5rem; }
   }

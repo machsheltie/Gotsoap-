@@ -1,11 +1,150 @@
 ---
 name: CWAAA
 description: A coalition making its case in public — contemporary civic editorial with exceptional art direction.
+colors:
+  ink: "#2f3e5c"
+  stamp: "#a63d2f"
+  ivory: "#f5f0e6"
+  white: "#ffffff"
+  black: "#15181f"
+  grey: "#5f5d57"
+  tint: "#e0857a"
+  on-ink-muted: "rgba(245, 240, 230, 0.78)"
+  hairline: "rgba(47, 62, 92, 0.28)"
+  hairline-on-ink: "rgba(245, 240, 230, 0.32)"
+typography:
+  proposition:
+    fontFamily: "CWAAA Morvi, Arial Black, sans-serif"
+    fontSize: "clamp(4.5rem, 2rem + 8vw, 9rem)"
+    fontWeight: 400
+    lineHeight: 0.9
+    letterSpacing: "-0.01em"
+  figure:
+    fontFamily: "CWAAA Mirk Slab, Rockwell, Georgia, serif"
+    fontSize: "min(clamp(9rem, 2rem + 30vw, 30rem), 60vh)"
+    fontWeight: 900
+    lineHeight: 0.72
+    letterSpacing: "-0.035em"
+  finding:
+    fontFamily: "CWAAA Morvi, Arial Black, sans-serif"
+    fontSize: "clamp(2.75rem, 1rem + 5.8vw, 5.6rem)"
+    fontWeight: 400
+    lineHeight: 0.92
+    letterSpacing: "-0.01em"
+  line:
+    fontFamily: "CWAAA Morvi, Arial Black, sans-serif"
+    fontSize: "clamp(2.25rem, 0.6rem + 4.9vw, 4.75rem)"
+    fontWeight: 400
+    lineHeight: 0.95
+    letterSpacing: "-0.012em"
+  statement:
+    fontFamily: "CWAAA Proda Sans, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(1.875rem, 1.25rem + 1.75vw, 2.75rem)"
+    fontWeight: 400
+    lineHeight: 1.12
+    letterSpacing: "-0.01em"
+  voice:
+    fontFamily: "CWAAA Modest, Georgia, Times New Roman, serif"
+    fontSize: "clamp(1.75rem, 1.35rem + 1.2vw, 2.25rem)"
+    fontWeight: 400
+    lineHeight: 1.36
+  testimony:
+    fontFamily: "CWAAA Modest, Georgia, Times New Roman, serif"
+    fontSize: "clamp(1.5rem, 1.2rem + 0.9vw, 1.875rem)"
+    fontWeight: 400
+    lineHeight: 1.36
+  lead:
+    fontFamily: "CWAAA Proda Sans, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(1.125rem, 1rem + 0.35vw, 1.3125rem)"
+    fontWeight: 400
+    lineHeight: 1.5
+  body:
+    fontFamily: "CWAAA Proda Sans, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1.125rem"
+    fontWeight: 400
+    lineHeight: 1.5
+  note:
+    fontFamily: "CWAAA Proda Sans, Helvetica Neue, Arial, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 400
+    lineHeight: 1.55
+  interface:
+    fontFamily: "CWAAA Catesque, Helvetica Neue, Arial, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 500
+    letterSpacing: "0.04em"
+    fontFeature: "tnum 1, zero 1, case 1"
+  notation:
+    fontFamily: "CWAAA Catesque, Helvetica Neue, Arial, sans-serif"
+    fontSize: "0.8125rem"
+    fontWeight: 500
+    letterSpacing: "0.08em"
+    fontFeature: "tnum 1, zero 1, case 1"
+rounded:
+  none: "0"
+spacing:
+  gap-s: "0.875rem"
+  gap-m: "1.75rem"
+  gap-l: "clamp(2rem, 1rem + 2.8vw, 4rem)"
+  gutter: "clamp(1.25rem, 0.5rem + 2.4vw, 3rem)"
+  section: "clamp(3.5rem, 2rem + 4.5vw, 6rem)"
+components:
+  action-primary:
+    textColor: "{colors.stamp}"
+    typography: "{typography.notation}"
+    rounded: "{rounded.none}"
+    padding: "0.85rem 0"
+  action-secondary:
+    textColor: "{colors.ink}"
+    typography: "{typography.notation}"
+    rounded: "{rounded.none}"
+    padding: "0.85rem 0"
+  act-box:
+    textColor: "{colors.ink}"
+    typography: "{typography.notation}"
+    rounded: "{rounded.none}"
+    padding: "0.8rem 1.1rem"
+    height: "44px"
+  act-box-hover:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.ivory}"
+  link-rule:
+    textColor: "{colors.ink}"
+    rounded: "{rounded.none}"
+    padding: "0 0 2px"
+  marker:
+    textColor: "{colors.ink}"
+    typography: "{typography.notation}"
+  sec-label:
+    textColor: "{colors.grey}"
+    typography: "{typography.notation}"
+  rule-hairline:
+    backgroundColor: "{colors.hairline}"
+    height: "1px"
+  rule-ink:
+    backgroundColor: "{colors.ink}"
+    height: "1.5px"
+  rule-ink-heavy:
+    backgroundColor: "{colors.ink}"
+    height: "3px"
+  record:
+    textColor: "{colors.ink}"
+    typography: "{typography.interface}"
+    rounded: "{rounded.none}"
+    padding: "0.85rem 0"
 ---
 
-<!-- PARTIAL: the locked visual laws below are binding now. Typography, color, grid, surfaces,
-     motion, interaction states, and responsive behavior remain UNLOCKED pending the owner
-     interview in ui-system.md. Token values must not be invented to fill them. -->
+<!-- PARTIAL. The frontmatter above and the laws below RECORD WHAT SHIPS in
+     `src/styles/tokens.css`, `base.css` and `system.css` as of 2026-09-15. It is not
+     a ratification. Color and the type scale remain PROPOSED under CW-D01 / CW-D02 and
+     carry their flags in `tokens.css`; the owner interview is still outstanding, and a
+     value's presence here means "this is what the approved home page was rendered
+     with," never "this was chosen." What IS locked: the six-face cast, ink, stamp, the
+     white/ivory ground with manila retired to actual paper artifacts, the Findings
+     figure size, the pledge action tier, and the four-rung breakpoint ladder.
+
+     The ui-system.md §12 prohibition still stands for everything NOT recorded here.
+     An agent may read these values; it may not invent a new one to fill a gap. -->
 
 # Design System: CWAAA
 
@@ -55,8 +194,50 @@ website" and "a simulated archive."
 
 ## Colors
 
-**Status: UNLOCKED.** Exact tokens, values, and the white-versus-ivory split await the owner
-interview (`ui-system.md §4`). Do not select a palette from nonprofit convention to fill this.
+**Status: ink and stamp LOCKED; the rest PROPOSED under CW-D02.** The values are in the
+frontmatter and in `tokens.css`; this section says what each one is *for*. The palette is six
+working colors and two photographic grounds — not a ramp, and there is no tonal scale to reach for.
+
+### Primary
+
+- **Ink navy** (`--cw-ink`, LOCKED): the coalition's voice. It sets every heading, every rule, the
+  seal's line-work, and it floods whole regions — the `DOCUMENT. ADVOCATE. ORGANIZE.` field, the
+  footer. Navy is how CWAAA speaks in its own name.
+- **Stamp red** (`--cw-stamp`, LOCKED): spent on the pledge action and required marks, and nowhere
+  else. **Tint** (`--cw-tint`) is the same red lifted to clear 4.6:1 on navy, and exists only
+  because stamp red cannot be read on an ink field.
+
+### Neutral
+
+- **Ivory** (`--cw-ivory`): the primary digital field. The site's default ground.
+- **White** (`--cw-white`): the secondary field, and specifically the *reading* ground — the
+  recovery voice, the Findings register, the opened record.
+- **Civic black** (`--cw-black`): body prose on light fields. Headings are navy; prose is black.
+- **Grey** (`--cw-grey`): metadata, notation labels, and supporting prose (6.4:1 on white).
+- **Hairline** (`--cw-hairline`, and `--cw-hairline-on-ink`): the separating rule, and the only
+  border in the system that is not full ink.
+
+### Photographic grounds
+
+- `--cw-photo-ground` and `--cw-cloth-ground` are **placeholders for owner photography that does not
+  exist yet** — a room tone and a cloth tone under an `ImageSlot` with no image. They are never a
+  final surface and never a decorative fill. When the asset lands they disappear.
+
+### Named Rules
+
+**The Ground-Alternation Rule.** Fields alternate; they do not repeat. A route reads
+ivory → white → ink as its sections change job, and no two adjacent fields share a ground unless the
+second is a continuation of the first. This is what carries the composition in a system with no
+shadows and no cards: the ground change *is* the section break.
+
+**The Red-Is-One-Thing Rule.** Stamp red means *the pledge*. A second use — an accent rule, a hover,
+a marker dot, an alert, a highlighted figure — takes the meaning away from the only action on the
+site that needed it. The section marker's dot is grey for this reason, by owner decision
+2026-09-14.
+
+**The Navy-Speaks-Black-Reads Rule.** Ink navy sets what the coalition asserts (headings, rules,
+figures, labels). Civic black sets what the visitor reads (prose). A heading in black or a paragraph
+in navy inverts who is talking.
 
 The locked *material* direction, which any future palette must satisfy:
 
@@ -83,8 +264,9 @@ fake-government badge.
 ## Typography
 
 **Status: families and weights LOCKED** by owner decision 2026-08-13, revised 2026-08-14
-(`ui-system.md §3`). Scale, leading, tracking, measures, case discipline, and responsive behavior
-remain UNLOCKED and may not be filled by an agent. Selection criteria and binary screening are in
+(`ui-system.md §3`). The **scale and the measures are PROPOSED under CW-D01** and recorded in the
+frontmatter as shipped — an agent may use them and may not add to them. The Findings figure size is
+LOCKED (2026-09-15). Selection criteria and binary screening are in
 [`font-brief.md`](font-brief.md).
 
 **Proposition:** MORVI (`--font-cwaaa-proposition`) — `THE BAR IS SOAP.`, route-opening statements.
@@ -113,6 +295,39 @@ borrowing the other's authority.
 - **Interface and notation** (Catesque 400 tables/fields, 500 nav/controls/notation, 700 table
   headers): everything operable or countable.
 - **Testimony** (Modest 400, italic 400, 700): participant voice at reading length.
+
+### Scale and measure (PROPOSED, CW-D01 — recorded as shipped)
+
+Every step exists for one named job, and the token names say which. Nine display and reading steps
+carry the whole site: `proposition` (the home claim, MORVI), `figure` (the one Findings number, Mirk
+Slab, LOCKED), `finding` (a Finding's statement), `line` (`DOCUMENT. ADVOCATE. ORGANIZE.` and the
+scale line), `statement` (the coalition's plain declarative heading, Proda), `voice` (the Recovery
+Stories index — the participant's own sentence, which outranks the coalition's caption on that route
+and only that route), `testimony` (a pulled quote at reading scale), `lead`, and `body`. Notation
+runs at two sizes in Catesque and nothing else.
+
+**Measure is four named columns, and they are picked by job, not by page:**
+
+| Token | Job |
+|---|---|
+| `--cw-measure-quote` (30ch) | one pulled sentence at testimony scale, sitting beside something else |
+| `--cw-measure-voice` (38ch) | a man's whole testimony as the *subject* of a reading row, 1–6 sentences, never truncated |
+| `--cw-measure` (46ch) | the reading column — long-form testimony, table prose |
+| `--cw-measure-note` (52ch) | supporting prose that runs wider because nothing competes with it |
+
+### Named Rules
+
+**The Pick-The-Job Rule.** One face may legitimately take three widths, because it is doing three
+different jobs. What is never legitimate is a route writing a *new* number because it could not see
+what the other routes used. Before setting a `max-width` in `ch`, find the job in the table above. A
+fifth measure is drift. This rule exists because Modest shipped at 30ch, 38ch and 46ch on three
+routes with no token between them, and `52ch` was hard-coded in five places.
+
+**The Reading-Versus-Operating Rule.** Prose the visitor **reads** is Proda at any size — including
+a 15px note under a table, which is what `.t-note` is for. Only what they **scan, align, or act on**
+is Catesque: labels, figures, dates, identifiers, controls, table cells. The line is the job, not
+the size. The cast had no small-prose role for months, so five separate elements set full sentences
+in the operating face; `.t-note` closes that gap and there is no remaining excuse.
 
 The direction that governed the selection and still governs its use: contemporary civic editorial;
 forceful display scale for propositions and Findings; plain, highly readable sans for navigation,
@@ -154,8 +369,42 @@ that basis alone.
 
 ## Layout
 
-**Status: UNLOCKED** for grid, spacing, and composition tokens (`ui-system.md §5`), and for surfaces,
-borders, corners, and shadows (`§6`).
+**Status: spacing scale and the breakpoint ladder PROPOSED and recorded as shipped
+(`ui-system.md §5`); surfaces, borders and corners settled by the built home page (`§6`).**
+
+### The home page is the reference implementation
+
+`src/pages/index.astro` is the north star. It is the only route the owner has approved as a whole
+composition (Comp D, "The Field Report", 2026-09-14; hero shipped and ratified 2026-09-15), and
+every element law in this document was either derived from it or verified against it. **When another
+route and the home page disagree about an element, the home page is right and the other route has
+drifted** — unless that route's own surface brief names the departure and says why.
+
+This is a rule about *elements*, never about *composition*. Routes are required to differ
+spatially — `design.md §6` gives each one its own spatial law, and one layout repeated across routes
+is listed in the anti-default constitution. Findings is a monument, the record is a reading surface,
+Tie One On is cloth. What they may not do is invent a second version of a shared element in order to
+express that difference.
+
+**What home fixes for every route:**
+
+1. **The field is the unit.** A section is a full-bleed band with its own ground, padded
+   `var(--section) var(--gutter)`. Not a container, not a centered column, not a card. The gutter is
+   the only horizontal inset.
+2. **Ground alternation carries the section break** (see Colors). Home runs
+   ivory → ivory → **ink** → ivory → white → photograph → ivory → white.
+3. **Asymmetric two-column fields.** Where a field splits, it splits unevenly and the ratio means
+   something: `1.15fr / 1fr` for statement-and-actions, `1.4fr / 1fr` for a Finding and its note,
+   `1fr / 1.2fr` for a photograph and the voice beside it. Never `1fr 1fr`, never three equal
+   columns.
+4. **`.marker` opens a field.** Dot, then a short label, then the heading. Every field on the page.
+5. **Rule weight carries meaning** and is picked by job, never copied from a neighbouring page.
+6. **One pledge action, after the sequence** — not repeated at every section.
+7. **Photographs are full-bleed or a bounded grid child, and they settle.** Nothing is inset in a
+   frame; nothing has a caption bar.
+8. **Every element reveals in reading order with an explicit `--i` stagger.** Marker 0, heading 1,
+   rule 2, body and record 2–3. The stagger is the composition's pacing, not decoration; an element
+   without `--i` breaks the row it belongs to.
 
 Locked route expression, which any spatial system must express distinctly:
 
@@ -179,20 +428,178 @@ coalition scale → one clear pledge action → one restrained Got Soap? relatio
 On narrow screens, recompose tables into labeled records rather than forcing horizontal dashboards,
 and preserve the authored hierarchy instead of turning every section into a stacked card.
 
+### The one page-shell exception
+
+`/recovery-stories/[id]` is the **only** route that is a measure-limited centered column
+(`max-width: 62rem`) rather than a run of full-bleed fields. That is correct and deliberate: an
+opened record is one continuous document a visitor reads top to bottom, and banding it into
+alternating fields would turn a man's record into a marketing page. **Do not "fix" it to match home,
+and do not copy it to a route that is a field composition.** It is the exception because it is a
+reading surface; nothing else on the site is.
+
+### Named Rules
+
+**The Four-Rung Rule.** The breakpoint ladder is exactly four — `--bp-phone` (700), `--bp-reading`
+(860), `--bp-util` (900), `--bp-nav` (1000) — recorded in `tokens.css`. CSS cannot read a custom
+property inside a media query, so **every `@media` must name which rung it is applying** in a
+comment. A fifth number is drift. A route that composes in columns owes a `--bp-phone` pass; a route
+whose reading column is starved by a photograph column owes a `--bp-reading` one; most owe both.
+
+**The Gutter-Is-The-Inset Rule.** Horizontal breathing room comes from `--gutter` on the field, once.
+An element does not add its own left or right padding to get away from the edge.
+
 ## Elevation & Depth
 
-**Status: UNLOCKED** (`ui-system.md §6`). Depth behavior is not yet specified and must not be
-inferred from a framework default or a card convention.
+**There are no shadows and no radius on any CWAAA surface, and that is settled by the built site,
+not pending.** `rounded.none` is `0`; nothing in `base.css` or `system.css` declares a `box-shadow`.
+Do not add one, and do not read this section's former UNLOCKED status as an invitation — a shadow or
+a rounded corner here reads instantly as the SaaS/nonprofit-theme grammar the anti-default
+constitution rejects.
+
+Depth is carried by four things instead, in this order of strength:
+
+1. **Ground change.** An ivory field against a white field against a flooded ink field. This does
+   most of the work.
+2. **Rule weight.** Hairline, ink (1.5px), heavy ink (3px) — a three-step depth scale in disguise.
+3. **Full-bleed photography** against bounded type, plus the hero's bottom-weighted ink scrim, which
+   is the only gradient in the system and exists solely to make ivory type legible on a light room.
+4. **Scale jumps.** A 9rem proposition beside 15px notation is a depth cue.
+
+### Named Rules
+
+**The Flat-Is-The-System Rule.** If an element seems to need lifting off its background, it is on
+the wrong ground or next to the wrong rule. Change the field or the rule weight. Never add a shadow,
+a border radius, a card, or a tint layer.
+
+## Shapes
+
+Everything is a rectangle with square corners (`rounded.none` = `0`). There is not one border radius
+on any CWAAA surface, and the form language is made of straight lines doing three different jobs:
+the **rule** (a horizontal line at three weights, carrying meaning), the **border** (full ink, 1.5px,
+on the `.act-box` and on a voided photograph field — the only two bordered objects in the system),
+and the **field edge** (no line at all; a change of ground is the edge).
+
+The only non-rectangular forms in the whole site are the section marker's dot, the coalition seal,
+and the diagonal hatch inside an empty `ImageSlot`. Each is an identity mark or a notation, never a
+container.
+
+### Named Rules
+
+**The Square-Corner Rule.** A radius is not a style choice here; it is a different institution.
+Rounded corners, pills, and capsules read as SaaS or as a charity theme, both of which the
+anti-default constitution names. Corners stay at zero even on hover, focus and success states.
+
+**The Two-Bordered-Objects Rule.** Only the `.act-box` and an unanswered photograph field are drawn
+with a box. Anything else that seems to want a border wants a rule, a ground change, or nothing.
 
 ## Components
 
-**Status: UNLOCKED** for the interaction-state matrix (`ui-system.md §8`).
+**Status: the component set is settled by the shared layer below; the full interaction-state matrix
+remains UNLOCKED** (`ui-system.md §8`). Hover and focus are specified; loading, disabled and error
+states arrive with Form CW-1.
+
+### The shared layer (extracted 2026-09-15)
+
+Two global stylesheets carry everything used on more than one surface.
+`src/styles/base.css` holds the reset, the base typography, and the **type
+roles**; `src/styles/system.css` holds the **component layer**. A route's scoped
+block styles position, measure, and rhythm — it does not restate a role or a
+component, and it never re-picks a face.
+
+**Type roles** (base.css). One declaration each, named for the cast in
+`ui-system.md §3`:
+
+| Role | Face | Job |
+|---|---|---|
+| `.t-ui` | Catesque 500 | figures, values, interface text; `tnum`/`zero`/`case` on |
+| `.t-ui-caps` | Catesque 500 caps | notation labels. **Self-sufficient** — it carries the face itself |
+| `.t-label` | — | the notation label's ordinary colour; pairs with `.t-ui-caps` |
+| `.t-lead` | Proda | lead paragraph at `--cw-measure` |
+| `.t-note` | Proda 15px | **supporting prose** — a note under a lead, a table, or a record. The role the cast was missing |
+| `.t-statement` | Proda | the coalition's plain declarative heading |
+| `.t-voice-h` | Modest italic | a participant-owned heading (Recovery Stories) |
+| `.t-testimony` | Modest italic | a man's own sentence at quotation scale |
+
+`.t-ui-caps` previously carried only casing and tracking, so every bare use fell
+back to the reading face. That is why the whole Recovery Stories family — the
+record masthead, the section labels, the field labels, the pager — rendered in
+Proda where the cast calls for Catesque. It now carries its own face; do not
+strip that back to a modifier.
+
+**Components** (system.css):
+
+- **Label tiers, and there are exactly two.** `.marker` (dot + label) opens a **field**: a
+  whole-ground section, where the dot is the coalition saying *a new thing starts here*.
+  `.sec-label` (no dot) opens a **block** inside one continuous reading surface — the opened
+  record's referral, chronology and follow-up — where a row of dots would shatter a single document
+  into a stack of sections. Both compose with `.t-ui-caps` for the face, plus `.t-label` for the
+  ordinary grey or nothing for ink. Only `.marker` was ever written down, which is why the record
+  grew three private classes (`.sec-h`, `.st-h`, `.corrob-h`) that were the same component three
+  times. A third tier is drift.
+- `.rule` / `.rule.ink` / `.rule.ink.heavy` — the civic rule, and **the weight
+  carries meaning**: hairline separates, `ink` (1.5px) closes a reading surface,
+  `ink heavy` (3px) belongs to the monumental surfaces only — the Findings lead
+  and the home page's Finding and close. Never pick one by which page you copied.
+- `.record` — the filed label/value block, ruled top and bottom, read across.
+  Set `--record-cols`; on `--bp-phone` it always becomes two-up. The opened
+  Recovery Record's `.fields` is deliberately **not** this component: its labels
+  intrude into the reading column's left margin, and that fracture is the
+  route's one authored departure. Do not unify them.
+- `.method` — the methodology note, the single permitted interruption beside a
+  Finding. Findings places it intruding up into the figure's field; the
+  placement is the route's, the note is the system's.
+- **Actions, three tiers and only three.** `.actions` is the ruled list of a
+  surface's committed actions (`.primary` is the pledge, in stamp red);
+  `.act-box` is a single bordered action in ink — the referral and utility
+  control, never the pledge; `.link-rule` is an inline action inside running
+  text or a caption. A fourth treatment is drift, not a new idea.
+- `.refer-row` / `.refer-done` — the copy-link referral's structural contract
+  with `scripts/reveal.ts`: the anchor carries `data-copy-link` and `data-done`,
+  and its confirmation lives in a sibling `[role="status"]` in the same row.
+
+**Breakpoints** are recorded as `--bp-phone` (700), `--bp-reading` (860),
+`--bp-util` (900), and `--bp-nav` (1000) in `tokens.css`. CSS cannot read a
+custom property inside a media query, so every `@media` must name which one it
+is applying. Four is the whole ladder; a fifth is drift.
+
+**LOCKED — owner decision 2026-09-15 (Option A, across the board).** The pledge
+is **always tier 1**, the ruled row, on every surface. Stamp red stays a rule and
+never becomes a filled field; nothing on a CWAAA page is a bordered or flooded
+pledge button. The `.act-box.stamp` variant that shipped briefly on the two
+Recovery Stories routes is **deleted, not deprecated** — do not reintroduce it.
+`.act-box` survives in ink only, as the referral and utility control.
+
+Two consequences recorded with the decision: the Recovery Stories index close
+dropped its `.rule.ink` hairline, because the section's own border plus the
+action's red rule already give it two rules and a third stacked; and both
+Recovery Stories closes render the single-row form, matching the home close.
+Adding a second ruled row there would need a second action in `copy.ts` and is
+a copy decision, not a system one.
 
 Locked navigation law: primary navigation is **Findings**, **Recovery Stories**, **Tie One On**,
 **Chapters**, **About**, and **Take the Pledge** — ordinary, visible, and immediately understandable.
 Prohibited outright: an INDEX control, filing-tab global navigation, registry numbers in route
 labels, pill CTAs, gradient CTAs, a floating donation bubble, bureaucratic usability theater, and any
 Office link in primary navigation.
+
+### Motion: the one authored moment
+
+The site has exactly one piece of authored motion — the scroll reveal in `base.css` and
+`scripts/reveal.ts`. Its contract:
+
+- Content is **visible by default**. Elements are offset only under `html.has-js.motion-ok`, so a
+  no-JS or reduced-motion visitor gets the finished page, not an empty one.
+- `data-reveal` rises and settles; `data-reveal="rule"` draws in from the left (`scaleX`);
+  `data-reveal="photo"` settles from a 1.045 scale. Exponential ease-out, `--dur` 720ms.
+- **`--i` is required, not optional.** Siblings that enter together stagger by `--i * --stagger`
+  (90ms). An element with no `--i` lands with the first thing in its row and flattens the pacing the
+  reveal exists to create.
+- The `photo` variant must be on a **wrapper around** `ImageSlot`, because the component's own root
+  sits between that wrapper and the `.media` it scales. The rule is a descendant selector for this
+  reason — as a child selector (`> .media`) it silently matched nothing, and no photograph on the
+  site animated at all between 2026-09-14 and the fix on 2026-09-15.
+- The Office **fragment never reveals.** It is a foreign object quoted inside a CWAAA record; giving
+  it CWAAA's motion would make it ours.
 
 Locked motion law: motion is restrained and material — a `SWORN` mark settles, a cloth fold reveals a
 program instruction, a copied link confirms, navigation responds clearly. Motion never simulates
@@ -217,6 +624,12 @@ findings kept live, legible, and zoom-safe.
 - **Do** give each route its own spatial law rather than one layout with swapped content.
 - **Do** preserve the current implementation or request the owner decision when a section here is
   marked UNLOCKED.
+- **Do** check the home page before setting an element on any other route. If home already solves
+  it, use what home uses; if home solves it differently on purpose, the surface brief has to say so.
+- **Do** find the job in the measure table before writing a `max-width` in `ch`, and the job in the
+  rule table before picking a rule weight.
+- **Do** give every revealed element an explicit `--i`, and name the breakpoint rung in every
+  `@media` comment.
 
 ### Don't:
 
@@ -232,10 +645,71 @@ findings kept live, legible, and zoom-safe.
   repeated document components, one layout across routes, stock volunteer photography, dossier
   styling, or SaaS navigation.
 - **Don't** announce satire on public pages.
+- **Don't** set a sentence in Catesque. Prose is Proda at any size; `.t-note` is the small one.
+- **Don't** add a shadow, a border radius, a card, or a tint layer to lift an element. Change the
+  ground or the rule weight.
+- **Don't** invent a fourth action treatment, a third label tier, a fifth measure, or a fifth
+  breakpoint. Each of those is a closed set, and a route that needs one more has found a gap in
+  `system.css`, not a reason to fork.
+- **Don't** unify the two things this document says are deliberately different: the opened record's
+  intruding `.fields` (not the `.record` component) and its centered page shell (not a field
+  composition).
 
 **Acceptance test.** Does this page look like the natural public expression of CWAAA? If it instead
 places CWAAA's content into the nearest familiar nonprofit, archive, or civic-portal template, it is
 not finished.
+
+---
+
+## Drift register (opened 2026-09-15)
+
+Recorded when the home page was documented as the reference implementation. Each entry is a place
+where a route had invented a second version of a shared element. **Kept as evidence:** the pattern
+that produced all nine is the same — the shared layer had no name for the thing, so the route made
+one up privately. The fix for that class of defect is always to name it here and in `system.css`,
+never to copy the other route.
+
+### Closed 2026-09-15
+
+| # | Element | What had happened | Fix |
+|---|---|---|---|
+| 1 | Photo settle | `[data-reveal='photo'] > .media` could not match through `ImageSlot`'s own root, so **no photograph on the site had ever animated** | selector changed to a descendant in `base.css` |
+| 2 | Small prose | the cast had no small-prose role, so five elements set sentences in Catesque | `.t-note` added to `base.css` |
+| 3 | Label tiers | the opened record carried three private classes (`.sec-h`, `.st-h`, `.corrob-h`) that were one component | `.sec-label` added to `system.css` as the documented second tier |
+| 4 | Measure | Modest ran at 30ch / 38ch / 46ch on three routes, and `52ch` was hard-coded five times | four named measure tokens in `tokens.css`; the Pick-The-Job Rule |
+| 5 | Home's own gaps | home hard-coded two of those measures, and its recovery-voice photograph had no reveal wrapper at all | both fixed in `index.astro` |
+
+### Closed 2026-09-15, second pass — the mechanism, not a symptom
+
+| # | Artifact | What had happened | Fix |
+|---|---|---|---|
+| 12 | Surface briefs | the `/recovery-stories` brief had **no YAML frontmatter at all**, so its `primary_target` parsed as `null` and it was authority for no file in particular | frontmatter added, naming both routes and `copy.ts` |
+| 13 | Surface briefs | the home and Findings briefs wrote their targets **repo-root-relative** (`cwaaa/src/…`) while this project's root *is* `cwaaa/`. `impeccable doctor` reported both orphaned, and **none of the three resolved when the session was opened in `cwaaa/`** — which is how `AGENTS.md` says to work. So an agent editing a CWAAA route from inside the workspace got no surface brief, which is the mechanism that let entries 1–11 in | each `primary_target` repointed project-relative; the repo-root form kept in `related_targets` as a mapping alias, so all eight invocation forms resolve |
+
+Verified by direct resolution probe: four project-relative and four repo-root-relative target forms
+across the three briefs, all eight resolving (`slug` or `mapping`), and the orphan finding cleared.
+
+**Known remaining doctor finding, deliberately not fixed.** `impeccable doctor` reports
+`design-md-coverage` — that `design.md` has no Colors or Components section. That is the authority
+split working as intended: `design.md` is prose authority and *this* file is the tokenized companion
+(`AGENTS.md` authority order). **Do not "fix" it by moving token values into `design.md`.** The one
+real gap is that `design.md` carries no pointer back here; that is an owner edit, not an agent one.
+
+### Open
+
+| # | Element | Home / Findings | Recovery Stories | Owner |
+|---|---|---|---|---|
+| 6 | Route-opening rule | the statement closes on `.rule.ink` or heavier | the index lead closes on a bare hairline | pending |
+| 7 | Prose face | `.t-lead` / body Proda | `.note`, `.fu-l`, `.fu-lead`, `.close-note` still `.t-ui`; Findings' `.reg-note` too | pending — apply `.t-note` |
+| 8 | Measure tokens | now tokenized | `38ch` and `52ch` still literal in both Recovery routes | pending |
+| 9 | Reveal stagger | explicit `--i` on every element | `[id].astro` has **no `--i` anywhere**; its masthead and pager never reveal | pending |
+| 10 | Breakpoints | both run a `--bp-phone` pass | both Recovery routes have only `--bp-reading` | pending |
+| 11 | Label tiers in markup | n/a | `.sec-h` / `.st-h` / `.corrob-h` still in `[id].astro`; swap to `.sec-label` | pending |
+
+Entries 6–11 were **not applied**: a second Impeccable session was editing
+`recovery-stories.astro` and `recovery-stories/[id].astro` concurrently (15:54–15:57, 2026-09-15),
+and two agents writing one file is how drift is made, not fixed. The shared layer they depend on is
+already in place, so each remaining fix is a small local edit.
 
 ---
 
