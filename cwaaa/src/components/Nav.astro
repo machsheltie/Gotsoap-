@@ -55,6 +55,9 @@ const { tone = 'on-field', current = '/' } = Astro.props;
       rgba(47, 62, 92, 0) 100%);
   }
   .nav.on-ink .menu a, .nav.on-ink .menu-m summary { text-shadow: 0 1px 2px rgba(15, 18, 24, 0.35); }
+  /* The struck seal is navy-rimmed, so on the ink masthead it needs an edge of
+     its own: one ivory hairline at the strike's circumference, nothing more. */
+  .nav.on-ink :global(.seal) { border-radius: 50%; box-shadow: 0 0 0 1px rgba(245, 240, 230, 0.3); }
 
   .menu ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 1.9rem; align-items: baseline; }
   .menu a {
