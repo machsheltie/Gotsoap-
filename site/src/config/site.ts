@@ -29,6 +29,22 @@ export const EXTERNAL_LINKS = {
 export type ExternalLinkKey = keyof typeof EXTERNAL_LINKS;
 
 /**
+ * CWAAA's standalone site (the app in `cwaaa/`). The mirror of
+ * `cwaaa/src/config/site.ts`'s GOT_SOAP_SITE_URL, and EMPTY for the same
+ * reason: cross-domain URLs stay empty until the owner assigns real domains
+ * (CWAAA launch decision CW-D07 — origins are still open).
+ *
+ * While it is empty the footer's "Funded by …" seam keeps pointing at the
+ * in-runtime CWAAA surface, /crisis. Assigning the real origin here re-points
+ * that one seam at the standalone coalition site and changes nothing else —
+ * no placeholder domain, no dead link in between (PRD §5.6).
+ */
+export const CWAAA_SITE_URL = '';
+
+/** A configured destination is a non-empty one; empty means "do not render". */
+export const isConfigured = (value: string): boolean => value.trim().length > 0;
+
+/**
  * Buttondown newsletter — the Lather Pledge subscribes here (PRD §5.4;
  * ORCHESTRATOR-HANDOFF: Buttondown from launch, welcome email = copy deck §7.7).
  * Empty until the owner supplies the workspace username: the Form CW-1 embed
