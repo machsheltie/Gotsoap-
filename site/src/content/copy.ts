@@ -131,8 +131,10 @@ export const masthead = {
 export const footer = {
   movementLine: "Join the movement. Smell like someone chose you back.",
   hashtags: HASHTAGS,
-  fundedByLead: "Funded by", // renders around the linked org name (→ /crisis)
-  fundedBy: FUNDED_BY, // links /crisis
+  fundedByLead: "Funded by", // renders around the linked org name (→ CWAAA)
+  /** Links the sponsor: CWAAA_SITE_URL when the owner has assigned CWAAA's
+   * origin (CW-D07), otherwise the in-runtime CWAAA surface at /crisis. */
+  fundedBy: FUNDED_BY,
   /** Plain unlinked text (2026-07-16 footer consolidation): the folio credit —
    * PRODUCED BY HOPE2 STUDIO · DIRECTED BY STACEY BRECKEL, hardcoded in
    * Footer.astro because gate G11 requires the verbatim literal there — is the

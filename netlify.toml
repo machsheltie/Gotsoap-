@@ -1,7 +1,12 @@
-# Netlify build config for the Got Soap? campaign site (Astro, lives in site/)
+# Netlify build config for the Got Soap? campaign site (Astro, lives in site/).
+#
+# The second step is INTERIM (owner decision, 2026-09-15): it builds the
+# standalone CWAAA app in cwaaa/ and mounts it at /cwaaa on this deployment so
+# the coalition is reachable now. It comes out when CWAAA gets its own Netlify
+# site and origin (CW-D07) — see site/scripts/embed-cwaaa.mjs.
 [build]
   base    = "site"
-  command = "npm run build"
+  command = "npm run build && npm run embed:cwaaa"
   publish = "dist"
 
 [build.environment]

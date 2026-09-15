@@ -29,6 +29,22 @@ export const EXTERNAL_LINKS = {
 export type ExternalLinkKey = keyof typeof EXTERNAL_LINKS;
 
 /**
+ * CWAAA's standalone site (the app in `cwaaa/`) — the single cross-site
+ * address the campaign renders (PRD §8), consumed by the footer's
+ * "Funded by …" seam. Empty still means "render no control" (PRD §6.4).
+ *
+ * OWNER DECISION, 2026-09-15 (interim): the coalition ships NOW, mounted at
+ * /cwaaa on this deployment by `scripts/embed-cwaaa.mjs`, because it has no
+ * origin of its own yet. When CWAAA gets its own Netlify site, this becomes
+ * that absolute URL and the embed step comes out of netlify.toml — the seam
+ * itself does not change again.
+ */
+export const CWAAA_SITE_URL = '/cwaaa';
+
+/** A configured destination is a non-empty one; empty means "do not render". */
+export const isConfigured = (value: string): boolean => value.trim().length > 0;
+
+/**
  * Buttondown newsletter — the Lather Pledge subscribes here (PRD §5.4;
  * ORCHESTRATOR-HANDOFF: Buttondown from launch, welcome email = copy deck §7.7).
  * Empty until the owner supplies the workspace username: the Form CW-1 embed

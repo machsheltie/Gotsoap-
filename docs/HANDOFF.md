@@ -91,10 +91,28 @@ A lower authority may add execution detail but may not contradict a higher autho
 | CWAAA material | `/crisis`, pledge treatment, seams, components | extracted into a standalone CWAAA site |
 | Office | not implemented | separate error-state-only site |
 | Email | Buttondown integration with stale recurring “Movement Updates” copy | one shared audience and finite CWAAA-authored two-message fulfillment |
-| Cross-site URLs | not assigned | empty config values until owner assigns domains |
+| Cross-site URLs | CWAAA reachable at the interim `/cwaaa` mount (see below); others not assigned | real per-entity domains; empty config values until the owner assigns them |
 
 This documentation pass does not move runtime code. Extraction begins only when an implementation
 task explicitly authorizes it.
+
+## Owner decision, 2026-09-15 — interim CWAAA hosting
+
+The standalone CWAAA app in `cwaaa/` ships **now**, co-hosted on the campaign deployment at
+**`/cwaaa`**, because the coalition has no origin of its own yet. This is the owner's explicit
+instruction and it overrides the "cross-domain URLs stay empty" default for this one address only.
+
+- `site/src/config/site.ts` sets `CWAAA_SITE_URL = '/cwaaa'`; the Got Soap? footer's
+  "Funded by …" seam resolves there instead of `/crisis`.
+- `netlify.toml` builds `cwaaa/` after the campaign build; `site/scripts/embed-cwaaa.mjs` copies
+  that output to `dist/cwaaa/` and prefixes the root-absolute URLs in the **built output only**.
+  No file in `cwaaa/src/` is modified, and the app still builds as a root-hosted site.
+- `/crisis` is untouched and still serves the combined-runtime CWAAA surface.
+
+This is temporary. When CWAAA gets its own Netlify site and domain (CW-D07), `CWAAA_SITE_URL`
+becomes that absolute URL and the embed step comes out of `netlify.toml` — the seam does not change
+again. The migration manifest still governs actual runtime extraction; co-hosting a build output is
+not extraction.
 
 ## Creative decisions that are closed
 
