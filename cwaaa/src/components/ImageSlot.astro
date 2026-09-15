@@ -1,12 +1,26 @@
 ---
 /**
- * ImageSlot.astro — owner-supplied photography, or a labeled placeholder
- * until it exists. Never stock. With `image` (an imported asset) the slot
- * renders optimized AVIF/WebP derivatives via astro:assets; pass
- * `imageNarrow` as well for an art-directed phone composition (the 4:5
- * master required by ui-system.md §13 for CW-G02/G03) instead of a centre
- * crop. Without an image it shows the graphics ID, the shot spec, and the
- * safe zone (GRAPHICS-TO-MAKE.md).
+ * ImageSlot.astro — owner-supplied photography, or an honest absence until it
+ * exists. Never stock. With `image` (an imported asset) the slot renders
+ * optimized AVIF/WebP derivatives via astro:assets; pass `imageNarrow` as
+ * well for an art-directed phone composition (the 4:5 master required by
+ * ui-system.md §13 for CW-G02/G03) instead of a centre crop.
+ *
+ * WITHOUT an image there are two fallbacks, and which one renders is not a
+ * style choice — it is who is looking.
+ *
+ * Production review (`CW_SLOT_SPECS=1` at build time) shows the graphics ID,
+ * the shot spec, and the dashed safe zone from GRAPHICS-TO-MAKE.md. That is
+ * the owner's drop-in worksheet, and `npm run review` builds it.
+ *
+ * The public build shows neither. Blind readers 2026-09-15 read the labeled
+ * slots as a broken site — "I thought the site was broken… someone shipped
+ * their Figma comments" (Maya); "the only moment I'm aware I'm reading a
+ * draft" (Dylan). Production notes are not copy and a visitor must never
+ * receive them. So a route that can say something true about the absence
+ * passes `pendingNote` and gets a voided field in the coalition's own
+ * notation; a route that cannot (the full-bleed cloth field) gets the
+ * material ground and says nothing at all.
  */
 import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
@@ -26,11 +40,22 @@ interface Props {
   /** Above-the-fold images load eagerly with high priority. */
   priority?: boolean;
   sizes?: string;
+  /** CSS aspect-ratio for the slot, e.g. "4 / 3". Omit for a slot the route
+   *  sizes itself (the full-bleed hero and cloth fields are inset: 0). */
+  ratio?: string;
+  /** What the coalition says in public when the photograph is not there. Only
+   *  for an absence the record can state truthfully; omit it and the public
+   *  build renders the material ground and nothing else. */
+  pendingNote?: { label: string; note?: string };
 }
 const {
   id, title, spec, tone = 'photo', safe = '14% 10% 22% 10%', class: className,
   image, imageNarrow, alt = '', position = '50% 50%', positionNarrow, priority = false, sizes = '100vw',
+  ratio, pendingNote,
 } = Astro.props;
+
+/** Owner's drop-in worksheet. `npm run review` sets it; no public build does. */
+const showSpecs = import.meta.env.CW_SLOT_SPECS === '1';
 
 const NARROW = '(max-width: 700px)';
 const WIDE_WIDTHS = [960, 1440, 2000, 2560, 3200];
@@ -47,7 +72,13 @@ async function derive(src: ImageMetadata, widths: number[]) {
 const wide = image ? await derive(image, WIDE_WIDTHS) : null;
 const narrow = imageNarrow ? await derive(imageNarrow, NARROW_WIDTHS) : null;
 ---
-<div class:list={['slot', `slot-${tone}`, className]} role="img" aria-label={image ? alt : `${id} placeholder: ${title}`}>
+<div
+  class:list={['slot', `slot-${tone}`, className, !image && !showSpecs && !pendingNote ? 'slot-quiet' : null]}
+  style={ratio ? `--ratio: ${ratio}` : undefined}
+  role={image ? 'img' : undefined}
+  aria-label={image ? alt : showSpecs ? `${id} placeholder: ${title}` : undefined}
+  aria-hidden={!image && !showSpecs && !pendingNote ? 'true' : undefined}
+>
   <div class="media" style={`--pos: ${position}; --pos-m: ${positionNarrow ?? position}`}>
     {wide ? (
       <picture>
@@ -65,20 +96,28 @@ const narrow = imageNarrow ? await derive(imageNarrow, NARROW_WIDTHS) : null;
           decoding="async"
         />
       </picture>
-    ) : (
+    ) : showSpecs ? (
       <>
         <div class="safe" style={`inset: ${safe}`}></div>
         <p class="lbl"><b>{id} · {title}</b><span class="spec">{spec}</span></p>
       </>
-    )}
+    ) : pendingNote ? (
+      /* A voided field, which is what a form does with a box nothing came back
+         for. The absence is content here: not every man sent a picture. */
+      <p class="void">
+        <b class="t-ui-caps">{pendingNote.label}</b>
+        {pendingNote.note && <span class="t-ui">{pendingNote.note}</span>}
+      </p>
+    ) : null}
   </div>
 </div>
 
 <style>
-  .slot { position: relative; overflow: hidden; }
+  .slot { position: relative; overflow: hidden; aspect-ratio: var(--ratio, auto); }
   .media { position: absolute; inset: 0; }
   .slot picture { display: contents; }
   .slot img { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); }
+  /* --bp-phone: the art-directed 4:5 master takes its own crop. */
   @media (max-width: 700px) { .slot img { object-position: var(--pos-m, 50% 50%); } }
   .slot-photo .media { background: var(--cw-photo-ground); color: var(--cw-ivory);
     background-image: repeating-linear-gradient(135deg, transparent 0 18px, rgba(255,255,255,0.06) 18px 19px); }
@@ -87,6 +126,24 @@ const narrow = imageNarrow ? await derive(imageNarrow, NARROW_WIDTHS) : null;
   .slot-field .media { background: var(--cw-ivory); color: var(--cw-ink); border: 1.5px solid var(--cw-ink);
     background-image: repeating-linear-gradient(135deg, transparent 0 14px, rgba(47,62,92,0.1) 14px 15px); }
   .safe { position: absolute; border: 1px dashed currentColor; opacity: 0.55; }
+
+  /* The public absence. No production ID, no spec, no dashed box: a field the
+     coalition filled in with the only true thing it has. The hatch of the
+     field tone stays, because a hatched box with a notation in it is what an
+     unanswered field looks like on paper — deliberate, not unfinished. */
+  .void {
+    position: absolute; inset: auto 1rem 1rem 1rem; margin: 0;
+    padding-top: 0.7rem; border-top: 1px solid var(--cw-ink);
+    display: grid; gap: 0.3rem;
+  }
+  .void b { font-weight: 700; color: var(--cw-ink); font-size: 0.6875rem; letter-spacing: 0.12em; }
+  .void span { color: var(--cw-grey); font-size: var(--cw-text-s); line-height: 1.45; }
+  /* --bp-phone */
+  @media (max-width: 700px) { .void { inset: auto 0.85rem 0.85rem 0.85rem; } }
+
+  /* A field with nothing truthful to say says nothing: the material ground
+     carries the composition and no label ships to a visitor. */
+  .slot-quiet .media { opacity: 1; }
   .lbl {
     position: absolute; right: var(--gutter); top: 1.5rem; margin: 0; text-align: right;
     max-width: 34ch; font-family: var(--font-cwaaa-interface); font-size: 0.6875rem; letter-spacing: 0.12em;
@@ -96,5 +153,6 @@ const narrow = imageNarrow ? await derive(imageNarrow, NARROW_WIDTHS) : null;
   .slot-field .lbl { left: 1rem; right: 1rem; top: 1rem; text-align: left; }
   /* Phones show only the graphics ID and title; the shot spec is a production
      note for the desktop review and would otherwise run into the composition. */
+  /* --bp-phone */
   @media (max-width: 700px) { .lbl { max-width: 22ch; font-size: 0.625rem; top: 1rem; } .spec { display: none; } }
 </style>

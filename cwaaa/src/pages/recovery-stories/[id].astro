@@ -27,13 +27,24 @@ import ImageSlot from '../../components/ImageSlot.astro';
 import { recoveryStories as r } from '../../content/copy';
 import braydenPhoto from '../../assets/brayden.png';
 
+/**
+ * Every record whose file is actually written is emitted, public or not; the
+ * index maps only the public ones. A record carrying testimony but no authored
+ * referral, chronology or outcome (`open: false`) has no page at all — its
+ * voice reads in full on the index instead. A masthead over an empty field is
+ * not a record, and three blind readers read four of them as a broken site.
+ * Pagination walks the emitted sequence in order, so the last public record's
+ * Next still loads Billy Bob and is never disabled. That divergence remains
+ * the mechanic (docs/canon-billy-bob-and-the-archive-boundary.md).
+ */
 export function getStaticPaths() {
-  return r.records.map((rec, i) => ({
+  const written = r.records.filter((rec) => rec.open);
+  return written.map((rec, i) => ({
     params: { id: rec.slug },
     props: {
       rec,
-      prev: i > 0 ? r.records[i - 1] : null,
-      next: i < r.records.length - 1 ? r.records[i + 1] : null,
+      prev: i > 0 ? written[i - 1] : null,
+      next: i < written.length - 1 ? written[i + 1] : null,
     },
   }));
 }
@@ -64,18 +75,18 @@ const paras = (body: string) => body.split('\n\n');
   description={`Recovery Record ${rec.id}. Documented by Concerned Women Against Axe Abuse.`}
   current="/recovery-stories"
 >
-  <article class="record">
+  <article class="rec">
     <header class="masthead">
       <p class="rid t-ui-caps">{r.recordLabel} <span class="num">{rec.id}</span></p>
-      <h1 class="who">{rec.name}</h1>
+      <h1 class="who t-voice-h">{rec.name}</h1>
     </header>
 
     {referral && (
       <section class="referral" aria-labelledby="ref-h" data-reveal>
-        <h2 id="ref-h" class="sec-h t-ui-caps">{r.referralLabel}</h2>
+        <h2 id="ref-h" class="sec-h t-ui-caps t-label">{r.referralLabel}</h2>
         <dl class="fields">
           {referral.map((f) => (
-            <div><dt class="t-ui-caps">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
+            <div><dt class="t-ui-caps t-label">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
           ))}
         </dl>
         {corroboration && (
@@ -85,7 +96,7 @@ const paras = (body: string) => body.split('\n\n');
                 <p class="corrob-h t-ui-caps">{block.heading}</p>
                 <dl class="fields">
                   {block.rows.map((f) => (
-                    <div><dt class="t-ui-caps">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
+                    <div><dt class="t-ui-caps t-label">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
                   ))}
                 </dl>
               </div>
@@ -97,7 +108,7 @@ const paras = (body: string) => body.split('\n\n');
 
     {statements && statements.map((st) => (
       <aside class="statement" data-reveal>
-        <p class="st-h t-ui-caps">{st.heading}</p>
+        <p class="st-h t-ui-caps t-label">{st.heading}</p>
         {paras(st.body).map((para) => <p class="st-b">{para}</p>)}
       </aside>
     ))}
@@ -107,12 +118,13 @@ const paras = (body: string) => body.split('\n\n');
         <ImageSlot
           class="shot" tone="field" id="Participant photograph" title={rec.name} spec=""
           image={photo} alt={'alt' in rec.image ? rec.image.alt : ''}
-          position="50% 38%" sizes="(max-width: 860px) 100vw, 60vw" priority
+          ratio="4 / 3" position="50% 38%" sizes="(max-width: 860px) 100vw, 60vw" priority
         />
       ) : (
         <ImageSlot
-          class="shot" tone="field" id="Photograph pending" title={rec.name}
-          spec={'spec' in rec.image ? rec.image.spec : ''} safe="10% 8%"
+          class="shot" tone="field" id="CW-G04" title={rec.name}
+          spec={'spec' in rec.image ? rec.image.spec : ''} safe="10% 8%" ratio="4 / 3"
+          pendingNote={r.noPhoto}
         />
       )}
     </div>
@@ -125,7 +137,7 @@ const paras = (body: string) => body.split('\n\n');
 
     {fieldNote && (
       <aside class="statement" data-reveal>
-        <p class="st-h t-ui-caps">{fieldNote.heading}</p>
+        <p class="st-h t-ui-caps t-label">{fieldNote.heading}</p>
         {paras(fieldNote.body).map((para) => <p class="st-b">{para}</p>)}
       </aside>
     )}
@@ -133,10 +145,10 @@ const paras = (body: string) => body.split('\n\n');
     {chronology && (
       <section class="chronology" aria-labelledby="chr-h" data-reveal>
         <div class="rule ink"></div>
-        <h2 id="chr-h" class="sec-h t-ui-caps">{r.chronologyLabel}</h2>
+        <h2 id="chr-h" class="sec-h t-ui-caps t-label">{r.chronologyLabel}</h2>
         <dl class="fields">
           {chronology.map((f) => (
-            <div><dt class="t-ui-caps">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
+            <div><dt class="t-ui-caps t-label">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
           ))}
         </dl>
       </section>
@@ -159,16 +171,16 @@ const paras = (body: string) => body.split('\n\n');
 
     {followUp && (
       <section class="follow" aria-labelledby="fu-h" data-reveal>
-        <h2 id="fu-h" class="sec-h t-ui-caps">{followUp.heading}</h2>
+        <h2 id="fu-h" class="sec-h t-ui-caps t-label">{followUp.heading}</h2>
         {followUp.lines.map((line) => <p class="fu-l t-ui">{line}</p>)}
         <p class="fu-lead t-ui">{followUp.askedLead}</p>
-        <p class="fu-q">{followUp.quote}</p>
+        <p class="fu-q t-testimony">{followUp.quote}</p>
       </section>
     )}
 
     {partnerFollowUp && (
       <aside class="statement" data-reveal>
-        <p class="st-h t-ui-caps">{partnerFollowUp.heading}</p>
+        <p class="st-h t-ui-caps t-label">{partnerFollowUp.heading}</p>
         {paras(partnerFollowUp.body).map((para) => <p class="st-b">{para}</p>)}
       </aside>
     )}
@@ -178,7 +190,7 @@ const paras = (body: string) => body.split('\n\n');
         <div class="rule ink"></div>
         <dl class="fields">
           {close.map((f) => (
-            <div><dt class="t-ui-caps">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
+            <div><dt class="t-ui-caps t-label">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
           ))}
         </dl>
         {closeNote && <p class="close-note t-ui">{closeNote}</p>}
@@ -186,48 +198,47 @@ const paras = (body: string) => body.split('\n\n');
     )}
 
     <div class="act-wrap" data-reveal>
-      <a class="act" href={r.action.href}>
-        <b>{r.action.label}</b><span class="t-ui-caps">{r.action.note}</span>
+      <a class="act-box stamp" href={r.action.href}>
+        <b>{r.action.label}</b><span class="t-ui-caps t-label">{r.action.note}</span>
       </a>
     </div>
 
     <!-- No count: a count tells the visitor where the boundary is. -->
     <nav class="pager" aria-label="Recovery records">
       {prev
-        ? <a class="p-prev t-ui-caps" href={`/recovery-stories/${prev.slug}`}>← {r.pager.prev}</a>
+        ? <a class="p-prev t-ui-caps t-label" href={`/recovery-stories/${prev.slug}`}>← {r.pager.prev}</a>
         : <span class="p-prev empty"></span>}
-      <a class="p-all t-ui-caps" href="/recovery-stories">{r.pager.all}</a>
+      <a class="p-all t-ui-caps t-label" href="/recovery-stories">{r.pager.all}</a>
       {next
-        ? <a class="p-next t-ui-caps" href={`/recovery-stories/${next.slug}`}>{r.pager.next} →</a>
+        ? <a class="p-next t-ui-caps t-label" href={`/recovery-stories/${next.slug}`}>{r.pager.next} →</a>
         : <span class="p-next empty"></span>}
     </nav>
   </article>
 </BaseLayout>
 
 <style>
-  .record {
+  /* The opened record's page shell. Not the `.record` component in system.css:
+     that name is the filed label/value block, and this is a reading surface. */
+  .rec {
     background: var(--cw-white); padding: var(--section) var(--gutter);
     max-width: 62rem; margin: 0 auto;
   }
   .masthead { margin-bottom: var(--gap-l); }
   .rid { color: var(--cw-ink); margin: 0; }
   .rid .num { font-family: var(--font-cwaaa-interface); letter-spacing: 0.06em; }
-  .who {
-    font-family: var(--font-cwaaa-testimony); font-style: italic; font-weight: 400;
-    font-size: var(--cw-statement); line-height: 1.1; color: var(--cw-ink);
-    margin: var(--gap-s) 0 0;
-  }
-  .sec-h { color: var(--cw-grey); margin: 0 0 var(--gap-s); }
-  .rule.ink { height: 1.5px; background: var(--cw-ink); margin: 0 0 var(--gap-m); }
+  .who { margin: var(--gap-s) 0 0; }
+  .sec-h { margin: 0 0 var(--gap-s); }
+  .rule.ink { margin: 0 0 var(--gap-m); }
 
   /* The single authored fracture: field labels intrude into the reading
-     column's left margin. */
+     column's left margin. This is deliberately NOT the `.record` component —
+     that block rules top and bottom and reads across; this one breaks the
+     reading column, and unifying them would delete the route's one departure. */
   .fields { margin: 0; display: grid; gap: 0.55rem; }
   .fields > div {
     display: grid; grid-template-columns: 15rem 1fr; gap: 1rem;
     align-items: baseline; margin-left: -4.5rem;
   }
-  .fields dt { color: var(--cw-grey); }
   .fields dd { margin: 0; color: var(--cw-black); }
 
   .referral { margin-bottom: var(--gap-l); }
@@ -235,7 +246,7 @@ const paras = (body: string) => body.split('\n\n');
   .corrob-h { color: var(--cw-ink); margin: 0 0 0.5rem; }
 
   .statement { margin: 0 0 var(--gap-l); max-width: 52ch; }
-  .st-h { color: var(--cw-grey); margin: 0 0 0.55rem; }
+  .st-h { margin: 0 0 0.55rem; }
   .st-b {
     font-family: var(--font-cwaaa-testimony); font-size: var(--cw-text);
     line-height: 1.55; color: var(--cw-black); margin: 0 0 0.9rem;
@@ -243,7 +254,6 @@ const paras = (body: string) => body.split('\n\n');
   .st-b:last-child { margin-bottom: 0; }
 
   .shot-wrap { margin: 0 0 var(--gap-l); }
-  .shot-wrap :global(.shot) { aspect-ratio: 4 / 3; }
 
   /* The widest, quietest field on the site. */
   .testimony { margin: 0 0 var(--gap-l); padding: 0; border: 0; }
@@ -278,22 +288,9 @@ const paras = (body: string) => body.split('\n\n');
   .follow { margin: 0 0 var(--gap-l); max-width: 52ch; }
   .fu-l { color: var(--cw-black); margin: 0 0 0.4rem; line-height: 1.55; }
   .fu-lead { color: var(--cw-grey); margin: var(--gap-m) 0 0.6rem; line-height: 1.55; }
-  .fu-q {
-    font-family: var(--font-cwaaa-testimony); font-style: italic;
-    font-size: var(--cw-testimony); color: var(--cw-ink); margin: 0;
-  }
+  .fu-q { margin: 0; }
 
   .act-wrap { margin: var(--section) 0 0; }
-  .act {
-    display: inline-flex; align-items: baseline; gap: 0.9rem;
-    border: 1.5px solid var(--cw-stamp); color: var(--cw-stamp);
-    padding: 1rem 1.4rem; min-height: 44px; text-decoration: none;
-    font-family: var(--font-cwaaa-interface);
-  }
-  .act b { font-weight: 600; font-size: var(--cw-text); }
-  .act span { color: var(--cw-grey); }
-  .act:hover { background: var(--cw-stamp); color: var(--cw-ivory); text-decoration: none; }
-  .act:hover span { color: rgba(245, 240, 230, 0.8); }
 
   .pager {
     margin-top: var(--gap-l); padding-top: var(--gap-m);
@@ -306,6 +303,7 @@ const paras = (body: string) => body.split('\n\n');
   .p-all { justify-self: center; color: var(--cw-grey); }
   .empty { display: block; }
 
+  /* ---- --bp-reading: the intruding labels give up the margin ---------------- */
   @media (max-width: 860px) {
     .fields > div { grid-template-columns: 1fr; gap: 0.15rem; margin-left: 0; }
     .testimony p, .statement, .follow { max-width: none; }

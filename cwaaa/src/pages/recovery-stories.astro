@@ -33,98 +33,99 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
 <BaseLayout title={r.meta.title} description={r.meta.description} current="/recovery-stories">
   <section class="lead" aria-labelledby="lead-h">
     <p class="marker" data-reveal>{r.marker}</p>
-    <h1 id="lead-h" class="heading" data-reveal style="--i: 1">{r.heading}</h1>
+    <h1 id="lead-h" class="heading t-voice-h" data-reveal style="--i: 1">{r.heading}</h1>
     <div class="rule" data-reveal="rule" style="--i: 2"></div>
     <p class="intro t-lead" data-reveal style="--i: 2">{r.intro}</p>
     <p class="note t-ui" data-reveal style="--i: 3">{r.note}</p>
   </section>
 
   <ol class="records">
-    {listed.map((rec, i) => (
-      <li class:list={['record', i % 2 === 1 ? 'alt' : null]}>
-        <a class="entry" href={`/recovery-stories/${rec.slug}`} aria-labelledby={`n-${rec.slug}`}>
-          <div class="shot-wrap" data-reveal="photo">
-            {photos[rec.slug] ? (
-              <ImageSlot
-                class="shot" tone="field" id="Participant photograph" title={rec.name} spec=""
-                image={photos[rec.slug]} alt={'alt' in rec.image ? rec.image.alt : ''}
-                position={offsets[i % offsets.length]}
-                sizes="(max-width: 860px) 100vw, 30vw"
-              />
-            ) : (
-              <ImageSlot
-                class="shot" tone="field" id="Photograph pending" title={rec.name}
-                spec={'spec' in rec.image ? rec.image.spec : ''} safe="10% 8%"
-              />
-            )}
-          </div>
-          <div class="said">
-            <p class="quote" data-reveal style="--i: 1">{rec.indexQuote}</p>
-            <p id={`n-${rec.slug}`} class="who t-ui-caps" data-reveal style="--i: 2">{rec.name}</p>
-            <span class="go t-ui-caps" data-reveal style="--i: 2">{r.readLabel}</span>
-          </div>
-        </a>
-      </li>
-    ))}
+    {listed.map((rec, i) => {
+      /* An entry whose record is not open yet is not a link. His testimony is
+         already complete here — the index quote runs to six sentences — so the
+         voice reads in full and nothing offers a door that opens on a file
+         number. Blind readers 2026-09-15 hit four of those in a row: "two dead
+         clicks and out" (Dylan), "a 60% chance of nothing" (Maya), "retroactively
+         makes the good pages feel like a demo" (Priya). */
+      const Entry = rec.open ? 'a' : 'div';
+      return (
+        <li class:list={['rec-row', i % 2 === 1 ? 'alt' : null]}>
+          <Entry
+            class:list={['entry', rec.open ? null : 'closed']}
+            href={rec.open ? `/recovery-stories/${rec.slug}` : undefined}
+            aria-labelledby={rec.open ? `n-${rec.slug}` : undefined}
+          >
+            <div class="shot-wrap" data-reveal="photo">
+              {photos[rec.slug] ? (
+                <ImageSlot
+                  class="shot" tone="field" id="Participant photograph" title={rec.name} spec=""
+                  image={photos[rec.slug]} alt={'alt' in rec.image ? rec.image.alt : ''}
+                  ratio="4 / 3"
+                  position={offsets[i % offsets.length]}
+                  sizes="(max-width: 860px) 100vw, 30vw"
+                />
+              ) : (
+                <ImageSlot
+                  class="shot" tone="field" id="CW-G04" title={rec.name}
+                  spec={'spec' in rec.image ? rec.image.spec : ''} safe="10% 8%" ratio="4 / 3"
+                  pendingNote={r.noPhoto}
+                />
+              )}
+            </div>
+            <div class="said">
+              <p class="quote t-testimony" data-reveal style="--i: 1">{rec.indexQuote}</p>
+              <p id={`n-${rec.slug}`} class="attrib t-ui-caps t-label" data-reveal style="--i: 2">{rec.name}</p>
+              {rec.open && (
+                <span class="go t-ui-caps link-rule" data-reveal style="--i: 2">{r.readLabel}</span>
+              )}
+            </div>
+          </Entry>
+        </li>
+      );
+    })}
   </ol>
 
   <section class="close">
     <div class="rule ink" data-reveal="rule"></div>
-    <a class="act" href={r.action.href} data-reveal style="--i: 1">
-      <b>{r.action.label}</b><span class="t-ui-caps">{r.action.note}</span>
+    <a class="act-box stamp" href={r.action.href} data-reveal style="--i: 1">
+      <b>{r.action.label}</b><span class="t-ui-caps t-label">{r.action.note}</span>
     </a>
   </section>
 </BaseLayout>
 
 <style>
   .lead { background: var(--cw-ivory); padding: var(--section) var(--gutter) var(--gap-l); }
-  .heading {
-    font-family: var(--font-cwaaa-testimony); font-style: italic; font-weight: 400;
-    font-size: var(--cw-statement); line-height: 1.12; color: var(--cw-ink);
-    max-width: 18ch; margin: var(--gap-s) 0 0;
-  }
-  .rule { height: 1px; background: var(--cw-hairline); margin: var(--gap-m) 0; }
-  .rule.ink { background: var(--cw-ink); height: 1.5px; }
+  .heading { max-width: 18ch; margin: var(--gap-s) 0 0; }
+  .rule { margin: var(--gap-m) 0; }
   .intro { color: var(--cw-black); margin: 0; }
   .note { color: var(--cw-grey); margin: var(--gap-s) 0 0; max-width: 52ch; }
 
   .records { list-style: none; margin: 0; padding: 0; }
-  /* Full-bleed hairlines between entries; alternating grounds. */
-  .record { background: var(--cw-white); border-top: 1px solid var(--cw-hairline); }
-  .record.alt { background: var(--cw-ivory); }
+  /* Full-bleed hairlines between entries; alternating grounds. These rows are
+     not the `.record` component — that name belongs to the filed label/value
+     block in system.css, and an entry here is a reading row. */
+  .rec-row { background: var(--cw-white); border-top: 1px solid var(--cw-hairline); }
+  .rec-row.alt { background: var(--cw-ivory); }
   .entry {
     display: grid; grid-template-columns: 30% 1fr; gap: var(--gap-l);
     align-items: start; padding: var(--section) var(--gutter);
     text-decoration: none; color: inherit;
   }
   .entry:hover { text-decoration: none; }
-  .shot-wrap :global(.shot) { aspect-ratio: 4 / 3; }
+  /* A closed record is a reading block, not a target: no pointer, no hover. */
+  .entry.closed { cursor: default; }
 
   /* The voice is the biggest thing on this page. Never truncated. */
-  .quote {
-    font-family: var(--font-cwaaa-testimony); font-style: italic;
-    font-size: var(--cw-testimony); line-height: 1.36; color: var(--cw-ink);
-    margin: 0; max-width: 38ch;
-  }
-  .who { color: var(--cw-grey); margin: var(--gap-m) 0 0; }
-  .go {
-    display: inline-block; margin-top: 0.9rem; color: var(--cw-ink);
-    border-bottom: 1.5px solid var(--cw-ink); padding-bottom: 2px;
-  }
+  .quote { margin: 0; max-width: 38ch; }
+  .attrib { margin: var(--gap-m) 0 0; }
+  .go { display: inline-block; margin-top: 0.9rem; }
+  /* The whole entry is the link, so the inline action answers the row's hover. */
   .entry:hover .go { color: var(--cw-black); border-color: var(--cw-black); }
 
   .close { background: var(--cw-white); border-top: 1px solid var(--cw-hairline); padding: var(--gap-l) var(--gutter) var(--section); }
-  .act {
-    display: inline-flex; align-items: baseline; gap: 0.9rem; margin-top: var(--gap-m);
-    border: 1.5px solid var(--cw-stamp); color: var(--cw-stamp);
-    padding: 1rem 1.4rem; min-height: 44px; text-decoration: none;
-    font-family: var(--font-cwaaa-interface);
-  }
-  .act b { font-weight: 600; font-size: var(--cw-text); }
-  .act span { color: var(--cw-grey); }
-  .act:hover { background: var(--cw-stamp); color: var(--cw-ivory); text-decoration: none; }
-  .act:hover span { color: rgba(245, 240, 230, 0.8); }
+  .act-box { margin-top: var(--gap-m); }
 
+  /* ---- --bp-reading: the photo column starves the quote before --bp-phone -- */
   @media (max-width: 860px) {
     .entry { grid-template-columns: 1fr; gap: var(--gap-m); padding: var(--gap-l) var(--gutter); }
     .quote { max-width: none; }

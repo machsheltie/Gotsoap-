@@ -304,6 +304,13 @@ export const recoveryStories = {
   intro: 'The Coalition documents recoveries. We do not improve the quotes.',
   note: 'Published with each participant’s consent. Names changed where he asked.',
   readLabel: 'Read the record',
+  /** DRAFT — the public notation for a participant photograph that has not
+   *  shipped yet. It replaces the production placeholder, which three blind
+   *  readers read as a broken site on 2026-09-15 ("someone shipped their Figma
+   *  comments"). True to the file: the men did submit pictures, so the field
+   *  says the picture exists and is not reproduced, and promises nothing. The
+   *  ID-and-spec worksheet still renders under `npm run review`. */
+  noPhoto: { label: 'Photograph on file · not reproduced', note: 'Retained as received.' },
   recordLabel: 'Recovery Record',
   referralLabel: 'Referral as received',
   chronologyLabel: 'Case chronology',
@@ -313,6 +320,7 @@ export const recoveryStories = {
     {
       id: 'RC-022',
       slug: 'brayden',
+      open: true,
       public: true,
       name: 'Brayden, 27',
       /** APPROVED — byte-identical to home.voice.quote. The index must not contradict the homepage. */
@@ -386,6 +394,7 @@ export const recoveryStories = {
     {
       id: 'RC-031',
       slug: 'chad',
+      open: false,
       public: true,
       name: 'Chad (yes, really), 29',
       indexQuote:
@@ -397,6 +406,7 @@ export const recoveryStories = {
     {
       id: 'RC-039',
       slug: 'marcus',
+      open: false,
       public: true,
       name: 'Marcus, 34',
       indexQuote:
@@ -408,6 +418,7 @@ export const recoveryStories = {
     {
       id: 'RC-047',
       slug: 'gary',
+      open: false,
       public: true,
       name: 'Gary, 46',
       indexQuote:
@@ -419,6 +430,7 @@ export const recoveryStories = {
     {
       id: 'RC-058',
       slug: 'kaelthas',
+      open: false,
       public: true,
       name: '“Kaelthas,” 22',
       indexQuote:
@@ -436,6 +448,7 @@ export const recoveryStories = {
        */
       id: 'RC-090',
       slug: 'billy-bob',
+      open: true,
       public: false,
       name: 'Billy Bob, 51',
       indexQuote: '',
