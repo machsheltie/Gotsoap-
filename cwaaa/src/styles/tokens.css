@@ -46,7 +46,7 @@
   --cw-panel-h: clamp(1.375rem, 1.1rem + 0.8vw, 1.625rem);     /* 22–26 panel heading */
   --cw-testimony: clamp(1.5rem, 1.2rem + 0.9vw, 1.875rem);     /* 24–30 testimony */
   --cw-finding: clamp(2.75rem, 1rem + 5.8vw, 5.6rem);          /* Finding statement */
-  --cw-figure: min(clamp(9rem, 2rem + 30vw, 30rem), 60vh);     /* [PROPOSED] the one monumental Mirk Slab figure on /findings */
+  --cw-figure: min(clamp(9rem, 2rem + 30vw, 30rem), 60vh);     /* LOCKED 2026-09-15 (CW-D01, Findings figure): the one monumental Mirk Slab figure */
   --cw-figure-m: 44vw;                                         /* phone */
   --cw-line: clamp(2.25rem, 0.6rem + 4.9vw, 4.75rem);          /* DOCUMENT. ADVOCATE. ORGANIZE. */
   --cw-proposition: clamp(4.5rem, 2rem + 8vw, 9rem);           /* The bar is soap. */

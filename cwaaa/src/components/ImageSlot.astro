@@ -2,10 +2,13 @@
 /**
  * ImageSlot.astro — owner-supplied photography, or a labeled placeholder
  * until it exists. Never stock. With `image` (an imported asset) the slot
- * renders optimized AVIF/WebP derivatives via astro:assets; without one it
- * shows the graphics ID, the shot spec, and the safe zone (GRAPHICS-TO-MAKE.md).
+ * renders optimized AVIF/WebP derivatives via astro:assets; pass
+ * `imageNarrow` as well for an art-directed phone composition (the 4:5
+ * master required by ui-system.md §13 for CW-G02/G03) instead of a centre
+ * crop. Without an image it shows the graphics ID, the shot spec, and the
+ * safe zone (GRAPHICS-TO-MAKE.md).
  */
-import { Picture } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 interface Props {
   id: string;
@@ -15,31 +18,53 @@ interface Props {
   safe?: string; /* CSS inset for the dashed safe zone */
   class?: string;
   image?: ImageMetadata;
+  imageNarrow?: ImageMetadata;
   alt?: string;
   /** CSS object-position for the cover crop, e.g. "68% 40%". */
   position?: string;
+  positionNarrow?: string;
   /** Above-the-fold images load eagerly with high priority. */
   priority?: boolean;
   sizes?: string;
 }
 const {
   id, title, spec, tone = 'photo', safe = '14% 10% 22% 10%', class: className,
-  image, alt = '', position = '50% 50%', priority = false, sizes = '100vw',
+  image, imageNarrow, alt = '', position = '50% 50%', positionNarrow, priority = false, sizes = '100vw',
 } = Astro.props;
+
+const NARROW = '(max-width: 700px)';
+const WIDE_WIDTHS = [960, 1440, 2000, 2560, 3200];
+const NARROW_WIDTHS = [480, 720, 960, 1200];
+
+async function derive(src: ImageMetadata, widths: number[]) {
+  const [avif, webp, fallback] = await Promise.all([
+    getImage({ src, widths, format: 'avif' }),
+    getImage({ src, widths, format: 'webp' }),
+    getImage({ src, width: widths[Math.min(2, widths.length - 1)], format: 'jpg' }),
+  ]);
+  return { avif: avif.srcSet.attribute, webp: webp.srcSet.attribute, fallback, w: src.width, h: src.height };
+}
+const wide = image ? await derive(image, WIDE_WIDTHS) : null;
+const narrow = imageNarrow ? await derive(imageNarrow, NARROW_WIDTHS) : null;
 ---
 <div class:list={['slot', `slot-${tone}`, className]} role="img" aria-label={image ? alt : `${id} placeholder: ${title}`}>
-  <div class="media" style={`--pos: ${position}`}>
-    {image ? (
-      <Picture
-        src={image}
-        alt=""
-        formats={['avif', 'webp']}
-        widths={[640, 960, 1440, 2000, 2576]}
-        sizes={sizes}
-        loading={priority ? 'eager' : 'lazy'}
-        fetchpriority={priority ? 'high' : 'auto'}
-        decoding="async"
-      />
+  <div class="media" style={`--pos: ${position}; --pos-m: ${positionNarrow ?? position}`}>
+    {wide ? (
+      <picture>
+        {narrow && <source media={NARROW} type="image/avif" srcset={narrow.avif} sizes="100vw" width={narrow.w} height={narrow.h} />}
+        {narrow && <source media={NARROW} type="image/webp" srcset={narrow.webp} sizes="100vw" width={narrow.w} height={narrow.h} />}
+        <source type="image/avif" srcset={wide.avif} sizes={sizes} width={wide.w} height={wide.h} />
+        <source type="image/webp" srcset={wide.webp} sizes={sizes} width={wide.w} height={wide.h} />
+        <img
+          src={wide.fallback.src}
+          width={wide.w}
+          height={wide.h}
+          alt=""
+          loading={priority ? 'eager' : 'lazy'}
+          fetchpriority={priority ? 'high' : 'auto'}
+          decoding="async"
+        />
+      </picture>
     ) : (
       <>
         <div class="safe" style={`inset: ${safe}`}></div>
@@ -52,8 +77,9 @@ const {
 <style>
   .slot { position: relative; overflow: hidden; }
   .media { position: absolute; inset: 0; }
-  .slot :global(picture) { display: contents; }
-  .slot :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); }
+  .slot picture { display: contents; }
+  .slot img { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); }
+  @media (max-width: 700px) { .slot img { object-position: var(--pos-m, 50% 50%); } }
   .slot-photo .media { background: var(--cw-photo-ground); color: var(--cw-ivory);
     background-image: repeating-linear-gradient(135deg, transparent 0 18px, rgba(255,255,255,0.06) 18px 19px); }
   .slot-cloth .media { background: var(--cw-cloth-ground); color: var(--cw-ivory);

@@ -11,16 +11,18 @@ import Nav from '../components/Nav.astro';
 import ImageSlot from '../components/ImageSlot.astro';
 import { home } from '../content/copy';
 import { GOT_SOAP_SITE_URL, isConfigured } from '../config/site';
-import heroImage from '../assets/hero-coalition.jpg';
+import heroWide from '../assets/hero-coalition-wide.png';
+import heroTall from '../assets/hero-coalition-tall.png';
 const h = home;
 ---
 <BaseLayout title={h.meta.title} description={h.meta.description} current="/" heroNav>
-  <!-- 1 · Proposition over the hero. Owner-supplied photograph, 2026-09-15
-       (ui-system.md §13): three coalition members in a plain meeting room, subject
-       right of centre, lower-left quiet for the proposition. -->
+  <!-- 1 · Proposition over the hero. Owner-supplied photographs, 2026-09-15
+       (ui-system.md §13): 3200×1800 desktop master and 4:5 phone composition of
+       three coalition members in a plain meeting room; the wide frame keeps the
+       lower-left quiet for the proposition. -->
   <section class="hero" aria-labelledby="prop">
     <ImageSlot class="hero-photo" tone="photo" id={h.placeholders.hero.id} title={h.placeholders.hero.title} spec={h.placeholders.hero.spec} safe="24% 8% 22% 34%"
-      image={heroImage} alt={h.placeholders.hero.alt} position="66% 45%" priority />
+      image={heroWide} imageNarrow={heroTall} alt={h.placeholders.hero.alt} position="66% 45%" positionNarrow="50% 30%" priority />
     <Nav tone="on-ink" current="/" />
     <h1 id="prop" class="prop" data-reveal style="--i: 1">{h.proposition}</h1>
   </section>
@@ -191,7 +193,7 @@ const h = home;
   .finding .rule.ink { margin-bottom: 1.5rem; }
   .support { margin-bottom: 1.5rem; }
   /* The filed record: one ruled row of label/value cells in the notation face. */
-  .record { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0 2.5rem; margin: 0; border-top: 1px solid var(--cw-ink); border-bottom: 1px solid var(--cw-ink); padding: 0.85rem 0; }
+  .record { display: grid; grid-template-columns: repeat(4, auto); justify-content: start; gap: 0 2.5rem; margin: 0; border-top: 1px solid var(--cw-ink); border-bottom: 1px solid var(--cw-ink); padding: 0.85rem 0; }
   .record div { display: grid; gap: 0.25rem; }
   .record dt { margin: 0; color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; }
   .record dd { margin: 0; color: var(--cw-ink); font-family: var(--font-cwaaa-interface); font-weight: 500; font-feature-settings: 'tnum' 1, 'zero' 1, 'case' 1; }

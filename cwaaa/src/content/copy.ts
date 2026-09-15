@@ -165,7 +165,7 @@ export const home = {
   placeholders: {
     hero: {
       id: 'CW-G02',
-      /** Owner-supplied photograph, 2026-09-15 (src/assets/hero-coalition.jpg). */
+      /** Owner-supplied photographs, 2026-09-15 (src/assets/hero-coalition-{wide,tall}.png). */
       alt: 'Three members of the coalition standing in a plain meeting room, facing the camera. One holds a bar of soap.',
       title: 'Documentary hero · full bleed · placeholder',
       spec:

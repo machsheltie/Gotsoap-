@@ -609,3 +609,16 @@ directed that it ship. Recorded:
   source is cover-cropped with an authored focal point on both viewports.
 - **Delivery:** AVIF and WebP derivatives via `astro:assets`, eager and high-priority on the home;
   the original JPG is not shipped.
+
+## 2026-09-15 — Hero masters delivered; Findings figure scale locked
+
+- **CW-G02 masters:** the owner supplied the 3200×1800 desktop master
+  (`src/assets/hero-coalition-wide.png`) and a 4:5 phone composition
+  (`src/assets/hero-coalition-tall.png`, 3712×4608). `ImageSlot` now serves them as an
+  art-directed `<picture>`: the tall source below 700px, the wide source above, each as AVIF and
+  WebP derivatives. The earlier single-source cover crop is retired; the "still owed" note above
+  is closed.
+- **CW-D01 (Findings figure only):** the monumental figure scale
+  `min(clamp(9rem, 2rem + 30vw, 30rem), 60vh)`, line-height 0.72, tracking −0.035em, phone 44vw,
+  is locked as built on the owner's instruction (2026-09-15, "use your best judgement"). The
+  remaining CW-D01 scale, leading, and measure values stay proposed.
