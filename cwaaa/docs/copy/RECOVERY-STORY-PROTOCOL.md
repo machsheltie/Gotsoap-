@@ -34,10 +34,13 @@ this beat; it is the entire reason the record exists.
 
 ## The distinction that kills drafts
 
-**A recovery participant is a character, not a suspect or a display prop.** The record can still show
-the foolish belief, repeated behavior, and embarrassing consequence that make his changed position
-credible. If he never admits he was wrong, the recovery has no causal turn. He learns something
-without ceasing to be himself: same man, better baseline.
+**A Recovery Story documents a behavioral change, not merely an offense.** The before-state must
+remain specific enough to establish why change was necessary, and the after-state must demonstrate
+why the change was worth making.
+
+The record can show the foolish belief, repeated behavior, and embarrassing consequence that make
+his changed position credible. If he never admits he was wrong, the recovery has no causal turn. He
+learns something without ceasing to be himself: same man, better baseline.
 
 He may say *"the embarrassing part was finding out everybody was right"*. Whether the audience feels
 warmth, exasperation, or both depends on this man's actual story and the benefit the record earns.
@@ -58,37 +61,33 @@ those have in common.
 
 ## Who writes these
 
-**Vivian writes all of it, participant testimony included.** Scope restored by the owner,
-2026-09-15, after her doctrine was retooled (persona v4.0).
+**Vivian writes the complete Recovery Story, including participant testimony.**
 
-The earlier restriction is superseded and the reason is worth keeping: her previous doctrine banned
-the soft landing outright and her self-audit penalized any piece that "resolved into reassurance,"
-so on a persuasion surface the correct ending scored as a failure and the wrong one was certified as
-a success. That was structural, not a lapse.
-
-v4.0 fixes it at the root — endings are chosen by surface function rather than by a universal blade
-rule, warmth is classified as evidence or apology instead of banned, and a conversion surface now
-carries a mandatory reward test. The protocol below and her doctrine now agree.
+Recovery Stories are conversion surfaces. Their endings follow the causal and reward requirements in
+this protocol rather than any general campaign-copy rule about ending on the sharpest joke.
 
 **The reward test**, run before any record ships: *what does the target reader want now that he did
 not want four paragraphs ago?* If the answer is "to avoid paperwork," the record has failed.
 
-## The overcorrection rule
+## Character truth and satirical target
 
-Owner correction, 2026-09-15, second pass on Billy Bob.
+**Write the participant established by canon.**
 
-"Don't punch down" does **not** mean *when writing a character from a potentially vulnerable
-demographic, actively prove he deserves respect*. That is structural apology wearing a better suit,
-and it produces a file that argues for the participant instead of documenting him.
+Identify the satirical target, then write the behavior and its consequences accurately. A
+participant's region, occupation, class, accent, hobbies, appearance, or background matter only when
+they materially belong to the story; they do not require compensating characterization.
 
-The rule is: **do not use the demographic as the reason the character is ridiculous — then stop
-thinking about it.** A man can be an Appalachian coal miner and an absolute dumbass about showering.
-The record does not file a brief establishing that coal miners are hardworking before it permits
-itself to describe what he did.
+Character qualities require a canonical or dramatic reason. Do not add positive qualities to balance
+negative ones, or negative qualities merely to make the satire harsher.
 
-Check the before-state against canon: the participant's actual position, the behavior it produced,
-and the cost to someone close to him must all remain visible. CWAAA may document and judge the
-behavior within its advocacy role; it need not vouch for the quality of his reasoning. The reporting
-party speaks from her own experience, without a preface defending her reaction. For Billy Bob, the
-same rationalization repeated while the documented harm accumulates is stronger than an argument that
-improves under scrutiny. A different participant may need a different mechanism.
+The before-state must preserve the participant's actual belief, the behavior produced by that belief,
+and the consequences that followed.
+
+CWAAA is an advocacy organization with a position. Its records may document and judge behavior while
+remaining institutionally credible.
+
+Reporting parties describe their own experience directly.
+
+**For Billy Bob, the comic engine is repetition under accumulating consequence:** he continues
+applying the same future-dirtiness rationale while the practical cost becomes increasingly impossible
+to ignore. Other participants may operate through entirely different mechanisms.
