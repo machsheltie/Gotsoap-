@@ -62,7 +62,9 @@ const h = home;
       <p class="marker" data-reveal>{h.finding.marker}</p>
       <h2 id="finding-h" class="finding-h" data-reveal style="--i: 1">{h.finding.statement}</h2>
       <div class="rule ink" data-reveal="rule" style="--i: 2"></div>
-      <p class="support t-lead" data-reveal style="--i: 2">{h.finding.support}</p>
+      <div class="support" data-reveal style="--i: 2">
+        {h.finding.support.map((line) => <p class="t-lead">{line}</p>)}
+      </div>
       <dl class="record" data-reveal style="--i: 3">
         {h.finding.record.map((r) => (
           <div><dt class="t-ui-caps">{r.label}</dt><dd class="t-ui">{r.value}</dd></div>
@@ -191,7 +193,7 @@ const h = home;
     line-height: 0.92; letter-spacing: -0.01em; color: var(--cw-ink); margin: var(--gap-s) 0 1.75rem;
   }
   .finding .rule.ink { margin-bottom: 1.5rem; }
-  .support { margin-bottom: 1.5rem; }
+  .support { margin-bottom: 1.5rem; display: grid; gap: 0.75rem; }
   /* The filed record: one ruled row of label/value cells in the notation face. */
   .record { display: grid; grid-template-columns: repeat(4, auto); justify-content: start; gap: 0 2.5rem; margin: 0; border-top: 1px solid var(--cw-ink); border-bottom: 1px solid var(--cw-ink); padding: 0.85rem 0; }
   .record div { display: grid; gap: 0.25rem; }

@@ -108,9 +108,12 @@ export const home = {
     /** Owner-directed statement, 2026-09-14. Registered as FINDING 26-01 (CW-D04, ui-system §13
      *  2026-09-14); the full entry with its figure lives in `findings.lead`. */
     statement: 'Fragrance is not a cleansing event.',
-    /** DRAFT */
-    support:
+    /** Owner decision 2026-09-15: both lines belong here. First is the APPROVED register support
+     *  for FINDING 26-01 (findings.lead.support); second is DRAFT, awaiting the copy lane. */
+    support: [
+      '73% of body-spray applications occur in lieu of, not in addition to, a shower.',
       'Body spray may alter the immediate air. It does not remove sweat, oil, dirt, or the consequences of avoiding soap and water.',
+    ],
     disposition: 'Disposition · entered into the public record',
     /** The filed record under the rule: label / value pairs. "Field Data Committee" is APPROVED
      *  (crisis.findings.subnote). */
