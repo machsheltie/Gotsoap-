@@ -21,6 +21,7 @@
     "fidelity": "node --experimental-strip-types scripts/fidelity-check.mjs",
     "authority": "node scripts/authority-check.mjs",
     "audit:fonts": "node scripts/font-audit.mjs",
+    "embed:cwaaa": "node scripts/embed-cwaaa.mjs",
     "authority:test": "node scripts/authority-check.test.mjs"
   },
   "dependencies": {

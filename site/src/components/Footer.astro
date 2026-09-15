@@ -18,12 +18,13 @@ const { register = 'campaign' } = Astro.props;
 
 // copy.ts holds the hashtag stack as an array; the footer renders it middot-joined.
 const hashtagLine = footer.hashtags.join(' · ');
-// The "Funded by …" seam is the 🧼→📋 hand-off to the sponsor. It resolves to
-// CWAAA's own site when config/site.ts carries the assigned origin (CW-D07),
-// and otherwise to the in-runtime CWAAA surface at /crisis — the seam is never
-// absent and never a placeholder domain.
-const cwaaaIsExternal = isConfigured(CWAAA_SITE_URL);
-const fundedHref = cwaaaIsExternal ? CWAAA_SITE_URL : '/crisis';
+// The "Funded by …" seam is the 🧼→📋 hand-off to the sponsor: CWAAA's own
+// site when config/site.ts carries an address for it, and the in-runtime CWAAA
+// surface at /crisis while it is empty — never a dead link either way.
+// Today that address is the interim /cwaaa mount on this deployment; once it
+// is CWAAA's own origin the link becomes external on its own.
+const fundedHref = isConfigured(CWAAA_SITE_URL) ? CWAAA_SITE_URL : '/crisis';
+const cwaaaIsExternal = /^https?:\/\//i.test(fundedHref);
 
 const socialLabels: Record<string, string> = footer.socialLabels;
 const socials = (
