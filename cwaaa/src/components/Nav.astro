@@ -1,0 +1,88 @@
+---
+/**
+ * Nav.astro — ordinary, visible primary navigation (ui-system.md §2.1).
+ * Desktop: six items in a row, pledge emphasized with rules, never a pill.
+ * Mobile: an accessible disclosure menu (<details>), no JS required.
+ * `tone="on-ink"` renders ivory over the hero photograph.
+ */
+import Brand from './Brand.astro';
+import { nav } from '../content/copy';
+interface Props { tone?: 'on-ink' | 'on-field'; current?: string }
+const { tone = 'on-field', current = '/' } = Astro.props;
+---
+<header class:list={['nav', tone]}>
+  <Brand />
+  <nav class="menu" aria-label="Primary">
+    <ul>
+      {nav.items.map((item) => (
+        <li><a href={item.href} aria-current={current === item.href ? 'page' : undefined}>{item.label}</a></li>
+      ))}
+      <li class="pledge"><a href={nav.pledge.href}>{nav.pledge.label}</a></li>
+    </ul>
+  </nav>
+  <details class="menu-m" data-menu>
+    <summary class="t-ui">{nav.menu}</summary>
+    <nav aria-label="Primary">
+      <ul>
+        {nav.items.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        <li class="pledge"><a href={nav.pledge.href}>{nav.pledge.label} · {nav.pledge.form}</a></li>
+      </ul>
+      <button type="button" class="menu-close t-ui" data-menu-close>{nav.close}</button>
+    </nav>
+  </details>
+</header>
+
+<style>
+  .nav {
+    position: relative; z-index: 30;
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    padding: 1.35rem var(--gutter);
+    border-bottom: 1px solid var(--cw-hairline);
+    color: var(--cw-ink);
+  }
+  .nav.on-ink { color: var(--cw-ivory); border-bottom-color: var(--cw-hairline-on-ink); }
+
+  .menu ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 1.9rem; align-items: baseline; }
+  .menu a {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--font-cwaaa-interface); font-weight: 500; font-size: var(--cw-text-m); letter-spacing: 0.04em;
+  }
+  .menu a::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.75; }
+  .menu a[aria-current='page']::before { background: var(--cw-stamp); opacity: 1; }
+  .menu a:hover { text-decoration: none; }
+  .menu a:hover::before { transform: scale(1.35); }
+  .menu a::before { transition: transform var(--dur) var(--ease-out), opacity var(--dur) var(--ease-out); }
+  .menu .pledge a { border-top: 2px solid currentColor; border-bottom: 2px solid currentColor; padding: 0.35rem 0; }
+  /* Stamp red is reserved for the page's pledge action; the nav pledge is
+     emphasized by rules and weight only. */
+  .menu .pledge a::before { opacity: 1; }
+  .menu .pledge a { font-weight: 700; }
+
+  .menu-m { display: none; }
+  .menu-m summary { list-style: none; cursor: pointer; border: 1.5px solid currentColor; padding: 0 0.9rem; min-height: 44px; display: inline-flex; align-items: center; }
+  .menu-m summary::-webkit-details-marker { display: none; }
+  .menu-m[open] summary { background: var(--cw-ink); color: var(--cw-ivory); border-color: var(--cw-ink); }
+  .menu-m nav {
+    position: absolute; left: 0; right: 0; top: 100%;
+    background: var(--cw-ivory); color: var(--cw-ink);
+    border-bottom: 1.5px solid var(--cw-ink); padding: 0.5rem var(--gutter) 1.25rem;
+  }
+  .menu-m ul { list-style: none; margin: 0; padding: 0; }
+  .menu-m li a {
+    display: block; padding: 0.9rem 0; border-top: 1px solid var(--cw-hairline);
+    font-family: var(--font-cwaaa-interface); font-weight: 500; font-size: 1.0625rem; letter-spacing: 0.04em;
+  }
+  .menu-m .pledge a { font-weight: 700; border-top: 2px solid var(--cw-ink); }
+  .menu-close { appearance: none; background: none; border: 1.5px solid var(--cw-ink); color: var(--cw-ink); cursor: pointer; min-height: 44px; padding: 0 0.9rem; margin-top: 0.75rem; }
+  .menu-close:hover { background: var(--cw-ink); color: var(--cw-ivory); }
+
+  /* The six-item row needs roughly 1000px beside the brand; below that the
+     disclosure menu takes over so nothing wraps or clips in the tablet band. */
+  @media (max-width: 1000px) {
+    .menu { display: none; }
+    .menu-m { display: block; }
+  }
+  @media (max-width: 700px) {
+    .nav { padding: 1rem var(--gutter); }
+  }
+</style>

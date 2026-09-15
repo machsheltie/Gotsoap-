@@ -1,0 +1,27 @@
+---
+/** Brand.astro — seal + full organization name. Returns Home (design.md §4). */
+import Seal from './Seal.astro';
+import { org } from '../content/copy';
+interface Props { class?: string; asLink?: boolean }
+const { class: className, asLink = true } = Astro.props;
+const Tag = asLink ? 'a' : 'div';
+---
+<Tag class:list={['brand', className]} href={asLink ? '/' : undefined} aria-label={asLink ? `${org.name} — home` : undefined}>
+  <Seal size={50} decorative />
+  <span class="name">
+    {org.nameLines[0]}<br />{org.nameLines[1]}
+    <small>{org.est} · {org.tag}</small>
+  </span>
+</Tag>
+
+<style>
+  .brand { display: inline-flex; align-items: center; gap: 0.85rem; color: inherit; min-width: 0; }
+  .brand :global(svg) { flex: none; }
+  .brand:hover { text-decoration: none; }
+  .name {
+    font-family: var(--font-cwaaa-interface); font-weight: 500; font-size: var(--cw-text-s);
+    letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.25; white-space: nowrap;
+  }
+  .name small { display: block; font-weight: 400; letter-spacing: 0.12em; font-size: 0.6875rem; margin-top: 0.15rem; opacity: 0.8; white-space: normal; }
+  @media (max-width: 700px) { .name { font-size: 0.6875rem; } .brand :global(svg) { width: 40px; height: 40px; } }
+</style>

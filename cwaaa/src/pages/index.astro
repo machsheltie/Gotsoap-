@@ -1,0 +1,258 @@
+---
+/**
+ * / — CWAAA public advocacy home. Composition: Comp D "The Field Report",
+ * approved 2026-09-14 (.impeccable/mocks/cwaaa-home-d.json). Locked sequence
+ * (design.md §5) in order: proposition → DOCUMENT. ADVOCATE. ORGANIZE. →
+ * one Finding → one recovery voice → Tie One On → coalition scale (utility
+ * bar) → one pledge action → Got Soap? seam (conditional).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import { home } from '../content/copy';
+import { GOT_SOAP_SITE_URL, isConfigured } from '../config/site';
+const h = home;
+---
+<BaseLayout title={h.meta.title} description={h.meta.description} current="/" heroNav>
+  <!-- 1 · Proposition over the documentary hero -->
+  <section class="hero" aria-labelledby="prop">
+    <ImageSlot class="hero-photo" tone="photo" id={h.placeholders.hero.id} title={h.placeholders.hero.title} spec={h.placeholders.hero.spec} safe="24% 8% 22% 34%" />
+    <Nav tone="on-ink" current="/" />
+    <h1 id="prop" class="prop" data-reveal style="--i: 1">{h.proposition}</h1>
+  </section>
+
+  <!-- 1b · Statement and the two actions -->
+  <section class="about">
+    <div>
+      <p class="marker" data-reveal>{h.about.marker}</p>
+      <h2 class="statement" data-reveal style="--i: 1">{h.about.statement}</h2>
+    </div>
+    <div class="about-right">
+      {h.about.body.map((p, i) => <p class="t-lead" data-reveal style={`--i: ${i + 1}`}>{p}</p>)}
+      <div class="actions" data-reveal style="--i: 3">
+        <a class="primary" href={h.about.actions.primary.href}>{h.about.actions.primary.label} <span class="n">{h.about.actions.primary.note}</span></a>
+        <a href={h.about.actions.secondary.href}>{h.about.actions.secondary.label} <span class="n" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · DOCUMENT. ADVOCATE. ORGANIZE. — one continuous line, never three cards -->
+  <section class="dao on-ink" aria-labelledby="dao-line">
+    <p class="marker" data-reveal>{h.dao.marker}</p>
+    <h2 id="dao-line" class="line" data-reveal style="--i: 1">
+      {h.dao.line[0]} <em>{h.dao.line[1]}</em> {h.dao.line[2]}
+    </h2>
+    <div class="rule" data-reveal="rule" style="--i: 2"></div>
+    <div class="run">
+      {h.dao.run.map((c, i) => (
+        <p data-reveal style={`--i: ${i + 1}`}><span class="t-ui-caps lbl">{c.label}</span>{c.body}</p>
+      ))}
+    </div>
+  </section>
+
+  <!-- 3 · One current Finding -->
+  <section class="finding" aria-labelledby="finding-h">
+    <div>
+      <p class="marker" data-reveal>{h.finding.marker}</p>
+      <h2 id="finding-h" class="finding-h" data-reveal style="--i: 1">{h.finding.statement}</h2>
+      <div class="rule ink" data-reveal="rule" style="--i: 2"></div>
+      <p class="support t-lead" data-reveal style="--i: 2">{h.finding.support}</p>
+      <dl class="record" data-reveal style="--i: 3">
+        {h.finding.record.map((r) => (
+          <div><dt class="t-ui-caps">{r.label}</dt><dd class="t-ui">{r.value}</dd></div>
+        ))}
+        <div><dt class="t-ui-caps">Disposition</dt><dd class="t-ui">Entered into the public record</dd></div>
+      </dl>
+    </div>
+    <aside class="method" data-reveal style="--i: 3">
+      <b class="t-ui-caps">{h.finding.method.label}</b>
+      <p>{h.finding.method.body}</p>
+    </aside>
+  </section>
+
+  <!-- 4 · One intimate recovery voice -->
+  <section class="voice" aria-labelledby="voice-h">
+    <ImageSlot class="object" tone="field" id="CW-G04" title="Participant object · placeholder" spec="Object and image direction pending CW-D04." safe="10% 8%" />
+    <figure>
+      <h2 id="voice-h" class="marker" data-reveal>{h.voice.marker}</h2>
+      <blockquote data-reveal style="--i: 1"><p>{h.voice.quote}</p></blockquote>
+      <figcaption class="t-ui-caps" data-reveal style="--i: 2">{h.voice.name} <a href={h.voice.action.href}>{h.voice.action.label}</a></figcaption>
+      <div class="refer-row" data-reveal style="--i: 3">
+        <a class="refer t-ui-caps" href={h.voice.refer.href} data-copy-link data-done={h.voice.refer.done}>{h.voice.refer.label}</a>
+        <span class="refer-done t-ui" role="status" aria-live="polite"></span>
+      </div>
+    </figure>
+  </section>
+
+  <!-- 5 · One tactile Tie One On moment -->
+  <section class="ribbon" aria-labelledby="ribbon-h">
+    <div class="photo-wrap" data-reveal="photo">
+      <ImageSlot class="ribbon-photo" tone="cloth" id={h.placeholders.cloth.id} title={h.placeholders.cloth.title} spec={h.placeholders.cloth.spec} safe="12% 8% 40% 42%" />
+    </div>
+    <div class="panel" data-reveal style="--i: 1">
+      <h2 id="ribbon-h">{h.ribbon.heading}</h2>
+      <p>{h.ribbon.body}</p>
+      <a class="panel-a t-ui-caps" href={h.ribbon.action.href}>{h.ribbon.action.label}</a>
+    </div>
+  </section>
+
+  <!-- 6 · coalition scale and human chapter traces; 7 · the one pledge action
+       after the sequence (design.md §5). The bar's link is chrome; this is the
+       page's close. -->
+  <section class="close" aria-labelledby="close-h">
+    <p class="marker" data-reveal>{h.close.marker}</p>
+    <h2 id="close-h" class="scale-line" data-reveal style="--i: 1">{h.close.scale}</h2>
+    <div class="rule ink" data-reveal="rule" style="--i: 2"></div>
+    <div class="close-row">
+      <div class="traces">
+        {h.close.traces.map((t, i) => <p data-reveal style={`--i: ${i + 2}`}>{t}</p>)}
+      </div>
+      <div class="actions" data-reveal style="--i: 3">
+        <a class="primary" href={h.close.action.href}>{h.close.action.label} <span class="n">{h.close.action.note}</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · Controlled Got Soap? seam: renders only when the campaign origin is configured -->
+  {isConfigured(GOT_SOAP_SITE_URL) && (
+    <aside class="seam" aria-label={h.seam.marker}>
+      <p class="marker">{h.seam.marker}</p>
+      <p>{h.seam.body} <a href={GOT_SOAP_SITE_URL} rel="external noopener">{h.seam.action} <span class="visually-hidden">({h.seam.external})</span></a></p>
+    </aside>
+  )}
+</BaseLayout>
+
+<style>
+  /* ---- 1 · Hero ---------------------------------------------------------- */
+  .hero { position: relative; height: 66vh; height: 66dvh; min-height: 520px; color: var(--cw-ivory); }
+  .hero :global(.hero-photo) { position: absolute; inset: 0; }
+  .hero :global(.nav) { position: relative; }
+  .hero :global(.hero-photo .lbl) { top: 7.25rem; }
+  /* The proposition sits on the photograph in one solid color (owner decision
+     2026-09-14: the earlier two-color split was not intentional). */
+  .prop {
+    position: absolute; left: var(--gutter); right: var(--gutter); bottom: calc(var(--gutter) * 0.75); z-index: 3;
+    font-family: var(--font-cwaaa-proposition); font-weight: 400;
+    font-size: min(var(--cw-proposition), 10.5vw); /* never wider than the field between 701px and ~1100px, or at 200% zoom */
+    line-height: 0.9; letter-spacing: -0.01em; white-space: nowrap;
+    color: var(--cw-ivory);
+  }
+  html.has-js.motion-ok .prop[data-reveal] { transform: translateY(0.35em); }
+  html.has-js.motion-ok .prop[data-reveal].is-in { transform: none; }
+
+  /* ---- 1b · Statement ---------------------------------------------------- */
+  .about {
+    padding: var(--section) var(--gutter);
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--gap-l);
+    background: var(--cw-ivory);
+  }
+  .statement {
+    font-family: var(--font-cwaaa); font-weight: 400; font-size: var(--cw-statement);
+    line-height: 1.12; letter-spacing: -0.01em; color: var(--cw-ink); margin-top: var(--gap-s); max-width: 20ch;
+  }
+  .about-right { padding-top: 2.4rem; display: grid; gap: var(--gap-m); align-content: start; }
+  .about .actions { max-width: 420px; margin-top: 0.25rem; }
+
+  /* ---- 2 · DOCUMENT. ADVOCATE. ORGANIZE. --------------------------------- */
+  .dao { background: var(--cw-ink); color: var(--cw-ivory); padding: var(--section) var(--gutter); }
+  .line {
+    font-family: var(--font-cwaaa-proposition); font-weight: 400; text-transform: uppercase;
+    font-size: min(var(--cw-line), 5vw); line-height: 0.95; letter-spacing: -0.012em; margin: var(--gap-s) 0 var(--gap-l); white-space: nowrap;
+  }
+  .line em { font-style: normal; color: var(--cw-tint); }
+  .rule { height: 1px; background: var(--cw-hairline-on-ink); }
+  .rule.ink { height: 3px; background: var(--cw-ink); }
+  .run { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .run p { margin: 0; padding: 1.75rem 2rem 0 0; line-height: 1.5; }
+  .run p + p { border-left: 1px solid var(--cw-hairline-on-ink); padding-left: 2rem; }
+  .run .lbl { display: block; margin-bottom: 0.6rem; color: var(--cw-on-ink-muted); font-family: var(--font-cwaaa-interface); font-weight: 500; }
+
+  /* ---- 3 · Finding ------------------------------------------------------- */
+  .finding {
+    background: var(--cw-ivory); padding: var(--section) var(--gutter);
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--gap-l); align-items: end;
+  }
+  .finding-h {
+    font-family: var(--font-cwaaa-proposition); font-weight: 400; font-size: var(--cw-finding);
+    line-height: 0.92; letter-spacing: -0.01em; color: var(--cw-ink); margin: var(--gap-s) 0 1.75rem;
+  }
+  .finding .rule.ink { margin-bottom: 1.5rem; }
+  .support { margin-bottom: 1.5rem; }
+  /* The filed record: one ruled row of label/value cells in the notation face. */
+  .record { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0 2.5rem; margin: 0; border-top: 1px solid var(--cw-ink); border-bottom: 1px solid var(--cw-ink); padding: 0.85rem 0; }
+  .record div { display: grid; gap: 0.25rem; }
+  .record dt { margin: 0; color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; }
+  .record dd { margin: 0; color: var(--cw-ink); font-family: var(--font-cwaaa-interface); font-weight: 500; font-feature-settings: 'tnum' 1, 'zero' 1, 'case' 1; }
+  .method { border-left: 1px solid var(--cw-ink); padding-left: 1.5rem; color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-size: var(--cw-text-m); line-height: 1.6; }
+  .method b { display: block; color: var(--cw-ink); margin-bottom: 0.5rem; font-weight: 700; }
+  .method p { margin: 0; }
+
+  /* ---- 4 · Recovery voice ------------------------------------------------ */
+  .voice {
+    background: var(--cw-white); padding: var(--section) var(--gutter);
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--gap-l); align-items: center;
+  }
+  .voice :global(.object) { aspect-ratio: 4 / 3; }
+  .voice figure { margin: 0; }
+  .voice blockquote { margin: var(--gap-s) 0 0; }
+  .voice blockquote p { font-family: var(--font-cwaaa-testimony); font-style: italic; font-size: var(--cw-testimony); line-height: 1.35; max-width: 30ch; margin: 0; }
+  .voice figcaption { margin-top: 1.25rem; color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; }
+  .voice figcaption a { color: var(--cw-ink); border-bottom: 1.5px solid var(--cw-ink); margin-left: 0.9rem; }
+  .voice figcaption a:hover { text-decoration: none; color: var(--cw-black); border-color: var(--cw-black); }
+  .refer-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .refer {
+    display: inline-flex; align-items: center; border: 1.5px solid var(--cw-ink); color: var(--cw-ink);
+    padding: 0.8rem 1.1rem; min-height: 44px; font-family: var(--font-cwaaa-interface); font-weight: 500;
+    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+  }
+  .refer:hover { background: var(--cw-ink); color: var(--cw-ivory); text-decoration: none; }
+  .refer-done { color: var(--cw-grey); font-size: var(--cw-text-s); letter-spacing: 0.04em; }
+
+  /* ---- 6 + 7 · Close: scale, traces, the one pledge action ---------------- */
+  .close { background: var(--cw-ivory); padding: var(--section) var(--gutter); }
+  .scale-line {
+    font-family: var(--font-cwaaa-proposition); font-weight: 400; font-size: var(--cw-line);
+    line-height: 0.95; letter-spacing: -0.01em; color: var(--cw-ink); margin: var(--gap-s) 0 1.75rem; max-width: 18ch;
+  }
+  .close .rule.ink { margin-bottom: 0; }
+  .close-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--gap-l); align-items: end; padding-top: 2rem; }
+  .traces { display: grid; gap: 1rem; max-width: 52ch; }
+  .traces p { margin: 0; color: var(--cw-black); }
+  .close .actions { max-width: 460px; }
+
+  /* ---- 5 · Tie One On ---------------------------------------------------- */
+  .ribbon { position: relative; height: 72vh; height: 72dvh; min-height: 520px; overflow: hidden; }
+  .photo-wrap, .ribbon :global(.ribbon-photo) { position: absolute; inset: 0; }
+  .panel {
+    position: absolute; left: var(--gutter); bottom: var(--gutter);
+    background: var(--cw-ivory); color: var(--cw-black); padding: 2rem 2.25rem 1.75rem; max-width: 460px;
+  }
+  .panel h2 { font-family: var(--font-cwaaa); font-weight: 700; font-size: var(--cw-panel-h); color: var(--cw-ink); margin: 0 0 0.75rem; }
+  .panel p { margin: 0 0 1.1rem; font-size: 1.0625rem; line-height: 1.5; }
+  .panel-a { color: var(--cw-ink); border-bottom: 1.5px solid var(--cw-ink); padding-bottom: 2px; font-family: var(--font-cwaaa-interface); font-weight: 500; }
+  .panel-a:hover { text-decoration: none; color: var(--cw-black); border-color: var(--cw-black); }
+
+  /* ---- 8 · Seam ---------------------------------------------------------- */
+  .seam { background: var(--cw-white); padding: 2rem var(--gutter); border-top: 1px solid var(--cw-hairline); font-size: var(--cw-text-m); }
+  .seam a { color: var(--cw-ink); border-bottom: 1.5px solid var(--cw-ink); }
+
+  /* ---- Phone: designed recomposition, not stacked cards ------------------- */
+  @media (max-width: 700px) {
+    .hero { height: 64vh; height: 64dvh; min-height: 440px; }
+    .record { grid-template-columns: 1fr 1fr; gap: 0.9rem 1.5rem; }
+    .prop { font-size: var(--cw-proposition-m); white-space: normal; line-height: 0.88; }
+    .about { grid-template-columns: 1fr; gap: 1.75rem; }
+    .statement { max-width: none; }
+    .about-right { padding-top: 0; }
+    .line { white-space: normal; font-size: 15vw; line-height: 0.9; }
+    .run { grid-template-columns: 1fr; }
+    .run p { padding-right: 0; }
+    .run p + p { border-left: 0; padding-left: 0; border-top: 1px solid var(--cw-hairline-on-ink); margin-top: 1.5rem; }
+    .finding, .voice, .close-row { grid-template-columns: 1fr; gap: 2rem; }
+    .scale-line { font-size: 11vw; max-width: none; }
+    .finding-h { font-size: 12vw; }
+    .method { border-left: 0; border-top: 1px solid var(--cw-ink); padding: 1rem 0 0; }
+    .ribbon { height: 78vh; height: 78dvh; min-height: 480px; }
+    .panel { left: var(--gutter); right: var(--gutter); bottom: var(--gutter); padding: 1.5rem; }
+  }
+</style>

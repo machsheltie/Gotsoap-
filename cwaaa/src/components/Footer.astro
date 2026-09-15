@@ -1,0 +1,35 @@
+---
+/**
+ * Footer.astro — colophon and legal line. Privacy, Terms, DMCA, Accessibility
+ * stay globally accessible; labels never announce the fiction. Fiction
+ * disclosure lives behind the About seam, not here (HANDOFF.md, PRD §Creator/About).
+ * External controls render only when destinations are configured.
+ */
+import Brand from './Brand.astro';
+import { org, legal, home } from '../content/copy';
+import { GOT_SOAP_SITE_URL, isConfigured } from '../config/site';
+---
+<footer class="foot on-ink">
+  <Brand asLink={false} />
+  <nav class="legal t-ui-caps" aria-label="Legal">
+    <ul>
+      {legal.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      {isConfigured(GOT_SOAP_SITE_URL) && (
+        <li><a href={GOT_SOAP_SITE_URL} rel="external noopener">{home.seam.action} <span class="visually-hidden">({home.seam.external})</span></a></li>
+      )}
+    </ul>
+  </nav>
+  <p class="fine t-ui">{org.name} · {org.est.replace('Est. ', 'Established ')} · {org.office}</p>
+</footer>
+
+<style>
+  .foot {
+    display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: end;
+    padding: var(--section) var(--gutter) 2rem;
+    background: var(--cw-ink); color: var(--cw-ivory);
+  }
+  .legal ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 0.25rem 1.25rem; flex-wrap: wrap; }
+  .legal a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.15rem; font-family: var(--font-cwaaa-interface); font-weight: 500; }
+  .fine { grid-column: 1 / -1; margin: 0; border-top: 1px solid var(--cw-hairline-on-ink); padding-top: 0.9rem; font-weight: 400; font-size: 0.75rem; letter-spacing: 0.04em; color: var(--cw-on-ink-muted); }
+  @media (max-width: 700px) { .foot { grid-template-columns: 1fr; gap: 1.5rem; } .legal ul { gap: 0.9rem 1.2rem; } }
+</style>

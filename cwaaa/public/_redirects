@@ -1,0 +1,3 @@
+# Permanent migration of the retired public label (PRD-cwaaa-web-v1 §Redirects).
+/case-files          /recovery-stories          301
+/case-files/*        /recovery-stories/:splat   301

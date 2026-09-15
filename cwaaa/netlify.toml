@@ -1,0 +1,10 @@
+# Netlify build config for the standalone CWAAA site (Astro, lives in cwaaa/).
+# Not yet connected to a deployment: origins are an owner decision (CW-D07).
+# The repository root netlify.toml still deploys the combined runtime in site/.
+[build]
+  base    = "cwaaa"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22.12.0"

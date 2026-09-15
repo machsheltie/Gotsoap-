@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CWAAA home · Comp A · The Wall</title>
+<link rel="stylesheet" href="cwaaa-home-comp.css">
+<style>
+  /* COMP A — THE WALL. Three stacked lines own the left two-thirds and the
+     full height. The portrait hero anchors bottom-right and its top edge
+     cuts into the baseline zone of SOAP. */
+  .hero { position: relative; padding: 48px 48px 0; min-height: calc(100vh - 90px); }
+  .hero .prop { font-size: 16.6vw; position: relative; z-index: 1; }
+  .hero .prop .l3 { display: block; padding-left: 20.5vw; }
+  .hero .copy { position: absolute; left: 48px; bottom: 40px; width: 21vw; display: grid; gap: 22px; z-index: 3; }
+  .hero .copy .sub { font-size: 20px; }
+  .hero .slot { position: absolute; right: 48px; bottom: 0; width: 31vw; aspect-ratio: 3 / 4; border-bottom: 0; z-index: 2; }
+  .hero .cloth { left: 60px; bottom: -110px; height: 200px; transform: rotate(8deg); transform-origin: top; }
+  @media (max-width: 700px) {
+    .hero { padding: 28px 20px 0; min-height: auto; display: flex; flex-direction: column; }
+    .hero .slot { order: 2; }
+    .hero .copy { order: 3; }
+    .hero .prop { font-size: 27vw; }
+    .hero .prop .l3 { padding-left: 0; }
+    .hero .copy { position: static; width: auto; margin-top: 20px; }
+    .hero .slot { position: relative; right: auto; bottom: auto; width: 68%; margin: -5vw 0 0 auto; aspect-ratio: 3/4; }
+    .hero .cloth { display: none; }
+    .hero .sub { font-size: 19px; }
+  }
+</style></head>
+<body>
+<header class="nav" data-nav></header>
+<section class="hero">
+  <h1 class="prop">The<br>Bar Is<br><span class="l3">Soap.</span></h1>
+  <div class="copy">
+    <p class="sub">Routine washing is a reasonable collective expectation.</p>
+    <div class="actions">
+      <a class="primary">Take the Pledge <span class="n">Form CW-1</span></a>
+      <a>Read the Findings <span class="n">→</span></a>
+    </div>
+  </div>
+  <div class="slot">
+    <div class="safe"></div>
+    <div class="lbl"><b>CW-G02 · documentary hero · placeholder</b>Portrait 3:4. A woman's hands tying a red washcloth ribbon to the handle of a used black gym bag, locker-room bench.</div>
+    <div class="cloth"><span class="lbl">cloth tail · if approved</span></div>
+    <div class="spec">Safe zone dashed: hands + knot + handle stay inside. No face. No logo. Export 1350×2400 min.</div>
+  </div>
+</section>
+<div data-rest></div>
+<div class="compcap">Comp A · The Wall</div>
+<script src="cwaaa-home-shared.js"></script>
+</body></html>

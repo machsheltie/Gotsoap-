@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CWAAA home · Comp B · The Cut</title>
+<link rel="stylesheet" href="cwaaa-home-comp.css">
+<style>
+  /* COMP B — THE CUT. Two full-width lines. A tall narrow hero column cuts
+     vertically through both lines, splitting THE|BAR and IS|SOAP. The image
+     is the interruption in the literal sense: the type breaks around it. */
+  .hero { padding: 40px 48px 0; min-height: calc(100vh - 90px); display: grid; grid-template-columns: auto 22vw 1fr; grid-template-rows: auto auto 1fr; column-gap: 32px; align-items: start; }
+  .hero .prop { font-size: 17.5vw; line-height: .86; }
+  .hero .w1 { grid-column: 1; grid-row: 1; }
+  .hero .w2 { grid-column: 3; grid-row: 1; }
+  .hero .w3 { grid-column: 1; grid-row: 2; justify-self: end; }
+  .hero .w4 { grid-column: 3; grid-row: 2; }
+  .hero .slot { grid-column: 2; grid-row: 1 / span 3; width: 22vw; height: 100%; min-height: 560px; border-bottom: 0; }
+  .hero .copy { grid-column: 3; grid-row: 3; align-self: end; display: grid; grid-template-columns: 1fr; gap: 24px; padding: 24px 0 40px; max-width: 400px; }
+  .hero .meta { grid-column: 1; grid-row: 3; align-self: end; padding-bottom: 40px; }
+  .hero .cloth { right: 30%; bottom: -60px; height: 140px; transform: rotate(-6deg); }
+  @media (max-width: 700px) {
+    .hero { padding: 24px 20px 0; min-height: auto; grid-template-columns: auto 21vw auto; justify-content: space-between; grid-template-rows: auto auto auto; column-gap: 10px; }
+    .hero .prop { font-size: 15vw; }
+    .hero .slot { min-height: 0; width: 21vw; grid-row: 1 / span 2; }
+    .hero .slot .lbl, .hero .slot .spec { display: none; }
+    .hero .slot::after { content: 'CW-G02'; position: absolute; left: 6px; top: 6px; font: 700 9px/1 var(--f-ui); letter-spacing: .1em; color: var(--cw-ink); }
+    .hero .copy { grid-column: 1 / -1; grid-row: 3; grid-template-columns: 1fr; gap: 20px; padding: 28px 0 24px; }
+    .hero .meta { display: none; }
+    .hero .cloth { display: none; }
+    .hero .sub { font-size: 19px; }
+  }
+</style></head>
+<body>
+<header class="nav" data-nav></header>
+<section class="hero">
+  <h1 class="prop w1">The</h1>
+  <div class="slot">
+    <div class="safe"></div>
+    <div class="lbl"><b>CW-G02 · placeholder</b>Tall crop, roughly 1:2.4. Hands and knot centred; bag handle exits bottom.</div>
+    <div class="cloth"><span class="lbl">cloth tail · if approved</span></div>
+    <div class="spec">Requires a genuine portrait composition, not a crop of the wide frame.</div>
+  </div>
+  <p class="prop w2">Bar</p>
+  <p class="prop w3">Is</p>
+  <p class="prop w4">Soap.</p>
+  <p class="meta note">Two million concerned women.<br>Chapters in all fifty states.<br>One demand.</p>
+  <div class="copy">
+    <p class="sub">Routine washing is a reasonable collective expectation.</p>
+    <div class="actions">
+      <a class="primary">Take the Pledge <span class="n">Form CW-1</span></a>
+      <a>Read the Findings <span class="n">→</span></a>
+    </div>
+  </div>
+</section>
+<div data-rest></div>
+<div class="compcap">Comp B · The Cut</div>
+<script src="cwaaa-home-shared.js"></script>
+</body></html>

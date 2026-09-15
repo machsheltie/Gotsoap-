@@ -515,8 +515,9 @@ Owner interview conducted through the Impeccable `shape` flow. Recorded:
   (`.impeccable/mocks/cwaaa-home-{a,b,c,d}.*`) and approved **Comp D, "The Field Report"**. Its
   layout skeleton follows the owner's reference, blueforest.org, for **layout and elements only**,
   not color or feel: a slim utility bar carrying the scale line and the pledge action; ordinary
-  navigation over a full-bleed documentary hero; the proposition set sentence-case in MORVI and
-  crossing the photo's bottom edge so the image interrupts the sentence; a two-column statement
+  navigation over a full-bleed documentary hero; the proposition set sentence-case in MORVI in one
+  solid color on the photograph (the comp's two-color split at the photo edge was reviewed in the
+  build and rejected by the owner the same day as unintentional); a two-column statement
   block with the two actions; then alternating whole-color fields (ink navy, photograph, ivory,
   white) with an inset text panel on the photograph. The locked sequence (§2.3) is kept in order.
   The proposition remains **THE BAR IS SOAP.**; on the home it is set as "The bar is soap." Only
@@ -567,3 +568,27 @@ The approved Home composition was reconciled with `../GRAPHICS-TO-MAKE.md`. Reco
 - **Responsive integration:** CW-G02 and the Home CW-G03 scene require art-directed desktop/mobile
   sources. The production component must select the 4:5 assets on narrow screens rather than center-
   cropping a single source.
+
+## 2026-09-14 — Findings route shaped; CW-D04 register (Findings) resolved
+
+Owner interview conducted through the Impeccable `shape` flow; brief confirmed and persisted at
+`.impeccable/surfaces/cwaaa-src-pages-findings-astro.md`. Recorded:
+
+- **CW-D04 (Findings register):** four entries, register year 26. **FINDING 26-01** is the
+  monumental figure **73%** with the conclusion "Fragrance is not a cleansing event." (the
+  owner-directed home statement merged with the runtime's 26-04 support line). **26-02, 26-03,
+  26-04** carry the runtime's 26-01, 26-02, and 26-05 as approved copy. The runtime's 26-03
+  (0% soap, "since 1983") is dropped. The home Finding now takes the label 26-01 and its
+  "Number pending register" note is retired. Row dispositions and dates are DRAFT for the copy
+  lane. The Recovery Stories roster is still open under CW-D04.
+- **Monumental figure:** Mirk Slab 900 sets `73%` alone, flush left, owning roughly two-thirds of
+  the opening viewport, ink navy on ivory. Its scale is a new CW-D01 proposal to be marked
+  PROPOSED in the tokens file.
+- **Neutral citation:** `/findings` carries **no** Office reference. The site's single sparse
+  citation of the Office of Lather Compliance and Establishment Directive 1961-A is reserved for
+  the About seam.
+- **Interruption:** the route's one interruption is the methodology note, carried from the approved
+  runtime subnote ("Compiled by the Field Data Committee…").
+- **Register table:** one real HTML table for 26-02 through 26-04, figures in Catesque with `tnum`,
+  `zero`, `case`; recomposes into labeled records on narrow screens. No dashboard, cards, chart,
+  paper texture, or stamp decoration. CW-G08 is not required.

@@ -158,7 +158,7 @@ Close the launch handoff with a checklist of deferred IDs, next actions, and res
 | CW-G04 (home) | resolved | Brayden object image, 4:3 at 2400×1800; broader story roster remains open | `GRAPHICS-TO-MAKE.md`, `docs/ui-system.md` §13 |
 | CW-G05 / CW-G08 (home) | resolved | No Home assets required; both remain conditional on their dedicated route layouts | `GRAPHICS-TO-MAKE.md` |
 | CW-G06 / CW-G07 | partly resolved | Share-master and default-preview visual formats locked; final pledge wording and final-size identity review remain | `GRAPHICS-TO-MAKE.md`, `docs/ui-system.md` §13 |
-| CW-D04 (home Finding) | interim | "Fragrance is not a cleansing event." unnumbered until the register is reconciled | `docs/ui-system.md` §13 |
+| CW-D04 (Findings register) | resolved | Four entries, year 26: 26-01 = figure 73% with conclusion "Fragrance is not a cleansing event." (home statement merged with runtime 26-04); 26-02/03/04 carry runtime 26-01/02/05; runtime 26-03 dropped (unsupported 1983 date). Home Finding takes label 26-01. No Office citation on `/findings`. Recovery Stories roster still open | `docs/ui-system.md` §13, `.impeccable/surfaces/cwaaa-src-pages-findings-astro.md` |
 
 ## Handoff verification — 2026-09-07
 

@@ -1,0 +1,120 @@
+/* CWAAA home — first-viewport composition comps (exploration, not tokens law).
+   Fonts: the locked six-role cast, loaded from site/public/fonts.
+   Color values below are PROPOSALS for CW-D02, marked as such; ink and stamp
+   carry over from the existing runtime tokens. */
+
+@font-face { font-family: 'CWAAA Morvi'; src: url('../../site/public/fonts/morvi-400.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'CWAAA Mirk Slab'; src: url('../../site/public/fonts/mirk-slab-900.woff2') format('woff2'); font-weight: 900; }
+@font-face { font-family: 'CWAAA Proda Sans'; src: url('../../site/public/fonts/proda-sans-400.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'CWAAA Proda Sans'; src: url('../../site/public/fonts/proda-sans-400i.woff2') format('woff2'); font-weight: 400; font-style: italic; }
+@font-face { font-family: 'CWAAA Proda Sans'; src: url('../../site/public/fonts/proda-sans-700.woff2') format('woff2'); font-weight: 700; }
+@font-face { font-family: 'CWAAA Catesque'; src: url('../../site/public/fonts/catesque-400.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'CWAAA Catesque'; src: url('../../site/public/fonts/catesque-500.woff2') format('woff2'); font-weight: 500; }
+@font-face { font-family: 'CWAAA Catesque'; src: url('../../site/public/fonts/catesque-700.woff2') format('woff2'); font-weight: 700; }
+@font-face { font-family: 'CWAAA Modest'; src: url('../../site/public/fonts/modest-400.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'CWAAA Modest'; src: url('../../site/public/fonts/modest-400i.woff2') format('woff2'); font-weight: 400; font-style: italic; }
+@font-face { font-family: 'PT Serif'; src: url('../../site/public/fonts/pt-serif-400.woff2') format('woff2'); font-weight: 400; }
+
+:root {
+  /* carried over from site/src/styles/tokens.css */
+  --cw-ink: #2f3e5c;
+  --cw-stamp: #a63d2f;
+  /* PROPOSED (CW-D02) */
+  --cw-white: #ffffff;
+  --cw-ivory: #f5f0e6;
+  --cw-black: #15181f;
+  --cw-grey: #5f5d57;      /* 6.4:1 on white */
+  --cw-rule: #2f3e5c;
+  --cw-navy-field-fg: #f5f0e6;
+
+  --f-prop: 'CWAAA Morvi', 'Arial Black', sans-serif;
+  --f-fig: 'CWAAA Mirk Slab', Rockwell, serif;
+  --f-text: 'CWAAA Proda Sans', Arial, sans-serif;
+  --f-ui: 'CWAAA Catesque', Arial, sans-serif;
+  --f-testimony: 'CWAAA Modest', Georgia, serif;
+  --f-seal: 'PT Serif', Georgia, serif;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; overflow-x: hidden; background: var(--cw-white); color: var(--cw-black); font-family: var(--f-text); font-size: 18px; line-height: 1.5; }
+a { color: inherit; text-decoration: none; }
+
+/* ---- Navigation: ordinary, visible ---- */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 48px; border-bottom: 1.5px solid var(--cw-rule);
+}
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand svg { width: 44px; height: 44px; color: var(--cw-ink); flex: none; }
+.brand .name { font-family: var(--f-ui); font-weight: 500; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--cw-ink); line-height: 1.25; }
+.brand .name small { display: block; font-weight: 400; letter-spacing: .12em; color: var(--cw-grey); font-size: 11px; margin-top: 2px; }
+.menu { display: flex; gap: 30px; align-items: baseline; font-family: var(--f-ui); font-weight: 500; font-size: 14px; letter-spacing: .04em; color: var(--cw-ink); }
+.menu .pledge { border-top: 2px solid var(--cw-stamp); border-bottom: 2px solid var(--cw-stamp); padding: 6px 0; color: var(--cw-stamp); }
+
+/* ---- Type roles ---- */
+.prop { font-family: var(--f-prop); font-weight: 400; text-transform: uppercase; color: var(--cw-ink); line-height: .88; letter-spacing: -.005em; margin: 0; }
+.sub { font-family: var(--f-text); font-size: 22px; line-height: 1.35; color: var(--cw-black); max-width: 26ch; margin: 0; }
+.actions { display: flex; flex-direction: column; gap: 0; font-family: var(--f-ui); font-weight: 500; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
+.actions a { display: flex; justify-content: space-between; align-items: center; gap: 28px; padding: 14px 0; border-top: 1.5px solid var(--cw-rule); color: var(--cw-ink); }
+.actions a:last-child { border-bottom: 1.5px solid var(--cw-rule); }
+.actions a.primary { color: var(--cw-stamp); border-top: 3px solid var(--cw-stamp); }
+.actions a span.n { font-weight: 400; color: var(--cw-grey); font-variant-numeric: tabular-nums; letter-spacing: .1em; }
+.note { font-family: var(--f-ui); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--cw-grey); }
+
+/* ---- Hero slot: labeled placeholder, never stock ---- */
+.slot {
+  position: relative; background: var(--cw-ivory);
+  border: 1.5px solid var(--cw-ink); overflow: hidden;
+  color: var(--cw-ink);
+  background-image: repeating-linear-gradient(135deg, transparent 0 14px, rgba(47,62,92,.10) 14px 15px);
+}
+.slot .safe { position: absolute; inset: 9% 8%; border: 1px dashed var(--cw-stamp); }
+.slot .lbl { position: absolute; left: 16px; top: 14px; font-family: var(--f-ui); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; line-height: 1.6; max-width: 80%; }
+.slot .lbl b { display: block; font-weight: 700; }
+.slot .spec { position: absolute; left: 16px; bottom: 14px; right: 16px; font-family: var(--f-ui); font-size: 11px; letter-spacing: .04em; line-height: 1.5; color: var(--cw-grey); }
+.cloth {
+  position: absolute; background: #a83f36; width: 54px;
+  background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 2px, transparent 2px 5px), repeating-linear-gradient(0deg, rgba(0,0,0,.08) 0 2px, transparent 2px 6px);
+  border-left: 1px solid rgba(0,0,0,.2);
+}
+.cloth .lbl { position: absolute; top: 8px; left: 6px; font-family: var(--f-ui); font-size: 9px; letter-spacing: .1em; color: #fff; writing-mode: vertical-rl; text-transform: uppercase; }
+
+/* ---- Section 2: DOCUMENT. ADVOCATE. ORGANIZE. as ONE running line ---- */
+.dao { padding: 96px 48px 72px; border-top: 1.5px solid var(--cw-rule); }
+.dao .line { font-family: var(--f-prop); text-transform: uppercase; color: var(--cw-ink); font-size: 5.3vw; line-height: .95; margin: 0; white-space: nowrap; letter-spacing: -.012em; }
+.dao .line i { font-style: normal; color: var(--cw-stamp); }
+.dao .run { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; margin-top: 40px; font-size: 19px; line-height: 1.45; max-width: 1200px; }
+.dao .run p { margin: 0; }
+.dao .run .n { font-family: var(--f-ui); font-size: 12px; letter-spacing: .12em; color: var(--cw-grey); display: block; margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+
+/* ---- Section 3: one Finding, navy owns the region ---- */
+.finding { background: var(--cw-ink); color: var(--cw-navy-field-fg); padding: 96px 48px 88px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: end; }
+.finding .tag { font-family: var(--f-ui); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; opacity: .8; margin: 0 0 24px; }
+.finding .statement { font-family: var(--f-prop); text-transform: uppercase; font-size: 6.4vw; line-height: .92; margin: 0 0 32px; }
+.finding .rule { height: 3px; background: var(--cw-navy-field-fg); width: 100%; margin: 0 0 24px; }
+.finding .support { font-size: 21px; line-height: 1.45; max-width: 44ch; margin: 0; }
+.finding .side { font-family: var(--f-ui); font-size: 14px; line-height: 1.6; border-left: 1px solid rgba(245,240,230,.4); padding-left: 24px; }
+.finding .side b { display: block; letter-spacing: .12em; font-weight: 700; text-transform: uppercase; font-size: 11px; margin-bottom: 8px; }
+.finding .disposition { margin-top: 28px; font-family: var(--f-ui); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+
+.continues { padding: 40px 48px; font-family: var(--f-ui); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--cw-grey); border-top: 1px solid var(--cw-rule); }
+
+/* ---- comp caption strip (not part of the design) ---- */
+.compcap { position: fixed; right: 12px; bottom: 12px; z-index: 99; font: 11px/1.3 var(--f-ui); letter-spacing: .1em; text-transform: uppercase; background: var(--cw-black); color: #fff; padding: 6px 10px; }
+
+@media (max-width: 700px) {
+  .nav { padding: 16px 20px; }
+  .brand .name { font-size: 11px; }
+  .brand svg { width: 36px; height: 36px; }
+  .menu { display: none; }
+  .burger { font-family: var(--f-ui); font-weight: 500; font-size: 13px; letter-spacing: .08em; color: var(--cw-ink); border: 1.5px solid var(--cw-ink); padding: 8px 12px; }
+  .dao { padding: 56px 20px 40px; }
+  .dao .line { white-space: normal; font-size: 15vw; line-height: .9; }
+  .dao .run { grid-template-columns: 1fr; gap: 28px; margin-top: 28px; font-size: 17px; }
+  .finding { grid-template-columns: 1fr; gap: 32px; padding: 56px 20px; }
+  .finding .statement { font-size: 12vw; }
+  .finding .support { font-size: 18px; }
+  .continues { padding: 28px 20px; }
+}
+@media (min-width: 701px) { .burger { display: none; } }

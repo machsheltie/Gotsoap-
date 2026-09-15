@@ -1,0 +1,11 @@
+{
+  "surface": "cwaaa /",
+  "comp": "d",
+  "files": ["cwaaa-home-d.html","cwaaa-home-d-desktop.png","cwaaa-home-d-mobile.png","cwaaa-home-d-fullpage.png"],
+  "description": "The Field Report: Blue Forest layout skeleton translated into CWAAA rules. Slim utility bar (scale line + Take the Pledge); navigation over a full-bleed documentary hero; the proposition The bar is soap. crosses the photo bottom edge, ivory on the photo and ink on the field; eyebrow + two-column statement with actions; alternating whole-color fields: navy DOCUMENT. ADVOCATE. ORGANIZE. as one running line with a ruled three-column run, full-bleed Tie One On cloth with an ivory panel, ivory Finding, white recovery voice, navy footer.",
+  "reference": "https://www.blueforest.org/ (layout and elements only, per owner; not its color or feel)",
+  "fonts": "locked six-role cast",
+  "colors": "ink/stamp carried over; ivory, white, grey PROPOSED for CW-D02",
+  "placeholders": "CW-G02 16:9 full bleed, CW-G03 cloth macro full bleed, CW-G04 object",
+  "approved": true, "approvedOn": "2026-09-14", "heroFrame": "16:9 wide, subject upper-right, lower-left quiet; 3200x1800 min plus 4:5 phone recrop"
+}

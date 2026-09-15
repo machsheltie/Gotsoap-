@@ -1,0 +1,10 @@
+{
+  "surface": "cwaaa /",
+  "comp": "b",
+  "files": ["cwaaa-home-b.html","cwaaa-home-b-desktop.png","cwaaa-home-b-mobile.png"],
+  "description": "The Cut: two full-width lines; a tall narrow hero column cuts vertically through both, splitting THE|BAR and IS|SOAP.; scale line bottom-left, subline and actions bottom-right.",
+  "fonts": "locked six-role cast from site/public/fonts",
+  "colors": "ink/stamp carried over; white, ivory, grey PROPOSED for CW-D02",
+  "hero": "CW-G02 labeled placeholder with safe zone; no stock",
+  "approved": false
+}

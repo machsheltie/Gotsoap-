@@ -1,0 +1,44 @@
+---
+/**
+ * Seal.astro — the CWAAA coalition seal (design.md §9), prepared from the
+ * combined runtime's approved SVG component. Ink line-work; stamp-red strike
+ * bar through the aerosol; rim text in the identity serif. Pending CW-G01
+ * review of the raster marks; this vector is the interim identity.
+ */
+import { org } from '../content/copy';
+interface Props { size?: number; decorative?: boolean; class?: string }
+const { size = 44, decorative = false, class: className } = Astro.props;
+const uid = 'seal-' + Math.random().toString(36).slice(2, 8);
+---
+<svg
+  class={className}
+  width={size}
+  height={size}
+  viewBox="0 0 120 120"
+  role={decorative ? 'presentation' : 'img'}
+  aria-hidden={decorative ? 'true' : undefined}
+  aria-labelledby={decorative ? undefined : `${uid}-t`}
+  style="color: currentColor;"
+>
+  {!decorative && <title id={`${uid}-t`}>{org.sealAlt}</title>}
+  <defs>
+    <path id={`${uid}-top`} d="M 12 62 A 48 48 0 0 1 108 62"></path>
+    <path id={`${uid}-bot`} d="M 16 62 A 44 44 0 0 0 104 62"></path>
+  </defs>
+  <circle cx="60" cy="60" r="58" fill="none" stroke="currentColor" stroke-width="2.5"></circle>
+  <circle cx="60" cy="60" r="37" fill="none" stroke="currentColor" stroke-width="1.2"></circle>
+  <text font-family="var(--font-cwaaa-seal)" font-size="7.6" letter-spacing="1.5" fill="currentColor">
+    <textPath href={`#${uid}-top`} startOffset="50%" text-anchor="middle">CONCERNED WOMEN AGAINST AXE ABUSE</textPath>
+  </text>
+  <text font-family="var(--font-cwaaa-seal)" font-size="6.8" letter-spacing="1.2" fill="currentColor">
+    <textPath href={`#${uid}-bot`} startOffset="50%" text-anchor="middle">EST. 2024 · LATHER · RINSE · RESPECT</textPath>
+  </text>
+  <g fill="none" stroke="currentColor" stroke-width="2">
+    <rect x="63" y="45" width="13" height="27" rx="2"></rect>
+    <rect x="66.5" y="38" width="6" height="7"></rect>
+  </g>
+  <rect x="38" y="57" width="28" height="15" rx="7" fill="none" stroke="currentColor" stroke-width="2"></rect>
+  <circle cx="45" cy="51" r="2.6" fill="none" stroke="currentColor" stroke-width="1.2"></circle>
+  <circle cx="52" cy="46.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.2"></circle>
+  <rect x="33" y="51" width="54" height="5.5" fill="var(--cw-stamp)" transform="rotate(-22 60 54)"></rect>
+</svg>

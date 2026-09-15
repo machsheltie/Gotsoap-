@@ -1,0 +1,4 @@
+# build output and generated types for the standalone CWAAA app
+dist/
+.astro/
+node_modules/

@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "system": "cwaaa",
+  "fontRoot": "public/fonts",
+  "sourcePaths": [
+    "src/styles/fonts-cwaaa.css"
+  ],
+  "families": [
+    {
+      "declaredFamily": "CWAAA Morvi",
+      "system": "cwaaa",
+      "authority": "system-scoped-production-role",
+      "note": "R1 proposition voice. Ships one weight; the face has no other. Never synthesise a bolder weight — font-synthesis is none. Figures are proportional by measurement, not merely by absent feature tag: at 1000 upm the digit advances span 280 ('1') to 606 ('0'), a 32.6% em spread, and no figure feature is declared to substitute a fixed-width set. Stacked or tabulated numerals therefore belong to CWAAA Catesque.",
+      "files": [
+        {
+          "file": "morvi-400.woff2",
+          "declaredWeight": 400,
+          "declaredStyle": "normal",
+          "role": "proposition display"
+        }
+      ]
+    },
+    {
+      "declaredFamily": "CWAAA Mirk Slab",
+      "system": "cwaaa",
+      "authority": "system-scoped-production-role",
+      "embeddingNote": "OS/2 fsType is viewOnly (preview/print). Owner confirmed web distribution rights 2026-08-13; this record is that manual confirmation. Do not add further Mirk Slab weights without re-confirming.",
+      "note": "Monumental Findings figure only — one oversized figure standing alone. Its digits are proportional by measurement, not merely by absent feature tag: at 1000 upm the advances span 420 ('1') to 628 ('0'), a 20.8% em spread, and no figure feature is declared to substitute a fixed-width set. Two Findings figures set one above the other will not align on their digits, so any stacked or tabulated figure belongs to CWAAA Catesque, whose tnum is verified to collapse all ten digits to a single advance. The family ships 82 styles across a width axis; only the single assigned weight is authorised for delivery.",
+      "files": [
+        {
+          "file": "mirk-slab-900.woff2",
+          "declaredWeight": 900,
+          "declaredStyle": "normal",
+          "role": "monumental findings figure"
+        }
+      ]
+    },
+    {
+      "declaredFamily": "CWAAA Proda Sans",
+      "system": "cwaaa",
+      "authority": "system-scoped-production-role",
+      "note": "R2 text. Reading matter only — explanation and body copy. Held R4 notation as well until 2026-08-14, when that role moved to CWAAA Catesque so no family carries two roles. Weight 500 left with the notation role and is no longer declared or delivered.",
+      "files": [
+        {
+          "file": "proda-sans-400.woff2",
+          "declaredWeight": 400,
+          "declaredStyle": "normal",
+          "role": "advocacy body"
+        },
+        {
+          "file": "proda-sans-400i.woff2",
+          "declaredWeight": 400,
+          "declaredStyle": "italic",
+          "role": "advocacy quotation"
+        },
+        {
+          "file": "proda-sans-700.woff2",
+          "declaredWeight": 700,
+          "declaredStyle": "normal",
+          "role": "advocacy emphasis"
+        }
+      ]
+    },
+    {
+      "declaredFamily": "CWAAA Catesque",
+      "system": "cwaaa",
+      "authority": "system-scoped-production-role",
+      "embeddingNote": "OS/2 fsType is editable — the permissive setting. No manual confirmation required.",
+      "note": "R4 interface and notation, added by owner decision 2026-08-14. The only CWAAA family besides Proda declaring figure features, and the ones it carries are notation features specifically: tnum (verified to collapse all ten digits to one 0.620em advance), zero for a slashed nought so RC-007 cannot read as RC-OO7, case so a hyphen between all-caps letterforms sits at cap-centre, plus subs/sups/frac. Its tabular advance matches Proda's 0.618-0.621em, so figures swapped into an existing table do not reflow the column; lining figures run 6% taller (0.708em vs 0.668em), so size-match at ~94% where the two share a line. It owns every figure that must align — Findings tables, stacked figures, RC-NNN identifiers, dates. Catesque Black is NOT a display weight: its stem measures 0.164em, lighter than Proda Bold's 0.175em and far off Mirk Slab Black's 0.280em. The monumental figure stays on Mirk Slab. The family ships ten styles; only the three assigned weights are authorised for delivery, and no italic holds a role.",
+      "files": [
+        {
+          "file": "catesque-400.woff2",
+          "declaredWeight": 400,
+          "declaredStyle": "normal",
+          "role": "table body and form field text"
+        },
+        {
+          "file": "catesque-500.woff2",
+          "declaredWeight": 500,
+          "declaredStyle": "normal",
+          "role": "navigation, controls, and notation"
+        },
+        {
+          "file": "catesque-700.woff2",
+          "declaredWeight": 700,
+          "declaredStyle": "normal",
+          "role": "table header and interface emphasis"
+        }
+      ]
+    },
+    {
+      "declaredFamily": "CWAAA Modest",
+      "system": "cwaaa",
+      "authority": "system-scoped-production-role",
+      "note": "R3 testimony. Recovery Stories long-form only. Modest-Light and Modest-BoldItalic are present in the CWAAA package but hold no assigned role and are not authorised for declaration or delivery.",
+      "files": [
+        {
+          "file": "modest-400.woff2",
+          "declaredWeight": 400,
+          "declaredStyle": "normal",
+          "role": "testimony body"
+        },
+        {
+          "file": "modest-400i.woff2",
+          "declaredWeight": 400,
+          "declaredStyle": "italic",
+          "role": "testimony emphasis"
+        },
+        {
+          "file": "modest-700.woff2",
+          "declaredWeight": 700,
+          "declaredStyle": "normal",
+          "role": "testimony emphasis strong"
+        }
+      ]
+    },
+    {
+      "declaredFamily": "PT Serif",
+      "system": "cwaaa",
+      "authority": "system-scoped-production-role",
+      "note": "Incumbent identity serif. Retained for the coalition seal and existing certificate artifacts until those are re-cut. No longer the register's universal family.",
+      "files": [
+        {
+          "file": "pt-serif-400.woff2",
+          "declaredWeight": 400,
+          "declaredStyle": "normal",
+          "role": "identity and certificate body"
+        },
+        {
+          "file": "pt-serif-700.woff2",
+          "declaredWeight": 700,
+          "declaredStyle": "normal",
+          "role": "identity and certificate emphasis"
+        },
+        {
+          "file": "pt-serif-400-italic.woff2",
+          "declaredWeight": 400,
+          "declaredStyle": "italic",
+          "role": "certificate quotation"
+        },
+        {
+          "file": "pt-serif-700-italic.woff2",
+          "declaredWeight": 700,
+          "declaredStyle": "italic",
+          "role": "certificate emphasized quotation"
+        }
+      ]
+    }
+  ]
+}

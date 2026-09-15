@@ -1,0 +1,58 @@
+---
+/**
+ * BaseLayout.astro — the CWAAA site shell.
+ * Props: title, description (per-route meta), current (nav aria-current),
+ *        heroNav (true when the page renders its own navigation over a hero).
+ */
+import '../styles/tokens.css';
+import '../styles/fonts.css';
+import '../styles/base.css';
+import UtilityBar from '../components/UtilityBar.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_URL, GOATCOUNTER_CODE, isConfigured } from '../config/site';
+
+interface Props { title: string; description: string; current?: string; heroNav?: boolean }
+const { title, description, current = '/', heroNav = false } = Astro.props;
+const canonical = isConfigured(SITE_URL) ? new URL(Astro.url.pathname, SITE_URL).href : undefined;
+---
+<!doctype html>
+<html lang="en" class="motion-ok">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('has-js');</script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#2f3e5c" />
+  </head>
+  <body>
+    <!--
+    DIRECTION CONTRACT · CWAAA home · approved 2026-09-14 (Comp D, The Field Report)
+    THESIS: A coalition making its case in public. A Blue-Forest-shaped page skeleton carrying CWAAA's locked
+      sequence; it refuses the centered hero, the three-card row, the stats strip, and the manila document world.
+    OWN-WORLD: ivory and white fields; ink navy owning whole regions; stamp red spent only on the pledge action
+      and photographed cloth; MORVI proposition, Proda reading, Catesque operating, Modest testimony; hard 1.5px
+      ink rules; dot section markers; owner-supplied documentary photography at full bleed, never stock.
+    STORY: someone finally filed this. Relief, then a Finding, a voice, cloth, scale, and one signing action.
+    FIRST VIEWPORT: pinned utility bar; navigation over a full-bleed hero; "The bar is soap." in solid ivory,
+      bottom-anchored on the photograph; statement and two ruled actions on the ivory field below.
+    FORM: scroll-revealed advocacy page; motion is reveal-in-reading-order only (no parallax).
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+    -->
+    <a class="skip" href="#main">Skip to content</a>
+    <UtilityBar />
+    {!heroNav && <Nav current={current} />}
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script src="../scripts/reveal.ts"></script>
+    {isConfigured(GOATCOUNTER_CODE) && (
+      <script is:inline data-goatcounter={`https://${GOATCOUNTER_CODE}.goatcounter.com/count`} async src="//gc.zgo.at/count.js"></script>
+    )}
+  </body>
+</html>

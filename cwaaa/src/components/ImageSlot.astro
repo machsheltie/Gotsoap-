@@ -1,0 +1,52 @@
+---
+/**
+ * ImageSlot.astro — a labeled placeholder for owner-supplied photography.
+ * Never stock. Shows the graphics ID, the shot spec, and the safe zone until
+ * the approved asset exists (GRAPHICS-TO-MAKE.md). Once an image is supplied,
+ * pass `src`/`alt` and the slot renders the photograph instead.
+ */
+interface Props {
+  id: string;
+  title: string;
+  spec: string;
+  tone?: 'photo' | 'cloth' | 'field';
+  safe?: string; /* CSS inset for the dashed safe zone */
+  class?: string;
+  src?: string;
+  alt?: string;
+}
+const { id, title, spec, tone = 'photo', safe = '14% 10% 22% 10%', class: className, src, alt } = Astro.props;
+---
+<div class:list={['slot', `slot-${tone}`, className]} role="img" aria-label={src ? alt : `${id} placeholder: ${title}`}>
+  <div class="media">
+    {src ? <img src={src} alt="" loading="lazy" decoding="async" /> : (
+      <>
+        <div class="safe" style={`inset: ${safe}`}></div>
+        <p class="lbl"><b>{id} · {title}</b><span class="spec">{spec}</span></p>
+      </>
+    )}
+  </div>
+</div>
+
+<style>
+  .slot { position: relative; overflow: hidden; }
+  .media { position: absolute; inset: 0; }
+  .slot img { width: 100%; height: 100%; object-fit: cover; }
+  .slot-photo .media { background: var(--cw-photo-ground); color: var(--cw-ivory);
+    background-image: repeating-linear-gradient(135deg, transparent 0 18px, rgba(255,255,255,0.06) 18px 19px); }
+  .slot-cloth .media { background: var(--cw-cloth-ground); color: var(--cw-ivory);
+    background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 3px, transparent 3px 7px), repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0 3px, transparent 3px 7px); }
+  .slot-field .media { background: var(--cw-ivory); color: var(--cw-ink); border: 1.5px solid var(--cw-ink);
+    background-image: repeating-linear-gradient(135deg, transparent 0 14px, rgba(47,62,92,0.1) 14px 15px); }
+  .safe { position: absolute; border: 1px dashed currentColor; opacity: 0.55; }
+  .lbl {
+    position: absolute; right: var(--gutter); top: 1.5rem; margin: 0; text-align: right;
+    max-width: 34ch; font-family: var(--font-cwaaa-interface); font-size: 0.6875rem; letter-spacing: 0.12em;
+    text-transform: uppercase; line-height: 1.6; opacity: 0.9;
+  }
+  .lbl b { display: block; font-weight: 700; }
+  .slot-field .lbl { left: 1rem; right: 1rem; top: 1rem; text-align: left; }
+  /* Phones show only the graphics ID and title; the shot spec is a production
+     note for the desktop review and would otherwise run into the composition. */
+  @media (max-width: 700px) { .lbl { max-width: 22ch; font-size: 0.625rem; top: 1rem; } .spec { display: none; } }
+</style>

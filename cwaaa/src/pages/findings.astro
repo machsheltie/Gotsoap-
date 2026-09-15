@@ -1,0 +1,176 @@
+---
+/**
+ * /findings — the register. Brief confirmed 2026-09-14
+ * (.impeccable/surfaces/cwaaa-src-pages-findings-astro.md): one monument, then
+ * the record. FINDING 26-01's figure owns the opening field in Mirk Slab 900,
+ * the route's only use of that role; the methodology note is the single
+ * permitted interruption; the remaining entries are one real HTML table that
+ * recomposes into labeled records on phones. No Office citation, no chart,
+ * no cards, no paper.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { findings } from '../content/copy';
+const f = findings;
+---
+<BaseLayout title={f.meta.title} description={f.meta.description} current="/findings">
+  <!-- 1 · The monument: figure, rule, label, conclusion, support, record; the note interrupts -->
+  <section class="lead" aria-labelledby="lead-h">
+    <p class="figure" data-reveal="figure"><span class="visually-hidden">{f.lead.label}: </span>{f.lead.figure}</p>
+    <div class="rule" data-reveal="rule" style="--i: 1"></div>
+    <div class="entry">
+      <p class="t-ui-caps label" data-reveal style="--i: 2" aria-hidden="true">{f.lead.label}</p>
+      <h1 id="lead-h" class="conclusion" data-reveal style="--i: 3">{f.lead.conclusion}</h1>
+      <p class="support t-lead" data-reveal style="--i: 4">{f.lead.support}</p>
+      <dl class="record" data-reveal style="--i: 5">
+        {f.lead.record.map((r) => (
+          <div><dt class="t-ui-caps">{r.label}</dt><dd class="t-ui">{r.value}</dd></div>
+        ))}
+      </dl>
+    </div>
+    <aside class="method" aria-label={f.method.label} data-reveal style="--i: 3">
+      <b class="t-ui-caps">{f.method.label}</b>
+      <p>{f.method.body}</p>
+    </aside>
+  </section>
+
+  <!-- 2 · The register: one real table, never cards -->
+  <section class="register" aria-labelledby="reg-h">
+    <p class="marker" data-reveal>{f.register.marker}</p>
+    <h2 id="reg-h" class="statement" data-reveal style="--i: 1">{f.register.heading}</h2>
+    <div class="table-wrap" data-reveal style="--i: 2">
+      <table>
+        <caption class="visually-hidden">{f.register.caption}</caption>
+        <thead>
+          <tr>
+            <th scope="col" class="t-ui-caps c-label">{f.register.columns.label}</th>
+            <th scope="col" class="t-ui-caps c-figure">{f.register.columns.figure}</th>
+            <th scope="col" class="t-ui-caps c-text">{f.register.columns.text}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {f.register.rows.map((r) => (
+            <tr>
+              <th scope="row" class="c-label"><span class="t-ui-caps">Finding</span> <span class="t-ui id">{r.label}</span></th>
+              <td class="c-figure"><span class="fig">{r.figure}</span></td>
+              <td class="c-text">{r.text}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="reg-note t-ui" data-reveal style="--i: 3">{f.register.note}</p>
+  </section>
+
+  <!-- 3 · Continuation: the two ruled actions and the referral -->
+  <section class="next" aria-labelledby="next-h">
+    <div>
+      <p class="marker" data-reveal>{f.next.marker}</p>
+      <h2 id="next-h" class="statement" data-reveal style="--i: 1">{f.next.statement}</h2>
+      <div class="refer-row" data-reveal style="--i: 2">
+        <a class="refer t-ui-caps" href={f.next.refer.href} data-copy-link data-done={f.next.refer.done}>{f.next.refer.label}</a>
+        <span class="refer-done t-ui" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+    <div class="actions" data-reveal style="--i: 2">
+      <a class="primary" href={f.next.actions.primary.href}>{f.next.actions.primary.label} <span class="n" aria-hidden="true">→</span></a>
+      <a href={f.next.actions.secondary.href}>{f.next.actions.secondary.label} <span class="n">{f.next.actions.secondary.note}</span></a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- 1 · The monument ---------------------------------------------------- */
+  .lead {
+    background: var(--cw-ivory); padding: calc(var(--section) * 0.6) var(--gutter) var(--section);
+    display: grid; grid-template-columns: 1.5fr 1fr; column-gap: var(--gap-l);
+    grid-template-areas: 'figure figure' 'rule rule' 'entry method';
+  }
+  /* The one Mirk Slab figure (ui-system §3.1). Proportional figures are fine:
+     it stands alone, nothing aligns to it. Zoom-safe: live text, clamped. */
+  .figure {
+    grid-area: figure;
+    font-family: var(--font-cwaaa-figure); font-weight: 900;
+    font-size: var(--cw-figure); line-height: 0.8; letter-spacing: -0.035em;
+    color: var(--cw-ink); margin: 0 0 0 -0.04em; /* optical: pull the 7's stem to the gutter */
+    padding-top: 0.06em;
+  }
+  html.has-js.motion-ok .figure[data-reveal='figure'] { opacity: 1; transform: translateY(0.12em); transition-duration: var(--dur-photo); }
+  html.has-js.motion-ok .figure[data-reveal='figure'].is-in { transform: none; }
+  .rule { grid-area: rule; height: 3px; background: var(--cw-ink); margin-top: 0.75rem; }
+  .entry { grid-area: entry; padding-top: 1.5rem; }
+  .label { color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; font-feature-settings: 'tnum' 1, 'zero' 1, 'case' 1; }
+  .conclusion {
+    font-family: var(--font-cwaaa-proposition); font-weight: 400; font-size: var(--cw-finding);
+    line-height: 0.92; letter-spacing: -0.01em; color: var(--cw-ink); margin: 0.6rem 0 1.5rem; max-width: 12ch;
+  }
+  .support { margin-bottom: 1.5rem; }
+  .record { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0 2.5rem; margin: 0; border-top: 1px solid var(--cw-ink); border-bottom: 1px solid var(--cw-ink); padding: 0.85rem 0; }
+  .record div { display: grid; gap: 0.25rem; }
+  .record dt { margin: 0; color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; }
+  .record dd { margin: 0; color: var(--cw-ink); }
+  /* The interruption: the note pushes up through the rule into the figure's
+     field, on its own ivory, cut off from the rule by a short ink stem. */
+  .method {
+    grid-area: method; align-self: start; justify-self: end;
+    margin-top: -3.4rem; max-width: 30ch;
+    background: var(--cw-ivory); border-left: 1px solid var(--cw-ink);
+    padding: 0.5rem 0 0 1.5rem; margin-left: 1rem;
+    color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-size: var(--cw-text-m); line-height: 1.6;
+  }
+  .method b { display: block; color: var(--cw-ink); margin-bottom: 0.5rem; font-weight: 700; }
+  .method p { margin: 0; }
+
+  /* ---- 2 · The register ---------------------------------------------------- */
+  .register { background: var(--cw-white); padding: var(--section) var(--gutter); }
+  .statement {
+    font-family: var(--font-cwaaa); font-weight: 400; font-size: var(--cw-statement);
+    line-height: 1.12; letter-spacing: -0.01em; color: var(--cw-ink); margin: var(--gap-s) 0 var(--gap-l); max-width: 22ch;
+  }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; border-top: 3px solid var(--cw-ink); border-bottom: 1px solid var(--cw-ink); }
+  thead th { text-align: left; color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; padding: 0.9rem 0 0.7rem; border-bottom: 1px solid var(--cw-ink); }
+  tbody th, tbody td { vertical-align: baseline; padding: 1.4rem 0; border-bottom: 1px solid var(--cw-hairline); text-align: left; font-weight: 400; }
+  tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+  .c-label { width: 11rem; white-space: nowrap; }
+  tbody .c-label .t-ui-caps { color: var(--cw-grey); font-family: var(--font-cwaaa-interface); font-weight: 500; margin-right: 0.4rem; }
+  tbody .c-label .id { color: var(--cw-ink); }
+  /* Figures that must align are Catesque with tnum, zero, case (ui-system §3.2). */
+  .c-figure { width: 9rem; text-align: right; padding-right: var(--gap-l); }
+  thead .c-figure { text-align: right; }
+  .fig { font-family: var(--font-cwaaa-interface); font-weight: 700; font-size: var(--cw-panel-h); letter-spacing: -0.01em; color: var(--cw-ink); font-feature-settings: 'tnum' 1, 'zero' 1, 'case' 1; white-space: nowrap; }
+  .c-text { color: var(--cw-black); max-width: var(--cw-measure); line-height: 1.5; }
+  .reg-note { margin-top: 1.25rem; color: var(--cw-grey); }
+
+  /* ---- 3 · Continuation ---------------------------------------------------- */
+  .next { background: var(--cw-ivory); padding: var(--section) var(--gutter); display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--gap-l); align-items: end; }
+  .next .statement { margin-bottom: 1.5rem; }
+  .next .actions { max-width: 460px; }
+  .refer-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .refer {
+    display: inline-flex; align-items: center; border: 1.5px solid var(--cw-ink); color: var(--cw-ink);
+    padding: 0.8rem 1.1rem; min-height: 44px; font-family: var(--font-cwaaa-interface); font-weight: 500;
+    transition: background var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+  }
+  .refer:hover { background: var(--cw-ink); color: var(--cw-ivory); text-decoration: none; }
+  .refer-done { color: var(--cw-grey); font-size: var(--cw-text-s); letter-spacing: 0.04em; }
+
+  /* ---- Phone: labeled records, not a horizontal dashboard ------------------ */
+  @media (max-width: 700px) {
+    .lead { grid-template-columns: 1fr; grid-template-areas: 'figure' 'rule' 'entry' 'method'; }
+    .figure { font-size: var(--cw-figure-m); }
+    .conclusion { font-size: 12vw; max-width: none; }
+    .record { grid-template-columns: 1fr 1fr; gap: 0.9rem 1.5rem; }
+    .method { margin: 2rem 0 0; max-width: none; justify-self: stretch; border-left: 0; border-top: 1px solid var(--cw-ink); padding: 1rem 0 0; }
+    .statement { max-width: none; }
+    .table-wrap { overflow: visible; }
+    table, tbody, tr { display: block; width: 100%; }
+    thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    tbody tr { display: grid; grid-template-columns: 1fr auto; gap: 0.35rem 1rem; padding: 1.25rem 0; border-bottom: 1px solid var(--cw-hairline); }
+    tbody tr:last-child { border-bottom: 0; }
+    tbody th, tbody td { display: block; padding: 0; border: 0; width: auto; }
+    tbody .c-label { grid-column: 1; }
+    tbody .c-figure { grid-column: 2; grid-row: 1; text-align: right; padding: 0; }
+    tbody .c-text { grid-column: 1 / -1; max-width: none; }
+    .next { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>

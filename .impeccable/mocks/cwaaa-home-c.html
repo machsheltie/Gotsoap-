@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CWAAA home · Comp C · The Ledger</title>
+<link rel="stylesheet" href="cwaaa-home-comp.css">
+<style>
+  /* COMP C — THE LEDGER. Two lines on the left, SOAP. dropped and pushed
+     right so its tail passes behind a landscape hero at mid-right. A hard
+     full-width rule closes the proposition; beneath it a ledger row carries
+     subline, actions, and the scale line in three unequal columns. */
+  .hero { padding: 48px 48px 0; }
+  .hero .field { position: relative; height: calc(100vh - 90px - 48px - 190px); min-height: 420px; }
+  .hero .prop { font-size: 14.6vw; position: absolute; left: 0; top: 0; }
+  .hero .prop .drop { display: block; padding-left: 11vw; }
+  .hero .slot { position: absolute; right: 0; top: 15vw; width: 33vw; aspect-ratio: 4 / 3; }
+  .hero .cloth { left: 42%; bottom: -70px; height: 150px; transform: rotate(3deg); }
+  .ledger { display: grid; grid-template-columns: 1.1fr 1fr .9fr; border-top: 3px solid var(--cw-rule); margin-top: 24px; }
+  .ledger > div { padding: 28px 32px 36px 0; }
+  .ledger > div + div { border-left: 1px solid var(--cw-rule); padding-left: 32px; }
+  .ledger .actions a { border-top: 0; padding: 10px 0; }
+  .ledger .actions a.primary { border-top: 0; border-bottom: 3px solid var(--cw-stamp); }
+  .ledger .actions a:last-child { border-bottom: 1.5px solid var(--cw-rule); }
+  .ledger .scale { font-family: var(--f-ui); font-weight: 500; font-size: 15px; letter-spacing: .04em; line-height: 1.5; color: var(--cw-ink); text-transform: uppercase; margin: 0; }
+  .ledger .scale small { display: block; margin-top: 12px; font-weight: 400; font-size: 12px; letter-spacing: .12em; color: var(--cw-grey); }
+  @media (max-width: 700px) {
+    .hero { padding: 24px 20px 0; }
+    .hero .field { height: auto; min-height: 0; }
+    .hero .prop { position: static; font-size: 26vw; }
+    .hero .prop .drop { padding-left: 0; }
+    .hero .slot { position: relative; top: auto; right: auto; width: 84%; margin-left: auto; aspect-ratio: 4/3; margin-top: -5vw; }
+    .hero .cloth { display: none; }
+    .ledger { grid-template-columns: 1fr; margin-top: 20px; }
+    .ledger > div { padding: 20px 0; }
+    .ledger > div + div { border-left: 0; border-top: 1px solid var(--cw-rule); padding-left: 0; }
+    .hero .sub { font-size: 19px; }
+  }
+</style></head>
+<body>
+<header class="nav" data-nav></header>
+<section class="hero">
+  <div class="field">
+    <h1 class="prop">The Bar<br><span class="drop">Is Soap.</span></h1>
+    <div class="slot">
+      <div class="safe"></div>
+      <div class="lbl"><b>CW-G02 · placeholder</b>Landscape 4:3. Bench-level view; hands, knot, bag handle across the centre third.</div>
+      <div class="cloth"><span class="lbl">cloth tail · if approved</span></div>
+      <div class="spec">Export 3200×2400 min. Left third may sit behind the tail of SOAP.</div>
+    </div>
+  </div>
+  <div class="ledger">
+    <div><p class="sub" style="max-width:30ch">Routine washing is a reasonable collective expectation. We make the case in public and give people a practical way to act.</p></div>
+    <div class="actions">
+      <a class="primary">Take the Pledge <span class="n">Form CW-1</span></a>
+      <a>Read the Findings <span class="n">→</span></a>
+    </div>
+    <div><p class="scale">Two million concerned women. Chapters in all fifty states. One demand.<small>Est. 2024 · Findings · Recovery Stories · Tie One On</small></p></div>
+  </div>
+</section>
+<div data-rest></div>
+<div class="compcap">Comp C · The Ledger</div>
+<script src="cwaaa-home-shared.js"></script>
+</body></html>

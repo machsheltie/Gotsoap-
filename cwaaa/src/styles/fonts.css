@@ -1,0 +1,20 @@
+/* CWAAA font authority — six roles, one family each (ui-system.md §3).
+   Only weights with an assigned production role are declared or shipped from
+   public/fonts. Presence of other binaries under cwaaa/sources/fonts is not
+   permission to load them. Mirror of site/src/styles/fonts-cwaaa.css. */
+
+@font-face { font-family: 'CWAAA Morvi'; src: url('/fonts/morvi-400.woff2') format('woff2'); font-style: normal; font-weight: 400; font-display: swap; }
+@font-face { font-family: 'CWAAA Mirk Slab'; src: url('/fonts/mirk-slab-900.woff2') format('woff2'); font-style: normal; font-weight: 900; font-display: swap; }
+@font-face { font-family: 'CWAAA Proda Sans'; src: url('/fonts/proda-sans-400.woff2') format('woff2'); font-style: normal; font-weight: 400; font-display: swap; }
+@font-face { font-family: 'CWAAA Proda Sans'; src: url('/fonts/proda-sans-400i.woff2') format('woff2'); font-style: italic; font-weight: 400; font-display: swap; }
+@font-face { font-family: 'CWAAA Proda Sans'; src: url('/fonts/proda-sans-700.woff2') format('woff2'); font-style: normal; font-weight: 700; font-display: swap; }
+@font-face { font-family: 'CWAAA Catesque'; src: url('/fonts/catesque-400.woff2') format('woff2'); font-style: normal; font-weight: 400; font-display: swap; }
+@font-face { font-family: 'CWAAA Catesque'; src: url('/fonts/catesque-500.woff2') format('woff2'); font-style: normal; font-weight: 500; font-display: swap; }
+@font-face { font-family: 'CWAAA Catesque'; src: url('/fonts/catesque-700.woff2') format('woff2'); font-style: normal; font-weight: 700; font-display: swap; }
+@font-face { font-family: 'CWAAA Modest'; src: url('/fonts/modest-400.woff2') format('woff2'); font-style: normal; font-weight: 400; font-display: swap; }
+@font-face { font-family: 'CWAAA Modest'; src: url('/fonts/modest-400i.woff2') format('woff2'); font-style: italic; font-weight: 400; font-display: swap; }
+@font-face { font-family: 'CWAAA Modest'; src: url('/fonts/modest-700.woff2') format('woff2'); font-style: normal; font-weight: 700; font-display: swap; }
+@font-face { font-family: 'PT Serif'; src: url('/fonts/pt-serif-400.woff2') format('woff2'); font-style: normal; font-weight: 400; font-display: swap; }
+@font-face { font-family: 'PT Serif'; src: url('/fonts/pt-serif-700.woff2') format('woff2'); font-style: normal; font-weight: 700; font-display: swap; }
+@font-face { font-family: 'PT Serif'; src: url('/fonts/pt-serif-400-italic.woff2') format('woff2'); font-style: italic; font-weight: 400; font-display: swap; }
+@font-face { font-family: 'PT Serif'; src: url('/fonts/pt-serif-700-italic.woff2') format('woff2'); font-style: italic; font-weight: 700; font-display: swap; }

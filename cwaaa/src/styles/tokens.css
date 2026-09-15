@@ -1,0 +1,68 @@
+/* ============================================================================
+   tokens.css — CWAAA standalone site.
+
+   LOCKED (ui-system.md §3, §13 2026-09-14): type roles, ink, stamp, and the
+   white/ivory ground with manila retired to actual paper artifacts.
+
+   PROPOSED (await the CW-D01 / CW-D02 owner interviews before treating as
+   law): every value tagged [PROPOSED] below. They are the values the approved
+   home comp (Comp D, 2026-09-14) was rendered with.
+   ========================================================================== */
+
+:root {
+  /* ---- Color: carried over from the combined runtime ------------------- */
+  --cw-ink: #2f3e5c;            /* ink navy: text, rules, seal line-work, navy fields */
+  --cw-stamp: #a63d2f;          /* stamp red: pledge action, required marks */
+
+  /* ---- Color: [PROPOSED] CW-D02 ---------------------------------------- */
+  --cw-ivory: #f5f0e6;          /* primary digital field */
+  --cw-white: #ffffff;          /* secondary field, reading surfaces */
+  --cw-black: #15181f;          /* civic black: body text on light fields */
+  --cw-grey: #5f5d57;           /* metadata on light fields, 6.4:1 on white */
+  --cw-tint: #e0857a;           /* stamp red lifted for use ON navy, 4.6:1 */
+  --cw-on-ink: var(--cw-ivory); /* foreground on navy fields */
+  --cw-on-ink-muted: rgba(245, 240, 230, 0.78);
+  --cw-hairline: rgba(47, 62, 92, 0.28);
+  --cw-hairline-on-ink: rgba(245, 240, 230, 0.32);
+
+  /* Placeholder grounds for owner-supplied photography (never shipped as final) */
+  --cw-photo-ground: #3b3e44;   /* used black gym bag, locker room */
+  --cw-cloth-ground: #6a4a45;   /* red washcloth in shadow */
+
+  /* ---- Type roles: LOCKED families, one per role ----------------------- */
+  --font-cwaaa-proposition: 'CWAAA Morvi', 'Arial Black', sans-serif;
+  --font-cwaaa-figure: 'CWAAA Mirk Slab', Rockwell, Georgia, serif;
+  --font-cwaaa: 'CWAAA Proda Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-cwaaa-interface: 'CWAAA Catesque', 'Helvetica Neue', Arial, sans-serif;
+  --font-cwaaa-testimony: 'CWAAA Modest', Georgia, 'Times New Roman', serif;
+  --font-cwaaa-seal: 'PT Serif', Georgia, 'Times New Roman', serif;
+
+  /* ---- Type scale: [PROPOSED] CW-D01 ----------------------------------- */
+  --cw-text-s: 0.8125rem;                              /* 13px  interface small */
+  --cw-text-m: 0.9375rem;                              /* 15px  interface */
+  --cw-text: 1.125rem;                                 /* 18px  reading */
+  --cw-text-l: clamp(1.125rem, 1rem + 0.35vw, 1.3125rem);      /* 18–21 lead */
+  --cw-statement: clamp(1.875rem, 1.25rem + 1.75vw, 2.75rem);  /* 30–44 statement */
+  --cw-panel-h: clamp(1.375rem, 1.1rem + 0.8vw, 1.625rem);     /* 22–26 panel heading */
+  --cw-testimony: clamp(1.5rem, 1.2rem + 0.9vw, 1.875rem);     /* 24–30 testimony */
+  --cw-finding: clamp(2.75rem, 1rem + 5.8vw, 5.6rem);          /* Finding statement */
+  --cw-figure: min(clamp(9rem, 2rem + 30vw, 30rem), 60vh);     /* [PROPOSED] the one monumental Mirk Slab figure on /findings */
+  --cw-figure-m: 44vw;                                         /* phone */
+  --cw-line: clamp(2.25rem, 0.6rem + 4.9vw, 4.75rem);          /* DOCUMENT. ADVOCATE. ORGANIZE. */
+  --cw-proposition: clamp(4.5rem, 2rem + 8vw, 9rem);           /* The bar is soap. */
+  --cw-proposition-m: 19vw;                                    /* phone */
+  --cw-measure: 46ch;
+
+  /* ---- Space: [PROPOSED] ----------------------------------------------- */
+  --gutter: clamp(1.25rem, 0.5rem + 2.4vw, 3rem);      /* 20–48 */
+  --section: clamp(3.5rem, 2rem + 4.5vw, 6rem);        /* 56–96 */
+  --gap-l: clamp(2rem, 1rem + 2.8vw, 4rem);
+  --gap-m: 1.75rem;
+  --gap-s: 0.875rem;
+
+  /* ---- Motion: restrained and material (design.md §10) ----------------- */
+  --dur: 720ms;
+  --dur-photo: 1400ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --stagger: 90ms;
+}
