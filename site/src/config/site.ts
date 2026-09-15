@@ -33,13 +33,13 @@ export type ExternalLinkKey = keyof typeof EXTERNAL_LINKS;
  * address the campaign renders (PRD §8), consumed by the footer's
  * "Funded by …" seam. Empty still means "render no control" (PRD §6.4).
  *
- * OWNER DECISION, 2026-09-15 (interim): the coalition ships NOW, mounted at
- * /cwaaa on this deployment by `scripts/embed-cwaaa.mjs`, because it has no
- * origin of its own yet. When CWAAA gets its own Netlify site, this becomes
- * that absolute URL and the embed step comes out of netlify.toml — the seam
- * itself does not change again.
+ * OWNER DECISION, 2026-09-15: the coalition now has its own Netlify site, so
+ * this is its real origin and the seam is a genuine cross-site link. This
+ * retires the interim `/cwaaa` mount that co-hosted CWAAA on this deployment;
+ * `scripts/embed-cwaaa.mjs` and its netlify.toml step are gone. The seam
+ * itself did not change — only the address it resolves to.
  */
-export const CWAAA_SITE_URL = '/cwaaa';
+export const CWAAA_SITE_URL = 'https://cwaaa.netlify.app';
 
 /** A configured destination is a non-empty one; empty means "do not render". */
 export const isConfigured = (value: string): boolean => value.trim().length > 0;
