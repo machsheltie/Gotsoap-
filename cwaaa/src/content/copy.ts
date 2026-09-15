@@ -59,11 +59,17 @@ export const home = {
 
   about: {
     marker: 'About the coalition',
-    /** DRAFT — mission restated from objective canon. */
+    /** RATIFIED 2026-09-15 — owner call, copy lane R3. The owner kept the incumbent mission
+     *  restatement over both reader-preferred candidates ("of women who each have one specific man
+     *  in mind"; "organized around a smell"). Reader evidence against this line is on file in
+     *  reader-evidence-2026-09-15-home-close.md, slot A, and is closed, not pending. */
     statement:
       'Concerned Women Against Axe Abuse is a national coalition making routine soap-and-water hygiene the expected baseline.',
     body: [
-      /** APPROVED — design.md §1 subline, extended. Second sentence DRAFT. */
+      /** First sentence APPROVED — design.md §1 subline. Second sentence RATIFIED 2026-09-15 —
+       *  owner call, copy lane R3: the incumbent sentence stands. The readers' unanimous pick
+       *  ("how long the ride was") and their argument that this paragraph repeats itself are on
+       *  file in reader-evidence-2026-09-15-home-close.md, slot C and convergence item 1. Closed. */
       'Routine washing is a reasonable collective expectation. We document what happens when fragrance is asked to do a shower’s job, and we give people a practical way to act.',
       /** APPROVED — crisis.founding[0] and [1], trimmed. */
       'Founded in 2024 by women who had smelled enough. There was no founding incident. There were thousands, occurring simultaneously, in elevators and rideshares and the third row of every theater.',
@@ -78,11 +84,17 @@ export const home = {
     marker: 'What we do',
     /** LOCKED composition (design.md §5): one continuous line, never three cards. */
     line: ['Document.', 'Advocate.', 'Organize.'],
-    /** DRAFT — three clauses under the running line. */
+    /** RATIFIED 2026-09-15 — owner call, copy lane R3. Document is revised; Advocate and Organize
+     *  keep their incumbent text. Reader evidence for all three clauses, including the raised-voice
+     *  candidate that failed with the referred man, is in reader-evidence-2026-09-15-home-close.md,
+     *  slot B. Closed. */
     run: [
       {
+        /** The one revision on this block: the DRAFT clause restated the verb, and two readers
+         *  skimmed it. "Four women and a binder" is the fact they both stopped on — a small real
+         *  organization is more convincing than a large one. */
         label: 'Document',
-        body: 'We keep the record. Findings are numbered, dated, and written plainly enough to read aloud at a chapter table.',
+        body: 'Every finding is numbered, dated, and entered by the Field Data Committee. The committee is four women and a binder.',
       },
       {
         label: 'Advocate',
@@ -160,7 +172,11 @@ export const home = {
     marker: 'The coalition',
     /** APPROVED — objective canon. */
     scale: 'Two million concerned women. Chapters in all fifty states. One demand.',
-    /** DRAFT — chapter traces; no invented places or contacts (CW-D04 roster pending). */
+    /** RATIFIED 2026-09-15 — owner call, copy lane R3: two traces, incumbent text. The proposed
+     *  third trace ("Nobody is assigned a man. Every member brought her own.") and the revisions to
+     *  trace 2 are withdrawn. Both women read three traces as one repeated move ("institutional
+     *  noun, then a human deflation"), which two supports. No invented place, chapter, or contact
+     *  (CW-D04 roster still open). */
     traces: [
       'Chapter mail is opened on Thursdays. Every envelope is answered, including the ones that only say "finally."',
       'A pledge table needs a folding table, a stack of Form CW-1, and one person willing to make eye contact.',
@@ -263,9 +279,15 @@ export const findings = {
 } as const;
 
 export const notFound = {
-  meta: { title: 'Not in the public file — CWAAA', description: 'This page is not part of the current CWAAA publication set.' },
-  /** DRAFT — CWAAA-authored, calm; no error code, no Office behavior. */
-  heading: 'This page is not in the public file.',
+  meta: { title: 'Nothing is filed at this address — CWAAA', description: 'This page is not part of the current CWAAA publication set.' },
+  /** RATIFIED 2026-09-15 — owner call, copy lane R3: revised heading, incumbent body. "Filed" is
+   *  the verb the whole site runs on and "address" does double duty on a coalition whose office is
+   *  above a pharmacy; two readers ranked it first and none ranked it last. Still CWAAA's own
+   *  records language — no finding, no disposition, no compliance status, no error code, no Office
+   *  behaviour, and the page stays calm. The body keeps "No further conclusion should be drawn from
+   *  its absence" by owner call; the R3 note that the sentence leans toward the Office's voice is
+   *  on file and closed. */
+  heading: 'Nothing is filed at this address.',
   body: 'The address may be incomplete, or the page may not be part of the current publication set. No further conclusion should be drawn from its absence.',
   actions: [
     { label: 'Return home', href: '/' },
