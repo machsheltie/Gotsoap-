@@ -23,20 +23,21 @@ reporting party follow-up, fielded close. No other record uses them.
 
 ---
 
-## 1 · Testimony
+## 1 · Testimony — STRUCK 2026-09-15 on owner instruction
 
-> "Everybody wants to talk about this like I don't wash. I wash. Saturday I wash, Sunday I wash, any
-> day I'm not going down I wash.
->
-> What I don't do is scrub off Monday night to be filthy again Tuesday at six. I'm going right back
-> underground in the morning. I shower tonight, I'm covered again tomorrow. Never saw much point in
-> washing just to get dirty again.
->
-> You don't put a new belt on one that's coming off at the end of the shift. You don't run a pump dry
-> on purpose. You do the work when the work holds. Washing don't hold.
->
-> She tells me it's different. I've asked her how and she gets mad instead of telling me. I'm not
-> trying to win it. I just never got an answer that was an answer."
+**This section violated owner canon and is removed rather than quoted.** It opened by having Billy
+Bob claim he washes on Saturdays, Sundays, and any day he does not go underground.
+
+**OWNER CANON, 2026-09-15: Billy Bob does not wash.** Pre-Office he has no cleansing routine of any
+kind and no mitigating hygiene. His total refusal is the reason ordinary CWAAA intervention fails and
+the Office is brought in. Do not restore the struck text and do not write a variant that gives him
+partial credit.
+
+Its closing paragraph is struck on the same instruction for a second reason: it blamed his wife for
+failing to explain the problem. Owner decision, 2026-09-15 — she has communicated it repeatedly and
+adequately; he understands it and rejects the premise anyway.
+
+Replacement testimony is in `proposals-2026-09-15-billy-bob-r4.md` §1.
 
 Page description / pull: **"Washing don't hold."**
 

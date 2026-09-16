@@ -54,12 +54,14 @@ const { rec, prev, next } = Astro.props as { rec: Rec; prev: Rec | null; next: R
 const photos: Record<string, ImageMetadata> = { brayden: braydenPhoto };
 const photo = photos[rec.slug];
 
+const arc = 'arc' in rec ? rec.arc : null;
 const referral = 'referral' in rec ? rec.referral : null;
 const corroboration = 'corroboration' in rec ? rec.corroboration : null;
 const statements = 'statements' in rec ? rec.statements : null;
 const testimony = 'testimony' in rec ? rec.testimony : null;
 const fieldNote = 'fieldNote' in rec ? rec.fieldNote : null;
 const chronology = 'chronology' in rec ? rec.chronology : null;
+const requested = 'requested' in rec ? rec.requested : null;
 const fragment = 'fragment' in rec ? rec.fragment : null;
 const returned = 'returned' in rec ? rec.returned : null;
 const followUp = 'followUp' in rec ? rec.followUp : null;
@@ -80,6 +82,17 @@ const paras = (body: string) => body.split('\n\n');
       <p class="rid t-ui-caps" data-reveal>{r.recordLabel} <span class="num">{rec.id}</span></p>
       <h1 class="who t-voice-h" data-reveal style="--i: 1">{rec.name}</h1>
     </header>
+
+    {/* The record's conversion argument, ahead of any proof. Three beats only. */}
+    {arc && (
+      <section class="arc" aria-label="Summary">
+        <dl class="fields" data-reveal>
+          {arc.map((f) => (
+            <div><dt class="t-ui-caps t-label">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
+          ))}
+        </dl>
+      </section>
+    )}
 
     {referral && (
       <section class="referral" aria-labelledby="ref-h">
@@ -135,13 +148,6 @@ const paras = (body: string) => body.split('\n\n');
       </blockquote>
     )}
 
-    {fieldNote && (
-      <aside class="statement">
-        <h2 class="sec-label t-ui-caps t-label" data-reveal>{fieldNote.heading}</h2>
-        {paras(fieldNote.body).map((para, n) => <p class="st-b" data-reveal style={`--i: ${n + 1}`}>{para}</p>)}
-      </aside>
-    )}
-
     {chronology && (
       <section class="chronology" aria-labelledby="chr-h">
         <div class="rule ink" data-reveal="rule"></div>
@@ -154,12 +160,24 @@ const paras = (body: string) => body.split('\n\n');
       </section>
     )}
 
+    {fieldNote && (
+      <aside class="statement">
+        <h2 class="sec-label t-ui-caps t-label" data-reveal>{fieldNote.heading}</h2>
+        {paras(fieldNote.body).map((para, n) => <p class="st-b" data-reveal style={`--i: ${n + 1}`}>{para}</p>)}
+      </aside>
+    )}
+
+    {/* CWAAA asked, and CWAAA knows the case came back. It never says what happened between. */}
+    {requested && (
+      <p class="returned t-ui-caps" data-reveal>{requested.label} — {requested.value}</p>
+    )}
+
     {fragment && (
       /* A foreign object, not a CWAAA component: stark white, Courier, black,
          its own reference numbering, small. Unlinked, uncaptioned, unexplained.
          The withheld disposition is a solid bar — a redaction is an act done to
          a document; brackets read as a field somebody forgot to fill in. */
-      <div class="fragment" role="img" aria-label="External finding, Office of Lather Compliance, reference 8804-X. Finding: baseline deficiency. Disposition redacted.">
+      <div class="fragment" role="img" aria-label="External finding, Office of Lather Compliance. Finding: baseline deficiency. Disposition redacted.">
         <pre>{fragment.lines.join('\n')}</pre>
         <p class="disp"><span>{fragment.dispositionLabel}</span><i class="bar"></i></p>
       </div>
@@ -314,6 +332,7 @@ const paras = (body: string) => body.split('\n\n');
   }
   .fragment .bar { display: block; flex: 1; max-width: 13rem; height: 0.85rem; background: #000000; }
 
+  .arc { margin: 0 0 var(--gap-l); }
   .returned { color: var(--cw-ink); margin: 0 0 var(--gap-l); }
 
   .follow { margin: 0 0 var(--gap-l); max-width: var(--cw-measure-note); }

@@ -477,82 +477,132 @@ export const recoveryStories = {
        * boundary the visitor just crossed. It defuses the mechanic instead of
        * deepening it. The fix is to write record 7.
        */
-      id: 'RC-090',
+      id: 'RC-064',
       slug: 'billy-bob',
       open: true,
       public: false,
-      name: 'Billy Bob, 51',
+      /** Age set by the owner 2026-09-16. Shipped `Billy Bob, 51` had no owner
+       *  provenance and is retired. */
+      name: 'Billy Bob, 37',
       indexQuote: '',
       image: {
         spec: 'At his own kitchen table, still in work clothes, hands folded. Taken by the case worker with permission.',
       },
+      /**
+       * The three-beat summary from the approved record, rendered under the
+       * masthead ahead of the referral block: the record's conversion argument
+       * reaches a scanning reader before any proof does.
+       */
+      arc: [
+        { label: 'What he believed', value: 'That there was no day worth washing for, because the next shift was always coming.' },
+        { label: 'What it cost him', value: 'His wife stopped wanting him near her.' },
+        { label: 'What changed', value: 'He started showering after every shift.' },
+      ],
       referral: [
-        { label: 'Source relationship', value: 'Spouse, cohabitating' },
-        { label: 'Primary concern', value: 'Persistent post-shift non-cleansing' },
-        { label: 'Fragrance substitution', value: 'Not primary' },
+        { label: 'Participant', value: 'Billy Bob, 37' },
+        { label: 'Reporting party', value: 'Spouse, cohabitating' },
+        { label: 'Referral occasioned by', value: 'Sustained non-cleansing' },
+        { label: 'Reported cleansing frequency', value: 'None reported' },
+        { label: 'Non-working days', value: 'No change reported' },
+        { label: 'Fragrance substitution', value: 'Not reported' },
+        { label: 'Occupational context', value: 'Underground coal extraction, active' },
         { label: 'Household impact', value: 'Reported' },
         { label: 'Shared-surface impact', value: 'Reported' },
-        { label: 'Prior household intervention', value: 'Multiple conversations' },
+        { label: 'Prior household intervention', value: 'Multiple conversations reported prior to contact' },
+        { label: 'Participant’s awareness of concern', value: 'Reported as explicit and repeated' },
         { label: 'Prior contact with CWAAA', value: 'None' },
       ],
       statements: [
         {
           heading: 'Reporting party — statement on file',
-          body: '“I’ve never once minded the way he smells coming in the door. That’s work. That’s the job.\n\nWhat I mind is that I started sleeping on my side facing the wall so I wouldn’t be laying in it. I’ve asked him nice and I’ve asked him not nice, and he’s got an answer every time that sounds right. I can’t argue with him.\n\nI’m hoping you can.”',
+          body: '“He comes in the door at the end of a shift and I smell him before I see him. I mind it. I have always minded it, and I am done pretending otherwise. That is not a thing against him and it is not a thing against the work.\n\nAnd it does not stop at the door. It’s in his hair and the creases of his neck and under his nails, and he sits down to supper in it and then he gets in our bed in it. I wash those sheets and they come off the line gray. There’s a shape of him on his side that doesn’t come out.\n\nAnd it is not only the workdays. He has a Sunday the same as anybody and he spends it in that chair in the same shirt he came home in. There is no day of the week I have ever known that man to get in a shower.\n\nI’ve told him. I’ve told him nice, I’ve told him ugly, and I’ve told him with the lights off so he wouldn’t have to look at me while I said it. He has never once acted like he didn’t hear me. He just has his reasons, and he gives them to me slow, like I’m the one not following.\n\nSo I quit reaching over. I sleep on the edge with my back to him. One night I laid there and tried to work out how long it had been since I wanted my husband to put a hand on me, and I couldn’t get to the end of the counting.\n\nI’m not calling you people about laundry.”',
         },
       ],
+      /**
+       * OWNER CANON, 2026-09-15 — BILLY BOB DOES NOT WASH. Not on Saturdays, not
+       * on Sundays, not on days he does not go underground. Pre-Office he has no
+       * cleansing routine of any kind and no bounded workday exception. His total
+       * refusal is why ordinary CWAAA intervention fails and the Office is
+       * brought in; a man who washes on his days off is an efficiency eccentric,
+       * not a refusal case. An opener granting him partial credit ('Saturday I
+       * wash, Sunday I wash...') has been reintroduced on multiple passes and is
+       * struck permanently. Do not restore it in any variant.
+       *
+       * Owner-approved text: docs/copy/proposals-2026-09-15-billy-bob-r5.md.
+       */
       testimony: [
-        'Everybody wants to talk about this like I don’t wash. I wash. Saturday I wash, Sunday I wash, any day I’m not going down I wash.',
-        'What I don’t do is scrub off Monday night to be filthy again Tuesday at six.',
-        'You don’t run a pump dry on purpose. You don’t put a new belt on one that’s coming off again at the end of the shift. You do the work when the work holds. Washing don’t hold. That’s all I ever said.',
-        'She tells me it’s different. I’ve asked her how and she gets mad instead of telling me. I’m not trying to win it. I just never got an answer that was an answer.',
+        '“I don’t see the sense in it. That’s the whole of it, and everybody keeps acting like there’s more.',
+        'I go down that hole and I come up black. I go down the next day and I come up black again.',
+        'I’m going right back underground in the morning. I shower tonight, I’m covered again tomorrow. Never saw much point in washing just to get dirty again.',
+        'They like to ask me about my days off, like that’s the one that gets me. What am I washing for on a Sunday? Monday’s coming.',
+        'Now — she’s told me. I’ll not sit here and say she didn’t. She’s told me about the bed, and about the smell of it, and that she doesn’t want to lay next to it, and she said it plain enough that I could tell it back to you word for word right now if you wanted it.',
+        'I heard her. Every word. It doesn’t change what’s waiting on me in the morning.',
+        'She thinks I don’t listen. I listen. I just don’t agree.”',
       ],
+      /**
+       * The identical `Participant's stated position` value is this record's comic
+       * engine (owner-ratified 2026-09-15): the string does not vary while the
+       * institution's own vocabulary escalates around it. Do not de-duplicate
+       * these rows and do not paraphrase one of them for variety.
+       */
+      chronology: [
+        { label: 'Referral received', value: 'Spouse, cohabitating. Multiple household conversations reported prior to contact.' },
+        { label: 'Initial outreach', value: 'Participant contacted at home. Baseline materials provided and accepted.' },
+        { label: 'Participant’s stated position', value: '“Never saw much point in washing just to get dirty again.”' },
+        { label: 'Shared-surface impact', value: 'Reported.' },
+        { label: 'Follow-up', value: 'Partner reports behavior unchanged.' },
+        { label: 'Participant’s stated position', value: '“Never saw much point in washing just to get dirty again.”' },
+        { label: 'Shared-surface impact', value: 'Continuing.' },
+        { label: 'Second intervention', value: 'Household consequences discussed with participant. Partner present.' },
+        { label: 'Participant acknowledgment', value: 'Confirmed. Participant restated the reporting party’s concern accurately and without prompting.' },
+        { label: 'Participant’s stated position', value: '“Never saw much point in washing just to get dirty again.”' },
+        { label: 'Shared-surface impact', value: 'Continuing.' },
+        { label: 'Partner-reported impact', value: 'Withdrawal of physical contact.' },
+        { label: 'Final voluntary contact', value: 'No change in practice. No further CWAAA intervention available.' },
+      ],
+      /** Lodged after the chronology: the last human voice before external review. */
       fieldNote: {
         heading: 'Field note — case worker, statement on file',
-        body: '“Participant met me at his kitchen table and answered everything I asked him. He is not defensive and he is not ashamed. He explained his reasoning to me twice, patiently, and I would like the file to reflect that it is not stupid reasoning.\n\nI told him the part he was leaving out. He listened to me and said he would think on it.\n\nSecond visit, nothing had changed. He asked me the same question he asks his wife. I gave him the same answer she gives him, and I watched it not land again.\n\nHe is able to do this and he does not believe he should have to. I have nothing left to offer him that he has not already declined.”',
+        body: '“Second visit. I explained the reporting party’s concern to the participant again and asked him to tell it back to me. He told it back accurately. Then he explained to me why it did not apply to him.\n\nHe does not believe he should have to.\n\nI have nothing left to offer him that he has not already heard and declined.”',
       },
-      chronology: [
-        { label: 'Initial outreach', value: 'CWAAA contacts participant following partner referral' },
-        { label: 'Baseline materials provided', value: 'Standard cleansing guidance' },
-        { label: 'Participant response', value: 'Materials acknowledged; practical necessity disputed' },
-        { label: 'Follow-up', value: 'Partner reports behavior unchanged' },
-        { label: 'Second intervention', value: 'Household consequences discussed' },
-        {
-          label: 'Participant response',
-          value: 'Maintains post-shift bathing is inefficient given occupational conditions',
-        },
-        { label: 'Household impact update', value: 'Continued transfer of mine residue to shared bedding' },
-        { label: 'External review requested', value: '17 October' },
-      ],
+      /** TK — the date is deliberately unresolved (owner, 2026-09-15). */
+      requested: { label: 'External review requested', value: 'TK' },
       /**
        * Rendered as a foreign object per design.md: stark white, Courier, black
        * institutional type, its own reference numbering, small, unlinked,
        * uncaptioned, unexplained. The withheld disposition is a solid redaction
        * bar, not [WITHHELD] — a redaction reads as an act done to a document.
+       * REFERENCE is TK: 8804-X had no owner provenance and is retired.
        */
       fragment: {
         lines: [
           'OFFICE OF LATHER COMPLIANCE',
           'EXTERNAL FINDING',
-          'REFERENCE: 8804-X',
+          'REFERENCE: TK',
           '',
           'PRIOR VOLUNTARY INTERVENTION: DOCUMENTED',
+          'REPORTED CLEANSING FREQUENCY: NONE',
           'BASELINE REFUSAL: SUSTAINED',
+          'PARTICIPANT COMPREHENSION: NOT AT ISSUE',
           'OCCUPATIONAL RESIDUE: CONFIRMED',
           'SHARED-SURFACE TRANSFER: CONFIRMED',
           'HOUSEHOLD IMPACT: DOCUMENTED',
           '',
           'FINDING: BASELINE DEFICIENCY',
+          '',
+          'PARTICIPANT PRESENT: YES',
         ],
         dispositionLabel: 'DISPOSITION:',
       },
-      returned: { label: 'Case returned', value: '24 October' },
+      /** TK — the date is deliberately unresolved (owner, 2026-09-15). */
+      returned: { label: 'Case returned', value: 'TK' },
       followUp: {
-        heading: '21-day follow-up',
+        /** TK — the interval is deliberately unresolved (owner, 2026-09-15). */
+        heading: 'Follow-up — TK',
         lines: [
           'Participant reports showering immediately following each completed mine shift.',
           'Partner confirms cessation of occupational-residue transfer to shared bedding.',
-          'Laundry and bedding conditions reported returned to baseline.',
+          'Bedding and laundry conditions reported returned to baseline.',
           'Participant reports no difficulty maintaining revised routine.',
         ],
         askedLead: 'Asked what changed his position regarding post-shift bathing, participant stated:',
@@ -560,31 +610,23 @@ export const recoveryStories = {
       },
       partnerFollowUp: {
         heading: 'Reporting party — follow-up statement on file',
-        body: '“He comes in and goes straight to the shower now. Doesn’t announce it. Just does it.\n\nI sleep facing him again. That’s all I was ever asking for.\n\nHe wants me to notice. I notice.”',
+        body: '“He comes in and goes straight up to the shower. Doesn’t announce it. Comes back down with his hair wet and eats his supper like a man who lives here.\n\nI put my hand on him the other night without thinking about it first. That’s the part I’d want written down, if you’re writing things down. I didn’t have to decide to do it.\n\nHe’s proud of himself. He walks around this house like he’s the first man who ever thought of it, and I’m letting him have it.\n\nThe rest of it is mine. Put down that it’s been resolved.”',
       },
+      /**
+       * `External review — Requested. Case returned.` is CWAAA's epistemic
+       * boundary and is owner-fixed: it knows it asked and it knows he came back,
+       * and it does not possess or state what happened in between. Never restore
+       * `Completed`, and never add an OLC reference row here.
+       */
       close: [
         { label: 'Case status', value: 'Recovered / Maintaining baseline' },
         { label: 'Current cleansing routine', value: 'Post-shift' },
         { label: 'Household impact', value: 'Resolved' },
         { label: 'Shared-surface transfer', value: 'No recurrence reported' },
         { label: 'Additional CWAAA intervention', value: 'Not required' },
-        { label: 'External review', value: 'Completed' },
-        { label: 'OLC reference', value: '8804-X' },
+        { label: 'External review', value: 'Requested. Case returned.' },
       ],
-      closeNote:
-        'Partner reports that shared bedding has remained within baseline since the participant’s return.',
-      /**
-       * PENDING RECORD 7. Billy Bob is the last written record, so the pager
-       * renders no Next on him. Canon 1 requires that he keep one: past this
-       * point the records get progressively less CWAAA and more Office, and
-       * eventually the CWAAA template stops being the thing rendering the page.
-       * That record is authored work (Vivian + the Office package), deliberately
-       * not invented here (surface brief 8: records past the boundary are
-       * staged, not built in this pass).
-       *
-       * When record 7 lands, append it to this sequence with `open: true` and
-       * `public: false` and the pager restores his Next with no code change.
-       */
+      closeNote: 'Partner reports that shared bedding has remained within baseline since the participant’s return.',
       nextPending: 'Record 7 unwritten. Billy Bob’s Next is missing, not disabled.',
     },
   ],

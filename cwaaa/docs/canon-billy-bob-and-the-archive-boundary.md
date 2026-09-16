@@ -59,9 +59,19 @@ ordinary soap use eventually summons. No trait of his requires defending; nothin
 certifies his character. (Owner correction, 2026-09-15: an earlier paragraph here listing
 protective adjectives was writer-fabricated, not owner canon, and is struck.)
 
+**He does not wash.** (Owner canon, 2026-09-15, stated after multiple drafts reintroduced the
+opposite.) Not on Saturdays, not on Sundays, not on days he does not go underground. Before the
+Office there is no cleansing routine of any kind and no mitigating hygiene anywhere in his
+before-state. He is not being written toward a decent, clean man with redeeming qualities. **Any
+line giving him partial credit — a days-off wash, a weekend wash, "I'm not a dirty man" — is struck
+on sight and is not to be reintroduced in any variant.** His total refusal is precisely why ordinary
+CWAAA intervention fails and the Office is brought in: a man who washes on his days off is an
+efficiency eccentric, not a refusal case, and the escalation stops making sense.
+
 His theory is internally consistent and nearly persuasive: he gets filthy underground, he is going
 back underground tomorrow, and washing off tonight's coal dust to acquire tomorrow's is a redundant
-step. Billy Bob has applied industrial process optimization to bathing. His wife does not accept the
+step. Asked about the days he is not going down, his answer is that the next shift is coming
+regardless. Billy Bob has applied industrial process optimization to bathing. His wife does not accept the
 marital bed as an intermediate coal-storage facility.
 
 Write his position sympathetically and close to: *"I'm going right back underground in the morning.

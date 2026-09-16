@@ -212,6 +212,29 @@ through the creator/About seam. No public global satire disclosure is permitted.
 decision history. They do not override the target packages above. The archived July 14 architecture
 spec predates the three-system split and must not be used to recreate CWAAA as a site-within-a-site.
 
+## Owner decision, 2026-09-15 — Billy Bob RC-064 signed off
+
+The Billy Bob Recovery Record is **owner-approved as
+`cwaaa/docs/copy/proposals-2026-09-15-billy-bob-r5.md` (Revision 5, FINAL)**. That file is current
+authority for the record's copy; `cwaaa/src/content/copy.ts` must agree with it exactly.
+
+- **RC-064 is the identifier.** RC-090 is a stale model-authored fossil and is retired.
+- **Billy Bob does not wash** before Office involvement — no days-off wash, no bounded workday
+  exception, no mitigating hygiene. Recorded in
+  `cwaaa/docs/canon-billy-bob-and-the-archive-boundary.md` §2 after repeated reintroduction.
+- His wife communicated the problem repeatedly and adequately. She is not responsible for his
+  refusal; he understands it and rejects the premise.
+- **The disposition is withheld and rendered as a redaction bar.** `Disposition: Lather required` had
+  no establishable owner provenance for this record and is struck from the surface brief.
+- **His age is 37** (owner, 2026-09-16).
+- **Deliberately unresolved and to stay TK:** all dates, the follow-up interval, and the Office
+  reference number. These are not gaps to be closed by inference.
+- CWAAA's epistemic boundary is load-bearing: it states that external review was requested and that
+  the case was returned, and never what happened in between.
+
+Revisions 3 and 4 are retained as history. R3's testimony section is struck in place; do not salvage
+from it.
+
 ## Verification
 
 From `site/`, run:

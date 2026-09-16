@@ -64,7 +64,19 @@ materials, participant acknowledgment, intervention provided, follow-up interval
 case status, outcome. Audit, finding, compliance status, and disposition are the Office's and appear
 only inside the embedded fragment. Brayden's owner-supplied audit block converts to a Level-1
 referral; his profile statement, the fish, and the 10/10 demand carry verbatim. `Disposition: Lather
-required` leaves his file and is reserved for Billy Bob's fragment. Exact field names are Vivian's.
+required` leaves his file. **STRUCK 2026-09-15 on owner ruling: the clause reserving it for Billy
+Bob's fragment had no establishable owner provenance. Billy Bob's disposition is withheld and
+rendered as a redaction bar — a legible disposition would explain the interval between external
+review and case return, which is canon's deliberate absence.** Exact field names are Vivian's.
+
+**Amended 2026-09-15 (owner ratification), `finding`.** The bar above is on the *regulatory* sense —
+a body that finds against a person, states compliance, and disposes. It is not a bar on CWAAA citing
+its own publication. `FINDING YY-NN` is a coalition publication class that CWAAA owns outright
+(`PRODUCT.md`, and the whole of `/findings`), so a record may cite one by number in a materials row —
+`Materials provided — Finding 26-01` — exactly as a coalition cites what it published. What stays
+barred on this route: the verb (CWAAA *inquires*, it does not find), `compliance status`,
+`disposition`, `audit`, and any construction in which CWAAA is the finder. Do not "correct" a
+numbered Finding citation back out of these records; it is ratified, not drift.
 
 ## 5 · Scope and boundaries
 
