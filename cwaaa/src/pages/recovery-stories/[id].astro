@@ -26,6 +26,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ImageSlot from '../../components/ImageSlot.astro';
 import { recoveryStories as r } from '../../content/copy';
 import braydenPhoto from '../../assets/brayden.png';
+import billyBobPhoto from '../../assets/billybob.png';
 
 /**
  * Every record whose file is actually written is emitted, public or not; the
@@ -51,7 +52,7 @@ export function getStaticPaths() {
 
 type Rec = (typeof r.records)[number];
 const { rec, prev, next } = Astro.props as { rec: Rec; prev: Rec | null; next: Rec | null };
-const photos: Record<string, ImageMetadata> = { brayden: braydenPhoto };
+const photos: Record<string, ImageMetadata> = { brayden: braydenPhoto, 'billy-bob': billyBobPhoto };
 const photo = photos[rec.slug];
 
 const arc = 'arc' in rec ? rec.arc : null;

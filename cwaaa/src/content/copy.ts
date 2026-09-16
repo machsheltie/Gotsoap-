@@ -485,8 +485,11 @@ export const recoveryStories = {
        *  provenance and is retired. */
       name: 'Billy Bob, 37',
       indexQuote: '',
+      /** Shipped 2026-09-16 (src/assets/billybob.png). The photograph is the
+       *  before-state: he is at the table in the clothes he came up in, and the
+       *  shift is still on him. It is not softened, and it is not a still life. */
       image: {
-        spec: 'At his own kitchen table, still in work clothes, hands folded. Taken by the case worker with permission.',
+        alt: 'Billy Bob, 37, at his own kitchen table in a coal-stained work shirt, hands folded in front of him, looking directly at the camera. Coal dust is still on his face, in his hair, and worked into his knuckles. Taken by the case worker with permission.',
       },
       /**
        * The three-beat summary from the approved record, rendered under the
