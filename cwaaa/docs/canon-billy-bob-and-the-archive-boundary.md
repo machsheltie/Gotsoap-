@@ -73,7 +73,7 @@ Write his position in his own matter-of-fact voice, close to: “I’m going rig
 He believes his excuse; the record does not endorse it. Do not describe his position as sympathetic, reasonable, persuasive, practical, honorable, optimized, or an understandable adaptation to mining. Never write “soap’s for sissies” or turn him into a macho caricature. His refusal is not about masculinity, incapacity, misunderstanding, or Appalachian mining culture. It is stubborn, self-serving disregard: he has decided that temporary cleanliness does not count, even when his wife must live and sleep with today’s coal dust.
 ## 3 · Why he escalates
 
-Not because he is dirty. **The threshold is refusal, not severity.** Billy Bob understands the
+His non-washing creates the case. What carries it beyond ordinary CWAAA intervention is informed, sustained refusal—not dirtiness alone and not the severity of the residue.. **The threshold is refusal, not severity.** Billy Bob understands the
 recommendation, is physically able to follow it, understands why his wife wants it, and rejects the
 premise. He has moved from a hygiene problem to ideological noncompliance — internal language, never
 CWAAA's public wording.
