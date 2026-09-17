@@ -68,16 +68,11 @@ on sight and is not to be reintroduced in any variant.** His total refusal is pr
 CWAAA intervention fails and the Office is brought in: a man who washes on his days off is an
 efficiency eccentric, not a refusal case, and the escalation stops making sense.
 
-His theory is internally consistent and nearly persuasive: he gets filthy underground, he is going
-back underground tomorrow, and washing off tonight's coal dust to acquire tomorrow's is a redundant
-step. Asked about the days he is not going down, his answer is that the next shift is coming
-regardless. Billy Bob has applied industrial process optimization to bathing. His wife does not accept the
-marital bed as an intermediate coal-storage facility.
+Billy Bob’s stated rationale is simple and fixed: because another shift will make him dirty again, he treats every opportunity to wash as pointless. This is not an efficiency principle, and the narration must never validate it as one. It is a self-serving rationalization that ignores the hours he spends at home, his non-working days, the residue he transfers to shared furniture and bedding, and his wife’s repeated objections. He understands those consequences and refuses anyway. The next shift does not prevent him from washing; he uses it to justify never washing at all.
 
-Write his position sympathetically and close to: *"I'm going right back underground in the morning.
-I shower tonight, I'm covered again tomorrow. Never saw much point in washing just to get dirty
-again."* Never *"soap's for sissies."* He sincerely believes he eliminated a redundant step.
+Write his position in his own matter-of-fact voice, close to: “I’m going right back underground in the morning. What am I washing for tonight when I’ll be covered again tomorrow? Never saw much point in washing just to get dirty again.” Billy Bob delivers this as though it settles the matter. This quote records his refusal; it must never be interpreted as evidence that he showers tonight, between shifts, on non-working days, or at any other time before Office intervention. He does not wash.
 
+He believes his excuse; the record does not endorse it. Do not describe his position as sympathetic, reasonable, persuasive, practical, honorable, optimized, or an understandable adaptation to mining. Never write “soap’s for sissies” or turn him into a macho caricature. His refusal is not about masculinity, incapacity, misunderstanding, or Appalachian mining culture. It is stubborn, self-serving disregard: he has decided that temporary cleanliness does not count, even when his wife must live and sleep with today’s coal dust.
 ## 3 · Why he escalates
 
 Not because he is dirty. **The threshold is refusal, not severity.** Billy Bob understands the
