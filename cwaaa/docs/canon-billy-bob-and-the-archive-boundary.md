@@ -9,16 +9,14 @@ law is in `world-bible.md`; rendering law for an embedded external finding is in
 Pagination is the world-building. Nobody clicks a door marked SECRET. They click **Next**, the most
 ordinary thing a website offers, and the archive fails to stop them where it should.
 
-- The Recovery Stories index lists only the public records. The unindexed ones are absent from the
-  index, from search and filter, from the sitemap, and from every link on every ordinary surface.
+- The Recovery Stories index lists only the public records. The unindexed records are absent from the index, search and filter, the sitemap, and all ordinary navigation or promotional surfaces. The sole route from the public archive into the unindexed sequence is the active Next control on the final public record.
 - Each opened record carries `← PREVIOUS RECORD · ALL RECOVERY STORIES · NEXT RECORD →`. There is no
   count and no "4 of 10" — a count tells the visitor exactly where the boundary is.
 - **The last public record retains an active Next.** It is never disabled. Following it loads Billy
   Bob.
 - Billy Bob's `ALL RECOVERY STORIES` returns to the ordinary index, where he is conspicuously
   absent. The site denies that the page you are standing on belongs to the collection.
-- Billy Bob retains Next. Beyond him the records get progressively less CWAAA and more Office, and
-  eventually the CWAAA template stops being the thing rendering the page.
+- In the completed sequence, Billy Bob retains an active Next. Beyond him, the records become progressively less CWAAA and more Office, until the CWAAA template is no longer the thing rendering the page.
 
 **The site's mistake is bureaucratic, not theatrical.** No glitch, no red warning, no classified
 stamp, no hacker aesthetic, no spooky effect, no wink. Someone failed to terminate public pagination
@@ -62,7 +60,7 @@ protective adjectives was writer-fabricated, not owner canon, and is struck.)
 **He does not wash.** (Owner canon, 2026-09-15, stated after multiple drafts reintroduced the
 opposite.) Not on Saturdays, not on Sundays, not on days he does not go underground. Before the
 Office there is no cleansing routine of any kind and no mitigating hygiene anywhere in his
-before-state. He is not being written toward a decent, clean man with redeeming qualities. **Any
+before-state. Do not invent mitigating hygiene, compensating virtues, or unrelated admirable traits to soften his refusal. Conversely, do not invent unrelated cruelty or vice to justify condemning him. This file makes no claim about his character outside the documented behavior. The refusal itself is sufficient. **Any
 line giving him partial credit — a days-off wash, a weekend wash, "I'm not a dirty man" — is struck
 on sight and is not to be reintroduced in any variant.** His total refusal is precisely why ordinary
 CWAAA intervention fails and the Office is brought in: a man who washes on his days off is an
@@ -97,22 +95,18 @@ closing off what the interval could contain is struck. The interval is unknown, 
 
 ## 5 · The return
 
-Billy Bob is not traumatized, robotic, frightened, or a different man. He has had an extraordinary
-intellectual breakthrough concerning soap. The follow-up records post-shift showering, cessation of
+Billy Bob is not traumatized, robotic, frightened, or a different man. Billy Bob returns behaving as though the value of washing has become self-evident. He offers no account of how or why his position changed.The follow-up records post-shift showering, cessation of
 residue transfer, bedding returned to baseline, no difficulty maintaining the routine. Asked what
 changed his position, he says:
 
 > "Makes sense to wash up."
 
 **Do not make the quote bigger.** No "I learned a lot at the Office," no vow, no thousand-yard
-stare. The closing CWAAA line is *"Partner reports that shared bedding has remained within baseline
-since the participant's return."* Return from where, CWAAA? CWAAA declines to elaborate.
+stare. The closing CWAAA line is “Partner reports that shared bedding has remained within baseline since the participant’s return.” The word return is the record’s only acknowledgment of the interval. CWAAA records no destination, event, or explanation between the external-review request and the case’s return.
 
-## 6 · Deliberately unfixed
+## 6 · Fixed and deliberatel unfixed
 
-Age, physical appearance, town, mine, wife's name, exact dates, precise duration, and case number
-are **production decisions, not canon**, and are not to be invented into permanence here. His
-defining facts are already sufficient.
+Billy Bob, age 37, and the identifier RC-064 are owner-locked. Physical appearance, town, mine, wife’s name, exact dates, and the precise duration of the interval remain production decisions and must not be invented into permanence here.
 
 ## 7 · Brayden and Billy Bob, canonically paired
 
