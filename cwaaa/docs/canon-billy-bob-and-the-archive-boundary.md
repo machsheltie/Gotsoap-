@@ -48,8 +48,7 @@ restores his Next with no code change. The marker in the data is `nextPending` o
 
 ## 2 · Billy Bob — character
 
-Working name Billy Bob. Appalachian coal country, underground coal miner, married, shares a home and
-a bed with his wife.
+Billy Bob, 37. Appalachian coal country, underground coal miner, married, shares a home and a bed with his wife.
 
 His region and occupation are context, not the satirical target. The target is his theory, his
 continued refusal despite obvious consequences, and the disproportionate institutional machinery that
