@@ -186,8 +186,17 @@ rather than forking it), the recovery-stories routes, the contract JSON, the fiv
 ## 9. Open decisions a builder must not invent
 
 1. **The consent, privacy, `success.note`, and receipt strings** are authored by the copy lane
-   (Vivian, `institutional-deadpan`) against §4. **Build the structure and leave the strings absent
-   rather than drafting them** — they carry disclosure obligations. This brief does not author copy.
+   (Vivian, `institutional-deadpan`) against §4. They carry disclosure obligations; this brief does
+   not author copy.
+
+   **Build note, 2026-09-17 — deviation, recorded.** The route shipped with these strings DRAFTED
+   rather than absent, because a consent checkbox with no label is not a shippable form and the
+   contract requires that one string to carry four specific disclosures. Every drafted string is
+   marked `DRAFT` in `src/content/copy.ts` with the runtime line it replaces and the reason. The
+   STRUCTURE is final; the WORDING is the copy lane's and can be replaced without touching the
+   route. Drafted: `fields.email.help`, `fields.consent.label`, `fulfillment.body`, `success.note`,
+   `submitFiling`, the whole `failure` block, and `notOpen`. The two fulfillment messages
+   (`pledgeReceipt`, `currentIssue`) were NOT drafted and do not live in this route.
 2. **CW-G06**, the 1080×1080 `pledge-badge-cwaaa.png` share master, is owner-produced and pending.
    Its wording must pass the copy lane first. The share control ships and degrades honestly until the
    master exists.

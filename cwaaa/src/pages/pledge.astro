@@ -1,0 +1,481 @@
+---
+/**
+ * /pledge — Form CW-1, the Declaration of Intent to Lather. Brief:
+ * .impeccable/surfaces/cwaaa-src-pages-pledge-astro.md (confirmed 2026-09-15),
+ * mode Operate. Contract: docs/contracts/pledge.v1.json.
+ *
+ * A LETTER, NOT A WEB PAGE (owner direction 2026-09-17, after reviewing this
+ * route against the live Got Soap? presentation). The first build set the
+ * declaration flush left against the site's gutter, which read as "text on a
+ * website". This one is a centred, bounded sheet: the letterhead, the oath and
+ * the refrain are centred on it, full-width rules delimit its sections the way
+ * they delimit a printed form, the entries are numbered and take dotted fill-in
+ * lines, and the coalition's Official Seal of Approval attests at the foot.
+ *
+ * ENGRAVED, AND ONLY HERE (owner direction 2026-09-17). This is the one CWAAA
+ * surface that may be decorative, because it is the one place the site is not
+ * cosplaying as official paperwork: everywhere else, the look of a document
+ * would be a costume used to imply an office that is not there, and design.md's
+ * ban on the manila world stands unchanged. Here the content genuinely IS a
+ * document, so the engraving is not a disguise — it is the thing itself. A
+ * guilloché ribbon frames the sheet, rosettes hold its corners, and a large
+ * engine-turned rosette is watermarked behind the oath.
+ *
+ * RULED, NOT PAPERED still holds (owner decision 2026-09-15), and the ornament
+ * obeys it. Guilloché is DRAWN, not aged: stroked line-work in one ink at one
+ * weight, the mark a rose engine leaves on a banknote or a share certificate.
+ * What stays banned is anything pretending to be a physical scan — no manila
+ * ground, no foxing, no vignette, no paper tooth, no coffee ring, no torn edge,
+ * no drop shadow, no wax seal, no letterpress emboss. The distinction is the
+ * whole point: a certificate is engraved because it is guarding against forgery,
+ * which is the register a sworn declaration wants; a texture overlay is just a
+ * photograph of someone else's paper.
+ *
+ * ONE MOVE, COMMITTED. The engraving is the route's single decorative idea and
+ * everything else was quieted to let it read: the letterhead's rules stepped
+ * down in weight, the strike shrank, and no second ornament was added. A fleuron,
+ * a drop cap, a second accent colour or a gold rule would each make this flatter,
+ * not bolder. The seal at the foot is the only colour on the sheet.
+ *
+ * THE OATH IS THE HERO (owner decision 2026-09-15). It carries verbatim from the
+ * approved deck and is the largest element on the route: the visitor reads what
+ * he is swearing before he meets a field.
+ *
+ * THE DECLARATION STAYS AND GETS STAMPED (owner decision 2026-09-15). The form is
+ * never swapped for a receipt. On success the oath is still there, the entries
+ * read back as filed, and SWORN lands on the document. You can see what you
+ * signed. On failure nothing is stamped and nothing is re-typed.
+ *
+ * TWO SEALS, TWO JOBS. Seal.astro renders the masthead strike
+ * (cwaaalogo-tight.png) at the head of the letterhead. The foot carries
+ * cwaaaseal.png, the Official Seal of Approval — the attestation, as the live
+ * presentation carries it. They are not interchangeable.
+ *
+ * NO OFFICE, ANYWHERE. design.md §5 makes this the safe surface: no reference,
+ * no transmission language, no review threat, no surveillance joke. The combined
+ * runtime's PledgeForm.astro prints "Office of Lather Compliance · National
+ * Office, Suite 2B" in its letterhead and its welcome email says the Office filed
+ * the declaration; both are struck here and neither is carried. CWAAA files its
+ * own form.
+ */
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Seal from '../components/Seal.astro';
+import Guilloche from '../components/Guilloche.astro';
+import Rosette from '../components/Rosette.astro';
+import { pledge as p, org } from '../content/copy';
+import { BUTTONDOWN_USERNAME, buttondownEmbedUrl, isConfigured } from '../config/site';
+import approvalSeal from '../assets/cwaaaseal.png';
+
+/* Empty until PUBLIC_BUTTONDOWN_USERNAME is set. An empty action posts to the
+   page itself rather than to a malformed URL; scripts/pledge.ts reports NOT
+   FILED in that state rather than stamping a filing that never happened. */
+const formAction = buttondownEmbedUrl();
+const rollOpen = isConfigured(BUTTONDOWN_USERNAME);
+---
+<BaseLayout title={p.meta.title} description={p.meta.description} current="/pledge">
+  <div class="ground">
+   <article class="decl" data-pledge-doc>
+    <!-- The engraved frame. Decoration only: aria-hidden, behind everything, and
+         inset far enough that no content ever sits on the ribbon. -->
+    <Guilloche />
+
+    <!-- 1 · The letterhead. Centred: the strike, then who, then which form, then
+            what the document is. The heavy rule closes it the way a letterhead
+            closes, running the full width of the sheet. -->
+    <header class="head">
+      <div class="strike" data-reveal><Seal size={92} /></div>
+      <!-- The caption a matter is filed under, before the body that files it. -->
+      <p class="preamble t-ui-caps t-label" data-reveal style="--i: 1">{p.header.preamble}</p>
+      <p class="org t-ui-caps" data-reveal style="--i: 1">{org.name}</p>
+      <p class="seat t-note" data-reveal style="--i: 1">{org.est} · {org.tag}</p>
+      <div class="rule" data-reveal="rule" style="--i: 2"></div>
+      <p class="form t-ui-caps" data-reveal style="--i: 2">{p.header.form}</p>
+      <h1 class="title t-voice-h" data-reveal style="--i: 3">{p.header.title}</h1>
+      <p class="sub t-note" data-reveal style="--i: 3">{p.header.subtitle}</p>
+      <div class="rule ink heavy" data-reveal="rule" style="--i: 4"></div>
+    </header>
+
+    <!-- 2 · The settle. Hidden until the declaration is filed or fails to file,
+            and deliberately placed HERE — above the oath, under the letterhead
+            rule — so the stamp lands on the document rather than replacing it.
+            tabindex="-1" makes it a focus target; the live region beside it is
+            what a screen reader actually hears, because moving focus alone does
+            not reliably announce on every combination. -->
+    <section class="settle" data-settle hidden tabindex="-1" aria-labelledby="settle-h">
+      <p class="visually-hidden" id="settle-h">Filing status</p>
+      <p class="visually-hidden" data-announce role="status" aria-live="polite"></p>
+
+      <div class="sworn" data-settle-sworn hidden>
+        <p class="stamp" data-settle-stamp>{p.success.stamp}</p>
+        <p class="settle-body t-lead" data-settle-body>
+          {p.success.lead}<strong data-success-name></strong>{p.success.leadRest}
+        </p>
+        <p class="settle-note t-note">{p.success.note}</p>
+        <div class="refer-row">
+          <button
+            type="button" class="act-box" data-share
+            data-share-title={p.success.shareTitle}
+            data-share-text={p.success.shareText}
+            data-share-done={p.success.copied}
+          >{p.success.share}</button>
+          <a class="act-box" href="/pledge" data-copy-link data-done={p.success.copied}>{p.success.copyLink}</a>
+          <!-- reveal.ts binds a[data-copy-link] to its sibling [role="status"];
+               the share control writes into the same one. -->
+          <span class="refer-done t-ui" role="status" aria-live="polite" data-share-done-slot></span>
+        </div>
+      </div>
+
+      <div class="failed" data-settle-failed hidden>
+        <p class="stamp not-filed" data-settle-stamp>{p.failure.stamp}</p>
+        <p class="settle-body t-lead" data-settle-body>{p.failure.body}</p>
+      </div>
+    </section>
+
+    <!-- 3 · The oath: the largest element on the route, carried verbatim. A real
+            ordered list — four sworn points, not a paragraph with semicolons.
+            The intro and the refrain are centred; the sworn points are numbered
+            clauses and read as clauses, § marker at the left of each. -->
+    <section class="oath" aria-labelledby="oath-h">
+      <h2 class="visually-hidden" id="oath-h">The oath</h2>
+      <!-- Watermarked behind the sworn points, centred on them. Its opacity is
+           set low enough that the oath's contrast is arithmetically unchanged;
+           if this ever costs legibility it is wrong and comes out. -->
+      <div class="watermark" aria-hidden="true"><Rosette size={560} /></div>
+      <p class="oath-intro" data-reveal>{p.oath.intro}</p>
+      <ol class="clauses">
+        {p.oath.clauses.map((c, i) => (
+          <li data-reveal style={`--i: ${i + 1}`}>{c}</li>
+        ))}
+      </ol>
+      <p class="refrain" data-reveal style="--i: 5">{p.oath.refrain}</p>
+    </section>
+
+    <!-- 4 · The signing. Persistent labels above their fields, help text and
+            errors both wired through aria-describedby, errors adjacent and never
+            colour-only. Left-aligned on purpose: the centring the owner asked
+            for is everything ABOVE the entries — a filled line reads left to
+            right, and a centred input has nowhere to start. Without JS this
+            posts straight to Buttondown. -->
+    <form
+      class="signing" action={formAction} method="post" novalidate
+      data-pledge-form aria-label={p.signing.label}
+    >
+      <input type="hidden" name="embed" value="1" />
+
+      <!-- Honeypot. Off-screen, unfocusable, hidden from assistive technology,
+           and never sent anywhere: a filled trap aborts the submit in silence. -->
+      <p class="hp" aria-hidden="true">
+        <label>Do not fill this field if you are human
+          <input type="text" name="hp-field" data-honeypot tabindex="-1" autocomplete="off" />
+        </label>
+      </p>
+
+      <!-- With JavaScript, an unconfigured audience settles as NOT FILED and says
+           so. Without JavaScript AND without an audience there is nothing to post
+           to, so the native submit would reload this page with a cleared form —
+           which looks exactly like success. This is the only state where the form
+           can neither file nor report that it did not, so it says so up front.
+           <noscript> renders for no one else. -->
+      {!rollOpen && (
+        <noscript><p class="not-open t-note">{p.notOpen}</p></noscript>
+      )}
+
+      <p class="caption t-ui-caps t-label" data-reveal>{p.signing.caption}</p>
+
+      <div class="field" data-reveal>
+        <span class="f-num t-ui" aria-hidden="true">1</span>
+        <div class="f-body">
+          <label class="f-label t-ui-caps" for="cw1-name">
+            {p.fields.firstName.label}
+            <span class="req" aria-hidden="true">{p.signing.requiredMark}</span>
+            <span class="visually-hidden">{p.signing.required}</span>
+          </label>
+          <p class="f-help t-note" id="cw1-name-help">{p.fields.firstName.help}</p>
+          <input
+            id="cw1-name" class="f-input" type="text" name="metadata__first_name"
+            data-field-first-name required autocomplete="given-name"
+            aria-describedby="cw1-name-help cw1-name-err"
+          />
+          <p class="f-err t-ui" id="cw1-name-err" data-error-for="firstName" role="alert" hidden>{p.errors.noName}</p>
+        </div>
+      </div>
+
+      <div class="field" data-reveal style="--i: 1">
+        <span class="f-num t-ui" aria-hidden="true">2</span>
+        <div class="f-body">
+          <label class="f-label t-ui-caps" for="cw1-email">
+            {p.fields.email.label}
+            <span class="req" aria-hidden="true">{p.signing.requiredMark}</span>
+            <span class="visually-hidden">{p.signing.required}</span>
+          </label>
+          <p class="f-help t-note" id="cw1-email-help">{p.fields.email.help}</p>
+          <input
+            id="cw1-email" class="f-input" type="email" name="email"
+            data-field-email required autocomplete="email"
+            aria-describedby="cw1-email-help cw1-email-err"
+          />
+          <p class="f-err t-ui" id="cw1-email-err" data-error-for="email" role="alert" hidden>{p.errors.badEmail}</p>
+        </div>
+      </div>
+
+      <!-- Consent. No `name`: the contract gives it buttondownName: null, so it
+           is a client gate and never reaches the provider. Its label carries the
+           four required disclosures (exactly two messages, immediate receipt,
+           separate current issue, no ongoing subscription) — see copy.ts. -->
+      <div class="field consent" data-reveal style="--i: 2">
+        <span class="f-num t-ui" aria-hidden="true">3</span>
+        <div class="f-body">
+          <label class="c-label" for="cw1-consent">
+            <input id="cw1-consent" type="checkbox" data-field-consent required aria-describedby="cw1-consent-err" />
+            <span>{p.fields.consent.label}<span class="visually-hidden"> {p.signing.required}</span></span>
+          </label>
+          <p class="f-err t-ui" id="cw1-consent-err" data-error-for="consent" role="alert" hidden>{p.errors.noConsent}</p>
+        </div>
+      </div>
+
+      <!-- The honest half of the joke, directly above the action it qualifies —
+           where the live presentation puts it, and where a letter puts its terms:
+           on the page being signed, not in a footer. -->
+      <aside class="method fulfil" aria-label={p.fulfillment.label} data-reveal style="--i: 3">
+        <b class="t-ui-caps">{p.fulfillment.label}</b>
+        <p>{p.fulfillment.body}</p>
+      </aside>
+
+      <!-- The pledge action, tier 1. system.css owns the stamp-red ruled
+           treatment; this is its one <button> instance on the site, which is why
+           that file's selector lists both. Do not re-declare the tier here. -->
+      <div class="actions submit-row" data-reveal style="--i: 4">
+        <button type="submit" class="primary" data-filing={p.submitFiling} data-retry={p.failure.retry}>
+          <!-- The label is its own element: the script rewrites it while filing
+               and after a failure, and writing to the button's own textContent
+               would delete the micro note beside it. -->
+          <span data-submit-label>{p.submit}</span><span class="n">{p.submitMicro}</span>
+        </button>
+      </div>
+    </form>
+
+    <!-- 5 · The attestation. The coalition's Official Seal of Approval closes the
+            sheet, centred, the way it closes the live presentation. Decorative is
+            wrong here: it is the only thing at the foot of the document and it
+            says what the document is, so it keeps a real alt. -->
+    <div class="attest" data-reveal="photo">
+      <!-- Eager, despite sitting at the foot: this is a document meant to be
+           printable, and a lazy image the reader never scrolled to does not
+           print. It is the attestation — if it is missing, the sheet is
+           unsigned. -->
+      <Image src={approvalSeal} alt={p.attestation.alt} widths={[160, 240, 320, 480]}
+             sizes="160px" loading="eager" decoding="async" />
+    </div>
+   </article>
+  </div>
+
+  <!-- 6 · Ordinary CWAAA continuation, outside the sheet. No pledge CTA (the
+          visitor is on it) and no Got Soap? seam (on this site he is home). -->
+  <section class="close" aria-labelledby="close-h">
+    <p class="marker" data-reveal>{p.close.marker}</p>
+    <h2 class="visually-hidden" id="close-h">{p.close.marker}</h2>
+    <div class="actions" data-reveal style="--i: 1">
+      {p.close.actions.map((a) => (
+        <a href={a.href}>{a.label}<span class="n">{a.note}</span></a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<script src="../scripts/pledge.ts"></script>
+
+<style>
+  /* The ivory field the sheet is filed on. */
+  .ground { background: var(--cw-ivory); padding: var(--section) var(--gutter); }
+
+  /* The sheet. Centred, bounded, drawn in one ink hairline — the whole of the
+     "paper". Everything else that makes it read as a document is composition:
+     rules that span it, a centred letterhead, numbered entries, fill-in lines,
+     and a seal at the foot. No texture, no shadow, no border ornament. */
+  .decl {
+    position: relative;
+    max-width: 58rem; margin-inline: auto;
+    background: var(--cw-white); border: 1.5px solid var(--cw-ink);
+    /* Padding clears the frame: --gll-inset + --gll-band + breathing room. The
+       ribbon is never something content sits on top of. */
+    padding: clamp(3.25rem, 2rem + 4vw, 5.5rem) clamp(2.5rem, 1rem + 5vw, 6rem);
+    display: grid; gap: var(--gap-l);
+    --gll-inset: 14px; --gll-band: 18px; --gll-rosette: 52px;
+  }
+  /* Every band of the document sits above the engraving. */
+  .decl > * { position: relative; z-index: 1; }
+
+  /* ---- 1 · Letterhead, centred ------------------------------------------- */
+  .head { display: grid; gap: var(--gap-s); justify-items: center; text-align: center; }
+  /* Quieted for the engraved pass: the strike was competing with the corner
+     rosettes and the frame for the same "this is official" job, and three things
+     saying it at once said it less. */
+  .strike { margin-bottom: var(--gap-s); }
+  /* Set tighter to the name it captions than to the strike above it: a caption
+     belongs to what follows it. */
+  .preamble { margin: 0 0 calc(var(--gap-s) * -0.35); }
+  /* The organisation is the largest thing in the letterhead, as it is on a real
+     one — but it stays notation, not a second statement voice competing with the
+     oath below it. */
+  .org { font-size: var(--cw-panel-h); letter-spacing: 0.06em; line-height: 1.2; color: var(--cw-ink); max-width: 22ch; }
+  .seat, .sub { margin: 0; max-width: var(--cw-measure-note); }
+  .form { color: var(--cw-stamp); margin: 0; }
+  .title { font-size: var(--cw-panel-h); margin: 0; }
+  /* Rules span the whole sheet: a section divider on a form runs edge to edge,
+     which is most of what separates a filed document from a stack of divs. */
+  .head .rule { width: 100%; margin: var(--gap-s) 0; }
+  .head .rule.heavy { margin: var(--gap-m) 0 0; }
+
+  /* ---- 2 · The settle ----------------------------------------------------- */
+  /* The settle takes focus programmatically, so it needs a visible ring — in ink,
+     not the site's stamp red. Red here drew a box around the whole region and
+     read as a designed panel border competing with the stamp itself, which is
+     the one thing on this route allowed to be red. */
+  .settle:focus-visible { outline: 2px solid var(--cw-ink); outline-offset: 10px; }
+  /* Stamp red as a rule, never a filled field (system.css, owner decision
+     2026-09-14). The mark is the route's single use of it besides the action. */
+  .stamp {
+    font-family: var(--font-cwaaa-interface); font-weight: 700;
+    font-size: var(--cw-statement); letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--cw-stamp); border-top: 3px solid var(--cw-stamp);
+    padding-top: var(--gap-s); margin: 0;
+  }
+  /* A failure is not stamped. It takes no rule at all: the letterhead's heavy
+     rule is already the line directly above it, and a second ink rule under the
+     first read as a doubled rule rather than as a mark. The word carries the
+     state — it is never signalled by colour alone. */
+  .stamp.not-filed { color: var(--cw-ink); border-top: 0; padding-top: 0; }
+  .settle-body { margin: var(--gap-m) 0 0; }
+  .settle-body strong { font-weight: 700; }
+  .settle-note { margin: var(--gap-s) 0 0; }
+  .settle .refer-row { margin-top: var(--gap-m); }
+  /* The share control is a <button>; .act-box is written for anchors and sets no
+     button reset. These three lines are that reset, not a fourth action tier. */
+  .settle .refer-row button { background: none; cursor: pointer; text-align: left; }
+
+  /* ---- 3 · The oath: the largest element on the route --------------------- */
+  .oath { position: relative; }
+  /* Centred on the sworn points and clipped by nothing — it is allowed to run
+     wider than the text, the way a watermark does. `pointer-events: none` keeps
+     it from ever catching a selection drag across the oath. */
+  .watermark {
+    position: absolute; inset: 0; z-index: 0;
+    display: grid; place-items: center;
+    opacity: 0.055; pointer-events: none; overflow: hidden;
+  }
+  .oath > :not(.watermark) { position: relative; z-index: 1; }
+  .oath-intro, .refrain, .clauses li {
+    font-family: var(--font-cwaaa-testimony); font-style: italic;
+    font-size: var(--cw-statement); line-height: 1.25; color: var(--cw-ink);
+  }
+  .oath-intro { margin: 0 0 var(--gap-m); text-align: center; }
+  /* Four sworn points, marked § as the clauses of a declaration are, numbered by
+     the coalition's own notation rather than by the browser's. The marker is the
+     one place Catesque touches the oath. */
+  .clauses { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--gap-m); counter-reset: clause; }
+  .clauses li { counter-increment: clause; display: grid; grid-template-columns: 3.5rem 1fr; gap: 0.5rem; align-items: baseline; }
+  .clauses li::before {
+    content: '§ ' counter(clause);
+    font-family: var(--font-cwaaa-interface); font-style: normal; font-weight: 500;
+    font-size: var(--cw-text-s); letter-spacing: 0.08em; color: var(--cw-grey);
+    font-feature-settings: 'tnum' 1, 'zero' 1;
+  }
+  .refrain { margin: var(--gap-l) 0 0; font-style: normal; letter-spacing: -0.01em; text-align: center; }
+
+  /* ---- 4 · The signing ---------------------------------------------------- */
+  .signing { display: grid; }
+  /* Off-screen, not display:none — a hidden input some bots skip is a weaker
+     trap than one they can see in the DOM and fill. */
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .not-open { border-left: 1.5px solid var(--cw-ink); padding-left: 1.25rem; margin-bottom: var(--gap-m); color: var(--cw-ink); }
+  .caption { margin: 0 0 var(--gap-s); }
+
+  /* Numbered entries. A form's lines are numbered, and the number is much of what
+     makes the eye read this as something to complete rather than as a contact
+     widget bolted to the end of an article. */
+  .field { display: grid; grid-template-columns: 3.5rem 1fr; gap: 0.5rem; border-top: 1px solid var(--cw-hairline); padding: var(--gap-m) 0; }
+  /* The first entry's rule IS the rule that closes the oath — the form opens on
+     the same line the swearing ends on, in ink rather than hairline. */
+  .field:first-of-type { border-top: 1.5px solid var(--cw-ink); }
+  .field:last-of-type { border-bottom: 1px solid var(--cw-hairline); }
+  .f-num { color: var(--cw-grey); padding-top: 0.15rem; }
+  .f-body { display: grid; gap: 0.5rem; }
+  .f-label { display: flex; align-items: baseline; gap: 0.75rem; color: var(--cw-ink); }
+  /* The required mark is a word, not an asterisk, and not red alone. */
+  .req { font-size: var(--cw-text-s); letter-spacing: 0.08em; color: var(--cw-stamp); font-weight: 500; }
+  .f-help { margin: 0; }
+  /* To be completed in ink. A dotted fill-in line running the width of the sheet
+     — the single most form-like thing on the page, and the reason the entry is
+     not capped at a reading measure the way body text would be. */
+  .f-input {
+    font-family: var(--font-cwaaa-interface); font-size: var(--cw-text);
+    color: var(--cw-black); background: transparent;
+    border: 0; border-bottom: 1.5px dotted var(--cw-ink); border-radius: 0;
+    padding: 0.55rem 0; min-height: 44px; width: 100%;
+  }
+  .f-input:focus-visible { outline: 3px solid var(--cw-stamp); outline-offset: 3px; }
+  .f-input[aria-invalid='true'] { border-bottom: 3px solid var(--cw-stamp); }
+  /* Filed: the line under the entry goes solid and quiet — completed, rather than
+     awaiting completion — while the value stays selectable and readable. */
+  .f-input[aria-readonly='true'] { border-bottom: 1px solid var(--cw-hairline); color: var(--cw-ink); }
+  .f-err { color: var(--cw-stamp); margin: 0.35rem 0 0; }
+
+  .c-label { display: grid; grid-template-columns: auto 1fr; gap: 0.9rem; align-items: start; cursor: pointer; }
+  .c-label input {
+    inline-size: 1.4rem; block-size: 1.4rem; margin: 0.15rem 0 0;
+    accent-color: var(--cw-stamp); flex: none;
+  }
+  .c-label span { font-size: var(--cw-text-m); line-height: 1.55; max-width: var(--cw-measure-note); }
+  .c-label input:disabled { accent-color: var(--cw-ink); }
+  .c-label input:disabled + span { color: var(--cw-grey); }
+
+  .fulfil { margin: var(--gap-l) 0 0; max-width: var(--cw-measure-note); }
+  .submit-row { margin-top: var(--gap-l); }
+
+  /* ---- 5 · The attestation ------------------------------------------------ */
+  .attest { justify-self: center; margin-top: var(--gap-s); }
+  .attest :global(img) { width: clamp(7rem, 14vw, 10rem); height: auto; }
+
+  /* ---- 6 · Continuation --------------------------------------------------- */
+  .close {
+    background: var(--cw-white); border-top: 1px solid var(--cw-hairline);
+    padding: var(--section) var(--gutter);
+  }
+  .close .marker, .close .actions { max-width: 58rem; margin-inline: auto; }
+  .close .actions { margin-top: var(--gap-m); }
+
+  /* ---- --bp-phone: the sheet keeps its edge, the pacing tightens ----------- */
+  @media (max-width: 700px) {
+    .ground { padding: var(--gap-l) var(--gutter); }
+    /* The frame shrinks rather than the content: at 375px a full-size ribbon
+       would eat the measure the oath needs. */
+    .decl { gap: var(--gap-m); --gll-inset: 8px; --gll-band: 10px; --gll-rosette: 30px; padding: 2rem 1.75rem; }
+    .clauses { gap: var(--gap-s); }
+    .clauses li, .field { grid-template-columns: 2.25rem 1fr; }
+    .refrain { margin-top: var(--gap-m); }
+    /* The tier's label and its note sit side by side, which at 390px gives the
+       site's primary action a two-line label beside a three-line note. Stacked,
+       the label stays one line and the note reads as the line under it. Scoped
+       to this route on purpose: every other surface's `.actions` still behaves
+       as it ships, and if this reads better it belongs in system.css for all of
+       them rather than being copied route by route. */
+    .submit-row button { flex-direction: column; align-items: flex-start; gap: 0.45rem; }
+  }
+
+  /* ---- Print: a declaration should print like one -------------------------
+     The filed document is the one thing on this site a visitor might reasonably
+     want on paper — which is the real document relationship, rather than a
+     picture of paper on screen. Controls and the unfilled state drop out; the
+     seal stays, because on paper it is the attestation. */
+  @media print {
+    .ground { padding: 0; background: none; }
+    .decl { border: 0; padding: 0; max-width: none; }
+    .close, .fulfil, .submit-row, .f-help, .caption, .refer-row { display: none; }
+    /* The frame is part of the document and prints. The watermark is not: a
+       screened rosette prints as grey haze across the oath on most printers. */
+    .watermark { display: none; }
+    .f-input { border-bottom: 1px solid #000; }
+    .settle[hidden] { display: none; }
+  }
+</style>

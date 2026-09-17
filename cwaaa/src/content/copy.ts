@@ -489,7 +489,7 @@ export const recoveryStories = {
        *  before-state: he is at the table in the clothes he came up in, and the
        *  shift is still on him. It is not softened, and it is not a still life. */
       image: {
-        alt: 'Billy Bob, 37, at his own kitchen table in a coal-stained work shirt, hands folded in front of him, looking directly at the camera. Coal dust is still on his face, in his hair, and worked into his knuckles. Taken by the case worker with permission.',
+        alt: 'Billy Bob, 37, at his own kitchen table in a coal-stained work shirt, hands folded in front of him, looking directly at the camera. Coal dust is still on his face, in his hair, and worked into his knuckles. Taken during initial home contact.',
       },
       /**
        * The three-beat summary from the approved record, rendered under the
@@ -499,26 +499,26 @@ export const recoveryStories = {
       arc: [
         { label: 'What he believed', value: 'That there was no day worth washing for, because the next shift was always coming.' },
         { label: 'What it cost him', value: 'His wife stopped wanting him near her.' },
-        { label: 'What changed', value: 'He started showering after every shift.' },
+        { label: 'What he does now', value: 'He showers after every shift.' },
       ],
       referral: [
         { label: 'Participant', value: 'Billy Bob, 37' },
         { label: 'Reporting party', value: 'Spouse, cohabitating' },
         { label: 'Referral occasioned by', value: 'Sustained non-cleansing' },
-        { label: 'Reported cleansing frequency', value: 'None reported' },
-        { label: 'Non-working days', value: 'No change reported' },
-        { label: 'Fragrance substitution', value: 'Not reported' },
+        { label: 'Cleansing frequency', value: 'None' },
+        { label: 'Cleansing on non-working days', value: 'None' },
+        { label: 'Fragrance substitution', value: 'None' },
         { label: 'Occupational context', value: 'Underground coal extraction, active' },
-        { label: 'Household impact', value: 'Reported' },
-        { label: 'Shared-surface impact', value: 'Reported' },
+        { label: 'Household impact', value: 'Withdrawal of physical contact' },
+        { label: 'Shared-surface impact', value: 'Occupational residue transferred to bedding' },
         { label: 'Prior household intervention', value: 'Multiple conversations reported prior to contact' },
-        { label: 'Participant’s awareness of concern', value: 'Reported as explicit and repeated' },
+        { label: 'Awareness of concern', value: 'Confirmed' },
         { label: 'Prior contact with CWAAA', value: 'None' },
       ],
       statements: [
         {
           heading: 'Reporting party — statement on file',
-          body: '“He comes in the door at the end of a shift and I smell him before I see him. I mind it. I have always minded it, and I am done pretending otherwise. That is not a thing against him and it is not a thing against the work.\n\nAnd it does not stop at the door. It’s in his hair and the creases of his neck and under his nails, and he sits down to supper in it and then he gets in our bed in it. I wash those sheets and they come off the line gray. There’s a shape of him on his side that doesn’t come out.\n\nAnd it is not only the workdays. He has a Sunday the same as anybody and he spends it in that chair in the same shirt he came home in. There is no day of the week I have ever known that man to get in a shower.\n\nI’ve told him. I’ve told him nice, I’ve told him ugly, and I’ve told him with the lights off so he wouldn’t have to look at me while I said it. He has never once acted like he didn’t hear me. He just has his reasons, and he gives them to me slow, like I’m the one not following.\n\nSo I quit reaching over. I sleep on the edge with my back to him. One night I laid there and tried to work out how long it had been since I wanted my husband to put a hand on me, and I couldn’t get to the end of the counting.\n\nI’m not calling you people about laundry.”',
+          body: '“He comes in the door at the end of a shift and I smell him before I see him. I mind it. I’m done pretending otherwise.\n\nAnd it does not stop at the door. It’s in his hair and the creases of his neck and under his nails, and he sits down to supper in it and then he gets in our bed in it. I wash those sheets and they come off the line gray. There’s a shape of him on his side that doesn’t come out.\n\nAnd it is not only the workdays. Sunday makes no difference. He sits in that chair in the same shirt he came home in. I cannot remember the last time that man got into a shower.\n\nI’ve told him. I’ve told him plain, more than once. He has never once acted like he didn’t hear me. He just has his reasons, and he gives them to me slow, like I’m the one not following.\n\nI stopped reaching for him. I sleep on the edge of the bed with my back to him. I don’t want him touching me when he comes to bed like that.\n\nI’m not calling you people about laundry.”',
         },
       ],
       /**
@@ -531,16 +531,13 @@ export const recoveryStories = {
        * wash, Sunday I wash...') has been reintroduced on multiple passes and is
        * struck permanently. Do not restore it in any variant.
        *
-       * Owner-approved text: docs/copy/proposals-2026-09-15-billy-bob-r5.md.
+       * Owner-approved text: docs/copy/proposals-2026-09-17-billy-bob-r6.md.
        */
       testimony: [
-        '“I don’t see the sense in it. That’s the whole of it, and everybody keeps acting like there’s more.',
-        'I go down that hole and I come up black. I go down the next day and I come up black again.',
-        'I’m going right back underground in the morning. I shower tonight, I’m covered again tomorrow. Never saw much point in washing just to get dirty again.',
-        'They like to ask me about my days off, like that’s the one that gets me. What am I washing for on a Sunday? Monday’s coming.',
-        'Now — she’s told me. I’ll not sit here and say she didn’t. She’s told me about the bed, and about the smell of it, and that she doesn’t want to lay next to it, and she said it plain enough that I could tell it back to you word for word right now if you wanted it.',
-        'I heard her. Every word. It doesn’t change what’s waiting on me in the morning.',
-        'She thinks I don’t listen. I listen. I just don’t agree.”',
+        '“I don’t see the sense in it.',
+        'I go down that hole and come up black, and I’m going right back underground in the morning. What am I washing for tonight when I’ll be covered again tomorrow? Never saw much point in washing just to get dirty again.',
+        'They ask about Sunday. Monday’s coming.',
+        'She’s told me about the smell and the bed. I heard her. It doesn’t change what’s waiting on me in the morning.”',
       ],
       /**
        * The identical `Participant's stated position` value is this record's comic
@@ -557,7 +554,7 @@ export const recoveryStories = {
         { label: 'Participant’s stated position', value: '“Never saw much point in washing just to get dirty again.”' },
         { label: 'Shared-surface impact', value: 'Continuing.' },
         { label: 'Second intervention', value: 'Household consequences discussed with participant. Partner present.' },
-        { label: 'Participant acknowledgment', value: 'Confirmed. Participant restated the reporting party’s concern accurately and without prompting.' },
+        { label: 'Participant acknowledgment', value: 'Confirmed. Participant restated the reporting party’s concern accurately.' },
         { label: 'Participant’s stated position', value: '“Never saw much point in washing just to get dirty again.”' },
         { label: 'Shared-surface impact', value: 'Continuing.' },
         { label: 'Partner-reported impact', value: 'Withdrawal of physical contact.' },
@@ -565,23 +562,29 @@ export const recoveryStories = {
       ],
       /** Lodged after the chronology: the last human voice before external review. */
       fieldNote: {
-        heading: 'Field note — case worker, statement on file',
-        body: '“Second visit. I explained the reporting party’s concern to the participant again and asked him to tell it back to me. He told it back accurately. Then he explained to me why it did not apply to him.\n\nHe does not believe he should have to.\n\nI have nothing left to offer him that he has not already heard and declined.”',
+        heading: 'Field note — caseworker, statement on file',
+        body: '“Second visit. I explained the reporting party’s concern again and asked him to tell it back to me. He did. Then he gave me the same reason again.\n\nHe does not believe he should have to.\n\nI have nothing left to offer him that he has not already heard and declined.”',
       },
-      /** TK — the date is deliberately unresolved (owner, 2026-09-15). */
-      requested: { label: 'External review requested', value: 'TK' },
+      /** Owner-ratified 2026-09-17: mundane production value, replacing the
+       *  rendered literal string "TK". Not a restoration of any previously
+       *  struck date. See docs/copy/proposals-2026-09-17-billy-bob-r6.md. */
+      requested: { label: 'External review requested', value: 'March 11, 2026' },
       /**
        * Rendered as a foreign object per design.md: stark white, Courier, black
        * institutional type, its own reference numbering, small, unlinked,
        * uncaptioned, unexplained. The withheld disposition is a solid redaction
        * bar, not [WITHHELD] — a redaction reads as an act done to a document.
-       * REFERENCE is TK: 8804-X had no owner provenance and is retired.
+       * REFERENCE owner-ratified 2026-09-17 to match CWAAA's own finding
+       * numbering (`26-01`, home.finding.record): two-digit year, hyphen,
+       * sequence — an Office-scale (four-digit) sequence rather than CWAAA's
+       * own two-digit one, still without a letter suffix. 8804-X had no owner
+       * provenance and remains retired.
        */
       fragment: {
         lines: [
           'OFFICE OF LATHER COMPLIANCE',
           'EXTERNAL FINDING',
-          'REFERENCE: TK',
+          'REFERENCE: 26-1183',
           '',
           'PRIOR VOLUNTARY INTERVENTION: DOCUMENTED',
           'REPORTED CLEANSING FREQUENCY: NONE',
@@ -597,16 +600,14 @@ export const recoveryStories = {
         ],
         dispositionLabel: 'DISPOSITION:',
       },
-      /** TK — the date is deliberately unresolved (owner, 2026-09-15). */
-      returned: { label: 'Case returned', value: 'TK' },
+      /** Owner-ratified 2026-09-17: mundane production value; see requested above. */
+      returned: { label: 'Case returned', value: 'April 9, 2026' },
       followUp: {
-        /** TK — the interval is deliberately unresolved (owner, 2026-09-15). */
-        heading: 'Follow-up — TK',
+        /** Owner-ratified 2026-09-17: mundane production value; see requested above. */
+        heading: 'Follow-up — April 23, 2026',
         lines: [
-          'Participant reports showering immediately following each completed mine shift.',
+          'Participant reports showering immediately after each shift.',
           'Partner confirms cessation of occupational-residue transfer to shared bedding.',
-          'Bedding and laundry conditions reported returned to baseline.',
-          'Participant reports no difficulty maintaining revised routine.',
         ],
         askedLead: 'Asked what changed his position regarding post-shift bathing, participant stated:',
         quote: '“Makes sense to wash up.”',
@@ -622,7 +623,7 @@ export const recoveryStories = {
        * `Completed`, and never add an OLC reference row here.
        */
       close: [
-        { label: 'Case status', value: 'Recovered / Maintaining baseline' },
+        { label: 'Case status', value: 'Recovered; maintaining baseline' },
         { label: 'Current cleansing routine', value: 'Post-shift' },
         { label: 'Household impact', value: 'Resolved' },
         { label: 'Shared-surface transfer', value: 'No recurrence reported' },
@@ -633,4 +634,190 @@ export const recoveryStories = {
       nextPending: 'Record 7 unwritten. Billy Bob’s Next is missing, not disabled.',
     },
   ],
+} as const;
+
+/**
+ * pledge — Form CW-1, the Declaration of Intent to Lather.
+ *
+ * Brief: .impeccable/surfaces/cwaaa-src-pages-pledge-astro.md (confirmed
+ * 2026-09-15). Contract: docs/contracts/pledge.v1.json.
+ *
+ * PROVENANCE. Most of this block is carried VERBATIM from the approved
+ * combined-runtime deck (site/src/content/copy.ts, `pledge`), which the Got
+ * Soap? campaign ships at /pledge today. That page is already written in
+ * CWAAA's institutional register — Form CW-1, "of sound mind and disputed
+ * scent", "File my declaration" — so this route is a re-housing, not a
+ * rewrite. Lines carried unchanged are marked APPROVED.
+ *
+ * WHAT COULD NOT BE CARRIED. Five strings in that deck promise an ongoing
+ * newsletter ("Movement Updates", "Unsubscribe any time") that the ratified
+ * contract forbids — `ongoingSubscription: false`, `dripCampaign: false`,
+ * exactly two messages — and its consent label discloses none of the four
+ * facts `consent` requires. Those are marked DRAFT below and are the copy
+ * lane's (Vivian, institutional-deadpan) before launch. They are drafted
+ * rather than left absent because a consent checkbox with no label is not a
+ * shippable form; the STRUCTURE is final, the WORDING is not.
+ *
+ * NOT CARRIED AT ALL: the runtime's `welcomeEmail`, which says the
+ * declaration was "received, reviewed, and filed in triplicate by the Office
+ * of Lather Compliance" and that "The Office classifies this as a scent
+ * forecast", and PledgeForm.astro's letterhead line "Office of Lather
+ * Compliance · National Office, Suite 2B". Both violate the PRD ("Do not say
+ * the Office receives, files, owns, stores, or fulfills subscriber data") and
+ * design.md §Pledge ("No Office reference"). CWAAA files its own form. The
+ * two fulfillment messages are re-authored under CW-D06 and do not live here.
+ */
+export const pledge = {
+  meta: {
+    title: 'The Lather Pledge — Form CW-1 | CWAAA',
+    description:
+      'Declaration of Intent to Lather. Form CW-1 from Concerned Women Against Axe Abuse: one page, one oath, two emails, then silence.',
+  },
+
+  /** APPROVED — carried verbatim. */
+  header: {
+    /**
+     * The caption a matter is filed under. Carried from the live Got Soap?
+     * presentation, where it heads the letterhead (PledgeForm.astro's
+     * `decree__preamble`, hardcoded there rather than in the deck). Owner
+     * direction 2026-09-17.
+     */
+    preamble: 'In the matter of the undersigned',
+    form: 'Form CW-1',
+    title: 'Declaration of Intent to Lather',
+    subtitle: 'To be completed by the undersigned, of sound mind and disputed scent.',
+  },
+
+  /**
+   * APPROVED — carried verbatim, and the largest element on the route (owner
+   * decision 2026-09-15). Stored as intro / clauses / refrain rather than the
+   * runtime's single flat array, because the four sworn points are a real
+   * ordered list and the refrain is not one of them.
+   */
+  oath: {
+    intro: 'I, the undersigned, do solemnly swear:',
+    clauses: [
+      'to lather daily;',
+      'to retire body spray as a personality;',
+      'to respect the loofah in word and deed;',
+      'and never again to mistake deodorant for divine intervention.',
+    ],
+    refrain: 'Lather. Rinse. Respect.',
+  },
+
+  signing: {
+    /** Accessible name for the signing block; never rendered as a visible heading. */
+    label: 'Sign Form CW-1',
+    required: '(required)',
+    requiredMark: 'Required',
+    /** APPROVED — carried verbatim from the runtime's PledgeForm.astro. */
+    caption: 'To be completed in ink. All lines are mandatory.',
+  },
+
+  /**
+   * The attestation at the foot of the declaration: the coalition's Official
+   * Seal of Approval (src/assets/cwaaaseal.png), as the live Got Soap?
+   * presentation carries it. This is NOT the masthead strike — that one is
+   * cwaaalogo-tight.png, rendered by Seal.astro, and it heads the letterhead.
+   * Owner direction 2026-09-17.
+   */
+  attestation: {
+    alt: 'Concerned Women Against Axe Abuse Official Seal of Approval: a bar of soap and a bottle, ringed by laurel on a maroon field.',
+  },
+
+  fields: {
+    /** APPROVED — label and help carried verbatim. */
+    firstName: { label: 'First name', help: 'As it will appear on the roll.' },
+    /**
+     * Label APPROVED. Help DRAFT — the runtime's "Where to send Movement
+     * Updates." names a publication the contract forbids.
+     */
+    email: { label: 'Email', help: 'Where to send the receipt.' },
+    /**
+     * DRAFT — the contract requires this one string to disclose all four:
+     * exactly two messages, an immediate receipt, a separately delivered
+     * current issue, and no ongoing subscription. The runtime's "binding moral
+     * contract" line is kept as the opening clause because it is the joke and
+     * it is approved; the disclosure is appended, not substituted.
+     */
+    consent: {
+      label:
+        'I understand this declaration is a binding moral contract, and that CWAAA will send exactly two emails: a receipt now, and one current issue later. No subscription follows.',
+    },
+  },
+
+  /** APPROVED — carried verbatim. */
+  submit: 'File my declaration',
+  submitMicro: 'Filed in triplicate. One copy goes to the loofah.',
+  /** In-flight label. DRAFT — no runtime equivalent; the runtime never reported work in progress. */
+  submitFiling: 'Filing…',
+
+  /** APPROVED — all three carried verbatim. Never colour-only; each is adjacent to its field. */
+  errors: {
+    noName: 'A declaration requires a declarant. First name, please.',
+    badEmail: 'The Records Division cannot file this email address as written.',
+    noConsent: 'The contract requires acknowledgment. Morally.',
+  },
+
+  /**
+   * DRAFT — replaces the runtime's `privacy` paragraph, which described
+   * "Movement Updates — new posters, the occasional bulletin" and invited the
+   * reader to "Unsubscribe any time" from a subscription that does not exist.
+   * This is the honest half of the joke and it sits with the form, not in a
+   * footer.
+   */
+  fulfillment: {
+    label: 'What arrives',
+    body:
+      'Your email does two jobs, both of them finite. A receipt, confirming the declaration was filed. Then one current issue, sent separately a short while later. That is the whole correspondence: two messages, then silence. CWAAA does not run a subscription, does not sell the address, and does not hand it to partners. Withdraw before the issue goes out and it is not sent. CWAAA keeps records, not secrets.',
+  },
+
+  success: {
+    /** APPROVED — the contract's `SWORN` semantic, carried verbatim. */
+    stamp: 'SWORN.',
+    /** APPROVED — the runtime's success body, split at the name token. */
+    lead: 'Declaration filed, ',
+    leadRest: '. Your name is on the roll. Daily lather is now expected.',
+    /** DRAFT — the runtime's "Movement Updates will arrive when there is movement." */
+    note: 'The receipt is on its way. The current issue follows separately. Nothing after that.',
+    /** Accessible name for the filed declaration's read-back. */
+    filedLabel: 'As filed',
+    /** APPROVED — in-fiction utility labels; never a bare "Share". */
+    share: 'Circulate my declaration',
+    copyLink: 'Copy the filing link',
+    copied: 'Filing link copied.',
+    /** APPROVED — carried verbatim from the runtime's share strings. */
+    shareTitle: 'My Declaration of Intent to Lather is on file.',
+    shareText: 'Form CW-1 filed. Sworn to lather. The loofah retains a copy.',
+  },
+
+  /**
+   * The truthful failure state. No equivalent existed in the runtime, because
+   * the runtime shows SWORN whether or not anything was filed (see
+   * site/src/scripts/pledge.ts: "the SWORN success STILL shows"). CWAAA does
+   * not certify a filing that did not happen. DRAFT.
+   */
+  failure: {
+    stamp: 'NOT FILED.',
+    body:
+      'The declaration did not reach the Records Division. Nothing was filed and nothing was sent. Your entries are still on the form below.',
+    retry: 'Try filing again',
+  },
+
+  /**
+   * Shown only without JavaScript AND without a configured Buttondown audience —
+   * the one combination in which the form can neither file nor report that it
+   * did not. DRAFT.
+   */
+  notOpen:
+    'Form CW-1 cannot be filed from this page at the moment. Nothing you enter below will reach the Records Division, and no email will be sent.',
+
+  /** The ordinary CWAAA continuation after the settle. No Got Soap? seam: on this site the visitor is already home. */
+  close: {
+    marker: 'While you are here',
+    actions: [
+      { label: 'Read the Findings', note: 'Register 26', href: '/findings' },
+      { label: 'Read Recovery Stories', note: 'In their own words', href: '/recovery-stories' },
+    ],
+  },
 } as const;

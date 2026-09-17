@@ -93,18 +93,33 @@
    field. The former `.act-box.stamp` variant is deleted, not deprecated — do
    not reintroduce a bordered or filled pledge button. */
 
+/* The tier matches anchors AND buttons. On every surface but one the pledge is
+   a link to /pledge; on /pledge itself it is the submit control that actually
+   files Form CW-1 — the same action, the same rank, so it takes the same tier
+   rather than a fourth treatment written in a route's scoped block. The button
+   reset below is part of that, not a variant. */
 .actions { display: grid; font-family: var(--font-cwaaa-interface); font-weight: 500; font-size: var(--cw-text-m); letter-spacing: 0.06em; text-transform: uppercase; }
-.actions a {
+.actions :is(a, button) {
   display: flex; justify-content: space-between; align-items: center; gap: 1.5rem;
   padding: 0.85rem 0; border-top: 1.5px solid var(--cw-ink); color: var(--cw-ink);
   transition: color var(--dur) var(--ease-out);
 }
-.actions a:last-child { border-bottom: 1.5px solid var(--cw-ink); }
-.actions a.primary { color: var(--cw-stamp); border-top: 3px solid var(--cw-stamp); }
-.actions a:hover { text-decoration: none; color: var(--cw-black); }
-.actions a:hover .n { transform: translateX(-0.35rem); color: var(--cw-ink); }
+.actions button {
+  width: 100%; background: none; border-left: 0; border-right: 0; border-bottom: 0;
+  border-radius: 0; text-align: left; text-transform: inherit; letter-spacing: inherit;
+  font-family: inherit; font-size: inherit; font-weight: inherit; cursor: pointer;
+}
+.actions :is(a, button):last-child { border-bottom: 1.5px solid var(--cw-ink); }
+.actions :is(a, button).primary { color: var(--cw-stamp); border-top: 3px solid var(--cw-stamp); }
+.actions :is(a, button):hover { text-decoration: none; color: var(--cw-black); }
+.actions :is(a, button):hover .n { transform: translateX(-0.35rem); color: var(--cw-ink); }
 .actions .n { font-weight: 400; color: var(--cw-grey); letter-spacing: 0.1em; transition: transform var(--dur) var(--ease-out), color var(--dur) var(--ease-out); }
-.actions a.primary .n { color: var(--cw-stamp); }
+.actions :is(a, button).primary .n { color: var(--cw-stamp); }
+/* Filing in progress, and after. The control reports work without the document
+   moving; a disabled control is never the only signal that something happened. */
+.actions button[aria-busy='true'] { cursor: progress; }
+.actions button:disabled { cursor: default; color: var(--cw-grey); border-top-color: var(--cw-hairline); }
+.actions button:disabled .n { color: var(--cw-grey); }
 
 .act-box {
   display: inline-flex; align-items: center; gap: 0.9rem;

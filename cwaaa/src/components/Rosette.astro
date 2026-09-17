@@ -1,0 +1,69 @@
+---
+/**
+ * Rosette.astro — the engine-turned rosette, drawn large.
+ *
+ * The same guilloché idea as the border, at the scale a watermark works at: the
+ * pattern a rose engine cuts when a small circle is walked around a large one,
+ * which is where the lathe-work on a share certificate comes from. It sits
+ * behind the oath on the Lather Pledge — the one CWAAA surface where ornament is
+ * the content rather than a costume for it (owner direction 2026-09-17).
+ *
+ * Geometry, not texture. Everything here is a stroked circle or line in a single
+ * ink at a single weight, so it stays inside "ruled, not papered" and it scales
+ * and prints like line-work instead of degrading like an image.
+ *
+ * Purely decorative: aria-hidden, no title, never a source of information. The
+ * whole figure is set at a very low opacity by its caller so the oath's contrast
+ * is untouched — this must never become a legibility cost.
+ */
+interface Props {
+  /** Diameter in px. The viewBox is unitless, so this only scales. */
+  size?: number;
+  class?: string;
+}
+const { size = 520, class: className } = Astro.props;
+
+/* viewBox 0 0 240 240; everything is described from the centre out. */
+const C = 120;
+const pt = (a: number, r: number) => [C + Math.cos(a) * r, C + Math.sin(a) * r] as const;
+
+/* The rose itself: one small circle walked around the centre, 48 times. Where
+   the copies overlap they draw the interference pattern that reads as engraving
+   rather than as a ring of circles. A second, tighter ring inside it doubles the
+   density toward the middle, the way real lathe-work does. */
+const petals = Array.from({ length: 48 }, (_, i) => {
+  const [x, y] = pt((i * Math.PI * 2) / 48, 52);
+  return { cx: x.toFixed(2), cy: y.toFixed(2), r: 46 };
+});
+const petalsInner = Array.from({ length: 32 }, (_, i) => {
+  const [x, y] = pt((i * Math.PI * 2) / 32 + Math.PI / 32, 28);
+  return { cx: x.toFixed(2), cy: y.toFixed(2), r: 26 };
+});
+
+/* The outer burst: 96 radial cuts between two rings, the border a rosette gets
+   so the pattern ends on a decision instead of fading out. */
+const burst = Array.from({ length: 96 }, (_, i) => {
+  const a = (i * Math.PI * 2) / 96;
+  const [x1, y1] = pt(a, 104);
+  const [x2, y2] = pt(a, 116);
+  return { x1: x1.toFixed(2), y1: y1.toFixed(2), x2: x2.toFixed(2), y2: y2.toFixed(2) };
+});
+---
+<svg
+  class:list={['rose', className]} viewBox="0 0 240 240"
+  width={size} height={size} aria-hidden="true" role="presentation" focusable="false"
+>
+  <g fill="none" stroke="var(--cw-ink)" stroke-width="0.4">
+    {petals.map((p) => <circle cx={p.cx} cy={p.cy} r={p.r} />)}
+    {petalsInner.map((p) => <circle cx={p.cx} cy={p.cy} r={p.r} stroke-width="0.3" />)}
+    {burst.map((l) => <line x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2} stroke-width="0.5" />)}
+    <circle cx={C} cy={C} r="104" stroke-width="0.8" />
+    <circle cx={C} cy={C} r="116" stroke-width="0.8" />
+    <circle cx={C} cy={C} r="118.5" stroke-width="0.4" />
+    <circle cx={C} cy={C} r="14" stroke-width="0.8" />
+  </g>
+</svg>
+
+<style>
+  .rose { display: block; max-width: 100%; height: auto; }
+</style>

@@ -24,3 +24,17 @@ export const BUTTONDOWN_USERNAME: string = env.PUBLIC_BUTTONDOWN_USERNAME ?? '';
 export const GOATCOUNTER_CODE: string = env.PUBLIC_GOATCOUNTER_CODE ?? '';
 
 export const isConfigured = (value: string): boolean => value.trim().length > 0;
+
+/**
+ * Buttondown embed-subscribe endpoint for the configured username — the same
+ * shared audience the Got Soap? pledge posts to (contract: one audience,
+ * `BUTTONDOWN_USERNAME`). Empty username returns an empty action, which leaves
+ * the no-JS form posting to the page itself rather than to a malformed URL;
+ * scripts/pledge.ts reports NOT FILED in that state rather than certifying a
+ * filing that never happened.
+ */
+export function buttondownEmbedUrl(): string {
+  return isConfigured(BUTTONDOWN_USERNAME)
+    ? `https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`
+    : '';
+}
