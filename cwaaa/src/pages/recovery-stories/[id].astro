@@ -8,7 +8,9 @@
  * design.md 4), then the referral as received, then his photograph retained as
  * received, then his testimony in Modest — the widest, quietest field on the
  * site — then the sparse chronology, then the outcome and next action, then the
- * pager.
+ * pager. A record with an after-state places its follow-up photograph after the
+ * reporting party's follow-up statement and before the closing fields, in the
+ * same 4:3 frame as the first.
  *
  * `getStaticPaths` emits EVERY record, public or not; the index maps only the
  * public ones. Pagination walks the whole sequence, so the last public record's
@@ -27,6 +29,7 @@ import ImageSlot from '../../components/ImageSlot.astro';
 import { recoveryStories as r } from '../../content/copy';
 import braydenPhoto from '../../assets/brayden.png';
 import billyBobPhoto from '../../assets/billybob.png';
+import billyBobAfter from '../../assets/billybob2.png';
 
 /**
  * Every record whose file is actually written is emitted, public or not; the
@@ -54,6 +57,10 @@ type Rec = (typeof r.records)[number];
 const { rec, prev, next } = Astro.props as { rec: Rec; prev: Rec | null; next: Rec | null };
 const photos: Record<string, ImageMetadata> = { brayden: braydenPhoto, 'billy-bob': billyBobPhoto };
 const photo = photos[rec.slug];
+/** The after-state, where a record has one. Same frame as the photograph above. */
+const afterPhotos: Record<string, ImageMetadata> = { 'billy-bob': billyBobAfter };
+const afterPhoto = afterPhotos[rec.slug];
+const followUpImage = 'followUpImage' in rec && afterPhoto ? rec.followUpImage : null;
 
 const arc = 'arc' in rec ? rec.arc : null;
 const referral = 'referral' in rec ? rec.referral : null;
@@ -132,7 +139,7 @@ const paras = (body: string) => body.split('\n\n');
         <ImageSlot
           class="shot" tone="field" id="Participant photograph" title={rec.name} spec=""
           image={photo} alt={'alt' in rec.image ? rec.image.alt : ''}
-          ratio="4 / 3" position="50% 38%" sizes="(max-width: 860px) 100vw, 60vw" priority
+          ratio="4 / 3" position="50% 38%" sizes="(max-width: 860px) 100vw, 36rem" priority
         />
       ) : (
         <ImageSlot
@@ -202,6 +209,20 @@ const paras = (body: string) => body.split('\n\n');
         <h2 class="sec-label t-ui-caps t-label" data-reveal>{partnerFollowUp.heading}</h2>
         {paras(partnerFollowUp.body).map((para, n) => <p class="st-b" data-reveal style={`--i: ${n + 1}`}>{para}</p>)}
       </aside>
+    )}
+
+    {/* The evidence follows her statement and precedes the close. Same 4:3
+        frame as the photograph retained as received, so the two states of one
+        man are compared on the record's terms. */}
+    {followUpImage && (
+      <figure class="shot-wrap follow-shot" data-reveal="photo">
+        <ImageSlot
+          class="shot" tone="field" id="Follow-up photograph" title={rec.name} spec=""
+          image={afterPhoto} alt={followUpImage.alt}
+          ratio="4 / 3" position="50% 40%" sizes="(max-width: 860px) 100vw, 36rem"
+        />
+        <figcaption class="shot-cap t-note">{followUpImage.caption}</figcaption>
+      </figure>
     )}
 
     {close && (
@@ -304,7 +325,14 @@ const paras = (body: string) => body.split('\n\n');
   }
   .st-b:last-child { margin-bottom: 0; }
 
-  .shot-wrap { margin: 0 0 var(--gap-l); }
+  /* A record photograph is an exhibit clipped to the file, not a hero: it stops
+     at the testimony's measure rather than the full reading column. Owner
+     direction 2026-09-17 — both frames were running over 900px on a laptop. */
+  .shot-wrap { margin: 0 0 var(--gap-l); max-width: 36rem; }
+  /* The after photograph carries the route's one caption: notation under the
+     frame, not a headline over it. The reveal rides the same photo timing. */
+  .follow-shot { padding: 0; }
+  .shot-cap { margin: 0.7rem 0 0; }
 
   /* The widest, quietest field on the site. */
   .testimony { margin: 0 0 var(--gap-l); padding: 0; border: 0; }
@@ -374,7 +402,7 @@ const paras = (body: string) => body.split('\n\n');
   /* ---- --bp-reading: the intruding labels give up the margin ---------------- */
   @media (max-width: 860px) {
     .fields > div { grid-template-columns: 1fr; gap: 0.15rem; margin-left: 0; }
-    .testimony p, .statement, .follow { max-width: none; }
+    .testimony p, .statement, .follow, .shot-wrap { max-width: none; }
     /* Stacked, the three links are 20px lines; 1.5rem of gap makes the row
        pitch exactly 44px, so the hit areas above meet edge to edge and never
        overlap. At 0.75rem they overlapped by 12px and a near miss on PREVIOUS

@@ -617,6 +617,18 @@ export const recoveryStories = {
         body: '“He comes in and goes straight up to the shower. Doesn’t announce it. Comes back down with his hair wet and eats his supper like a man who lives here.\n\nI put my hand on him the other night without thinking about it first. That’s the part I’d want written down, if you’re writing things down. I didn’t have to decide to do it.\n\nHe’s proud of himself. He walks around this house like he’s the first man who ever thought of it, and I’m letting him have it.\n\nThe rest of it is mine. Put down that it’s been resolved.”',
       },
       /**
+       * Owner-supplied 2026-09-17 (src/assets/billybob2.png). The after-state,
+       * placed immediately after the reporting party's follow-up statement and
+       * before the closing fields: the reader hears that she touches him again,
+       * then sees it, then CWAAA closes the record. Same 4:3 presentation as the
+       * before photograph so the comparison reads as institutional, not
+       * editorial. The caption is the only captioned photograph on the route.
+       */
+      followUpImage: {
+        alt: 'Billy Bob, 37, at the same kitchen table, clean-faced and in a plain dark T-shirt, hands folded in front of him, looking at the camera. His wife leans against his shoulder with her arm across his back, smiling. Taken at follow-up.',
+        caption: 'Follow-up photograph — Participant and reporting party, April 23, 2026. Reproduced with permission.',
+      },
+      /**
        * `External review — Requested. Case returned.` is CWAAA's epistemic
        * boundary and is owner-fixed: it knows it asked and it knows he came back,
        * and it does not possess or state what happened in between. Never restore
