@@ -141,7 +141,7 @@ const rollOpen = isConfigured(BUTTONDOWN_USERNAME);
       <!-- Watermarked behind the sworn points, centred on them. Its opacity is
            set low enough that the oath's contrast is arithmetically unchanged;
            if this ever costs legibility it is wrong and comes out. -->
-      <div class="watermark" aria-hidden="true"><Rosette size={560} /></div>
+      <div class="watermark" aria-hidden="true"><Rosette size={620} /></div>
       <p class="oath-intro" data-reveal>{p.oath.intro}</p>
       <ol class="clauses">
         {p.oath.clauses.map((c, i) => (
@@ -356,13 +356,16 @@ const rollOpen = isConfigured(BUTTONDOWN_USERNAME);
 
   /* ---- 3 · The oath: the largest element on the route --------------------- */
   .oath { position: relative; }
-  /* Centred on the sworn points and clipped by nothing — it is allowed to run
-     wider than the text, the way a watermark does. `pointer-events: none` keeps
-     it from ever catching a selection drag across the oath. */
+  /* Centred on the sworn points and clipped by nothing. A watermark that stops
+     at its container's edge reads as a box with a pattern in it; this one is
+     allowed to run past the oath into the gaps above and below, which is what
+     makes it read as under the page rather than inside a div. `overflow: hidden`
+     was doing exactly that damage — it cut 27px off the top and bottom ring.
+     `pointer-events: none` keeps it from catching a selection drag. */
   .watermark {
     position: absolute; inset: 0; z-index: 0;
     display: grid; place-items: center;
-    opacity: 0.055; pointer-events: none; overflow: hidden;
+    opacity: 0.085; pointer-events: none;
   }
   .oath > :not(.watermark) { position: relative; z-index: 1; }
   .oath-intro, .refrain, .clauses li {
@@ -451,6 +454,7 @@ const rollOpen = isConfigured(BUTTONDOWN_USERNAME);
     /* The frame shrinks rather than the content: at 375px a full-size ribbon
        would eat the measure the oath needs. */
     .decl { gap: var(--gap-m); --gll-inset: 8px; --gll-band: 10px; --gll-rosette: 30px; padding: 2rem 1.75rem; }
+    .watermark :global(svg) { width: 20rem; height: 20rem; }
     .clauses { gap: var(--gap-s); }
     .clauses li, .field { grid-template-columns: 2.25rem 1fr; }
     .refrain { margin-top: var(--gap-m); }

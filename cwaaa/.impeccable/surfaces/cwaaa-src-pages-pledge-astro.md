@@ -86,7 +86,35 @@ Everything else in that export ports intact: the header block, the oath, the fie
 name placeholder, the submit label and micro, all three error strings, `success.stamp`, and the share
 strings.
 
-## 5. Selected direction — *Ruled, not papered*
+## 5. Selected direction — *Ruled, not papered; engraved, and only here*
+
+**AMENDED 2026-09-17 — owner direction. Read this before the section below it.**
+The Pledge is **the one CWAAA surface that may be decorative**, and the reason is specific: it is the
+only place the site is not cosplaying as official paperwork. Everywhere else, the look of a document
+would be a costume — the appearance of a record used to imply an office that is not there — and
+design.md's ban on the manila world, dossier styling and paper texture stands entirely unchanged for
+every other route. Here the content genuinely **is** a document, so ornament is not a disguise; it is
+the thing itself.
+
+What that licenses, and what it does not:
+
+- **Licensed:** an engine-turned **guilloché** ribbon framing the sheet, corner rosettes, and a large
+  engraved rosette watermarked behind the oath. `src/components/Guilloche.astro` and
+  `src/components/Rosette.astro`, both ink-only, both `aria-hidden`.
+- **Still banned, and the distinction is the whole point:** anything pretending to be a physical
+  scan. No manila ground, no aged texture, no paper tooth, no foxing, no vignette, no coffee ring, no
+  torn edge, no drop shadow, no wax seal, no letterpress emboss. Guilloché is **drawn** — stroked
+  line-work in one ink at one weight, the mark a rose engine leaves on a banknote or a share
+  certificate. A certificate is engraved because it is guarding against forgery, which is the
+  register a sworn declaration wants. A texture overlay is a photograph of someone else's paper.
+- **One move, committed.** The engraving is the route's single decorative idea. The letterhead was
+  quieted to let it read. A fleuron, a drop cap, a gold rule or a second accent colour would each make
+  this flatter rather than bolder, and none of them is licensed by the above. The seal at the foot
+  remains the only colour on the sheet.
+- The ornament carries no information and never costs legibility: the watermark sits at 8.5% ink, and
+  it is dropped entirely in print, where a screened rosette prints as grey haze.
+
+The original direction, which the amendment extends rather than replaces:
 
 **Owner decision 2026-09-15.** No manila, no page edge, no drop shadow, no dossier styling, no paper
 simulation. CWAAA's committed ink-on-ivory system carries the whole route: `.rule` / `.rule.ink` /
@@ -171,7 +199,8 @@ rather than forking it), the recovery-stories routes, the contract JSON, the fiv
 
 **Anti-goals, explicitly:**
 
-- No manila ground, page object, drop shadow, torn edge, typewriter skin, or wax-seal theater.
+- No manila ground, drop shadow, torn edge, typewriter skin, or wax-seal theater. (The **page object**
+  and the **engraved ornament** are now licensed — see the 2026-09-17 amendment at the head of §5.)
 - No campaign smolder — no steam, chrome, amber, or display-type seduction. That register belongs to
   Got Soap?.
 - No Office anything: no reference, no transmission language, no review threat, no surveillance joke,
