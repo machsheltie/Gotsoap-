@@ -393,9 +393,11 @@ export const recoveryStories = {
           body: '“I’d said it out loud twice and nothing happened. So I printed the page and put it on his door. I didn’t want a confrontation. I wanted a document.”',
         },
       ],
-      /** OWNER-AUTHORED, ratified 2026-09-15. Verbatim. Nothing follows the last line. */
+      /** OWNER-AUTHORED, ratified 2026-09-15. Verbatim. Nothing follows the last line.
+       *  Quotation marks added on owner direction 2026-09-17, matching RC-064:
+       *  one opening mark on the first paragraph, one closing mark on the last. */
       testimony: [
-        'I really did think I had a system. Febreze the sheets on Sunday, hit the jacket during the week, spray myself if I was going somewhere. My roommate kept telling me that wasn’t the same thing as washing anything. I thought he was being dramatic.',
+        '“I really did think I had a system. Febreze the sheets on Sunday, hit the jacket during the week, spray myself if I was going somewhere. My roommate kept telling me that wasn’t the same thing as washing anything. I thought he was being dramatic.',
         'Then I had a first date coming up and somehow she filed a referral too. We hadn’t even gone out yet. Two people who didn’t know each other had independently decided I needed help before Friday. That’s hard to argue with.',
         'So I showered. Washed the sheets. Used actual laundry detergent. Clean shirt. The whole thing.',
         'The date went really well.',
@@ -403,7 +405,7 @@ export const recoveryStories = {
         'I used to think all that stuff didn’t really matter if you looked good and smelled decent enough. It matters. Women notice. They notice your clothes. They notice your hair. They notice if your sheets smell clean. They definitely notice when you smell good because you’re actually clean instead of because you sprayed something over yourself.',
         'I shower every day now. I wash my sheets every week. I still wear cologne. Apparently you’re allowed to do both.',
         'My dating life is better. My roommate complains about me less. And for the record, the fish picture still works.',
-        'There was one other thing I didn’t expect. When I go see my mom now and give her a hug, she tells me how good I smell. And she holds on a little longer. That’s pretty nice.',
+        'There was one other thing I didn’t expect. When I go see my mom now and give her a hug, she tells me how good I smell. And she holds on a little longer. That’s pretty nice.”',
       ],
       close: [
         { label: 'Intervention provided', value: 'Baseline materials' },

@@ -87,7 +87,7 @@ const paras = (body: string) => body.split('\n\n');
 >
   <article class="rec">
     <header class="masthead">
-      <p class="rid t-ui-caps" data-reveal>{r.recordLabel} <span class="num">{rec.id}</span></p>
+      <p class="rid t-ui-caps" data-reveal>{r.recordLabel} <span class="sep" aria-hidden="true">·</span> <span class="num">{rec.id}</span></p>
       <h1 class="who t-voice-h" data-reveal style="--i: 1">{rec.name}</h1>
     </header>
 
@@ -128,10 +128,10 @@ const paras = (body: string) => body.split('\n\n');
     )}
 
     {statements && statements.map((st) => (
-      <aside class="statement">
+      <section class="statement">
         <h2 class="sec-label t-ui-caps t-label" data-reveal>{st.heading}</h2>
         {paras(st.body).map((para, n) => <p class="st-b" data-reveal style={`--i: ${n + 1}`}>{para}</p>)}
-      </aside>
+      </section>
     ))}
 
     <div class="shot-wrap" data-reveal="photo">
@@ -139,7 +139,7 @@ const paras = (body: string) => body.split('\n\n');
         <ImageSlot
           class="shot" tone="field" id="Participant photograph" title={rec.name} spec=""
           image={photo} alt={'alt' in rec.image ? rec.image.alt : ''}
-          ratio="4 / 3" position="50% 38%" sizes="(max-width: 860px) 100vw, 36rem" priority
+          ratio="4 / 3" position="50% 38%" sizes="(max-width: 860px) 100vw, 36rem"
         />
       ) : (
         <ImageSlot
@@ -169,30 +169,32 @@ const paras = (body: string) => body.split('\n\n');
     )}
 
     {fieldNote && (
-      <aside class="statement">
+      <section class="statement">
         <h2 class="sec-label t-ui-caps t-label" data-reveal>{fieldNote.heading}</h2>
         {paras(fieldNote.body).map((para, n) => <p class="st-b" data-reveal style={`--i: ${n + 1}`}>{para}</p>)}
-      </aside>
+      </section>
     )}
 
     {/* CWAAA asked, and CWAAA knows the case came back. It never says what happened between. */}
     {requested && (
-      <p class="returned t-ui-caps" data-reveal>{requested.label} — {requested.value}</p>
+      <p class="returned t-ui-caps" data-reveal>{requested.label} — <span class="nb">{requested.value}</span></p>
     )}
 
     {fragment && (
       /* A foreign object, not a CWAAA component: stark white, Courier, black,
          its own reference numbering, small. Unlinked, uncaptioned, unexplained.
          The withheld disposition is a solid bar — a redaction is an act done to
-         a document; brackets read as a field somebody forgot to fill in. */
-      <div class="fragment" role="img" aria-label="External finding, Office of Lather Compliance. Finding: baseline deficiency. Disposition redacted.">
+         a document; brackets read as a field somebody forgot to fill in. The
+         lines are real text, so a screen reader hears the same document a
+         sighted visitor sees; only the bar needs a name. */
+      <div class="fragment">
         <pre>{fragment.lines.join('\n')}</pre>
-        <p class="disp"><span>{fragment.dispositionLabel}</span><i class="bar"></i></p>
+        <p class="disp"><span>{fragment.dispositionLabel}</span><i class="bar" role="img" aria-label="redacted"></i></p>
       </div>
     )}
 
     {returned && (
-      <p class="returned t-ui-caps" data-reveal>{returned.label} — {returned.value}</p>
+      <p class="returned t-ui-caps" data-reveal>{returned.label} — <span class="nb">{returned.value}</span></p>
     )}
 
     {followUp && (
@@ -205,10 +207,10 @@ const paras = (body: string) => body.split('\n\n');
     )}
 
     {partnerFollowUp && (
-      <aside class="statement">
+      <section class="statement">
         <h2 class="sec-label t-ui-caps t-label" data-reveal>{partnerFollowUp.heading}</h2>
         {paras(partnerFollowUp.body).map((para, n) => <p class="st-b" data-reveal style={`--i: ${n + 1}`}>{para}</p>)}
-      </aside>
+      </section>
     )}
 
     {/* The evidence follows her statement and precedes the close. Same 4:3
@@ -267,12 +269,24 @@ const paras = (body: string) => body.split('\n\n');
   /* The opened record's page shell. Not the `.record` component in system.css:
      that name is the filed label/value block, and this is a reading surface. */
   .rec {
+    /* The reading edge. Every block the visitor READS — statements, testimony,
+       follow-up, the pledge row — stops here, so the record has one right edge
+       rather than five. It is the testimony's --cw-measure at the top of its
+       size clamp (46ch of Modest at 30px), fixed in rem so the smaller blocks
+       under it share the edge instead of each computing a different one from
+       their own font. The photograph keeps its own 36rem cap (owner direction
+       2026-09-17: an exhibit, not a hero) and the Office fragment stays small
+       because it is a foreign object; the fields are the fracture. */
+    --rec-edge: 39.25rem;
     background: var(--cw-white); padding: var(--section) var(--gutter);
     max-width: 62rem; margin: 0 auto;
   }
   .masthead { margin-bottom: var(--gap-l); }
   .rid { color: var(--cw-ink); margin: 0; }
+  .rid .sep { color: var(--cw-grey); margin: 0 0.1em; }
   .rid .num { font-family: var(--font-cwaaa-interface); letter-spacing: 0.06em; }
+  /* A date never breaks across a line: "March / 11, 2026" read as two fields. */
+  .nb { white-space: nowrap; }
   .who { margin: var(--gap-s) 0 0; }
   .rule.ink { margin: 0 0 var(--gap-m); }
 
@@ -281,22 +295,30 @@ const paras = (body: string) => body.split('\n\n');
      that block rules top and bottom and reads across; this one breaks the
      reading column, and unifying them would delete the route's one departure.
 
-     The intrusion is clamped to the room that actually exists left of the
-     content box — the centring margin plus the page gutter — because `.rec`
-     stops being centred at 62rem well above the 860px breakpoint, and
-     `body { overflow-x: clip }` in base.css silently deletes anything pushed
-     past the viewport edge with no scrollbar to recover it. Unclamped, every
-     label from roughly 861px to 1090px lost its opening characters
-     ("Participant" read "TICIPANT"). `100vw` counts a scrollbar the client
-     width does not, so a rem of it is handed back before the arithmetic, and
-     0.75rem is held in reserve so a clamped label stops short of the screen
-     edge rather than sitting on it. From about 1108px up the whole 4.5rem is
-     available and the fracture is exactly the one that was authored. */
+     The intrusion is clamped to the centring margin — the ivory outside the
+     white column — and never enters the page gutter. `.rec` stops being
+     centred at 62rem well above the 860px breakpoint, and `body { overflow-x:
+     clip }` in base.css silently deletes anything pushed past the viewport
+     edge with no scrollbar to recover it. Unclamped, every label from roughly
+     861px to 1090px lost its opening characters ("Participant" read
+     "TICIPANT"); clamped to margin-plus-gutter, the same band set every label
+     12px from the screen edge while the rest of the record began 30px
+     further in, which read as content falling off the page (audit
+     2026-09-17). So the label may cross the white column's edge onto the
+     ivory, but not the gutter's: below about 1008px there is no ivory and
+     no fracture; from about 1108px up the whole 4.5rem is available and the
+     fracture is exactly the one that was authored. `100vw` counts a
+     scrollbar the client width does not, so a rem of it is handed back
+     before the arithmetic.
+
+     The label column is 17rem: at 15rem the longest labels ("Participant's
+     stated position", "Cleansing on non-working days", "Additional CWAAA
+     intervention") broke to two lines against one-line values. */
   .fields { margin: 0; display: grid; gap: 0.55rem; }
   .fields > div {
     --fracture: 4.5rem;
-    --fracture-room: max(0px, (100vw - 1rem - 62rem) / 2 + var(--gutter) - 0.75rem);
-    display: grid; grid-template-columns: 15rem 1fr; gap: 1rem;
+    --fracture-room: max(0px, (100vw - 1rem - 62rem) / 2);
+    display: grid; grid-template-columns: 17rem 1fr; gap: 1rem;
     align-items: baseline;
     margin-left: calc(-1 * min(var(--fracture), var(--fracture-room)));
   }
@@ -309,7 +331,7 @@ const paras = (body: string) => body.split('\n\n');
      omitting `.t-label` rather than becoming a third class. */
   .corrob-h { color: var(--cw-ink); }
 
-  .statement { margin: 0 0 var(--gap-l); max-width: var(--cw-measure-note); }
+  .statement { margin: 0 0 var(--gap-l); max-width: var(--rec-edge); }
 
   /* These section labels are real headings (h2, and h3 inside the referral
      section) so a screen-reader user can move through a record: before this
@@ -338,7 +360,8 @@ const paras = (body: string) => body.split('\n\n');
   .testimony { margin: 0 0 var(--gap-l); padding: 0; border: 0; }
   .testimony p {
     font-family: var(--font-cwaaa-testimony); font-size: var(--cw-testimony);
-    line-height: 1.5; color: var(--cw-black); max-width: var(--cw-measure); margin: 0 0 1.1rem;
+    line-height: 1.5; color: var(--cw-black); margin: 0 0 1.1rem;
+    max-width: min(var(--cw-measure), var(--rec-edge));
   }
   .testimony p:last-child { margin-bottom: 0; }
 
@@ -364,16 +387,17 @@ const paras = (body: string) => body.split('\n\n');
   .arc { margin: 0 0 var(--gap-l); }
   .returned { color: var(--cw-ink); margin: 0 0 var(--gap-l); }
 
-  .follow { margin: 0 0 var(--gap-l); max-width: var(--cw-measure-note); }
+  .follow { margin: 0 0 var(--gap-l); max-width: var(--rec-edge); }
+  .follow .t-note { max-width: none; }
+  .close-note { max-width: var(--rec-edge); }
   .fu-l { margin: 0 0 0.4rem; }
   .fu-lead { margin: var(--gap-m) 0 0.6rem; }
   .fu-q { margin: 0; }
 
   .act-wrap { margin: var(--section) 0 0; }
-  /* The pledge sits at the width of the reading column, not an unrelated 460px
-     — the same correction the index made when its close was rebuilt onto the
-     entry grid. */
-  .act-wrap .actions { max-width: var(--cw-measure); }
+  /* The pledge sits on the reading edge, not an unrelated 460px — the same
+     correction the index made when its close was rebuilt onto the entry grid. */
+  .act-wrap .actions { max-width: var(--rec-edge); }
 
   .pager {
     margin-top: var(--gap-l); padding-top: var(--gap-m);
