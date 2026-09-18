@@ -552,15 +552,15 @@ export const recoveryStories = {
         { label: 'Initial outreach', value: 'Participant contacted at home. Baseline materials provided and accepted.' },
         { label: 'Participant’s stated position', value: '“Never saw much point in washing just to get dirty again.”' },
         { label: 'Shared-surface impact', value: 'Reported.' },
-        { label: 'Follow-up', value: 'Partner reports behavior unchanged.' },
+        { visit: true, label: 'Follow-up', value: 'Partner reports behavior unchanged.' },
         { label: 'Participant’s stated position', value: '“Never saw much point in washing just to get dirty again.”' },
         { label: 'Shared-surface impact', value: 'Continuing.' },
-        { label: 'Second intervention', value: 'Household consequences discussed with participant. Partner present.' },
+        { visit: true, label: 'Second intervention', value: 'Household consequences discussed with participant. Partner present.' },
         { label: 'Participant acknowledgment', value: 'Confirmed. Participant restated the reporting party’s concern accurately.' },
         { label: 'Participant’s stated position', value: '“Never saw much point in washing just to get dirty again.”' },
         { label: 'Shared-surface impact', value: 'Continuing.' },
         { label: 'Partner-reported impact', value: 'Withdrawal of physical contact.' },
-        { label: 'Final voluntary contact', value: 'No change in practice. No further CWAAA intervention available.' },
+        { visit: true, label: 'Final voluntary contact', value: 'No change in practice. No further CWAAA intervention available.' },
       ],
       /** Lodged after the chronology: the last human voice before external review. */
       fieldNote: {

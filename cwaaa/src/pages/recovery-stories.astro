@@ -72,7 +72,7 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
                   image={photos[rec.slug]} alt={'alt' in rec.image ? rec.image.alt : ''}
                   ratio="4 / 3"
                   position={offsets[i % offsets.length]}
-                  sizes="(max-width: 860px) 100vw, 25vw"
+                  sizes="(max-width: 860px) 100vw, 13rem"
                 />
               ) : (
                 <ImageSlot
@@ -121,7 +121,14 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
 </BaseLayout>
 
 <style>
-  .lead { background: var(--cw-ivory); padding: var(--section) var(--gutter) var(--gap-l); }
+  /* The shell axis. Grounds and hairlines run full-bleed (brief §3); the
+     CONTENTS of the lead, every entry and the close sit on --cw-shell, the
+     same centred column the opened record is set on, plus the record's own
+     gutter, so the index's left edge is the record's label edge and the click
+     between the two routes does not jump the page. Below the shell's width
+     this collapses to the ordinary gutter. */
+  .lead, .entry, .close { padding-inline: max(var(--gutter), calc((100% - var(--cw-shell)) / 2 + var(--gutter))); }
+  .lead { background: var(--cw-ivory); padding-block: var(--section) var(--gap-l); }
   /* The lead is demoted here, and only here. Brief §3: the participant's own
      sentence is the largest element on the page — on Findings the number was
      biggest, here the voice is. It was not: the h1 sat at --cw-statement (44px
@@ -148,18 +155,20 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
   .rec-row.alt { background: var(--cw-ivory); }
   /* The ground stays full-bleed (brief §3: "stacked full width, alternating
      ivory and white, separated by full-bleed hairlines") — the content inside
-     it does not. The old 30%/1fr pair handed the second column every remaining
-     pixel while .quote capped at 38ch, so at 1440 roughly 600px on the right of
-     every row carried nothing, five rows running. Both tracks are now bounded:
-     the photograph takes a quarter of the field and the voice's column is sized
-     to the reading measure it actually uses, with justify-content packing them
-     left against the alternating ground. The larger voice does the rest — 38ch
-     of 36px Modest is ~600px where 38ch of 30px was ~500. The measure itself is
-     NOT widened: this is a reading column, not a roster. */
+     it does not. Two earlier builds left the row's right side empty: first
+     30%/1fr handed the voice every remaining pixel while it capped at 38ch;
+     then 26%/46% packed both tracks against the LEFT gutter of a full-bleed
+     row, so the void simply moved right and grew with the screen — 300px at
+     1366, 650px at 1920 — and the symmetric grounds carried asymmetric
+     contents (critique 2026-09-18). The contents now sit on the shell
+     (padding-inline above): a modest fixed photograph column, because these
+     pictures were submitted rather than commissioned, and the voice taking
+     the rest of the shell to its 38ch measure. The measure itself is NOT
+     widened: this is a reading column, not a roster. */
   .entry {
-    display: grid; grid-template-columns: minmax(0, 26%) minmax(0, 46%);
-    justify-content: start; gap: var(--gap-l);
-    align-items: start; padding: var(--section) var(--gutter);
+    display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+    gap: var(--gap-l);
+    align-items: start; padding-block: var(--section);
     text-decoration: none; color: inherit;
   }
   .entry:hover { text-decoration: none; }
@@ -174,7 +183,11 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
      and the notation stay exactly as ImageSlot sets them. It simply carries
      less weight than a photograph that exists — a smaller field, drawn in the
      hairline the rest of the page separates with rather than in full ink. */
-  .shot-wrap.absent { width: 82%; }
+  /* At the 13rem column the void's notation needs the whole field: at 72% the
+     two-line label filled the box to its border. The column itself is now the
+     lighter weight — 13rem beside a 38ch voice — so the field keeps full width
+     and the hairline border does the rest. */
+  .shot-wrap.absent { width: 100%; }
   .shot-wrap.absent :global(.slot-field .media) { border-width: 1px; border-color: var(--cw-hairline); }
 
   /* The voice is the biggest thing on this page. Never truncated. --cw-voice
@@ -199,9 +212,9 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
      red rule is the only other rule, and they still never stack. */
   .close {
     background: var(--cw-white); border-top: 1px solid var(--cw-hairline);
-    display: grid; grid-template-columns: minmax(0, 26%) minmax(0, 46%);
-    justify-content: start; gap: var(--gap-l);
-    padding: var(--section) var(--gutter);
+    display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+    gap: var(--gap-l);
+    padding-block: var(--section);
   }
   .close .actions { grid-column: 2; }
 
@@ -212,13 +225,13 @@ const offsets = ['50% 38%', '46% 44%', '54% 40%', '48% 46%', '52% 36%'];
      top and bottom is a great deal of scroll on a 390px screen, so the row
      pitch tightens while the voice keeps its scale. */
   @media (max-width: 700px) {
-    .lead { padding: var(--gap-l) var(--gutter); }
-    .entry { padding: var(--gap-m) var(--gutter) var(--gap-l); }
+    .lead { padding-block: var(--gap-l); }
+    .entry { padding-block: var(--gap-m) var(--gap-l); }
   }
 
   @media (max-width: 860px) {
     .entry, .close { grid-template-columns: 1fr; gap: var(--gap-m); }
-    .entry { padding: var(--gap-l) var(--gutter); }
+    .entry { padding-block: var(--gap-l); }
     .close .actions { grid-column: 1; }
     .quote { max-width: none; }
   }

@@ -162,7 +162,7 @@ const paras = (body: string) => body.split('\n\n');
         <h2 id="chr-h" class="sec-label t-ui-caps t-label" data-reveal style="--i: 1">{r.chronologyLabel}</h2>
         <dl class="fields" data-reveal style="--i: 2">
           {chronology.map((f) => (
-            <div><dt class="t-ui-caps t-label">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
+            <div class:list={['visit' in f && f.visit ? 'visit' : null]}><dt class="t-ui-caps t-label">{f.label}</dt><dd class="t-ui">{f.value}</dd></div>
           ))}
         </dl>
       </section>
@@ -278,8 +278,13 @@ const paras = (body: string) => body.split('\n\n');
        2026-09-17: an exhibit, not a hero) and the Office fragment stays small
        because it is a foreign object; the fields are the fracture. */
     --rec-edge: 39.25rem;
-    background: var(--cw-white); padding: var(--section) var(--gutter);
-    max-width: 62rem; margin: 0 auto;
+    /* The fracture's depth (see .fields below). It lives in the shell's own
+       left padding, so the labels break the reading column's margin and never
+       the white column's edge. */
+    --fracture: 4.5rem;
+    background: var(--cw-white);
+    padding: var(--section) var(--gutter) var(--section) calc(var(--gutter) + var(--fracture));
+    max-width: var(--cw-shell); margin: 0 auto;
   }
   .masthead { margin-bottom: var(--gap-l); }
   .rid { color: var(--cw-ink); margin: 0; }
@@ -295,33 +300,36 @@ const paras = (body: string) => body.split('\n\n');
      that block rules top and bottom and reads across; this one breaks the
      reading column, and unifying them would delete the route's one departure.
 
-     The intrusion is clamped to the centring margin — the ivory outside the
-     white column — and never enters the page gutter. `.rec` stops being
-     centred at 62rem well above the 860px breakpoint, and `body { overflow-x:
-     clip }` in base.css silently deletes anything pushed past the viewport
-     edge with no scrollbar to recover it. Unclamped, every label from roughly
-     861px to 1090px lost its opening characters ("Participant" read
-     "TICIPANT"); clamped to margin-plus-gutter, the same band set every label
-     12px from the screen edge while the rest of the record began 30px
-     further in, which read as content falling off the page (audit
-     2026-09-17). So the label may cross the white column's edge onto the
-     ivory, but not the gutter's: below about 1008px there is no ivory and
-     no fracture; from about 1108px up the whole 4.5rem is available and the
-     fracture is exactly the one that was authored. `100vw` counts a
-     scrollbar the client width does not, so a rem of it is handed back
-     before the arithmetic.
+     The intrusion is INSIDE the white column. `.rec` reserves the fracture's
+     depth in its own left padding and the labels hang back into it, so the
+     brief's sentence is what renders: the labels break the reading column's
+     left margin, not the card's edge. An earlier build let them cross the
+     white column onto the ivory, which at 1280–1536 wide read as text
+     falling off the left of a centred card while the right third of a 62rem
+     column carried nothing (critique 2026-09-18). It also depended on the
+     centring margin existing, which produced a partial-fracture band from
+     861px to 1108px and an `overflow-x: clip` hazard below it. Neither can
+     recur: the room is padding, present at every width above --bp-reading.
+
+     One right edge. `.fields` stops at --rec-edge like every reading block;
+     the row's negative margin extends it leftward only, so values never run
+     past the testimony's edge the way they did when the grid took `1fr` of
+     the whole column.
 
      The label column is 17rem: at 15rem the longest labels ("Participant's
      stated position", "Cleansing on non-working days", "Additional CWAAA
      intervention") broke to two lines against one-line values. */
-  .fields { margin: 0; display: grid; gap: 0.55rem; }
+  .fields { margin: 0; display: grid; gap: 0.55rem; max-width: var(--rec-edge); }
   .fields > div {
-    --fracture: 4.5rem;
-    --fracture-room: max(0px, (100vw - 1rem - 62rem) / 2);
     display: grid; grid-template-columns: 17rem 1fr; gap: 1rem;
     align-items: baseline;
-    margin-left: calc(-1 * min(var(--fracture), var(--fracture-room)));
+    margin-left: calc(-1 * var(--fracture));
   }
+  /* A visit boundary in the chronology. Billy Bob's file restates the same
+     position three times because there were three visits; without a break the
+     repetition read as a typo. A hairline opens each visit after the first,
+     and the ink rule stays where it is — this separates, it does not close. */
+  .fields > div.visit { border-top: 1px solid var(--cw-hairline); padding-top: 0.75rem; margin-top: 0.35rem; }
   .fields dd { margin: 0; color: var(--cw-black); }
 
   .referral { margin-bottom: var(--gap-l); }
@@ -400,6 +408,7 @@ const paras = (body: string) => body.split('\n\n');
   .act-wrap .actions { max-width: var(--rec-edge); }
 
   .pager {
+    max-width: var(--rec-edge);
     margin-top: var(--gap-l); padding-top: var(--gap-m);
     border-top: 1px solid var(--cw-hairline);
     display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center;
@@ -425,8 +434,10 @@ const paras = (body: string) => body.split('\n\n');
 
   /* ---- --bp-reading: the intruding labels give up the margin ---------------- */
   @media (max-width: 860px) {
+    .rec { padding-left: var(--gutter); }
     .fields > div { grid-template-columns: 1fr; gap: 0.15rem; margin-left: 0; }
-    .testimony p, .statement, .follow, .shot-wrap { max-width: none; }
+    .fields > div.visit { padding-top: 0.9rem; margin-top: 0.5rem; }
+    .testimony p, .statement, .follow, .shot-wrap, .fields, .pager { max-width: none; }
     /* Stacked, the three links are 20px lines; 1.5rem of gap makes the row
        pitch exactly 44px, so the hit areas above meet edge to edge and never
        overlap. At 0.75rem they overlapped by 12px and a near miss on PREVIOUS

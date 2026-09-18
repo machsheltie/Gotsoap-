@@ -83,6 +83,13 @@
   --cw-measure-voice: 38ch;
   --cw-measure: 46ch;
   --cw-measure-note: 52ch;
+  /* The record shell: the one centred column both Recovery Stories routes put
+     their contents on, so the index and the opened record share a horizontal
+     axis and the click between them does not jump the page. Grounds and
+     hairlines stay full-bleed; only the contents sit on the shell. Sized so a
+     46ch Modest testimony plus the 4.5rem label fracture fill it rather than
+     leaving a third of a wider column empty on a laptop (critique 2026-09-18). */
+  --cw-shell: 56rem;
 
   /* ---- Space: [PROPOSED] ----------------------------------------------- */
   --gutter: clamp(1.25rem, 0.5rem + 2.4vw, 3rem);      /* 20–48 */
