@@ -116,6 +116,29 @@ Proposed basenames: `shop-<slug>-wide.jpg`, `shop-<slug>-portrait.jpg`, `shop-<s
 
 **Approval:** correct object/mark continuity, sharp material detail, five distinct scene rhythms, useful responsive crops, short live copy remains legible, and no uniform pack-shot grid.
 
+## GS-G08 — the Case wall subject: one new figure for the evidence wall
+
+**Added:** 2026-09-18. **Priority:** post-launch flesh-out, not a blocker. **Use:** home Case section (`../site/src/components/homev2/Case.astro`), the porcelain evidence wall.
+
+**Why it exists.** On 2026-09-18 the three billboard-scale statistics on the Case wall were replaced by one compact row of five small glazed evidence stamps. The wall now has room, and the no-still-life rule says the section about him should show him. The findings become annotations pinned around a person instead of numbers filling space.
+
+**The rough picture.** One man, the subject the Field Data Committee has been studying, standing against the same wet, high-key white ceramic tile the section is built on. Mid-wash: lather on the shoulders and chest, water on the skin, hair wet, steam thin and atmospheric. He looks at the camera, deadpan, slightly caught. Fragrance-ad seriousness played straight; the joke is the paperwork around him, not his face. Desire, never shame. Prefer continuity with the Poster 1 / hero model. Synthetic subject; no likeness to protect.
+
+| Export | Canvas | Composition / safe area |
+|---|---|---|
+| `case-subject.png` | **Proposed: 2400×3600, transparent** | Subject cut out cleanly (hair and lather edges preserved), knee-up or waist-up, facing camera, body weight on the right so his left side has open air. Claude seats him on the CSS tile grid, so no tile is baked in |
+| `case-subject-wide.jpg` | **Proposed: 3200×1800** | Same subject on the tile, standing in the right third; left two thirds are calm white tile for the plaque and stamp row. Fallback if the cut-out cannot integrate cleanly |
+
+**Where he goes on the page.** Desktop: he stands at the right edge of the wall, locked against the emphasized grout line, spanning from the plaque's top edge down to the "Read the full findings" link, occupying about a quarter of the wall width. The stamp row runs to his left and the last stamp may overlap his edge. Mobile (390 wide): head-and-shoulders crop above the stamp row, or omitted. **Interview required** for the mobile treatment before a final portrait crop.
+
+**Material and grading.** Match the section: steam-white `#f7f6f1` ground, near-black ink shadows, a whisper of marble amber in the warm highlights, chrome-clean water. No smoke register here; this is the bright wall, not the Unholy world. Steam stays translucent, never a white blanket over the face.
+
+**Do not.** No baked words, marks, stamps, or numbers in the image. No towel-only or hands-only crop. No mugshot or lineup framing. No canonical poster reuse or crop.
+
+**Master.** Subject, lather, water droplets, steam, and grading on separate layers. Deliver the transparent PNG plus a flattened preview. Claude creates the AVIF/WebP derivatives, the responsive crops, and the grout-line lock.
+
+**Approval:** he reads as the person the findings are about; edges hold at 2× on the tile; stamp row and plaque stay legible beside him at 1440 and 1024 wide; the section still opens with the manifesto, not the photograph.
+
 ## Claude builds these; Stacey does not need to draw them
 
 Steam behavior, page typography and metallic text effects, buttons/focus/error states, grids and rules, installation hotspots, lightbox, quiz controls, form fields, share feedback, legal text, SEO mappings, image optimization, and favicon derivatives. Existing CWAAA SVGs can support an approved sponsor seam; do not commission a new coalition seal for Got Soap?.
