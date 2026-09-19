@@ -274,7 +274,11 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
      the scrim rises from below instead of from the left. The face is never
      under type or haze. */
   @media (orientation: portrait) {
+    /* Owner direction 2026-09-19: the portrait composition ships whole. No
+       cover-crop on taller phones; the file sits at the top of the section
+       and the type takes the open band beneath it. */
     .hero__art img {
+      object-fit: contain;
       object-position: 50% 0%;
     }
     .hero__scrim {
