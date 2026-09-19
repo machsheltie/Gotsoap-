@@ -163,6 +163,10 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
       transparent 64%
     );
     mix-blend-mode: screen;
+    /* The highlight is light on TILE. Mask it out of the figure zone so the
+       drift never lays a white band across his face or the towel. */
+    -webkit-mask-image: linear-gradient(to right, #000 0%, #000 30%, transparent 46%);
+    mask-image: linear-gradient(to right, #000 0%, #000 30%, transparent 46%);
     animation: hero-sweep 32s ease-in-out infinite alternate;
     will-change: transform;
   }
