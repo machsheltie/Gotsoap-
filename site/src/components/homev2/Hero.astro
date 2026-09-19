@@ -3,15 +3,18 @@
  * homev2/Hero.astro — SECTION 1: THE COLD OPEN — the steam threshold (§3.1).
  *
  * The owner-made, TEXT-FREE restaging of Poster 1's world is the environment;
- * the live type carries the satire. Until Stacey's Photoshop masters land, the
- * §3.1-permitted token-only stand-ins render at the exact final dimensions:
+ * the live type carries the satire. The owner's hero landed 2026-09-19:
  *
- *   hero-wide.jpg     3200 × 1800 — figure zone ≈ x 60–86%, near full height
- *   hero-portrait.jpg 1350 × 2400 — figure zone ≈ x 28–72%, y 47–94%
+ *   graphics/hero-wide.jpg     3200 × 1800 — the Clean Man stands right of
+ *     centre (x ≈ 49–86%, full height), face at x ≈ 62–68%, y ≈ 3–35%. The
+ *     left half is clean tile: that is the type's column.
+ *   graphics/hero-portrait.jpg 1296 × 2304 — the owner's own portrait
+ *     composition (2026-09-19). Face upper-third (x ≈ 25–65%, y ≈ 15–38%),
+ *     torso mid-frame, the white towel fills the bottom fifth: the type's
+ *     band is the BOTTOM so the face is never under type or haze.
  *
- * The live type is composed AROUND those marked SUBJECT ZONEs: landscape sets
- * the type in the left column; portrait sets it in the top band. When the real
- * art lands, only the image files change (gate G14 blocks --prod until then).
+ * The live type is composed AROUND those subject zones: landscape sets the
+ * type in the left column; portrait sets it in the bottom band, under the face.
  *
  * Steam contract (§3.1, once per SESSION — G9):
  *   - the clear state is the DEFAULT. A synchronous <head> script in
@@ -27,13 +30,13 @@
  */
 import { getImage } from 'astro:assets';
 import { home } from '../../content/copy';
-import heroWide from '../../assets/placeholder/hero-wide.jpg';
-import heroPortrait from '../../assets/placeholder/hero-portrait.jpg';
+import heroWide from '../../assets/graphics/hero-wide.jpg';
+import heroPortrait from '../../assets/graphics/hero-portrait.jpg';
 
 const wideAvif = await getImage({ src: heroWide, format: 'avif', widths: [1280, 1920, 2560, 3200] });
 const wideWebp = await getImage({ src: heroWide, format: 'webp', widths: [1280, 1920, 2560] });
-const portraitAvif = await getImage({ src: heroPortrait, format: 'avif', widths: [720, 1080, 1350] });
-const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths: [720, 1080, 1350] });
+const portraitAvif = await getImage({ src: heroPortrait, format: 'avif', widths: [720, 1080, 1296] });
+const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths: [720, 1080, 1296] });
 ---
 
 <section id="hero" class="hero" aria-label={home.hero.ariaLabel}>
@@ -109,11 +112,14 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    /* The head sits near the top of the frame: on wider-than-16:9 viewports
+       the cover crop comes off the towel, not the hairline. */
+    object-position: 50% 12%;
   }
 
-  /* Landscape: the figure stands right-of-centre (x 60–86%), so the light —
-     and the type — come from the left. */
+  /* Landscape: the figure stands right-of-centre (x 49–86%), so the light —
+     and the type — come from the left, and the scrim is spent before the
+     elbow: the body reads as wet skin, never as a hazed cutout. */
   .hero__scrim {
     position: absolute;
     inset: 0;
@@ -121,10 +127,10 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
     pointer-events: none;
     background: linear-gradient(
       to right,
-      color-mix(in srgb, var(--steam-white) 88%, transparent) 0%,
-      color-mix(in srgb, var(--steam-white) 62%, transparent) 34%,
-      color-mix(in srgb, var(--steam-white) 18%, transparent) 52%,
-      transparent 66%
+      color-mix(in srgb, var(--steam-white) 86%, transparent) 0%,
+      color-mix(in srgb, var(--steam-white) 58%, transparent) 28%,
+      color-mix(in srgb, var(--steam-white) 14%, transparent) 42%,
+      transparent 50%
     );
   }
 
@@ -135,7 +141,7 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
     pointer-events: none;
     background-image:
       radial-gradient(44% 34% at 16% 24%, color-mix(in srgb, var(--lather-white) 60%, transparent), transparent 70%),
-      radial-gradient(50% 38% at 82% 88%, color-mix(in srgb, var(--lather-white) 40%, transparent), transparent 72%);
+      radial-gradient(46% 34% at 88% 92%, color-mix(in srgb, var(--lather-white) 32%, transparent), transparent 72%);
     filter: blur(12px);
     animation: hero-drift 46s ease-in-out infinite alternate;
     will-change: transform;
@@ -171,13 +177,13 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
   }
 
   /* Landscape composition: type owns the LEFT column; the subject zone
-     (x 60–86% of the art) stays clear. */
+     (x 49–86% of the art) stays clear. */
   .hero__inner {
     position: relative;
     z-index: 3;
     align-self: center;
     justify-self: start;
-    width: min(56vw, 46rem);
+    width: min(47vw, 42rem);
     padding: clamp(2rem, 6vh, 5rem) clamp(1.25rem, 5vw, 4.5rem);
     display: flex;
     flex-direction: column;
@@ -259,29 +265,37 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
     50% { transform: translateY(4px); }
   }
 
-  /* Portrait composition: the figure fills the centre-bottom of the art
-     (x 28–72%, y 47–94%), so the type owns the TOP band, centred, and the
-     scrim falls from above instead of from the left. */
+  /* Portrait composition: the face is top-centre of the crop and the white
+     towel fills the bottom, so the type owns the BOTTOM band, centred, and
+     the scrim rises from below instead of from the left. The face is never
+     under type or haze. */
   @media (orientation: portrait) {
+    .hero__art img {
+      object-position: 50% 0%;
+    }
     .hero__scrim {
       background: linear-gradient(
-        to bottom,
-        color-mix(in srgb, var(--steam-white) 90%, transparent) 0%,
-        color-mix(in srgb, var(--steam-white) 66%, transparent) 26%,
-        color-mix(in srgb, var(--steam-white) 20%, transparent) 40%,
-        transparent 52%
+        to top,
+        color-mix(in srgb, var(--steam-white) 92%, transparent) 0%,
+        color-mix(in srgb, var(--steam-white) 74%, transparent) 30%,
+        color-mix(in srgb, var(--steam-white) 30%, transparent) 46%,
+        transparent 58%
       );
     }
     .hero__inner {
-      align-self: start;
+      align-self: end;
       justify-self: center;
       width: 100%;
       max-width: none;
       align-items: center;
       text-align: center;
-      padding-top: clamp(1.5rem, 4svh, 3rem);
-      /* Reserve the lower ~55svh for the figure — live type stays clear. */
-      padding-bottom: 55svh;
+      /* Reserve the upper ~38svh for the face and torso — live type stays
+         clear, and the scroll cue still lands inside the first viewport. */
+      padding-top: 38svh;
+      /* The monumental masthead stands taller than --masthead-h, so the
+         section overruns the first viewport by that difference; this keeps
+         the scroll cue above the fold. */
+      padding-bottom: clamp(4rem, 10svh, 6rem);
     }
     .hero__mark {
       font-size: clamp(3.75rem, 19vw, 9rem);
