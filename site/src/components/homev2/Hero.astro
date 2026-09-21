@@ -97,7 +97,10 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    min-height: calc(100svh - var(--masthead-h));
+    /* Owner direction 2026-09-21: the hero ships WHOLE. The section takes
+       the file's own 16:9 aspect instead of the viewport height, so no
+       width ever crops the composition. */
+    aspect-ratio: 16 / 9;
     display: grid;
     background-color: var(--steam-white);
     color: var(--grout-black);
@@ -111,10 +114,8 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
   .hero__art img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    /* The head sits near the top of the frame: on wider-than-16:9 viewports
-       the cover crop comes off the towel, not the hairline. */
-    object-position: 50% 12%;
+    object-fit: contain;
+    object-position: 50% 0%;
   }
 
   /* Landscape: the figure stands right-of-centre (x 49–86%), so the light —
@@ -274,6 +275,10 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
      the scrim rises from below instead of from the left. The face is never
      under type or haze. */
   @media (orientation: portrait) {
+    .hero {
+      aspect-ratio: auto;
+      min-height: calc(100svh - var(--masthead-h));
+    }
     /* Owner direction 2026-09-19: the portrait composition ships whole. No
        cover-crop on taller phones; the file sits at the top of the section
        and the type takes the open band beneath it. */
