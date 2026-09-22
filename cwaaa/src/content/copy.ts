@@ -308,12 +308,12 @@ export const notFound = {
  * record; the index maps only the public ones; pagination walks the whole
  * sequence. That divergence IS the mechanic (canon 1) — do not "fix" it.
  *
- * First-person testimony from the five approved men is untouched. Brayden's
- * testimony is owner-authored and ratified 2026-09-15, preserved verbatim;
- * "nothing follows the last line" is enforced by the template. RC-031/039/047/058
- * have approved quotes but no authored referral block, chronology or outcome yet
- * — those are Vivian rounds and a builder must not invent them (brief 8), so
- * those sections are simply absent on their records.
+ * Brayden's testimony is owner-authored and ratified 2026-09-15, preserved
+ * verbatim; "nothing follows the last line" is enforced by the template.
+ * RC-031/039/047/058 records are ratified 2026-09-22 from
+ * docs/copy/proposals-2026-09-18-four-records-r3.md (evidence:
+ * docs/copy/reader-evidence-2026-09-22-four-records-r3.md). Transfer only;
+ * no line edits during implementation.
  */
 export const recoveryStories = {
   meta: {
@@ -418,19 +418,57 @@ export const recoveryStories = {
     {
       id: 'RC-031',
       slug: 'chad',
-      open: false,
+      open: true,
       public: true,
-      name: 'Chad (yes, really), 29',
+      /** Owner-ratified 2026-09-22: `(yes, really)` leaves CWAAA's name field. */
+      name: 'Chad, 29',
       indexQuote:
         '“Honestly? I’m hot. I never thought hygiene mattered — I could pull regardless. What I couldn’t figure out was why nobody came back for round two. Then every girl on my feed started posting this Got Soap? thing like scripture, so I clicked to see what the fuss was. Took the quiz to prove I’d ace it. I did not ace it. I’d been coasting on face alone. Vanity got me in the door. Soap kept me there.”',
       image: {
         spec: 'Gym mirror selfie, shirt lifted, phone covering half his face. Submitted by the participant. He sent four; this was the one he wanted used.',
       },
+      /** Copy authority: docs/copy/proposals-2026-09-18-four-records-r3.md, ratified 2026-09-22. */
+      referral: [
+        { label: 'Reporting party', value: 'Participant' },
+        { label: 'Referral occasioned by', value: 'Field Assessment CW-7, completed voluntarily' },
+        { label: 'Participant’s stated reason for contact', value: '“To confirm I didn’t need this.”' },
+        { label: 'Stated basis for exemption', value: 'Appearance' },
+        { label: 'Reported concern', value: 'None reported by participant' },
+      ],
+      /** The voided field (ratified 2026-09-15): the absence is stated in the
+       *  coalition's own notation, on the noPhoto pattern. He is the reporting party. */
+      statements: [
+        {
+          heading: 'Reporting party statement · none on file',
+          body: 'The participant is the reporting party. This record has no second party.',
+        },
+      ],
+      testimony: [
+        '“Twenty-two women came home with me in two years. I know the number because I kept it. None of them came back, and I did not keep that one.',
+        'The face has been doing the work since I was fifteen, so I never looked past it. When the texts stopped after the first night I decided that was me being a lot. Intense. Too much personality for most people. I was comfortable in that read for two years.',
+        'Here is what I actually changed. Soap. Shower after the gym instead of just changing out of the shirt. Washed my sheets, which had not been washed by me personally. That’s it. That’s the entire list.',
+        'Round two happened. Then round three. Same face, same material, same apartment. One variable.',
+        'I’m not going to stand here and be humble about it. I’m hotter now.',
+        'What I don’t accept is the score. I asked if I could retake it. They said the score stands. I told them I’d ask again in thirty days and they wrote that down too.”',
+      ],
+      chronology: [
+        { label: 'Initial contact', value: 'Participant requested review of his result' },
+        { label: 'Review completed', value: 'Score unchanged' },
+        { label: 'Participant response', value: 'Materials accepted. Asked whether the assessment could be retaken.' },
+        { label: 'Follow-up', value: '30 days. Daily cleansing reported and maintained. Participant again asked whether the assessment could be retaken.' },
+      ],
+      close: [
+        { label: 'Intervention provided', value: 'Baseline materials' },
+        { label: 'Follow-up interval', value: '30 days' },
+        { label: 'Current status', value: 'Maintaining baseline' },
+        { label: 'Outcome', value: 'Lathers competitively' },
+        { label: 'Case status', value: 'Closed' },
+      ],
     },
     {
       id: 'RC-039',
       slug: 'marcus',
-      open: false,
+      open: true,
       public: true,
       name: 'Marcus, 34',
       indexQuote:
@@ -438,11 +476,49 @@ export const recoveryStories = {
       image: {
         spec: 'Cropped from a wedding photo — suit, half a stranger’s shoulder still in frame. Submitted by the participant as the most recent picture of himself he had.',
       },
+      /** Copy authority: docs/copy/proposals-2026-09-18-four-records-r3.md, ratified 2026-09-22. */
+      referral: [
+        { label: 'Reporting party', value: 'Colleague. Anonymity requested and granted.' },
+        { label: 'Participant’s stated position', value: '“It’s a ninety-dollar bottle.”' },
+        { label: 'Reported fragrance application', value: 'Multiple daily' },
+        { label: 'Reported cleansing agent on hand', value: 'None' },
+      ],
+      statements: [
+        {
+          heading: 'Reporting party — statement on file',
+          body: '“I want to be clear that he is good at his job and that this is the only thing.\n\nI have watched people volunteer for a worse desk. Nobody said why. Nobody ever says why. What people do instead is stop standing near you, and you can go years without anyone telling you that’s what’s happening.\n\nI’ve been in an elevator with him. You learn how to breathe through your mouth without making a face about it, and then one day you notice you’ve gotten good at it. That is a horrible thing to be good at.\n\nI sent it without my name on it because he would have been kind about it, and I couldn’t have taken that.”',
+        },
+      ],
+      testimony: [
+        '“I did the arithmetic.',
+        'Two sprays on the way out the door. Two more after lunch. Three if it had been a long one. I thought of that as reapplying. I was not reapplying anything. There was nothing underneath it to reapply over.',
+        'Nobody told me. For years. I wasn’t looking for a signal, because as far as I was concerned I had already paid for the problem. Ninety dollars a bottle. You do not pay ninety dollars for a problem you still have.',
+        'Then a page turns up in my inbox from a sender I still cannot identify. Fragrance is not a cleansing event. There was a figure under it. I wrote to the coalition to ask where the figure came from, because if I was going to lose this I wanted to lose it to a source.',
+        'They sent me the source. I read it twice. I did not have a second position.',
+        'So: soap. A shower with soap in it, every morning, which I now understand is what everyone else had been quietly doing this entire time without needing a document about it.',
+        'I still wear the cologne. It is a very good cologne. It was never the problem. The problem was what it was on.',
+        'I still don’t know what I smelled like. Nobody has told me and I have stopped asking.',
+        'The desk next to mine has somebody in it again. Nobody announced that either.”',
+      ],
+      /** `Materials provided — Finding 26-01` is owner-ratified (surface brief §4 amendment). Do not prose it out. */
+      chronology: [
+        { label: 'Initial contact', value: 'Participant wrote to the coalition disputing a figure cited in materials he had received. Colleague referral already on file.' },
+        { label: 'Materials provided', value: 'Finding 26-01' },
+        { label: 'Participant response', value: 'Position withdrawn same day' },
+        { label: 'Follow-up', value: '60 days. Daily cleansing reported and maintained.' },
+      ],
+      close: [
+        { label: 'Intervention provided', value: 'Coalition materials' },
+        { label: 'Follow-up interval', value: '60 days' },
+        { label: 'Current status', value: 'Maintaining baseline' },
+        { label: 'Outcome', value: 'Lathers accordingly' },
+        { label: 'Case status', value: 'Closed' },
+      ],
     },
     {
       id: 'RC-047',
       slug: 'gary',
-      open: false,
+      open: true,
       public: true,
       name: 'Gary, 46',
       indexQuote:
@@ -450,11 +526,47 @@ export const recoveryStories = {
       image: {
         spec: 'Standing in his own driveway beside the truck, arms crossed, squinting into afternoon sun. Taken by his daughter, who submitted it.',
       },
+      /** Copy authority: docs/copy/proposals-2026-09-18-four-records-r3.md, ratified 2026-09-22.
+       *  `again` and both flagged lines (“four theories”, “I am not his mother”) are ratified 2026-09-15. */
+      referral: [
+        { label: 'Reporting party', value: 'Adult daughter of participant' },
+        { label: 'Reported concern', value: 'Garage and vehicle odor, untreated' },
+        { label: 'Prior household intervention', value: 'One conversation' },
+        { label: 'Participant’s account of onset', value: '“Sometime after the divorce.”' },
+        { label: 'Participant acknowledgment', value: 'Immediate' },
+      ],
+      statements: [
+        {
+          heading: 'Reporting party — statement on file',
+          body: '“I let it go for about a year, because I figured he was allowed a bad year.\n\nThen he told me he was back on the apps, and I sat in my car doing the math on what that meant for some woman I have never met, and I decided I’d rather be the one.\n\nHe didn’t get defensive. He got quiet, which was worse. He said ‘is it that bad,’ and I said yes, and he went and took a shower while I was still standing in his kitchen.\n\nI want it on the record that I am not his mother. I filed this so it would be somebody’s job other than mine.”',
+        },
+      ],
+      testimony: [
+        '“I didn’t decide anything. That’s the part I keep going back over. Nobody sits down and decides to stop.',
+        'The marriage ended and I got very good at being alone in a house, and somewhere in there I quit doing the parts that were for somebody else. Shower after work, some days. Some days I’d sit down when I got in and that was the day. Same shirt off the back of the chair in the morning. I wasn’t filthy. Nobody was checking.',
+        'Then I put myself on the apps, which at forty-six is its own experience, and I could not work out why it went quiet every time after the first one. I had about four theories and all of them were about her.',
+        'My daughter fixed it in four seconds, and she did not enjoy doing it. She shouldn’t have had to be the one.',
+        'The program is not complicated. I shower every day. Clean shirt comes out of a drawer instead of off a chair. Truck clothes get washed separate from everything else. It took me about a week to stop feeling like I was getting dressed up for nobody.',
+        'Three dates this month. One of them twice.',
+        'She asks me who I’m seeing now. She never used to ask me anything.”',
+      ],
+      chronology: [
+        { label: 'Participant response', value: 'Assessment completed during intake. No dispute recorded.' },
+        { label: 'Participant response', value: 'Routine revised same day' },
+        { label: 'Follow-up', value: '90 days. Daily cleansing reported and maintained. Participant reports resumed dating activity.' },
+      ],
+      close: [
+        { label: 'Intervention provided', value: 'Baseline materials' },
+        { label: 'Follow-up interval', value: '90 days' },
+        { label: 'Current status', value: 'Maintaining baseline' },
+        { label: 'Outcome', value: 'Lathers again' },
+        { label: 'Case status', value: 'Closed' },
+      ],
     },
     {
       id: 'RC-058',
       slug: 'kaelthas',
-      open: false,
+      open: true,
       public: true,
       name: '“Kaelthas,” 22',
       indexQuote:
@@ -462,6 +574,46 @@ export const recoveryStories = {
       image: {
         spec: 'In the gaming chair, headset around his neck, RGB behind him, shoulders-up exactly as he describes. Submitted by the participant from his stream.',
       },
+      /** Copy authority: docs/copy/proposals-2026-09-18-four-records-r3.md, ratified 2026-09-22.
+       *  Owner choice: CWAAA reached him mid-cleanup; the 14-day lapse is ordinary and earns `regardless`. */
+      referral: [
+        { label: 'Reporting party', value: 'Viewer' },
+        { label: 'Reporting party’s relationship to participant', value: 'Audience' },
+        { label: 'Referral occasioned by', value: 'A question the participant asked on his own broadcast' },
+        { label: 'Reported cleansing frequency', value: 'Tied to in-person plans' },
+        { label: 'Reported ventilation', value: 'None' },
+        { label: 'Participant’s description of primary living space', value: '“Warm.”' },
+      ],
+      statements: [
+        {
+          heading: 'Reporting party — statement on file',
+          body: '“He asked chat what his room smelled like. Out loud, on stream, as a joke. Then he laughed and moved on, and I don’t think he understood that eleven hundred people had just been told something.\n\nI’ve watched him for two years.\n\nSo I filled out the form while he was still live. I’m not sorry. He’d have done it to me.”',
+        },
+      ],
+      testimony: [
+        '“The window in that room had not been opened since I moved in. Not once, not in summer. If you’d asked me I’d have said that was a heating thing. There was also a hoodie that had achieved a shape.',
+        'The rule came before any of it. If nothing happens below the shoulders, then nothing below the shoulders is a problem. I had thought about it. I wasn’t being lazy.',
+        'Four hours is not a lot of time. I did not sit down.',
+        'Shower. Window. The hoodie went in the machine and came out a different color, which I am still processing. Sheets. Two bags of garbage I’m not going to itemize. Somewhere in the middle of that the coalition messaged me and I said yes to everything they sent because I was holding a bag.',
+        'She got there and the first thing she did was open the other window. I didn’t know it opened.',
+        'The week after, nobody was coming, and I skipped it. Two days. Then I stood in the door of the room and it was warm again, the way it used to be, and I hadn’t known I’d stopped liking that.',
+        'I shower now on days when nobody is coming over. The window’s open right now.”',
+      ],
+      chronology: [
+        { label: 'Initial outreach', value: 'Participant contacted by direct message through his broadcast account. Response received in eleven minutes.' },
+        { label: 'Reported interval to in-person meeting', value: 'Under four hours' },
+        { label: 'Participant status at contact', value: 'Cleansing already in progress' },
+        { label: 'Materials provided', value: 'Standard cleansing guidance. Ventilation discussed.' },
+        { label: 'Follow-up', value: '14 days. Participant reports routine lapsed two days in a week without scheduled contact. Resumed.' },
+        { label: 'Follow-up', value: '45 days. Daily cleansing reported and maintained, including on days without scheduled contact.' },
+      ],
+      close: [
+        { label: 'Intervention provided', value: 'Baseline materials' },
+        { label: 'Follow-up interval', value: '45 days' },
+        { label: 'Current status', value: 'Maintaining baseline' },
+        { label: 'Outcome', value: 'Lathers regardless' },
+        { label: 'Case status', value: 'Closed' },
+      ],
     },
     {
       /**
@@ -835,3 +987,321 @@ export const pledge = {
     ],
   },
 } as const;
+
+/* ============================================================================
+   The legal four — /privacy, /terms, /dmca, /accessibility.
+
+   Brief: .impeccable/surfaces/cwaaa-src-pages-privacy-astro.md (confirmed
+   2026-09-22). Four routes, one surface class: the coalition's published
+   documents, rendered by components/Document.astro.
+
+   REGISTER (owner decision 2026-09-22): CWAAA plain. The model is `pledge.
+   fulfillment` above — "two messages, then silence. CWAAA keeps records, not
+   secrets." Declarative sentences, facts stated flatly and completely, at most
+   one dry aside per page. No legalese padding, no "we value your privacy", no
+   defined-terms preamble.
+
+   TRUTHFUL, AND VERIFIED (2026-09-17, re-checked 2026-09-22 against
+   src/config/site.ts and docs/contracts/pledge.v1.json). Every data claim below
+   was read out of the code, not assumed: no cookies, no localStorage,
+   sessionStorage or IndexedDB anywhere in src/; analytics is cookieless
+   GoatCounter behind PUBLIC_GOATCOUNTER_CODE; email reaches Buttondown only
+   from the pledge, carrying `email` and `metadata__first_name`; fonts are
+   self-hosted under gate G19; the complete third-party list is gc.zgo.at and
+   buttondown.com. Do not soften, pad, or hedge these, and do not describe a
+   protection this site does not implement. In particular: THERE IS NO COOKIE
+   BANNER, because there is nothing to consent to, and adding one would render a
+   false statement as a component.
+
+   PENDING FACTS are typed, never written as prose that looks settled. A
+   `{ pending }` segment renders as a visible bracketed marker carrying
+   data-pending, and the launch check fails while any remain. Four are open:
+   the designated agent's name, mailing address and email; governing law; and
+   the contact address. Owner decision 2026-09-22 settled the fifth: the
+   operator is Hope2 Studio, with Stacey M. Breckel where a name is statutory.
+
+   NO FICTION DISCLOSURE. The words satire, parody, fiction, spec work,
+   portfolio and campaign do not appear on these four routes; disclosure lives
+   behind the creator/About seam (HANDOFF §Legal navigation and disclosure).
+   Naming the operator is the PRD's "truthful and legally prudent" case, not
+   audience-facing disclosure. No Office language of any kind.
+
+   DRAFT — every string here awaits the Vivian lane and a blind-reader pass
+   (../../gotsoap/docs/copy/COPY-PROTOCOL.md) before it is called approved.
+   ========================================================================== */
+
+/** A fact only the owner can supply. Renders as a visible marker, never invented. */
+export type LegalSegment = string | { readonly pending: string };
+/** Plain prose, or prose interrupted by pending facts. */
+export type LegalParagraph = string | readonly LegalSegment[];
+
+export interface LegalBlock {
+  /** Stable anchor. `/privacy#email` must keep working across copy revisions. */
+  readonly id: string;
+  /** The block label, set as the section's real heading. */
+  readonly label: string;
+  /** The scan block. Privacy only: a second one anywhere is repeated-component drift. */
+  readonly record?: readonly { readonly label: string; readonly value: string }[];
+  readonly paragraphs?: readonly LegalParagraph[];
+  /** A tight stacked block: an address, not sentences. */
+  readonly lines?: readonly LegalParagraph[];
+  /** A real ordered list, for requirements a reader checks off. */
+  readonly list?: readonly LegalParagraph[];
+  readonly note?: LegalParagraph;
+}
+
+export interface LegalDoc {
+  readonly meta: { readonly title: string; readonly description: string };
+  readonly title: string;
+  readonly lead: string;
+  readonly blocks: readonly LegalBlock[];
+}
+
+export const legalPages = {
+  privacy: {
+    meta: {
+      title: 'Privacy — CWAAA',
+      description:
+        'What this site stores, what leaves it, and how long it is kept. The answer is short because the practice is small.',
+    },
+    title: 'Privacy',
+    lead:
+      'This site stores nothing in your browser and asks you for nothing unless you sign the pledge. If you sign it, two fields go to one provider, and two emails come back.',
+    blocks: [
+      {
+        id: 'browser',
+        label: 'What this site puts in your browser',
+        paragraphs: [
+          'Nothing. CWAAA sets no cookies and writes nothing to local storage, session storage, or an in-browser database. There is no identifier assigned to you, no preference saved between visits, and no record on your machine that you were here.',
+          'Which is why you were not asked to accept anything. A banner asks permission for something. There is no something.',
+        ],
+      },
+      {
+        id: 'email',
+        label: 'What leaves this site',
+        record: [
+          { label: 'Email address', value: 'Buttondown · kept until you withdraw' },
+          { label: 'First name', value: 'Buttondown · kept until you withdraw' },
+          { label: 'Page view', value: 'GoatCounter · no identifier kept' },
+        ],
+        paragraphs: [
+          'The pledge form sends two fields to Buttondown, the service that delivers the two emails: your email address, and your first name, which is how the receipt addresses you. Nothing else on the site sends anything anywhere.',
+          'CWAAA and the Got Soap? campaign share one audience at that provider. It is a single list, not two, and signing either form puts you on the same one.',
+          'The address is kept for as long as it takes to send the receipt and the one current issue, and to honour a withdrawal afterwards. Fulfilment details that are no longer needed are removed once the sequence is complete. If you withdraw, a suppression record stays behind, because the only reliable way to never write to you again is to remember not to.',
+        ],
+      },
+      {
+        id: 'analytics',
+        label: 'Counting visits',
+        paragraphs: [
+          'CWAAA counts page views with GoatCounter. It sets no cookie, assigns no identifier, and builds no profile. It records that a page was loaded, roughly what part of the world it was loaded from, and what linked to it. It cannot tell one visitor from another, and neither can CWAAA.',
+          'The counter runs only where it has been configured to. Where it has not, the script is never loaded and nothing is counted at all.',
+        ],
+      },
+      {
+        id: 'third-parties',
+        label: 'Who else sees you',
+        paragraphs: [
+          'Two services, both conditional, and this is the complete list. GoatCounter, at gc.zgo.at, when the counter is switched on. Buttondown, at buttondown.com, at the moment you file the pledge and not one page before.',
+          'The fonts are served from this site rather than from a font host, so no type foundry or search company learns that you read this page. There is no advertising network, no tag manager, no embedded video, no social widget, and no tracking pixel.',
+        ],
+      },
+      {
+        id: 'never',
+        label: 'What CWAAA does not do',
+        paragraphs: [
+          'There are no accounts and no profiles. CWAAA does not treat your address as an identity, does not fingerprint your browser, does not recognise a returning visitor, and holds nothing that follows you from one device to another.',
+          'The address is not sold, not rented, and not handed to a partner. There is no partner.',
+          'Pledge entries and email addresses never reach the counter, the logs, a screenshot, or a test report. That is a standing rule of how the site is built, not a promise invented for this page.',
+        ],
+      },
+      {
+        id: 'asking',
+        label: 'Asking, withdrawing, and where to write',
+        paragraphs: [
+          'Ask what CWAAA holds about you and you will be told. Ask for it to be removed and it will be, apart from the suppression record, which exists so the removal holds. Withdraw before the current issue goes out and it is not sent. None of this needs a form, a reason, or an account.',
+          'This site is operated by Hope2 Studio, which is accountable for what is described on this page.',
+          ['Write to ', { pending: 'contact address' }, '.'],
+        ],
+      },
+    ],
+  },
+
+  terms: {
+    meta: {
+      title: 'Terms — CWAAA',
+      description:
+        'Who operates this site, what you may do with it, and the short list of things it does not offer.',
+    },
+    title: 'Terms',
+    lead:
+      'This site is a place to read. There is nothing to buy, no account to open, and nothing a visitor can publish here, so most of what a terms page usually governs does not exist.',
+    blocks: [
+      {
+        id: 'operator',
+        label: 'Who runs this site',
+        paragraphs: [
+          'This site is operated by Hope2 Studio.',
+          ['Questions about these terms go to ', { pending: 'contact address' }, '.'],
+        ],
+      },
+      {
+        id: 'use',
+        label: 'What you may do with it',
+        paragraphs: [
+          'Read it. Link to it. Send the pledge link to whoever you think should see it, which is what it is for. Quote a Finding or a passage, with attribution to CWAAA.',
+          'What is not offered: republishing a page as your own work, using the coalition’s name, seal, or ribbon in a way that suggests CWAAA endorses you or what you sell, or harvesting the site wholesale to stock or train something else.',
+        ],
+      },
+      {
+        id: 'absent',
+        label: 'What is not here',
+        paragraphs: [
+          'No accounts. No purchases. No subscriptions. No comments, uploads, or any other way for a visitor to put something on this site.',
+          'The pledge form is the only thing here that accepts input, and it accepts three: a first name, an email address, and a checkbox. Nothing you enter is displayed publicly. The roll is not a published list.',
+        ],
+      },
+      {
+        id: 'work',
+        label: 'Whose work this is',
+        paragraphs: [
+          'The text, photography, seal, and design of this site belong to Hope2 Studio, except where a licence says otherwise. Assets licensed from Freepik remain under that licence and keep their attribution.',
+          'The people in the photographs are generated. No one pictured here exists, and no one pictured here agreed to anything.',
+          'If you believe something here is yours, the DMCA page has the path.',
+        ],
+      },
+      {
+        id: 'asis',
+        label: 'No warranty',
+        paragraphs: [
+          'The site is published as it stands. Hope2 Studio does not warrant that it will be available, uninterrupted, or free of error, and is not liable for loss arising from its use or from a link that leads somewhere else. Where local law does not permit a limitation like that, it does not apply to you.',
+        ],
+      },
+      {
+        id: 'changes',
+        label: 'Changes',
+        paragraphs: [
+          'These terms can change. The version on this page is the one in force, and there is no archive of earlier ones.',
+        ],
+      },
+      {
+        id: 'law',
+        label: 'Governing law',
+        paragraphs: [
+          [
+            'These terms are governed by the law of ',
+            { pending: 'governing law and jurisdiction' },
+            ', and a dispute arising from them belongs to the courts there.',
+          ],
+        ],
+      },
+    ],
+  },
+
+  dmca: {
+    meta: {
+      title: 'DMCA — CWAAA',
+      description:
+        'How to tell the operator of this site that material published here is yours, and what a notice has to contain.',
+    },
+    title: 'DMCA',
+    lead:
+      'Nothing on this site was uploaded by a visitor, so this is not a safe-harbour page and there is no counter-notice procedure. It is the path for telling Hope2 Studio that something published here is yours.',
+    blocks: [
+      {
+        id: 'scope',
+        label: 'What this page covers',
+        paragraphs: [
+          'Everything on this site was made for it or licensed for it. The photographs of people are generated and depict no one. Assets licensed from Freepik remain under that licence and carry their attribution.',
+          'If you hold rights in material published here and believe it is used without permission, write to the agent below. A complete notice is reviewed, and material that turns out to be improperly used comes down.',
+        ],
+      },
+      {
+        id: 'notice',
+        label: 'What a notice has to contain',
+        paragraphs: ['A notice that is missing any of these cannot be acted on:'],
+        list: [
+          'Your signature, physical or electronic.',
+          'Identification of the work you say is infringed.',
+          'The address of the page on this site where it appears, specific enough to find it without searching.',
+          'How to reach you: name, mailing address, telephone number, and email address.',
+          'A statement that you believe in good faith the use is not authorised by you, your agent, or the law.',
+          'A statement that the information in your notice is accurate and, under penalty of perjury, that you are the owner of the right or authorised to act for them.',
+        ],
+        note:
+          'That last line is not a formality. A notice is a sworn statement, and sending one about material that is not yours means swearing to something untrue.',
+      },
+      {
+        id: 'agent',
+        label: 'Designated agent',
+        paragraphs: ['Send a notice to the designated agent for Hope2 Studio:'],
+        lines: [
+          [{ pending: 'designated agent — name' }],
+          [{ pending: 'designated agent — mailing address' }],
+          [{ pending: 'designated agent — email address' }],
+        ],
+      },
+      {
+        id: 'after',
+        label: 'What happens next',
+        paragraphs: [
+          'A complete notice is acted on promptly. The material is removed or replaced, and you are told which.',
+          'Because nothing here is posted by a visitor, there is no account to suspend and no repeat-infringer policy to publish. If that changes, this page changes with it.',
+        ],
+      },
+    ],
+  },
+
+  accessibility: {
+    meta: {
+      title: 'Accessibility — CWAAA',
+      description:
+        'The standard this site is built to, what has actually been checked, where the gaps are, and how to report a barrier.',
+    },
+    title: 'Accessibility',
+    lead:
+      'CWAAA builds this site to WCAG 2.2 Level AA. No independent audit has been run against it, so that is a target this page is accountable to, not a conformance claim.',
+    blocks: [
+      {
+        id: 'target',
+        label: 'The standard, and the claim',
+        paragraphs: [
+          'The target is WCAG 2.2 Level AA. CWAAA has not commissioned an independent audit and does not claim conformance to it.',
+          'What follows is what has actually been built and checked, and where the gaps are known to be. Both halves matter: a page that lists only the first half is advertising.',
+        ],
+      },
+      {
+        id: 'built',
+        label: 'What is built',
+        list: [
+          'Every page opens with a skip link, and the content sits inside named landmarks with headings in order.',
+          'Everything works from the keyboard, the pledge form included, and the focus outline is always visible.',
+          'The site works without JavaScript. Nothing you need to read depends on a script running.',
+          'Motion is one settle as content comes into view, and it is switched off entirely when your system asks for reduced motion.',
+          'Colour never carries meaning on its own. Form errors sit beside the field they belong to and say what to change.',
+          'Text is live text, not pictures of text, and the reading columns hold together at 200% zoom without sideways scrolling.',
+          'Controls are at least 44 by 44 pixels.',
+          'The seal and every photograph that carries meaning have text alternatives. Marks that are decoration are hidden from screen readers rather than described.',
+          'Wide records recompose into labelled blocks on small screens instead of becoming a sideways-scrolling table.',
+        ],
+      },
+      {
+        id: 'gaps',
+        label: 'Known gaps',
+        paragraphs: [
+          'No independent audit has been run. No testing has been done with people who use assistive technology daily, which is the test that finds what the others miss.',
+          'The site has been checked with automated tooling and by keyboard. That catches a great deal and it does not catch everything, so the list above is what CWAAA believes to be true rather than what anyone has certified.',
+        ],
+      },
+      {
+        id: 'report',
+        label: 'Reporting a barrier',
+        paragraphs: [
+          'If something here does not work for you, say so and it will be fixed. Tell CWAAA which page you were on, what you were trying to do, and what happened instead. If you know what you were reading the site with, say that too, because it shortens the search.',
+          ['Write to ', { pending: 'contact address' }, '.'],
+        ],
+        note: 'There is no form to fill in and no ticket number to keep.',
+      },
+    ],
+  },
+} as const satisfies Record<string, LegalDoc>;
