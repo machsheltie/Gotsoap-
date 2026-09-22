@@ -144,7 +144,7 @@ The Got Soap? release depends on verified CWAAA replacement and shared pledge fu
 | CW-L04 | Ongoing newsletter, donations, real chapter operations, accounts or CMS | Separate product and operational approval; new contract/consent where required; never silently extend Form CW-1 |
 | CW-L05 | Future identity/certificate recuts | Owner-approved identity change; current PT Serif artifact role stays until replaced deliberately |
 | CW-L06 | **Record 7 — the record past Billy Bob** | Billy Bob ships without a Next. Canon requires he keep one; it is missing because record 7 is unwritten, **not** because the archive ends at him. Past this point the records get less CWAAA and more Office until the CWAAA template stops rendering the page. Authored work (Vivian + Office package); never a stub, and never a Next pointing at a 404. Append to the sequence with `open: true`, `public: false` and the pager restores the link with no code change. Markers: `nextPending` in `src/content/copy.ts`, "Build status, 2026-09-15" in `docs/canon-billy-bob-and-the-archive-boundary.md` |
-| CW-L07 | Referral blocks, chronologies and outcome adverbs for RC-031/039/047/058 | Vivian rounds per `docs/copy/proposals-2026-09-15-recovery-record-fields.md` §3; each man gets his own adverb and it is never *unprompted* again. Until written, those four records stay `open: false` and their index entries are reading blocks, not links |
+CW-L07 left this table on 2026-09-22; see the decision record below.
 
 Close the launch handoff with a checklist of deferred IDs, next actions, and responsible owner. Do not present fictional chapter participation as a staffed real-world service without an explicit operating decision.
 
@@ -162,6 +162,42 @@ Close the launch handoff with a checklist of deferred IDs, next actions, and res
 | CW-G06 / CW-G07 | partly resolved | Share-master and default-preview visual formats locked; final pledge wording and final-size identity review remain | `GRAPHICS-TO-MAKE.md`, `docs/ui-system.md` §13 |
 | CW-D04 (Findings register) | resolved | Four entries, year 26: 26-01 = figure 73% with conclusion "Fragrance is not a cleansing event." (home statement merged with runtime 26-04); 26-02/03/04 carry runtime 26-01/02/05; runtime 26-03 dropped (unsupported 1983 date). Home Finding takes label 26-01. No Office citation on `/findings`. Recovery Stories roster RESOLVED 2026-09-15 | `docs/ui-system.md` §13, `.impeccable/surfaces/cwaaa-src-pages-findings-astro.md` |
 | CW-D04 (Recovery Stories roster) | resolved | Five approved participants, carried from the combined runtime's `crisis.caseFiles.files`: RC-022 Brayden, RC-031 Chad, RC-039 Marcus, RC-047 Gary, RC-058 "Kaelthas". RC-014/052/063/071 stay dead. Testimony ships byte-for-byte; the Got Soap? verdict lines do NOT transfer (design.md §5 forbids telling a story through an institutional verdict) and are replaced by participant-owned believed/cost/changed. `/recovery-stories` and `/recovery-stories/[id]` shipped to the confirmed surface brief: six records in one sequence, Billy Bob unindexed behind the pagination boundary. Brayden’s record is complete (referral, corroboration, both statements, owner-authored testimony, fielded close). RC-031/039/047/058 carry their approved quote and photograph slot only — referral blocks, chronologies and outcome adverbs are outstanding Vivian rounds and were NOT invented | `src/content/copy.ts`, `src/pages/recovery-stories.astro`, `src/pages/recovery-stories/[id].astro` |
+
+## Decision record — 2026-09-22
+
+| ID | Status | Decision | Recorded in |
+|---|---|---|---|
+| CW-L07 (record fields) | resolved | Referral blocks, chronologies and outcome adverbs written for RC-031/039/047/058 and ratified at revision 3. Each man carries his own adverb; *unprompted* is not reused. All four are `open: true` in `src/content/copy.ts` and their index entries are links, not reading blocks. Supersedes the 2026-09-14 CW-D04 note that those four carry "approved quote and photograph slot only" | `src/content/copy.ts`, `docs/copy/proposals-2026-09-18-four-records-r3.md`, `docs/copy/reader-evidence-2026-09-22-four-records-r3.md` |
+| CW-D07 (legal destinations) | partly resolved | The legal four ship. `/privacy`, `/terms`, `/dmca` and `/accessibility` are built to the confirmed surface brief: one shared `Document.astro` reading shell, `legalPages` in `src/content/copy.ts`, every data statement verified against the code rather than templated. The operator is **Hope2 Studio**, with **Stacey M. Breckel** where a name is statutory (owner decision 2026-09-22). Four owner facts remain and are rendered as visible `[pending: …]` markers, never invented — see the launch blockers below. The page-shell exception in `docs/DESIGN-SYSTEM.md` is amended to cover reading surfaces generally rather than one route | `.impeccable/surfaces/cwaaa-src-pages-privacy-astro.md`, `src/components/Document.astro`, `src/content/copy.ts`, `docs/DESIGN-SYSTEM.md` |
+
+### Launch blockers — owner facts for the legal four
+
+`npm run launch-check` counts these from the built site and stays red until they are all supplied.
+It is not wired into `npm run build`: a red launch gate must not stop ordinary work. Inventing any
+of them would be worse than shipping three pages, so each renders as a visible marker instead.
+
+| Fact | Needed by | Why it cannot be inferred |
+|---|---|---|
+| Designated agent — name | `/dmca` | Statutory. Likely Stacey M. Breckel, but the owner confirms it rather than an agent assuming it |
+| Designated agent — mailing address | `/dmca` | Statutory, and a physical address. There is no plausible placeholder |
+| Designated agent — email address | `/dmca` | Statutory |
+| Governing law and jurisdiction | `/terms` | Depends on where the owner is established, which is not recorded anywhere in this repository |
+| Contact address | `/privacy`, `/terms`, `/accessibility` | One address may serve all three; the owner says whether it does |
+
+One further owner call is open and is **not** blocking, because a defensible default exists:
+whether GDPR/CCPA-specific language is wanted. In its absence the pages carry no
+jurisdiction-specific section and one true, jurisdiction-agnostic sentence in Privacy — ask, and
+CWAAA will say what it holds and remove it — which the retention contract already supports.
+
+Three internal links remain dead and all three come from the shared navigation and footer, so every
+page inherits them rather than any one route introducing a bad link: `/tie-one-on` (CW-G03 cloth
+photography), `/chapters` (CW-G05–G08), and `/about` (the CW-D04 roster and the owner's
+creator-seam call). The legal four add none of their own and deliberately do not link to About.
+| CW-G04 (Recovery Stories set) | partly shipped | Home (Brayden) and Billy Bob shipped. Four participant photographs — Chad, Marcus, Gary, "Kaelthas" — remain owner production, specced and slotted. Until they land, those four records render the `noPhoto` notation. Not a copy round; nothing to write | `GRAPHICS-TO-MAKE.md` § CW-G04, `.impeccable/surfaces/cwaaa-src-pages-recovery-stories-astro.md` §6 |
+
+Blind readers confirmed the `Photograph on file · not reproduced` notation reads as institutionally
+correct (Priya) and as unsettling by the third repetition (Dylan). That is the repetition, not the
+line; it resolves when the four portraits ship, and the line is not to be rewritten to soften it.
 
 ## Handoff verification — 2026-09-07
 

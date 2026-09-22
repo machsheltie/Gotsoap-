@@ -428,14 +428,29 @@ coalition scale → one clear pledge action → one restrained Got Soap? relatio
 On narrow screens, recompose tables into labeled records rather than forcing horizontal dashboards,
 and preserve the authored hierarchy instead of turning every section into a stacked card.
 
-### The one page-shell exception
+### The page-shell exception: reading surfaces are centred columns
 
-`/recovery-stories/[id]` is the **only** route that is a measure-limited centered column
-(`max-width: 62rem`) rather than a run of full-bleed fields. That is correct and deliberate: an
-opened record is one continuous document a visitor reads top to bottom, and banding it into
-alternating fields would turn a man's record into a marketing page. **Do not "fix" it to match home,
-and do not copy it to a route that is a field composition.** It is the exception because it is a
-reading surface; nothing else on the site is.
+**Amended 2026-09-22** (the legal four; brief
+`.impeccable/surfaces/cwaaa-src-pages-privacy-astro.md`). This section used to name
+`/recovery-stories/[id]` as the **only** centred column. That had already stopped being true at
+`23a1827` (2026-09-18), which put the Recovery Stories index on the same `--cw-shell` so the two
+routes share a horizontal axis. The rule was never "one route". It is:
+
+> A **reading surface** — one continuous document the visitor reads top to bottom — is a
+> measure-limited centred column on `--cw-shell`. A **field composition** is a run of full-bleed
+> grounds. Which one a route is follows from what it holds, not from which page it was copied from.
+
+The centred columns are `/recovery-stories`, `/recovery-stories/[id]`, and the four legal documents
+`/privacy`, `/terms`, `/dmca` and `/accessibility`. Everything else — home, `/findings`, `/pledge`,
+`/tie-one-on`, `/chapters`, `/about` — is a field composition. **Do not "fix" a reading surface to
+match home, and do not copy the shell to a route that is a field composition.**
+
+Two things inside the shell are not shared, because the shell is 56rem for a reason the legal
+documents do not have. The opened record fills it with a 46ch testimony **plus** a 4.5rem label
+fracture, and it reserves that fracture in its own left padding. The legal documents have no
+fracture, so they centre their contents in the sheet at `--cw-measure` instead of pinning them
+left; a rule twice the width of the column it rules is the void the 2026-09-18 critique named, and
+it comes straight back the moment a fractureless document is left-aligned in a 56rem sheet.
 
 ### Named Rules
 

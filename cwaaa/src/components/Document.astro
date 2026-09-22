@@ -1,0 +1,239 @@
+---
+/**
+ * Document.astro — the shell for CWAAA's published documents: /privacy,
+ * /terms, /dmca and /accessibility. Brief: .impeccable/surfaces/
+ * cwaaa-src-pages-privacy-astro.md (confirmed 2026-09-22). Mode: Read.
+ *
+ * The grammar is the opened record's, minus its fracture. One continuous
+ * document on the centred --cw-shell, white reading ground on the ivory page:
+ * a .t-statement masthead, one .t-lead sentence carrying the whole answer, a
+ * .rule.ink closing the head, then .sec-label blocks separated by hairlines.
+ *
+ * WHY NO FRACTURE. The intruding label is the Recovery Record's one authored
+ * departure and it means "a man's file, read across". A privacy policy has no
+ * referral to fracture, so borrowing the gesture here would be decoration.
+ *
+ * WHY NO .marker. The two label tiers are the whole distinction (system.css):
+ * .marker opens a whole-ground FIELD, .sec-label opens a BLOCK inside one
+ * continuous reading surface. A row of dots would shatter one document into a
+ * stack of sections, which is exactly what these pages are not.
+ *
+ * WHAT STAYS OUT, and it is most of the site: no monumental face, no Modest,
+ * no photography, no reveal, no seal, no guilloche or rosette (the Pledge's
+ * licence is the Pledge's), no paper texture, no stamps, no form numbers. The
+ * visitor came for one fact and every word is on the page at first paint.
+ *
+ * NOT under-designed either. That is the Office's law, and an ordinary CWAAA
+ * surface may never wear the Office's voice. These read as considered as an
+ * opened record, and no more than that.
+ *
+ * The h2 IS the .sec-label and carries a stable id, so /privacy#email and
+ * /accessibility#report keep working across copy revisions.
+ */
+import type { LegalDoc, LegalParagraph, LegalSegment } from '../content/copy';
+
+interface Props {
+  doc: LegalDoc;
+}
+const { doc } = Astro.props;
+
+/** Plain prose and interrupted prose render the same way; only the source differs. */
+const parts = (p: LegalParagraph): readonly LegalSegment[] => (typeof p === 'string' ? [p] : p);
+const isPending = (s: LegalSegment): s is { readonly pending: string } => typeof s !== 'string';
+---
+
+<article class="doc">
+  <header class="masthead">
+    <h1 class="t-statement">{doc.title}</h1>
+    <p class="lead t-lead">{doc.lead}</p>
+  </header>
+  <div class="rule ink"></div>
+
+  {
+    doc.blocks.map((b, i) => (
+      <>
+        {i > 0 && <div class="rule"></div>}
+        <section class="block" aria-labelledby={b.id}>
+          <h2 id={b.id} class="sec-label t-ui-caps t-label">
+            {b.label}
+          </h2>
+
+          {/* The scan block, Privacy only: what leaves, where it goes, how long. */}
+          {b.record && (
+            <dl class="record">
+              {b.record.map((r) => (
+                <div>
+                  <dt class="t-ui-caps t-label">{r.label}</dt>
+                  <dd class="t-ui">{r.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
+          {b.paragraphs?.map((p) => (
+            <p class="para">
+              {parts(p).map((s) =>
+                isPending(s) ? (
+                  <span class="pending t-ui" data-pending={s.pending}>
+                    [pending: {s.pending}]
+                  </span>
+                ) : (
+                  s
+                ),
+              )}
+            </p>
+          ))}
+
+          {/* A stacked address, not sentences: tight leading, no paragraph rhythm. */}
+          {b.lines && (
+            <p class="lines">
+              {b.lines.map((l, j) => (
+                <>
+                  {j > 0 && <br />}
+                  {parts(l).map((s) =>
+                    isPending(s) ? (
+                      <span class="pending t-ui" data-pending={s.pending}>
+                        [pending: {s.pending}]
+                      </span>
+                    ) : (
+                      s
+                    ),
+                  )}
+                </>
+              ))}
+            </p>
+          )}
+
+          {/* A real list, because the reader is checking items off against a notice. */}
+          {b.list && (
+            <ul class="list">
+              {b.list.map((l) => (
+                <li>
+                  {parts(l).map((s) =>
+                    isPending(s) ? (
+                      <span class="pending t-ui" data-pending={s.pending}>
+                        [pending: {s.pending}]
+                      </span>
+                    ) : (
+                      s
+                    ),
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {b.note && (
+            <p class="note t-note">
+              {parts(b.note).map((s) =>
+                isPending(s) ? (
+                  <span class="pending t-ui" data-pending={s.pending}>
+                    [pending: {s.pending}]
+                  </span>
+                ) : (
+                  s
+                ),
+              )}
+            </p>
+          )}
+        </section>
+      </>
+    ))
+  }
+</article>
+
+<style>
+  /* The reading shell, and inside it the document column.
+
+     The sheet keeps --cw-shell so these pages share the Recovery Stories
+     horizontal axis and the site does not jump width between reading surfaces.
+     But the shell is 56rem BECAUSE the opened record fills it with a 46ch
+     testimony plus a 4.5rem label fracture (tokens.css). This document has no
+     fracture, so its contents are centred in the sheet at the reading measure
+     instead of being pinned to the left of it. Ruling a line twice the width
+     of the column it rules is the void the 2026-09-18 critique named on the
+     record route, and it recurs here the moment the column is left-aligned.
+
+     Everything the document owns — masthead, rules, blocks — sits on
+     --doc-col, so the rules frame the text they separate rather than
+     overhanging it. The white either side is a page margin, not a void. */
+  .doc {
+    --doc-col: var(--cw-measure);
+    background: var(--cw-white);
+    padding: var(--section) var(--gutter);
+    max-width: var(--cw-shell);
+    margin: 0 auto;
+  }
+  .doc > * { max-width: var(--doc-col); margin-inline: auto; }
+
+  .masthead { margin-bottom: var(--gap-m); }
+  /* The lead is the answer, not an introduction to one. The column already
+     holds it to the measure; releasing its own cap keeps one edge, not two. */
+  .lead { margin-top: var(--gap-s); max-width: none; color: var(--cw-black); }
+  /* 1.5px closes a reading surface. Heavy belongs to the monuments and never
+     appears here; the hairline separates the blocks below, and it needs room
+     on both sides or the label beneath it reads as the rule's caption. */
+  .rule.ink { margin-block: 0 var(--gap-l); }
+  .rule:not(.ink) { margin-block: var(--gap-l); }
+
+  .para { line-height: 1.6; color: var(--cw-black); }
+  .para + .para { margin-top: var(--gap-s); }
+
+  /* The scan block leads its section; the prose that explains it follows.
+     Two columns, not three: at the document measure a third column starves
+     each value to four wrapped lines. The row gap is set here because the
+     component assumes one row and ships none. */
+  .record { margin-bottom: var(--gap-m); --record-cols: 2; row-gap: 0.9rem; }
+
+  .lines { margin-top: var(--gap-s); line-height: 1.45; color: var(--cw-black); }
+
+  .list { margin: var(--gap-s) 0 0; padding: 0; list-style: none; }
+  .list li {
+    position: relative;
+    padding-left: 1.5rem;
+    line-height: 1.6;
+    color: var(--cw-black);
+  }
+  .list li + li { margin-top: 0.6rem; }
+  /* A hairline dash, drawn from the rule's own colour rather than a bullet
+     glyph: the coalition rules things, it does not bullet them. */
+  .list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.75rem;
+    height: 1px;
+    background: var(--cw-ink);
+  }
+
+  /* The note runs wider than the reading column by default; inside a column
+     that is already the measure, that cap would overhang every rule. */
+  .note { margin-top: var(--gap-m); max-width: none; }
+
+  /* A fact only the owner can supply, shown rather than guessed. Grey and
+     bracketed in the operating face, at the prose's own size so it does not
+     jump the line; never red, because information is never carried by red
+     alone, and never a link. data-pending is what the launch check counts. */
+  .pending {
+    font-size: inherit;
+    color: var(--cw-grey);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  /* --bp-phone: the gutter is already narrower than the measure, so the column
+     cap never binds and nothing recomposes but the record (system.css takes it
+     two-up) and the marker, which may break across lines rather than push the
+     paragraph sideways. */
+  @media (max-width: 700px) {
+    .doc > * { max-width: none; }
+    .pending { white-space: normal; }
+  }
+
+  /* Print: a plain document. No ground, no sheet, no centred column. */
+  @media print {
+    .doc { background: none; max-width: none; padding: 0; }
+    .doc > * { max-width: none; margin-inline: 0; }
+  }
+</style>

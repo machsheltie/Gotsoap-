@@ -1,0 +1,23 @@
+---
+/**
+ * /dmca — the takedown contact path for material published on this site.
+ * Nothing here was uploaded by a visitor, so this is not a safe-harbour page
+ * and it carries no counter-notice procedure.
+ *
+ * Brief: .impeccable/surfaces/cwaaa-src-pages-privacy-astro.md (confirmed
+ * 2026-09-22). All four routes are one surface class and share
+ * components/Document.astro; the words are in content/copy.ts `legalPages`.
+ * The route file stays this thin on purpose — a document that needs its own
+ * layout is a document the brief did not describe.
+ *
+ * `current=""`: the legal four are reached from the footer, never the primary
+ * navigation, so no nav item takes aria-current.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Document from '../components/Document.astro';
+import { legalPages } from '../content/copy';
+const doc = legalPages.dmca;
+---
+<BaseLayout title={doc.meta.title} description={doc.meta.description} current="">
+  <Document doc={doc} />
+</BaseLayout>

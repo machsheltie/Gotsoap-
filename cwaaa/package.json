@@ -14,7 +14,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "astro check",
-    "review": "node scripts/review-build.mjs"
+    "review": "node scripts/review-build.mjs",
+    "launch-check": "node scripts/launch-check.mjs"
   },
   "dependencies": {
     "astro": "^7.0.7",
