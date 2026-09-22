@@ -3,8 +3,8 @@
   "manifestSha256": "cc7250e792551dbfd3b371aa6419ae731e448c4b2ddda9571bb8fbb32dc77427",
   "fontkitVersion": "2.0.4",
   "provenance": {
-    "auditTimestamp": "2026-09-15T20:01:44.150Z",
-    "sourceCommitSha": "a9e3313f63a17b79426c2c27b72d6045184a549d",
+    "auditTimestamp": "2026-09-22T10:01:49.040Z",
+    "sourceCommitSha": "ca1d3de8e9644c65ceb31115949ed4706e82ad1a",
     "workingTreeDirty": true
   },
   "source": {
