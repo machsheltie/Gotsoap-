@@ -235,6 +235,14 @@ rather than forking it), the recovery-stories routes, the contract JSON, the fiv
    here. This route uses it; it does not settle that question.
 5. **CW-D06** — the two-message copy, the configurable delay, and sender details remain open in
    `PRD-TO-LAUNCH.md`.
+6. **What the CTA promises on click is unauthored.** Reader signal, 2026-09-22 (Priya, on the
+   four-records read): `Take the Pledge · Form CW-1` is "wallpaper by the third instance." It
+   resolves to `/pledge` from seven call sites in `src/content/copy.ts`, three on Home, and none of
+   them says what happens when he clicks — so repeating it adds no information. The defect is the
+   silence, not the repetition; do not fix this by deleting call sites. Whether the control gains a
+   consequence line, and whether that line varies by surface, is a copy-lane decision (Vivian,
+   `institutional-deadpan`) against the §3 contract. Evidence:
+   `../../docs/copy/reader-evidence-2026-09-22-four-records-r3.md` §7.
 
 ## 10. Verification
 

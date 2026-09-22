@@ -84,3 +84,22 @@ Maya on the same line: "*there's nobody on the road* … a hand on my shoulder."
 - Dylan showers tomorrow ("sixty percent" on the WFH day); will forward Marcus's record to the group
   chat.
 - Marcus's desk ending: "chills" (Maya), "a guy would say that" (Dylan).
+
+## 7 · Signals that belong to other routes
+
+Recorded here because this is where they were heard. Neither is a defect in these four records, and
+neither is actionable on `/recovery-stories`.
+
+- **All three readers, every round, want the Sniff Test and cannot reach it.** Priya in the r2 read:
+  the result-tier proper nouns are "the funniest on the page and I have no idea what taking it feels
+  like. That wanting is the strongest conversion signal in my read, and the page does nothing with
+  it." Dylan both rounds; Maya reported the pull rather than following it. Unchanged at r3. This
+  points at the Got Soap? Sniff Test across a cross-site seam CWAAA does not own. The seam is empty
+  by design: cross-domain URLs live in configuration and stay empty until the owner assigns real
+  domains (CW-M6). The signal is that the seam is worth wiring well when it is wired, not that
+  CWAAA should host or reproduce the quiz — CW-L03 still forbids moving it.
+- **Priya: the pledge CTA is "wallpaper by the third instance."** `Take the Pledge · Form CW-1`
+  resolves to `/pledge` from seven places in `src/content/copy.ts`, three of them on Home. Her
+  objection is not the repetition itself but that the control never says what happens on click, so
+  repetition adds no information. Parked against the Pledge route's open decisions; see
+  `../../.impeccable/surfaces/cwaaa-src-pages-pledge-astro.md` §9.

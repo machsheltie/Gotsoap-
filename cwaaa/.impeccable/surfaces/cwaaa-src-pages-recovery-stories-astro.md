@@ -93,8 +93,10 @@ manila styling, evidence board, carousel, stock testimonial, still life.
 
 ## 6 · States and ranges
 
-Six now; must hold at 3 and at 20. Brayden has `src/assets/brayden.png`; the other five render
-`ImageSlot` placeholders carrying the CW-G04 spec and safe zone, ready for owner drop-in. Quote
+Six now; must hold at 3 and at 20. Brayden has `src/assets/brayden.png` and Billy Bob has
+`src/assets/billybob.png`; the remaining four (RC-031/039/047/058) render `ImageSlot` placeholders
+carrying the CW-G04 spec and safe zone, ready for owner drop-in. Updated 2026-09-22: this said
+"the other five" when only Brayden had shipped. Quote
 length runs 1 to 6 sentences and the index truncates nothing. Verified: no-JS reading path,
 images-off comprehension, bad `[id]` to 404, reduced motion.
 
@@ -116,5 +118,6 @@ horizontal scroll.
   retired in navigation.
 - No Office citation anywhere else on this route. `/findings` still carries none; About keeps the
   deep referral.
-- CW-D04 (Recovery roster) moves to resolved in `../../PRD-TO-LAUNCH.md`; five portrait specs are
-  added to `../../GRAPHICS-TO-MAKE.md` under CW-G04.
+- CW-D04 (Recovery roster) moves to resolved in `../../PRD-TO-LAUNCH.md`; the outstanding portrait
+  specs are added to `../../GRAPHICS-TO-MAKE.md` under CW-G04. Four remain outstanding as of
+  2026-09-22; Billy Bob's shipped 2026-09-16.
