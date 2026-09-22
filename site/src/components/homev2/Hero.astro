@@ -182,17 +182,26 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
   }
 
   /* Landscape composition: type owns the LEFT column; the subject zone
-     (x 49–86% of the art) stays clear. */
+     (x 49–86% of the art) stays clear. Owner direction 2026-09-21 (live
+     session): the column is pinned over the FULL frame height as a size
+     container, so the mark is sized by the column (cqi) and never outgrows
+     the tile, and vertical air scales with the frame (cqh). Three registers:
+     the sponsor line at the top, the mark alone mid-frame, provocation and
+     cue on the floor. align-self must be stretch: center would shrink an
+     absolutely positioned box to its (size-contained, empty) contents. */
   .hero__inner {
-    position: relative;
+    position: absolute;
+    inset: 0 auto 0 0;
+    align-self: stretch;
     z-index: 3;
-    align-self: center;
-    justify-self: start;
-    width: min(47vw, 42rem);
-    padding: clamp(2rem, 6vh, 5rem) clamp(1.25rem, 5vw, 4.5rem);
+    width: min(48vw, 46rem);
+    container-type: size;
+    box-sizing: border-box;
+    padding: clamp(1.75rem, 4.5vw, 4.25rem) clamp(1.25rem, 5vw, 4.5rem) clamp(1.75rem, 4vw, 4rem);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: flex-start;
     text-align: left;
   }
 
@@ -203,22 +212,26 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
     letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--marble-amber-ink);
-    margin-bottom: clamp(0.9rem, 3.5vh, 1.8rem);
+    margin: 0;
     max-width: 40ch;
   }
 
   .hero__mark {
     font-family: var(--font-command);
     font-weight: 600;
-    font-size: clamp(4rem, 9.5vw, 11rem);
+    /* Sized by the column's content box: "got soap?" in Oswald 600 runs
+       ~3.6em wide, so 26cqi fills ~94% of the column at every desktop width. */
+    font-size: 26cqi;
     /* background-clip:text paints only the padding box: a sub-1.0 line box
        cropped the g/p descenders. ≥1.05 line-height + block padding gives the
-       glyphs painted room; the negative margin returns the layout height so
-       the cold-open composition holds. */
+       glyphs painted room. The auto top margin floats the mark down the
+       open frame; the fixed bottom margin holds a breathing gap above the
+       provocation (owner-tuned in the 2026-09-21 live session). */
     line-height: 1.08;
     padding-block: 0.12em;
-    margin-block: -0.1em;
-    letter-spacing: -0.03em;
+    margin-top: auto;
+    margin-bottom: 9cqh;
+    letter-spacing: -0.035em;
     text-transform: lowercase;
     margin-left: -0.04em;
     white-space: nowrap;
@@ -242,21 +255,21 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
   .hero__provocation {
     font-family: var(--font-command);
     font-weight: 500;
-    font-size: clamp(1.15rem, 2.4vw, 1.9rem);
-    line-height: 1.25;
+    font-size: 5cqi;
+    line-height: 1.2;
     letter-spacing: 0.005em;
     color: var(--grout-black);
-    margin-top: clamp(1rem, 4vh, 2rem);
-    max-width: 24ch;
+    margin-top: 0;
+    max-width: 22ch;
     text-wrap: balance;
   }
 
   .hero__cue {
     font-family: var(--font-editorial);
-    font-size: var(--step--1);
+    font-size: max(var(--step--1), 2.6cqi);
     letter-spacing: 0.02em;
     color: color-mix(in srgb, var(--grout-black) 70%, var(--steam-white));
-    margin-top: clamp(1.75rem, 6vh, 3.25rem);
+    margin-top: 4.5cqh;
     display: inline-flex;
     align-items: center;
     gap: 0.6em;
@@ -296,6 +309,9 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
       );
     }
     .hero__inner {
+      position: relative;
+      inset: auto;
+      container-type: normal;
       align-self: end;
       justify-self: center;
       width: 100%;
@@ -312,17 +328,22 @@ const portraitWebp = await getImage({ src: heroPortrait, format: 'webp', widths:
     }
     .hero__mark {
       font-size: clamp(3.75rem, 19vw, 9rem);
+      /* The negative margin returns the padded line box to layout height. */
+      margin-block: -0.1em;
       margin-left: 0;
     }
     .hero__provocation {
       font-size: clamp(1.05rem, 4.4vw, 1.6rem);
+      line-height: 1.25;
       margin-top: clamp(0.75rem, 2svh, 1.25rem);
+      max-width: 24ch;
     }
     .hero__signature {
       margin-bottom: clamp(0.75rem, 2svh, 1.25rem);
       max-width: 34ch;
     }
     .hero__cue {
+      font-size: var(--step--1);
       margin-top: clamp(1rem, 3svh, 2rem);
     }
   }
