@@ -22,6 +22,33 @@ ordinary thing a website offers, and the archive fails to stop them where it sho
 stamp, no hacker aesthetic, no spooky effect, no wink. Someone failed to terminate public pagination
 at the correct record. That is the entire event.
 
+### Owner ruling, 2026-09-22 — three records, and pure subtraction
+
+**The sequence past Billy Bob is records 7, 8 and 9.** At record 9 the CWAAA document has failed to
+continue and an Office state remains. Record 9 is not a page that has become mostly a giant Office
+document.
+
+**The gradient is subtraction from CWAAA's side against fixed Office authority.** CWAAA material
+progressively disappears. The Office does not become louder, more theatrical, or more verbose; it
+holds exactly the register it holds inside Billy Bob's record. It simply begins answering the
+questions CWAAA no longer answers. The most unsettling available reading is that the Office has not
+changed at all, and that these are records where CWAAA has less permission — or less ability — to
+speak.
+
+The Office may issue additional distinct findings where a record requires them. An individual
+fragment never grows into exposition.
+
+**Three resolutions are rejected by name, because each is the obvious clever move and each will be
+proposed again:**
+
+1. *The fragment grows* until CWAAA is a masthead and a closing line. Too visibly designed; it makes
+   the Office perform the takeover.
+2. *Diction contamination* — CWAAA's own fields filled in with the Office's vocabulary. It violates
+   the authorship boundary in `../../docs/world/WORLD-BIBLE.md` §Record classes. **CWAAA never
+   begins speaking like the Office.**
+3. *Subtraction plus diction.* Stronger as horror, weaker as world logic; it muddies who authored
+   what.
+
 ### Build status, 2026-09-15 — an unfinished edge, not a finished one
 
 `/recovery-stories` ships with the crossing live: the last written public record's Next loads Billy

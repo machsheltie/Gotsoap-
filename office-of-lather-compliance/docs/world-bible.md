@@ -87,6 +87,17 @@ the Office; what jurisdiction it claims; what lies behind the unavailable resour
 encountered the Office; whether either entity acts through the other; whether callers can be
 transferred between them; and how much CWAAA leadership knows. No artifact supplies these answers.
 
+## Register invariance
+
+**Owner ruling, 2026-09-22.** The Office's register does not change with the reader's depth. Where
+CWAAA's unindexed record sequence loses its own material record by record, the Office holds exactly
+the register it holds inside an ordinary embedded finding: the same coldness, the same brevity, the
+same refusal to explain. It does not grow louder, longer, or more theatrical as the CWAAA document
+around it fails. It may issue additional distinct findings where a record requires them; an
+individual finding never expands into exposition, and the Office never narrates a takeover. Nothing
+in that descent is the Office changing. The Office has not changed at all. See
+`../../cwaaa/docs/canon-billy-bob-and-the-archive-boundary.md`.
+
 ## Artifact behavior
 
 Office artifacts feel ordinary to the institution and unsettling only through recurrence. Codes,
