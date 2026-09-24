@@ -1555,12 +1555,21 @@ export const fieldAssessment = {
   meta: {
     title: 'Schedule a Field Assessment — CWAAA',
     description:
-      'If someone you know has stopped washing and started spraying, you can refer him for a field assessment. What happens after a referral, and how to start one.',
+      'Does someone you love suffer from fragrance substitution? Refer him for a field assessment from Concerned Women Against Axe Abuse. A chapter member takes it from there.',
   },
   /** OWNER 2026-09-24 (title). */
   title: 'Schedule a Field Assessment',
+  /** OWNER DIRECTION 2026-09-24: open like the late-night infomercial ("Does
+   *  someone you love suffer from…?", "If you are a loved one…"), played
+   *  straight in the coalition's voice. "Substitution" is About's own word. */
+  hook: [
+    'Does someone you love suffer from fragrance substitution?',
+    'Does he believe a second coat of body spray counts as a shower?',
+    'Has his car started to smell like a mall at closing time?',
+    'Have you asked him, more than once, and been told he “literally just showered”?',
+  ],
   lead:
-    'If someone you know has stopped washing and started spraying, you can refer him for a field assessment. A chapter member takes it from there. You do not have to be the one who brings it up again.',
+    'If you are a loved one, a roommate, or a coworker who has run out of ways to say it: you are not alone, and you do not have to say it again. You can refer him for a field assessment. A chapter member takes it from there.',
   includes: {
     label: 'What happens after a referral',
     list: [
@@ -1569,8 +1578,12 @@ export const fieldAssessment = {
       'The assessment itself is a conversation at an ordinary table: how often he washes, with what, and what the spray is being asked to cover.',
       'No one sniffs anyone. The routine is described, not tested.',
       'He leaves with a written baseline and one next step, usually a bar of soap and Form CW-1.',
+      /** OWNER DIRECTION 2026-09-24: the chapter member checks back. The
+       *  referral staying open is the only continuation the page states; what
+       *  an open referral leads to is never said here (protected uncertainty). */
+      'About thirty days later, the chapter member checks back to see whether the routine held. If it has not, the referral stays open.',
     ],
-    note: 'It is not a punishment, a public record, or a test he can fail. It is the conversation you have been trying to have, with someone else holding the binder.',
+    note: 'It is not a punishment. It is the conversation you have been trying to have, with someone else holding the binder.',
   },
   paths: {
     label: 'Two ways to start',
@@ -1585,7 +1598,8 @@ export const fieldAssessment = {
     /** The campaign's quiz, second and external. Framed as something the
      *  referrer sends HIM, because that is who it is written for. */
     sniff: {
-      label: 'Or send him the Sniff Test',
+      /** OWNER 2026-09-24. */
+      label: 'Send him the Sniff Test',
       /** "four minutes" is Got Soap?'s own figure. */
       body: 'If he would rather hear it from a quiz than from you, the Got Soap? campaign runs one, written for him. Seven questions, about four minutes. It is theirs, not the coalition’s.',
       note: 'Got Soap? · external site',

@@ -21,6 +21,16 @@ it; the seven questions, four verdict names and verdict copy stay on Got Soap? (
 Superseded the same day: the first build framed the assessment as something the man agrees to
 himself ("Nobody is assessed on someone else's say-so"). That was wrong and is struck.
 
+## Owner additions, 2026-09-24 (second pass)
+- **Infomercial open.** The page opens like a late-night infomercial: four ruled "Does someone you
+  love suffer from…?" questions come first and the title arrives as their answer, then "If you are a
+  loved one, a roommate, or a coworker…". Played straight in the coalition's voice.
+- **Follow-up.** The chapter member checks back about thirty days later; "If it has not, the
+  referral stays open." This is the continuation the owner requires so a referral can eventually go
+  further. The page never says where an open referral leads: no Office name, no escalation language
+  (protected uncertainty, design.md §11).
+- **Sniff Test path kept**, labelled "Send him the Sniff Test".
+
 ## Composition (as built)
 The published-document shell (Document.astro grammar): white sheet on `--cw-shell`, statement
 masthead, one lead, ink rule; one 3:2 photograph across the full sheet (CW-G09, a chapter member and
@@ -45,5 +55,4 @@ Candidate seam for later, owner's call: the Recovery Records that cite a referra
 ## Open
 - The referral mechanism: intake fields, consent language, fulfilment, privacy handling, operational
   destination (owner approval).
-- Whether the Sniff Test path stays on this page at all (asked 2026-09-24).
 - CW-G09 photography (owner). Every string except the title is DRAFT.

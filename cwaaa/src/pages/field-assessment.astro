@@ -8,7 +8,8 @@
  * a man who has stopped washing and is asking the coalition to step in. The
  * Sniff Test belongs to Got Soap? directly; it is the campaign's quiz aimed at
  * the man himself, and CWAAA never hosts or restates it (CW-L03). So the page
- * ends in two paths, in this order, that must never be mistaken for each other:
+ * opens like a late-night infomercial (owner direction 2026-09-24: "Does
+ * someone you love suffer from…?"), and ends in two paths, in this order, that must never be mistaken for each other:
  *
  *   1 The referral — CWAAA's own, PENDING. No form, no field, no booking
  *     confirmation, nothing collected, until intake, consent, fulfilment,
@@ -34,6 +35,11 @@ const sniffHref = gotSoapUrl(f.paths.sniff.path);
 <BaseLayout title={f.meta.title} description={f.meta.description} current="">
   <article class="doc">
     <header class="masthead">
+      {/* The infomercial open: the questions come first, and the title
+          arrives as their answer. Each is its own line, ruled, one beat. */}
+      <ul class="hook">
+        {f.hook.map((q) => <li>{q}</li>)}
+      </ul>
       <h1 class="t-statement">{f.title}</h1>
       <p class="lead t-lead">{f.lead}</p>
     </header>
@@ -93,6 +99,12 @@ const sniffHref = gotSoapUrl(f.paths.sniff.path);
   }
   .doc > * { max-width: var(--doc-col); margin-inline: auto; }
   .masthead { margin-bottom: var(--gap-m); }
+  .hook { list-style: none; margin: 0 0 var(--gap-l); padding: 0; }
+  .hook li {
+    font-family: var(--font-cwaaa); font-weight: 700; font-size: var(--cw-panel-h);
+    line-height: 1.25; color: var(--cw-ink); padding: 0.85rem 0; border-top: 1px solid var(--cw-hairline);
+  }
+  .hook li:last-child { border-bottom: 1px solid var(--cw-hairline); }
   .lead { margin-top: var(--gap-s); max-width: none; color: var(--cw-black); }
   .rule.ink { margin-block: 0 var(--gap-l); }
   .rule:not(.ink) { margin-block: var(--gap-l); }
