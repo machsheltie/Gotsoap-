@@ -7,37 +7,43 @@ related_targets: ["src/content/copy.ts","src/config/site.ts"]
 
 # /field-assessment — Schedule a Field Assessment
 
-**Built 2026-09-24 on owner direction.** Mode: Read, ending in a choice. Author: CWAAA.
+**Built 2026-09-24; purpose corrected by the owner the same day.** Mode: Read, ending in a choice.
+Author: CWAAA.
 
-## Owner direction (verbatim in substance)
-There is no CWAAA edition of the Sniff Test. The seven questions, four verdict names and verdict copy
-remain exclusively on Got Soap? in the campaign's voice (CW-L03 stands). CWAAA instead offers a
-voluntary baseline assessment on its own route, with two clearly distinct paths:
-1. **Take the Sniff Test now** — a clearly marked external link to the Got Soap? assessment.
-2. **Request a field assessment** — CWAAA's own intake, not an instant quiz.
+## Who this page is for (owner, 2026-09-24)
+**The referrer.** Someone who knows a man who is not showering or keeping up basic hygiene comes to
+CWAAA to refer him and request a field assessment. The man is not the visitor here.
 
-No false booking confirmation and no scheduling data until the intake fields, consent language,
-fulfilment method, privacy handling and operational destination are approved.
+The **Sniff Test belongs to Got Soap? directly**: a glossy, magazine-quiz questionnaire written to
+engage the low-effort man himself and get him to take it. CWAAA never hosts, restates or reskins
+it; the seven questions, four verdict names and verdict copy stay on Got Soap? (CW-L03).
+
+Superseded the same day: the first build framed the assessment as something the man agrees to
+himself ("Nobody is assessed on someone else's say-so"). That was wrong and is struck.
 
 ## Composition (as built)
 The published-document shell (Document.astro grammar): white sheet on `--cw-shell`, statement
 masthead, one lead, ink rule; one 3:2 photograph across the full sheet (CW-G09, a chapter member and
-a man at a table); "What an assessment includes" list and note; "Two ways to start" as two ruled
-paths read in order, never side-by-side cards. Path 1 is an ink `.act-box` to
-`GOT_SOAP_SITE_URL/sniff-test/` with an external-site label; it renders only when that origin is
-configured. Path 2 renders a visible `[pending: field assessment request form]` marker
-(data-pending, counted by the launch check) and "Until it opens, this page collects nothing."
+a referred man at a table); "What happens after a referral" list and note; "Two ways to start" as
+two ruled paths read in order:
+1. **Refer him for a field assessment** — CWAAA's own path, first. PENDING: a visible
+   `[pending: field assessment referral form]` marker (data-pending, counted by the launch check) and
+   "Until it opens, this page collects nothing."
+2. **Or send him the Sniff Test** — the campaign's quiz, external and labelled, framed as something
+   she sends him. Ink `.act-box`; renders only when the Got Soap? origin is configured.
 
 ## Constraints
-No Office language, no audit/compliance/finding vocabulary, no form fields, no stored data. The
-Privacy page's "the pledge form is the only thing here that accepts input" must stay true until the
-intake is approved and Privacy is amended with it.
+Vocabulary is "referral" (the Recovery Records' own word), never report/complaint/hotline/case
+intake. No Office language, no audit/compliance/finding vocabulary, no form fields, no stored data.
+Privacy's "the pledge form is the only thing here that accepts input" must stay true until the
+referral mechanism is approved and Privacy is amended with it.
 
 ## Reach
 Not in primary navigation (design.md §4 fixes it). Linked from /tie-one-on ("Not sure which he is?").
-Candidate seams for later, owner's call: the Recovery Records that cite "Field Assessment CW-7"
-(Gary, Kaelthas) — where all three blind readers asked for the Sniff Test.
+Candidate seam for later, owner's call: the Recovery Records that cite a referral.
 
 ## Open
-- The request mechanism (owner approval of intake, consent, fulfilment, privacy, destination).
+- The referral mechanism: intake fields, consent language, fulfilment, privacy handling, operational
+  destination (owner approval).
+- Whether the Sniff Test path stays on this page at all (asked 2026-09-24).
 - CW-G09 photography (owner). Every string except the title is DRAFT.

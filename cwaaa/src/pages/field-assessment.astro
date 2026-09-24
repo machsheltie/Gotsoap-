@@ -4,19 +4,20 @@
  * Brief: .impeccable/surfaces/cwaaa-src-pages-field-assessment-astro.md (2026-09-24).
  * Mode: Read, ending in a choice between two paths.
  *
- * OWNER DIRECTION 2026-09-24. This is not a Sniff Test. The seven questions,
- * four verdict names and verdict copy stay on Got Soap? in the campaign's
- * voice (CW-L03). CWAAA offers its own voluntary baseline assessment, and the
- * page ends in two paths that must never be mistaken for each other:
+ * OWNER DIRECTION 2026-09-24. The visitor is the REFERRER: someone who knows
+ * a man who has stopped washing and is asking the coalition to step in. The
+ * Sniff Test belongs to Got Soap? directly; it is the campaign's quiz aimed at
+ * the man himself, and CWAAA never hosts or restates it (CW-L03). So the page
+ * ends in two paths, in this order, that must never be mistaken for each other:
  *
- *   1 The Sniff Test — the campaign's, external, labelled as such. An ink
- *     `.act-box`, never the pledge's stamp-red tier. Renders only when the
- *     Got Soap? origin is configured.
- *   2 The request — CWAAA's own intake, PENDING. No form, no field, no
- *     booking confirmation, nothing collected, until intake, consent,
- *     fulfilment, privacy and an operational destination are approved. The
- *     pending state is a visible [pending: …] marker with data-pending, the
- *     same device the legal four use, so the launch check counts it.
+ *   1 The referral — CWAAA's own, PENDING. No form, no field, no booking
+ *     confirmation, nothing collected, until intake, consent, fulfilment,
+ *     privacy and an operational destination are approved. The pending state
+ *     is a visible [pending: …] marker with data-pending, the same device the
+ *     legal four use, so the launch check counts it.
+ *   2 The Sniff Test — the campaign's, external, framed as something she can
+ *     send him. An ink `.act-box`, never the pledge's stamp-red tier. Renders
+ *     only when the Got Soap? origin is configured.
  *
  * Grammar: the published-document shell (components/Document.astro) — white
  * sheet on the --cw-shell axis, statement masthead, one lead, ink rule,
@@ -56,6 +57,14 @@ const sniffHref = gotSoapUrl(f.paths.sniff.path);
     <section class="block" aria-labelledby="paths">
       <h2 id="paths" class="sec-label t-ui-caps t-label">{f.paths.label}</h2>
       <div class="paths">
+        <div class="path">
+          <h3 class="path-h">{f.paths.request.label}</h3>
+          <p class="para">{f.paths.request.body}</p>
+          <p class="para">
+            <span class="pending t-ui" data-pending={f.paths.request.pending}>[pending: {f.paths.request.pending}]</span>
+          </p>
+          <p class="path-note t-ui-caps t-label">{f.paths.request.note}</p>
+        </div>
         {sniffHref && (
           <div class="path">
             <h3 class="path-h">{f.paths.sniff.label}</h3>
@@ -66,14 +75,6 @@ const sniffHref = gotSoapUrl(f.paths.sniff.path);
             <p class="path-note t-ui-caps t-label">{f.paths.sniff.note}</p>
           </div>
         )}
-        <div class="path">
-          <h3 class="path-h">{f.paths.request.label}</h3>
-          <p class="para">{f.paths.request.body}</p>
-          <p class="para">
-            <span class="pending t-ui" data-pending={f.paths.request.pending}>[pending: {f.paths.request.pending}]</span>
-          </p>
-          <p class="path-note t-ui-caps t-label">{f.paths.request.note}</p>
-        </div>
       </div>
     </section>
   </article>

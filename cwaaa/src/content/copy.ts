@@ -1533,59 +1533,70 @@ export const about = {
 } as const;
 
 /**
- * /field-assessment — Schedule a Field Assessment. OWNER DIRECTION 2026-09-24:
- * CWAAA does NOT host a Sniff Test. The seven questions, four verdict names and
- * verdict copy stay on Got Soap? in the campaign's voice (CW-L03). This page is
- * CWAAA's own voluntary baseline assessment with two distinct paths: the
- * campaign's Sniff Test (external), and CWAAA's request path, which is PENDING
- * until intake fields, consent, fulfilment, privacy handling and an operational
- * destination are approved. Nothing is collected and nothing is "booked".
- * Every string below is DRAFT except the title.
- * Brief: .impeccable/surfaces/cwaaa-src-pages-field-assessment-astro.md.
+ * /field-assessment — Schedule a Field Assessment.
+ *
+ * OWNER DIRECTION 2026-09-24, two rulings:
+ * 1. The Sniff Test belongs to Got Soap? directly: a glossy, magazine-quiz
+ *    questionnaire aimed at the low-effort man himself, to get HIM to take it.
+ *    CWAAA never hosts, restates or reskins it (CW-L03).
+ * 2. CWAAA's field assessment is the other side of that: the page where
+ *    someone who knows a man who has stopped washing requests an assessment
+ *    for him. The visitor here is the referrer, not the man.
+ *
+ * Vocabulary: CWAAA's word is "referral", the word its Recovery Records
+ * already use ("Referral occasioned by"). No enforcement, complaint, hotline
+ * or case-intake language, and no Office voice (PRODUCT.md hard constraints).
+ * The request path is PENDING until intake fields, consent, fulfilment,
+ * privacy handling and an operational destination are approved; nothing is
+ * collected and nothing is "booked". Every string below is DRAFT except the
+ * title. Brief: .impeccable/surfaces/cwaaa-src-pages-field-assessment-astro.md.
  */
 export const fieldAssessment = {
   meta: {
     title: 'Schedule a Field Assessment — CWAAA',
     description:
-      'A voluntary conversation about one man’s washing routine, with a chapter member, at a table. What it includes, and two ways to start.',
+      'If someone you know has stopped washing and started spraying, you can refer him for a field assessment. What happens after a referral, and how to start one.',
   },
   /** OWNER 2026-09-24 (title). */
   title: 'Schedule a Field Assessment',
   lead:
-    'A field assessment is a voluntary conversation about one man’s washing routine, held with a chapter member at an ordinary table. He agrees to it himself. It ends with a written baseline and one next step.',
+    'If someone you know has stopped washing and started spraying, you can refer him for a field assessment. A chapter member takes it from there. You do not have to be the one who brings it up again.',
   includes: {
-    label: 'What an assessment includes',
+    label: 'What happens after a referral',
     list: [
-      'One chapter member and one man, by his own agreement. Nobody is assessed on someone else’s say-so.',
-      'A plain account of the routine he actually keeps: how often, with what, and what the spray is being asked to cover.',
-      'No sniffing. The routine is described, not tested.',
-      'A written baseline. He keeps the only copy.',
-      'One next step. Usually a bar of soap and Form CW-1.',
+      'You tell the coalition who he is to you and what you have noticed. You do not need proof. Most people have already asked him, more than once, which is usually why they are here.',
+      'A chapter member contacts him, not you, and tells him a referral has been received. Your name stays with the referral.',
+      'The assessment itself is a conversation at an ordinary table: how often he washes, with what, and what the spray is being asked to cover.',
+      'No one sniffs anyone. The routine is described, not tested.',
+      'He leaves with a written baseline and one next step, usually a bar of soap and Form CW-1.',
     ],
-    note: 'It is not a test he can fail, and nothing from it is reported to anyone.',
+    note: 'It is not a punishment, a public record, or a test he can fail. It is the conversation you have been trying to have, with someone else holding the binder.',
   },
   paths: {
     label: 'Two ways to start',
+    /** CWAAA's own path, first: this page exists for it. */
+    request: {
+      label: 'Refer him for a field assessment',
+      body: 'The referral is a short request to the coalition. It is not an instant result, and he is not told who made it.',
+      /** Renders as a visible [pending: …] marker the launch check counts. */
+      pending: 'field assessment referral form',
+      note: 'Until it opens, this page collects nothing.',
+    },
+    /** The campaign's quiz, second and external. Framed as something the
+     *  referrer sends HIM, because that is who it is written for. */
     sniff: {
-      label: 'Take the Sniff Test now',
-      /** Sourced: Got Soap?'s own "the assessment takes four minutes". */
-      body: 'Seven questions and a verdict, in about four minutes. Written and hosted by the Got Soap? campaign, not by CWAAA. The verdict is theirs.',
+      label: 'Or send him the Sniff Test',
+      /** "four minutes" is Got Soap?'s own figure. */
+      body: 'If he would rather hear it from a quiz than from you, the Got Soap? campaign runs one, written for him. Seven questions, about four minutes. It is theirs, not the coalition’s.',
       note: 'Got Soap? · external site',
       action: 'Open the Sniff Test',
       path: '/sniff-test/',
       external: 'External site',
     },
-    request: {
-      label: 'Request a field assessment',
-      body: 'CWAAA’s own intake: a request for a conversation with a chapter member, not an instant result.',
-      /** Renders as a visible [pending: …] marker the launch check counts. */
-      pending: 'field assessment request form',
-      note: 'Until it opens, this page collects nothing.',
-    },
   },
   shot: {
     id: 'CW-G09',
     title: 'Field assessment · at the table',
-    spec: 'A chapter member and a man across an ordinary table in a community room or kitchen, mid-conversation, both faces in frame; he is plainly there by choice, a little sheepish. A bar of soap and a blank baseline sheet on the table. No clipboard enthusiasm, no interrogation framing, no surveillance angle. 3:2 landscape.',
+    spec: 'A chapter member and a referred man across an ordinary table in a community room or kitchen, mid-conversation, both faces in frame. He is there because someone who loves him asked the coalition to step in, and it shows: a little cornered, a little relieved. A bar of soap and a blank baseline sheet on the table. No clipboard enthusiasm, no interrogation framing, no surveillance angle. 3:2 landscape.',
   } satisfies Shot,
 } as const;
