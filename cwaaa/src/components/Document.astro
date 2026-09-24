@@ -39,7 +39,7 @@ const { doc } = Astro.props;
 
 /** Plain prose and interrupted prose render the same way; only the source differs. */
 const parts = (p: LegalParagraph): readonly LegalSegment[] => (typeof p === 'string' ? [p] : p);
-const isPending = (s: LegalSegment): s is { readonly pending: string } => typeof s !== 'string';
+const isPending = (s: LegalSegment): s is Exclude<LegalSegment, string> => typeof s !== 'string';
 ---
 
 <article class="doc">
@@ -74,7 +74,7 @@ const isPending = (s: LegalSegment): s is { readonly pending: string } => typeof
             <p class="para">
               {parts(p).map((s) =>
                 isPending(s) ? (
-                  <span class="pending t-ui" data-pending={s.pending}>
+                  <span class="pending t-ui" data-pending={s.pending} data-deferred={s.deferredUntil}>
                     [pending: {s.pending}]
                   </span>
                 ) : (
@@ -92,7 +92,7 @@ const isPending = (s: LegalSegment): s is { readonly pending: string } => typeof
                   {j > 0 && <br />}
                   {parts(l).map((s) =>
                     isPending(s) ? (
-                      <span class="pending t-ui" data-pending={s.pending}>
+                      <span class="pending t-ui" data-pending={s.pending} data-deferred={s.deferredUntil}>
                         [pending: {s.pending}]
                       </span>
                     ) : (
@@ -111,7 +111,7 @@ const isPending = (s: LegalSegment): s is { readonly pending: string } => typeof
                 <li>
                   {parts(l).map((s) =>
                     isPending(s) ? (
-                      <span class="pending t-ui" data-pending={s.pending}>
+                      <span class="pending t-ui" data-pending={s.pending} data-deferred={s.deferredUntil}>
                         [pending: {s.pending}]
                       </span>
                     ) : (
@@ -127,7 +127,7 @@ const isPending = (s: LegalSegment): s is { readonly pending: string } => typeof
             <p class="note t-note">
               {parts(b.note).map((s) =>
                 isPending(s) ? (
-                  <span class="pending t-ui" data-pending={s.pending}>
+                  <span class="pending t-ui" data-pending={s.pending} data-deferred={s.deferredUntil}>
                     [pending: {s.pending}]
                   </span>
                 ) : (

@@ -1,0 +1,172 @@
+---
+/**
+ * /tie-one-on — Tie One On For Suds, the washcloth-ribbon program.
+ * Brief: .impeccable/surfaces/cwaaa-src-pages-tie-one-on-astro.md (2026-09-24).
+ * Mode: Persuade, gently. design.md §6: actual red cloth owns the route at
+ * human scale; program information lives only on plausible labels and tags;
+ * the ribbon is never drawn, animated, or used as decoration.
+ *
+ * Sequence, and the job of each field:
+ *   1 opener     — the cloth on a man, full bleed; the program name on it.
+ *   2 position   — the coalition's official position, set as the monument.
+ *   3 placements — the owner's sentence, then its three places as a strip of
+ *                  photographs stepping down the page: one sentence read left
+ *                  to right, never three equal cards.
+ *   4 wear       — the hang tag, on ink: the only printed artifact here.
+ *   5 close      — "put his intent in writing" and the one pledge action.
+ *
+ * Every photograph is owner-supplied and not here yet: ImageSlot renders the
+ * material ground in public and the shot spec under `npm run review`.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import { tieOneOn as t } from '../content/copy';
+---
+<BaseLayout title={t.meta.title} description={t.meta.description} current="/tie-one-on">
+  <!-- 1 · The cloth, on a man -->
+  <section class="opener" aria-labelledby="t1-h">
+    <div class="opener-photo" data-reveal="photo">
+      <ImageSlot class="fill" tone="cloth" id={t.opener.id} title={t.opener.title} spec={t.opener.spec} safe="12% 8% 38% 44%" priority />
+    </div>
+    <h1 id="t1-h" class="opener-h" data-reveal style="--i: 1">{t.heading}</h1>
+  </section>
+
+  <!-- 2 · The official position -->
+  <section class="position" aria-labelledby="t2-h">
+    <p class="t-lead pos-lead" data-reveal>{t.position.lead}</p>
+    <h2 id="t2-h" class="pos-line" data-reveal style="--i: 1">{t.position.line}</h2>
+    <div class="rule ink heavy" data-reveal="rule" style="--i: 2"></div>
+  </section>
+
+  <!-- 3 · Where it goes: one sentence, three places -->
+  <section class="places" aria-labelledby="t3-h">
+    <h2 id="t3-h" class="t-statement places-h" data-reveal>{t.placementsLine}</h2>
+    <ol class="strip">
+      {t.placements.map((p, i) => (
+        <li class={`step step-${i + 1}`} data-reveal="photo" style={`--i: ${i}`}>
+          <ImageSlot tone="photo" id={p.shot.id} title={p.shot.title} spec={p.shot.spec} ratio="4 / 5"
+            sizes="(max-width: 700px) 100vw, 34vw" safe="10% 10%" />
+          <p class="where t-ui-caps">{p.where}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- 4 · The hang tag: the program's printed information, on its own object -->
+  <section class="wear on-ink" aria-labelledby="t4-h">
+    <h2 id="t4-h" class="visually-hidden">{t.tag.program}</h2>
+    <div data-reveal>
+      <div class="tag">
+        <span class="hole" aria-hidden="true"></span>
+        <p class="tag-head t-ui-caps"><b>{t.tag.maker}</b> <span>{t.tag.program}</span></p>
+        <ul class="tag-lines">
+          {t.wear.map((w) => <li>{w}</li>)}
+        </ul>
+      </div>
+    </div>
+    <p class="assess" data-reveal style="--i: 1">
+      <span>{t.assessment.lead}</span>
+      <a class="link-rule" href={t.assessment.href}>{t.assessment.label}</a>
+    </p>
+  </section>
+
+  <!-- 5 · Put it in writing -->
+  <section class="close" aria-labelledby="t5-h">
+    <h2 id="t5-h" class="t-statement close-h" data-reveal>{t.close}</h2>
+    <div class="actions" data-reveal style="--i: 1">
+      <a class="primary" href={t.action.href}>{t.action.label} <span class="n">{t.action.note}</span></a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- 1 · Opener -------------------------------------------------------- */
+  .opener { position: relative; height: 78vh; height: 78dvh; min-height: 520px; overflow: hidden; color: var(--cw-ivory); }
+  .opener-photo, .opener :global(.fill) { position: absolute; inset: 0; }
+  .opener::after {
+    content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(to top, rgba(21, 24, 31, 0.62), rgba(21, 24, 31, 0.18) 38%, rgba(21, 24, 31, 0) 60%);
+  }
+  .opener-h {
+    position: absolute; z-index: 2; left: var(--gutter); right: var(--gutter); bottom: var(--gutter);
+    font-family: var(--font-cwaaa-proposition); font-weight: 400;
+    font-size: min(var(--cw-line), 7.5vw); line-height: 0.92; letter-spacing: -0.01em;
+    max-width: 11ch;
+  }
+
+  /* ---- 2 · Position ------------------------------------------------------ */
+  .position { background: var(--cw-ivory); padding: var(--section) var(--gutter) calc(var(--section) * 0.75); }
+  .pos-lead { color: var(--cw-black); max-width: 34ch; }
+  .pos-line {
+    margin: var(--gap-s) 0 var(--gap-m);
+    font-family: var(--font-cwaaa-proposition); font-weight: 400; color: var(--cw-ink);
+    font-size: min(var(--cw-proposition), 11vw); line-height: 0.9; letter-spacing: -0.01em;
+  }
+
+  /* ---- 3 · Placements: a strip stepping down, read as one sentence ------- */
+  .places { background: var(--cw-ivory); padding: 0 var(--gutter) var(--section); }
+  .places-h { max-width: 26ch; margin-bottom: var(--gap-l); }
+  .strip {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: 5fr 4fr 3fr; gap: var(--gap-m); align-items: start;
+  }
+  /* Each place steps down from the last, so the three read as one line
+     continuing, not as a row of equals. The widths narrow as the sentence
+     moves inward, from the car to the room he won't leave. */
+  .step-2 { margin-top: clamp(3rem, 8vw, 8rem); }
+  .step-3 { margin-top: clamp(6rem, 16vw, 16rem); }
+  .where { margin-top: 0.8rem; padding-top: 0.6rem; border-top: 1px solid var(--cw-ink); color: var(--cw-ink); }
+
+  /* ---- 4 · Wear: the hang tag -------------------------------------------- */
+  .wear {
+    background: var(--cw-ink); color: var(--cw-ivory); padding: var(--section) var(--gutter);
+    display: grid; grid-template-columns: auto 1fr; gap: var(--gap-l); align-items: end;
+  }
+  /* A printed card tag: stock, one punched hole, a ruled header. It hangs a
+     degree off true because a tag does. The ribbon it would hang from is real
+     cloth in the photographs, never drawn here. */
+  .tag {
+    position: relative; width: min(100%, 26rem);
+    background: var(--cw-ivory); color: var(--cw-ink);
+    padding: 3.25rem 2rem 2rem; transform: rotate(-1.5deg);
+    box-shadow: 0 18px 32px -18px rgba(8, 10, 16, 0.55);
+  }
+  .hole {
+    position: absolute; top: 1.1rem; left: 50%; width: 0.9rem; height: 0.9rem; margin-left: -0.45rem;
+    border-radius: 50%; background: var(--cw-ink); box-shadow: 0 0 0 3px var(--cw-ivory), 0 0 0 4px var(--cw-hairline);
+  }
+  .tag-head { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: 0.7rem; border-bottom: 1.5px solid var(--cw-ink); }
+  .tag-head b { font-weight: 700; }
+  .tag-head span { color: var(--cw-grey); }
+  .tag-lines { list-style: none; margin: 1.1rem 0 0; padding: 0; }
+  .tag-lines li {
+    font-family: var(--font-cwaaa); font-weight: 700; font-size: var(--cw-panel-h); line-height: 1.2; color: var(--cw-ink);
+  }
+  .tag-lines li + li { margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid var(--cw-hairline); }
+  .assess { display: grid; gap: 0.6rem; justify-items: start; font-size: var(--cw-text-l); max-width: 30ch; }
+  .assess span { color: var(--cw-on-ink-muted); }
+  .wear .link-rule { color: var(--cw-ivory); border-color: var(--cw-ivory); }
+  .wear .link-rule:hover { color: var(--cw-white); border-color: var(--cw-white); }
+
+  /* ---- 5 · Close --------------------------------------------------------- */
+  .close {
+    background: var(--cw-ivory); padding: var(--section) var(--gutter);
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--gap-l); align-items: end;
+  }
+  .close-h { max-width: 18ch; }
+  .close .actions { max-width: 460px; }
+
+  /* ---- --bp-phone: the strip becomes a column that still steps --------- */
+  @media (max-width: 700px) {
+    .opener { height: 72vh; height: 72dvh; min-height: 440px; }
+    .opener-h { font-size: 15vw; }
+    .pos-line { font-size: 21vw; }
+    .strip { grid-template-columns: 1fr; gap: var(--gap-l); }
+    .step-2, .step-3 { margin-top: 0; }
+    .step-1 { margin-right: 12%; }
+    .step-2 { margin-left: 12%; }
+    .step-3 { margin-right: 12%; }
+    .wear, .close { grid-template-columns: 1fr; }
+    .tag { transform: rotate(-1deg); }
+  }
+</style>

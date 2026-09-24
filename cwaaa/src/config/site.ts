@@ -11,8 +11,17 @@ const env = import.meta.env as Record<string, string | undefined>;
 /** Canonical origin of this site. Empty until CW-D07 assigns it. */
 export const SITE_URL: string = env.CWAAA_SITE_URL ?? '';
 
-/** Got Soap? campaign origin. Rendered only in campaign-credit context. */
-export const GOT_SOAP_SITE_URL: string = env.PUBLIC_GOT_SOAP_SITE_URL ?? '';
+/** Got Soap? campaign origin. Rendered only in campaign-credit context.
+ *  OWNER DECISION 2026-09-24: the one exception to "empty until real domains".
+ *  Real domains are some way off, so the campaign's live Netlify origin stands
+ *  in until then. It opens the home seam, the footer link, the About creator
+ *  credit, and the Sniff Test path on /field-assessment. Swap it here, or set
+ *  PUBLIC_GOT_SOAP_SITE_URL, when the real domain is bought. No trailing slash. */
+export const GOT_SOAP_SITE_URL: string = env.PUBLIC_GOT_SOAP_SITE_URL ?? 'https://gotsoap.netlify.app';
+
+/** A path on the campaign site, or '' when the origin is not configured. */
+export const gotSoapUrl = (path: string): string =>
+  GOT_SOAP_SITE_URL.trim() ? `${GOT_SOAP_SITE_URL.replace(/\/+$/, '')}${path}` : '';
 
 /** Office of Lather Compliance origin. Deepest About seam only; never on Home. */
 export const OFFICE_SITE_URL: string = env.PUBLIC_OFFICE_SITE_URL ?? '';

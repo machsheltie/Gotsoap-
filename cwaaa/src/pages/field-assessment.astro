@@ -1,0 +1,130 @@
+---
+/**
+ * /field-assessment — Schedule a Field Assessment.
+ * Brief: .impeccable/surfaces/cwaaa-src-pages-field-assessment-astro.md (2026-09-24).
+ * Mode: Read, ending in a choice between two paths.
+ *
+ * OWNER DIRECTION 2026-09-24. This is not a Sniff Test. The seven questions,
+ * four verdict names and verdict copy stay on Got Soap? in the campaign's
+ * voice (CW-L03). CWAAA offers its own voluntary baseline assessment, and the
+ * page ends in two paths that must never be mistaken for each other:
+ *
+ *   1 The Sniff Test — the campaign's, external, labelled as such. An ink
+ *     `.act-box`, never the pledge's stamp-red tier. Renders only when the
+ *     Got Soap? origin is configured.
+ *   2 The request — CWAAA's own intake, PENDING. No form, no field, no
+ *     booking confirmation, nothing collected, until intake, consent,
+ *     fulfilment, privacy and an operational destination are approved. The
+ *     pending state is a visible [pending: …] marker with data-pending, the
+ *     same device the legal four use, so the launch check counts it.
+ *
+ * Grammar: the published-document shell (components/Document.astro) — white
+ * sheet on the --cw-shell axis, statement masthead, one lead, ink rule,
+ * .sec-label blocks — plus one photograph, because the assessment is two
+ * people at a table and the page shows them. No Office language, no audit or
+ * compliance vocabulary: CWAAA documents and supports; it does not find.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import { fieldAssessment as f } from '../content/copy';
+import { gotSoapUrl } from '../config/site';
+const sniffHref = gotSoapUrl(f.paths.sniff.path);
+---
+<BaseLayout title={f.meta.title} description={f.meta.description} current="">
+  <article class="doc">
+    <header class="masthead">
+      <h1 class="t-statement">{f.title}</h1>
+      <p class="lead t-lead">{f.lead}</p>
+    </header>
+    <div class="rule ink"></div>
+
+    <div class="plate">
+      <ImageSlot tone="photo" id={f.shot.id} title={f.shot.title} spec={f.shot.spec} ratio="3 / 2"
+        sizes="(max-width: 700px) 100vw, 56rem" safe="10% 8%" />
+    </div>
+
+    <section class="block" aria-labelledby="includes">
+      <h2 id="includes" class="sec-label t-ui-caps t-label">{f.includes.label}</h2>
+      <ul class="list">
+        {f.includes.list.map((l) => <li>{l}</li>)}
+      </ul>
+      <p class="note t-note">{f.includes.note}</p>
+    </section>
+
+    <div class="rule"></div>
+
+    <section class="block" aria-labelledby="paths">
+      <h2 id="paths" class="sec-label t-ui-caps t-label">{f.paths.label}</h2>
+      <div class="paths">
+        {sniffHref && (
+          <div class="path">
+            <h3 class="path-h">{f.paths.sniff.label}</h3>
+            <p class="para">{f.paths.sniff.body}</p>
+            <a class="act-box t-ui-caps" href={sniffHref} rel="external noopener">
+              {f.paths.sniff.action} <span class="visually-hidden">({f.paths.sniff.external})</span>
+            </a>
+            <p class="path-note t-ui-caps t-label">{f.paths.sniff.note}</p>
+          </div>
+        )}
+        <div class="path">
+          <h3 class="path-h">{f.paths.request.label}</h3>
+          <p class="para">{f.paths.request.body}</p>
+          <p class="para">
+            <span class="pending t-ui" data-pending={f.paths.request.pending}>[pending: {f.paths.request.pending}]</span>
+          </p>
+          <p class="path-note t-ui-caps t-label">{f.paths.request.note}</p>
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  /* The published-document shell (Document.astro), restated for a page that
+     needs two things it does not carry: a photograph and a pair of paths.
+     Same sheet, same axis, same column, same rule weights. */
+  .doc {
+    --doc-col: var(--cw-measure);
+    background: var(--cw-white);
+    padding: var(--section) var(--gutter);
+    max-width: var(--cw-shell);
+    margin: 0 auto;
+  }
+  .doc > * { max-width: var(--doc-col); margin-inline: auto; }
+  .masthead { margin-bottom: var(--gap-m); }
+  .lead { margin-top: var(--gap-s); max-width: none; color: var(--cw-black); }
+  .rule.ink { margin-block: 0 var(--gap-l); }
+  .rule:not(.ink) { margin-block: var(--gap-l); }
+
+  /* The photograph takes the full sheet, not the reading column: two people at
+     a table need the width, and the column resumes beneath them. */
+  .doc > .plate { max-width: none; margin-bottom: var(--gap-l); }
+
+  .para { line-height: 1.6; color: var(--cw-black); }
+  .para + .para { margin-top: var(--gap-s); }
+
+  .list { margin: var(--gap-s) 0 0; padding: 0; list-style: none; }
+  .list li { position: relative; padding-left: 1.5rem; line-height: 1.6; color: var(--cw-black); }
+  .list li + li { margin-top: 0.6rem; }
+  .list li::before { content: ''; position: absolute; left: 0; top: 0.72em; width: 0.75rem; height: 1px; background: var(--cw-ink); }
+  .note { margin-top: var(--gap-m); max-width: none; }
+
+  /* Two paths, one above the other and ruled apart: a choice read in order,
+     not a pair of cards weighed side by side. */
+  .paths { display: grid; gap: 0; margin-top: var(--gap-s); }
+  .path { padding: var(--gap-m) 0; }
+  .path + .path { border-top: 1.5px solid var(--cw-ink); }
+  .path-h { font-family: var(--font-cwaaa); font-weight: 700; font-size: var(--cw-panel-h); line-height: 1.2; color: var(--cw-ink); margin-bottom: 0.6rem; }
+  .path .act-box { margin-top: var(--gap-s); }
+  .path-note { margin-top: 0.75rem; }
+
+  .pending { font-size: inherit; color: var(--cw-grey); letter-spacing: 0.02em; }
+
+  @media (max-width: 700px) {
+    .doc > * { max-width: none; }
+  }
+  @media print {
+    .doc { background: none; max-width: none; padding: 0; }
+    .doc > * { max-width: none; margin-inline: 0; }
+  }
+</style>

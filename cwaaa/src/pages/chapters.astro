@@ -1,0 +1,191 @@
+---
+/**
+ * /chapters — four dispatches from a fifty-state coalition.
+ * Brief: .impeccable/surfaces/cwaaa-src-pages-chapters-astro.md (2026-09-24).
+ * Mode: Read. design.md §6: a composed field of human dispatches; refuses
+ * card grids, animated maps, chapter finders and invented contact details.
+ *
+ * The owner's order is the page's story, and each dispatch takes the
+ * composition its work implies rather than one repeated component:
+ *   Atlanta   · Meeting            — the room: a wide photograph the text
+ *                                    sits into, because the room filled up.
+ *   Phoenix   · Public outreach    — the table: text first, the photograph
+ *                                    stepping up beside it, out in public.
+ *   Milwaukee · Ribbon production  — the work: on ink, the one dark field.
+ *   Tacoma    · Correspondence     — the answer: the dispatch set on an actual
+ *                                    reply sheet, because paper appears only
+ *                                    where the content is paper (design.md §8).
+ *
+ * The dispatch text is the chapter's own "we", so it is set in Modest, the
+ * testimony face. Places are Proda statements; the work is Catesque notation.
+ * No Office reference and no chronology fracture on this route (owner roster).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import { chapters as c } from '../content/copy';
+const [atl, phx, mke, tac] = c.dispatches;
+---
+<BaseLayout title={c.meta.title} description={c.meta.description} current="/chapters">
+  <!-- Head: the owner's opening, the scale line, the intro -->
+  <section class="head" aria-labelledby="ch-h">
+    <h1 id="ch-h" class="head-h" data-reveal>{c.heading}</h1>
+    <div class="rule ink heavy" data-reveal="rule" style="--i: 1"></div>
+    <div class="head-row">
+      <p class="scale t-statement" data-reveal style="--i: 2">{c.scale}</p>
+      <p class="t-lead intro" data-reveal style="--i: 3">{c.intro}</p>
+    </div>
+  </section>
+
+  <p class="marker field-marker">{c.marker}</p>
+
+  <!-- 1 · Atlanta — the room -->
+  <article class="d d-room" aria-labelledby="d1">
+    <div class="d-photo" data-reveal="photo">
+      <ImageSlot tone="photo" id={atl.shot.id} title={atl.shot.title} spec={atl.shot.spec} ratio="3 / 2"
+        sizes="(max-width: 700px) 100vw, 70vw" safe="10% 8%" />
+    </div>
+    <div class="d-text panel" data-reveal style="--i: 1">
+      <header>
+        <h2 id="d1" class="place">{atl.place}</h2>
+        <p class="work t-ui-caps t-label">{atl.work}</p>
+      </header>
+      <blockquote><p class="t-testimony">{atl.text}</p></blockquote>
+    </div>
+  </article>
+
+  <!-- 2 · Greater Phoenix — the table -->
+  <article class="d d-table" aria-labelledby="d2">
+    <div class="d-text" data-reveal>
+      <header>
+        <h2 id="d2" class="place">{phx.place}</h2>
+        <p class="work t-ui-caps t-label">{phx.work}</p>
+      </header>
+      <blockquote><p class="t-testimony">{phx.text}</p></blockquote>
+    </div>
+    <div class="d-photo" data-reveal="photo" style="--i: 1">
+      <ImageSlot tone="photo" id={phx.shot.id} title={phx.shot.title} spec={phx.shot.spec} ratio="4 / 5"
+        sizes="(max-width: 700px) 100vw, 38vw" safe="10% 10%" />
+    </div>
+  </article>
+
+  <!-- 3 · Milwaukee — the work -->
+  <article class="d d-work on-ink" aria-labelledby="d3">
+    <div class="d-photo" data-reveal="photo">
+      <ImageSlot tone="photo" id={mke.shot.id} title={mke.shot.title} spec={mke.shot.spec} ratio="3 / 2"
+        sizes="(max-width: 700px) 100vw, 58vw" safe="10% 8%" />
+    </div>
+    <div class="d-text" data-reveal style="--i: 1">
+      <header>
+        <h2 id="d3" class="place">{mke.place}</h2>
+        <p class="work t-ui-caps t-label">{mke.work}</p>
+      </header>
+      <blockquote><p class="t-testimony">{mke.text}</p></blockquote>
+    </div>
+  </article>
+
+  <!-- 4 · Tacoma — the answer, on the sheet it was written on -->
+  <article class="d d-mail" aria-labelledby="d4">
+    <div class="d-photo" data-reveal="photo">
+      <ImageSlot tone="photo" id={tac.shot.id} title={tac.shot.title} spec={tac.shot.spec} ratio="4 / 5"
+        sizes="(max-width: 700px) 100vw, 34vw" safe="10% 10%" />
+    </div>
+    <div class="sheet" data-reveal style="--i: 1">
+      <header>
+        <h2 id="d4" class="place">{tac.place}</h2>
+        <p class="work t-ui-caps t-label">{tac.work}</p>
+      </header>
+      <blockquote><p class="t-testimony">{tac.text}</p></blockquote>
+    </div>
+  </article>
+
+  <!-- Close: onward in the progression -->
+  <section class="close" aria-label="Next">
+    <div class="actions" data-reveal>
+      {c.actions.map((a) => (
+        <a class:list={[{ primary: a.primary }]} href={a.href}>{a.label} <span class="n" aria-hidden={a.note === '→' ? 'true' : undefined}>{a.note}</span></a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- Head -------------------------------------------------------------- */
+  .head { background: var(--cw-ivory); padding: var(--section) var(--gutter) calc(var(--section) * 0.8); }
+  .head-h {
+    font-family: var(--font-cwaaa-proposition); font-weight: 400; color: var(--cw-ink);
+    font-size: min(var(--cw-finding), 9vw); line-height: 0.92; letter-spacing: -0.01em;
+    max-width: 14ch; margin-bottom: var(--gap-m);
+  }
+  .head-row { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--gap-l); padding-top: var(--gap-m); align-items: start; }
+  .scale { max-width: 18ch; }
+  .intro { color: var(--cw-black); }
+
+  .field-marker { background: var(--cw-ivory); padding: 0 var(--gutter) var(--gap-m); margin: 0; }
+
+  /* ---- Dispatches: shared parts ------------------------------------------ */
+  .d { padding: 0 var(--gutter) var(--section); }
+  .d header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1.25rem; padding-bottom: 0.9rem; border-bottom: 1.5px solid var(--cw-ink); margin-bottom: 1.25rem; }
+  .place { font-family: var(--font-cwaaa); font-weight: 700; font-size: var(--cw-panel-h); line-height: 1.15; color: var(--cw-ink); }
+  .work { margin: 0; }
+  .d blockquote { margin: 0; }
+  .d blockquote p { max-width: var(--cw-measure-voice); }
+
+  /* 1 · The room: the text is seated into the photograph's lower edge. */
+  .d-room { background: var(--cw-ivory); display: grid; grid-template-columns: repeat(12, 1fr); }
+  .d-room .d-photo { grid-column: 1 / 10; grid-row: 1; }
+  .d-room .panel {
+    grid-column: 7 / 13; grid-row: 1; align-self: end; margin-bottom: calc(var(--gap-l) * -1);
+    background: var(--cw-white); padding: 2rem 2.25rem; position: relative; z-index: 1;
+  }
+
+  /* 2 · The table: text leads, the photograph steps up beside it. */
+  .d-table {
+    background: var(--cw-ivory); padding-top: calc(var(--section) + var(--gap-l));
+    display: grid; grid-template-columns: 1fr 0.8fr; gap: var(--gap-l); align-items: end;
+  }
+  .d-table .d-text { padding-bottom: var(--gap-l); }
+  .d-table .d-photo { margin-top: calc(var(--gap-l) * -1.5); }
+
+  /* 3 · The work: the route's one dark field. */
+  .d-work {
+    background: var(--cw-ink); padding-top: var(--section);
+    display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--gap-l); align-items: center;
+  }
+  .d-work header { border-bottom-color: var(--cw-hairline-on-ink); }
+  .d-work .place, .d-work .t-testimony { color: var(--cw-ivory); }
+
+  /* 4 · The answer: a reply sheet, the one piece of paper on the route. */
+  .d-mail {
+    background: var(--cw-white); padding-top: var(--section);
+    display: grid; grid-template-columns: 0.8fr 1fr; gap: var(--gap-l); align-items: center;
+  }
+  .sheet {
+    background: var(--cw-ivory); padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+    border-top: 3px solid var(--cw-ink); max-width: 34rem;
+    box-shadow: 0 1px 0 var(--cw-hairline), 0 22px 40px -28px rgba(21, 24, 31, 0.45);
+  }
+
+  /* ---- Close ------------------------------------------------------------- */
+  .close { background: var(--cw-white); padding: 0 var(--gutter) var(--section); }
+  .close .actions { max-width: 460px; margin-left: auto; }
+
+  /* ---- --bp-reading: two-column dispatches give the text its measure back */
+  @media (max-width: 860px) {
+    .d-room .d-photo { grid-column: 1 / -1; }
+    .d-room .panel { grid-column: 2 / -1; grid-row: 2; margin: calc(var(--gap-l) * -1) 0 0; }
+    .d-table, .d-work, .d-mail { grid-template-columns: 1fr; }
+    /* Width, not max-width: a slot has no intrinsic size, so an auto-margined
+       grid item would shrink to nothing. */
+    .d-table .d-photo { margin-top: 0; width: 80%; justify-self: end; }
+    .d-mail .d-photo { width: 80%; }
+  }
+  /* ---- --bp-phone -------------------------------------------------------- */
+  @media (max-width: 700px) {
+    .head-h { font-size: 13vw; }
+    .head-row { grid-template-columns: 1fr; gap: 1.25rem; }
+    .d-room .panel { grid-column: 1 / -1; padding: 1.5rem; margin-top: -2rem; margin-left: 8%; }
+    .d-table { padding-top: var(--section); }
+    .d-table .d-text { padding-bottom: 0; }
+    .close .actions { margin-left: 0; }
+  }
+</style>

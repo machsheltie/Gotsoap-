@@ -233,3 +233,24 @@ Web layouts, live Findings figures/charts/tables, proposition typography, body/I
 - [ ] Provenance, attribution, source location, version and actual app destination recorded per ID.
 - [ ] Desktop/mobile integration reviewed; no unapproved placeholders remain on required launch surfaces.
 - [ ] Later-work IDs retained with next actions, separate from the images actually required to launch.
+
+## 2026-09-24 — Route photography for Tie One On, Chapters, About, Field Assessment
+
+The four routes are built and live with placeholder slots. Each slot's full shot spec is in
+`src/content/copy.ts` (the `shot`/`opener` fields) and shows on the page under `npm run review`.
+Every one puts a person in frame; an object delivered in any of these slots is a rejected asset.
+Drop files into `src/assets/` under these names and the slot is wired in one line.
+
+| ID | Route | Subject | Frame | File |
+|---|---|---|---|---|
+| CW-G03.1 | /tie-one-on opener | A man in a lived-in interior wearing the ribbon; lower-left third quiet | 3200×1800 + 2400×3000 phone | `tie-one-on-opener-wide.png`, `tie-one-on-opener-tall.png` |
+| CW-G03.2 | /tie-one-on | A man at the wheel, ribbon on the rearview mirror | 4:5 | `tie-one-on-mirror.png` |
+| CW-G03.3 | /tie-one-on | A man shouldering his gym bag, ribbon on the strap | 4:5 | `tie-one-on-gym-bag.png` |
+| CW-G03.4 | /tie-one-on | A man in the doorway of the room he won't leave, ribbon on the knob | 4:5 | `tie-one-on-doorknob.png` |
+| CW-G05.1 | /chapters | Atlanta: overfull community-room meeting, borrowed chairs | 3:2 | `chapter-atlanta-room.png` |
+| CW-G05.2 | /chapters | Greater Phoenix: members running the pledge table indoors | 4:5 | `chapter-phoenix-table.png` |
+| CW-G05.3 | /chapters | Milwaukee: members assembling ribbon packets at a long table | 3:2 | `chapter-milwaukee-ribbons.png` |
+| CW-G05.4 | /chapters | Tacoma: members answering chapter mail; nothing legible | 4:5 | `chapter-tacoma-mail.png` |
+| CW-G05.5 | /about | The founding book club, 2024, grievance log on the table | 3:2 | `origin-2024-book-club.png` |
+| CW-G05.6 | /about | Early 2024: members cutting the first ribbons | 4:5 | `origin-2024-first-ribbons.png` |
+| CW-G09 | /field-assessment | A chapter member and a man across a table, mid-conversation | 3:2 | `field-assessment-table.png` |

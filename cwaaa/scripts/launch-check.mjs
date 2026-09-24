@@ -2,8 +2,9 @@
 /**
  * launch-check.mjs — the two things that must be empty before CWAAA launches.
  *
- * This gate is RED ON PURPOSE until the owner supplies four facts and `/about`
- * exists. It is not wired into `npm run build`, because a red launch gate must
+ * This gate is RED ON PURPOSE until the owner supplies the DMCA designated
+ * agent (deferred by her to 2026-10-15) and the field-assessment request
+ * mechanism is approved. It is not wired into `npm run build`, because a red launch gate must
  * not stop ordinary work; run it deliberately with `npm run launch-check`.
  *
  * 1. PENDING FACTS. The legal four render owner-only facts as visible
@@ -15,12 +16,10 @@
  *    facts arrive.
  *
  * 2. DEAD INTERNAL LINKS. Every href the built site points at itself with
- *    must resolve to a built page. Three are known and documented, and all
- *    three come from the shared Nav and Footer, so every page inherits them
- *    rather than any one route introducing a bad link: `/tie-one-on` waits on
- *    CW-G03 cloth photography, `/chapters` on CW-G05–G08, and `/about` on the
- *    CW-D04 roster and the owner's creator-seam call. The legal four add none
- *    of their own and deliberately do not link to About.
+ *    must resolve to a built page. `/tie-one-on`, `/chapters` and `/about`
+ *    were the three known gaps until 2026-09-24; they now build with their
+ *    photographs as placeholder slots, so any dead link here is a regression.
+ *    A marker may carry data-deferred (an owner due date); it still counts.
  *
  * Run `npm run build` first: this reads dist/, not src/.
  */
@@ -68,8 +67,8 @@ for (const file of html) {
   const body = await readFile(file, 'utf8');
   const route = `/${relative(dist, file).replace(/\\/g, '/').replace(/(index)?\.html$/, '')}`;
 
-  for (const m of body.matchAll(/data-pending="([^"]+)"/g)) {
-    pending.push({ route, fact: m[1] });
+  for (const m of body.matchAll(/data-pending="([^"]+)"(?:\s+data-deferred="([^"]+)")?/g)) {
+    pending.push({ route, fact: m[1], due: m[2] });
   }
   for (const m of body.matchAll(/href="(\/[^"]*)"/g)) {
     const href = m[1];
@@ -87,8 +86,10 @@ console.log(`launch-check — ${html.length} built pages\n`);
 
 console.log(`PENDING FACTS — ${facts.length} open, ${pending.length} markers rendered`);
 for (const fact of facts) {
-  const where = [...new Set(pending.filter((p) => p.fact === fact).map((p) => p.route))];
-  console.log(`  · ${fact}  →  ${where.join(', ')}`);
+  const hits = pending.filter((p) => p.fact === fact);
+  const where = [...new Set(hits.map((p) => p.route))];
+  const due = hits.find((p) => p.due)?.due;
+  console.log(`  · ${fact}${due ? ` (deferred by owner to ${due})` : ''}  →  ${where.join(', ')}`);
 }
 
 console.log(`\nDEAD INTERNAL LINKS — ${dead.size}`);
@@ -97,7 +98,7 @@ for (const [href, from] of dead) console.log(`  · ${href}  ←  ${[...from].joi
 const blocked = facts.length > 0 || dead.size > 0;
 console.log(
   blocked
-    ? '\nNot launch-ready. Supply the facts above and build the missing routes.'
+    ? `\nNot launch-ready.${facts.length ? ' Supply the facts above.' : ''}${dead.size ? ' Build or fix the linked routes above.' : ''}`
     : '\nLaunch-ready: no pending facts, no dead internal links.',
 );
 process.exit(blocked ? 1 : 0);

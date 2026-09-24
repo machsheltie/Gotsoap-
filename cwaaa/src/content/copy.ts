@@ -1015,10 +1015,12 @@ export const pledge = {
 
    PENDING FACTS are typed, never written as prose that looks settled. A
    `{ pending }` segment renders as a visible bracketed marker carrying
-   data-pending, and the launch check fails while any remain. Four are open:
-   the designated agent's name, mailing address and email; governing law; and
-   the contact address. Owner decision 2026-09-22 settled the fifth: the
-   operator is Hope2 Studio, with Stacey M. Breckel where a name is statutory.
+   data-pending, and the launch check fails while any remain. Three are open,
+   all deferred by the owner to 2026-10-15: the designated agent's name,
+   mailing address and email. Owner facts 2026-09-24 settled the contact
+   address (hope2studio@yahoo.com, until a CWAAA inbox exists) and governing
+   law (Kentucky; Bullitt County courts). Owner decision 2026-09-22 settled the
+   operator: Hope2 Studio, with Stacey M. Breckel where a name is statutory.
 
    NO FICTION DISCLOSURE. The words satire, parody, fiction, spec work,
    portfolio and campaign do not appear on these four routes; disclosure lives
@@ -1030,8 +1032,15 @@ export const pledge = {
    (../../gotsoap/docs/copy/COPY-PROTOCOL.md) before it is called approved.
    ========================================================================== */
 
-/** A fact only the owner can supply. Renders as a visible marker, never invented. */
-export type LegalSegment = string | { readonly pending: string };
+/** A fact only the owner can supply. Renders as a visible marker, never invented.
+ *  `deferredUntil` records an owner-set date the fact is due by (ISO date); the
+ *  marker still renders and the launch check still fails, but it reports the
+ *  date so a deferral is not mistaken for a forgotten fact. */
+export type LegalSegment = string | { readonly pending: string; readonly deferredUntil?: string };
+
+/** Owner deferral, 2026-09-24: the DMCA designated agent's name, mailing address
+ *  and email are due by this date. Not a launch waiver. */
+export const DMCA_AGENT_DUE = '2026-10-15';
 /** Plain prose, or prose interrupted by pending facts. */
 export type LegalParagraph = string | readonly LegalSegment[];
 
@@ -1121,7 +1130,7 @@ export const legalPages = {
         paragraphs: [
           'Ask what CWAAA holds about you and you will be told. Ask for it to be removed and it will be, apart from the suppression record, which exists so the removal holds. Withdraw before the current issue goes out and it is not sent. None of this needs a form, a reason, or an account.',
           'This site is operated by Hope2 Studio, which is accountable for what is described on this page.',
-          ['Write to ', { pending: 'contact address' }, '.'],
+          'Write to hope2studio@yahoo.com.',
         ],
       },
     ],
@@ -1142,7 +1151,7 @@ export const legalPages = {
         label: 'Who runs this site',
         paragraphs: [
           'This site is operated by Hope2 Studio.',
-          ['Questions about these terms go to ', { pending: 'contact address' }, '.'],
+          'Questions about these terms go to hope2studio@yahoo.com.',
         ],
       },
       {
@@ -1188,11 +1197,8 @@ export const legalPages = {
         id: 'law',
         label: 'Governing law',
         paragraphs: [
-          [
-            'These terms are governed by the law of ',
-            { pending: 'governing law and jurisdiction' },
-            ', and a dispute arising from them belongs to the courts there.',
-          ],
+          /* Owner fact, 2026-09-24: Kentucky law, Bullitt County courts. */
+          'These terms are governed by the law of the Commonwealth of Kentucky, and a dispute arising from them belongs to the courts of Bullitt County, Kentucky.',
         ],
       },
     ],
@@ -1236,9 +1242,9 @@ export const legalPages = {
         label: 'Designated agent',
         paragraphs: ['Send a notice to the designated agent for Hope2 Studio:'],
         lines: [
-          [{ pending: 'designated agent — name' }],
-          [{ pending: 'designated agent — mailing address' }],
-          [{ pending: 'designated agent — email address' }],
+          [{ pending: 'designated agent — name', deferredUntil: DMCA_AGENT_DUE }],
+          [{ pending: 'designated agent — mailing address', deferredUntil: DMCA_AGENT_DUE }],
+          [{ pending: 'designated agent — email address', deferredUntil: DMCA_AGENT_DUE }],
         ],
       },
       {
@@ -1298,10 +1304,288 @@ export const legalPages = {
         label: 'Reporting a barrier',
         paragraphs: [
           'If something here does not work for you, say so and it will be fixed. Tell CWAAA which page you were on, what you were trying to do, and what happened instead. If you know what you were reading the site with, say that too, because it shortens the search.',
-          ['Write to ', { pending: 'contact address' }, '.'],
+          'Write to hope2studio@yahoo.com.',
         ],
         note: 'There is no form to fill in and no ticket number to keep.',
       },
     ],
   },
 } as const satisfies Record<string, LegalDoc>;
+
+/* ============================================================================
+   2026-09-24 — /tie-one-on, /chapters, /about, /field-assessment.
+
+   OWNER copy is carried byte-for-byte and marked OWNER with its date. Every
+   string marked DRAFT was written for these builds and awaits the copy lane
+   (../../gotsoap/docs/copy/COPY-PROTOCOL.md) before it is called approved.
+
+   Photography is not here yet. Each slot carries a graphics ID and a shot
+   spec for `npm run review`; the public build renders the material ground and
+   says nothing (ImageSlot.astro). Every spec puts a person in frame: no still
+   life (design.md §7, owner law).
+   ========================================================================== */
+
+/** A photograph the owner will supply: graphics ID, review title, shot spec. */
+export interface Shot {
+  readonly id: string;
+  readonly title: string;
+  readonly spec: string;
+}
+
+/**
+ * /tie-one-on — the washcloth-ribbon program. Brief:
+ * .impeccable/surfaces/cwaaa-src-pages-tie-one-on-astro.md.
+ */
+export const tieOneOn = {
+  meta: {
+    title: 'Tie One On For Suds — CWAAA',
+    /** DRAFT. */
+    description:
+      'The washcloth ribbon of Concerned Women Against Axe Abuse. It carries the Coalition’s official position: he showers now.',
+  },
+  /** OWNER 2026-09-24 (program name, fixed). */
+  heading: 'Tie One On For Suds',
+  /** OWNER 2026-09-24 — split at the colon so the position can be set as the
+   *  route's monument. Case kept as written: the position continues the sentence. */
+  position: {
+    lead: 'Our washcloth ribbon carries the Coalition’s official position:',
+    line: 'he showers now.',
+  },
+  /** OWNER 2026-09-24 — the whole sentence, kept intact as the placements' heading. */
+  placementsLine: 'Tie one on the rearview mirror, the gym bag, the doorknob of the room he won’t leave.',
+  /** OWNER 2026-09-24 — the sentence's three places, used as the photographs' captions. */
+  placements: [
+    {
+      where: 'The rearview mirror',
+      shot: {
+        id: 'CW-G03.2',
+        title: 'Tie One On · the rearview mirror',
+        spec: 'A man at the wheel of his own parked car, reaching up to the rearview mirror where the red washcloth ribbon is knotted. His face is in frame (direct, or caught in the mirror). Ordinary daylight, lived-in car. Terry weave and knot legible. 4:5 portrait.',
+      },
+    },
+    {
+      where: 'The gym bag',
+      shot: {
+        id: 'CW-G03.3',
+        title: 'Tie One On · the gym bag',
+        spec: 'A man shouldering his gym bag at his own front door or a gym entrance, the ribbon tied on the strap at chest height. Face and body in frame; he is on his way somewhere. 4:5 portrait.',
+      },
+    },
+    {
+      where: 'The doorknob of the room he won’t leave',
+      shot: {
+        id: 'CW-G03.4',
+        title: 'Tie One On · the doorknob',
+        spec: 'A man standing in the doorway of the room he won’t leave (den, gaming room or bedroom, lived-in behind him), the ribbon on the doorknob beside his hand. He is the subject; the knob is a supporting crop, never the picture. 4:5 portrait.',
+      },
+    },
+  ],
+  /** OWNER 2026-09-24. Set on the program's hang tag, which is where program
+   *  information lives on this route (design.md §6: labels, tags, slips). */
+  wear: ['Wear it for the reformed.', 'Wear it for the suds-curious.'],
+  tag: {
+    /** DRAFT — the tag's printed header: the program and its owner, nothing else. */
+    maker: 'CWAAA',
+    program: 'Tie One On For Suds',
+  },
+  /** DRAFT — the one step from "suds-curious" to the coalition's own assessment. */
+  assessment: { lead: 'Not sure which he is?', label: 'Schedule a Field Assessment', href: '/field-assessment' },
+  /** OWNER 2026-09-24 — the route's close, and the one pledge action it earns. */
+  close: 'Then send him to put his intent in writing.',
+  action: { label: 'Take the Pledge', note: 'Form CW-1', href: '/pledge' },
+  /** The route opener. Same program as the home cloth field (CW-G03). */
+  opener: {
+    id: 'CW-G03.1',
+    title: 'Tie One On · route opener · full bleed',
+    spec: 'A man in an ordinary lived-in interior with the red washcloth ribbon tied on him: wrist, belt loop, or the strap of a bag he is carrying. Face and body legible. Terry weave, stitched hem, frayed ends and knot tension read at this scale. Lower-left third kept quiet for the title. Masters: 3200×1800 wide plus a 2400×3000 phone composition.',
+  } satisfies Shot,
+} as const;
+
+/**
+ * /chapters — four representative dispatches from a fifty-state network.
+ * OWNER roster 2026-09-24: not a directory, not real contacts, not the only
+ * chapters. Order is the story: a room fills → the coalition goes public →
+ * members make something → private experiences receive answers.
+ * Brief: .impeccable/surfaces/cwaaa-src-pages-chapters-astro.md.
+ */
+export const chapters = {
+  meta: {
+    title: 'Chapters — CWAAA',
+    /** DRAFT. */
+    description:
+      'Two million concerned women. Chapters in all fifty states. One demand. Dispatches from Atlanta, Greater Phoenix, Milwaukee and Tacoma.',
+  },
+  /** OWNER 2026-09-24. */
+  heading: 'Most of them answer with a room.',
+  /** APPROVED — objective canon. */
+  scale: 'Two million concerned women. Chapters in all fifty states. One demand.',
+  /** OWNER 2026-09-24. */
+  intro:
+    'A chapter may begin in a community room, around a borrowed table or with an envelope passed between two women who have had the same conversation. What follows is modest and consistent: document the problem, state the expectation and give people something useful to carry home.',
+  /** DRAFT — the field's label. Says "dispatches", never "our chapters": these are four of many. */
+  marker: 'Dispatches',
+  /** OWNER 2026-09-24 — places, functions and dispatch text verbatim, in this order. */
+  dispatches: [
+    {
+      place: 'Atlanta, Georgia',
+      work: 'Meeting',
+      text: 'We reserved the community room for eight. Seventeen women came. We borrowed chairs from the room next door and began with the question that started most chapters: “How many times have you already asked?”',
+      shot: {
+        id: 'CW-G05.1',
+        title: 'Chapters · Atlanta · the room',
+        spec: 'A contemporary community-room meeting: women visible around mismatched tables, extra chairs plainly pulled in from next door. Coffee, notebooks, chapter packets, one box of washcloth ribbons. Organized but recently expanded, not a staged board meeting. Faces in frame. 3:2 landscape.',
+      },
+    },
+    {
+      place: 'Greater Phoenix, Arizona',
+      work: 'Public outreach',
+      text: 'The adhesive on the display gave out before the volunteers did. We moved the pledge table inside, weighted Form CW-1 with two water bottles and stayed through the afternoon. Several women returned with someone they wanted to introduce to the material.',
+      shot: {
+        id: 'CW-G05.2',
+        title: 'Chapters · Greater Phoenix · the pledge table',
+        spec: 'Members moving or running a small pledge table just inside a community-center entrance: folding table, Form CW-1 weighted with two water bottles, red washcloth ribbons, one slightly heat-warped sign. People carry the frame; never a product still life, never a heat caricature. 4:5 portrait.',
+      },
+    },
+    {
+      place: 'Milwaukee, Wisconsin',
+      work: 'Ribbon production',
+      text: 'We assembled eighty-six ribbon packets on Wednesday. Eleven left with members before they could be counted for the photograph. No one was asked to explain who needed one.',
+      shot: {
+        id: 'CW-G05.3',
+        title: 'Chapters · Milwaukee · ribbon night',
+        spec: 'Several members cutting, folding, tying and packing real red washcloth ribbons at a long table. Scissors, thread, instruction slips, packaging bands and finished packets appear as parts of the work. The women who made them remain the subject. 3:2 landscape.',
+      },
+    },
+    {
+      place: 'Tacoma, Washington',
+      work: 'Correspondence',
+      text: 'The first envelope contained four written pages. The second contained a grocery receipt with SOAP circled twice. Both received answers before the room was closed for the night.',
+      shot: {
+        id: 'CW-G05.4',
+        title: 'Chapters · Tacoma · correspondence night',
+        spec: 'Two or three members opening and answering chapter mail at a table: envelopes, reply stationery, the grocery receipt with SOAP circled twice, a stack of finished replies. Private, careful, human; not evidence processing. No readable personal information. Faces in frame. 4:5 portrait.',
+      },
+    },
+  ],
+  /** DRAFT — the close points onward in the progression (design.md §3: Chapters / About). */
+  actions: [
+    { label: 'Take the Pledge', note: 'Form CW-1', href: '/pledge', primary: true },
+    { label: 'How the coalition began', note: '→', href: '/about', primary: false },
+  ],
+} as const;
+
+/**
+ * /about — the 2024 book-club origin, the deepest neutral Office reference, and
+ * the restrained creator credit. Brief: .impeccable/surfaces/cwaaa-src-pages-about-astro.md.
+ */
+export const about = {
+  meta: {
+    title: 'About — CWAAA',
+    /** DRAFT. */
+    description:
+      'Concerned Women Against Axe Abuse began in 2024 as one book club’s informal grievance log. It is now a national coalition with a single, reasonable demand.',
+  },
+  marker: 'About the coalition',
+  /** OWNER 2026-09-24, paragraph 1. Its first sentence is the route's statement. */
+  origin: {
+    statement:
+      'What began as one book club’s informal grievance log is now a national coalition with a single, reasonable demand: soap, applied to men, regularly.',
+    body: [
+      'There was no founding incident — there were thousands, occurring simultaneously, in elevators and rideshares and the third row of every theater.',
+      'What united our founders was not anger. Anger is loud. It was a quiet, unshakeable certainty that it did not have to smell like this.',
+    ],
+  },
+  /** OWNER 2026-09-24, paragraph 2. Its opening pair is the route's monument. */
+  position: {
+    line: ['We do not oppose fragrance.', 'We oppose substitution.'],
+    body: 'A body spray is a citrus arrangement on a condemned building. We are against the fog, and we intend to lift it. In writing. With copies filed.',
+  },
+  /** APPROVED — objective canon. */
+  scale: 'Two million concerned women. Chapters in all fifty states. One demand.',
+  /** The coalition's own filed record. The last row is the site's single neutral
+   *  Office reference (design.md §6 About; ui-system §13 reserves it here).
+   *  Owner approved a drafted line 2026-09-24; the wording is DRAFT. It is a
+   *  reference and nothing more: no verb, no relationship, no explanation. It
+   *  links only if OFFICE_SITE_URL is ever configured. */
+  record: [
+    { label: 'Established', value: '2024' },
+    /** DRAFT — restates the owner's origin as a record value. */
+    { label: 'Origin', value: 'One book club' },
+    { label: 'Chapters', value: 'All fifty states', href: '/chapters' },
+    { label: 'Reference', value: 'Establishment Directive 1961-A, Office of Lather Compliance', office: true },
+  ],
+  /** Owner decision 2026-09-24: a restrained credit that leads to the real
+   *  authorship and the fiction disclosure on the Got Soap? /about reveal. The
+   *  disclosure stays one click deep; nothing here announces it. DRAFT wording. */
+  credit: { lead: 'Site by', name: 'Hope2 Studio', path: '/about', external: 'External site' },
+  shots: {
+    origin: {
+      id: 'CW-G05.5',
+      title: 'About · the book club, 2024',
+      spec: 'Contemporary, 2024: the founding book club, five or six women around an ordinary home dining table mid-meeting, faces in frame. The informal grievance log open between them (spiral notebook, handwritten entries, nothing legible), a paperback or two, coffee. Not sepia, not aged, not staged. 3:2 landscape.',
+    },
+    program: {
+      id: 'CW-G05.6',
+      title: 'About · the first program materials',
+      spec: 'Early 2024, the first program work with the women who made it: two or three members at a kitchen table cutting the first washcloth ribbons and marking up an early Form CW-1 draft. People are the subject; the materials support. 4:5 portrait.',
+    },
+  },
+} as const;
+
+/**
+ * /field-assessment — Schedule a Field Assessment. OWNER DIRECTION 2026-09-24:
+ * CWAAA does NOT host a Sniff Test. The seven questions, four verdict names and
+ * verdict copy stay on Got Soap? in the campaign's voice (CW-L03). This page is
+ * CWAAA's own voluntary baseline assessment with two distinct paths: the
+ * campaign's Sniff Test (external), and CWAAA's request path, which is PENDING
+ * until intake fields, consent, fulfilment, privacy handling and an operational
+ * destination are approved. Nothing is collected and nothing is "booked".
+ * Every string below is DRAFT except the title.
+ * Brief: .impeccable/surfaces/cwaaa-src-pages-field-assessment-astro.md.
+ */
+export const fieldAssessment = {
+  meta: {
+    title: 'Schedule a Field Assessment — CWAAA',
+    description:
+      'A voluntary conversation about one man’s washing routine, with a chapter member, at a table. What it includes, and two ways to start.',
+  },
+  /** OWNER 2026-09-24 (title). */
+  title: 'Schedule a Field Assessment',
+  lead:
+    'A field assessment is a voluntary conversation about one man’s washing routine, held with a chapter member at an ordinary table. He agrees to it himself. It ends with a written baseline and one next step.',
+  includes: {
+    label: 'What an assessment includes',
+    list: [
+      'One chapter member and one man, by his own agreement. Nobody is assessed on someone else’s say-so.',
+      'A plain account of the routine he actually keeps: how often, with what, and what the spray is being asked to cover.',
+      'No sniffing. The routine is described, not tested.',
+      'A written baseline. He keeps the only copy.',
+      'One next step. Usually a bar of soap and Form CW-1.',
+    ],
+    note: 'It is not a test he can fail, and nothing from it is reported to anyone.',
+  },
+  paths: {
+    label: 'Two ways to start',
+    sniff: {
+      label: 'Take the Sniff Test now',
+      /** Sourced: Got Soap?'s own "the assessment takes four minutes". */
+      body: 'Seven questions and a verdict, in about four minutes. Written and hosted by the Got Soap? campaign, not by CWAAA. The verdict is theirs.',
+      note: 'Got Soap? · external site',
+      action: 'Open the Sniff Test',
+      path: '/sniff-test/',
+      external: 'External site',
+    },
+    request: {
+      label: 'Request a field assessment',
+      body: 'CWAAA’s own intake: a request for a conversation with a chapter member, not an instant result.',
+      /** Renders as a visible [pending: …] marker the launch check counts. */
+      pending: 'field assessment request form',
+      note: 'Until it opens, this page collects nothing.',
+    },
+  },
+  shot: {
+    id: 'CW-G09',
+    title: 'Field assessment · at the table',
+    spec: 'A chapter member and a man across an ordinary table in a community room or kitchen, mid-conversation, both faces in frame; he is plainly there by choice, a little sheepish. A bar of soap and a blank baseline sheet on the table. No clipboard enthusiasm, no interrogation framing, no surveillance angle. 3:2 landscape.',
+  } satisfies Shot,
+} as const;

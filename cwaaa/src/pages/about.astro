@@ -1,0 +1,135 @@
+---
+/**
+ * /about — the coalition's 2024 origin, its position, its record, and the
+ * restrained creator credit. Brief: .impeccable/surfaces/cwaaa-src-pages-about-astro.md
+ * (2026-09-24). Mode: Read. design.md §6 About; §3 item 6: legitimacy, scale,
+ * contemporary origin, and then a chronology crack.
+ *
+ * The crack is one row of the coalition's own filed record: a 2024
+ * organisation, and beneath "Established 2024" a reference to a directive
+ * from 1961. It is set exactly like the rows around it. No glow, no lead-in,
+ * no explanation, no second mention anywhere on the site (design.md §11). It
+ * links only if OFFICE_SITE_URL is configured, and then it links plainly.
+ *
+ * The creator credit is the last line on the page, below the record, in the
+ * small reading face. It leads to the real authorship and the fiction
+ * disclosure on the Got Soap? /about reveal; nothing on this page announces
+ * either (PRODUCT.md hard constraints). It renders only with a configured origin.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImageSlot from '../components/ImageSlot.astro';
+import { about as a, org } from '../content/copy';
+import { OFFICE_SITE_URL, isConfigured, gotSoapUrl } from '../config/site';
+const creditHref = gotSoapUrl(a.credit.path);
+const officeHref = isConfigured(OFFICE_SITE_URL) ? OFFICE_SITE_URL : '';
+---
+<BaseLayout title={a.meta.title} description={a.meta.description} current="/about">
+  <!-- 1 · Origin -->
+  <section class="origin" aria-labelledby="ab-h">
+    <div>
+      <p class="marker" data-reveal>{a.marker} · {org.est}</p>
+      <h1 id="ab-h" class="t-statement origin-h" data-reveal style="--i: 1">{a.origin.statement}</h1>
+    </div>
+    <div class="origin-body">
+      {a.origin.body.map((p, i) => <p class="t-lead" data-reveal style={`--i: ${i + 2}`}>{p}</p>)}
+    </div>
+  </section>
+
+  <!-- 2 · The book club, and the first program work -->
+  <section class="plates" aria-label="The coalition in 2024">
+    <div class="plate-wide" data-reveal="photo">
+      <ImageSlot tone="photo" id={a.shots.origin.id} title={a.shots.origin.title} spec={a.shots.origin.spec} ratio="3 / 2"
+        sizes="(max-width: 700px) 100vw, 66vw" safe="10% 8%" />
+    </div>
+    <div class="plate-tall" data-reveal="photo" style="--i: 1">
+      <ImageSlot tone="photo" id={a.shots.program.id} title={a.shots.program.title} spec={a.shots.program.spec} ratio="4 / 5"
+        sizes="(max-width: 700px) 70vw, 30vw" safe="10% 10%" />
+    </div>
+  </section>
+
+  <!-- 3 · The position -->
+  <section class="position on-ink" aria-labelledby="ab-pos">
+    <h2 id="ab-pos" class="pos-line" data-reveal>
+      <span>{a.position.line[0]}</span> <em>{a.position.line[1]}</em>
+    </h2>
+    <div class="rule" data-reveal="rule" style="--i: 1"></div>
+    <p class="t-lead pos-body" data-reveal style="--i: 2">{a.position.body}</p>
+  </section>
+
+  <!-- 4 · Scale and the filed record (the chronology crack is its last row) -->
+  <section class="record-field" aria-labelledby="ab-scale">
+    <h2 id="ab-scale" class="scale-line" data-reveal>{a.scale}</h2>
+    <div class="rule ink heavy" data-reveal="rule" style="--i: 1"></div>
+    <dl class="record" data-reveal style="--i: 2; --record-cols: 4">
+      {a.record.map((r) => (
+        <div>
+          <dt class="t-ui-caps t-label">{r.label}</dt>
+          <dd class="t-ui">
+            {'href' in r && r.href ? <a class="link-rule" href={r.href}>{r.value}</a>
+              : 'office' in r && r.office && officeHref ? <a href={officeHref} rel="external noopener">{r.value}</a>
+              : r.value}
+          </dd>
+        </div>
+      ))}
+    </dl>
+    {creditHref && (
+      <p class="credit t-note">
+        {a.credit.lead} <a class="link-rule" href={creditHref} rel="external noopener">{a.credit.name} <span class="visually-hidden">({a.credit.external})</span></a>
+      </p>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  /* ---- 1 · Origin -------------------------------------------------------- */
+  .origin {
+    background: var(--cw-ivory); padding: var(--section) var(--gutter);
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--gap-l); align-items: end;
+  }
+  .origin-h { margin-top: var(--gap-s); max-width: 24ch; }
+  .origin-body { display: grid; gap: var(--gap-s); }
+  .origin-body p { color: var(--cw-black); }
+
+  /* ---- 2 · Plates: the portrait overlaps the wide frame's edge ------------ */
+  .plates {
+    background: var(--cw-ivory); padding: 0 var(--gutter) var(--section);
+    display: grid; grid-template-columns: repeat(12, 1fr); align-items: end;
+  }
+  .plate-wide { grid-column: 1 / 9; grid-row: 1; }
+  .plate-tall { grid-column: 8 / 12; grid-row: 1; margin-bottom: calc(var(--gap-l) * -1); position: relative; z-index: 1;
+    box-shadow: 0 0 0 clamp(6px, 0.8vw, 12px) var(--cw-ivory); }
+
+  /* ---- 3 · Position ------------------------------------------------------ */
+  .position { background: var(--cw-ink); color: var(--cw-ivory); padding: calc(var(--section) + var(--gap-l)) var(--gutter) var(--section); }
+  .pos-line {
+    font-family: var(--font-cwaaa-proposition); font-weight: 400;
+    font-size: min(var(--cw-line), 6vw); line-height: 0.98; letter-spacing: -0.01em; margin-bottom: var(--gap-m);
+  }
+  .pos-line span, .pos-line em { display: block; }
+  .pos-line em { font-style: normal; color: var(--cw-tint); }
+  .position .rule { margin-bottom: var(--gap-m); max-width: 60rem; }
+  .pos-body { color: var(--cw-ivory); max-width: var(--cw-measure-note); }
+
+  /* ---- 4 · Record field -------------------------------------------------- */
+  .record-field { background: var(--cw-ivory); padding: var(--section) var(--gutter); }
+  .scale-line {
+    font-family: var(--font-cwaaa-proposition); font-weight: 400; font-size: var(--cw-line);
+    line-height: 0.95; letter-spacing: -0.01em; color: var(--cw-ink); margin-bottom: 1.75rem; max-width: 18ch;
+  }
+  .record-field .rule.ink { margin-bottom: 1.75rem; }
+  .record-field .record { row-gap: 0.9rem; }
+  .record a:not(.link-rule) { color: inherit; }
+  .credit { margin-top: var(--gap-l); padding-top: 0.9rem; border-top: 1px solid var(--cw-hairline); max-width: none; }
+
+  /* ---- --bp-reading ------------------------------------------------------ */
+  @media (max-width: 860px) {
+    .origin { grid-template-columns: 1fr; gap: 1.75rem; }
+  }
+  /* ---- --bp-phone -------------------------------------------------------- */
+  @media (max-width: 700px) {
+    .plate-wide { grid-column: 1 / -1; }
+    .plate-tall { grid-column: 5 / -1; grid-row: 2; margin: -3rem 0 0; }
+    .pos-line { font-size: 11vw; }
+    .scale-line { font-size: 11vw; max-width: none; }
+  }
+</style>
