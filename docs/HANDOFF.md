@@ -97,7 +97,7 @@ A lower authority may add execution detail but may not contradict a higher autho
 | CWAAA material | `/crisis`, pledge treatment, seams, components | extracted into a standalone CWAAA site |
 | Office | not implemented | separate error-state-only site |
 | Email | Buttondown integration with stale recurring “Movement Updates” copy | one shared audience and finite CWAAA-authored two-message fulfillment |
-| Cross-site URLs | CWAAA live at its own origin `https://cwaaa.netlify.app` (see below); others not assigned | real per-entity domains; empty config values until the owner assigns them |
+| Cross-site URLs | CWAAA live at its own origin `https://cwaaa.netlify.app`; Office assigned `https://office-of-lather-compliance.netlify.app`, not yet deployed (see below) | real per-entity domains; empty config values until the owner assigns them |
 
 This documentation pass does not move runtime code. Extraction begins only when an implementation
 task explicitly authorizes it.
@@ -119,6 +119,21 @@ functions). This supersedes the interim `/cwaaa` co-hosting decision taken earli
 
 The remaining CW-D07 work is a real custom domain in place of the Netlify subdomain. The migration
 manifest still governs actual runtime extraction; separate deployment is not extraction.
+
+## Owner decision, 2026-09-25 — the Office's origin
+
+The Office of Lather Compliance lives at **`https://office-of-lather-compliance.netlify.app`**. The
+Netlify site exists with builds switched off; nothing is deployed there yet because the Office app
+is not built.
+
+- `OFFICE_SITE_URL` in `cwaaa/src/config/site.ts` stays empty until that address serves a verified
+  Office error state (`cwaaa/PRD-TO-LAUNCH.md` § deep Office referral). Then it takes this origin,
+  and record 9's Next lands there.
+- To make it go live once the Office site is built:
+  1. Add `office-of-lather-compliance/netlify.toml` like `cwaaa/netlify.toml`: base folder, build
+     command, publish folder, and a catch-all rule so every address shows an Office error page.
+  2. Turn builds back on in the Netlify dashboard: Site configuration → Build & deploy →
+     Continuous deployment → "Activate builds". This is an owner action in the dashboard.
 
 ## Owner decision, 2026-09-15 — jurisdictional split and record classes
 
