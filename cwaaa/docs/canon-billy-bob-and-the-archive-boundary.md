@@ -49,6 +49,73 @@ proposed again:**
 3. *Subtraction plus diction.* Stronger as horror, weaker as world logic; it muddies who authored
    what.
 
+### Owner ruling, 2026-09-23 — record 7 is the record that loses its ending
+
+**Record 7 stops answering "did he come back?"** CWAAA is sincere, complete and unremarkable through
+`External review requested`, and then the record stops. The return is not withheld, not redacted and
+not marked pending: the row is simply not in the document, the way a row is not in a document when
+the thing did not happen.
+
+**The gap stands at record 7.** The Office's fragment here is exactly what it is inside Billy Bob's
+record — one finding, its disposition a bar — and it answers nothing new. The Office begins
+supplying the answers CWAAA has stopped giving further down the sequence, never at the first step. A
+new Office line arriving at the same moment the CWAAA form ends would give the reader something to
+look at instead of the hole.
+
+Derived shape (Vivian, pending draft approval; the two rulings above are owner decisions):
+
+- **Survives, in CWAAA's ordinary format:** masthead and identifier, participant name and age,
+  referral block, reporting-party statement, participant testimony, the full chronology through
+  final voluntary contact, the caseworker field note, and `External review requested`.
+- **Absent:** `returned`, `followUp`, `partnerFollowUp`, `followUpImage`, `closeNote`, and every
+  recovery row in the close block.
+- **The subtraction lands on a string the reader has already read.** Billy Bob's close ends
+  `External review — Requested. Case returned.` Record 7's reads `External review — Requested.`
+  Two words, ninety seconds later.
+- **The summary block renders two rows, not three.** What he believed, what it cost him. There is no
+  third beat, because the third beat is the return. The top of the record rhymes with the bottom
+  before the reader knows what is missing.
+- **Name and age survive.** Personhood is not what record 7 loses; spending it here would blur which
+  question went missing.
+- **Photograph:** `Photograph on file · not reproduced`, unaltered. That wording is protected and is
+  not to be softened here either.
+
+**Record 7 is data-only.** Verified against `src/pages/recovery-stories/[id].astro` on 2026-09-23:
+`arc`, `fragment`, `returned`, `followUp`, `partnerFollowUp`, `followUpImage` and `closeNote` are
+already conditional, and the pager derives Next from the sequence. Appending record 7 with
+`open: true` and `public: false` restores Billy Bob's Next with no code change.
+
+**Record 7 will ship with a pending Next of its own until record 8 exists.** Carry `nextPending`
+down to it. The rule does not change one level deeper: not a stub, not a placeholder, and never a
+Next pointing at a 404.
+
+**Staged, not decided.** Record 8 and record 9 have a length and a law (subtraction against fixed
+Office authority) but no ratified content. Do not infer them from record 7.
+
+### Owner architecture, 2026-09-25 — record 7 is Derek; three corrections to the 09-23 entry
+
+Record 7 is **Derek**, a nightclub DJ referred independently by multiple prospective romantic
+partners. Record 8 is **Carlos Eduardo**. Source: `../derek.md` (owner, 2026-09-25), which governs
+Derek's field architecture.
+
+Three items in the 09-23 entry above are superseded:
+
+1. **No summary block.** Derek carries no `arc`. The three-beat summary ends on what he does now, and
+   Derek has no documented now. He uses the ordinary Brayden opening instead. The 09-23 proposal of a
+   two-row arc is struck.
+2. **Derek has a real participant photograph** — himself in the DJ booth, submitted by the
+   participant, outwardly groomed and plausibly a man who gets dates. The 09-23 proposal of
+   `Photograph on file · not reproduced` is struck. No odor haze, no disgusted crowd, no bathroom
+   substituted for the man.
+3. **The copy is data-only; the photograph is not.** `close`, `arc`, `fragment`, `returned`,
+   `followUp`, `partnerFollowUp` and `closeNote` are all conditional, so the subtraction needs no
+   code. But `photos` in `src/pages/recovery-stories/[id].astro` is a hardcoded slug map, so wiring
+   Derek's portrait is a one-line import and map entry once the owner produces it. Until then he
+   renders the ordinary placeholder.
+
+Also fixed by that architecture: there is no empty block where the removed fields belong. The page
+proceeds from the Office fragment to the ordinary lower controls — pledge row, then the pager.
+
 ### Build status, 2026-09-15 — an unfinished edge, not a finished one
 
 `/recovery-stories` ships with the crossing live: the last written public record's Next loads Billy
@@ -72,6 +139,12 @@ A fake door is worse than no door.
 
 When record 7 exists, append it to the sequence with `open: true` and `public: false`; the pager
 restores his Next with no code change. The marker in the data is `nextPending` on his record.
+
+**Update, 2026-09-28:** record 7 (Derek, `RC-073`) is appended from `../derek.md`. Billy Bob's Next
+is restored and `nextPending` now sits on Derek: record 8 (Carlos Eduardo) is the unwritten edge, and
+the same two wrong resolutions above apply one floor down. Two production values in Derek's record
+are drafts awaiting the owner because `derek.md` leaves them TBD: `External review requested — May
+19, 2026` and `REFERENCE: 26-1407`. His photograph is unproduced and renders the ordinary placeholder.
 
 ## 2 · Billy Bob — character
 

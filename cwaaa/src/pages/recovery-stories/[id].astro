@@ -30,6 +30,7 @@ import { recoveryStories as r } from '../../content/copy';
 import braydenPhoto from '../../assets/brayden.png';
 import billyBobPhoto from '../../assets/billybob.png';
 import billyBobAfter from '../../assets/billybob2.png';
+import derekPhoto from '../../assets/derek.png';
 
 /**
  * Every record whose file is actually written is emitted, public or not; the
@@ -55,7 +56,7 @@ export function getStaticPaths() {
 
 type Rec = (typeof r.records)[number];
 const { rec, prev, next } = Astro.props as { rec: Rec; prev: Rec | null; next: Rec | null };
-const photos: Record<string, ImageMetadata> = { brayden: braydenPhoto, 'billy-bob': billyBobPhoto };
+const photos: Record<string, ImageMetadata> = { brayden: braydenPhoto, 'billy-bob': billyBobPhoto, derek: derekPhoto };
 const photo = photos[rec.slug];
 /** The after-state, where a record has one. Same frame as the photograph above. */
 const afterPhotos: Record<string, ImageMetadata> = { 'billy-bob': billyBobAfter };
@@ -247,12 +248,13 @@ const paras = (body: string) => body.split('\n\n');
     </div>
 
     <!-- No count: a count tells the visitor where the boundary is.
-         The last written record renders no Next. That is record 7 being
-         unwritten, NOT the archive ending there (canon: "Build status,
-         2026-09-15"). Never point Next at a record that does not exist — a 404
-         reads as a broken site and gives the visitor an innocent explanation
-         for the boundary they just crossed. Appending record 7 to the sequence
-         restores this link with no change here. -->
+         The last written record renders no Next. That is the next record
+         being unwritten (record 8 as of 2026-09-28), NOT the archive ending
+         there (canon: "Build status, 2026-09-15"). Never point Next at a
+         record that does not exist — a 404 reads as a broken site and gives
+         the visitor an innocent explanation for the boundary they just
+         crossed. Appending the next record restores this link with no change
+         here. -->
     <nav class="pager" aria-label="Recovery records" data-reveal>
       {prev
         ? <a class="p-prev t-ui-caps t-label" href={`/recovery-stories/${prev.slug}`}>← {r.pager.prev}</a>

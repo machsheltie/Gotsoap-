@@ -622,14 +622,13 @@ export const recoveryStories = {
        * No secret-area treatment of any kind: the site's mistake is
        * bureaucratic, not theatrical.
        *
-       * UNFINISHED EDGE — canon 1 says Billy Bob RETAINS an active Next, and he
-       * does not have one yet. This is not a decision that the archive ends
-       * here; it is record 7 not being written. See `nextPending` below. Do not
-       * resolve this by concluding the sequence is complete, and do not resolve
-       * it by pointing Next at a record that does not exist: a 404 reads as a
-       * broken site, and a broken site is an innocent explanation for the
-       * boundary the visitor just crossed. It defuses the mechanic instead of
-       * deepening it. The fix is to write record 7.
+       * Canon 1: Billy Bob RETAINS an active Next. Since 2026-09-28 it loads
+       * record 7 (Derek), the next entry in this sequence. The unfinished edge
+       * moved one floor down with `nextPending`: Derek has no Next until record
+       * 8 is written. Never resolve that edge by concluding the sequence is
+       * complete, or by pointing Next at a record that does not exist: a 404
+       * reads as a broken site, and a broken site is an innocent explanation
+       * for the boundary the visitor just crossed.
        */
       id: 'RC-064',
       slug: 'billy-bob',
@@ -797,7 +796,166 @@ export const recoveryStories = {
         { label: 'External review', value: 'Requested. Case returned.' },
       ],
       closeNote: 'Partner reports that shared bedding has remained within baseline since the participant’s return.',
-      nextPending: 'Record 7 unwritten. Billy Bob’s Next is missing, not disabled.',
+    },
+    {
+      /**
+       * RECORD 7. NOT PUBLIC — reachable only by Billy Bob's Next. Source:
+       * ../derek.md (owner, 2026-09-25), transferred verbatim; canon:
+       * docs/canon-billy-bob-and-the-archive-boundary.md, "Owner ruling,
+       * 2026-09-23" and "Owner architecture, 2026-09-25".
+       *
+       * This is the record that stops answering "did he come back?". It carries
+       * the ordinary Brayden opening (no `arc`) and CWAAA's full, unremarkable
+       * form through `External review requested`, then one Office finding, and
+       * then nothing: no `returned`, `followUp`, `partnerFollowUp`,
+       * `followUpImage`, `close` or `closeNote`. Those keys are not withheld,
+       * redacted or marked pending — they are absent, the way a row is absent
+       * when the thing did not happen. Do not add a close block, a status row
+       * or a "no response" line to fill the gap; the pledge row follows the
+       * fragment directly. The Office fragment answers nothing new here.
+       */
+      id: 'RC-073',
+      slug: 'derek',
+      open: true,
+      public: false,
+      name: 'Derek, 33',
+      indexQuote: '',
+      /**
+       * Owner-supplied 2026-09-28 (src/assets/derek.png), 4:3 as shipped.
+       * Derek in the DJ booth, outwardly groomed, plausibly a man who gets
+       * dates (canon 2026-09-25). No odor haze, no disgusted crowd, no
+       * bathroom in place of the man. The alt describes the image as it is.
+       */
+      image: {
+        alt: 'Derek, 33, in the DJ booth at the club where he regularly performs, smiling at the camera in a black T-shirt and a thin chain, headphones around his neck and one hand on the mixer. Colored club light and a dancing crowd fill the room behind him. He looks groomed and confident; sweat darkens the shoulder of his shirt and shines on his face. Submitted by the participant during initial contact as evidence of his ordinary presentation.',
+      },
+      referral: [
+        { label: 'Participant', value: 'Derek, 33' },
+        { label: 'Reporting parties', value: 'Four prospective romantic partners' },
+        { label: 'Referral occasioned by', value: 'Independent concerns following in-person dates' },
+        { label: 'Participant’s stated position', value: '“I’m still getting dates.”' },
+        { label: 'Stated expectations of others', value: 'Not supplied' },
+        { label: 'Primary self-representation', value: 'DJ-booth photographs' },
+        { label: 'Reported shower substitute', value: 'Axe body spray; Febreze before dates' },
+        { label: 'Water engagement', value: 'Reported infrequent' },
+        { label: 'Deodorant use', value: 'None reported' },
+        { label: 'Clothing-assessment method', value: 'Self-administered odor check' },
+        { label: 'Occupational context', value: 'Nightclub DJ, active' },
+        { label: 'Access to bathing facilities', value: 'Confirmed' },
+        { label: 'Access to clean linens', value: 'Confirmed' },
+        { label: 'Supporting materials', value: 'Dating-profile screenshots and residential statement, submitted separately' },
+        { label: 'Cross-referral corroboration', value: 'Confirmed' },
+        { label: 'Prior contact with CWAAA', value: 'None' },
+      ],
+      corroboration: [
+        {
+          heading: 'Referral 1',
+          rows: [
+            { label: 'Source relationship', value: 'Prospective romantic partner' },
+            { label: 'Prior contact with participant', value: 'Digital and one in-person date' },
+            { label: 'Concern', value: 'Strong body odor beneath applied fragrance' },
+            { label: 'Date outcome', value: 'Reporting party left the venue before the meal was completed' },
+            { label: 'Prior awareness of other reports', value: 'None' },
+          ],
+        },
+        {
+          heading: 'Referral 2 — received four days later',
+          rows: [
+            { label: 'Source relationship', value: 'Prospective romantic partner' },
+            { label: 'Prior contact with participant', value: 'Digital and one in-person date' },
+            { label: 'Concern', value: 'Strong body odor and apparent garment reuse' },
+            { label: 'Date outcome', value: 'Reporting party did not return after leaving the table' },
+            { label: 'Prior awareness of other reports', value: 'None' },
+            { label: 'Cross-referral corroboration', value: 'Confirmed' },
+          ],
+        },
+        {
+          heading: 'Referral 3 — residential observation',
+          rows: [
+            { label: 'Source relationship', value: 'Prospective romantic partner' },
+            { label: 'Prior contact with participant', value: 'Hiking and picnic date' },
+            { label: 'Initial interpretation', value: 'Odor attributed to physical exertion' },
+            { label: 'Residential access', value: 'Reporting party entered participant’s residence following the date' },
+            { label: 'Concern', value: 'Sustained non-cleansing and fragrance substitution' },
+            { label: 'Observed bathroom conditions', value: 'No hand towel in use; no hand soap; no shampoo; no deodorant; unused towels stored in closet; novelty soap present in shower; multiple body-spray containers present; fabric refresher stored on toilet' },
+            { label: 'Prior awareness of other reports', value: 'None' },
+            { label: 'Cross-referral corroboration', value: 'Confirmed' },
+          ],
+        },
+      ],
+      statements: [
+        {
+          heading: 'Reporting party 1 — statement on file',
+          body: '“He looked clean. That was the trap.\n\nHis hair was done. His shirt looked good. He had on so much body spray that I noticed it before I noticed anything else. Once we sat down, I could smell what was underneath it.\n\nI kept thinking I would get used to it. I didn’t. He leaned across the table and it got worse. I went to the restroom, paid the server for my drink on the way out and left.\n\nI know that was rude. Staying would have meant explaining something to a grown man that he had already made impossible not to notice.\n\nI had never spoken to any of the other women when I filed this.”',
+        },
+        {
+          heading: 'Reporting party 3 — residential statement on file',
+          body: '“We went hiking, so when I smelled him I thought it was the hike. That was the only reason I went back to his place.\n\nI used his bathroom and there wasn’t a hand towel or hand soap. I asked where the soap was. He pointed to a soap-on-a-rope hanging in the shower like it had been put there as a joke. It didn’t look used.\n\nThe sink had toothpaste dried around it. The mirror had a film over it. There were clothes on the floor and a bottle of Febreze on top of the toilet. There was no shampoo and no deodorant anywhere I could see.\n\nI opened the closet looking for a towel. There were clean towels folded inside. They looked completely unused. That somehow made it worse.\n\nWhen I asked about the Febreze, he said it worked in the bathroom and on his clothes if he was going out.\n\nI left. I filed the referral the next morning.”',
+        },
+      ],
+      /** OWNER-AUTHORED (../derek.md). Verbatim. Brayden's convention: one
+       *  opening mark on the first paragraph, one closing mark on the last. */
+      testimony: [
+        '“I don’t know why four dates not working out is being treated like one big thing. Dates don’t work out. That happens to everybody.',
+        'I check my clothes before I put them on. If they smell fine, they’re fine. If something needs help, I hit it with Axe. If it’s a date, I do a little more. That’s what the Febreze is for.',
+        'I don’t use deodorant because I’m already using body spray. Putting both on is just putting two scents on top of each other.',
+        'I work nights in a club. Everybody in there sweats. I’m moving for four hours straight in the booth, and women still come talk to me. I still get numbers. I still get dates. Nobody seems to include that part.',
+        'One woman had a family emergency. One left because she wasn’t feeling well. Another one decided she didn’t like my bathroom. Those are three different things.',
+        'If the sniff test says the shirt is fine and I’m still getting dates, I don’t see where the emergency is.”',
+      ],
+      chronology: [
+        { label: 'Initial referral received', value: 'Prospective romantic partner. Date ended before completion.' },
+        { label: 'Second referral received', value: 'Independent prospective romantic partner. No prior awareness of first report.' },
+        { label: 'Cross-referral corroboration', value: 'Confirmed.' },
+        { label: 'Third referral received', value: 'Residential conditions observed following hiking and picnic date.' },
+        { label: 'Initial outreach', value: 'Participant contacted by telephone. Baseline materials provided electronically and acknowledged.' },
+        { label: 'Participant’s stated position', value: '“I’m still getting dates.”' },
+        { label: 'Fragrance substitution', value: 'Acknowledged by participant. Necessity of washing disputed.' },
+        { label: 'Garment assessment', value: 'Participant reported clothing remained in use when no objectionable odor was personally detected.' },
+        { label: 'Follow-up', value: 'Participant reported no change in practice.' },
+        { label: 'Fourth referral received', value: 'Concern consistent with prior reports. Reporting party had no known contact with earlier sources.' },
+        { label: 'Second outreach', value: 'Participant advised that four independent reporting parties had described materially consistent conditions.' },
+        { label: 'Participant response', value: 'Participant cited continued romantic interest and disputed that unsuccessful dates established a hygiene concern.' },
+        { label: 'Baseline materials', value: 'Previously received. No information deficit identified.' },
+        { label: 'Final telephone contact', value: 'Participant stated that further calls from the coalition would be blocked.' },
+        { label: 'Subsequent telephone outreach', value: 'Calls not completed.' },
+        { label: 'Written correspondence', value: 'No response received.' },
+        { label: 'Certified correspondence', value: 'Unclaimed.' },
+        { label: 'Final voluntary contact', value: 'No further participant contact available.' },
+      ],
+      fieldNote: {
+        heading: 'Field note — caseworker, statement on file',
+        body: '“The participant does not dispute using fragrance in place of washing. He disputes that the practice has produced a pattern.\n\nFour reporting parties described the same condition without known contact with one another. The participant was advised of that fact. He cited the existence of subsequent dates as evidence that the earlier reports were not representative.\n\nAccess is not at issue. The participant has bathing facilities, clean towels and products available for purchase. He understands what the reporting parties are asking him to do.\n\nHe has elected not to do it and has discontinued corrective contact.\n\nI have no additional voluntary intervention to offer.”',
+      },
+      /** DRAFT — PENDING OWNER. derek.md leaves the date TBD. Proposed as a
+       *  mundane production value, two months after Billy Bob's request, so
+       *  the absence of a return is not explained by the calendar. */
+      requested: { label: 'External review requested', value: 'May 19, 2026' },
+      /** Same object and format as Billy Bob's: one finding, disposition a bar.
+       *  REFERENCE is DRAFT — PENDING OWNER (derek.md: TBD); proposed on the
+       *  ratified 26-NNNN pattern, later in sequence than 26-1183. */
+      fragment: {
+        lines: [
+          'OFFICE OF LATHER COMPLIANCE',
+          'EXTERNAL FINDING',
+          'REFERENCE: 26-1407',
+          '',
+          'PRIOR VOLUNTARY INTERVENTION: DOCUMENTED',
+          'INDEPENDENT REPORTS: FOUR',
+          'CROSS-REFERRAL CORROBORATION: CONFIRMED',
+          'REPORTED WATER ENGAGEMENT: INFREQUENT',
+          'FRAGRANCE SUBSTITUTION: SUSTAINED',
+          'GARMENT REUSE: ACKNOWLEDGED',
+          'PARTICIPANT COMPREHENSION: NOT AT ISSUE',
+          'CORRECTIVE CONTACT: DISCONTINUED BY PARTICIPANT',
+          '',
+          'FINDING: BASELINE DEFICIENCY',
+        ],
+        dispositionLabel: 'DISPOSITION:',
+      },
+      /** Carried down from Billy Bob: record 8 (Carlos Eduardo) is unwritten.
+       *  Derek's Next is missing, not disabled — never a stub, never a 404. */
+      nextPending: 'Record 8 unwritten. Derek’s Next is missing, not disabled.',
     },
   ],
 } as const;
