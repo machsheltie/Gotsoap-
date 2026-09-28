@@ -107,11 +107,11 @@ Three items in the 09-23 entry above are superseded:
    participant, outwardly groomed and plausibly a man who gets dates. The 09-23 proposal of
    `Photograph on file · not reproduced` is struck. No odor haze, no disgusted crowd, no bathroom
    substituted for the man.
-3. **The copy is data-only; the photograph is not.** `close`, `arc`, `fragment`, `returned`,
+3. **The copy is data-only; the photograph was not.** `close`, `arc`, `fragment`, `returned`,
    `followUp`, `partnerFollowUp` and `closeNote` are all conditional, so the subtraction needs no
-   code. But `photos` in `src/pages/recovery-stories/[id].astro` is a hardcoded slug map, so wiring
-   Derek's portrait is a one-line import and map entry once the owner produces it. Until then he
-   renders the ordinary placeholder.
+   code. `photos` in `src/pages/recovery-stories/[id].astro` is a hardcoded slug map; the owner
+   supplied Derek's portrait 2026-09-28 (`src/assets/derek.png`) and it is wired in and shipped — he
+   no longer renders the placeholder.
 
 Also fixed by that architecture: there is no empty block where the removed fields belong. The page
 proceeds from the Office fragment to the ordinary lower controls — pledge row, then the pager.
@@ -142,9 +142,27 @@ restores his Next with no code change. The marker in the data is `nextPending` o
 
 **Update, 2026-09-28:** record 7 (Derek, `RC-073`) is appended from `../derek.md`. Billy Bob's Next
 is restored and `nextPending` now sits on Derek: record 8 (Carlos Eduardo) is the unwritten edge, and
-the same two wrong resolutions above apply one floor down. Two production values in Derek's record
-are drafts awaiting the owner because `derek.md` leaves them TBD: `External review requested — May
-19, 2026` and `REFERENCE: 26-1407`. His photograph is unproduced and renders the ordinary placeholder.
+the same two wrong resolutions above apply one floor down. His photograph (`src/assets/derek.png`) is
+owner-supplied and shipped.
+
+**`derek.md` is the sole canon on Derek (owner directive, 2026-09-28).** Nothing else — not this
+file's own wording, not a proposal draft, not any other session's paraphrase — is authoritative
+where it differs from that file. (An earlier r1 proposal draft with unapproved values — age 31,
+`RC-071`, invented dialogue and dates — has been deleted for exactly this reason: it was a duplicate
+that could be mistaken for canon. If a future session finds another one, delete it rather than
+reconcile it.) The owner substantially
+rewrote `derek.md` the same day this update was first written: new referral fields
+(date-preparation substitute, cleansing frequency, post-performance cleansing, cleansing before
+dates, close-contact impact, awareness of concern), a rewritten case chronology, a rewritten
+caseworker field note, and a second redacted value in the Office fragment (`PARTICIPANT PRESENT`,
+not only `DISPOSITION` — Billy Bob's finding withholds one value, Derek's withholds two). The
+`[id].astro` fragment renderer was generalized from a single `dispositionLabel` to a `redactions`
+array to support this; Billy Bob's data was migrated to the new shape with no content change.
+Two production values remain **unresolved, not drafted**: `External review requested` and the
+Office `REFERENCE` both render literal `TBD` in `src/content/copy.ts`, matching `derek.md`'s own
+`[DATE TBD]` / `[TBD]` markers, rather than a plausible-looking invented value. Do not fill these in
+without an explicit owner value recorded in `derek.md` or here, the way Billy Bob's
+`March 11, 2026` / `26-1183` were ratified.
 
 ## 2 · Billy Bob — character
 

@@ -1,4 +1,5 @@
-Derek’s complete record architecture
+This is our complete current version. Give Claude the entire block and ask it to compare this text directly against what it placed in `copy.ts`—including why it used older language and unapproved production values.
+
 # Derek, RC-073 — Record 7 Draft
 
 **DRAFT — owner review required**
@@ -28,7 +29,22 @@ Not supplied
 DJ-booth photographs
 
 **REPORTED SHOWER SUBSTITUTE**  
-Axe body spray; Febreze before dates
+Axe body spray
+
+**DATE-PREPARATION SUBSTITUTE**  
+Febreze applied to clothing
+
+**CLEANSING FREQUENCY**  
+No fixed routine reported
+
+**POST-PERFORMANCE CLEANSING**  
+Not routine
+
+**CLEANSING BEFORE DATES**  
+Fragrance and fabric refresher substituted
+
+**FRAGRANCE SUBSTITUTION**  
+Sustained
 
 **WATER ENGAGEMENT**  
 Reported infrequent
@@ -38,6 +54,12 @@ None reported
 
 **CLOTHING-ASSESSMENT METHOD**  
 Self-administered odor check
+
+**CLOSE-CONTACT IMPACT**  
+Multiple dates ended before completion or did not continue
+
+**AWARENESS OF CONCERN**  
+Confirmed
 
 **OCCUPATIONAL CONTEXT**  
 Nightclub DJ, active
@@ -197,8 +219,8 @@ Residential conditions observed following hiking and picnic date.
 **INITIAL OUTREACH**  
 Participant contacted by telephone. Baseline materials provided electronically and acknowledged.
 
-**PARTICIPANT’S STATED POSITION**  
-“I’m still getting dates.”
+**INITIAL PARTICIPANT ASSESSMENT**  
+Reported date outcomes characterized as unrelated.
 
 **FRAGRANCE SUBSTITUTION**  
 Acknowledged by participant. Necessity of washing disputed.
@@ -207,16 +229,19 @@ Acknowledged by participant. Necessity of washing disputed.
 Participant reported clothing remained in use when no objectionable odor was personally detected.
 
 **FOLLOW-UP**  
-Participant reported no change in practice.
+No change in practice reported. Continued romantic interest cited as evidence that no intervention was required.
 
 **FOURTH REFERRAL RECEIVED**  
 Concern consistent with prior reports. Reporting party had no known contact with earlier sources.
 
-**SECOND OUTREACH**  
-Participant advised that four independent reporting parties had described materially consistent conditions.
+**PATTERN REVIEW**  
+Material consistency across four independent reports reviewed with participant.
 
 **PARTICIPANT RESPONSE**  
-Participant cited continued romantic interest and disputed that unsuccessful dates established a hygiene concern.
+Participant did not dispute the reported use of fragrance, fabric refresher or repeated garments. He disputed that those practices accounted for the dates ending.
+
+**CLOSE-CONTACT IMPACT**  
+Continuing.
 
 **BASELINE MATERIALS**  
 Previously received. No information deficit identified.
@@ -242,13 +267,11 @@ No further participant contact available.
 
 > “The participant does not dispute using fragrance in place of washing. He disputes that the practice has produced a pattern.
 >
-> Four reporting parties described the same condition without known contact with one another. The participant was advised of that fact. He cited the existence of subsequent dates as evidence that the earlier reports were not representative.
+> Four reporting parties who had no known contact with one another described materially consistent conditions. When those similarities were reviewed with him, he separated each date from the others and treated every departure as unrelated.
 >
-> Access is not at issue. The participant has bathing facilities, clean towels and products available for purchase. He understands what the reporting parties are asking him to do.
+> Access is not at issue. The participant has bathing facilities, clean towels and ordinary cleansing products available to him. He understands the concern and does not accept the reported outcomes as evidence that his practice should change.
 >
-> He has elected not to do it and has discontinued corrective contact.
->
-> I have no additional voluntary intervention to offer.”
+> At the close of our final telephone contact, he stated that further calls from the coalition would be blocked. No further participant statement was obtained.”
 
 ---
 
@@ -261,7 +284,8 @@ No further participant contact available.
 PRIOR VOLUNTARY INTERVENTION: DOCUMENTED  
 INDEPENDENT REPORTS: FOUR  
 CROSS-REFERRAL CORROBORATION: CONFIRMED  
-REPORTED WATER ENGAGEMENT: INFREQUENT  
+REPORTED CLEANSING FREQUENCY: NO FIXED ROUTINE  
+POST-PERFORMANCE CLEANSING: NOT ROUTINE  
 FRAGRANCE SUBSTITUTION: SUSTAINED  
 GARMENT REUSE: ACKNOWLEDGED  
 PARTICIPANT COMPREHENSION: NOT AT ISSUE  
@@ -269,9 +293,9 @@ CORRECTIVE CONTACT: DISCONTINUED BY PARTICIPANT
 
 **FINDING: BASELINE DEFICIENCY**
 
-DISPOSITION:
+PARTICIPANT PRESENT: **[REDACTED]**
 
-**[REDACTED]**
+DISPOSITION: **[REDACTED]**
 
 ---
 

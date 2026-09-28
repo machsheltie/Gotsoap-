@@ -751,7 +751,10 @@ export const recoveryStories = {
           '',
           'PARTICIPANT PRESENT: YES',
         ],
-        dispositionLabel: 'DISPOSITION:',
+        /** 2026-09-28: generalized from a single `dispositionLabel` so a later
+         *  record (Derek) can withhold more than one value. Billy Bob withholds
+         *  only the disposition; content unchanged. */
+        redactions: [{ label: 'DISPOSITION:' }],
       },
       /** Owner-ratified 2026-09-17: mundane production value; see requested above. */
       returned: { label: 'Case returned', value: 'April 9, 2026' },
@@ -799,10 +802,16 @@ export const recoveryStories = {
     },
     {
       /**
-       * RECORD 7. NOT PUBLIC — reachable only by Billy Bob's Next. Source:
-       * ../derek.md (owner, 2026-09-25), transferred verbatim; canon:
-       * docs/canon-billy-bob-and-the-archive-boundary.md, "Owner ruling,
-       * 2026-09-23" and "Owner architecture, 2026-09-25".
+       * RECORD 7. NOT PUBLIC — reachable only by Billy Bob's Next.
+       *
+       * SOLE SOURCE: ../derek.md. Owner directive, 2026-09-28 — derek.md is the
+       * ONLY canon on Derek; nothing else (this file's prior revision, the
+       * proposals draft, the canon doc's summary of an earlier derek.md) is
+       * authoritative where it differs. This block was resynced field-for-field
+       * against derek.md on 2026-09-28 after that file was substantially
+       * rewritten (new referral fields, a rewritten chronology, a rewritten
+       * field note, a second redacted line in the Office fragment). Transfer
+       * only; no line edits during implementation.
        *
        * This is the record that stops answering "did he come back?". It carries
        * the ordinary Brayden opening (no `arc`) and CWAAA's full, unremarkable
@@ -823,12 +832,20 @@ export const recoveryStories = {
       /**
        * Owner-supplied 2026-09-28 (src/assets/derek.png), 4:3 as shipped.
        * Derek in the DJ booth, outwardly groomed, plausibly a man who gets
-       * dates (canon 2026-09-25). No odor haze, no disgusted crowd, no
-       * bathroom in place of the man. The alt describes the image as it is.
+       * dates. No odor haze, no disgusted crowd, no bathroom in place of the
+       * man. The alt describes the photograph itself, as Brayden's and Billy
+       * Bob's do; derek.md's own "PARTICIPANT PHOTOGRAPH" paragraph is the
+       * same description in the coalition's voice, reproduced above the
+       * `statements` block in that file, not duplicated here.
        */
       image: {
         alt: 'Derek, 33, in the DJ booth at the club where he regularly performs, smiling at the camera in a black T-shirt and a thin chain, headphones around his neck and one hand on the mixer. Colored club light and a dancing crowd fill the room behind him. He looks groomed and confident; sweat darkens the shoulder of his shirt and shines on his face. Submitted by the participant during initial contact as evidence of his ordinary presentation.',
       },
+      /** Field set and order match derek.md's "REFERRAL AS RECEIVED" exactly,
+       *  including fields added in the 2026-09-28 rewrite (date-preparation
+       *  substitute, cleansing frequency, post-performance cleansing,
+       *  cleansing before dates, fragrance substitution, close-contact impact,
+       *  awareness of concern) that were not in the prior revision. */
       referral: [
         { label: 'Participant', value: 'Derek, 33' },
         { label: 'Reporting parties', value: 'Four prospective romantic partners' },
@@ -836,10 +853,17 @@ export const recoveryStories = {
         { label: 'Participant’s stated position', value: '“I’m still getting dates.”' },
         { label: 'Stated expectations of others', value: 'Not supplied' },
         { label: 'Primary self-representation', value: 'DJ-booth photographs' },
-        { label: 'Reported shower substitute', value: 'Axe body spray; Febreze before dates' },
+        { label: 'Reported shower substitute', value: 'Axe body spray' },
+        { label: 'Date-preparation substitute', value: 'Febreze applied to clothing' },
+        { label: 'Cleansing frequency', value: 'No fixed routine reported' },
+        { label: 'Post-performance cleansing', value: 'Not routine' },
+        { label: 'Cleansing before dates', value: 'Fragrance and fabric refresher substituted' },
+        { label: 'Fragrance substitution', value: 'Sustained' },
         { label: 'Water engagement', value: 'Reported infrequent' },
         { label: 'Deodorant use', value: 'None reported' },
         { label: 'Clothing-assessment method', value: 'Self-administered odor check' },
+        { label: 'Close-contact impact', value: 'Multiple dates ended before completion or did not continue' },
+        { label: 'Awareness of concern', value: 'Confirmed' },
         { label: 'Occupational context', value: 'Nightclub DJ, active' },
         { label: 'Access to bathing facilities', value: 'Confirmed' },
         { label: 'Access to clean linens', value: 'Confirmed' },
@@ -909,13 +933,14 @@ export const recoveryStories = {
         { label: 'Cross-referral corroboration', value: 'Confirmed.' },
         { label: 'Third referral received', value: 'Residential conditions observed following hiking and picnic date.' },
         { label: 'Initial outreach', value: 'Participant contacted by telephone. Baseline materials provided electronically and acknowledged.' },
-        { label: 'Participant’s stated position', value: '“I’m still getting dates.”' },
+        { label: 'Initial participant assessment', value: 'Reported date outcomes characterized as unrelated.' },
         { label: 'Fragrance substitution', value: 'Acknowledged by participant. Necessity of washing disputed.' },
         { label: 'Garment assessment', value: 'Participant reported clothing remained in use when no objectionable odor was personally detected.' },
-        { label: 'Follow-up', value: 'Participant reported no change in practice.' },
+        { label: 'Follow-up', value: 'No change in practice reported. Continued romantic interest cited as evidence that no intervention was required.' },
         { label: 'Fourth referral received', value: 'Concern consistent with prior reports. Reporting party had no known contact with earlier sources.' },
-        { label: 'Second outreach', value: 'Participant advised that four independent reporting parties had described materially consistent conditions.' },
-        { label: 'Participant response', value: 'Participant cited continued romantic interest and disputed that unsuccessful dates established a hygiene concern.' },
+        { label: 'Pattern review', value: 'Material consistency across four independent reports reviewed with participant.' },
+        { label: 'Participant response', value: 'Participant did not dispute the reported use of fragrance, fabric refresher or repeated garments. He disputed that those practices accounted for the dates ending.' },
+        { label: 'Close-contact impact', value: 'Continuing.' },
         { label: 'Baseline materials', value: 'Previously received. No information deficit identified.' },
         { label: 'Final telephone contact', value: 'Participant stated that further calls from the coalition would be blocked.' },
         { label: 'Subsequent telephone outreach', value: 'Calls not completed.' },
@@ -925,25 +950,30 @@ export const recoveryStories = {
       ],
       fieldNote: {
         heading: 'Field note — caseworker, statement on file',
-        body: '“The participant does not dispute using fragrance in place of washing. He disputes that the practice has produced a pattern.\n\nFour reporting parties described the same condition without known contact with one another. The participant was advised of that fact. He cited the existence of subsequent dates as evidence that the earlier reports were not representative.\n\nAccess is not at issue. The participant has bathing facilities, clean towels and products available for purchase. He understands what the reporting parties are asking him to do.\n\nHe has elected not to do it and has discontinued corrective contact.\n\nI have no additional voluntary intervention to offer.”',
+        body: '“The participant does not dispute using fragrance in place of washing. He disputes that the practice has produced a pattern.\n\nFour reporting parties who had no known contact with one another described materially consistent conditions. When those similarities were reviewed with him, he separated each date from the others and treated every departure as unrelated.\n\nAccess is not at issue. The participant has bathing facilities, clean towels and ordinary cleansing products available to him. He understands the concern and does not accept the reported outcomes as evidence that his practice should change.\n\nAt the close of our final telephone contact, he stated that further calls from the coalition would be blocked. No further participant statement was obtained.”',
       },
-      /** DRAFT — PENDING OWNER. derek.md leaves the date TBD. Proposed as a
-       *  mundane production value, two months after Billy Bob's request, so
-       *  the absence of a return is not explained by the calendar. */
-      requested: { label: 'External review requested', value: 'May 19, 2026' },
-      /** Same object and format as Billy Bob's: one finding, disposition a bar.
-       *  REFERENCE is DRAFT — PENDING OWNER (derek.md: TBD); proposed on the
-       *  ratified 26-NNNN pattern, later in sequence than 26-1183. */
+      /** UNRESOLVED — derek.md heading reads "EXTERNAL REVIEW REQUESTED —
+       *  [DATE TBD]"; the owner has not supplied a date. `TBD` renders honestly
+       *  rather than inventing a plausible-looking one. Do not replace this
+       *  with a specific date without owner sign-off recorded in derek.md or
+       *  the canon doc, the way Billy Bob's `March 11, 2026` was ratified. */
+      requested: { label: 'External review requested', value: 'TBD' },
+      /** UNRESOLVED — derek.md: "REFERENCE: [TBD]". `TBD` renders honestly
+       *  rather than inventing a plausible-looking reference number; see note
+       *  on `requested` above. Two redactions, not one: derek.md's 2026-09-28
+       *  rewrite withholds PARTICIPANT PRESENT as well as DISPOSITION — Derek's
+       *  finding conceals more than Billy Bob's did. */
       fragment: {
         lines: [
           'OFFICE OF LATHER COMPLIANCE',
           'EXTERNAL FINDING',
-          'REFERENCE: 26-1407',
+          'REFERENCE: TBD',
           '',
           'PRIOR VOLUNTARY INTERVENTION: DOCUMENTED',
           'INDEPENDENT REPORTS: FOUR',
           'CROSS-REFERRAL CORROBORATION: CONFIRMED',
-          'REPORTED WATER ENGAGEMENT: INFREQUENT',
+          'REPORTED CLEANSING FREQUENCY: NO FIXED ROUTINE',
+          'POST-PERFORMANCE CLEANSING: NOT ROUTINE',
           'FRAGRANCE SUBSTITUTION: SUSTAINED',
           'GARMENT REUSE: ACKNOWLEDGED',
           'PARTICIPANT COMPREHENSION: NOT AT ISSUE',
@@ -951,7 +981,7 @@ export const recoveryStories = {
           '',
           'FINDING: BASELINE DEFICIENCY',
         ],
-        dispositionLabel: 'DISPOSITION:',
+        redactions: [{ label: 'PARTICIPANT PRESENT:' }, { label: 'DISPOSITION:' }],
       },
       /** Carried down from Billy Bob: record 8 (Carlos Eduardo) is unwritten.
        *  Derek's Next is missing, not disabled — never a stub, never a 404. */

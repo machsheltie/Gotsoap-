@@ -1,5 +1,15 @@
 # Reader evidence — RC-073, Derek, read back to back with RC-064, Billy Bob
 
+**SUPERSEDED TEXT NOTICE, 2026-09-28 (later same day).** The owner substantially rewrote
+`../../derek.md` after this read was taken — new referral fields, a rewritten chronology, a
+rewritten caseworker field note, and a second redacted value in the Office fragment. The specific
+lines quoted below (especially the caseworker's closing sentence and several chronology rows) are
+from the **prior revision** and no longer match shipped copy verbatim. `derek.md` is the sole canon;
+treat this document as evidence about a draft that has since changed, not as a description of the
+current record. The structural verdict — skeleton repeats in the caseworker sign-off and the
+chronology's repeated-line device, everything else earns its place — has not been re-tested against
+the rewrite and should not be assumed to still hold without a fresh read.
+
 **2026-09-28.** Three blind reads (Maya, Dylan, Priya), each given a specific reading order: Billy
 Bob's record first, in full, then Derek's immediately after — the way a visitor experiences it by
 clicking Billy Bob's restored "Next record" link. No brief, no canon docs, no framing beyond the

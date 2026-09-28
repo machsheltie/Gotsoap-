@@ -1,104 +1,93 @@
-# Handoff — 2026-09-28: record 7 (Derek) shipped, blind-read against Billy Bob
+# Handoff — 2026-09-28: record 7 (Derek) shipped, then resynced to the owner's rewrite
 
 **For:** the next Claude Code agent working in `cwaaa/`. **From:** the session that appended record
-7 to the Recovery Stories archive. **Tip at handoff:** `c20c162` on `main`, in sync with
-`origin/main` (pushed this session).
+7 to the Recovery Stories archive, then resynced it same-day after the owner rewrote `derek.md`.
+**Tip at handoff:** check `git log --oneline -3` before assuming this is current — a resync commit
+follows the original append commit today.
 
 Read `cwaaa/CLAUDE.md` and `AGENTS.md` first. Then this file. Then only what your task needs.
 
-## 1. State right now
+## 1. The one rule for this record
+
+**`derek.md` is the sole canon on Derek (owner directive, 2026-09-28).** Not this file, not the
+canon doc's prose summary of Derek, not `docs/copy/proposals-2026-09-25-derek-record-7-r1.md`
+(an earlier, superseded proposal with proposed values marked `(P)`), not any AI-generated paraphrase
+anywhere else. If `derek.md` and anything else disagree about Derek's content, `derek.md` wins,
+full stop — re-sync `src/content/copy.ts` to it, don't reconcile or average.
+
+**Why this note exists:** this session shipped record 7 from one revision of `derek.md`, then the
+owner substantially rewrote that file the same day and said so explicitly. The session resynced
+`copy.ts` to the new text. If you're reading this and `derek.md` has changed again since, check it
+against the shipped record before doing anything else with Derek.
+
+## 2. State right now
 
 - **Record 7 (Derek, `RC-073`, slug `derek`) is written, wired and shipped** in
   `src/content/copy.ts`, right after Billy Bob (`RC-064`). `open: true`, `public: false`: absent from
-  the index, reachable only via Billy Bob's Next. Billy Bob's Next now resolves to Derek with no
-  template change — the record is data-only against `src/pages/recovery-stories/[id].astro`.
+  the index, reachable only via Billy Bob's Next. The record is data-only against
+  `src/pages/recovery-stories/[id].astro` — **with one exception this session made**, below.
 - **Derek has a real participant photograph**, `src/assets/derek.png` (owner-supplied, 4:3), wired
-  into the `photos` map in `[id].astro`. No placeholder renders for him any more.
-- **`nextPending` moved down to Derek.** Record 8 (Carlos Eduardo, per canon) is the new unfinished
-  edge — same rule as before: never a stub, never a Next pointing at a 404.
-- **Two production values in Derek's record are drafts, not owner-confirmed**, because `derek.md`
-  left them TBD:
-  - `requested` (External review requested): **May 19, 2026**
-  - `fragment` reference: **26-1407**
-
-  Both are marked as drafts in code comments. Get an owner call before treating either as settled
-  canon the way Billy Bob's `March 11, 2026` / `26-1183` are settled.
-- **Provenance:** `derek.md` (owner architecture, 2026-09-25) is the source text, transferred
-  verbatim into `copy.ts`. `docs/copy/proposals-2026-09-25-derek-record-7-r1.md` is an earlier r1
-  proposal draft (ages/IDs marked `(P)` there) — superseded by `derek.md` and the shipped record;
-  keep it as provenance only, don't revive its proposed values.
-- **Canon docs updated to reflect record 7 shipped:** `docs/canon-billy-bob-and-the-archive-boundary.md`
-  (new "Update, 2026-09-28" note under the 2026-09-15 entry) and `PRD-TO-LAUNCH.md` CW-L06. Both now
-  point the unfinished-edge language at record 8, not record 7.
-- **Verified this session:** `cwaaa` build + `astro check` clean, no dead internal links (pager
-  Prev/Next confirmed at both `/recovery-stories/billy-bob/` and `/recovery-stories/derek/`); from
-  `site/`, `npm run build`, `gates`, `copy-gates`, `fidelity`, `distinguish`, `authority` all green.
-  `npm run launch-check` from `cwaaa/` still reports "not launch-ready" — same four pre-existing
-  pending facts as before (DMCA agent name/email/mailing address, field-assessment referral form),
-  nothing new from Derek.
-- Renders: `.impeccable/renders/2026-09-28/` (derek desktop/phone, derek's photo slot, brayden for
-  comparison).
+  into the `photos` map in `[id].astro`.
+- **The Office fragment now supports more than one redacted value.** `derek.md`'s rewrite withholds
+  both `PARTICIPANT PRESENT` and `DISPOSITION` (Billy Bob's finding withholds only the latter). The
+  fragment's data shape changed from a single `dispositionLabel` string to a `redactions: {label:
+  string}[]` array, and `[id].astro` now loops over it, rendering one solid bar per entry. Billy
+  Bob's data was migrated to `redactions: [{ label: 'DISPOSITION:' }]` with no content change —
+  verify this if you touch his record.
+- **Two production values are unresolved, not drafted.** `derek.md` still marks the external-review
+  date and the Office reference `[TBD]`. They render literal `TBD` in `copy.ts` — an earlier version
+  of this record had invented plausible-looking values (`May 19, 2026`, `26-1407`); those were
+  **fabrications with no owner provenance** and have been removed. Do not reintroduce specific values
+  without an owner-supplied date/reference recorded in `derek.md` or the canon doc, the way Billy
+  Bob's `March 11, 2026` / `26-1183` are ratified there.
+- **`nextPending` sits on Derek.** Record 8 (Carlos Eduardo, per canon) is the unwritten edge — same
+  rule as always: never a stub, never a Next pointing at a 404.
+- **Canon docs updated:** `docs/canon-billy-bob-and-the-archive-boundary.md`'s "Update, 2026-09-28"
+  note now states the sole-canon rule and lists what changed in the rewrite; `PRD-TO-LAUNCH.md`
+  CW-L06 points the unfinished-edge language at record 8.
+- **Verified:** `cwaaa` build + `astro check` clean after the resync; pager Prev/Next confirmed at
+  both `/recovery-stories/billy-bob/` and `/recovery-stories/derek/`; both redaction bars render on
+  Derek's fragment, Billy Bob's single bar unchanged. Re-run `site/`'s five gates
+  (`build`, `gates`, `copy-gates`, `fidelity`, `distinguish`, `authority`) before calling this done if
+  you make further Derek edits — they were green against the pre-resync copy, not re-run after.
+  `npm run launch-check` from `cwaaa/` still reports the same four pre-existing pending facts (DMCA
+  agent identity, field-assessment referral form) — nothing new from Derek.
+- Renders: `.impeccable/renders/2026-09-28/` — includes a pre-resync set (`derek-1440.png`,
+  `derek-390.png`, the photo-slot crops) and `derek-fragment-resynced.png` /
+  `derek-full-resynced.png` from after the two-redaction fix. The pre-resync ones still show the
+  photo placeholder and the old single-bar fragment; don't treat them as current.
 
 **Not yours, do not commit:** untracked `cwaaa/.impeccable/renders/2026-09-24/`,
-`site/src/assets/graphics/design.md` and `skills-lock.json` are from other sessions/work, not this
-one. Stage files by name; never `git add -A`.
+`site/src/assets/graphics/design.md` and `skills-lock.json` are from other sessions/work. Stage
+files by name; never `git add -A`.
 
-## 2. Blind reader pass — done this session, read before touching Derek's copy again
+## 3. Blind reader evidence — read the superseded-text notice first
 
-Full evidence: `docs/copy/reader-evidence-2026-09-28-derek-record-7.md`. The owner specifically asked
-whether Derek reads as formulaic next to Billy Bob; three readers (Maya, Dylan, Priya) read Billy
-Bob's record immediately followed by Derek's, cold, no brief.
+`docs/copy/reader-evidence-2026-09-28-derek-record-7.md` holds a full blind-read (Maya, Dylan,
+Priya) of Billy Bob's record immediately followed by Derek's, checking specifically whether Derek
+reads as a formulaic reskin. **That read was taken against the prior revision of `derek.md`, before
+the owner's rewrite.** The document now carries a notice to that effect at the top. Its two flagged
+lines — the caseworker's closing sentence and part of the chronology — were among the exact material
+the owner's rewrite changed; the new field note in particular no longer ends on anything resembling
+"I have no additional voluntary intervention to offer." Whether the formulaic-resemblance concern
+still holds against the current text has **not** been re-tested. If the owner still wants that
+question answered, re-run the same blind-read pattern (Billy Bob → Derek, back to back, no brief)
+against the current `copy.ts` rather than trusting the old evidence.
 
-**Verdict (converged, all three): the skeleton repeats, the content does not.** Two beats are close
-enough to read as a mail-merge:
+## 4. What record 8 (Carlos Eduardo) should still watch for
 
-1. **The caseworker's closing line** — Billy Bob's *"I have nothing left to offer him that he has not
-   already heard and declined"* and Derek's *"I have no additional voluntary intervention to offer"*
-   are the same clause order, same rhythm, same position, same rhetorical move.
-2. **The chronology's repeated-refusal device** — Billy Bob recites *"Never saw much point in washing
-   just to get dirty again"* three times; Derek recites *"I'm still getting dates"* the same way.
-   Read once it's a device; read twice in a row it reads, per Priya, "like a macro."
+Even though the specific lines changed, the underlying advice from that earlier read is still
+reasonable design guidance: don't give record 8 a caseworker sign-off or a chronology repeated-line
+device with the same sentence shape as either Billy Bob's or Derek's. Reuse the idea (an institution
+running out of patience; a fixed line recited back at him across the chronology), not the wording or
+position. But confirm this against a fresh reader pass if it matters to the owner — don't cite the
+superseded evidence as settled proof.
 
-The Office finding block's shared phrasing (`PARTICIPANT COMPREHENSION: NOT AT ISSUE` verbatim in
-both) got a partial pass — readers read it as an intentional government-form repetition, not laziness
-— **but two readers explicitly warned that a third unchanged repetition in record 8 will break that
-read and make the template itself the joke.**
+## 5. Open, not this session's to resolve
 
-Everything else earns its own place: the four-witness cross-referral corroboration (a genuinely
-different mechanism from Billy Bob's single spouse-witness), the specific imagery (soap-on-a-rope,
-unused folded towels), and above all the unresolved cold ending (blocked calls, unclaimed mail, blank
-disposition, no Next) versus Billy Bob's warm reconciliation — all three readers independently named
-the ending as the strongest and most successful divergence.
-
-**No copy was changed in response to this evidence.** That's a decision for the owner, not something
-this session did unilaterally to already-shipped, committed satire copy. Two concrete options for
-whoever picks this up next:
-
-- **Option A — leave Derek as shipped.** The evidence reads the repetition as bounded (two records,
-  not three) and largely intentional-feeling; the divergent ending and imagery carry the record.
-- **Option B — a light targeted revision** to just the two flagged lines (caseworker's sign-off,
-  chronology refrain) so they no longer share sentence shape with Billy Bob's, while leaving
-  everything else (referral, statements, testimony, chronology content, Office fragment, the
-  unresolved ending) untouched. This is a small, surgical copy edit, not a re-architecture.
-
-**Whichever option, get the owner's call before touching shipped Derek copy** — this is exactly the
-kind of "she said it once, don't re-litigate it" territory the project's working conventions cover,
-and it hasn't been said yet either way.
-
-## 3. What record 8 (Carlos Eduardo) must NOT repeat unchanged
-
-Two readers named this as a bright line, not a taste note: whoever writes record 8 should treat the
-caseworker's closing-line shape and the chronology's repeated-refusal device as **spent** after
-Derek. Reuse the underlying idea (institution running out of patience; a participant's fixed line
-recited back at him across the chronology) but not the same sentence shape, same clause order, or the
-same position in the document. The Office finding block's shared field template can probably survive
-a third appearance since it's diegetically a form — but not `PARTICIPANT COMPREHENSION: NOT AT ISSUE`
-verbatim a third time; vary the wording even if the field stays.
-
-## 4. Open, not this session's to resolve
-
-- Owner sign-off on the two draft production values (`May 19, 2026` / `26-1407`).
-- Owner sign-off on Option A vs. B above.
+- Owner-supplied values for the external-review date and Office reference (currently `TBD`).
+- Whether the formulaic-resemblance concern still holds against the rewritten text — needs a fresh
+  blind read if the owner wants it answered.
 - Record 8 (Carlos Eduardo) and record 9 remain unwritten; canon has a shape (subtraction against
   fixed Office authority) but no ratified content — see
   `docs/canon-billy-bob-and-the-archive-boundary.md`, "Staged, not decided."

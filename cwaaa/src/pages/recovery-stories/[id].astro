@@ -184,13 +184,18 @@ const paras = (body: string) => body.split('\n\n');
     {fragment && (
       /* A foreign object, not a CWAAA component: stark white, Courier, black,
          its own reference numbering, small. Unlinked, uncaptioned, unexplained.
-         The withheld disposition is a solid bar — a redaction is an act done to
+         Each withheld value is a solid bar — a redaction is an act done to
          a document; brackets read as a field somebody forgot to fill in. The
          lines are real text, so a screen reader hears the same document a
-         sighted visitor sees; only the bar needs a name. */
+         sighted visitor sees; only the bar needs a name. Billy Bob withholds
+         one value (disposition); Derek withholds two (participant present,
+         then disposition) — the fragment renders however many `redactions`
+         a record supplies, in order. */
       <div class="fragment">
         <pre>{fragment.lines.join('\n')}</pre>
-        <p class="disp"><span>{fragment.dispositionLabel}</span><i class="bar" role="img" aria-label="redacted"></i></p>
+        {fragment.redactions.map((r) => (
+          <p class="disp"><span>{r.label}</span><i class="bar" role="img" aria-label="redacted"></i></p>
+        ))}
       </div>
     )}
 
