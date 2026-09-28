@@ -158,11 +158,10 @@ caseworker field note, and a second redacted value in the Office fragment (`PART
 not only `DISPOSITION` — Billy Bob's finding withholds one value, Derek's withholds two). The
 `[id].astro` fragment renderer was generalized from a single `dispositionLabel` to a `redactions`
 array to support this; Billy Bob's data was migrated to the new shape with no content change.
-Two production values remain **unresolved, not drafted**: `External review requested` and the
-Office `REFERENCE` both render literal `TBD` in `src/content/copy.ts`, matching `derek.md`'s own
-`[DATE TBD]` / `[TBD]` markers, rather than a plausible-looking invented value. Do not fill these in
-without an explicit owner value recorded in `derek.md` or here, the way Billy Bob's
-`March 11, 2026` / `26-1183` were ratified.
+**Owner-ratified 2026-09-28 (same day, after this entry was first written):** derek.md's two `TBD`
+markers are filled — `External review requested — May 19, 2026` and `REFERENCE: 26-1407` — and both
+values are shipped in `src/content/copy.ts`, matching Billy Bob's `March 11, 2026` / `26-1183`
+precedent.
 
 ## 2 · Billy Bob — character
 

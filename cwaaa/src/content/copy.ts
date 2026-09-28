@@ -952,22 +952,18 @@ export const recoveryStories = {
         heading: 'Field note — caseworker, statement on file',
         body: '“The participant does not dispute using fragrance in place of washing. He disputes that the practice has produced a pattern.\n\nFour reporting parties who had no known contact with one another described materially consistent conditions. When those similarities were reviewed with him, he separated each date from the others and treated every departure as unrelated.\n\nAccess is not at issue. The participant has bathing facilities, clean towels and ordinary cleansing products available to him. He understands the concern and does not accept the reported outcomes as evidence that his practice should change.\n\nAt the close of our final telephone contact, he stated that further calls from the coalition would be blocked. No further participant statement was obtained.”',
       },
-      /** UNRESOLVED — derek.md heading reads "EXTERNAL REVIEW REQUESTED —
-       *  [DATE TBD]"; the owner has not supplied a date. `TBD` renders honestly
-       *  rather than inventing a plausible-looking one. Do not replace this
-       *  with a specific date without owner sign-off recorded in derek.md or
-       *  the canon doc, the way Billy Bob's `March 11, 2026` was ratified. */
-      requested: { label: 'External review requested', value: 'TBD' },
-      /** UNRESOLVED — derek.md: "REFERENCE: [TBD]". `TBD` renders honestly
-       *  rather than inventing a plausible-looking reference number; see note
-       *  on `requested` above. Two redactions, not one: derek.md's 2026-09-28
-       *  rewrite withholds PARTICIPANT PRESENT as well as DISPOSITION — Derek's
-       *  finding conceals more than Billy Bob's did. */
+      /** Owner-ratified 2026-09-28: derek.md's heading now reads "EXTERNAL
+       *  REVIEW REQUESTED — May 19, 2026", replacing the prior [DATE TBD]. */
+      requested: { label: 'External review requested', value: 'May 19, 2026' },
+      /** Owner-ratified 2026-09-28: derek.md now reads "REFERENCE: 26-1407",
+       *  replacing the prior [TBD]. Two redactions, not one: derek.md's
+       *  2026-09-28 rewrite withholds PARTICIPANT PRESENT as well as
+       *  DISPOSITION — Derek's finding conceals more than Billy Bob's did. */
       fragment: {
         lines: [
           'OFFICE OF LATHER COMPLIANCE',
           'EXTERNAL FINDING',
-          'REFERENCE: TBD',
+          'REFERENCE: 26-1407',
           '',
           'PRIOR VOLUNTARY INTERVENTION: DOCUMENTED',
           'INDEPENDENT REPORTS: FOUR',

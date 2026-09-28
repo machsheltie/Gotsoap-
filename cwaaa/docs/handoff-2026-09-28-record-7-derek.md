@@ -34,12 +34,11 @@ against the shipped record before doing anything else with Derek.
   string}[]` array, and `[id].astro` now loops over it, rendering one solid bar per entry. Billy
   Bob's data was migrated to `redactions: [{ label: 'DISPOSITION:' }]` with no content change —
   verify this if you touch his record.
-- **Two production values are unresolved, not drafted.** `derek.md` still marks the external-review
-  date and the Office reference `[TBD]`. They render literal `TBD` in `copy.ts` — an earlier version
-  of this record had invented plausible-looking values (`May 19, 2026`, `26-1407`); those were
-  **fabrications with no owner provenance** and have been removed. Do not reintroduce specific values
-  without an owner-supplied date/reference recorded in `derek.md` or the canon doc, the way Billy
-  Bob's `March 11, 2026` / `26-1183` are ratified there.
+- **Both production values are now owner-ratified.** `derek.md` was TBD on both, then this session
+  removed two fabricated values that had no owner provenance, then the owner filled in `derek.md`
+  itself with `External review requested — May 19, 2026` and `REFERENCE: 26-1407` — coincidentally
+  the same two values, now legitimate because she chose them, not because an earlier draft guessed
+  them. Both are shipped in `copy.ts`, matching Billy Bob's `March 11, 2026` / `26-1183` precedent.
 - **`nextPending` sits on Derek.** Record 8 (Carlos Eduardo, per canon) is the unwritten edge — same
   rule as always: never a stub, never a Next pointing at a 404.
 - **Canon docs updated:** `docs/canon-billy-bob-and-the-archive-boundary.md`'s "Update, 2026-09-28"
@@ -85,7 +84,6 @@ superseded evidence as settled proof.
 
 ## 5. Open, not this session's to resolve
 
-- Owner-supplied values for the external-review date and Office reference (currently `TBD`).
 - Whether the formulaic-resemblance concern still holds against the rewritten text — needs a fresh
   blind read if the owner wants it answered.
 - Record 8 (Carlos Eduardo) and record 9 remain unwritten; canon has a shape (subtraction against
