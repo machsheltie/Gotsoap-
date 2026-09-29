@@ -76,6 +76,11 @@ const returned = 'returned' in rec ? rec.returned : null;
 const followUp = 'followUp' in rec ? rec.followUp : null;
 const partnerFollowUp = 'partnerFollowUp' in rec ? rec.partnerFollowUp : null;
 const close = 'close' in rec ? rec.close : null;
+/** derek.md, "AFTER THE OFFICE DOCUMENT": when the fragment is a record's
+ *  last content — nothing recovers after it — the gap before the ordinary
+ *  CWAAA utilities is a deliberately larger, dedicated pause rather than the
+ *  ambient section spacing used elsewhere on the page. */
+const fragmentIsTerminal = fragment && !returned && !followUp && !partnerFollowUp && !followUpImage && !close;
 const closeNote = 'closeNote' in rec ? rec.closeNote : null;
 
 /** Statements carry their own paragraph breaks. */
@@ -191,10 +196,10 @@ const paras = (body: string) => body.split('\n\n');
          one value (disposition); Derek withholds two (participant present,
          then disposition) — the fragment renders however many `redactions`
          a record supplies, in order. */
-      <div class="fragment">
+      <div class:list={['fragment', fragmentIsTerminal ? 'fragment--terminal' : null]}>
         <pre>{fragment.lines.join('\n')}</pre>
         {fragment.redactions.map((r) => (
-          <p class="disp"><span>{r.label}</span><i class="bar" role="img" aria-label="redacted"></i></p>
+          <p class="disp"><span>{r.label}</span><i class="bar" role="img" aria-label="Redacted"></i></p>
         ))}
       </div>
     )}
@@ -397,7 +402,18 @@ const paras = (body: string) => body.split('\n\n');
     font-family: 'Courier New', Courier, monospace; font-size: 0.75rem; line-height: 1.5;
     margin: 0; display: flex; align-items: center; gap: 0.5rem; color: #000000;
   }
-  .fragment .bar { display: block; flex: 1; max-width: 13rem; height: 0.85rem; background: #000000; }
+  .fragment .bar {
+    display: block; flex: 1; max-width: 13rem; height: 0.85rem; background: #000000;
+    /* derek.md: "Redaction bars must remain solid in print" — browsers strip
+       background color by default unless the page opts in. */
+    -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact;
+  }
+  /* derek.md, "AFTER THE OFFICE DOCUMENT": a deliberate blank pause where the
+     fragment is a record's last content before the ordinary CWAAA utilities
+     (no returned/followUp/close after it) — 96–128px desktop, 64–80px mobile.
+     Set on the fragment's own bottom margin so it collapses cleanly with
+     .act-wrap's top margin instead of summing two separate gaps. */
+  .fragment--terminal { margin-bottom: 7rem; }
 
   .arc { margin: 0 0 var(--gap-l); }
   .returned { color: var(--cw-ink); margin: 0 0 var(--gap-l); }
@@ -462,6 +478,7 @@ const paras = (body: string) => body.split('\n\n');
      taken the overflow silently. */
   @media (max-width: 700px) {
     .fragment { max-width: none; }
+    .fragment--terminal { margin-bottom: 4.5rem; }
     .act-wrap .actions { max-width: none; }
     .rec { padding: var(--gap-l) var(--gutter); }
   }

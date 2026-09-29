@@ -1,8 +1,6 @@
-This is our complete current version. Give Claude the entire block and ask it to compare this text directly against what it placed in `copy.ts`—including why it used older language and unapproved production values.
-
 # Derek, RC-073 — Record 7 Draft
 
-**DRAFT — owner review required**
+**OWNER-APPROVED CONTENT — implementation handoff**
 
 ## RECOVERY RECORD · RC-073
 
@@ -182,7 +180,7 @@ Confirmed
 
 ## PARTICIPANT PHOTOGRAPH
 
-Derek, 33, inside the DJ booth at the club where he regularly performs. He wears a fitted black shirt and headphones around his neck, with one hand resting on the mixer. Colored club light falls across his face and clothing. He appears groomed and confident; perspiration is visible at the hairline and collar on closer inspection. Submitted by the participant during initial contact as evidence of his ordinary presentation.
+Derek, 33, inside the DJ booth at the club where he regularly performs, smiling at the camera in a fitted black shirt and thin chain, headphones around his neck and one hand resting on the mixer. Colored club light and a dancing crowd fill the room behind him. He appears groomed and confident; sweat darkens the shoulder of his shirt and shines on his face. Submitted by the participant during initial contact as evidence of his ordinary presentation.
 
 ---
 
@@ -302,5 +300,27 @@ DISPOSITION: **[REDACTED]**
 **TAKE THE PLEDGE · FORM CW-1**
 
 **← PREVIOUS RECORD**  
-**ALL RECOVERY STORIES**  
-**NEXT RECORD →**
+**ALL RECOVERY STORIES**
+
+---
+
+## IMPLEMENTATION NOTES — NOT PAGE COPY
+
+**NARRATIVE FUNCTION**  
+Billy Bob establishes that the Office intervenes. Derek establishes that the Office can keep the ending. The escalation is subtraction from CWAAA, not additional Office exposition.
+
+**OFFICE DOCUMENT**  
+Use the same Office component as Billy Bob: the same border, width, paper color, monospaced typography, padding and heading treatment. Allow the height to follow Derek’s content. Do not add warning colors, stamps, glitches, animation, sound, hover behavior or explanatory Office lore.
+
+**REDACTIONS**  
+Render both `[REDACTED]` values as solid black bars. Assistive technology should receive only the word “Redacted.” The concealed values must not exist as hidden, selectable, tooltip or hover-revealed text. Redaction bars must remain solid in print.
+
+**AFTER THE OFFICE DOCUMENT**  
+Do not render a case-returned row, follow-up, participant quotation, reporting-party follow-up, after photograph, case-status table, closing note or sentence explaining that the case did not return. None of those sections exists for Derek.
+
+Leave a deliberate blank pause between the Office document and the ordinary CWAAA utilities. Use the existing spacing system, targeting approximately 96–128 px on desktop and 64–80 px on mobile. The pause should feel intentional without introducing a visible placeholder, empty card or missing-content message.
+
+After the pause, render only the ordinary CWAAA pledge and archive navigation shown above.
+
+**NEXT RECORD**  
+Until Carlos Eduardo exists, Derek’s Next control is absent—not disabled, empty or linked to a placeholder. Once Carlos is published, restore the ordinary `NEXT RECORD →` control without ominous wording, special styling or animation.

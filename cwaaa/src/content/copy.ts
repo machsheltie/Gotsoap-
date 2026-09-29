@@ -839,7 +839,7 @@ export const recoveryStories = {
        * `statements` block in that file, not duplicated here.
        */
       image: {
-        alt: 'Derek, 33, in the DJ booth at the club where he regularly performs, smiling at the camera in a black T-shirt and a thin chain, headphones around his neck and one hand on the mixer. Colored club light and a dancing crowd fill the room behind him. He looks groomed and confident; sweat darkens the shoulder of his shirt and shines on his face. Submitted by the participant during initial contact as evidence of his ordinary presentation.',
+        alt: 'Derek, 33, inside the DJ booth at the club where he regularly performs, smiling at the camera in a fitted black shirt and thin chain, headphones around his neck and one hand resting on the mixer. Colored club light and a dancing crowd fill the room behind him. He appears groomed and confident; sweat darkens the shoulder of his shirt and shines on his face. Submitted by the participant during initial contact as evidence of his ordinary presentation.',
       },
       /** Field set and order match derek.md's "REFERRAL AS RECEIVED" exactly,
        *  including fields added in the 2026-09-28 rewrite (date-preparation

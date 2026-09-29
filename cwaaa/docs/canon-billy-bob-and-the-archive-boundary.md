@@ -163,6 +163,29 @@ markers are filled — `External review requested — May 19, 2026` and `REFEREN
 values are shipped in `src/content/copy.ts`, matching Billy Bob's `March 11, 2026` / `26-1183`
 precedent.
 
+**Owner architecture, 2026-09-28 (third revision same day) — "IMPLEMENTATION NOTES" appended to
+derek.md, status raised from DRAFT to OWNER-APPROVED CONTENT.** The rewrite added a section
+explicitly marked "not page copy" — build guidance, not record content — narrating the intended
+purpose plainly: *Billy Bob establishes that the Office intervenes. Derek establishes that the
+Office can keep the ending.* This is the first record where the reader is meant to notice the Office
+is not merely cited but in control of what the archive is allowed to say. Implemented same day:
+
+- The Office fragment is the same shared component Billy Bob's uses (border, paper, monospace,
+  padding, heading) with no Derek-specific styling, stamps, glitches, animation, sound, or hover
+  behavior — already true; verified, not changed.
+- Redaction bars carry `aria-label="Redacted"` (was `"redacted"`) on both records, remain solid in
+  print (`print-color-adjust: exact` added — browsers otherwise silently drop background color when
+  printing), and expose no hidden or hoverable text.
+- **A new `.fragment--terminal` modifier** gives a record a deliberately larger pause (96–128px
+  desktop, 64–80px mobile) between the Office fragment and the ordinary pledge/pager row, applied
+  only when nothing recovers after the fragment (`fragmentIsTerminal` in `[id].astro`: true when
+  `returned`, `followUp`, `partnerFollowUp`, `followUpImage` and `close` are all absent). Derek gets
+  it; Billy Bob, whose fragment is followed by his return, does not. No placeholder, empty card or
+  message renders in the gap — it is whitespace only.
+- Confirmed: nothing renders after Derek's fragment but the pledge row and pager, and his Next
+  control is genuinely absent (not disabled, not empty-but-present, not linked to a placeholder)
+  until record 8 exists — this was already the shipped behavior, re-verified against the new note.
+
 ## 2 · Billy Bob — character
 
 Billy Bob, 37. Appalachian coal country, underground coal miner, married, shares a home and a bed with his wife.
