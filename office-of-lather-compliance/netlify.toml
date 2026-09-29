@@ -1,0 +1,15 @@
+# The Office of Lather Compliance: one error page at every address.
+# Spec: docs/superpowers/specs/2026-09-29-office-error-site-design.md §5.
+[build]
+  base    = "office-of-lather-compliance"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22.12.0"
+
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 403
+  force  = true

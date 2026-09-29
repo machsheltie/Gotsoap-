@@ -1,0 +1,15 @@
+{
+  "name": "office-of-lather-compliance",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "test:e2e": "npm run build && playwright test --project=e2e --reporter=dot",
+    "renders": "npm run build && playwright test --project=renders --reporter=dot"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  }
+}

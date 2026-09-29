@@ -66,6 +66,8 @@ Treat malformed or partially written local records safely: do not crash or asser
 - Record the exact root and unknown-path HTTP response behavior and verify it on the deployed host. A local development fallback does not prove production catch-all behavior.
 - Configure the actual origin and a restrictive compatible Content Security Policy. No third-party analytics, remote font request, tracking beacon or transmission of visit state is needed for this experience.
 - Keep Privacy, Terms and DMCA accessible through approved quiet plain-text disclosure links after the error text. Select a truthful destination that preserves error-only Office routes; do not add a normal Office legal/about site or agency navigation. Creator/fiction disclosure remains behind the approved seam. Resolve the practical destination in OLC-D03 rather than inventing a dead link.
+  **Superseded by owner ruling, 2026-09-29 (OLC-D03):** no legal link, privacy notice, credit or
+  disclosure appears on the Office page. See `docs/ui-system.md` §13.
 - The CWAAA implementer consumes the real `OFFICE_SITE_URL` only when the destination is verified. CWAAA gives no ominous preview or relationship explanation. The Office does not gain ordinary back-navigation as part of that wiring.
 
 Required on-page graphics: **none**, tracked as OLC-G00 in [the graphics brief](GRAPHICS-TO-MAKE.md). All names, dates, reference numbers, notices and status text remain semantic HTML. Native heading weight and paragraph spacing provide the hierarchy.

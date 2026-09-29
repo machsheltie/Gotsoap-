@@ -1,0 +1,17 @@
+body {
+  margin: 48px 24px 80px 52px;
+  max-width: 760px;
+  background: #fff;
+  color: #111;
+  font: 16px/1.45 "Courier New", Courier, monospace;
+}
+body { overflow-wrap: anywhere; }
+h1 { font-size: 1em; margin: 1em 0; }
+.olc-keep { white-space: nowrap; }
+.olc-resolving main { visibility: hidden; }
+@media (max-width: 599px) {
+  body { margin: 24px 16px 48px 16px; }
+}
+@media (max-width: 240px) {
+  .olc-keep { white-space: normal; }
+}

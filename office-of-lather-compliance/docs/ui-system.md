@@ -290,7 +290,26 @@ It must not claim that:
 - a persistent record exists;
 - recognition succeeded.
 
-**Exact fallback copy remains pending owner approval. Claude may not invent dramatic fallback language.**
+**Fallback copy: final owner approval, 2026-09-29 (OLC-D01).** It is the First Access notice without
+its claiming lines. This exact wording is used when storage is unavailable or untrustworthy, and when
+JavaScript does not run:
+
+```text
+OFFICE OF LATHER COMPLIANCE
+Establishment Directive 1961-A / Sub-Section 4
+
+NOTICE OF ADMINISTRATIVE CONTAINMENT
+
+The requested resource is unavailable.
+Access has been suspended under Regulatory Standard 41-B.
+
+Reference: 8804-X
+
+Please remain available.
+```
+
+A damaged record restarts at First Access only when its replacement is written and verified; if the
+replacement cannot be verified, this fallback renders.
 
 ---
 
@@ -337,14 +356,27 @@ The Office fails if an implementation agent adds:
 
 ---
 
-# 13. Pending decisions
+# 13. Resolved decisions (2026-09-29)
 
-Only two implementation details remain open:
+Both items formerly pending here, and the remaining launch-interview branches, are owner decisions.
+They are recorded in `../../docs/superpowers/specs/2026-09-29-office-error-site-design.md` §1:
 
-1. **Storage-failure copy:** exact approved wording for the neutral state that makes no recognition claim.
-2. **Continued Interest count source:** explicit confirmation of which contract counter populates `[count]` in “You have accessed this resource [count] times.”
-
-Claude may not infer either decision.
+1. **Storage-failure copy (OLC-D01):** the exact wording in §10, approved as final.
+2. **Continued Interest count (OLC-D02):** `[count]` is the post-transition `lifetimeAccessCount`
+   from the persistent record, which counts every access, reloads included. Example: a browser that
+   loaded once and reloaded twice in session 1, loaded and reloaded once in session 2, then arrived
+   in session 3 reads "You have accessed this resource 6 times." A reload then reads 7. The notice
+   otherwise never changes.
+3. **Deployment (OLC-D03):** HTTP 403 at every path, noindex, and **no footer, legal link, privacy
+   notice, credit, or explanation**. If disclosure ever becomes mandatory, it returns to the owner.
+4. **Edge details (OLC-D04):**
+   - local `YYYY-MM-DD HH:MM:SS` timestamps;
+   - terminal ID `LC-XXXX-8804` from a cryptographic random source;
+   - narrow-screen margin `24px 16px 48px 16px`;
+   - tab title `OFFICE OF LATHER COMPLIANCE`;
+   - administrative values (`Sub-Section 4`, `1961-A`, `41-B`, `8804-X`, terminal IDs, and whole
+     timestamps) wrap as a whole in ordinary text flow and never break inside, except below a 240px
+     viewport, where reflow wins over sideways scrolling.
 
 ---
 
@@ -383,3 +415,12 @@ Recorded:
 - exact four-state public model;
 - browser-local recognition only;
 - two remaining owner decisions: storage-failure copy and Continued Interest count mapping.
+
+## 2026-09-29 — launch decisions
+
+- OLC-D01 to OLC-D04 were resolved by the owner (see §13), and the fallback wording in §10 is approved
+  as final.
+- The July 28 under-design is reaffirmed unchanged. The owner approved the rendered states at desktop
+  and mobile widths, subject only to administrative values wrapping as a whole.
+- The owner ruled out every public disclosure on the Office page. This supersedes the quiet-link
+  clauses in `../design.md` §7, the PRD, and `../PRD-TO-LAUNCH.md` §4.
