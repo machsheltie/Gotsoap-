@@ -43,3 +43,23 @@ test('headers carry the robots, referrer and cache policy', () => {
 test('the built page has LF line endings whatever the checkout uses', () => {
   assert.ok(!html.includes('\r'), 'CR found in dist/index.html');
 });
+
+test('notice.html and index.html are byte-identical copies of the approved page', () => {
+  const index = readFileSync(new URL('dist/index.html', root));
+  const notice = readFileSync(new URL('dist/notice.html', root));
+  assert.ok(index.equals(notice), 'dist/notice.html differs from dist/index.html');
+  assert.match(notice.toString('utf8'), /<title>OFFICE OF LATHER COMPLIANCE<\/title>/);
+  assert.match(notice.toString('utf8'), /<main>\n<p>OFFICE OF LATHER COMPLIANCE<br>/);
+});
+
+test('netlify.toml forces 403 on both physical files before the catch-all to notice.html', () => {
+  const toml = readFileSync(new URL('netlify.toml', root), 'utf8').replace(/\r\n/g, '\n');
+  const rules = [...toml.matchAll(/\[\[redirects\]\]\n([\s\S]*?)(?=\n\[|\s*$)/g)].map((m) => Object.fromEntries(
+    [...m[1].matchAll(/^\s*(\w+)\s*=\s*"?([^"\n]*)"?\s*$/gm)].map(([, k, v]) => [k, v]),
+  ));
+  assert.deepEqual(rules.map((r) => [r.from, r.to, r.status, r.force]), [
+    ['/index.html', '/notice.html', '403', 'true'],
+    ['/notice.html', '/index.html', '403', 'true'],
+    ['/*', '/notice.html', '403', 'true'],
+  ]);
+});

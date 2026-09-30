@@ -43,5 +43,8 @@ const headers = `/*
 
 const dist = new URL('../dist/', import.meta.url);
 await mkdir(dist, { recursive: true });
+// Two identical files so no address ever rewrites to itself (netlify.toml): a self-rewrite
+// is served as the real file with 200, which the Office never returns.
 await writeFile(new URL('index.html', dist), html);
+await writeFile(new URL('notice.html', dist), html);
 await writeFile(new URL('_headers', dist), headers);

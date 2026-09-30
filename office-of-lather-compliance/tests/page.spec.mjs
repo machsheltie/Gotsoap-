@@ -111,7 +111,7 @@ test('a returning browser never paints the wrong notice', async ({ context }) =>
 });
 
 test('every path, including file-like ones, is the Office page with 403 and our headers', async ({ request }) => {
-  for (const path of ['/', '/a/b/c?x=1', '/index.html', '/favicon.ico', '/robots.txt', '/.well-known/x']) {
+  for (const path of ['/', '/a/b/c?x=1', '/index.html', '/index.html?x=1', '/notice.html', '/notice.html?x=1', '/favicon.ico', '/robots.txt', '/.well-known/x']) {
     const res = await request.get(path);
     expect(res.status(), path).toBe(403);
     expect(await res.text()).toContain('<title>OFFICE OF LATHER COMPLIANCE</title>');

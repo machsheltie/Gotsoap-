@@ -8,8 +8,23 @@
 [build.environment]
   NODE_VERSION = "22.12.0"
 
+# The build writes the same page to index.html and notice.html. Each physical file rewrites to
+# the other, so no address rewrites to itself (Netlify serves a self-rewrite as the file, 200).
+# Rules are evaluated in order and internal rewrites are not re-processed, so this cannot loop.
+[[redirects]]
+  from   = "/index.html"
+  to     = "/notice.html"
+  status = 403
+  force  = true
+
+[[redirects]]
+  from   = "/notice.html"
+  to     = "/index.html"
+  status = 403
+  force  = true
+
 [[redirects]]
   from   = "/*"
-  to     = "/index.html"
+  to     = "/notice.html"
   status = 403
   force  = true
