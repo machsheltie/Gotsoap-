@@ -31,6 +31,7 @@ import braydenPhoto from '../../assets/brayden.png';
 import billyBobPhoto from '../../assets/billybob.png';
 import billyBobAfter from '../../assets/billybob2.png';
 import derekPhoto from '../../assets/derek.png';
+import carlosEduardoPhoto from '../../assets/carloseduardo.png';
 
 /**
  * Every record whose file is actually written is emitted, public or not; the
@@ -56,7 +57,7 @@ export function getStaticPaths() {
 
 type Rec = (typeof r.records)[number];
 const { rec, prev, next } = Astro.props as { rec: Rec; prev: Rec | null; next: Rec | null };
-const photos: Record<string, ImageMetadata> = { brayden: braydenPhoto, 'billy-bob': billyBobPhoto, derek: derekPhoto };
+const photos: Record<string, ImageMetadata> = { brayden: braydenPhoto, 'billy-bob': billyBobPhoto, derek: derekPhoto, 'carlos-eduardo': carlosEduardoPhoto };
 const photo = photos[rec.slug];
 /** The after-state, where a record has one. Same frame as the photograph above. */
 const afterPhotos: Record<string, ImageMetadata> = { 'billy-bob': billyBobAfter };

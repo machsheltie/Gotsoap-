@@ -979,9 +979,130 @@ export const recoveryStories = {
         ],
         redactions: [{ label: 'PARTICIPANT PRESENT:' }, { label: 'DISPOSITION:' }],
       },
-      /** Carried down from Billy Bob: record 8 (Carlos Eduardo) is unwritten.
-       *  Derek's Next is missing, not disabled — never a stub, never a 404. */
-      nextPending: 'Record 8 unwritten. Derek’s Next is missing, not disabled.',
+      /** `nextPending` retired 2026-09-29: record 8 (Carlos Eduardo) now
+       *  exists below, so Derek's ordinary Next restores with no code
+       *  change — the pager derives it from sequence position. */
+    },
+    {
+      /**
+       * RECORD 8. NOT PUBLIC — reachable only by Derek's Next.
+       *
+       * SOLE SOURCE: ../carlos-eduardo-record.md. Owner-approved 2026-09-29
+       * through a three-round structural interview (character/hygiene
+       * mechanism, Office escalation mechanics, administrative/visual
+       * detail) followed by one surgical prose-correction pass. That file
+       * carries the full implementation notes; this block is a field-for-
+       * field transfer, no line edits during implementation.
+       *
+       * Record 8's subtraction (docs/canon-billy-bob-and-the-archive-
+       * boundary.md): the named "Reporting party" / "Source relationship"
+       * convention Derek still had is gone. Carlos's referral opens
+       * directly on REFERRAL BASIS / PATTERN PERIOD / MATERIALS RECEIVED —
+       * CWAAA has the complaint material and never says who compiled or
+       * transmitted it. No corroboration block, no reporting-party
+       * relationship labels, and no line explaining that a source was
+       * withheld: the question is never raised, not answered vaguely.
+       *
+       * The Office side gains accordingly (register invariance — same
+       * coldness, one more finding, never exposition): a third redaction,
+       * REFERRAL ORIGIN, restores exactly the category CWAAA just stopped
+       * supplying; and one unredacted precise fact, COMPLETED PASSENGER
+       * TRIPS: 693, that CWAAA's own approximate referral never had. The
+       * Office never explains how it obtained either.
+       */
+      id: 'RC-081',
+      slug: 'carlos-eduardo',
+      open: true,
+      public: false,
+      name: 'Carlos Eduardo, 31',
+      indexQuote: '',
+      image: {
+        alt: "Carlos Eduardo, 31, standing beside the open driver’s door of his exceptionally clean late-model sedan, wearing a dark polo shirt. He has a confident half-smile, with one hand resting on the door and the other holding a clean microfiber detailing cloth. The dashboard, glass, and upholstery appear meticulously maintained. Detailing supplies are visible in the rear footwell. Submitted by the participant as evidence of his vehicle maintenance.",
+      },
+      referral: [
+        { label: 'Participant', value: 'Carlos Eduardo, 31' },
+        { label: 'Referral basis', value: 'Platform complaint pattern' },
+        { label: 'Pattern period', value: 'Approximately six weeks' },
+        { label: 'Materials received', value: 'Rating decline, incident reports, review excerpts' },
+        { label: 'Participant’s stated position', value: '“I maintain everything. The car has the paperwork to prove it.”' },
+        { label: 'Primary self-representation', value: 'Vehicle detailing receipts and driver rating history' },
+        { label: 'Full cleansing frequency', value: 'Approximately twice weekly, no fixed schedule' },
+        { label: 'Interim maintenance (“reset”)', value: 'Hands washed; face, neck and exposed arms wiped with individually packaged grooming wipes; outer shirt changed when visibly marked; vehicle cleaned concurrently' },
+        { label: 'Areas not consistently cleansed', value: 'Underarms, torso, groin, feet' },
+        { label: 'Base layer reuse', value: 'Acknowledged; reported clean-appearing' },
+        { label: 'Deodorant use', value: 'Irregular; regarded as unnecessary in a climate-controlled cabin' },
+        { label: 'Occupational context', value: 'Rideshare driver, active; supplemental delivery work reported' },
+        { label: 'Access to bathing facilities', value: 'Confirmed' },
+        { label: 'Access to clean linens', value: 'Confirmed' },
+        { label: 'Supporting materials', value: 'Vehicle service and detailing receipts, submitted by participant' },
+        { label: 'Prior contact with CWAAA', value: 'None' },
+      ],
+      /** Deliberately no `corroboration` block — see block comment above. */
+      statements: [
+        {
+          heading: 'Platform review excerpt 1 — on file',
+          body: '“The car was spotless. The smell was not coming from the car. I kept the window open after it started raining and ended the trip early.”',
+        },
+        {
+          heading: 'Platform review excerpt 2 — on file',
+          body: '“He offered me a bottle of water and wiped the door handle before I got in. I could smell him every time he turned around. The smell was still in my jacket after I got out.”',
+        },
+      ],
+      testimony: [
+        '“Anybody who’s actually sat in my car knows that car is clean. I mean actually clean — filter changed, seats extracted, ozone treatment, the whole thing. I’ve got the receipts. Nobody ever asks to see them, but I’ve got them.',
+        'I listen to a lot of murder-mystery podcasts while I drive. You start noticing patterns. Somebody tells me the car smells, I don’t just light a candle and move on — I investigate. First I figured it was the AC pulling something in from outside, so I had the filter and the vents looked at. Nothing. Then I thought maybe it was something left behind — a delivery order leaked garlic sauce into the rear mat last month, so I had the mat extracted. Then I thought, okay, humidity, that traps odors too. I’ve run down every lead I’ve got.',
+        'Before I start and between driving blocks, I do a reset. Hands, face, neck, arms — wipes. Fresh shirt if the one I’ve got on looks off. I’m in an air-conditioned car all day. I’m not coming home covered in dirt, so I don’t see what a full shower every single day is supposed to be doing for me that the reset doesn’t already cover. I get a real shower in twice a week, sometimes more.',
+        'I don’t wear deodorant every day either. What’s it supposed to be blocking in a climate-controlled cabin? That’s a solution for a problem I don’t have.',
+        'People leave reviews, fine. But I clean that car after every single one of those reviews and the next person still says something — to me, that’s more evidence for my theory, not less. Something’s getting reintroduced. I just haven’t found where yet.',
+        'I’ve got a five-star history and receipts going back months. Whatever’s going on in there, it isn’t going to get solved by me showering more. I already know what clean looks like. I built this car around it.”',
+      ],
+      chronology: [
+        { label: 'Rating decline and odor-related reports emerge', value: 'Pattern identified via platform-derived material.' },
+        { label: 'Cabin air filter replaced', value: 'Vehicle-directed remediation undertaken by participant.' },
+        { label: 'Complaints continue', value: 'Reported odor persists following filter replacement.' },
+        { label: 'Ventilation inspection and professional interior treatment', value: 'Extraction cleaning and ozone treatment performed by licensed detailing service.' },
+        { label: 'Vehicle documented neutral', value: 'Service documentation recorded no detectable cabin odor immediately following treatment, while the vehicle was unoccupied.' },
+        { label: 'First driving block following treatment', value: 'Additional complaint received.' },
+        { label: 'Subsequent reviews', value: 'Reports begin describing a chemical or “clean-car” odor layered over the original condition.' },
+        { label: 'CWAAA contact made', value: 'Baseline materials provided. Personal cleansing routine and vehicle-directed remediation history discussed.' },
+        { label: 'Participant response', value: 'Driver’s seat and seat belt scheduled for additional extraction treatment. Personal cleansing routine not modified.' },
+        { label: 'Final voluntary contact', value: 'No further change in practice reported.' },
+      ],
+      fieldNote: {
+        heading: 'Field note — caseworker, statement on file',
+        body: '“Participant produced complete service records for the vehicle without request. A fixed personal cleansing interval could not be established.”',
+      },
+      requested: { label: 'External review requested', value: 'June 2, 2026' },
+      /** Three redactions, up from Derek's two: REFERRAL ORIGIN restores the
+       *  provenance category CWAAA's referral above deliberately never
+       *  supplies. Owner's preferred semantic position for REFERRAL ORIGIN
+       *  is earlier in the factual sequence, before FINDING; [id].astro
+       *  currently renders all redactions together after `lines`, so all
+       *  three ship grouped until that template limitation is addressed as
+       *  separate, later work (see carlos-eduardo-record.md). */
+      fragment: {
+        lines: [
+          'OFFICE OF LATHER COMPLIANCE',
+          'EXTERNAL FINDING',
+          'REFERENCE: 26-1519',
+          '',
+          'PRIOR VOLUNTARY INTERVENTION: DOCUMENTED',
+          'PLATFORM COMPLAINT PATTERN: CONFIRMED',
+          'REVIEW PERIOD: 42 DAYS',
+          'COMPLETED PASSENGER TRIPS: 693',
+          'REPORTED FULL CLEANSING FREQUENCY: TWICE WEEKLY',
+          'INTERIM CLEANSING: PARTIAL',
+          'GARMENT REUSE: ACKNOWLEDGED',
+          'VEHICLE-DIRECTED REMEDIATION: REPEATED',
+          'PARTICIPANT COMPREHENSION: NOT AT ISSUE',
+          '',
+          'FINDING: BASELINE DEFICIENCY',
+        ],
+        redactions: [{ label: 'REFERRAL ORIGIN:' }, { label: 'PARTICIPANT PRESENT:' }, { label: 'DISPOSITION:' }],
+      },
+      /** Carried down from Derek: record 9 (Patient Zero) is unwritten.
+       *  Carlos's Next is missing, not disabled — never a stub, never a 404. */
+      nextPending: 'Record 9 unwritten. Carlos’s Next is missing, not disabled.',
     },
   ],
 } as const;
