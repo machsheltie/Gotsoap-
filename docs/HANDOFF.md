@@ -95,9 +95,9 @@ A lower authority may add execution detail but may not contradict a higher autho
 | Sniff Test | Got Soap? route with stale CWAAA-field-assessor copy | remains Got Soap?; copy corrected later through the copy lane |
 | Lather Pledge | one combined-site route | implemented on Got Soap? and CWAAA |
 | CWAAA material | `/crisis`, pledge treatment, seams, components | extracted into a standalone CWAAA site |
-| Office | not implemented | separate error-state-only site |
+| Office | live at its own origin since 2026-09-30 (see below) | separate error-state-only site |
 | Email | Buttondown integration with stale recurring “Movement Updates” copy | one shared audience and finite CWAAA-authored two-message fulfillment |
-| Cross-site URLs | CWAAA live at its own origin `https://cwaaa.netlify.app`; Office assigned `https://office-of-lather-compliance.netlify.app`, not yet deployed (see below) | real per-entity domains; empty config values until the owner assigns them |
+| Cross-site URLs | CWAAA live at its own origin `https://cwaaa.netlify.app`; Office live at `https://office-of-lather-compliance.netlify.app`; CWAAA's `OFFICE_SITE_URL` not yet set (see below) | real per-entity domains; empty config values until the owner assigns them |
 
 This documentation pass does not move runtime code. Extraction begins only when an implementation
 task explicitly authorizes it.
@@ -122,18 +122,30 @@ manifest still governs actual runtime extraction; separate deployment is not ext
 
 ## Owner decision, 2026-09-25 — the Office's origin
 
-The Office of Lather Compliance lives at **`https://office-of-lather-compliance.netlify.app`**. The
-Netlify site exists with builds switched off; nothing is deployed there yet because the Office app
-is not built.
+The Office of Lather Compliance lives at **`https://office-of-lather-compliance.netlify.app`**.
 
-- `OFFICE_SITE_URL` in `cwaaa/src/config/site.ts` stays empty until that address serves a verified
-  Office error state (`cwaaa/PRD-TO-LAUNCH.md` § deep Office referral). Then it takes this origin,
-  and record 9's Next lands there.
-- To make it go live once the Office site is built:
-  1. Add `office-of-lather-compliance/netlify.toml` like `cwaaa/netlify.toml`: base folder, build
-     command, publish folder, and a catch-all rule so every address shows an Office error page.
-  2. Turn builds back on in the Netlify dashboard: Site configuration → Build & deploy →
-     Continuous deployment → "Activate builds". This is an owner action in the dashboard.
+**Live since 2026-09-30.** The site is built from `office-of-lather-compliance/` (commits `f1f4a7c`
+and `4b24c61`; spec `docs/superpowers/specs/2026-09-29-office-error-site-design.md`).
+
+- Every address returns **403** with the Office notice system. That includes `/`, deep paths,
+  file-like paths, `/index.html` and `/notice.html`.
+- All security headers are served live.
+- The browser suite passes against production (15/15).
+
+- **`OFFICE_SITE_URL` is still unset by owner choice.** The verified-destination condition in
+  `cwaaa/PRD-TO-LAUNCH.md` is now met, but setting it is a separate CWAAA task the owner has not yet
+  ordered. Once set, About's 1961-A row links plainly and record 9's Next has its destination.
+- **Deploy caution:** a push-triggered deploy once shipped a stale `netlify.toml`. After any change
+  to the Office's `netlify.toml`:
+  1. Confirm the deploy summary reports 3 redirect rules.
+  2. Confirm the deployed `/netlify.toml` sha matches the commit.
+  3. If either is wrong, rebuild with the cache cleared.
+  4. Rerun the live suite:
+     `BASE_URL=https://office-of-lather-compliance.netlify.app npx playwright test --project=e2e`
+     (from `office-of-lather-compliance/`).
+- **Office later work OLC-L01 to OLC-L04 is deferred by the owner to 2026-11-01:** the pen, the
+  business card / event-table artifact, any additional state or Easter egg, and IVR support. Do not
+  start any of them before then.
 
 ## Owner decision, 2026-09-15 — jurisdictional split and record classes
 

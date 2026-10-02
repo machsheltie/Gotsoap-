@@ -107,6 +107,9 @@ Keep shared world/artifact authority centralized. If transferred to another repo
 | OLC-L03 | Any additional return state or Easter egg | Separate owner decision and revised contract/tests; current stasis never silently grows |
 | OLC-L04 | IVR-related physical/production support | Shared IVR authority and Got Soap?'s placement ownership; two presented voices, no third Office voice or audible transfer |
 
+**Owner deferral, 2026-10-02:** OLC-L01 to OLC-L04 are deferred to **2026-11-01**. Do not start
+them before then.
+
 Carry these IDs into the completion report with next action and owner. Launch does not authorize an ordinary Office homepage, a service, or a merchandise section later.
 
 ## Handoff verification — 2026-09-07
