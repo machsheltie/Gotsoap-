@@ -7,11 +7,8 @@ body {
 }
 body { overflow-wrap: anywhere; }
 h1 { font-size: 1em; margin: 1em 0; }
-.olc-keep { white-space: nowrap; }
+.olc-keep { display: inline-block; max-width: 100%; }
 .olc-resolving main { visibility: hidden; }
 @media (max-width: 599px) {
   body { margin: 24px 16px 48px 16px; }
-}
-@media (max-width: 240px) {
-  .olc-keep { white-space: normal; }
 }

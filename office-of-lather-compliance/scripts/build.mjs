@@ -3,17 +3,15 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { blocks, toHtml } from '../src/render.mjs';
 
+import { bundle } from './bundle.mjs';
+
 const src = (file) => readFile(new URL(`../src/${file}`, import.meta.url), 'utf8');
-const strip = (code) => code.split(/\r?\n/)
-  .filter((line) => !/^import\s/.test(line))
-  .map((line) => line.replace(/^export\s+/, ''))
-  .join('\n');
 const sha = (s) => `'sha256-${createHash('sha256').update(s, 'utf8').digest('base64')}'`;
 
 // The failsafe: if the body script is blocked, DOMContentLoaded still reveals the fallback.
 const headScript = "(()=>{const r=document.documentElement;r.classList.add('olc-resolving');document.addEventListener('DOMContentLoaded',()=>r.classList.remove('olc-resolving'));})();";
 const modules = await Promise.all(['copy.mjs', 'engine.mjs', 'render.mjs', 'boot.mjs'].map(src));
-const bodyScript = `(() => {\n${modules.map(strip).join('\n')}\n})();`;
+const bodyScript = bundle(modules);
 const style = (await src('page.css')).replace(/\r\n/g, '\n').trim();
 
 // Windows checkouts may carry CRLF; the shipped page is always LF.

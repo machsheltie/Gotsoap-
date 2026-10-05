@@ -375,8 +375,9 @@ They are recorded in `../../docs/superpowers/specs/2026-09-29-office-error-site-
    - narrow-screen margin `24px 16px 48px 16px`;
    - tab title `OFFICE OF LATHER COMPLIANCE`;
    - administrative values (`Sub-Section 4`, `1961-A`, `41-B`, `8804-X`, terminal IDs, and whole
-     timestamps) wrap as a whole in ordinary text flow and never break inside, except below a 240px
-     viewport, where reflow wins over sideways scrolling.
+     timestamps) wrap as a whole in ordinary text flow. A value breaks inside only when it cannot
+     fit on a line by itself (extreme zoom or enlarged phone text), so the page never scrolls
+     sideways.
 
 ---
 

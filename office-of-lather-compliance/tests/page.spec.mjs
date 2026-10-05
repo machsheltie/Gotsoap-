@@ -187,3 +187,17 @@ test('on a phone, administrative tokens never break inside', async ({ browser })
     await context.close();
   }
 });
+
+test('doubled phone text size (Android text scaling) never scrolls sideways', async ({ browser }) => {
+  for (const width of [320, 360, 390]) {
+    const ctx = await browser.newContext({ viewport: { width, height: 800 } });
+    await (await ctx.newPage()).goto('/');
+    const page = await ctx.newPage();
+    await page.addInitScript(() => { document.addEventListener('DOMContentLoaded', () => { document.body.style.fontSize = '32px'; }); });
+    await page.goto('/');
+    await expect(h1(page)).toHaveText('NOTICE OF REPEAT ACCESS');
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, `${width}px at 2x text`).toBeLessThanOrEqual(0);
+    await ctx.close();
+  }
+});
