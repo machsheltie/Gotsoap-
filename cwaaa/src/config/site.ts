@@ -23,7 +23,9 @@ export const GOT_SOAP_SITE_URL: string = env.PUBLIC_GOT_SOAP_SITE_URL ?? 'https:
 export const gotSoapUrl = (path: string): string =>
   GOT_SOAP_SITE_URL.trim() ? `${GOT_SOAP_SITE_URL.replace(/\/+$/, '')}${path}` : '';
 
-/** Office of Lather Compliance origin. Deepest About seam only; never on Home. */
+/** Office of Lather Compliance origin. Used only at the bottom of the Recovery Stories descent
+ *  (record 9's Next). Never linked from About, Home or anywhere else (owner, 2026-10-05;
+ *  scripts/launch-check.mjs fails the build check otherwise). */
 export const OFFICE_SITE_URL: string = env.PUBLIC_OFFICE_SITE_URL ?? '';
 
 /** Shared Buttondown audience (same value as the campaign site). Not used on Home. */

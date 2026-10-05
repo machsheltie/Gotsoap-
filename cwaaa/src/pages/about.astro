@@ -9,7 +9,8 @@
  * organisation, and beneath "Established 2024" a reference to a directive
  * from 1961. It is set exactly like the rows around it. No glow, no lead-in,
  * no explanation, no second mention anywhere on the site (design.md §11). It
- * links only if OFFICE_SITE_URL is configured, and then it links plainly.
+ * is plain text and never a link (owner, 2026-10-05): the Office is reached only
+ * down the Recovery Stories descent. scripts/launch-check.mjs enforces it.
  *
  * The creator credit is the last line on the page, below the record, in the
  * small reading face. It leads to the real authorship and the fiction
@@ -19,9 +20,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ImageSlot from '../components/ImageSlot.astro';
 import { about as a, org } from '../content/copy';
-import { OFFICE_SITE_URL, isConfigured, gotSoapUrl } from '../config/site';
+import { gotSoapUrl } from '../config/site';
 const creditHref = gotSoapUrl(a.credit.path);
-const officeHref = isConfigured(OFFICE_SITE_URL) ? OFFICE_SITE_URL : '';
 ---
 <BaseLayout title={a.meta.title} description={a.meta.description} current="/about">
   <!-- 1 · Origin -->
@@ -65,9 +65,7 @@ const officeHref = isConfigured(OFFICE_SITE_URL) ? OFFICE_SITE_URL : '';
         <div>
           <dt class="t-ui-caps t-label">{r.label}</dt>
           <dd class="t-ui">
-            {'href' in r && r.href ? <a class="link-rule" href={r.href}>{r.value}</a>
-              : 'office' in r && r.office && officeHref ? <a href={officeHref} rel="external noopener">{r.value}</a>
-              : r.value}
+            {'href' in r && r.href ? <a class="link-rule" href={r.href}>{r.value}</a> : r.value}
           </dd>
         </div>
       ))}
@@ -118,7 +116,6 @@ const officeHref = isConfigured(OFFICE_SITE_URL) ? OFFICE_SITE_URL : '';
   }
   .record-field .rule.ink { margin-bottom: 1.75rem; }
   .record-field .record { row-gap: 0.9rem; }
-  .record a:not(.link-rule) { color: inherit; }
   .credit { margin-top: var(--gap-l); padding-top: 0.9rem; border-top: 1px solid var(--cw-hairline); max-width: none; }
 
   /* ---- --bp-reading ------------------------------------------------------ */

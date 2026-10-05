@@ -50,6 +50,10 @@ async function pages(dir) {
 const html = await pages(dist);
 const pending = [];
 const dead = new Map();
+// Owner ruling 2026-10-05: the Office is reached only by going down the Recovery Stories
+// descent (record 9's Next). No other page links to it; About names it in plain text only.
+const OFFICE_HOST = 'office-of-lather-compliance';
+const officeLinks = new Map();
 
 /** A built route resolves as /foo/index.html, /foo.html, or a real asset. */
 const resolves = (href) => {
@@ -69,6 +73,9 @@ for (const file of html) {
 
   for (const m of body.matchAll(/data-pending="([^"]+)"(?:\s+data-deferred="([^"]+)")?/g)) {
     pending.push({ route, fact: m[1], due: m[2] });
+  }
+  for (const m of body.matchAll(/href="(https?:\/\/[^"]*)"/g)) {
+    if (m[1].includes(OFFICE_HOST) && !route.startsWith('/recovery-stories/')) officeLinks.set(route, m[1]);
   }
   for (const m of body.matchAll(/href="(\/[^"]*)"/g)) {
     const href = m[1];
@@ -95,10 +102,13 @@ for (const fact of facts) {
 console.log(`\nDEAD INTERNAL LINKS — ${dead.size}`);
 for (const [href, from] of dead) console.log(`  · ${href}  ←  ${[...from].join(', ')}`);
 
-const blocked = facts.length > 0 || dead.size > 0;
+console.log(`\nOFFICE LINKS OUTSIDE THE DESCENT — ${officeLinks.size}`);
+for (const [route, href] of officeLinks) console.log(`  · ${route}  →  ${href}`);
+
+const blocked = facts.length > 0 || dead.size > 0 || officeLinks.size > 0;
 console.log(
   blocked
-    ? `\nNot launch-ready.${facts.length ? ' Supply the facts above.' : ''}${dead.size ? ' Build or fix the linked routes above.' : ''}`
+    ? `\nNot launch-ready.${facts.length ? ' Supply the facts above.' : ''}${dead.size ? ' Build or fix the linked routes above.' : ''}${officeLinks.size ? ' Remove the Office links above.' : ''}`
     : '\nLaunch-ready: no pending facts, no dead internal links.',
 );
 process.exit(blocked ? 1 : 0);

@@ -61,7 +61,7 @@ work. Stage files by name; never `git add -A`.
 | DRAFT copy review | `src/content/copy.ts`, 2026-09-24 block at the end | Everything on `/field-assessment` except the title; About's record wording incl. the 1961-A row; Tie One On's tag header and "Not sure which he is?"; route meta descriptions; Chapters close labels. Route through the copy lane (`../gotsoap/docs/copy/COPY-PROTOCOL.md`) and blind readers before calling any of it approved. |
 | Real domains | config | Swap `GOT_SOAP_SITE_URL`; set `CWAAA_SITE_URL`, `OFFICE_SITE_URL` (CW-D07, CW-M6). Office origin assigned (above). |
 | Office go-live | Office Netlify site | **Done 2026-09-30.** 403 at every address, headers live, and the production browser suite passes. Details and deploy caution are in `../../docs/HANDOFF.md` § "the Office's origin". |
-| Set `OFFICE_SITE_URL` | `src/config/site.ts` | Ready whenever the owner orders it: the destination is verified. It makes About's 1961-A row a plain link and gives record 9's Next its target. |
+| Set `OFFICE_SITE_URL` | `src/config/site.ts` | Set it when record 9 is built: its Next is the **only** link to the Office. About's 1961-A row stays plain text, never a link (owner, 2026-10-05). `launch-check` fails if any page outside `/recovery-stories/` links to the Office. |
 
 ### Agent work that is ready when she is
 

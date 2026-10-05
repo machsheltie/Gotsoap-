@@ -1811,13 +1811,14 @@ export const about = {
    *  Office reference (design.md §6 About; ui-system §13 reserves it here).
    *  Owner approved a drafted line 2026-09-24; the wording is DRAFT. It is a
    *  reference and nothing more: no verb, no relationship, no explanation. It
-   *  links only if OFFICE_SITE_URL is ever configured. */
+   *  is plain text and never a link (owner, 2026-10-05); the Office is reached
+   *  only down the Recovery Stories descent. */
   record: [
     { label: 'Established', value: '2024' },
     /** DRAFT — restates the owner's origin as a record value. */
     { label: 'Origin', value: 'One book club' },
     { label: 'Chapters', value: 'All fifty states', href: '/chapters' },
-    { label: 'Reference', value: 'Establishment Directive 1961-A, Office of Lather Compliance', office: true },
+    { label: 'Reference', value: 'Establishment Directive 1961-A, Office of Lather Compliance' },
   ],
   /** Owner decision 2026-09-24: a restrained credit that leads to the real
    *  authorship and the fiction disclosure on the Got Soap? /about reveal. The

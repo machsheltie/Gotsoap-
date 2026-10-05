@@ -31,7 +31,8 @@ paragraphs verbatim.
   this page announces the fiction. Renders only with a configured Got Soap? origin.
 - **Office reference:** approved as one drafted line. It is the record's last row, set identically to
   the rows around it: no verb, relationship, lead-in, glow or explanation, and it appears nowhere else
-  on the site. Links plainly only if `OFFICE_SITE_URL` is ever configured. Wording is DRAFT.
+  on the site. **Plain text, never a link (owner, 2026-10-05):** the Office is reached only down
+  the Recovery Stories descent. Wording is DRAFT.
 
 ## Open
 - CW-G05.5–.6 photography (owner).

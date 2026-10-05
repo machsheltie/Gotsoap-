@@ -132,9 +132,11 @@ and `4b24c61`; spec `docs/superpowers/specs/2026-09-29-office-error-site-design.
 - All security headers are served live.
 - The browser suite passes against production (15/15).
 
-- **`OFFICE_SITE_URL` is still unset by owner choice.** The verified-destination condition in
-  `cwaaa/PRD-TO-LAUNCH.md` is now met, but setting it is a separate CWAAA task the owner has not yet
-  ordered. Once set, About's 1961-A row links plainly and record 9's Next has its destination.
+- **The Office is reached only down the Recovery Stories descent** (owner, 2026-10-05).
+  - About's 1961-A row is plain text and never a link.
+  - No CWAAA page outside `/recovery-stories/` may link to the Office. `cwaaa` `npm run
+    launch-check` fails if one does.
+  - `OFFICE_SITE_URL` stays unset until record 9 is built. Its Next is the only link to the Office.
 - **Deploy caution:** a push-triggered deploy once shipped a stale `netlify.toml`. After any change
   to the Office's `netlify.toml`:
   1. Confirm the deploy summary reports 3 redirect rules.
